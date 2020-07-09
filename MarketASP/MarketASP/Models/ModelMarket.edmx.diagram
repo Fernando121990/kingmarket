@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1">
+        <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.ART_PROVE" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.CLASE" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.FAMILIA" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.LISTA_PRECIO" Width="1.5" PointX="8.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.MARCA" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.PROVEEDOR" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarketWebModel.UMEDIDA" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="MarketWebModel.R_8" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_6" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_7" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_10" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_9" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_1" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_2" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_3" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_4" ManuallyRouted="false" />
+        <AssociationConnector Association="MarketWebModel.R_5" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
