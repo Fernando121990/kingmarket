@@ -1,69 +1,48 @@
 ﻿@model IEnumerable<MarketASP.Models.CLASE>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clases";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <div class="row" style="margin-top:5px">
+        <div class="col-md-6 col-sm-6">
+            <h4>@ViewBag.Title</h4>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Clase" })
+        </div>
+    </div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sdesc_clase)
+            FAMILIA
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nesta_clase)
+            DESCRIPCION
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.suser_clase)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_clase)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_clase)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_clase)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
+            ESTADO
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nesta_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_clase }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_clase }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_clase })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.sdesc_clase)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.nesta_clase)
+    </td>
+    <td>
+        @Html.ActionLink(" ", "Edit", new { id = item.ncode_clase }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+        @Html.ActionLink(" ", "DeleteFami", new { id = item.ncode_clase }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+
+    </td>
+</tr>
 }
 
 </table>
