@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MarketASP.Models.MARCA>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sdesc_marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nesta_marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_marca)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nesta_marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_marca)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_marca)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_marca }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_marca }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_marca })
+        </td>
+    </tr>
+}
+
+</table>

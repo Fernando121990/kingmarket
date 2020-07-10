@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MarketASP.Models.CLASE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sdesc_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nesta_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_clase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nesta_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_clase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_clase }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_clase }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_clase })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,74 @@
+﻿@model MarketASP.Models.CLASE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CLASE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sdesc_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sdesc_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nesta_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nesta_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_clase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_clase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FAMILIA.sdesc_fami)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_clase }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
