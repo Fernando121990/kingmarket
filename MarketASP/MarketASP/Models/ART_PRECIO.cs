@@ -16,7 +16,7 @@ namespace MarketASP.Models
     {
         public int ncode_artpre { get; set; }
         public Nullable<decimal> nprecio_artpre { get; set; }
-        public Nullable<int> nesta_artpre { get; set; }
+        public Nullable<bool> nesta_artpre { get; set; }
         public int ncode_lipre { get; set; }
         public int ncode_arti { get; set; }
         public string suser_artpre { get; set; }

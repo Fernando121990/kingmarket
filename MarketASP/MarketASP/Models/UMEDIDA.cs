@@ -24,7 +24,7 @@ namespace MarketASP.Models
         public string sdesc_umed { get; set; }
         public string ssunat_umed { get; set; }
         public string scodsunat_umed { get; set; }
-        public Nullable<int> nesta_umed { get; set; }
+        public Nullable<bool> nesta_umed { get; set; }
         public string suser_umed { get; set; }
         public Nullable<System.DateTime> dfech_umed { get; set; }
         public string susmo_umed { get; set; }

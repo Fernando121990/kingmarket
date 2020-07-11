@@ -22,7 +22,7 @@ namespace MarketASP.Models
     
         public int ncode_clase { get; set; }
         public string sdesc_clase { get; set; }
-        public Nullable<int> nesta_clase { get; set; }
+        public Nullable<bool> nesta_clase { get; set; }
         public Nullable<int> ncode_fami { get; set; }
         public string suser_clase { get; set; }
         public Nullable<System.DateTime> dfech_clase { get; set; }

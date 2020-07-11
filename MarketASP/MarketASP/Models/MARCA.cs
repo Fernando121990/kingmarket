@@ -22,7 +22,7 @@ namespace MarketASP.Models
     
         public int ncode_marca { get; set; }
         public string sdesc_marca { get; set; }
-        public Nullable<int> nesta_marca { get; set; }
+        public Nullable<bool> nesta_marca { get; set; }
         public string suser_marca { get; set; }
         public Nullable<System.DateTime> dfech_marca { get; set; }
         public string susmo_marca { get; set; }

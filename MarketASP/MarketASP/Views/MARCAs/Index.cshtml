@@ -1,63 +1,41 @@
 ﻿@model IEnumerable<MarketASP.Models.MARCA>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Marca";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Clase" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sdesc_marca)
+            Descripción
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nesta_marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_marca)
+            Activo
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nesta_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_marca)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_marca }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_marca }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_marca })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc_marca)
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.nesta_marca" readonly />
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ncode_marca }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                @Html.ActionLink(" ", "DeleteMarca", new { id = item.ncode_marca }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+            </td>
+        </tr>
+    }
 
 </table>

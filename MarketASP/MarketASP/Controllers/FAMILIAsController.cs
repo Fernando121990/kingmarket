@@ -27,7 +27,7 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                fAMILIA.nesta_fami = 0;
+                fAMILIA.nesta_fami = true;
                 fAMILIA.suser_fami = User.Identity.Name;
                 fAMILIA.dfech_fami = DateTime.Now;
                 db.FAMILIA.Add(fAMILIA);
