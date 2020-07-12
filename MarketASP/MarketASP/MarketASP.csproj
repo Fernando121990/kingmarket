@@ -334,6 +334,7 @@
     <Content Include="Views\LISTA_PRECIO\Details.cshtml" />
     <Content Include="Views\LISTA_PRECIO\Edit.cshtml" />
     <Content Include="Views\LISTA_PRECIO\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

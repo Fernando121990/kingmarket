@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<MarketASP.Models.ARTICULO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Articulos";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Articulo" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -69,18 +72,6 @@
             @Html.DisplayNameFor(model => model.bprocedencia_arti)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.suser_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_arti)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
         </th>
         <th>
@@ -95,95 +86,84 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc1_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc2_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdescweb_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.scode_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bisc_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bafecto_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bivap_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bpercepcion_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nporpercepcion_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bvenc_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sserie_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sobse_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nesta_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nstockmin_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nstockmax_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sabrev_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bdscto_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.spaisOrigen_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bprocedencia_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_arti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLASE.sdesc_clase)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MARCA.sdesc_marca)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_arti }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_arti }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_arti })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc1_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc2_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdescweb_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.scode_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bisc_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bafecto_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bivap_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bpercepcion_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nporpercepcion_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bvenc_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sserie_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sobse_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nesta_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nstockmin_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nstockmax_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sabrev_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bdscto_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.spaisOrigen_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bprocedencia_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLASE.sdesc_clase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MARCA.sdesc_marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ncode_arti }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ncode_arti }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ncode_arti })
+            </td>
+        </tr>
+    }
 
 </table>
