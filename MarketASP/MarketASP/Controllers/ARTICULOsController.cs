@@ -107,26 +107,13 @@ namespace MarketASP.Controllers
             return View(aRTICULO);
         }
 
-        // GET: ARTICULOs/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> DeleteClase(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ARTICULO aRTICULO = await db.ARTICULO.FindAsync(id);
-            if (aRTICULO == null)
-            {
-                return HttpNotFound();
-            }
-            return View(aRTICULO);
-        }
 
-        // POST: ARTICULOs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
             ARTICULO aRTICULO = await db.ARTICULO.FindAsync(id);
             db.ARTICULO.Remove(aRTICULO);
             await db.SaveChangesAsync();

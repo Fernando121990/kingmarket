@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MarketASP.Models.UMEDIDA>
+
+@{
+    ViewBag.Title = "Unidad Medida";
+}
+
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Familia" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Cod.Sunat 
+        </th>
+        <th>
+            Desc.Sunat
+        </th>
+        <th>
+            Activo
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_umed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.scodsunat_umed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ssunat_umed)
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.nesta_umed" readonly />
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_umed }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteUmed", new { id = item.ncode_umed }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+        </td>
+    </tr>
+}
+
+</table>

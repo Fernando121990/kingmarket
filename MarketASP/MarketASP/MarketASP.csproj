@@ -180,8 +180,10 @@
     <Compile Include="Controllers\CLASEsController.cs" />
     <Compile Include="Controllers\FAMILIAsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LISTA_PRECIOController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MARCAsController.cs" />
+    <Compile Include="Controllers\UMEDIDAsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -310,18 +312,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\MARCAs\Create.cshtml" />
-    <Content Include="Views\MARCAs\Delete.cshtml" />
-    <Content Include="Views\MARCAs\Details.cshtml" />
     <Content Include="Views\MARCAs\Edit.cshtml" />
     <Content Include="Views\MARCAs\Index.cshtml" />
     <Content Include="Views\FAMILIAs\Create.cshtml" />
-    <Content Include="Views\FAMILIAs\Delete.cshtml" />
     <Content Include="Views\FAMILIAs\Details.cshtml" />
     <Content Include="Views\FAMILIAs\Edit.cshtml" />
     <Content Include="Views\FAMILIAs\Index.cshtml" />
     <Content Include="Views\CLASEs\Create.cshtml" />
-    <Content Include="Views\CLASEs\Delete.cshtml" />
-    <Content Include="Views\CLASEs\Details.cshtml" />
     <Content Include="Views\CLASEs\Edit.cshtml" />
     <Content Include="Views\CLASEs\Index.cshtml" />
     <Content Include="Views\ARTICULOs\Create.cshtml" />
@@ -329,6 +326,14 @@
     <Content Include="Views\ARTICULOs\Details.cshtml" />
     <Content Include="Views\ARTICULOs\Edit.cshtml" />
     <Content Include="Views\ARTICULOs\Index.cshtml" />
+    <Content Include="Views\UMEDIDAs\Create.cshtml" />
+    <Content Include="Views\UMEDIDAs\Edit.cshtml" />
+    <Content Include="Views\UMEDIDAs\Index.cshtml" />
+    <Content Include="Views\LISTA_PRECIO\Create.cshtml" />
+    <Content Include="Views\LISTA_PRECIO\Delete.cshtml" />
+    <Content Include="Views\LISTA_PRECIO\Details.cshtml" />
+    <Content Include="Views\LISTA_PRECIO\Edit.cshtml" />
+    <Content Include="Views\LISTA_PRECIO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

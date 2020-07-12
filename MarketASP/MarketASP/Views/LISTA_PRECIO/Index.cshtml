@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MarketASP.Models.LISTA_PRECIO>
+
+@{
+    ViewBag.Title = "Lista de Precios";
+}
+
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Lista Precio" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Activo
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_lipre)
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.nesta_lipre" readonly />
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_lipre }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteLPrecio", new { id = item.ncode_lipre }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+        </td>
+    </tr>
+    }
+
+</table>
