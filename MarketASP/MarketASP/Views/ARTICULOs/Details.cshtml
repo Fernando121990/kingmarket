@@ -1,17 +1,22 @@
 ﻿@model MarketASP.Models.ARTICULO
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
-
-<h2>Details</h2>
 
 <div>
     <h4>ARTICULO</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.sdesc1_arti)
+            @Html.LabelFor(model => model.scode_arti, "Codigo", htmlAttributes: new { @class = "control-label col-md-2" })
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.scode_arti)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.sdesc1_arti, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -19,7 +24,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sdesc2_arti)
+            @Html.LabelFor(model => model.sdesc2_arti, "Descripción Alt.", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -27,55 +32,48 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sdescweb_arti)
+            @Html.LabelFor(model => model.sdescweb_arti, "Descripción Web", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.sdescweb_arti)
         </dd>
 
+
         <dt>
-            @Html.DisplayNameFor(model => model.scode_arti)
+            @Html.LabelFor(model => model.bisc_arti, "ISC", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.scode_arti)
+            <input type="checkbox" checked="@Model.bisc_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bisc_arti)
+            @Html.LabelFor(model => model.bafecto_arti, "Afecto", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bisc_arti)
+            <input type="checkbox" checked="@Model.bafecto_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bafecto_arti)
+            @Html.LabelFor(model => model.bivap_arti, "IVAP", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bafecto_arti)
+            <input type="checkbox" checked="@Model.bivap_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bivap_arti)
+            @Html.LabelFor(model => model.bpercepcion_arti, "Percepción", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bivap_arti)
+            <input type="checkbox" checked="@Model.bpercepcion_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bpercepcion_arti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.bpercepcion_arti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nporpercepcion_arti)
+            @Html.LabelFor(model => model.nporpercepcion_arti, "Porcentaje Perc.", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -83,15 +81,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bvenc_arti)
+            @Html.LabelFor(model => model.bvenc_arti, "Vencimiento", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bvenc_arti)
+            <input type="checkbox" checked="@Model.bvenc_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sserie_arti)
+            @Html.LabelFor(model => model.sserie_arti, "Serie", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -99,7 +97,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sobse_arti)
+            @Html.LabelFor(model => model.sobse_arti, "Observación", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -107,15 +105,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.nesta_arti)
+            @Html.LabelFor(model => model.nesta_arti, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.nesta_arti)
+            <input type="checkbox" checked="@Model.nesta_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.nstockmin_arti)
+            @Html.LabelFor(model => model.nstockmin_arti, "Stock Min", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -123,7 +121,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.nstockmax_arti)
+            @Html.LabelFor(model => model.nstockmax_arti, "Stock Max", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -131,7 +129,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.sabrev_arti)
+            @Html.LabelFor(model => model.sabrev_arti, "Abreviatura", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -139,15 +137,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bdscto_arti)
+            @Html.LabelFor(model => model.bdscto_arti, "Dscto", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bdscto_arti)
+            <input type="checkbox" checked="@Model.bdscto_arti" readonly />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.spaisOrigen_arti)
+            @Html.LabelFor(model => model.spaisOrigen_arti, "Pais Origen", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
@@ -155,47 +153,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.bprocedencia_arti)
+            @Html.LabelFor(model => model.bprocedencia_arti, "Procedencia", htmlAttributes: new { @class = "control-label col-md-2" })
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.bprocedencia_arti)
+            @{
+                if (Model.bprocedencia_arti == true)
+                {
+                    <a>Nacional</a>
+
+                }
+                else
+                {
+                    <a>Importado</a>
+                }
+            }
+
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.suser_arti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.suser_arti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfech_arti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfech_arti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.susmo_arti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.susmo_arti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfemo_arti)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfemo_arti)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
+            <label class="col-md-2 control-label">Familia</label>
         </dt>
 
         <dd>
@@ -203,7 +180,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CLASE.sdesc_clase)
+            <label class="col-md-2 control-label">Clase</label>
         </dt>
 
         <dd>
@@ -211,7 +188,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MARCA.sdesc_marca)
+            <label class="col-md-2 control-label">Marca</label>
         </dt>
 
         <dd>
@@ -219,7 +196,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UMEDIDA.sdesc_umed)
+            <label class="col-md-2 control-label">U.Medida</label>
         </dt>
 
         <dd>
@@ -228,7 +205,35 @@
 
     </dl>
 </div>
+<div class="row">
+    <div class="col-md-6">
+        @{
+            if (Model.ART_PRECIO != null)
+            {
+                <h4>PRECIOS</h4>
+            }
+        }
+
+    </div>
+    <div class="col-md-6">
+        @{
+            if (Model.ART_BARRA != null)
+            {
+                <h4>COD.BARRAS</h4>
+            }
+        }
+    </div>
+    <div class="col-md-6">
+        @{
+            if (Model.ART_PROVE != null)
+            {
+                <h4>PROVEEDORES</h4>
+            }
+        }
+    </div>
+
+</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_arti }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

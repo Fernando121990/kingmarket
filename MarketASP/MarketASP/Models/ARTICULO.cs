@@ -39,7 +39,7 @@ namespace MarketASP.Models
         public Nullable<bool> bvenc_arti { get; set; }
         public string sserie_arti { get; set; }
         public string sobse_arti { get; set; }
-        public Nullable<int> nesta_arti { get; set; }
+        public bool nesta_arti { get; set; }
         public Nullable<decimal> nstockmin_arti { get; set; }
         public Nullable<decimal> nstockmax_arti { get; set; }
         public string sabrev_arti { get; set; }

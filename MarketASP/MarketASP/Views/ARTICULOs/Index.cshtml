@@ -15,155 +15,52 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sdesc1_arti)
+            Código
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sdesc2_arti)
+            Descripción
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sdescweb_arti)
+            ISC
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.scode_arti)
+            AFECTO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bisc_arti)
+            IVAP
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bafecto_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bivap_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bpercepcion_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nporpercepcion_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bvenc_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sserie_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sobse_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nesta_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nstockmin_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nstockmax_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sabrev_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bdscto_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.spaisOrigen_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bprocedencia_arti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FAMILIA.sdesc_fami)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLASE.sdesc_clase)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MARCA.sdesc_marca)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UMEDIDA.sdesc_umed)
+            Activo
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.sdesc1_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sdesc2_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sdescweb_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.scode_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bisc_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bafecto_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bivap_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bpercepcion_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nporpercepcion_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bvenc_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sserie_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sobse_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nesta_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nstockmin_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nstockmax_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sabrev_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bdscto_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.spaisOrigen_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bprocedencia_arti)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CLASE.sdesc_clase)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MARCA.sdesc_marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ncode_arti }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ncode_arti }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ncode_arti })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.ActionLink(item.scode_arti, "Details", new { id = item.ncode_arti })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc1_arti)
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.bisc_arti" readonly />
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.bafecto_arti" readonly />
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.bivap_arti" readonly />
+        </td>
+        <td>
+            <input type="checkbox" checked="@item.nesta_arti" readonly />
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_arti }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteArti", new { id = item.ncode_arti }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+        </td>
+    </tr>
     }
 
 </table>

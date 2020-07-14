@@ -28,12 +28,12 @@ namespace MarketASP.Models
         public virtual DbSet<ART_BARRA> ART_BARRA { get; set; }
         public virtual DbSet<ART_PRECIO> ART_PRECIO { get; set; }
         public virtual DbSet<ART_PROVE> ART_PROVE { get; set; }
-        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
         public virtual DbSet<CLASE> CLASE { get; set; }
         public virtual DbSet<FAMILIA> FAMILIA { get; set; }
         public virtual DbSet<LISTA_PRECIO> LISTA_PRECIO { get; set; }
         public virtual DbSet<MARCA> MARCA { get; set; }
         public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public virtual DbSet<UMEDIDA> UMEDIDA { get; set; }
+        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
     }
 }

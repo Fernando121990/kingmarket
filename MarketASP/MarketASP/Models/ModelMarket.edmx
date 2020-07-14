@@ -65,7 +65,7 @@
           <Property Name="bvenc_arti" Type="bit" />
           <Property Name="sserie_arti" Type="varchar" MaxLength="200" />
           <Property Name="sobse_arti" Type="varchar(max)" />
-          <Property Name="nesta_arti" Type="int" />
+          <Property Name="nesta_arti" Type="bit" Nullable="false" />
           <Property Name="nstockmin_arti" Type="decimal" Precision="18" Scale="4" />
           <Property Name="nstockmax_arti" Type="decimal" Precision="18" Scale="4" />
           <Property Name="sabrev_arti" Type="varchar" MaxLength="20" />
@@ -342,20 +342,28 @@
           <EntitySet Name="ART_BARRA" EntityType="MarketWebModel.ART_BARRA" />
           <EntitySet Name="ART_PRECIO" EntityType="MarketWebModel.ART_PRECIO" />
           <EntitySet Name="ART_PROVE" EntityType="MarketWebModel.ART_PROVE" />
-          <EntitySet Name="ARTICULO" EntityType="MarketWebModel.ARTICULO" />
           <EntitySet Name="CLASE" EntityType="MarketWebModel.CLASE" />
           <EntitySet Name="FAMILIA" EntityType="MarketWebModel.FAMILIA" />
           <EntitySet Name="LISTA_PRECIO" EntityType="MarketWebModel.LISTA_PRECIO" />
           <EntitySet Name="MARCA" EntityType="MarketWebModel.MARCA" />
           <EntitySet Name="PROVEEDOR" EntityType="MarketWebModel.PROVEEDOR" />
           <EntitySet Name="UMEDIDA" EntityType="MarketWebModel.UMEDIDA" />
-          <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ART_BARRA" EntitySet="ART_BARRA" />
-          </AssociationSet>
           <AssociationSet Name="R_6" Association="MarketWebModel.R_6">
             <End Role="LISTA_PRECIO" EntitySet="LISTA_PRECIO" />
             <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_9" Association="MarketWebModel.R_9">
+            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+            <End Role="ART_PROVE" EntitySet="ART_PROVE" />
+          </AssociationSet>
+          <AssociationSet Name="R_5" Association="MarketWebModel.R_5">
+            <End Role="FAMILIA" EntitySet="FAMILIA" />
+            <End Role="CLASE" EntitySet="CLASE" />
+          </AssociationSet>
+          <EntitySet Name="ARTICULO" EntityType="MarketWebModel.ARTICULO" />
+          <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ART_BARRA" EntitySet="ART_BARRA" />
           </AssociationSet>
           <AssociationSet Name="R_7" Association="MarketWebModel.R_7">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -363,10 +371,6 @@
           </AssociationSet>
           <AssociationSet Name="R_10" Association="MarketWebModel.R_10">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ART_PROVE" EntitySet="ART_PROVE" />
-          </AssociationSet>
-          <AssociationSet Name="R_9" Association="MarketWebModel.R_9">
-            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
             <End Role="ART_PROVE" EntitySet="ART_PROVE" />
           </AssociationSet>
           <AssociationSet Name="R_1" Association="MarketWebModel.R_1">
@@ -384,10 +388,6 @@
           <AssociationSet Name="R_4" Association="MarketWebModel.R_4">
             <End Role="UMEDIDA" EntitySet="UMEDIDA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_5" Association="MarketWebModel.R_5">
-            <End Role="FAMILIA" EntitySet="FAMILIA" />
-            <End Role="CLASE" EntitySet="CLASE" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ART_BARRA">
@@ -431,48 +431,8 @@
           <Property Name="dfech_arprove" Type="DateTime" Precision="3" />
           <Property Name="susmo_arprove" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_arprove" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_10" FromRole="ART_PROVE" ToRole="ARTICULO" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_9" FromRole="ART_PROVE" ToRole="PROVEEDOR" />
-        </EntityType>
-        <EntityType Name="ARTICULO">
-          <Key>
-            <PropertyRef Name="ncode_arti" />
-          </Key>
-          <Property Name="ncode_arti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sdesc1_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="sdesc2_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="sdescweb_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="scode_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ncode_fami" Type="Int32" />
-          <Property Name="ncode_clase" Type="Int32" />
-          <Property Name="ncode_marca" Type="Int32" />
-          <Property Name="ncode_umed" Type="Int32" />
-          <Property Name="bisc_arti" Type="Boolean" />
-          <Property Name="bafecto_arti" Type="Boolean" />
-          <Property Name="bivap_arti" Type="Boolean" />
-          <Property Name="bpercepcion_arti" Type="Boolean" />
-          <Property Name="nporpercepcion_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="bvenc_arti" Type="Boolean" />
-          <Property Name="sserie_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="sobse_arti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="nesta_arti" Type="Int32" />
-          <Property Name="nstockmin_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="nstockmax_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="sabrev_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="bdscto_arti" Type="Boolean" />
-          <Property Name="spaisOrigen_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="bprocedencia_arti" Type="Boolean" />
-          <Property Name="suser_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfech_arti" Type="DateTime" Precision="3" />
-          <Property Name="susmo_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfemo_arti" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ART_BARRA" Relationship="MarketWebModel.R_8" FromRole="ARTICULO" ToRole="ART_BARRA" />
-          <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_7" FromRole="ARTICULO" ToRole="ART_PRECIO" />
-          <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_10" FromRole="ARTICULO" ToRole="ART_PROVE" />
-          <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
-          <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
-          <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
-          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_10" FromRole="ART_PROVE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -486,8 +446,8 @@
           <Property Name="dfech_clase" Type="DateTime" Precision="3" />
           <Property Name="susmo_clase" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_clase" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_2" FromRole="CLASE" ToRole="ARTICULO" />
           <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_5" FromRole="CLASE" ToRole="FAMILIA" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_2" FromRole="CLASE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="FAMILIA">
           <Key>
@@ -500,8 +460,8 @@
           <Property Name="dfech_fami" Type="DateTime" Precision="3" />
           <Property Name="susmo_fami" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_fami" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_1" FromRole="FAMILIA" ToRole="ARTICULO" />
           <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_5" FromRole="FAMILIA" ToRole="CLASE" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_1" FromRole="FAMILIA" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="LISTA_PRECIO">
           <Key>
@@ -567,18 +527,6 @@
           <Property Name="dfemo_umed" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
         </EntityType>
-        <Association Name="R_8">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ART_BARRA">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="R_6">
           <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
           <End Type="MarketWebModel.ART_PRECIO" Role="ART_PRECIO" Multiplicity="*" />
@@ -588,6 +536,82 @@
             </Principal>
             <Dependent Role="ART_PRECIO">
               <PropertyRef Name="ncode_lipre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_9">
+          <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDOR">
+              <PropertyRef Name="ncode_provee" />
+            </Principal>
+            <Dependent Role="ART_PROVE">
+              <PropertyRef Name="ncode_provee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_5">
+          <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILIA">
+              <PropertyRef Name="ncode_fami" />
+            </Principal>
+            <Dependent Role="CLASE">
+              <PropertyRef Name="ncode_fami" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ARTICULO">
+          <Key>
+            <PropertyRef Name="ncode_arti" />
+          </Key>
+          <Property Name="ncode_arti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc1_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="sdesc2_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="sdescweb_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="scode_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_fami" Type="Int32" />
+          <Property Name="ncode_clase" Type="Int32" />
+          <Property Name="ncode_marca" Type="Int32" />
+          <Property Name="ncode_umed" Type="Int32" />
+          <Property Name="bisc_arti" Type="Boolean" />
+          <Property Name="bafecto_arti" Type="Boolean" />
+          <Property Name="bivap_arti" Type="Boolean" />
+          <Property Name="bpercepcion_arti" Type="Boolean" />
+          <Property Name="nporpercepcion_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="bvenc_arti" Type="Boolean" />
+          <Property Name="sserie_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sobse_arti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nesta_arti" Type="Boolean" Nullable="false" />
+          <Property Name="nstockmin_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nstockmax_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="sabrev_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bdscto_arti" Type="Boolean" />
+          <Property Name="spaisOrigen_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="bprocedencia_arti" Type="Boolean" />
+          <Property Name="suser_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_arti" Type="DateTime" Precision="3" />
+          <Property Name="susmo_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_arti" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ART_BARRA" Relationship="MarketWebModel.R_8" FromRole="ARTICULO" ToRole="ART_BARRA" />
+          <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_7" FromRole="ARTICULO" ToRole="ART_PRECIO" />
+          <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_10" FromRole="ARTICULO" ToRole="ART_PROVE" />
+          <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
+          <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
+          <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
+          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
+        </EntityType>
+        <Association Name="R_8">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ART_BARRA">
+              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -612,18 +636,6 @@
             </Principal>
             <Dependent Role="ART_PROVE">
               <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_9">
-          <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROVEEDOR">
-              <PropertyRef Name="ncode_provee" />
-            </Principal>
-            <Dependent Role="ART_PROVE">
-              <PropertyRef Name="ncode_provee" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -675,18 +687,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="R_5">
-          <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FAMILIA">
-              <PropertyRef Name="ncode_fami" />
-            </Principal>
-            <Dependent Role="CLASE">
-              <PropertyRef Name="ncode_fami" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -732,40 +732,6 @@
                 <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
                 <ScalarProperty Name="ncode_provee" ColumnName="ncode_provee" />
                 <ScalarProperty Name="ncode_arprove" ColumnName="ncode_arprove" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ARTICULO">
-            <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
-              <MappingFragment StoreEntitySet="ARTICULO">
-                <ScalarProperty Name="dfemo_arti" ColumnName="dfemo_arti" />
-                <ScalarProperty Name="susmo_arti" ColumnName="susmo_arti" />
-                <ScalarProperty Name="dfech_arti" ColumnName="dfech_arti" />
-                <ScalarProperty Name="suser_arti" ColumnName="suser_arti" />
-                <ScalarProperty Name="bprocedencia_arti" ColumnName="bprocedencia_arti" />
-                <ScalarProperty Name="spaisOrigen_arti" ColumnName="spaisOrigen_arti" />
-                <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
-                <ScalarProperty Name="sabrev_arti" ColumnName="sabrev_arti" />
-                <ScalarProperty Name="nstockmax_arti" ColumnName="nstockmax_arti" />
-                <ScalarProperty Name="nstockmin_arti" ColumnName="nstockmin_arti" />
-                <ScalarProperty Name="nesta_arti" ColumnName="nesta_arti" />
-                <ScalarProperty Name="sobse_arti" ColumnName="sobse_arti" />
-                <ScalarProperty Name="sserie_arti" ColumnName="sserie_arti" />
-                <ScalarProperty Name="bvenc_arti" ColumnName="bvenc_arti" />
-                <ScalarProperty Name="nporpercepcion_arti" ColumnName="nporpercepcion_arti" />
-                <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
-                <ScalarProperty Name="bivap_arti" ColumnName="bivap_arti" />
-                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
-                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
-                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
-                <ScalarProperty Name="ncode_marca" ColumnName="ncode_marca" />
-                <ScalarProperty Name="ncode_clase" ColumnName="ncode_clase" />
-                <ScalarProperty Name="ncode_fami" ColumnName="ncode_fami" />
-                <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
-                <ScalarProperty Name="sdescweb_arti" ColumnName="sdescweb_arti" />
-                <ScalarProperty Name="sdesc2_arti" ColumnName="sdesc2_arti" />
-                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
-                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -857,6 +823,40 @@
                 <ScalarProperty Name="ssunat_umed" ColumnName="ssunat_umed" />
                 <ScalarProperty Name="sdesc_umed" ColumnName="sdesc_umed" />
                 <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ARTICULO">
+            <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
+              <MappingFragment StoreEntitySet="ARTICULO">
+                <ScalarProperty Name="dfemo_arti" ColumnName="dfemo_arti" />
+                <ScalarProperty Name="susmo_arti" ColumnName="susmo_arti" />
+                <ScalarProperty Name="dfech_arti" ColumnName="dfech_arti" />
+                <ScalarProperty Name="suser_arti" ColumnName="suser_arti" />
+                <ScalarProperty Name="bprocedencia_arti" ColumnName="bprocedencia_arti" />
+                <ScalarProperty Name="spaisOrigen_arti" ColumnName="spaisOrigen_arti" />
+                <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
+                <ScalarProperty Name="sabrev_arti" ColumnName="sabrev_arti" />
+                <ScalarProperty Name="nstockmax_arti" ColumnName="nstockmax_arti" />
+                <ScalarProperty Name="nstockmin_arti" ColumnName="nstockmin_arti" />
+                <ScalarProperty Name="nesta_arti" ColumnName="nesta_arti" />
+                <ScalarProperty Name="sobse_arti" ColumnName="sobse_arti" />
+                <ScalarProperty Name="sserie_arti" ColumnName="sserie_arti" />
+                <ScalarProperty Name="bvenc_arti" ColumnName="bvenc_arti" />
+                <ScalarProperty Name="nporpercepcion_arti" ColumnName="nporpercepcion_arti" />
+                <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
+                <ScalarProperty Name="bivap_arti" ColumnName="bivap_arti" />
+                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
+                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="ncode_marca" ColumnName="ncode_marca" />
+                <ScalarProperty Name="ncode_clase" ColumnName="ncode_clase" />
+                <ScalarProperty Name="ncode_fami" ColumnName="ncode_fami" />
+                <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
+                <ScalarProperty Name="sdescweb_arti" ColumnName="sdescweb_arti" />
+                <ScalarProperty Name="sdesc2_arti" ColumnName="sdesc2_arti" />
+                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

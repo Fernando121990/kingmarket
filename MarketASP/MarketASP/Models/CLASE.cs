@@ -29,8 +29,8 @@ namespace MarketASP.Models
         public string susmo_clase { get; set; }
         public Nullable<System.DateTime> dfemo_clase { get; set; }
     
+        public virtual FAMILIA FAMILIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ARTICULO> ARTICULO { get; set; }
-        public virtual FAMILIA FAMILIA { get; set; }
     }
 }

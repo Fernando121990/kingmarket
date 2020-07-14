@@ -22,7 +22,7 @@ namespace MarketASP.Models
         public string susmo_arprove { get; set; }
         public Nullable<System.DateTime> dfemo_arprove { get; set; }
     
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

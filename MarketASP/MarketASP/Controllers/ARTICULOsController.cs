@@ -41,31 +41,29 @@ namespace MarketASP.Controllers
         // GET: ARTICULOs/Create
         public ActionResult Create()
         {
-            ViewBag.ncode_fami = new SelectList(db.FAMILIA, "ncode_fami", "sdesc_fami");
-            ViewBag.ncode_clase = new SelectList(db.CLASE, "ncode_clase", "sdesc_clase");
-            ViewBag.ncode_marca = new SelectList(db.MARCA, "ncode_marca", "sdesc_marca");
-            ViewBag.ncode_umed = new SelectList(db.UMEDIDA, "ncode_umed", "sdesc_umed");
+            ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami== true), "ncode_fami", "sdesc_fami");
+            ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase");
+            ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca");
+            ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed");
             return View();
         }
 
-        // POST: ARTICULOs/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_arti,sdesc1_arti,sdesc2_arti,sdescweb_arti,scode_arti,ncode_fami,ncode_clase,ncode_marca,ncode_umed,bisc_arti,bafecto_arti,bivap_arti,bpercepcion_arti,nporpercepcion_arti,bvenc_arti,sserie_arti,sobse_arti,nesta_arti,nstockmin_arti,nstockmax_arti,sabrev_arti,bdscto_arti,spaisOrigen_arti,bprocedencia_arti,suser_arti,dfech_arti,susmo_arti,dfemo_arti")] ARTICULO aRTICULO)
+        public async Task<ActionResult> Create(ARTICULO aRTICULO)
         {
             if (ModelState.IsValid)
             {
+                aRTICULO.suser_arti = User.Identity.Name;
+                aRTICULO.dfech_arti = DateTime.Now;
                 db.ARTICULO.Add(aRTICULO);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ncode_fami = new SelectList(db.FAMILIA, "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
-            ViewBag.ncode_clase = new SelectList(db.CLASE, "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
-            ViewBag.ncode_marca = new SelectList(db.MARCA, "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
-            ViewBag.ncode_umed = new SelectList(db.UMEDIDA, "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
+            ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
+            ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
+            ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
+            ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             return View(aRTICULO);
         }
 
@@ -81,16 +79,13 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ncode_fami = new SelectList(db.FAMILIA, "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
-            ViewBag.ncode_clase = new SelectList(db.CLASE, "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
-            ViewBag.ncode_marca = new SelectList(db.MARCA, "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
-            ViewBag.ncode_umed = new SelectList(db.UMEDIDA, "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
+            ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
+            ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
+            ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
+            ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             return View(aRTICULO);
         }
 
-        // POST: ARTICULOs/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ncode_arti,sdesc1_arti,sdesc2_arti,sdescweb_arti,scode_arti,ncode_fami,ncode_clase,ncode_marca,ncode_umed,bisc_arti,bafecto_arti,bivap_arti,bpercepcion_arti,nporpercepcion_arti,bvenc_arti,sserie_arti,sobse_arti,nesta_arti,nstockmin_arti,nstockmax_arti,sabrev_arti,bdscto_arti,spaisOrigen_arti,bprocedencia_arti,suser_arti,dfech_arti,susmo_arti,dfemo_arti")] ARTICULO aRTICULO)
@@ -108,7 +103,7 @@ namespace MarketASP.Controllers
             return View(aRTICULO);
         }
 
-        public async Task<ActionResult> DeleteClase(int? id)
+        public async Task<ActionResult> DeleteArti(int? id)
         {
             if (id == null)
             {

@@ -8,23 +8,23 @@
         <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="18.75" />
         <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="11.125" />
         <EntityTypeShape EntityType="MarketWebModel.ART_PROVE" Width="1.5" PointX="7.5" PointY="11.375" />
-        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="5.25" PointY="8.875" />
         <EntityTypeShape EntityType="MarketWebModel.CLASE" Width="1.5" PointX="3" PointY="15.5" />
         <EntityTypeShape EntityType="MarketWebModel.FAMILIA" Width="1.5" PointX="0.75" PointY="7" />
         <EntityTypeShape EntityType="MarketWebModel.LISTA_PRECIO" Width="1.5" PointX="8.25" PointY="7.5" />
         <EntityTypeShape EntityType="MarketWebModel.MARCA" Width="1.5" PointX="3" PointY="19.25" />
         <EntityTypeShape EntityType="MarketWebModel.PROVEEDOR" Width="1.5" PointX="5.25" PointY="3.5" />
         <EntityTypeShape EntityType="MarketWebModel.UMEDIDA" Width="1.5" PointX="3" PointY="9.625" />
-        <AssociationConnector Association="MarketWebModel.R_8" />
         <AssociationConnector Association="MarketWebModel.R_6" />
+        <AssociationConnector Association="MarketWebModel.R_9" />
+        <AssociationConnector Association="MarketWebModel.R_5" />
+        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="5.25" PointY="10.5" />
+        <AssociationConnector Association="MarketWebModel.R_8" />
         <AssociationConnector Association="MarketWebModel.R_7" />
         <AssociationConnector Association="MarketWebModel.R_10" />
-        <AssociationConnector Association="MarketWebModel.R_9" />
         <AssociationConnector Association="MarketWebModel.R_1" />
         <AssociationConnector Association="MarketWebModel.R_2" />
         <AssociationConnector Association="MarketWebModel.R_3" />
         <AssociationConnector Association="MarketWebModel.R_4" />
-        <AssociationConnector Association="MarketWebModel.R_5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
