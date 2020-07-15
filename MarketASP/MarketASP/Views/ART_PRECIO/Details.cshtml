@@ -1,0 +1,82 @@
+﻿@model MarketASP.Models.ART_PRECIO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ART_PRECIO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nprecio_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nprecio_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nesta_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nesta_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_artpre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_artpre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LISTA_PRECIO.sdesc_lipre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LISTA_PRECIO.sdesc_lipre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARTICULO.sdesc1_arti)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_artpre }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

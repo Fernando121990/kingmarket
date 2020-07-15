@@ -20,9 +20,9 @@ namespace MarketASP.Models
             this.ARTICULO = new HashSet<ARTICULO>();
         }
     
-        public int ncode_marca { get; set; }
+        public long ncode_marca { get; set; }
         public string sdesc_marca { get; set; }
-        public Nullable<bool> nesta_marca { get; set; }
+        public bool nesta_marca { get; set; }
         public string suser_marca { get; set; }
         public Nullable<System.DateTime> dfech_marca { get; set; }
         public string susmo_marca { get; set; }

@@ -1,0 +1,50 @@
+﻿@model MarketASP.Models.TIPO_MOVIMIENTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TIPO_MOVIMIENTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sdesc_timovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sdesc_timovi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.binout_tipomovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.binout_tipomovi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.btransf_tipomovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.btransf_tipomovi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.besta_tipomovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.besta_tipomovi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_timovi }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -15,14 +15,14 @@ namespace MarketASP.Models
     public partial class ART_PROVE
     {
         public int ncode_arprove { get; set; }
-        public Nullable<int> ncode_provee { get; set; }
-        public Nullable<int> ncode_arti { get; set; }
+        public Nullable<long> ncode_provee { get; set; }
+        public long ncode_arti { get; set; }
         public string suser_arprove { get; set; }
         public Nullable<System.DateTime> dfech_arprove { get; set; }
         public string susmo_arprove { get; set; }
         public Nullable<System.DateTime> dfemo_arprove { get; set; }
     
-        public virtual PROVEEDOR PROVEEDOR { get; set; }
         public virtual ARTICULO ARTICULO { get; set; }
+        public virtual PROVEEDOR PROVEEDOR { get; set; }
     }
 }

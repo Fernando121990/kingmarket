@@ -1,0 +1,117 @@
+﻿@model IEnumerable<MarketASP.Models.MOVIMIENTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemov_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.smone_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntc_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sobse_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.besta_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sserie_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.snume_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stipo_movi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALMACEN1.sdesc_alma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemov_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.smone_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntc_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sobse_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.besta_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sserie_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.snume_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stipo_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALMACEN1.sdesc_alma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPO_MOVIMIENTO.sdesc_timovi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_movi }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_movi }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_movi })
+        </td>
+    </tr>
+}
+
+</table>

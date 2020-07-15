@@ -1,0 +1,82 @@
+﻿@model MarketASP.Models.MOVI_DETALLE
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MOVI_DETALLE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ncant_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncant_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npu_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npu_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_movidet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_movidet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARTICULO.sdesc1_arti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MOVIMIENTO.smone_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MOVIMIENTO.smone_movi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_movidet }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

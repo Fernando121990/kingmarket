@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MarketASP.Models.ART_PRECIO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nprecio_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nesta_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_artpre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LISTA_PRECIO.sdesc_lipre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nprecio_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nesta_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_artpre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LISTA_PRECIO.sdesc_lipre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_artpre }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_artpre }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_artpre })
+        </td>
+    </tr>
+}
+
+</table>

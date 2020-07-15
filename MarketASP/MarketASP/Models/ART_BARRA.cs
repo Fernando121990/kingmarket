@@ -16,8 +16,8 @@ namespace MarketASP.Models
     {
         public int ncode_barra { get; set; }
         public string sdesc_barra { get; set; }
-        public Nullable<int> nesta_barra { get; set; }
-        public int ncode_arti { get; set; }
+        public bool nesta_barra { get; set; }
+        public long ncode_arti { get; set; }
         public string suser_barra { get; set; }
         public Nullable<System.DateTime> dfech_barra { get; set; }
         public string susmo_barra { get; set; }

@@ -1,0 +1,144 @@
+﻿@model MarketASP.Models.MOVIMIENTO
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MOVIMIENTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemov_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemov_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.smone_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.smone_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntc_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntc_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sobse_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sobse_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.besta_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.besta_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sserie_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sserie_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.snume_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.snume_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stipo_movi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stipo_movi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ALMACEN.sdesc_alma)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ALMACEN1.sdesc_alma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ALMACEN1.sdesc_alma)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

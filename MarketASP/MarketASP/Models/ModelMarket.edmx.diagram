@@ -5,26 +5,51 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1">
-        <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="18.75" />
-        <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="11.125" />
-        <EntityTypeShape EntityType="MarketWebModel.ART_PROVE" Width="1.5" PointX="7.5" PointY="11.375" />
-        <EntityTypeShape EntityType="MarketWebModel.CLASE" Width="1.5" PointX="3" PointY="15.5" />
-        <EntityTypeShape EntityType="MarketWebModel.FAMILIA" Width="1.5" PointX="0.75" PointY="7" />
-        <EntityTypeShape EntityType="MarketWebModel.LISTA_PRECIO" Width="1.5" PointX="8.25" PointY="7.5" />
-        <EntityTypeShape EntityType="MarketWebModel.MARCA" Width="1.5" PointX="3" PointY="19.25" />
-        <EntityTypeShape EntityType="MarketWebModel.PROVEEDOR" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="MarketWebModel.UMEDIDA" Width="1.5" PointX="3" PointY="9.625" />
-        <AssociationConnector Association="MarketWebModel.R_6" />
-        <AssociationConnector Association="MarketWebModel.R_9" />
-        <AssociationConnector Association="MarketWebModel.R_5" />
-        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="MarketWebModel.ALMACEN" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="24.875" />
+        <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="13.375" />
+        <EntityTypeShape EntityType="MarketWebModel.ART_PROVE" Width="1.5" PointX="7.5" PointY="13.625" />
+        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="MarketWebModel.CLASE" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="MarketWebModel.CLI_DIRE" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="MarketWebModel.CLIDI_CONTAC" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="MarketWebModel.CONFIGURACION" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MarketWebModel.CONTACTO" Width="1.5" PointX="3" PointY="25" />
+        <EntityTypeShape EntityType="MarketWebModel.FAMILIA" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="MarketWebModel.KARDEX" Width="1.5" PointX="5.25" PointY="26.125" />
+        <EntityTypeShape EntityType="MarketWebModel.LISTA_PRECIO" Width="1.5" PointX="8.25" PointY="17.625" />
+        <EntityTypeShape EntityType="MarketWebModel.MARCA" Width="1.5" PointX="3" PointY="21.5" />
+        <EntityTypeShape EntityType="MarketWebModel.MOVI_DETALLE" Width="1.5" PointX="7.5" PointY="9.375" />
+        <EntityTypeShape EntityType="MarketWebModel.MOVIMIENTO" Width="1.5" PointX="5.25" PointY="4.5" />
+        <EntityTypeShape EntityType="MarketWebModel.PROV_CONTACTO" Width="1.5" PointX="7.5" PointY="21.75" />
+        <EntityTypeShape EntityType="MarketWebModel.PROVEEDOR" Width="1.5" PointX="5.25" PointY="20.625" />
+        <EntityTypeShape EntityType="MarketWebModel.TIPO_CAMBIO" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MarketWebModel.TIPO_MOVIMIENTO" Width="1.5" PointX="3" PointY="7.375" />
+        <EntityTypeShape EntityType="MarketWebModel.UBIGEO" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="MarketWebModel.UMEDIDA" Width="1.5" PointX="3" PointY="11.875" />
+        <AssociationConnector Association="MarketWebModel.R_20" />
+        <AssociationConnector Association="MarketWebModel.R_21" />
+        <AssociationConnector Association="MarketWebModel.R_22" />
         <AssociationConnector Association="MarketWebModel.R_8" />
+        <AssociationConnector Association="MarketWebModel.R_6" />
         <AssociationConnector Association="MarketWebModel.R_7" />
         <AssociationConnector Association="MarketWebModel.R_10" />
+        <AssociationConnector Association="MarketWebModel.R_9" />
         <AssociationConnector Association="MarketWebModel.R_1" />
+        <AssociationConnector Association="MarketWebModel.R_18" />
         <AssociationConnector Association="MarketWebModel.R_2" />
         <AssociationConnector Association="MarketWebModel.R_3" />
         <AssociationConnector Association="MarketWebModel.R_4" />
+        <AssociationConnector Association="MarketWebModel.R_5" />
+        <AssociationConnector Association="MarketWebModel.R_11" />
+        <AssociationConnector Association="MarketWebModel.R_12" />
+        <AssociationConnector Association="MarketWebModel.R_13" />
+        <AssociationConnector Association="MarketWebModel.R_14" />
+        <AssociationConnector Association="MarketWebModel.R_16" />
+        <AssociationConnector Association="MarketWebModel.R_19" />
+        <AssociationConnector Association="MarketWebModel.R_17" />
+        <AssociationConnector Association="MarketWebModel.R_15" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

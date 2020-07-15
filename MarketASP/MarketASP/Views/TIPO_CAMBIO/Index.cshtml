@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MarketASP.Models.TIPO_CAMBIO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ncompra_tc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nventa_tc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncompra_tc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nventa_tc)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.dfecha_tc }) |
+            @Html.ActionLink("Details", "Details", new { id=item.dfecha_tc }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.dfecha_tc })
+        </td>
+    </tr>
+}
+
+</table>

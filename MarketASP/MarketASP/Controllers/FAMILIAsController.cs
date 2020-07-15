@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class FAMILIAsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();

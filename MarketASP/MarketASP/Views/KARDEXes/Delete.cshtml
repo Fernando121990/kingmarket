@@ -1,0 +1,160 @@
+﻿@model MarketASP.Models.KARDEX
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>KARDEX</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.dfekard_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfekard_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stipomovi_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stipomovi_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ncant_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncant_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npuco_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npuco_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntc_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntc_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.smone_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.smone_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npucoMN_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npucoMN_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npucoUS_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npucoUS_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ncodeDoc_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncodeDoc_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sserie_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sserie_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.snume_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.snume_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfvence_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfvence_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_kardex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_kardex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ALMACEN.sdesc_alma)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

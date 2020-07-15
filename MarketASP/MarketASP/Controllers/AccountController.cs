@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
@@ -79,7 +80,8 @@ namespace MarketASP.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToTipoCambio(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -450,6 +452,28 @@ namespace MarketASP.Controllers
             {
                 return Redirect(returnUrl);
             }
+            return RedirectToAction("Index", "Home");
+        }
+
+        private ActionResult RedirectToTipoCambio(string returnUrl)
+        {
+
+            MarketWebEntities db = new MarketWebEntities();
+
+            ObjectParameter valor = new ObjectParameter("valor", typeof(int));
+            int xvalor = 0;
+            var result = db.Pr_tipoCambioExiste(DateTime.Today.ToShortDateString(), valor);
+            xvalor = int.Parse(valor.Value.ToString());
+
+            if (xvalor == 0)
+            {
+                return RedirectToAction("Create", "tipo_cambio");
+            }
+
+            //if (Url.IsLocalUrl(returnUrl))
+            //{
+            //    return Redirect(returnUrl);
+            //}
             return RedirectToAction("Index", "Home");
         }
 

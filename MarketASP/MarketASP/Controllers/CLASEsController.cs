@@ -11,6 +11,7 @@ using MarketASP.Models;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class CLASEsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();

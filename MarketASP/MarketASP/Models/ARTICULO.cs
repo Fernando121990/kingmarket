@@ -20,17 +20,18 @@ namespace MarketASP.Models
             this.ART_BARRA = new HashSet<ART_BARRA>();
             this.ART_PRECIO = new HashSet<ART_PRECIO>();
             this.ART_PROVE = new HashSet<ART_PROVE>();
+            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
         }
     
-        public int ncode_arti { get; set; }
+        public long ncode_arti { get; set; }
         public string sdesc1_arti { get; set; }
         public string sdesc2_arti { get; set; }
         public string sdescweb_arti { get; set; }
         public string scode_arti { get; set; }
-        public Nullable<int> ncode_fami { get; set; }
-        public Nullable<int> ncode_clase { get; set; }
-        public Nullable<int> ncode_marca { get; set; }
-        public Nullable<int> ncode_umed { get; set; }
+        public Nullable<long> ncode_fami { get; set; }
+        public Nullable<long> ncode_clase { get; set; }
+        public Nullable<long> ncode_marca { get; set; }
+        public Nullable<long> ncode_umed { get; set; }
         public Nullable<bool> bisc_arti { get; set; }
         public Nullable<bool> bafecto_arti { get; set; }
         public Nullable<bool> bivap_arti { get; set; }
@@ -58,6 +59,8 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_PROVE> ART_PROVE { get; set; }
         public virtual FAMILIA FAMILIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual CLASE CLASE { get; set; }
         public virtual MARCA MARCA { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }

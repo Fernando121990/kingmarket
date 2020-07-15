@@ -18,9 +18,10 @@ namespace MarketASP.Models
         public PROVEEDOR()
         {
             this.ART_PROVE = new HashSet<ART_PROVE>();
+            this.PROV_CONTACTO = new HashSet<PROV_CONTACTO>();
         }
     
-        public int ncode_provee { get; set; }
+        public long ncode_provee { get; set; }
         public string sdesc_prove { get; set; }
         public string sdire_prove { get; set; }
         public string sruc_prove { get; set; }
@@ -30,7 +31,7 @@ namespace MarketASP.Models
         public string sobse_prove { get; set; }
         public string sweb_prove { get; set; }
         public string scontac_prove { get; set; }
-        public Nullable<int> nesta_prove { get; set; }
+        public bool nesta_prove { get; set; }
         public string scargoconta_prove { get; set; }
         public Nullable<int> bprocedencia_prove { get; set; }
         public string suser_prove { get; set; }
@@ -40,5 +41,7 @@ namespace MarketASP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_PROVE> ART_PROVE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROV_CONTACTO> PROV_CONTACTO { get; set; }
     }
 }

@@ -31,7 +31,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ssunat_umed,"Desc.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ssunat_umed, new { htmlAttributes = new { @class = "form-control" } })
+            
+            @Html.EditorFor(model => model.ssunat_umed, new { htmlAttributes = new { @class = "form-control required" } })
             @Html.ValidationMessageFor(model => model.ssunat_umed, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -22,7 +22,7 @@ namespace MarketASP.Models
     
         public int ncode_lipre { get; set; }
         public string sdesc_lipre { get; set; }
-        public Nullable<bool> nesta_lipre { get; set; }
+        public bool nesta_lipre { get; set; }
         public string suser_lipre { get; set; }
         public Nullable<System.DateTime> dfech_lipre { get; set; }
         public string susmo_lipre { get; set; }

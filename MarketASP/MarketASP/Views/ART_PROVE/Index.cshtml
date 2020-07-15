@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MarketASP.Models.ART_PROVE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_arprove)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_arprove)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_arprove)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_arprove)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROVEEDOR.sdesc_prove)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_arprove)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_arprove)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_arprove)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_arprove)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_arprove }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_arprove }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_arprove })
+        </td>
+    </tr>
+}
+
+</table>

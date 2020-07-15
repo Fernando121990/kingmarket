@@ -16,9 +16,9 @@ namespace MarketASP.Models
     {
         public int ncode_artpre { get; set; }
         public Nullable<decimal> nprecio_artpre { get; set; }
-        public Nullable<bool> nesta_artpre { get; set; }
+        public bool nesta_artpre { get; set; }
         public int ncode_lipre { get; set; }
-        public int ncode_arti { get; set; }
+        public long ncode_arti { get; set; }
         public string suser_artpre { get; set; }
         public Nullable<System.DateTime> dfech_artpre { get; set; }
         public string susmo_artpre { get; set; }

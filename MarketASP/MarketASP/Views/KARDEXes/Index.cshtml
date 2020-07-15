@@ -1,0 +1,129 @@
+﻿@model IEnumerable<MarketASP.Models.KARDEX>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.dfekard_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stipomovi_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ncant_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npuco_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntc_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.smone_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npucoMN_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npucoUS_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ncodeDoc_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sserie_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.snume_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfvence_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_kardex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfekard_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stipomovi_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncant_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npuco_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntc_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.smone_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npucoMN_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npucoUS_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncodeDoc_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sserie_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.snume_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfvence_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_kardex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_kardex }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_kardex }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_kardex })
+        </td>
+    </tr>
+}
+
+</table>

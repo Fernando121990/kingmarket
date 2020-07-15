@@ -20,17 +20,17 @@ namespace MarketASP.Models
             this.ARTICULO = new HashSet<ARTICULO>();
         }
     
-        public int ncode_clase { get; set; }
+        public long ncode_clase { get; set; }
         public string sdesc_clase { get; set; }
-        public Nullable<bool> nesta_clase { get; set; }
-        public Nullable<int> ncode_fami { get; set; }
+        public bool nesta_clase { get; set; }
+        public Nullable<long> ncode_fami { get; set; }
         public string suser_clase { get; set; }
         public Nullable<System.DateTime> dfech_clase { get; set; }
         public string susmo_clase { get; set; }
         public Nullable<System.DateTime> dfemo_clase { get; set; }
     
-        public virtual FAMILIA FAMILIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ARTICULO> ARTICULO { get; set; }
+        public virtual FAMILIA FAMILIA { get; set; }
     }
 }

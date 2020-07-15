@@ -20,11 +20,11 @@ namespace MarketASP.Models
             this.ARTICULO = new HashSet<ARTICULO>();
         }
     
-        public int ncode_umed { get; set; }
+        public long ncode_umed { get; set; }
         public string sdesc_umed { get; set; }
         public string ssunat_umed { get; set; }
         public string scodsunat_umed { get; set; }
-        public Nullable<bool> nesta_umed { get; set; }
+        public bool nesta_umed { get; set; }
         public string suser_umed { get; set; }
         public Nullable<System.DateTime> dfech_umed { get; set; }
         public string susmo_umed { get; set; }
