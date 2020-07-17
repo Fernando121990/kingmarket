@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            Fecha
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ncompra_tc)
         </th>
         <th>
@@ -23,15 +26,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.dfecha_tc)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ncompra_tc)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nventa_tc)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.dfecha_tc }) |
-            @Html.ActionLink("Details", "Details", new { id=item.dfecha_tc }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.dfecha_tc })
+            @Html.ActionLink(" ", "Edit", new { id = item.dfecha_tc }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteTC", new { id = item.dfecha_tc }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
         </td>
     </tr>
 }
