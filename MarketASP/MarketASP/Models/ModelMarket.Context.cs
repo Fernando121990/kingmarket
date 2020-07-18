@@ -59,5 +59,10 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_tipoCambioExiste", dfecha_tcParameter, valor);
         }
+    
+        public virtual ObjectResult<Pr_ConsultaArticulos_Result> Pr_ConsultaArticulos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ConsultaArticulos_Result>("Pr_ConsultaArticulos");
+        }
     }
 }

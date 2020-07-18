@@ -603,6 +603,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Pr_tipoCambioExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfecha_tc" Type="varchar" Mode="In" />
           <Parameter Name="valor" Type="int" Mode="InOut" />
@@ -840,6 +841,7 @@
             <Parameter Name="dfecha_tc" Mode="In" Type="String" />
             <Parameter Name="valor" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Pr_ConsultaArticulos" ReturnType="Collection(MarketWebModel.Pr_ConsultaArticulos_Result)" />
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -1483,6 +1485,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Pr_ConsultaArticulos_Result">
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="Stock" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Int64" Name="Cod" Nullable="false" />
+          <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1845,6 +1855,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Pr_tipoCambioExiste" FunctionName="MarketWebModel.Store.Pr_tipoCambioExiste" />
+          <FunctionImportMapping FunctionImportName="Pr_ConsultaArticulos" FunctionName="MarketWebModel.Store.Pr_ConsultaArticulos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_ConsultaArticulos_Result">
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Cod" ColumnName="Cod" />
+                <ScalarProperty Name="Cod2" ColumnName="Cod2" />
+                <ScalarProperty Name="DescArt" ColumnName="DescArt" />
+                <ScalarProperty Name="Medida" ColumnName="Medida" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -188,6 +188,7 @@
     <Compile Include="Controllers\CLI_DIREController.cs" />
     <Compile Include="Controllers\CONFIGURACIONsController.cs" />
     <Compile Include="Controllers\FAMILIAsController.cs" />
+    <Compile Include="Controllers\FuncionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Inventario\Controllers\KARDEXesController.cs" />
     <Compile Include="Controllers\LISTA_PRECIOController.cs" />
@@ -278,6 +279,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PROV_CONTACTO.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_ConsultaArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_CAMBIO.cs">
@@ -764,6 +768,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Inventario\Models\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Funciones\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

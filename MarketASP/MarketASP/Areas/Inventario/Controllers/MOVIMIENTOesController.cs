@@ -46,8 +46,11 @@ namespace MarketASP.Areas.Inventario.Controllers
             ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c=>c.besta_confi== true ).Where(c=>c.ntipo_confi==2), "svalor_confi", "sdesc_confi");
             var xfecha = db.TIPO_CAMBIO.Max(v => v.dfecha_tc);
             var yfecha = DateTime.Now.Date;
-            var result = db.TIPO_CAMBIO.Single(x => x.dfecha_tc ==  yfecha);
-
+            var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc ==  yfecha);
+            if (result == null)
+            {
+                return RedirectToAction("Create","Tipo_Cambio",new {area=""});
+            }
             ViewBag.tc = result.nventa_tc;
             return View();
         }
