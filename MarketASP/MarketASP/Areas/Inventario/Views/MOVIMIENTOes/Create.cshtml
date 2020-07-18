@@ -4,68 +4,96 @@
     ViewBag.Title = "Crear Movimiento";
 }
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>@ViewBag.Title</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ncode_timovi, "ncode_timovi", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("ncode_timovi", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_timovi, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ncode_timovi, "ncode_timovi", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ncode_timovi", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ncode_timovi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.dfemov_movi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2 col-sm-2">
+                <input id="dfemov_movi" style="width:6em" name="dfemov_movi" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
+                @Html.ValidationMessageFor(model => model.dfemov_movi, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.smone_movi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2 col-sm-2">
+                @Html.DropDownList("smone_movi")
+                @Html.ValidationMessageFor(model => model.smone_movi, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ntc_movi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2 col-sm-2">
+                <input id="ntc_movi" style="width:6em" name="ntc_movi" type="text" value="@ViewBag.tc" readonly />
+                @Html.ValidationMessageFor(model => model.ntc_movi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <table id="tbl" class="table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MOVI_DETALLE)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ARTICULO.scode_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ncant_movidet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.npu_movidet)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ncode_alma, "Almacen", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("ncode_alma", null, "", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ndestino_alma, "Almacen Destino", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.sobse_movi, "Observación", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sobse_movi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sobse_movi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.dfemov_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2 col-sm-2">
-            <input id="dfemov_movi" style="width:6em" name="dfemov_movi" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
-            @Html.ValidationMessageFor(model => model.dfemov_movi, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.smone_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2 col-sm-2">
-            @Html.DropDownList("smone_movi")
-            @Html.ValidationMessageFor(model => model.smone_movi, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.ntc_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2 col-sm-2">
-            <input id="ntc_movi" style="width:6em" name="ntc_movi" type="text" value="@ViewBag.tc" readonly />
-            @Html.ValidationMessageFor(model => model.ntc_movi, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ncode_alma,"Almacen",  htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ncode_alma", null,"", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.ndestino_alma,"Almacen Destino", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ndestino_alma",null,"", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.sobse_movi,"Observación", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.sobse_movi, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sobse_movi, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -74,4 +102,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/movimiento")
 }
