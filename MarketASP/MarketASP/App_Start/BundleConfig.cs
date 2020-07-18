@@ -17,7 +17,14 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/estructura").Include(
                         "~/Scripts/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
                         "~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js",
-                        "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js"
+                        "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
+                        "~/Scripts/DataTables/jquery.dataTables.js",
+                        "~/Scripts/DataTables/dataTables.bootstrap.js",
+                        "~/Scripts/DataTables/dataTables.buttons.js",
+                        "~/Scripts/DataTables/buttons.flash.js",
+                        "~/Scripts/DataTables/buttons.html5.js",
+                        "~/Scripts/DataTables/buttons.print.js",
+                        "~/Scripts/DataTables/dataTables.select.min.js"
                         ));
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
@@ -34,6 +41,9 @@ namespace MarketASP
 
             bundles.Add(new ScriptBundle("~/bundles/desarrollo").Include(
                "~/Scripts/Generica/General.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/movimiento").Include(
+               "~/Scripts/Movimientos/moviCrear.js"));
 
             bundles.Add(new StyleBundle("~/Content/estructura").Include(
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.css",

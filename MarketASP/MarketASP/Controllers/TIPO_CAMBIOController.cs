@@ -12,7 +12,6 @@ using MarketASP.Models;
 namespace MarketASP.Controllers
 {
     [Authorize]
-    [OutputCache]
     public class TIPO_CAMBIOController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
