@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }*/
+
+.ptp-cabebuscar {
+    background-color: #4095ea; /* #16214d;  #2874f0;*/
+    color: black;
+    padding: 5px;
+}

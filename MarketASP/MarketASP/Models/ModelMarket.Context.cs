@@ -43,13 +43,13 @@ namespace MarketASP.Models
         public virtual DbSet<LISTA_PRECIO> LISTA_PRECIO { get; set; }
         public virtual DbSet<MARCA> MARCA { get; set; }
         public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
-        public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
         public virtual DbSet<PROV_CONTACTO> PROV_CONTACTO { get; set; }
         public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public virtual DbSet<TIPO_CAMBIO> TIPO_CAMBIO { get; set; }
         public virtual DbSet<TIPO_MOVIMIENTO> TIPO_MOVIMIENTO { get; set; }
         public virtual DbSet<UBIGEO> UBIGEO { get; set; }
         public virtual DbSet<UMEDIDA> UMEDIDA { get; set; }
+        public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -63,6 +63,80 @@ namespace MarketASP.Models
         public virtual ObjectResult<Pr_ConsultaArticulos_Result> Pr_ConsultaArticulos()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ConsultaArticulos_Result>("Pr_ConsultaArticulos");
+        }
+    
+        public virtual int Pr_movimientoCrear(Nullable<System.DateTime> dfemov_movi, string smone_movi, Nullable<decimal> ntc_movi, string sobse_movi, string sserie_movi, string snume_movi, string suser_movi, Nullable<int> ncode_timovi, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_movi, ObjectParameter sw)
+        {
+            var dfemov_moviParameter = dfemov_movi.HasValue ?
+                new ObjectParameter("dfemov_movi", dfemov_movi) :
+                new ObjectParameter("dfemov_movi", typeof(System.DateTime));
+    
+            var smone_moviParameter = smone_movi != null ?
+                new ObjectParameter("smone_movi", smone_movi) :
+                new ObjectParameter("smone_movi", typeof(string));
+    
+            var ntc_moviParameter = ntc_movi.HasValue ?
+                new ObjectParameter("ntc_movi", ntc_movi) :
+                new ObjectParameter("ntc_movi", typeof(decimal));
+    
+            var sobse_moviParameter = sobse_movi != null ?
+                new ObjectParameter("sobse_movi", sobse_movi) :
+                new ObjectParameter("sobse_movi", typeof(string));
+    
+            var sserie_moviParameter = sserie_movi != null ?
+                new ObjectParameter("sserie_movi", sserie_movi) :
+                new ObjectParameter("sserie_movi", typeof(string));
+    
+            var snume_moviParameter = snume_movi != null ?
+                new ObjectParameter("snume_movi", snume_movi) :
+                new ObjectParameter("snume_movi", typeof(string));
+    
+            var suser_moviParameter = suser_movi != null ?
+                new ObjectParameter("suser_movi", suser_movi) :
+                new ObjectParameter("suser_movi", typeof(string));
+    
+            var ncode_timoviParameter = ncode_timovi.HasValue ?
+                new ObjectParameter("ncode_timovi", ncode_timovi) :
+                new ObjectParameter("ncode_timovi", typeof(int));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ndestino_almaParameter = ndestino_alma.HasValue ?
+                new ObjectParameter("ndestino_alma", ndestino_alma) :
+                new ObjectParameter("ndestino_alma", typeof(int));
+    
+            var stipo_moviParameter = stipo_movi != null ?
+                new ObjectParameter("stipo_movi", stipo_movi) :
+                new ObjectParameter("stipo_movi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoCrear", dfemov_moviParameter, smone_moviParameter, ntc_moviParameter, sobse_moviParameter, sserie_moviParameter, snume_moviParameter, suser_moviParameter, ncode_timoviParameter, ncode_almaParameter, ndestino_almaParameter, stipo_moviParameter, sw);
+        }
+    
+        public virtual int Pr_movimientoDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_movidet, Nullable<decimal> npu_movidet, string suser_movidet, Nullable<int> ncode_movi)
+        {
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var ncant_movidetParameter = ncant_movidet.HasValue ?
+                new ObjectParameter("ncant_movidet", ncant_movidet) :
+                new ObjectParameter("ncant_movidet", typeof(decimal));
+    
+            var npu_movidetParameter = npu_movidet.HasValue ?
+                new ObjectParameter("npu_movidet", npu_movidet) :
+                new ObjectParameter("npu_movidet", typeof(decimal));
+    
+            var suser_movidetParameter = suser_movidet != null ?
+                new ObjectParameter("suser_movidet", suser_movidet) :
+                new ObjectParameter("suser_movidet", typeof(string));
+    
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoDetaCrea", ncode_artiParameter, ncant_movidetParameter, npu_movidetParameter, suser_movidetParameter, ncode_moviParameter);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_movi { get; set; }
         public int ncode_timovi { get; set; }
         public int ncode_alma { get; set; }
-        public int ndestino_alma { get; set; }
+        public Nullable<int> ndestino_alma { get; set; }
         public string stipo_movi { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }

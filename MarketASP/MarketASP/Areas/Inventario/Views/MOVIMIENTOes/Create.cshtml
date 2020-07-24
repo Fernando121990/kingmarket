@@ -1,169 +1,177 @@
 ﻿@model MarketASP.Models.MOVIMIENTO
 
 @{
-    ViewBag.Title = "Crear Movimiento";
+    ViewBag.Title = "Nuevo Movimiento";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>@ViewBag.Title</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-horizontal">
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ncode_timovi, "ncode_timovi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ncode_timovi", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ncode_timovi, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.ncode_timovi, "Tipo", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-11">
+            @Html.DropDownList("ncode_timovi", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_timovi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.dfemov_movi, "Fecha", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2 col-sm-2">
+            <input id="dfemov_movi" style="width:6em" name="dfemov_movi" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
+            @Html.ValidationMessageFor(model => model.dfemov_movi, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.smone_movi, "Moneda", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2 col-sm-2">
+            @Html.DropDownList("smone_movi")
+            @Html.ValidationMessageFor(model => model.smone_movi, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.ntc_movi, "TC", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2 col-sm-2">
+            <input id="ntc_movi" style="width:6em" name="ntc_movi" type="text" value="@ViewBag.tc" readonly />
+            @Html.ValidationMessageFor(model => model.ntc_movi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row ptp-cabebuscar">
+            <div class="col-md-4">
+                <label>Articulos seleccionados</label>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 text-right">
+                <span Class="addMat glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalMat"></span>
+                <span Class="delMat glyphicon glyphicon-trash btn btn-default"></span>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.dfemov_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2 col-sm-2">
-                <input id="dfemov_movi" style="width:6em" name="dfemov_movi" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
-                @Html.ValidationMessageFor(model => model.dfemov_movi, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.smone_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2 col-sm-2">
-                @Html.DropDownList("smone_movi")
-                @Html.ValidationMessageFor(model => model.smone_movi, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.ntc_movi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2 col-sm-2">
-                <input id="ntc_movi" style="width:6em" name="ntc_movi" type="text" value="@ViewBag.tc" readonly />
-                @Html.ValidationMessageFor(model => model.ntc_movi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row ptp-cabebuscar">
-                <div class="col-md-4">
-                    <label>Articulos seleccionados</label>
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4 text-right">
-                    <span Class="addMat glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalMat"></span>
-                    <span Class="delMat glyphicon glyphicon-trash btn btn-default"></span>
-                </div>
-            </div>
-            <table id="tbl" class="table">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Descripción</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
+        <table id="tbl" class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cant</th>
+                    <th>U.M</th>
+                    <th>P.U</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model.MOVI_DETALLE)
                     {
-                        foreach (var item in Model.MOVI_DETALLE)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ARTICULO.scode_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ncant_movidet)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.npu_movidet)
-                                </td>
-                            </tr>
-                        }
-
+                        <tr>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICULO.scode_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ncant_movidet)
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.npu_movidet)
+                            </td>
+                        </tr>
                     }
-                </tbody>
-            </table>
-            <div Class="modal fade" id="modalMat" role="dialog">
-                <div Class="modal-dialog">
-                    <div Class="modal-content">
-                        <div Class="modal-header">
-                            <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
-                            <h4 Class="modal-title">Seleccionar Articulo</h4>
-                        </div>
-                        <div Class="modal-body">
-                            <Table id="matetabla" Class="matetabla table-striped">
-                                <thead>
-                                    <tr>
-                                        <th> CodArt</th>
-                                        <th> Afecto</th>
-                                        <th> ISC</th>
-                                        <th> Cod</th>
-                                        <th> Descripcion</th>
-                                        <th> Unidad</th>
-                                        <th> Stock</th>
+
+                }
+            </tbody>
+        </table>
+        <div Class="modal fade" id="modalMat" role="dialog">
+            <div Class="modal-dialog">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
+                        <h4 Class="modal-title">Seleccionar Articulo</h4>
+                    </div>
+                    <div Class="modal-body">
+                        <Table id="matetabla" Class="matetabla table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    @*<th> Stock</th>
                                         <th> Precio</th>
-                                        <th> M</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th> CodArt</th>
-                                        <th> Afecto</th>
-                                        <th> ISC</th>
-                                        <th> Cod</th>
-                                        <th> Descripcion</th>
-                                        <th> Unidad</th>
-                                        <th> Stock</th>
+                                        <th> M</th>*@
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    @*<th> Stock</th>
                                         <th> Precio</th>
-                                        <th> M</th>
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                        </div>
-                        <div Class="modal-footer">
-                            <Button id="btnmate" name="btnmate" type="button" Class="btn btn-default">Añadir</Button>
-                            <Button id="btncerrar" name="btncerrar" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
-                        </div>
+                                        <th> M</th>*@
+                                </tr>
+                            </tfoot>
+                        </Table>
+                    </div>
+                    <div Class="modal-footer">
+                        <Button id="btnmate" name="btnmate" type="button" Class="btn btn-default">Añadir</Button>
+                        <Button id="btncerrar" name="btncerrar" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ncode_alma, "Almacen", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.DropDownList("ncode_alma", null, "", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.ndestino_alma, "Almacen Destino", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ncode_alma, "Almacen", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ncode_alma", null, "", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.sobse_movi, "Observación", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.sobse_movi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sobse_movi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        @Html.LabelFor(model => model.ndestino_alma, "Almacen Destino", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.sobse_movi, "Observación", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.sobse_movi, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sobse_movi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-4">
+            <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Añadir</button>
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(" ", "Index",new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Movimientos" })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/movimiento")
     <script type="text/javascript">
-        var urlArticulos = '@Url.Action("getArticulos", "Funciones")';
-        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones")';
+        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+        var urlMoviCrea = '@Url.Action("Create", "Movimientoes")';
+        var urlMoviLista = '@Url.Action("Index", "Movimientoes")';
     </script>
 }

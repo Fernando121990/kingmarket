@@ -18,6 +18,7 @@ namespace MarketASP
                         "~/Scripts/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
                         "~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js",
                         "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
+                        "~/Scripts/jquery.jeditable.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTables.bootstrap.js",
                         "~/Scripts/DataTables/dataTables.buttons.js",

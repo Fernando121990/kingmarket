@@ -40,12 +40,19 @@ namespace MarketASP.Controllers
             return Json(result);
         }
 
-        public async Task<JsonResult> getArticulos()
+        public JsonResult getArticulos()
         {
             var result = db.Pr_ConsultaArticulos();
 
-            return Json(await Task.FromResult(result)); 
+            return Json(result); 
         }
+
+        //public async Task<JsonResult> getArticulos()
+        //{
+        //    var result = db.Pr_ConsultaArticulos();
+
+        //    return Json(await Task.FromResult(result));
+        //}
 
         //public JsonResult getArticulos(int listaPrecio)
         //{

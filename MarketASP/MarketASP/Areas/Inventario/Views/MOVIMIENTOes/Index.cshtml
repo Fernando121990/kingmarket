@@ -1,57 +1,44 @@
 ﻿@model IEnumerable<MarketASP.Models.MOVIMIENTO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Movimientos";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Movimiento" })
+    </div>
+</div>
+<table class="table table-responsive table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.dfemov_movi)
+            <label>Serie</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.smone_movi)
+            <label>Número</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ntc_movi)
+            <label>Fecha</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sobse_movi)
+            <label>Moneda</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.besta_movi)
+            <label>TC</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sserie_movi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.snume_movi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_movi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_movi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_movi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_movi)
+            <label>Activo</label>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.stipo_movi)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+            <label>Almacen</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ALMACEN1.sdesc_alma)
+            <label>Destino</label>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
@@ -59,10 +46,17 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.dfemov_movi)
+            @Html.DisplayFor(modelItem => item.sserie_movi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.snume_movi)
+        </td>
+        <td>
+            @string.Format("{0:d}",item.dfemov_movi)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.smone_movi)
@@ -71,28 +65,7 @@
             @Html.DisplayFor(modelItem => item.ntc_movi)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.sobse_movi)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.besta_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sserie_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.snume_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_movi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_movi)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.stipo_movi)
@@ -107,11 +80,10 @@
             @Html.DisplayFor(modelItem => item.TIPO_MOVIMIENTO.sdesc_timovi)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_movi }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_movi }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_movi })
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_movi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteMovi", new { id = item.ncode_movi }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
         </td>
     </tr>
-}
+    }
 
 </table>

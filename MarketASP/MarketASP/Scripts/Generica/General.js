@@ -217,7 +217,7 @@ function fnclienteNuevo() {
 }
 
 function fnClienteNatural(test) {
-    console.log(test);
+    //console.log(test);
 
     if (test === "N") {
         $(".natural").show();

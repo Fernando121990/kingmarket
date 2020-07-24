@@ -4,11 +4,11 @@
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []  //0,1,2,8,9
+            "aTargets": [0,6]  //0,1,2,8,9
         },
         {
             "sClass": "my_class",
-            "aTargets": []
+            "aTargets": [3,5]
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -34,7 +34,7 @@
 
                     }
 
-                    Totales();
+                    //Totales();
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -45,7 +45,7 @@
                 "height": "20px",
                 "width": "100%"
             });
-            Totales();
+            //Totales();
         },
         select: {
             style: 'single'
@@ -84,6 +84,8 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (resultado) {
+                console.log(resultado);
+                //alert('exito');
 
                 mattable = $('#matetabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
@@ -96,7 +98,7 @@
                         { "data": "Stock" }],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": []
+                        "aTargets": [0]
                     },
                     {
                         "sClass": "my_class",
@@ -138,8 +140,8 @@
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.COD_ART, data.Afecto_ART, data.ISC_ART, data.COD2_ART, data.DESC1_ART, xcan, data.DESC_MEDIDA, data.PREBASE, data.PREBASE, data.MON_ART]).draw();
-        Totales();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio]).draw();
+        //Totales();
     });
 
     $("#btncerrar").click(function () {
@@ -147,3 +149,65 @@
     });
 
 });
+
+function Sales_save() {
+
+    var moviViewDetas = {
+        "ncode_arti":"", "ncant_movidet":"", "npu_movidet":"", "ncode_movi":""
+    };
+
+    var moviView = {
+        "dfemov_movi":"", "smone_movi":"", "ntc_movi":"", "sobse_movi":"", "ncode_timovi":"",
+        "ncode_alma":"", "ndestino_alma":"", "stipo_movi":"", "moviViewDetas": []
+    };
+
+
+    moviView.dfemov_movi = $("#dfemov_movi").val();
+    moviView.smone_movi = $("#smone_movi").val();
+    moviView.ntc_movi = $("#ntc_movi").val();
+    moviView.sobse_movi = $("#sobse_movi").val();
+    moviView.ncode_timovi = $("#ncode_timovi").val();
+    moviView.ncode_alma = $("#ncode_alma").val();
+    moviView.ndestino_alma = $("#ndestino_alma").val();
+    moviView.stipo_movi = $("#stipo_movi").val();
+
+    var otblx = $('#tbl').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+    for (var i = 0; i < nrowsx; i++) {
+
+        moviViewDetas.ncode_arti = oTable[i][0];
+        moviViewDetas.ncant_movidet = oTable[i][3];
+        moviViewDetas.npu_movidet = oTable[i][5];
+
+        moviView.moviViewDetas.push(moviViewDetas);
+
+        moviViewDetas = {
+            "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": ""
+        };
+    }
+
+    //console.log(profView);
+
+    var token = $('[name=__RequestVerificationToken]').val();
+
+    $.ajax({
+        url: urlMoviCrea, // '/MOFs/Create',
+        type: 'POST',
+        dataType: 'json',
+        data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(moviView) },
+        success: function (result) {
+            if (result.Success == "1") {
+                window.location.href = urlMoviLista;
+            }
+            else {
+                alert('No se puede registrar movimiento');
+            }
+        },
+        error: function (ex) {
+            alert('No se pueden registrar movimientos' + ex);
+        }
+    });
+
+}
