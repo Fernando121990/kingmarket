@@ -138,5 +138,58 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoDetaCrea", ncode_artiParameter, ncant_movidetParameter, npu_movidetParameter, suser_movidetParameter, ncode_moviParameter);
         }
+    
+        public virtual int Pr_Kardex(Nullable<System.DateTime> dfekard_kardex, string stipomovi_kardex, Nullable<decimal> ncant_kardex, Nullable<decimal> npuco_kardex, Nullable<decimal> ntc_kardex, string smone_kardex, Nullable<long> ncodeDoc_kardex, string sserie_kardex, string snume_kardex, Nullable<System.DateTime> dfvence_kardex, string suser_kardex, Nullable<int> ncode_alma)
+        {
+            var dfekard_kardexParameter = dfekard_kardex.HasValue ?
+                new ObjectParameter("dfekard_kardex", dfekard_kardex) :
+                new ObjectParameter("dfekard_kardex", typeof(System.DateTime));
+    
+            var stipomovi_kardexParameter = stipomovi_kardex != null ?
+                new ObjectParameter("stipomovi_kardex", stipomovi_kardex) :
+                new ObjectParameter("stipomovi_kardex", typeof(string));
+    
+            var ncant_kardexParameter = ncant_kardex.HasValue ?
+                new ObjectParameter("ncant_kardex", ncant_kardex) :
+                new ObjectParameter("ncant_kardex", typeof(decimal));
+    
+            var npuco_kardexParameter = npuco_kardex.HasValue ?
+                new ObjectParameter("npuco_kardex", npuco_kardex) :
+                new ObjectParameter("npuco_kardex", typeof(decimal));
+    
+            var ntc_kardexParameter = ntc_kardex.HasValue ?
+                new ObjectParameter("ntc_kardex", ntc_kardex) :
+                new ObjectParameter("ntc_kardex", typeof(decimal));
+    
+            var smone_kardexParameter = smone_kardex != null ?
+                new ObjectParameter("smone_kardex", smone_kardex) :
+                new ObjectParameter("smone_kardex", typeof(string));
+    
+            var ncodeDoc_kardexParameter = ncodeDoc_kardex.HasValue ?
+                new ObjectParameter("ncodeDoc_kardex", ncodeDoc_kardex) :
+                new ObjectParameter("ncodeDoc_kardex", typeof(long));
+    
+            var sserie_kardexParameter = sserie_kardex != null ?
+                new ObjectParameter("sserie_kardex", sserie_kardex) :
+                new ObjectParameter("sserie_kardex", typeof(string));
+    
+            var snume_kardexParameter = snume_kardex != null ?
+                new ObjectParameter("snume_kardex", snume_kardex) :
+                new ObjectParameter("snume_kardex", typeof(string));
+    
+            var dfvence_kardexParameter = dfvence_kardex.HasValue ?
+                new ObjectParameter("dfvence_kardex", dfvence_kardex) :
+                new ObjectParameter("dfvence_kardex", typeof(System.DateTime));
+    
+            var suser_kardexParameter = suser_kardex != null ?
+                new ObjectParameter("suser_kardex", suser_kardex) :
+                new ObjectParameter("suser_kardex", typeof(string));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Kardex", dfekard_kardexParameter, stipomovi_kardexParameter, ncant_kardexParameter, npuco_kardexParameter, ntc_kardexParameter, smone_kardexParameter, ncodeDoc_kardexParameter, sserie_kardexParameter, snume_kardexParameter, dfvence_kardexParameter, suser_kardexParameter, ncode_almaParameter);
+        }
     }
 }

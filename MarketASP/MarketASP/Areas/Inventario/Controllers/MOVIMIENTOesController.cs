@@ -166,26 +166,13 @@ namespace MarketASP.Areas.Inventario.Controllers
             return View(mOVIMIENTO);
         }
 
-        // GET: MOVIMIENTOes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> DeleteMovi(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MOVIMIENTO mOVIMIENTO = await db.MOVIMIENTO.FindAsync(id);
-            if (mOVIMIENTO == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mOVIMIENTO);
-        }
 
-        // POST: MOVIMIENTOes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
             MOVIMIENTO mOVIMIENTO = await db.MOVIMIENTO.FindAsync(id);
             db.MOVIMIENTO.Remove(mOVIMIENTO);
             await db.SaveChangesAsync();
