@@ -604,6 +604,20 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Pr_Kardex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dfekard_kardex" Type="datetime" Mode="In" />
+          <Parameter Name="stipomovi_kardex" Type="varchar" Mode="In" />
+          <Parameter Name="ncant_kardex" Type="decimal" Mode="In" />
+          <Parameter Name="npuco_kardex" Type="decimal" Mode="In" />
+          <Parameter Name="ntc_kardex" Type="decimal" Mode="In" />
+          <Parameter Name="smone_kardex" Type="varchar" Mode="In" />
+          <Parameter Name="ncodeDoc_kardex" Type="bigint" Mode="In" />
+          <Parameter Name="sserie_kardex" Type="varchar" Mode="In" />
+          <Parameter Name="snume_kardex" Type="varchar" Mode="In" />
+          <Parameter Name="dfvence_kardex" Type="datetime" Mode="In" />
+          <Parameter Name="suser_kardex" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+        </Function>
         <Function Name="Pr_movimientoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfemov_movi" Type="datetime" Mode="In" />
           <Parameter Name="smone_movi" Type="varchar" Mode="In" />
@@ -884,6 +898,20 @@
             <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
             <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
           </AssociationSet>
+          <FunctionImport Name="Pr_Kardex">
+            <Parameter Name="dfekard_kardex" Mode="In" Type="DateTime" />
+            <Parameter Name="stipomovi_kardex" Mode="In" Type="String" />
+            <Parameter Name="ncant_kardex" Mode="In" Type="Decimal" />
+            <Parameter Name="npuco_kardex" Mode="In" Type="Decimal" />
+            <Parameter Name="ntc_kardex" Mode="In" Type="Decimal" />
+            <Parameter Name="smone_kardex" Mode="In" Type="String" />
+            <Parameter Name="ncodeDoc_kardex" Mode="In" Type="Int64" />
+            <Parameter Name="sserie_kardex" Mode="In" Type="String" />
+            <Parameter Name="snume_kardex" Mode="In" Type="String" />
+            <Parameter Name="dfvence_kardex" Mode="In" Type="DateTime" />
+            <Parameter Name="suser_kardex" Mode="In" Type="String" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -1911,6 +1939,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_Kardex" FunctionName="MarketWebModel.Store.Pr_Kardex" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
