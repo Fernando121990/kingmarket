@@ -113,21 +113,6 @@ namespace MarketASP.Areas.Inventario.Controllers
             }
         }
 
-        //public async Task<ActionResult> Create([Bind(Include = "ncode_movi,dfemov_movi,smone_movi,ntc_movi,sobse_movi,besta_movi,sserie_movi,snume_movi,suser_movi,dfech_movi,susmo_movi,dfemo_movi,ncode_timovi,ncode_alma,ndestino_alma,stipo_movi")] MOVIMIENTO mOVIMIENTO)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.MOVIMIENTO.Add(mOVIMIENTO);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma", mOVIMIENTO.ncode_alma);
-        //    ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma", mOVIMIENTO.ndestino_alma);
-        //    ViewBag.ncode_timovi = new SelectList(db.TIPO_MOVIMIENTO.Where(a => a.besta_tipomovi == true), "ncode_timovi", "sdesc_timovi", mOVIMIENTO.ncode_timovi);
-        //    ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",mOVIMIENTO.smone_movi);
-        //    return View(mOVIMIENTO);
-        //}
 
         // GET: MOVIMIENTOes/Edit/5
         public async Task<ActionResult> Edit(int? id)
