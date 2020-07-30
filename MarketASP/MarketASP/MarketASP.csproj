@@ -197,13 +197,14 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MARCAsController.cs" />
     <Compile Include="Areas\Inventario\Controllers\MOVIMIENTOesController.cs" />
-    <Compile Include="Areas\Inventario\Controllers\MOVI_DETALLEController.cs" />
     <Compile Include="Controllers\PROVEEDORsController.cs" />
     <Compile Include="Controllers\PROV_CONTACTOController.cs" />
     <Compile Include="Controllers\TIPO_CAMBIOController.cs" />
     <Compile Include="Areas\Inventario\Controllers\TIPO_MOVIMIENTOController.cs" />
     <Compile Include="Controllers\UBIGEOsController.cs" />
     <Compile Include="Controllers\UMEDIDAsController.cs" />
+    <Compile Include="Controllers\VENTASController.cs" />
+    <Compile Include="Controllers\VENTA_DETALLEController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -296,6 +297,12 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UMEDIDA.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENTAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENTA_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -731,21 +738,11 @@
     <Content Include="Views\CONFIGURACIONs\Details.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Edit.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Index.cshtml" />
-    <Content Include="Areas\Inventario\Views\KARDEXes\Create.cshtml" />
-    <Content Include="Areas\Inventario\Views\KARDEXes\Delete.cshtml" />
-    <Content Include="Areas\Inventario\Views\KARDEXes\Details.cshtml" />
-    <Content Include="Areas\Inventario\Views\KARDEXes\Edit.cshtml" />
     <Content Include="Areas\Inventario\Views\KARDEXes\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Create.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Delete.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Details.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Edit.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Index.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVI_DETALLE\Create.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVI_DETALLE\Delete.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVI_DETALLE\Details.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVI_DETALLE\Edit.cshtml" />
-    <Content Include="Areas\Inventario\Views\MOVI_DETALLE\Index.cshtml" />
     <Content Include="Views\PROV_CONTACTO\Create.cshtml" />
     <Content Include="Views\PROV_CONTACTO\Delete.cshtml" />
     <Content Include="Views\PROV_CONTACTO\Details.cshtml" />
@@ -769,11 +766,20 @@
     <Content Include="Areas\Inventario\Views\TIPO_MOVIMIENTO\Create.cshtml" />
     <Content Include="Areas\Inventario\Views\TIPO_MOVIMIENTO\Edit.cshtml" />
     <Content Include="Areas\Inventario\Views\TIPO_MOVIMIENTO\Index.cshtml" />
+    <Content Include="Views\VENTAS\Create.cshtml" />
+    <Content Include="Views\VENTAS\Delete.cshtml" />
+    <Content Include="Views\VENTAS\Details.cshtml" />
+    <Content Include="Views\VENTAS\Edit.cshtml" />
+    <Content Include="Views\VENTAS\Index.cshtml" />
+    <Content Include="Views\VENTA_DETALLE\Create.cshtml" />
+    <Content Include="Views\VENTA_DETALLE\Delete.cshtml" />
+    <Content Include="Views\VENTA_DETALLE\Details.cshtml" />
+    <Content Include="Views\VENTA_DETALLE\Edit.cshtml" />
+    <Content Include="Views\VENTA_DETALLE\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Inventario\Models\" />
-    <Folder Include="Areas\Inventario\Views\Funciones\" />
     <Folder Include="Services\" />
     <Folder Include="Views\Funciones\" />
   </ItemGroup>

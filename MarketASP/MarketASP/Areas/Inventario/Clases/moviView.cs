@@ -6,6 +6,7 @@ namespace MarketASP.Areas.Inventario.Clases
 {
     public class moviView 
     {
+        public int ncode_movi { get; set; }
         public string dfemov_movi { get; set; }
         public string smone_movi { get; set; }
         public decimal ntc_movi { get; set; }

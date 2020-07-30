@@ -205,6 +205,10 @@
           <Property Name="susmo_kardex" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_kardex" Type="datetime" />
           <Property Name="ncode_alma" Type="int" Nullable="false" />
+          <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+          <Property Name="smodulo_confi" Type="varchar" MaxLength="20" />
+          <Property Name="ncode_confi" Type="int" Nullable="false" />
+          <Property Name="ncode_umed" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="LISTA_PRECIO">
           <Key>
@@ -243,6 +247,7 @@
           <Property Name="susmo_movidet" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_movidet" Type="datetime" />
           <Property Name="ncode_movi" Type="int" Nullable="false" />
+          <Property Name="ncode_umed" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -313,6 +318,7 @@
           <Property Name="binout_tipomovi" Type="bit" Nullable="false" />
           <Property Name="btransf_tipomovi" Type="bit" Nullable="false" />
           <Property Name="besta_tipomovi" Type="bit" Nullable="false" />
+          <Property Name="stipo_timovi" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="UBIGEO">
           <Key>
@@ -336,6 +342,63 @@
           <Property Name="dfech_umed" Type="datetime" />
           <Property Name="susmo_umed" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_umed" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VENTA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_vedeta" />
+          </Key>
+          <Property Name="ncode_vedeta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_venta" Type="bigint" Nullable="false" />
+          <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+          <Property Name="ncant_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="npu_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto2_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nexon_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nafecto_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="besafecto_vedeta" Type="bit" Nullable="false" />
+          <Property Name="ncode_alma" Type="int" />
+          <Property Name="ndsctomax_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctomin_vedeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoporc_vedeta" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="ncode_venta" />
+          </Key>
+          <Property Name="ncode_venta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_docu" Type="int" Nullable="false" />
+          <Property Name="sseri_venta" Type="varchar" MaxLength="20" />
+          <Property Name="snume_venta" Type="varchar" MaxLength="20" />
+          <Property Name="dfeventa_venta" Type="datetime" />
+          <Property Name="dfevenci_venta" Type="datetime" />
+          <Property Name="ncode_cliente" Type="int" Nullable="false" />
+          <Property Name="ncode_clidire" Type="int" />
+          <Property Name="smone_venta" Type="varchar" MaxLength="20" />
+          <Property Name="ntc_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncode_fopago" Type="int" Nullable="false" />
+          <Property Name="sobse_venta" Type="varchar(max)" />
+          <Property Name="ncode_compra" Type="bigint" />
+          <Property Name="ncode_profo" Type="bigint" />
+          <Property Name="nbrutoex_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndctoex_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUs_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="besta_venta" Type="bit" />
+          <Property Name="nvalIGV_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="suser_venta" Type="varchar" MaxLength="20" />
+          <Property Name="dfech_venta" Type="datetime" />
+          <Property Name="susmo_venta" Type="varchar" MaxLength="20" />
+          <Property Name="dfemo_venta" Type="datetime" />
         </EntityType>
         <Association Name="R_1">
           <End Role="FAMILIA" Type="Self.FAMILIA" Multiplicity="0..1" />
@@ -519,6 +582,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_23">
+          <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+          <End Role="KARDEX" Type="Self.KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_24">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="KARDEX" Type="Self.KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_confi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_25">
+          <End Role="UMEDIDA" Type="Self.UMEDIDA" Multiplicity="1" />
+          <End Role="MOVI_DETALLE" Type="Self.MOVI_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="MOVI_DETALLE">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_26">
+          <End Role="UMEDIDA" Type="Self.UMEDIDA" Multiplicity="1" />
+          <End Role="KARDEX" Type="Self.KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_27">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_28">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_29">
+          <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLI_DIRE">
+              <PropertyRef Name="ncode_clidire" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_clidire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_3">
           <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
           <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
@@ -528,6 +675,54 @@
             </Principal>
             <Dependent Role="ARTICULO">
               <PropertyRef Name="ncode_marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_30">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_31">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="1" />
+          <End Role="VENTA_DETALLE" Type="Self.VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="ncode_venta" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_venta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_32">
+          <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+          <End Role="VENTA_DETALLE" Type="Self.VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_33">
+          <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+          <End Role="VENTA_DETALLE" Type="Self.VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_alma" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -604,19 +799,16 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="Pr_Kardex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="dfekard_kardex" Type="datetime" Mode="In" />
-          <Parameter Name="stipomovi_kardex" Type="varchar" Mode="In" />
-          <Parameter Name="ncant_kardex" Type="decimal" Mode="In" />
-          <Parameter Name="npuco_kardex" Type="decimal" Mode="In" />
-          <Parameter Name="ntc_kardex" Type="decimal" Mode="In" />
-          <Parameter Name="smone_kardex" Type="varchar" Mode="In" />
-          <Parameter Name="ncodeDoc_kardex" Type="bigint" Mode="In" />
-          <Parameter Name="sserie_kardex" Type="varchar" Mode="In" />
-          <Parameter Name="snume_kardex" Type="varchar" Mode="In" />
-          <Parameter Name="dfvence_kardex" Type="datetime" Mode="In" />
-          <Parameter Name="suser_kardex" Type="varchar" Mode="In" />
-          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+        <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="modulo" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_confi" Type="int" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="codigo" Type="numeric" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Pr_KardexElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="modulo" Type="varchar" Mode="In" />
+          <Parameter Name="codigo" Type="numeric" Mode="In" />
         </Function>
         <Function Name="Pr_movimientoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfemov_movi" Type="datetime" Mode="In" />
@@ -638,6 +830,29 @@
           <Parameter Name="npu_movidet" Type="decimal" Mode="In" />
           <Parameter Name="suser_movidet" Type="varchar" Mode="In" />
           <Parameter Name="ncode_movi" Type="int" Mode="In" />
+          <Parameter Name="ncode_umed" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Pr_movimientoDetaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_movi" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="Pr_movimientoEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_movi" Type="numeric" Mode="In" />
+          <Parameter Name="dfemov_movi" Type="datetime" Mode="In" />
+          <Parameter Name="smone_movi" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_movi" Type="decimal" Mode="In" />
+          <Parameter Name="sobse_movi" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sserie_movi" Type="varchar" Mode="In" />
+          <Parameter Name="snume_movi" Type="varchar" Mode="In" />
+          <Parameter Name="suser_movi" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_timovi" Type="int" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ndestino_alma" Type="int" Mode="In" />
+          <Parameter Name="stipo_movi" Type="varchar" Mode="In" />
+          <Parameter Name="besta_movi" Type="bit" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_movimientoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_movi" Type="numeric" Mode="In" />
         </Function>
         <Function Name="Pr_tipoCambioExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfecha_tc" Type="varchar" Mode="In" />
@@ -667,6 +882,8 @@
           <EntitySet Name="TIPO_MOVIMIENTO" EntityType="Self.TIPO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="R_1" Association="Self.R_1">
             <End Role="FAMILIA" EntitySet="FAMILIA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -727,9 +944,53 @@
             <End Role="ALMACEN" EntitySet="ALMACEN" />
             <End Role="KARDEX" EntitySet="KARDEX" />
           </AssociationSet>
+          <AssociationSet Name="R_23" Association="Self.R_23">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_24" Association="Self.R_24">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_25" Association="Self.R_25">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_26" Association="Self.R_26">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_27" Association="Self.R_27">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_28" Association="Self.R_28">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_29" Association="Self.R_29">
+            <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
           <AssociationSet Name="R_3" Association="Self.R_3">
             <End Role="MARCA" EntitySet="MARCA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="R_30" Association="Self.R_30">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_31" Association="Self.R_31">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_32" Association="Self.R_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_33" Association="Self.R_33">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
           </AssociationSet>
           <AssociationSet Name="R_4" Association="Self.R_4">
             <End Role="UMEDIDA" EntitySet="UMEDIDA" />
@@ -773,7 +1034,6 @@
           <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel.CONFIGURACION" />
           <EntitySet Name="CONTACTO" EntityType="MarketWebModel.CONTACTO" />
           <EntitySet Name="FAMILIA" EntityType="MarketWebModel.FAMILIA" />
-          <EntitySet Name="KARDEX" EntityType="MarketWebModel.KARDEX" />
           <EntitySet Name="LISTA_PRECIO" EntityType="MarketWebModel.LISTA_PRECIO" />
           <EntitySet Name="MARCA" EntityType="MarketWebModel.MARCA" />
           <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
@@ -783,10 +1043,6 @@
           <EntitySet Name="TIPO_MOVIMIENTO" EntityType="MarketWebModel.TIPO_MOVIMIENTO" />
           <EntitySet Name="UBIGEO" EntityType="MarketWebModel.UBIGEO" />
           <EntitySet Name="UMEDIDA" EntityType="MarketWebModel.UMEDIDA" />
-          <AssociationSet Name="R_22" Association="MarketWebModel.R_22">
-            <End Role="ALMACEN" EntitySet="ALMACEN" />
-            <End Role="KARDEX" EntitySet="KARDEX" />
-          </AssociationSet>
           <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="ART_BARRA" EntitySet="ART_BARRA" />
@@ -880,6 +1136,7 @@
             <Parameter Name="npu_movidet" Mode="In" Type="Decimal" />
             <Parameter Name="suser_movidet" Mode="In" Type="String" />
             <Parameter Name="ncode_movi" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="MOVIMIENTO" EntityType="MarketWebModel.MOVIMIENTO" />
           <AssociationSet Name="R_20" Association="MarketWebModel.R_20">
@@ -898,20 +1155,90 @@
             <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
             <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
           </AssociationSet>
-          <FunctionImport Name="Pr_Kardex">
-            <Parameter Name="dfekard_kardex" Mode="In" Type="DateTime" />
-            <Parameter Name="stipomovi_kardex" Mode="In" Type="String" />
-            <Parameter Name="ncant_kardex" Mode="In" Type="Decimal" />
-            <Parameter Name="npuco_kardex" Mode="In" Type="Decimal" />
-            <Parameter Name="ntc_kardex" Mode="In" Type="Decimal" />
-            <Parameter Name="smone_kardex" Mode="In" Type="String" />
-            <Parameter Name="ncodeDoc_kardex" Mode="In" Type="Int64" />
-            <Parameter Name="sserie_kardex" Mode="In" Type="String" />
-            <Parameter Name="snume_kardex" Mode="In" Type="String" />
-            <Parameter Name="dfvence_kardex" Mode="In" Type="DateTime" />
-            <Parameter Name="suser_kardex" Mode="In" Type="String" />
-            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+          <FunctionImport Name="Pr_KardexCrea">
+            <Parameter Name="modulo" Mode="In" Type="String" />
+            <Parameter Name="ncode_confi" Mode="In" Type="Int32" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="codigo" Mode="In" Type="Decimal" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Pr_KardexElimina">
+            <Parameter Name="modulo" Mode="In" Type="String" />
+            <Parameter Name="codigo" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_movimientoElimina">
+          <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="KARDEX" EntityType="MarketWebModel.KARDEX" />
+          <AssociationSet Name="R_22" Association="MarketWebModel.R_22">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_23" Association="MarketWebModel.R_23">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_24" Association="MarketWebModel.R_24">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_25" Association="MarketWebModel.R_25">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_26" Association="MarketWebModel.R_26">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_movimientoDetaElimina">
+          <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_movimientoEditar">
+            <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+            <Parameter Name="dfemov_movi" Mode="In" Type="DateTime" />
+            <Parameter Name="smone_movi" Mode="In" Type="String" />
+            <Parameter Name="ntc_movi" Mode="In" Type="Decimal" />
+            <Parameter Name="sobse_movi" Mode="In" Type="String" />
+            <Parameter Name="sserie_movi" Mode="In" Type="String" />
+            <Parameter Name="snume_movi" Mode="In" Type="String" />
+            <Parameter Name="suser_movi" Mode="In" Type="String" />
+            <Parameter Name="ncode_timovi" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+            <Parameter Name="stipo_movi" Mode="In" Type="String" />
+            <Parameter Name="besta_movi" Mode="In" Type="Boolean" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <EntitySet Name="VENTA_DETALLE" EntityType="MarketWebModel.VENTA_DETALLE" />
+          <EntitySet Name="VENTAS" EntityType="MarketWebModel.VENTAS" />
+          <AssociationSet Name="R_33" Association="MarketWebModel.R_33">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_32" Association="MarketWebModel.R_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_29" Association="MarketWebModel.R_29">
+            <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_31" Association="MarketWebModel.R_31">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -920,9 +1247,10 @@
           <Property Name="ncode_alma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sdesc_alma" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="besta_alma" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_22" FromRole="ALMACEN" ToRole="KARDEX" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_20" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
           <NavigationProperty Name="MOVIMIENTO1" Relationship="MarketWebModel.R_21" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_22" FromRole="ALMACEN" ToRole="KARDEX" />
+          <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_33" FromRole="ALMACEN" ToRole="VENTA_DETALLE" />
         </EntityType>
         <EntityType Name="ART_BARRA">
           <Key>
@@ -1008,6 +1336,8 @@
           <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
           <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
           <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
+          <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -1035,6 +1365,7 @@
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
           <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.R_12" FromRole="CLI_DIRE" ToRole="UBIGEO" />
           <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_13" FromRole="CLI_DIRE" ToRole="CLIDI_CONTAC" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
         </EntityType>
         <EntityType Name="CLIDI_CONTAC">
           <Key>
@@ -1073,6 +1404,7 @@
           <Property Name="susmo_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_cliente" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
         </EntityType>
         <EntityType Name="CONFIGURACION">
           <Key>
@@ -1083,6 +1415,9 @@
           <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="besta_confi" Type="Boolean" Nullable="false" />
           <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_24" FromRole="CONFIGURACION" ToRole="KARDEX" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
+          <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
@@ -1118,30 +1453,6 @@
           <Property Name="dfemo_fami" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_1" FromRole="FAMILIA" ToRole="ARTICULO" />
           <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_5" FromRole="FAMILIA" ToRole="CLASE" />
-        </EntityType>
-        <EntityType Name="KARDEX">
-          <Key>
-            <PropertyRef Name="ncode_kardex" />
-          </Key>
-          <Property Name="ncode_kardex" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="dfekard_kardex" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="stipomovi_kardex" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="ncant_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="npuco_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ntc_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="smone_kardex" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="npucoMN_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="npucoUS_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ncodeDoc_kardex" Type="Int64" Nullable="false" />
-          <Property Name="sserie_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="snume_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfvence_kardex" Type="DateTime" Precision="3" />
-          <Property Name="suser_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfech_kardex" Type="DateTime" Precision="3" />
-          <Property Name="susmo_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfemo_kardex" Type="DateTime" Precision="3" />
-          <Property Name="ncode_alma" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_22" FromRole="KARDEX" ToRole="ALMACEN" />
         </EntityType>
         <EntityType Name="LISTA_PRECIO">
           <Key>
@@ -1184,6 +1495,8 @@
           <Property Name="ncode_movi" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
+          <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
         </EntityType>
         <EntityType Name="PROV_CONTACTO">
           <Key>
@@ -1238,6 +1551,7 @@
           <Property Name="btransf_tipomovi" Type="Boolean" Nullable="false" />
           <Property Name="besta_tipomovi" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="TIPO_MOVIMIENTO" ToRole="MOVIMIENTO" />
+          <Property Name="stipo_timovi" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UBIGEO">
           <Key>
@@ -1263,19 +1577,9 @@
           <Property Name="susmo_umed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_umed" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
+          <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
         </EntityType>
-        <Association Name="R_22">
-          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
-          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ALMACEN">
-              <PropertyRef Name="ncode_alma" />
-            </Principal>
-            <Dependent Role="KARDEX">
-              <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="R_8">
           <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
           <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
@@ -1487,6 +1791,7 @@
           <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
           <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+          <Property Type="Int64" Name="ncode_umed" Nullable="false" />
         </ComplexType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -1560,6 +1865,246 @@
             </Principal>
             <Dependent Role="MOVIMIENTO">
               <PropertyRef Name="ncode_timovi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KARDEX">
+          <Key>
+            <PropertyRef Name="ncode_kardex" />
+          </Key>
+          <Property Name="ncode_kardex" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dfekard_kardex" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="stipomovi_kardex" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ncant_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="npuco_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ntc_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="smone_kardex" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="npucoMN_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="npucoUS_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ncodeDoc_kardex" Type="Int64" Nullable="false" />
+          <Property Name="sserie_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="snume_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfvence_kardex" Type="DateTime" Precision="3" />
+          <Property Name="suser_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_kardex" Type="DateTime" Precision="3" />
+          <Property Name="susmo_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_kardex" Type="DateTime" Precision="3" />
+          <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+          <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+          <Property Name="smodulo_confi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_confi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_22" FromRole="KARDEX" ToRole="ALMACEN" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
+          <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_26" FromRole="KARDEX" ToRole="UMEDIDA" />
+        </EntityType>
+        <Association Name="R_22">
+          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_23">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_24">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_confi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_25">
+          <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+          <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="MOVI_DETALLE">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_26">
+          <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VENTA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_vedeta" />
+          </Key>
+          <Property Name="ncode_vedeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_venta" Type="Int64" Nullable="false" />
+          <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+          <Property Name="ncant_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="npu_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto2_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nexon_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nafecto_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="besafecto_vedeta" Type="Boolean" Nullable="false" />
+          <Property Name="ncode_alma" Type="Int32" />
+          <Property Name="ndsctomax_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctomin_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoporc_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_33" FromRole="VENTA_DETALLE" ToRole="ALMACEN" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="ncode_venta" />
+          </Key>
+          <Property Name="ncode_venta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+          <Property Name="sseri_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="snume_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfeventa_venta" Type="DateTime" Precision="3" />
+          <Property Name="dfevenci_venta" Type="DateTime" Precision="3" />
+          <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+          <Property Name="ncode_clidire" Type="Int32" />
+          <Property Name="smone_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ntc_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+          <Property Name="sobse_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_compra" Type="Int64" />
+          <Property Name="ncode_profo" Type="Int64" />
+          <Property Name="nbrutoex_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndctoex_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUs_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="besta_venta" Type="Boolean" />
+          <Property Name="nvalIGV_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="suser_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_venta" Type="DateTime" Precision="3" />
+          <Property Name="susmo_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
+          <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
+        </EntityType>
+        <Association Name="R_33">
+          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_32">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_29">
+          <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLI_DIRE">
+              <PropertyRef Name="ncode_clidire" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_clidire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_28">
+          <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_27">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_30">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_31">
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="ncode_venta" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_venta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1759,30 +2304,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="KARDEX">
-            <EntityTypeMapping TypeName="MarketWebModel.KARDEX">
-              <MappingFragment StoreEntitySet="KARDEX">
-                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
-                <ScalarProperty Name="dfemo_kardex" ColumnName="dfemo_kardex" />
-                <ScalarProperty Name="susmo_kardex" ColumnName="susmo_kardex" />
-                <ScalarProperty Name="dfech_kardex" ColumnName="dfech_kardex" />
-                <ScalarProperty Name="suser_kardex" ColumnName="suser_kardex" />
-                <ScalarProperty Name="dfvence_kardex" ColumnName="dfvence_kardex" />
-                <ScalarProperty Name="snume_kardex" ColumnName="snume_kardex" />
-                <ScalarProperty Name="sserie_kardex" ColumnName="sserie_kardex" />
-                <ScalarProperty Name="ncodeDoc_kardex" ColumnName="ncodeDoc_kardex" />
-                <ScalarProperty Name="npucoUS_kardex" ColumnName="npucoUS_kardex" />
-                <ScalarProperty Name="npucoMN_kardex" ColumnName="npucoMN_kardex" />
-                <ScalarProperty Name="smone_kardex" ColumnName="smone_kardex" />
-                <ScalarProperty Name="ntc_kardex" ColumnName="ntc_kardex" />
-                <ScalarProperty Name="npuco_kardex" ColumnName="npuco_kardex" />
-                <ScalarProperty Name="ncant_kardex" ColumnName="ncant_kardex" />
-                <ScalarProperty Name="stipomovi_kardex" ColumnName="stipomovi_kardex" />
-                <ScalarProperty Name="dfekard_kardex" ColumnName="dfekard_kardex" />
-                <ScalarProperty Name="ncode_kardex" ColumnName="ncode_kardex" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LISTA_PRECIO">
             <EntityTypeMapping TypeName="MarketWebModel.LISTA_PRECIO">
               <MappingFragment StoreEntitySet="LISTA_PRECIO">
@@ -1812,6 +2333,7 @@
           <EntitySetMapping Name="MOVI_DETALLE">
             <EntityTypeMapping TypeName="MarketWebModel.MOVI_DETALLE">
               <MappingFragment StoreEntitySet="MOVI_DETALLE">
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
                 <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
                 <ScalarProperty Name="dfemo_movidet" ColumnName="dfemo_movidet" />
                 <ScalarProperty Name="susmo_movidet" ColumnName="susmo_movidet" />
@@ -1869,6 +2391,7 @@
           <EntitySetMapping Name="TIPO_MOVIMIENTO">
             <EntityTypeMapping TypeName="MarketWebModel.TIPO_MOVIMIENTO">
               <MappingFragment StoreEntitySet="TIPO_MOVIMIENTO">
+                <ScalarProperty Name="stipo_timovi" ColumnName="stipo_timovi" />
                 <ScalarProperty Name="besta_tipomovi" ColumnName="besta_tipomovi" />
                 <ScalarProperty Name="btransf_tipomovi" ColumnName="btransf_tipomovi" />
                 <ScalarProperty Name="binout_tipomovi" ColumnName="binout_tipomovi" />
@@ -1912,6 +2435,7 @@
                 <ScalarProperty Name="Cod2" ColumnName="Cod2" />
                 <ScalarProperty Name="DescArt" ColumnName="DescArt" />
                 <ScalarProperty Name="Medida" ColumnName="Medida" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1939,7 +2463,98 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Pr_Kardex" FunctionName="MarketWebModel.Store.Pr_Kardex" />
+          <FunctionImportMapping FunctionImportName="Pr_KardexCrea" FunctionName="MarketWebModel.Store.Pr_KardexCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_KardexElimina" FunctionName="MarketWebModel.Store.Pr_KardexElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_movimientoElimina" FunctionName="MarketWebModel.Store.Pr_movimientoElimina" />
+          <EntitySetMapping Name="KARDEX">
+            <EntityTypeMapping TypeName="MarketWebModel.KARDEX">
+              <MappingFragment StoreEntitySet="KARDEX">
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="ncode_confi" ColumnName="ncode_confi" />
+                <ScalarProperty Name="smodulo_confi" ColumnName="smodulo_confi" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="dfemo_kardex" ColumnName="dfemo_kardex" />
+                <ScalarProperty Name="susmo_kardex" ColumnName="susmo_kardex" />
+                <ScalarProperty Name="dfech_kardex" ColumnName="dfech_kardex" />
+                <ScalarProperty Name="suser_kardex" ColumnName="suser_kardex" />
+                <ScalarProperty Name="dfvence_kardex" ColumnName="dfvence_kardex" />
+                <ScalarProperty Name="snume_kardex" ColumnName="snume_kardex" />
+                <ScalarProperty Name="sserie_kardex" ColumnName="sserie_kardex" />
+                <ScalarProperty Name="ncodeDoc_kardex" ColumnName="ncodeDoc_kardex" />
+                <ScalarProperty Name="npucoUS_kardex" ColumnName="npucoUS_kardex" />
+                <ScalarProperty Name="npucoMN_kardex" ColumnName="npucoMN_kardex" />
+                <ScalarProperty Name="smone_kardex" ColumnName="smone_kardex" />
+                <ScalarProperty Name="ntc_kardex" ColumnName="ntc_kardex" />
+                <ScalarProperty Name="npuco_kardex" ColumnName="npuco_kardex" />
+                <ScalarProperty Name="ncant_kardex" ColumnName="ncant_kardex" />
+                <ScalarProperty Name="stipomovi_kardex" ColumnName="stipomovi_kardex" />
+                <ScalarProperty Name="dfekard_kardex" ColumnName="dfekard_kardex" />
+                <ScalarProperty Name="ncode_kardex" ColumnName="ncode_kardex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_movimientoDetaElimina" FunctionName="MarketWebModel.Store.Pr_movimientoDetaElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_movimientoEditar" FunctionName="MarketWebModel.Store.Pr_movimientoEditar" />
+          <EntitySetMapping Name="VENTA_DETALLE">
+            <EntityTypeMapping TypeName="MarketWebModel.VENTA_DETALLE">
+              <MappingFragment StoreEntitySet="VENTA_DETALLE">
+                <ScalarProperty Name="ndsctoporc_vedeta" ColumnName="ndsctoporc_vedeta" />
+                <ScalarProperty Name="ndsctomin_vedeta" ColumnName="ndsctomin_vedeta" />
+                <ScalarProperty Name="ndsctomax_vedeta" ColumnName="ndsctomax_vedeta" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="besafecto_vedeta" ColumnName="besafecto_vedeta" />
+                <ScalarProperty Name="nafecto_vedeta" ColumnName="nafecto_vedeta" />
+                <ScalarProperty Name="nexon_vedeta" ColumnName="nexon_vedeta" />
+                <ScalarProperty Name="ndscto2_vedeta" ColumnName="ndscto2_vedeta" />
+                <ScalarProperty Name="ndscto_vedeta" ColumnName="ndscto_vedeta" />
+                <ScalarProperty Name="npu_vedeta" ColumnName="npu_vedeta" />
+                <ScalarProperty Name="ncant_vedeta" ColumnName="ncant_vedeta" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="ncode_venta" ColumnName="ncode_venta" />
+                <ScalarProperty Name="ncode_vedeta" ColumnName="ncode_vedeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTAS">
+            <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
+              <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="dfemo_venta" ColumnName="dfemo_venta" />
+                <ScalarProperty Name="susmo_venta" ColumnName="susmo_venta" />
+                <ScalarProperty Name="dfech_venta" ColumnName="dfech_venta" />
+                <ScalarProperty Name="suser_venta" ColumnName="suser_venta" />
+                <ScalarProperty Name="nvalIGV_venta" ColumnName="nvalIGV_venta" />
+                <ScalarProperty Name="besta_venta" ColumnName="besta_venta" />
+                <ScalarProperty Name="ntotalUs_venta" ColumnName="ntotalUs_venta" />
+                <ScalarProperty Name="ntotalMN_venta" ColumnName="ntotalMN_venta" />
+                <ScalarProperty Name="ntotal_venta" ColumnName="ntotal_venta" />
+                <ScalarProperty Name="ntotaaf_venta" ColumnName="ntotaaf_venta" />
+                <ScalarProperty Name="ntotaex_venta" ColumnName="ntotaex_venta" />
+                <ScalarProperty Name="nigvaf_venta" ColumnName="nigvaf_venta" />
+                <ScalarProperty Name="nigvex_venta" ColumnName="nigvex_venta" />
+                <ScalarProperty Name="nsubaf_venta" ColumnName="nsubaf_venta" />
+                <ScalarProperty Name="nsubex_venta" ColumnName="nsubex_venta" />
+                <ScalarProperty Name="ndsctoaf_venta" ColumnName="ndsctoaf_venta" />
+                <ScalarProperty Name="ndctoex_venta" ColumnName="ndctoex_venta" />
+                <ScalarProperty Name="nbrutoaf_venta" ColumnName="nbrutoaf_venta" />
+                <ScalarProperty Name="nbrutoex_venta" ColumnName="nbrutoex_venta" />
+                <ScalarProperty Name="ncode_profo" ColumnName="ncode_profo" />
+                <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
+                <ScalarProperty Name="sobse_venta" ColumnName="sobse_venta" />
+                <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+                <ScalarProperty Name="ntc_venta" ColumnName="ntc_venta" />
+                <ScalarProperty Name="smone_venta" ColumnName="smone_venta" />
+                <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
+                <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+                <ScalarProperty Name="dfevenci_venta" ColumnName="dfevenci_venta" />
+                <ScalarProperty Name="dfeventa_venta" ColumnName="dfeventa_venta" />
+                <ScalarProperty Name="snume_venta" ColumnName="snume_venta" />
+                <ScalarProperty Name="sseri_venta" ColumnName="sseri_venta" />
+                <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+                <ScalarProperty Name="ncode_venta" ColumnName="ncode_venta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -25,6 +25,7 @@ namespace MarketASP.Models
         public bool binout_tipomovi { get; set; }
         public bool btransf_tipomovi { get; set; }
         public bool besta_tipomovi { get; set; }
+        public string stipo_timovi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMIENTO> MOVIMIENTO { get; set; }

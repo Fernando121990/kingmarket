@@ -1,5 +1,11 @@
 ﻿$(document).ready(function () {
 
+    fnTransferencia()
+
+    $("#ncode_timovi").change(function () {
+        fnTransferencia();
+    })
+
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
@@ -95,7 +101,8 @@
                         { "data": "DescArt" },
                         { "data": "Medida" },
                         { "data": "Precio" },
-                        { "data": "Stock" }],
+                        { "data": "Stock" },
+                        { "data": "ncode_umed" }],
                     "aoColumnDefs": [{
                         "bVisible": false,
                         "aTargets": [0]
@@ -140,7 +147,7 @@
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio]).draw();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed]).draw();
         //Totales();
     });
 
@@ -150,18 +157,28 @@
 
 });
 
+function fnTransferencia() {
+    $('.destino').hide();
+    $('#ndestino_alma').val('');
+    var stipo = $("#ncode_timovi option:selected").text().substring(0, 1);
+
+    if (stipo == 'T') {
+        $('.destino').show();
+    }
+}
+
 function Sales_save() {
 
     var moviViewDetas = {
-        "ncode_arti":"", "ncant_movidet":"", "npu_movidet":"", "ncode_movi":""
+        "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": "", "ncode_umed": ""
     };
 
     var moviView = {
-        "dfemov_movi":"", "smone_movi":"", "ntc_movi":"", "sobse_movi":"", "ncode_timovi":"",
+        "ncode_movi":"","dfemov_movi":"", "smone_movi":"", "ntc_movi":"", "sobse_movi":"", "ncode_timovi":"",
         "ncode_alma":"", "ndestino_alma":"", "stipo_movi":"", "moviViewDetas": []
     };
 
-
+    moviView.ncode_movi = $('#ncode_movi').val();
     moviView.dfemov_movi = $("#dfemov_movi").val();
     moviView.smone_movi = $("#smone_movi").val();
     moviView.ntc_movi = $("#ntc_movi").val();
@@ -169,7 +186,7 @@ function Sales_save() {
     moviView.ncode_timovi = $("#ncode_timovi").val();
     moviView.ncode_alma = $("#ncode_alma").val();
     moviView.ndestino_alma = $("#ndestino_alma").val();
-    moviView.stipo_movi = $("#stipo_movi").val();
+    moviView.stipo_movi = $("#ncode_timovi option:selected").text().substring(0, 1);
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -180,11 +197,12 @@ function Sales_save() {
         moviViewDetas.ncode_arti = oTable[i][0];
         moviViewDetas.ncant_movidet = oTable[i][3];
         moviViewDetas.npu_movidet = oTable[i][5];
+        moviViewDetas.ncode_umed = oTable[i][7];
 
         moviView.moviViewDetas.push(moviViewDetas);
 
         moviViewDetas = {
-            "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": ""
+            "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": "", "ncode_umed": ""
         };
     }
 

@@ -12,12 +12,13 @@
     <div class="col-md-4 col-sm-4">
         <div class="jumbotron">
             <h2>VENTAS</h2>
+            @Html.ActionLink(" ", "Create", "Ventas",null, new { @class = "btn btn-primary glyphicon glyphicon-blackboard" })
         </div>
     </div>
     <div class="col-md-4 col-sm-4">
         <div class="jumbotron">
             <h2>INVENTARIOS</h2>
-            @Html.ActionLink(" ", "Index", "Almacens", new { @area = "Inventario" }, new { @class = "btn btn-primary glyphicon glyphicon-blackboard" })
+            @Html.ActionLink(" ", "Index", "Kardexes", new { @area = "Inventario" }, new { @class = "btn btn-primary glyphicon glyphicon-blackboard" })
         </div>
     </div>
 </div>

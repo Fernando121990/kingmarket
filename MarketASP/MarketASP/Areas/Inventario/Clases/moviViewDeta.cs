@@ -6,5 +6,6 @@
         public decimal ncant_movidet { get; set; }
         public decimal npu_movidet { get; set; }
         public int ncode_movi { get; set; }
+        public int ncode_umed { get; set; }
     }
 }

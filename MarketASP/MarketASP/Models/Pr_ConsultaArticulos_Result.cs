@@ -19,5 +19,6 @@ namespace MarketASP.Models
         public string Cod2 { get; set; }
         public string DescArt { get; set; }
         public string Medida { get; set; }
+        public long ncode_umed { get; set; }
     }
 }

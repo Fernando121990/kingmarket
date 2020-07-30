@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public CLI_DIRE()
         {
             this.CLIDI_CONTAC = new HashSet<CLIDI_CONTAC>();
+            this.VENTAS = new HashSet<VENTAS>();
         }
     
         public int ncode_clidire { get; set; }
@@ -29,5 +30,7 @@ namespace MarketASP.Models
         public virtual UBIGEO UBIGEO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIDI_CONTAC> CLIDI_CONTAC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS { get; set; }
     }
 }

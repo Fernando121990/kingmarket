@@ -18,6 +18,8 @@ namespace MarketASP.Models
         public UMEDIDA()
         {
             this.ARTICULO = new HashSet<ARTICULO>();
+            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
+            this.KARDEX = new HashSet<KARDEX>();
         }
     
         public long ncode_umed { get; set; }
@@ -32,5 +34,9 @@ namespace MarketASP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ARTICULO> ARTICULO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KARDEX> KARDEX { get; set; }
     }
 }

@@ -39,7 +39,6 @@ namespace MarketASP.Models
         public virtual DbSet<CONFIGURACION> CONFIGURACION { get; set; }
         public virtual DbSet<CONTACTO> CONTACTO { get; set; }
         public virtual DbSet<FAMILIA> FAMILIA { get; set; }
-        public virtual DbSet<KARDEX> KARDEX { get; set; }
         public virtual DbSet<LISTA_PRECIO> LISTA_PRECIO { get; set; }
         public virtual DbSet<MARCA> MARCA { get; set; }
         public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
@@ -50,6 +49,9 @@ namespace MarketASP.Models
         public virtual DbSet<UBIGEO> UBIGEO { get; set; }
         public virtual DbSet<UMEDIDA> UMEDIDA { get; set; }
         public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
+        public virtual DbSet<KARDEX> KARDEX { get; set; }
+        public virtual DbSet<VENTA_DETALLE> VENTA_DETALLE { get; set; }
+        public virtual DbSet<VENTAS> VENTAS { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -114,7 +116,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoCrear", dfemov_moviParameter, smone_moviParameter, ntc_moviParameter, sobse_moviParameter, sserie_moviParameter, snume_moviParameter, suser_moviParameter, ncode_timoviParameter, ncode_almaParameter, ndestino_almaParameter, stipo_moviParameter, sw);
         }
     
-        public virtual int Pr_movimientoDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_movidet, Nullable<decimal> npu_movidet, string suser_movidet, Nullable<int> ncode_movi)
+        public virtual int Pr_movimientoDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_movidet, Nullable<decimal> npu_movidet, string suser_movidet, Nullable<int> ncode_movi, Nullable<int> ncode_umed)
         {
             var ncode_artiParameter = ncode_arti.HasValue ?
                 new ObjectParameter("ncode_arti", ncode_arti) :
@@ -136,60 +138,124 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_movi", ncode_movi) :
                 new ObjectParameter("ncode_movi", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoDetaCrea", ncode_artiParameter, ncant_movidetParameter, npu_movidetParameter, suser_movidetParameter, ncode_moviParameter);
+            var ncode_umedParameter = ncode_umed.HasValue ?
+                new ObjectParameter("ncode_umed", ncode_umed) :
+                new ObjectParameter("ncode_umed", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoDetaCrea", ncode_artiParameter, ncant_movidetParameter, npu_movidetParameter, suser_movidetParameter, ncode_moviParameter, ncode_umedParameter);
         }
     
-        public virtual int Pr_Kardex(Nullable<System.DateTime> dfekard_kardex, string stipomovi_kardex, Nullable<decimal> ncant_kardex, Nullable<decimal> npuco_kardex, Nullable<decimal> ntc_kardex, string smone_kardex, Nullable<long> ncodeDoc_kardex, string sserie_kardex, string snume_kardex, Nullable<System.DateTime> dfvence_kardex, string suser_kardex, Nullable<int> ncode_alma)
+        public virtual int Pr_KardexCrea(string modulo, Nullable<int> ncode_confi, string tipo, Nullable<decimal> codigo, string usuario)
         {
-            var dfekard_kardexParameter = dfekard_kardex.HasValue ?
-                new ObjectParameter("dfekard_kardex", dfekard_kardex) :
-                new ObjectParameter("dfekard_kardex", typeof(System.DateTime));
+            var moduloParameter = modulo != null ?
+                new ObjectParameter("modulo", modulo) :
+                new ObjectParameter("modulo", typeof(string));
     
-            var stipomovi_kardexParameter = stipomovi_kardex != null ?
-                new ObjectParameter("stipomovi_kardex", stipomovi_kardex) :
-                new ObjectParameter("stipomovi_kardex", typeof(string));
+            var ncode_confiParameter = ncode_confi.HasValue ?
+                new ObjectParameter("ncode_confi", ncode_confi) :
+                new ObjectParameter("ncode_confi", typeof(int));
     
-            var ncant_kardexParameter = ncant_kardex.HasValue ?
-                new ObjectParameter("ncant_kardex", ncant_kardex) :
-                new ObjectParameter("ncant_kardex", typeof(decimal));
+            var tipoParameter = tipo != null ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(string));
     
-            var npuco_kardexParameter = npuco_kardex.HasValue ?
-                new ObjectParameter("npuco_kardex", npuco_kardex) :
-                new ObjectParameter("npuco_kardex", typeof(decimal));
+            var codigoParameter = codigo.HasValue ?
+                new ObjectParameter("codigo", codigo) :
+                new ObjectParameter("codigo", typeof(decimal));
     
-            var ntc_kardexParameter = ntc_kardex.HasValue ?
-                new ObjectParameter("ntc_kardex", ntc_kardex) :
-                new ObjectParameter("ntc_kardex", typeof(decimal));
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
     
-            var smone_kardexParameter = smone_kardex != null ?
-                new ObjectParameter("smone_kardex", smone_kardex) :
-                new ObjectParameter("smone_kardex", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_KardexCrea", moduloParameter, ncode_confiParameter, tipoParameter, codigoParameter, usuarioParameter);
+        }
     
-            var ncodeDoc_kardexParameter = ncodeDoc_kardex.HasValue ?
-                new ObjectParameter("ncodeDoc_kardex", ncodeDoc_kardex) :
-                new ObjectParameter("ncodeDoc_kardex", typeof(long));
+        public virtual int Pr_KardexElimina(string modulo, Nullable<decimal> codigo)
+        {
+            var moduloParameter = modulo != null ?
+                new ObjectParameter("modulo", modulo) :
+                new ObjectParameter("modulo", typeof(string));
     
-            var sserie_kardexParameter = sserie_kardex != null ?
-                new ObjectParameter("sserie_kardex", sserie_kardex) :
-                new ObjectParameter("sserie_kardex", typeof(string));
+            var codigoParameter = codigo.HasValue ?
+                new ObjectParameter("codigo", codigo) :
+                new ObjectParameter("codigo", typeof(decimal));
     
-            var snume_kardexParameter = snume_kardex != null ?
-                new ObjectParameter("snume_kardex", snume_kardex) :
-                new ObjectParameter("snume_kardex", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_KardexElimina", moduloParameter, codigoParameter);
+        }
     
-            var dfvence_kardexParameter = dfvence_kardex.HasValue ?
-                new ObjectParameter("dfvence_kardex", dfvence_kardex) :
-                new ObjectParameter("dfvence_kardex", typeof(System.DateTime));
+        public virtual int Pr_movimientoElimina(Nullable<decimal> ncode_movi)
+        {
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(decimal));
     
-            var suser_kardexParameter = suser_kardex != null ?
-                new ObjectParameter("suser_kardex", suser_kardex) :
-                new ObjectParameter("suser_kardex", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoElimina", ncode_moviParameter);
+        }
+    
+        public virtual int Pr_movimientoDetaElimina(Nullable<decimal> ncode_movi)
+        {
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoDetaElimina", ncode_moviParameter);
+        }
+    
+        public virtual int Pr_movimientoEditar(Nullable<decimal> ncode_movi, Nullable<System.DateTime> dfemov_movi, string smone_movi, Nullable<decimal> ntc_movi, string sobse_movi, string sserie_movi, string snume_movi, string suser_movi, Nullable<int> ncode_timovi, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_movi, Nullable<bool> besta_movi, ObjectParameter sw)
+        {
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(decimal));
+    
+            var dfemov_moviParameter = dfemov_movi.HasValue ?
+                new ObjectParameter("dfemov_movi", dfemov_movi) :
+                new ObjectParameter("dfemov_movi", typeof(System.DateTime));
+    
+            var smone_moviParameter = smone_movi != null ?
+                new ObjectParameter("smone_movi", smone_movi) :
+                new ObjectParameter("smone_movi", typeof(string));
+    
+            var ntc_moviParameter = ntc_movi.HasValue ?
+                new ObjectParameter("ntc_movi", ntc_movi) :
+                new ObjectParameter("ntc_movi", typeof(decimal));
+    
+            var sobse_moviParameter = sobse_movi != null ?
+                new ObjectParameter("sobse_movi", sobse_movi) :
+                new ObjectParameter("sobse_movi", typeof(string));
+    
+            var sserie_moviParameter = sserie_movi != null ?
+                new ObjectParameter("sserie_movi", sserie_movi) :
+                new ObjectParameter("sserie_movi", typeof(string));
+    
+            var snume_moviParameter = snume_movi != null ?
+                new ObjectParameter("snume_movi", snume_movi) :
+                new ObjectParameter("snume_movi", typeof(string));
+    
+            var suser_moviParameter = suser_movi != null ?
+                new ObjectParameter("suser_movi", suser_movi) :
+                new ObjectParameter("suser_movi", typeof(string));
+    
+            var ncode_timoviParameter = ncode_timovi.HasValue ?
+                new ObjectParameter("ncode_timovi", ncode_timovi) :
+                new ObjectParameter("ncode_timovi", typeof(int));
     
             var ncode_almaParameter = ncode_alma.HasValue ?
                 new ObjectParameter("ncode_alma", ncode_alma) :
                 new ObjectParameter("ncode_alma", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Kardex", dfekard_kardexParameter, stipomovi_kardexParameter, ncant_kardexParameter, npuco_kardexParameter, ntc_kardexParameter, smone_kardexParameter, ncodeDoc_kardexParameter, sserie_kardexParameter, snume_kardexParameter, dfvence_kardexParameter, suser_kardexParameter, ncode_almaParameter);
+            var ndestino_almaParameter = ndestino_alma.HasValue ?
+                new ObjectParameter("ndestino_alma", ndestino_alma) :
+                new ObjectParameter("ndestino_alma", typeof(int));
+    
+            var stipo_moviParameter = stipo_movi != null ?
+                new ObjectParameter("stipo_movi", stipo_movi) :
+                new ObjectParameter("stipo_movi", typeof(string));
+    
+            var besta_moviParameter = besta_movi.HasValue ?
+                new ObjectParameter("besta_movi", besta_movi) :
+                new ObjectParameter("besta_movi", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoEditar", ncode_moviParameter, dfemov_moviParameter, smone_moviParameter, ntc_moviParameter, sobse_moviParameter, sserie_moviParameter, snume_moviParameter, suser_moviParameter, ncode_timoviParameter, ncode_almaParameter, ndestino_almaParameter, stipo_moviParameter, besta_moviParameter, sw);
         }
     }
 }

@@ -32,7 +32,14 @@ namespace MarketASP.Models
         public string susmo_kardex { get; set; }
         public Nullable<System.DateTime> dfemo_kardex { get; set; }
         public int ncode_alma { get; set; }
+        public long ncode_arti { get; set; }
+        public string smodulo_confi { get; set; }
+        public int ncode_confi { get; set; }
+        public long ncode_umed { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
+        public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual UMEDIDA UMEDIDA { get; set; }
     }
 }

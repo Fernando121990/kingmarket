@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public CLIENTE()
         {
             this.CLI_DIRE = new HashSet<CLI_DIRE>();
+            this.VENTAS = new HashSet<VENTAS>();
         }
     
         public int ncode_cliente { get; set; }
@@ -44,5 +45,7 @@ namespace MarketASP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS { get; set; }
     }
 }

@@ -18,6 +18,9 @@
             <label>Descripción</label>
         </th>
         <th>
+            <label>Tipo</label>
+        </th>
+        <th>
             <label>Es Entrada</label>
         </th>
         <th>
@@ -31,24 +34,27 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.sdesc_timovi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.binout_tipomovi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.btransf_tipomovi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.besta_tipomovi)
-            </td>
-            <td>
-                @Html.ActionLink(" ", "Edit", new { id = item.ncode_timovi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-                @Html.ActionLink(" ", "DeleteTipoMov", new { id = item.ncode_timovi }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_timovi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stipo_timovi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.binout_tipomovi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.btransf_tipomovi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.besta_tipomovi)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_timovi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteTipoMov", new { id = item.ncode_timovi }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+        </td>
+    </tr>
     }
 
 </table>

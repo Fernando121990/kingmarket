@@ -14,10 +14,25 @@ namespace MarketASP.Models
     
     public partial class CONFIGURACION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CONFIGURACION()
+        {
+            this.KARDEX = new HashSet<KARDEX>();
+            this.VENTAS = new HashSet<VENTAS>();
+            this.VENTAS1 = new HashSet<VENTAS>();
+        }
+    
         public int ncode_confi { get; set; }
         public string sdesc_confi { get; set; }
         public string svalor_confi { get; set; }
         public bool besta_confi { get; set; }
         public int ntipo_confi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KARDEX> KARDEX { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS1 { get; set; }
     }
 }

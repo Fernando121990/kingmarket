@@ -23,8 +23,10 @@ namespace MarketASP.Models
         public string susmo_movidet { get; set; }
         public Nullable<System.DateTime> dfemo_movidet { get; set; }
         public int ncode_movi { get; set; }
+        public long ncode_umed { get; set; }
     
         public virtual ARTICULO ARTICULO { get; set; }
         public virtual MOVIMIENTO MOVIMIENTO { get; set; }
+        public virtual UMEDIDA UMEDIDA { get; set; }
     }
 }

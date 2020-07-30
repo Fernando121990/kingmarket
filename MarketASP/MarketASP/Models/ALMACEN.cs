@@ -17,9 +17,10 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ALMACEN()
         {
-            this.KARDEX = new HashSet<KARDEX>();
             this.MOVIMIENTO = new HashSet<MOVIMIENTO>();
             this.MOVIMIENTO1 = new HashSet<MOVIMIENTO>();
+            this.KARDEX = new HashSet<KARDEX>();
+            this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
         }
     
         public int ncode_alma { get; set; }
@@ -27,10 +28,12 @@ namespace MarketASP.Models
         public bool besta_alma { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KARDEX> KARDEX { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMIENTO> MOVIMIENTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVIMIENTO> MOVIMIENTO1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KARDEX> KARDEX { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
     }
 }

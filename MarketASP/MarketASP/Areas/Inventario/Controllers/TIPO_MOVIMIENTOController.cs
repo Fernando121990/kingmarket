@@ -23,12 +23,13 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.stipo_timovi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 4), "svalor_confi", "sdesc_confi");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_timovi,sdesc_timovi,binout_tipomovi,btransf_tipomovi,besta_tipomovi")] TIPO_MOVIMIENTO tIPO_MOVIMIENTO)
+        public async Task<ActionResult> Create([Bind(Include = "ncode_timovi,sdesc_timovi,binout_tipomovi,btransf_tipomovi,besta_tipomovi,stipo_timovi")] TIPO_MOVIMIENTO tIPO_MOVIMIENTO)
         {
             if (ModelState.IsValid)
             {

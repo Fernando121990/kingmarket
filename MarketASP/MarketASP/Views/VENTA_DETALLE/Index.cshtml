@@ -1,0 +1,105 @@
+﻿@model IEnumerable<MarketASP.Models.VENTA_DETALLE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ncant_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npu_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndscto_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndscto2_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nexon_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nafecto_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.besafecto_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctomax_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctomin_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctoporc_vedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VENTAS.sseri_venta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncant_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npu_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndscto_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndscto2_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nexon_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nafecto_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.besafecto_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctomax_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctomin_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctoporc_vedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VENTAS.sseri_venta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_vedeta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_vedeta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_vedeta })
+        </td>
+    </tr>
+}
+
+</table>
