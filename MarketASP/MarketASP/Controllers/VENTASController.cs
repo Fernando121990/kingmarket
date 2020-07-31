@@ -55,9 +55,6 @@ namespace MarketASP.Controllers
             return View();
         }
 
-        // POST: VENTAS/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ncode_venta,ncode_docu,sseri_venta,snume_venta,dfeventa_venta,dfevenci_venta,ncode_cliente,ncode_clidire,smone_venta,ntc_venta,ncode_fopago,sobse_venta,ncode_compra,ncode_profo,nbrutoex_venta,nbrutoaf_venta,ndctoex_venta,ndsctoaf_venta,nsubex_venta,nsubaf_venta,nigvex_venta,nigvaf_venta,ntotaex_venta,ntotaaf_venta,ntotal_venta,ntotalMN_venta,ntotalUs_venta,besta_venta,nvalIGV_venta,suser_venta,dfech_venta,susmo_venta,dfemo_venta")] VENTAS vENTAS)

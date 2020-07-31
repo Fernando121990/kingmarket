@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using MarketASP.Clases;
 
 namespace MarketASP.Controllers
 {
@@ -42,12 +43,9 @@ namespace MarketASP.Controllers
             return View();
         }
 
-        // POST: CLIENTEs/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_cliente,srazon_cliente,sruc_cliente,sdnice_cliente,sfono1_cliente,sfax_cliente,slineacred_cliente,srepre_cliente,smail_cliente,sweb_cliente,sobse_cliente,sfono2_cliente,sfono3_cliente,sappa_cliente,sapma_cliente,snomb_cliente,bprocedencia_cliente,suser_cliente,dfech_cliente,susmo_cliente,dfemo_cliente")] CLIENTE cLIENTE)
+        public async Task<ActionResult> Create(clienteView cLIENTE)
         {
             if (ModelState.IsValid)
             {

@@ -42,6 +42,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfech_cliente { get; set; }
         public string susmo_cliente { get; set; }
         public Nullable<System.DateTime> dfemo_cliente { get; set; }
+        public string stipo_cliente { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }

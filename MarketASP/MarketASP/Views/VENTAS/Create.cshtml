@@ -166,12 +166,12 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.ncode_compra,"O.C", htmlAttributes: new { @class = "control-label col-md-1" })
+            @Html.LabelFor(model => model.ncode_compra, "O.C", htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
                 @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })
             </div>
-            @Html.LabelFor(model => model.ncode_profo,"Proforma", htmlAttributes: new { @class = "control-label col-md-1" })
+            @Html.LabelFor(model => model.ncode_profo, "Proforma", htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-2">
                 @Html.EditorFor(model => model.ncode_profo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ncode_profo, "", new { @class = "text-danger" })
@@ -195,7 +195,7 @@
                     <span Class="delMat glyphicon glyphicon-trash btn btn-default"></span>
                 </div>
             </div>
-            <Table id="tblMat" class="table table-striped">
+            <Table id="tbl" class="table table-striped">
                 <thead>
                     <tr>
                         <th>CodArt</th>
@@ -259,7 +259,15 @@
                             <Table id="matetabla" Class="matetabla table-striped">
                                 <thead>
                                     <tr>
-                                        <th> CodArt</th>
+                                        <th>Id</th>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>U.M</th>
+                                        <th>Stock</th>
+                                        <th>Precio</th>
+                                        <th>CodUM</th>
+
+                                        @*<th> CodArt</th>
                                         <th> Afecto</th>
                                         <th> ISC</th>
                                         <th> Cod</th>
@@ -267,12 +275,20 @@
                                         <th> Unidad</th>
                                         <th> Stock</th>
                                         <th> Precio</th>
-                                        <th> M</th>
+                                        <th> M</th>*@
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th> CodArt</th>
+                                        <th>Id</th>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>U.M</th>
+                                        <th>Stock</th>
+                                        <th>Precio</th>
+                                        <th>CodUM</th>
+
+                                        @*<th> CodArt</th>
                                         <th> Afecto</th>
                                         <th> ISC</th>
                                         <th> Cod</th>
@@ -280,7 +296,7 @@
                                         <th> Unidad</th>
                                         <th> Stock</th>
                                         <th> Precio</th>
-                                        <th> M</th>
+                                        <th> M</th>*@
                                     </tr>
                                 </tfoot>
                             </Table>
@@ -367,4 +383,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/venta")
+    <script type="text/javascript">
+        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+        var urlventaCrea = '@Url.Action("Create", "ventas")';
+        var urlventaLista = '@Url.Action("Index", "ventas")';
+    </script>
+
 }

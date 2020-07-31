@@ -141,6 +141,7 @@
           <Property Name="dfech_cliente" Type="datetime" />
           <Property Name="susmo_cliente" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_cliente" Type="datetime" />
+          <Property Name="stipo_cliente" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="CONFIGURACION">
           <Key>
@@ -1405,6 +1406,7 @@
           <Property Name="dfemo_cliente" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
+          <Property Name="stipo_cliente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CONFIGURACION">
           <Key>
@@ -2236,6 +2238,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="stipo_cliente" ColumnName="stipo_cliente" />
                 <ScalarProperty Name="dfemo_cliente" ColumnName="dfemo_cliente" />
                 <ScalarProperty Name="susmo_cliente" ColumnName="susmo_cliente" />
                 <ScalarProperty Name="dfech_cliente" ColumnName="dfech_cliente" />

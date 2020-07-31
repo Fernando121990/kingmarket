@@ -178,6 +178,9 @@
     <Compile Include="Areas\Inventario\Clases\moviView.cs" />
     <Compile Include="Areas\Inventario\Clases\moviViewDeta.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
+    <Compile Include="Clases\clienteView.cs" />
+    <Compile Include="Clases\ventaView.cs" />
+    <Compile Include="Clases\ventaViewDeta.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Areas\Inventario\Controllers\ALMACENsController.cs" />
     <Compile Include="Controllers\ARTICULOsController.cs" />
@@ -640,6 +643,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Movimientos\moviCrear.js" />
+    <Content Include="Scripts\Ventas\ventaCrear.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
