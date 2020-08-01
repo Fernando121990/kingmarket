@@ -1,147 +1,96 @@
 ﻿@model IEnumerable<MarketASP.Models.CLIENTE>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clientes";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cliente" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.srazon_cliente)
+            <label>Razón Social</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sruc_cliente)
+            <label>RUC</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sdnice_cliente)
+            <label>DNI/CE</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sfono1_cliente)
+            <label>Nombre</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sfax_cliente)
+            <label>A.Paterno</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.slineacred_cliente)
+            <label>A.Materno</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.srepre_cliente)
+            <label>Telf.</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.smail_cliente)
+            <label>Correo</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sweb_cliente)
+            <label>Web</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sobse_cliente)
+            <label>J/N</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sfono2_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sfono3_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sappa_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sapma_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.snomb_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bprocedencia_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_cliente)
+            <label>Extranjero</label>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.srazon_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sruc_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdnice_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfono1_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfax_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.slineacred_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.srepre_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.smail_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sweb_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sobse_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfono2_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfono3_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sappa_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sapma_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.snomb_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bprocedencia_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_cliente)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_cliente }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_cliente }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_cliente })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.srazon_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sruc_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdnice_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.snomb_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sappa_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sapma_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sfono1_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.smail_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sweb_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stipo_cliente)
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.bprocedencia_cliente" readonly />
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ncode_cliente }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                @Html.ActionLink(" ", "DeleteCliente", new { id = item.ncode_cliente }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+            </td>
+        </tr>
+    }
 
 </table>

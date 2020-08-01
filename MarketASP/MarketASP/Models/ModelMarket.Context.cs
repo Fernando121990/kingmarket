@@ -257,5 +257,14 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_movimientoEditar", ncode_moviParameter, dfemov_moviParameter, smone_moviParameter, ntc_moviParameter, sobse_moviParameter, sserie_moviParameter, snume_moviParameter, suser_moviParameter, ncode_timoviParameter, ncode_almaParameter, ndestino_almaParameter, stipo_moviParameter, besta_moviParameter, sw);
         }
+    
+        public virtual int Pr_ClienteElimina(Nullable<long> ncode_cliente, ObjectParameter sw)
+        {
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ClienteElimina", ncode_clienteParameter, sw);
+        }
     }
 }

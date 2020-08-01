@@ -799,6 +799,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Pr_ClienteElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="modulo" Type="varchar" Mode="In" />
@@ -1240,6 +1244,10 @@
             <End Role="VENTAS" EntitySet="VENTAS" />
             <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
           </AssociationSet>
+          <FunctionImport Name="Pr_ClienteElimina">
+            <Parameter Name="ncode_cliente" Mode="In" Type="Int64" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2558,6 +2566,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_ClienteElimina" FunctionName="MarketWebModel.Store.Pr_ClienteElimina" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

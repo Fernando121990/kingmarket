@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
 using MarketASP.Clases;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
@@ -49,12 +50,59 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CLIENTE.Add(cLIENTE);
+
+                CLIENTE cliente =  ToCliente(cLIENTE);
+
+                db.CLIENTE.Add(cliente);
                 await db.SaveChangesAsync();
+
+                int id = cliente.ncode_cliente;
+                CLI_DIRE cLI_DIRE = toCliDire(cLIENTE,id);
+
+                db.CLI_DIRE.Add(cLI_DIRE);
+                await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
             return View(cLIENTE);
+        }
+
+        private CLI_DIRE toCliDire(clienteView cLIENTE,int id)
+        {
+            return new CLI_DIRE
+            {
+                scode_ubigeo = cLIENTE.subigeo_cliente,
+                sdesc_clidire = cLIENTE.sdire_cliente,
+                ncode_cliente = id
+            };
+        }
+
+        private CLIENTE ToCliente(clienteView cliView)
+        {
+            return new CLIENTE
+            {
+                bprocedencia_cliente = cliView.bprocedencia_cliente,
+                dfech_cliente = DateTime.Now,
+                sapma_cliente = cliView.sapma_cliente,
+                sappa_cliente = cliView.sappa_cliente,
+                sdnice_cliente = cliView.sdnice_cliente,
+                sfax_cliente = cliView.sfax_cliente,
+                sfono1_cliente = cliView.sfono1_cliente,
+                sfono2_cliente = cliView.sfono2_cliente,
+                sfono3_cliente = cliView.sfono3_cliente,
+                slineacred_cliente = cliView.slineacred_cliente,
+                smail_cliente = cliView.smail_cliente,
+                snomb_cliente = cliView.snomb_cliente,
+                sobse_cliente = cliView.sobse_cliente,
+                srazon_cliente = cliView.srazon_cliente,
+                srepre_cliente = cliView.srepre_cliente,
+                sruc_cliente = cliView.sruc_cliente,
+                stipo_cliente = cliView.stipo_cliente,
+                suser_cliente = User.Identity.Name,
+                sweb_cliente = cliView.sweb_cliente,
+            };
+
         }
 
         // GET: CLIENTEs/Edit/5
@@ -87,31 +135,29 @@ namespace MarketASP.Controllers
             }
             return View(cLIENTE);
         }
-
-        // GET: CLIENTEs/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> DeleteCliente(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CLIENTE cLIENTE = await db.CLIENTE.FindAsync(id);
-            if (cLIENTE == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cLIENTE);
-        }
 
-        // POST: CLIENTEs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
             CLIENTE cLIENTE = await db.CLIENTE.FindAsync(id);
-            db.CLIENTE.Remove(cLIENTE);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            db.Pr_ClienteElimina(id, sw);
+
+            int xsw = int.Parse(sw.Value.ToString());
+
+            if (xsw == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(cLIENTE);
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

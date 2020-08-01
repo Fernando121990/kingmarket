@@ -5,7 +5,7 @@
     });
 
     //carga en proforma
-    fnClienteNatural($("#tipo_contribuyente").val());
+    fnClienteNatural($("#stipo_cliente").val());
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {
