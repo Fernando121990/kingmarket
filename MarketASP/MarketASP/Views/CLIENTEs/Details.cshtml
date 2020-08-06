@@ -1,178 +1,191 @@
 ﻿@model MarketASP.Models.CLIENTE
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles del Cliente";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>CLIENTE</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.srazon_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.srazon_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sruc_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sruc_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sdnice_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sdnice_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sfono1_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sfono1_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sfax_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sfax_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.slineacred_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.slineacred_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.srepre_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.srepre_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.smail_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.smail_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sweb_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sweb_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sobse_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sobse_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sfono2_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sfono2_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sfono3_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sfono3_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sappa_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sappa_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sapma_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sapma_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.snomb_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.snomb_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.bprocedencia_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.bprocedencia_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.suser_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.suser_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfech_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfech_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.susmo_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.susmo_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfemo_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfemo_cliente)
-        </dd>
-
-    </dl>
+<div class="row ptp-titulos">
+    <div class="col-md-12 col-sm-12 text-center">
+        <h4>@ViewBag.Title</h4>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_cliente }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                Razon Social
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.srazon_cliente)
+            </dd>
+
+            <dt>
+                RUC
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sruc_cliente)
+            </dd>
+
+            <dt>
+                DNI/CE
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sdnice_cliente)
+            </dd>
+
+            <dt>
+                Teléfono
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sfono1_cliente)
+            </dd>
+
+            <dt>
+                Fax
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sfax_cliente)
+            </dd>
+
+            <dt>
+                Linea Credito
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.slineacred_cliente)
+            </dd>
+
+            <dt>
+                R.Legal
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.srepre_cliente)
+            </dd>
+
+            <dt>
+                Correo
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.smail_cliente)
+            </dd>
+
+            <dt>
+                Página
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sweb_cliente)
+            </dd>
+
+            <dt>
+                Observación
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sobse_cliente)
+            </dd>
+
+            <dt>
+                Teléfono
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sfono2_cliente)
+            </dd>
+
+            <dt>
+                Teléfono
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sfono3_cliente)
+            </dd>
+
+            <dt>
+                A.Paterno
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sappa_cliente)
+            </dd>
+
+            <dt>
+                A.Materno
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.sapma_cliente)
+            </dd>
+
+            <dt>
+                Nombres
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.snomb_cliente)
+            </dd>
+
+            <dt>
+                Es Extranjero
+            </dt>
+
+            <dd>
+                <input type="checkbox" checked="@Model.bprocedencia_cliente" readonly />
+
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <div class="row" style="margin-top:5px">
+            <div class="col-md-6 col-sm-6">
+                <h4>Direcciones</h4>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                @Html.ActionLink(" ", "CreateDireccion", new { id = Model.ncode_cliente }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Direccion" })
+            </div>
+        </div>
+        @if (Model.CLI_DIRE.Count == 0)
+        {
+            <h3>No se han registrado direcciones</h3>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Ubicación
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var itemx in Model.CLI_DIRE)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => itemx.sdesc_clidire)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => itemx.UBIGEO.sdistri_ubigeo)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "EditDire", new { id = itemx.ncode_clidire }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                            @Html.ActionLink(" ", "DeleteDire", new { id = itemx.ncode_clidire }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Clientes" })
+</div>

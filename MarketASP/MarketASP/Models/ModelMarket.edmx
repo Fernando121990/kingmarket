@@ -799,6 +799,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Pr_clienteDireElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_clidire" Type="bigint" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Pr_ClienteElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
@@ -1246,6 +1250,10 @@
           </AssociationSet>
           <FunctionImport Name="Pr_ClienteElimina">
             <Parameter Name="ncode_cliente" Mode="In" Type="Int64" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_clienteDireElimina">
+            <Parameter Name="ncode_clidire" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -2567,6 +2575,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Pr_ClienteElimina" FunctionName="MarketWebModel.Store.Pr_ClienteElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_clienteDireElimina" FunctionName="MarketWebModel.Store.Pr_clienteDireElimina" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

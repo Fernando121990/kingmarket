@@ -28,3 +28,8 @@ textarea {
     color: black;
     padding: 5px;
 }
+
+.ptp-titulos {
+    background-color: #4095ea; 
+    color: white;
+}

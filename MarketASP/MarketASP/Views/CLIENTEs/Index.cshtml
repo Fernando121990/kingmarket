@@ -14,6 +14,7 @@
 </div>
 <table class="table">
     <tr>
+        <th>Cod</th>
         <th>
             <label>Razón Social</label>
         </th>
@@ -53,6 +54,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.ActionLink(item.ncode_cliente.ToString(), "Details", new { id = item.ncode_cliente })
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.srazon_cliente)
             </td>

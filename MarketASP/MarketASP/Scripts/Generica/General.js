@@ -4,8 +4,6 @@
         dateFormat: "dd/mm/yy"
     });
 
-    //carga en proforma
-    fnClienteNatural($("#stipo_cliente").val());
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {
@@ -65,7 +63,7 @@
             });
         },
         select: function (event, ui) {
-            $('#subigeo_cliente').val(ui.item.id);
+            $('#scode_ubigeo').val(ui.item.id);
         }
     });
 
@@ -90,12 +88,6 @@
 
 
 
-    $("input[name$='tipo_contribuyente']").click(function () {
-        var test = $(this).val();
-
-        fnClienteNatural(test);
-
-    });
 
 });
 
@@ -156,7 +148,7 @@ function fnclienteNuevo() {
         return false;
     };
 
-    if ($("#subigeo_cliente").val().length < 1) {
+    if ($("#scode_ubigeo").val().length < 1) {
         alert("Ingrese Ubicacion");
         return false;
     };
@@ -216,16 +208,3 @@ function fnclienteNuevo() {
 
 }
 
-function fnClienteNatural(test) {
-    //console.log(test);
-
-    if (test === "N") {
-        $(".natural").show();
-        $(".juridica").hide();
-    }
-    else {
-        $(".natural").hide();
-        $(".juridica").show();
-    }
-
-}

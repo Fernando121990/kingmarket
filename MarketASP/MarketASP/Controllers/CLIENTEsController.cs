@@ -13,6 +13,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class CLIENTEsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -23,7 +24,6 @@ namespace MarketASP.Controllers
             return View(await db.CLIENTE.ToListAsync());
         }
 
-        // GET: CLIENTEs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,7 +38,6 @@ namespace MarketASP.Controllers
             return View(cLIENTE);
         }
 
-        // GET: CLIENTEs/Create
         public ActionResult Create()
         {
             return View();
@@ -50,6 +49,29 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                //VERIFICAR RUC O DNI
+
+                if (cLIENTE.stipo_cliente == "J")
+                {
+                    CLIENTE xcli = await db.CLIENTE.SingleOrDefaultAsync(c => c.sruc_cliente == cLIENTE.sruc_cliente);
+                    if (xcli != null)
+                    {
+                        ViewBag.mensaje = "El cliente ya existe";
+                        return View("_Mensaje");
+                    }
+
+                }
+
+                if (cLIENTE.stipo_cliente == "N")
+                {
+                    CLIENTE xcli = await db.CLIENTE.SingleOrDefaultAsync(c => c.sdnice_cliente == cLIENTE.sdnice_cliente);
+                    if (xcli != null)
+                    {
+                        ViewBag.mensaje = "El cliente ya existe";
+                        return View("_Mensaje");
+                    }
+
+                }
 
                 CLIENTE cliente =  ToCliente(cLIENTE);
 
@@ -72,7 +94,7 @@ namespace MarketASP.Controllers
         {
             return new CLI_DIRE
             {
-                scode_ubigeo = cLIENTE.subigeo_cliente,
+                scode_ubigeo = cLIENTE.scode_ubigeo,
                 sdesc_clidire = cLIENTE.sdire_cliente,
                 ncode_cliente = id
             };
@@ -105,7 +127,6 @@ namespace MarketASP.Controllers
 
         }
 
-        // GET: CLIENTEs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,15 +138,24 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (cLIENTE.stipo_cliente == "J")
+            {
+                ViewBag.pju = "Checked";
+                ViewBag.pna = "";
+            }
+            else
+            {
+                ViewBag.pju = "";
+                ViewBag.pna = "Checked";
+            }
+
             return View(cLIENTE);
         }
 
-        // POST: CLIENTEs/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_cliente,srazon_cliente,sruc_cliente,sdnice_cliente,sfono1_cliente,sfax_cliente,slineacred_cliente,srepre_cliente,smail_cliente,sweb_cliente,sobse_cliente,sfono2_cliente,sfono3_cliente,sappa_cliente,sapma_cliente,snomb_cliente,bprocedencia_cliente,suser_cliente,dfech_cliente,susmo_cliente,dfemo_cliente")] CLIENTE cLIENTE)
+        public async Task<ActionResult> Edit(CLIENTE cLIENTE)
         {
             if (ModelState.IsValid)
             {
@@ -159,6 +189,95 @@ namespace MarketASP.Controllers
             }
            
         }
+
+        public ActionResult CreateDireccion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ncode_cliente = id; //new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente");
+            ViewBag.scode_ubigeo = new SelectList(db.UBIGEO, "scode_ubigeo", "sdepa_ubigeo");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDireccion(CLI_DIRE cLI_DIRE)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CLI_DIRE.Add(cLI_DIRE);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details","Clientes",new { id = cLI_DIRE.ncode_cliente});
+            }
+
+            ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", cLI_DIRE.ncode_cliente);
+            ViewBag.scode_ubigeo = new SelectList(db.UBIGEO, "scode_ubigeo", "sdepa_ubigeo", cLI_DIRE.scode_ubigeo);
+            return View(cLI_DIRE);
+        }
+
+        public async Task<ActionResult> DeleteDire(int? id)
+        {
+            Int64 ncodeCliente = 0;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            CLI_DIRE cLI_DIRE  = await db.CLI_DIRE.FindAsync(id);
+            ncodeCliente = cLI_DIRE.ncode_cliente;
+
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            db.Pr_clienteDireElimina(id, sw);
+
+            int xsw = int.Parse(sw.Value.ToString());
+
+            if (xsw == 0)
+            {
+                return RedirectToAction("Details", "Clientes", new { id = ncodeCliente });
+            }
+            else
+            {
+                ViewBag.mensaje = "No se puede eliminar registro";
+                return View("_Mensaje");
+            }
+        }
+
+        public async Task<ActionResult> EditDire(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CLI_DIRE cLI_DIRE = await db.CLI_DIRE.FindAsync(id);
+            if (cLI_DIRE == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_cliente = cLI_DIRE.ncode_cliente;
+            ViewBag.scode_ubigeo = cLI_DIRE.scode_ubigeo;
+            ViewBag.subigeo = cLI_DIRE.UBIGEO.sdistri_ubigeo;
+            return View(cLI_DIRE);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditDire(CLI_DIRE cLI_DIRE)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cLI_DIRE).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Clientes", new { id = cLI_DIRE.ncode_cliente });
+            }
+            ViewBag.ncode_cliente = cLI_DIRE.ncode_cliente;
+            ViewBag.scode_ubigeo = cLI_DIRE.scode_ubigeo;
+            ViewBag.subigeo = cLI_DIRE.UBIGEO.sdistri_ubigeo;
+            return View(cLI_DIRE);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

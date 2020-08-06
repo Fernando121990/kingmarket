@@ -266,5 +266,14 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ClienteElimina", ncode_clienteParameter, sw);
         }
+    
+        public virtual int Pr_clienteDireElimina(Nullable<long> ncode_clidire, ObjectParameter sw)
+        {
+            var ncode_clidireParameter = ncode_clidire.HasValue ?
+                new ObjectParameter("ncode_clidire", ncode_clidire) :
+                new ObjectParameter("ncode_clidire", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clienteDireElimina", ncode_clidireParameter, sw);
+        }
     }
 }

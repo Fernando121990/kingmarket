@@ -1,0 +1,48 @@
+﻿@model MarketASP.Models.CLI_DIRE
+
+@{
+    ViewBag.Title = "Editar Dirección";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ncode_clidire)
+        <input type="hidden" name="ncode_cliente" id="ncode_cliente" value="@ViewBag.ncode_cliente" />
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Dirección</label>
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.sdesc_clidire, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.sdesc_clidire, "", new { @class = "text-danger" })
+            </div>
+            <label class="col-md-2 control-label">Ubicacion</label>
+            <div class="col-md-4">
+                <input id="scode_ubigeo" name="scode_ubigeo" type="hidden" value="@ViewBag.scode_ubigeo" />
+                <input id="subigeo" name="subigeo" type="text" value="@ViewBag.subigeo" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Actualizar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(" ", "Details", new { id = @ViewBag.ncode_cliente }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Clientes" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
+    </script>
+}

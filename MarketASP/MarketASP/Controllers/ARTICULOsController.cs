@@ -16,14 +16,14 @@ namespace MarketASP.Controllers
     {
         private MarketWebEntities db = new MarketWebEntities();
 
-        // GET: ARTICULOs
+        #region Articulos
+
         public async Task<ActionResult> Index()
         {
             var aRTICULO = db.ARTICULO.Include(a => a.FAMILIA).Include(a => a.CLASE).Include(a => a.MARCA).Include(a => a.UMEDIDA);
             return View(await aRTICULO.ToListAsync());
         }
 
-        // GET: ARTICULOs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,7 +38,6 @@ namespace MarketASP.Controllers
             return View(aRTICULO);
         }
 
-        // GET: ARTICULOs/Create
         public ActionResult Create()
         {
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami== true), "ncode_fami", "sdesc_fami");
@@ -67,7 +66,6 @@ namespace MarketASP.Controllers
             return View(aRTICULO);
         }
 
-        // GET: ARTICULOs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -115,7 +113,264 @@ namespace MarketASP.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Precios
+        public ActionResult CreatePrecio(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ncode_lipre = new SelectList(db.LISTA_PRECIO, "ncode_lipre", "sdesc_lipre");
+            ViewBag.ncode_arti = id;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePrecio(ART_PRECIO aRT_PRECIO)
+        {
+            if (ModelState.IsValid)
+            {
+                aRT_PRECIO.suser_artpre = User.Identity.Name;
+                aRT_PRECIO.nesta_artpre = true;
+                aRT_PRECIO.dfech_artpre = DateTime.Today;
+
+                db.ART_PRECIO.Add(aRT_PRECIO);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_PRECIO.ncode_arti });
+            }
+
+            ViewBag.ncode_lipre = new SelectList(db.LISTA_PRECIO, "ncode_lipre", "sdesc_lipre", aRT_PRECIO.ncode_lipre);
+            ViewBag.ncode_arti = aRT_PRECIO.ncode_arti;
+            return View(aRT_PRECIO);
+        }
+
+        public async Task<ActionResult> DeletePrecio(int? id)
+        {
+            Int64 ncodeArti = 0;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_PRECIO aRT_PRECIO = await db.ART_PRECIO.FindAsync(id);
+            if (aRT_PRECIO == null)
+            {
+                return HttpNotFound();
+            }
+
+            ncodeArti = aRT_PRECIO.ncode_arti;
+
+            db.ART_PRECIO.Remove(aRT_PRECIO);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", "Articulos", new { id = ncodeArti });
+        }
+
+        public async Task<ActionResult> EditPrecio(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_PRECIO aRT_PRECIO = await db.ART_PRECIO.FindAsync(id);
+            if (aRT_PRECIO == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_lipre = new SelectList(db.LISTA_PRECIO, "ncode_lipre", "sdesc_lipre", aRT_PRECIO.ncode_lipre);
+            ViewBag.ncode_arti = aRT_PRECIO.ncode_arti;
+            return View(aRT_PRECIO);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPrecio(ART_PRECIO aRT_PRECIO)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aRT_PRECIO).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_PRECIO.ncode_arti });
+            }
+            ViewBag.ncode_lipre = new SelectList(db.LISTA_PRECIO, "ncode_lipre", "sdesc_lipre", aRT_PRECIO.ncode_lipre);
+            ViewBag.ncode_arti = aRT_PRECIO.ncode_arti;
+            return View(aRT_PRECIO);
+        }
+
+        #endregion
+
+        #region Barras
+
+        public ActionResult CreateBarra(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.ncode_arti = id;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateBarra(ART_BARRA aRT_BARRA)
+        {
+            if (ModelState.IsValid)
+            {
+                aRT_BARRA.nesta_barra = true;
+                aRT_BARRA.suser_barra = User.Identity.Name;
+                aRT_BARRA.dfech_barra = DateTime.Today;
+
+                db.ART_BARRA.Add(aRT_BARRA);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_BARRA.ncode_arti });
+            }
+
+            ViewBag.ncode_arti = aRT_BARRA.ncode_arti;
+            return View(aRT_BARRA);
+        }
+
+        public async Task<ActionResult> EditBarra(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_BARRA aRT_BARRA = await db.ART_BARRA.FindAsync(id);
+            if (aRT_BARRA == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_arti = aRT_BARRA.ncode_arti;
+            return View(aRT_BARRA);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditBarra(ART_BARRA aRT_BARRA)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aRT_BARRA).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_BARRA.ncode_arti });
+            }
+            ViewBag.ncode_arti = aRT_BARRA.ncode_arti;
+            return View(aRT_BARRA);
+        }
+
+
+        public async Task<ActionResult> DeleteBarra(int? id)
+        {
+            Int64 ncodeArti = 0;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_BARRA aRT_BARRA = await db.ART_BARRA.FindAsync(id);
+            if (aRT_BARRA == null)
+            {
+                return HttpNotFound();
+            }
+
+            ncodeArti = aRT_BARRA.ncode_arti;
+            db.ART_BARRA.Remove(aRT_BARRA);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", "Articulos", new { id = ncodeArti });
+        }
+
+
+
+
+        #endregion
+
+        #region Proveedores
+        public ActionResult CreateProveedor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ncode_arti = id;
+            ViewBag.ncode_provee = new SelectList(db.PROVEEDOR, "ncode_provee", "sdesc_prove");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateProveedor(ART_PROVE aRT_PROVE)
+        {
+            if (ModelState.IsValid)
+            {
+                aRT_PROVE.suser_arprove = User.Identity.Name;
+                aRT_PROVE.dfech_arprove = DateTime.Today;
+
+                db.ART_PROVE.Add(aRT_PROVE);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_PROVE.ncode_arti });
+            }
+
+            ViewBag.ncode_arti = aRT_PROVE.ncode_arti;
+            ViewBag.ncode_provee = new SelectList(db.PROVEEDOR, "ncode_provee", "sdesc_prove", aRT_PROVE.ncode_provee);
+            return View(aRT_PROVE);
+        }
+
+        public async Task<ActionResult> EditProveedor(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_PROVE aRT_PROVE = await db.ART_PROVE.FindAsync(id);
+            if (aRT_PROVE == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_provee = new SelectList(db.PROVEEDOR, "ncode_provee", "sdesc_prove", aRT_PROVE.ncode_provee);
+            return View(aRT_PROVE);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditProveedor(ART_PROVE aRT_PROVE)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aRT_PROVE).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Articulos", new { id = aRT_PROVE.ncode_arti });
+            }
+            ViewBag.ncode_provee = new SelectList(db.PROVEEDOR, "ncode_provee", "sdesc_prove", aRT_PROVE.ncode_provee);
+            return View(aRT_PROVE);
+        }
+
+
+        public async Task<ActionResult> DeleteProveedor(int? id)
+        {
+            Int64 ncodeArti = 0;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ART_PROVE aRT_PROVE = await db.ART_PROVE.FindAsync(id);
+            if (aRT_PROVE == null)
+            {
+                return HttpNotFound();
+            }
+
+            ncodeArti = aRT_PROVE.ncode_arti;
+            db.ART_PROVE.Remove(aRT_PROVE);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Details", "Articulos", new { id = ncodeArti });
+        }
+
+
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)
