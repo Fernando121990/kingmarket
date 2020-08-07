@@ -1,6 +1,9 @@
-﻿using MarketASP.Models;
+﻿using MarketASP.Clases;
+using MarketASP.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,7 +34,7 @@ namespace MarketASP.Controllers
             return Json(result);
         }
 
-        public JsonResult getClienteDire(string scodCliente)
+        public JsonResult getClienteDire(Int32 scodCliente)
         {
             db.Configuration.ProxyCreationEnabled = false;
             var result = from s in db.CLI_DIRE
@@ -82,54 +85,130 @@ namespace MarketASP.Controllers
             return value;
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public JsonResult CreateCliente(string model_json)
-        //{
-        //    ObjectParameter xcod = new ObjectParameter("xcod", typeof(String));
-        //    ObjectParameter ingproc_001 = new ObjectParameter("ingproc_001", typeof(long));
-        //    string code;
-        //    string data = "";
-        //    try
-        //    {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateCliente(string model_json)
+        {
+            ObjectParameter xcod = new ObjectParameter("xcod", typeof(String));
+            ObjectParameter ingproc_001 = new ObjectParameter("ingproc_001", typeof(long));
+            string code;
+            string data = "";
+            try
+            {
 
-        //        if (ModelState.IsValid)
-        //        {
-        //            data = model_json;
+                if (ModelState.IsValid)
+                {
+                    data = model_json;
 
-        //            var jsonSettings = new JsonSerializerSettings
-        //            {
-        //                NullValueHandling = NullValueHandling.Ignore
-        //            };
-        //            if (data != null)
-        //            {
-        //                var mofView = JsonConvert.DeserializeObject<clienteView>(data, jsonSettings);
+                    var jsonSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    if (data != null)
+                    {
+                        var mofView = JsonConvert.DeserializeObject<clienteView>(data, jsonSettings);
 
-        //                if (mofView != null)
-        //                {
+                        if (mofView != null)
+                        {
+                            //VERIFICAR RUC O DNI
+                            clienteView cLIENTE = mofView;
 
+                            if (cLIENTE.stipo_cliente == "J")
+                            {
+                                CLIENTE xcli = db.CLIENTE.SingleOrDefault(c => c.sruc_cliente == cLIENTE.sruc_cliente);
+                                if (xcli != null)
+                                {
+                                    ViewBag.mensaje = "El cliente ya existe";
+                                    //return View("_Mensaje");
+                                    return Json(new { Success = 0 });
+                                }
 
-        //                    db.MANT_CLIENTES("", mofView.srazon_cliente, mofView.sruc_cliente, mofView.sdni_cliente, mofView.sfono_cliente, "", 0, mofView.srep_cliente
-        //                        , mofView.semail_cliente, "", true, "", mofView.sfono2_cliente, "", "", 0, "W", "", "", "", "", "", 0, mofView.ape_pat_cliente,
-        //                        mofView.ape_mat_cliente, mofView.nombres_cliente, mofView.tipo_contribuyente, ingproc_001, xcod);
+                            }
 
-        //                    code = xcod.Value.ToString();
+                            if (cLIENTE.stipo_cliente == "N")
+                            {
+                                CLIENTE xcli = db.CLIENTE.SingleOrDefault(c => c.sdnice_cliente == cLIENTE.sdnice_cliente);
+                                if (xcli != null)
+                                {
+                                    ViewBag.mensaje = "El cliente ya existe";
+                                    //return View("_Mensaje");
+                                    return Json(new { Success = 0 });
+                                }
 
-        //                    db.GRABAR_DIR_CLIENTE(code, mofView.sdire_cliente, mofView.subigeo_cliente, "", 0, ingproc_001);
+                            }
 
-        //                }
-        //            }
-        //        }
+                            CLIENTE cliente = ToCliente(cLIENTE);
 
-        //        return Json(new { Success = 1 });
+                            db.CLIENTE.Add(cliente);
+                            db.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        string mensaje = ex.Message;
-        //        ViewBag.mensaje = mensaje;
-        //        return Json(new { Success = 0 });
-        //    }
-        //}
+                            int id = cliente.ncode_cliente;
+                            CLI_DIRE cLI_DIRE = toCliDire(cLIENTE, id);
+
+                            db.CLI_DIRE.Add(cLI_DIRE);
+                            db.SaveChangesAsync();
+
+                            ///return RedirectToAction("Index");
+
+                            //db.MANT_CLIENTES("", mofView.srazon_cliente, mofView.sruc_cliente, mofView.sdni_cliente, mofView.sfono_cliente, "", 0, mofView.srep_cliente
+                            //    , mofView.semail_cliente, "", true, "", mofView.sfono2_cliente, "", "", 0, "W", "", "", "", "", "", 0, mofView.ape_pat_cliente,
+                            //    mofView.ape_mat_cliente, mofView.nombres_cliente, mofView.tipo_contribuyente, ingproc_001, xcod);
+
+                            //code = xcod.Value.ToString();
+
+                            //db.GRABAR_DIR_CLIENTE(code, mofView.sdire_cliente, mofView.subigeo_cliente, "", 0, ingproc_001);
+
+                        }
+                    }
+                }
+
+                return Json(new { Success = 1 });
+
+            }
+            catch (Exception ex)
+            {
+                string mensaje = ex.Message;
+                ViewBag.mensaje = mensaje;
+                return Json(new { Success = 0 });
+            }
+        }
+
+        private CLI_DIRE toCliDire(clienteView cLIENTE, int id)
+        {
+            return new CLI_DIRE
+            {
+                scode_ubigeo = cLIENTE.scode_ubigeo,
+                sdesc_clidire = cLIENTE.sdire_cliente,
+                ncode_cliente = id
+            };
+        }
+
+        private CLIENTE ToCliente(clienteView cliView)
+        {
+            return new CLIENTE
+            {
+                bprocedencia_cliente = cliView.bprocedencia_cliente,
+                dfech_cliente = DateTime.Now,
+                sapma_cliente = cliView.sapma_cliente,
+                sappa_cliente = cliView.sappa_cliente,
+                sdnice_cliente = cliView.sdnice_cliente,
+                sfax_cliente = cliView.sfax_cliente,
+                sfono1_cliente = cliView.sfono1_cliente,
+                sfono2_cliente = cliView.sfono2_cliente,
+                sfono3_cliente = cliView.sfono3_cliente,
+                slineacred_cliente = cliView.slineacred_cliente,
+                smail_cliente = cliView.smail_cliente,
+                snomb_cliente = cliView.snomb_cliente,
+                sobse_cliente = cliView.sobse_cliente,
+                srazon_cliente = (cliView.stipo_cliente == "J") ? cliView.srazon_cliente : cliView.snomb_cliente + " " + cliView.sappa_cliente + " " + cliView.sapma_cliente,
+                srepre_cliente = cliView.srepre_cliente,
+                sruc_cliente = cliView.sruc_cliente,
+                stipo_cliente = cliView.stipo_cliente,
+                suser_cliente = User.Identity.Name,
+                sweb_cliente = cliView.sweb_cliente,
+            };
+
+        }
+
     }
 }

@@ -9,7 +9,7 @@
         },
         {
             "sClass": "my_class",
-            "aTargets": [3, 5]
+            "aTargets": [5,7]
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -30,7 +30,7 @@
 
                     }
 
-                    //Totales();
+                    Totales();
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -41,7 +41,7 @@
                 "height": "20px",
                 "width": "100%"
             });
-            //Totales();
+            Totales();
         },
         select: {
             style: 'single'
@@ -81,7 +81,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (resultado) {
-                console.log(resultado);
+                //console.log(resultado);
                 //alert('exito');
 
                 mattable = $('#matetabla').DataTable({
@@ -139,7 +139,7 @@
         var xesta = 0;
 
         ofunciones.row.add([data.Cod,0,0, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed]).draw();
-        //Totales();
+        Totales();
     });
 
     $("#btncerrar").click(function () {
@@ -210,5 +210,118 @@ function Sales_save() {
             alert('No se puede registrar venta' + ex);
         }
     });
+
+}
+function Totales() {
+    //console.log('calculo de totales');
+
+    var TOT_AFECTO = 0;
+    var TOT_EXON = 0;
+    var TOT = 0;
+    var SUBT = 0;
+    var SUBT_AFECTO = 0;
+    var SUBT_EXON = 0;
+    var DSCTO = 0;
+    var DSCTO_AFECTO = 0;
+    var DSCTO_EXON = 0;
+    var TOT_ISC = 0;
+    var CONFIG_IGV = 18;
+
+    var otblx = $('#tbl').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+
+
+    for (var i = 0; i < nrowsx; i++) {
+
+        //console.log(i);
+        //console.log(nrowsx);
+
+        var AFECTO_ART = oTable[i][1].toString();
+        var COL_TISC = oTable[i][2];
+        var CANT_DV = oTable[i][5];
+        var PU_DV = oTable[i][7];
+        var DSCTO_DV = 0;
+
+        TOT = 0;
+        TOT_AFECTO = 0;
+        TOT_EXON = 0;
+        TOT = CANT_DV * PU_DV;
+        TOT = TOT - (TOT * DSCTO_DV / 100);
+
+        //console.log(AFECTO_ART);
+
+        if (AFECTO_ART == 'true' || AFECTO_ART == 'True') {
+            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, 2);
+            //  console.log('afecto');
+        }
+
+        if (AFECTO_ART == 'false' || AFECTO_ART == 'False') {
+
+            TOT_EXON = TOT_EXON + Math.round(TOT, 2);
+            //console.log('exone');
+        }
+
+        SUBT = CANT_DV * PU_DV;
+        //console.log('totafecto');
+        //console.log(TOT_AFECTO);
+        //console.log('totexone');
+        //console.log(TOT_EXON);
+
+        if (TOT_AFECTO !== 0) {
+            SUBT_AFECTO = SUBT_AFECTO + SUBT;
+            DSCTO = (SUBT * (DSCTO_DV / 100));
+            DSCTO_AFECTO = DSCTO_AFECTO + DSCTO;
+            //      console.log('subafecto');
+            //    console.log(SUBT_AFECTO);
+        }
+
+        if (TOT_EXON !== 0) {
+            SUBT_EXON = SUBT_EXON + SUBT;
+            DSCTO = (SUBT * (DSCTO_DV / 100));
+            DSCTO_EXON = DSCTO_EXON + DSCTO;
+            //  console.log(TOT_EXON);
+            //console.log('subtexon');
+            //console.log(SUBT_EXON);
+        }
+
+        if (COL_TISC == true) {
+            TOT_ISC = TOT_ISC + (TOT_AFECTO / (1 + COL_TISC / 100));
+            TOT_ISC = TOT_ISC + (TOT_EXON / (1 + COL_TISC / 100));
+        }
+    }
+
+    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(2));
+    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(2));
+    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(2));
+    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(2));
+    $("#ntotaex_venta").val(SUBT_EXON.toFixed(2));
+
+    var SUBT_EX = SUBT_EXON - DSCTO_EXON;
+    var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
+    var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
+
+    $("#nsubex_venta").val(SUBT_EX.toFixed(2));
+    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(2));
+    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(2));
+
+    var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
+    $("#nigvaf_venta").val(IGV_AF.toFixed(2));
+    $("#nigvex_venta").val(0);
+
+    var TOTAL = TOTAL_AFEC + SUBT_EX;
+
+    $("#ntotal_venta").val(TOTAL.toFixed(2));
+}
+function ComparaPrecio(Precio, PrecioOrigen) {
+
+    var xprecio = parseFloat(Precio);
+
+    if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+        xprecio = parseFloat(PrecioOrigen);
+    }
+
+    return xprecio;
 
 }

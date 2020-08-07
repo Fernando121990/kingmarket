@@ -117,7 +117,7 @@ namespace MarketASP.Controllers
                 smail_cliente = cliView.smail_cliente,
                 snomb_cliente = cliView.snomb_cliente,
                 sobse_cliente = cliView.sobse_cliente,
-                srazon_cliente = cliView.srazon_cliente,
+                srazon_cliente =  (cliView.stipo_cliente == "J") ? cliView.srazon_cliente : cliView.snomb_cliente + " " + cliView.sappa_cliente + " " + cliView.sapma_cliente ,
                 srepre_cliente = cliView.srepre_cliente,
                 sruc_cliente = cliView.sruc_cliente,
                 stipo_cliente = cliView.stipo_cliente,
@@ -159,6 +159,7 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                cLIENTE.srazon_cliente = (cLIENTE.stipo_cliente == "J") ? cLIENTE.srazon_cliente : cLIENTE.snomb_cliente + " " + cLIENTE.sappa_cliente + " " + cLIENTE.sapma_cliente;
                 db.Entry(cLIENTE).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

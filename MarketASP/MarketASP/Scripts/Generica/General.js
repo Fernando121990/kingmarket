@@ -14,7 +14,7 @@
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            label: item.DESC_CLIENTE, value: item.DESC_CLIENTE, id: item.COD_CLIENTE
+                            label: item.srazon_cliente, value: item.srazon_cliente, id: item.ncode_cliente
                         };
                     }));
                 }
@@ -74,16 +74,16 @@
     $("#btnCliCierre").click(function () {
         $("#srazon_cliente").val("");
         $("#sruc_cliente").val("");
-        $("#sdni_cliente").val("");
+        $("#sdnice_cliente").val("");
         $("#sdire_cliente").val("");
         $("#subigeo_cliente").val("");
-        $("#sfono_cliente").val("");
-        $("#semail_cliente").val("");
-        $("#srep_cliente").val("");
+        $("#sfono1_cliente").val("");
+        $("#smail_cliente").val("");
+        $("#srepre_cliente").val("");
         $("#sfono2_cliente").val("");
-        $("#ape_pat_cliente").val("");
-        $("#ape_mat_cliente").val("");
-        $("#nombres_cliente").val("");
+        $("#sappa_cliente").val("");
+        $("#sapma_cliente").val("");
+        $("#snomb_cliente").val("");
     });
 
 
@@ -101,8 +101,8 @@ function fnclienteDire() {
         success: function (areas) {
             $.each(areas, function (i, area) {
                 $("#NRO_DCLIENTE").append('<option value="'
-                    + area.NRO_DCLIENTE + '">'
-                    + area.DIR_DCLIENTE + '</option>');
+                    + area.ncode_clidire + '">'
+                    + area.sdesc_clidire + '</option>');
             });
         },
         error: function (ex) {
@@ -115,7 +115,7 @@ function fnclienteDire() {
 
 function fnclienteNuevo() {
 
-    var valor = $('input:radio[name=tipo_contribuyente]:checked').val();
+    var valor = $('input:radio[name=stipo_cliente]:checked').val();
 
     if (valor === 'J') {
 
@@ -131,12 +131,12 @@ function fnclienteNuevo() {
 
     }
     else {
-        if ($("#ape_pat_cliente").val().length < 1) {
+        if ($("#sappa_cliente").val().length < 1) {
             alert("Ingrese A.Paterno");
             return false;
         };
 
-        if ($("#sdni_cliente").val().length < 1) {
+        if ($("#sdnice_cliente").val().length < 1) {
             alert("Ingrese DNI");
             return false;
         };
@@ -155,30 +155,30 @@ function fnclienteNuevo() {
 
 
     var clienteView = {
-        "srazon_cliente": "", "sruc_cliente": "", "sdni_cliente": "",
-        "sdire_cliente": "", "subigeo_cliente": "", "sfono_cliente":"",
-        "semail_cliente": "", "srep_cliente": "", "sfono2_cliente": "",
-        "tipo_contribuyente": "","ape_pat_cliente" : "", "ape_mat_cliente" : "",
-        "nombres_cliente" : ""
+        "srazon_cliente": "", "sruc_cliente": "", "sdnice_cliente": "",
+        "sdire_cliente": "", "subigeo_cliente": "", "sfono1_cliente":"",
+        "smail_cliente": "", "srepre_cliente": "", "sfono2_cliente": "",
+        "stipo_cliente": "", "sappa_cliente": "", "sapma_cliente" : "",
+        "snomb_cliente" : ""
     };
 
     // Setear valores
     clienteView.srazon_cliente = $("#srazon_cliente").val();
     clienteView.sruc_cliente = $("#sruc_cliente").val();
-    clienteView.sdni_cliente = $("#sdni_cliente").val();
+    clienteView.sdnice_cliente = $("#sdnice_cliente").val();
     clienteView.sdire_cliente = $("#sdire_cliente").val();
     clienteView.subigeo_cliente = $("#subigeo_cliente").val();
-    clienteView.sfono_cliente = $("#sfono_cliente").val();
-    clienteView.semail_cliente = $("#semail_cliente").val();
-    clienteView.srep_cliente = $("#srep_cliente").val();
+    clienteView.sfono1_cliente = $("#sfono1_cliente").val();
+    clienteView.smail_cliente = $("#smail_cliente").val();
+    clienteView.srepre_cliente = $("#srep_cliente").val();
     clienteView.sfono2_cliente = $("#sfono2_cliente").val();
-    clienteView.tipo_contribuyente = $('input:radio[name=tipo_contribuyente]:checked').val();
-    clienteView.ape_pat_cliente = $("#ape_pat_cliente").val();
-    clienteView.ape_mat_cliente = $("#ape_mat_cliente").val();
-    clienteView.nombres_cliente = $("#nombres_cliente").val();
+    clienteView.stipo_cliente = $('input:radio[name=stipo_cliente]:checked').val();
+    clienteView.sappa_cliente = $("#sappa_cliente").val();
+    clienteView.sapma_cliente = $("#sapma_cliente").val();
+    clienteView.snomb_cliente = $("#snomb_cliente").val();
 
     if (clienteView.tipo_contribuyente == 'N') {
-        clienteView.srazon_cliente = clienteView.nombres_cliente + ' ' + clienteView.ape_pat_cliente + ' ' + clienteView.ape_mat_cliente;
+        clienteView.srazon_cliente = clienteView.snomb_cliente + ' ' + clienteView.sappa_cliente + ' ' + clienteView.sapma_cliente;
     }
 
      ///alert($('input:radio[name=tipo_contribuyente]:checked').val());

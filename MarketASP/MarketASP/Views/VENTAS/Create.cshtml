@@ -86,25 +86,25 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     Persona Juridica
-                                    <input id="tipo_contribuyente" name="tipo_contribuyente" type="radio" value="J" checked="checked" />
+                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
                                     Persona Natural
-                                    <input id="tipo_contribuyente" name="tipo_contribuyente" type="radio" value="N" />
+                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
                                 </div>
                             </div>
                             <div class="form-group natural">
                                 <label class="col-md-1">Nombres</label>
                                 <div class="col-md-11">
-                                    <input id="nombres_cliente" name="nombres_cliente" type="text" class="form-control" maxlength="20" />
+                                    <input id="snomb_cliente" name="snomb_cliente" type="text" class="form-control" maxlength="20" />
                                 </div>
                             </div>
                             <div class="form-group natural">
                                 <label class="col-md-1">A.Paterno</label>
                                 <div class="col-md-5">
-                                    <input id="ape_pat_cliente" name="ape_pat_cliente" type="text" class="form-control" maxlength="20" />
+                                    <input id="sappa_cliente" name="sappa_cliente" type="text" class="form-control" maxlength="20" />
                                 </div>
                                 <label class="col-md-1">A.Materno</label>
                                 <div class="col-md-5">
-                                    <input id="ape_mat_cliente" name="ape_mat_cliente" type="text" class="form-control" maxlength="20" />
+                                    <input id="sapma_cliente" name="sapma_cliente" type="text" class="form-control" maxlength="20" />
                                 </div>
                             </div>
                             <div class="form-group juridica">
@@ -120,7 +120,7 @@
                                 </div>
                                 <label class="col-md-1">DNI</label>
                                 <div class="col-md-5">
-                                    <input id="sdni_cliente" name="sdni_cliente" type="text" class="form-control" maxlength="14" />
+                                    <input id="sdnice_cliente" name="sdnice_cliente" type="text" class="form-control" maxlength="14" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -139,17 +139,17 @@
                             <div class="form-group">
                                 <label class="col-md-1">Telefono</label>
                                 <div class="col-md-5">
-                                    <input id="sfono_cliente" name="sfono_cliente" type="tel" class="form-control" />
+                                    <input id="sfono1_cliente" name="sfono1_cliente" type="tel" class="form-control" />
                                 </div>
                                 <label class="col-md-1">Correo</label>
                                 <div class="col-md-5">
-                                    <input id="semail_cliente" name="semail_cliente" type="email" class="form-control" />
+                                    <input id="smail_cliente" name="smail_cliente" type="email" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-1">Contacto</label>
                                 <div class="col-md-5">
-                                    <input id="srep_cliente" name="srep_cliente" type="text" class="form-control" />
+                                    <input id="srepre_cliente" name="srepre_cliente" type="text" class="form-control" />
                                 </div>
                                 <label class="col-md-1">Telefono</label>
                                 <div class="col-md-5">
@@ -268,14 +268,14 @@
                                         <th>CodUM</th>
 
                                         @*<th> CodArt</th>
-                                        <th> Afecto</th>
-                                        <th> ISC</th>
-                                        <th> Cod</th>
-                                        <th> Descripcion</th>
-                                        <th> Unidad</th>
-                                        <th> Stock</th>
-                                        <th> Precio</th>
-                                        <th> M</th>*@
+                                            <th> Afecto</th>
+                                            <th> ISC</th>
+                                            <th> Cod</th>
+                                            <th> Descripcion</th>
+                                            <th> Unidad</th>
+                                            <th> Stock</th>
+                                            <th> Precio</th>
+                                            <th> M</th>*@
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -289,14 +289,14 @@
                                         <th>CodUM</th>
 
                                         @*<th> CodArt</th>
-                                        <th> Afecto</th>
-                                        <th> ISC</th>
-                                        <th> Cod</th>
-                                        <th> Descripcion</th>
-                                        <th> Unidad</th>
-                                        <th> Stock</th>
-                                        <th> Precio</th>
-                                        <th> M</th>*@
+                                            <th> Afecto</th>
+                                            <th> ISC</th>
+                                            <th> Cod</th>
+                                            <th> Descripcion</th>
+                                            <th> Unidad</th>
+                                            <th> Stock</th>
+                                            <th> Precio</th>
+                                            <th> M</th>*@
                                     </tr>
                                 </tfoot>
                             </Table>
@@ -383,8 +383,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/venta")
     <script type="text/javascript">
+        var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
+        var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+        var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
         var urlventaCrea = '@Url.Action("Create", "ventas")';
