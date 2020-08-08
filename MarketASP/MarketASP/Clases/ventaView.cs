@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MarketASP.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MarketASP.Clases
 {
-    public class ventaView
+    public class ventaView : VENTAS
     {
+        [JsonProperty(PropertyName = "ventaViewDetas")]
+        public IList<ventaViewDeta> ventaViewDetas { get; set; }
 
     }
 }

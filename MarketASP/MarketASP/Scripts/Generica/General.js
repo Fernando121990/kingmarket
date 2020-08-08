@@ -76,7 +76,7 @@
         $("#sruc_cliente").val("");
         $("#sdnice_cliente").val("");
         $("#sdire_cliente").val("");
-        $("#subigeo_cliente").val("");
+        $("#scode_ubigeo").val("");
         $("#sfono1_cliente").val("");
         $("#smail_cliente").val("");
         $("#srepre_cliente").val("");
@@ -156,7 +156,7 @@ function fnclienteNuevo() {
 
     var clienteView = {
         "srazon_cliente": "", "sruc_cliente": "", "sdnice_cliente": "",
-        "sdire_cliente": "", "subigeo_cliente": "", "sfono1_cliente":"",
+        "sdire_cliente": "", "scode_ubigeo": "", "sfono1_cliente":"",
         "smail_cliente": "", "srepre_cliente": "", "sfono2_cliente": "",
         "stipo_cliente": "", "sappa_cliente": "", "sapma_cliente" : "",
         "snomb_cliente" : ""
@@ -167,7 +167,7 @@ function fnclienteNuevo() {
     clienteView.sruc_cliente = $("#sruc_cliente").val();
     clienteView.sdnice_cliente = $("#sdnice_cliente").val();
     clienteView.sdire_cliente = $("#sdire_cliente").val();
-    clienteView.subigeo_cliente = $("#subigeo_cliente").val();
+    clienteView.scode_ubigeo = $("#scode_ubigeo").val();
     clienteView.sfono1_cliente = $("#sfono1_cliente").val();
     clienteView.smail_cliente = $("#smail_cliente").val();
     clienteView.srepre_cliente = $("#srep_cliente").val();

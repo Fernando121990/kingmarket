@@ -84,6 +84,10 @@ namespace MarketASP.Controllers
         {
             return value;
         }
+        public decimal fnnumeroeditar(string id, decimal value, int column)
+        {
+            return value;
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

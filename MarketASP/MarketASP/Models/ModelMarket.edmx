@@ -1803,13 +1803,16 @@
           </ReferentialConstraint>
         </Association>
         <ComplexType Name="Pr_ConsultaArticulos_Result">
-          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="1" Scale="1" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="4" />
           <Property Type="Decimal" Name="Stock" Nullable="false" Precision="1" Scale="1" />
           <Property Type="Int64" Name="Cod" Nullable="false" />
           <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
           <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
           <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+          <Property Type="Boolean" Name="bafecto_arti" Nullable="true" />
+          <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
+          <Property Type="Boolean" Name="bdscto_arti" Nullable="true" />
         </ComplexType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -2455,6 +2458,9 @@
                 <ScalarProperty Name="DescArt" ColumnName="DescArt" />
                 <ScalarProperty Name="Medida" ColumnName="Medida" />
                 <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
+                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+                <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

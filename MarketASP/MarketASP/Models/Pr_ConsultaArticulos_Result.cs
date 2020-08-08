@@ -13,12 +13,15 @@ namespace MarketASP.Models
     
     public partial class Pr_ConsultaArticulos_Result
     {
-        public decimal Precio { get; set; }
+        public Nullable<decimal> Precio { get; set; }
         public decimal Stock { get; set; }
         public long Cod { get; set; }
         public string Cod2 { get; set; }
         public string DescArt { get; set; }
         public string Medida { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<bool> bafecto_arti { get; set; }
+        public Nullable<bool> bisc_arti { get; set; }
+        public Nullable<bool> bdscto_arti { get; set; }
     }
 }

@@ -8,6 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
+using Newtonsoft.Json;
+using MarketASP.Clases;
 
 namespace MarketASP.Controllers
 {
@@ -58,21 +61,76 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_venta,ncode_docu,sseri_venta,snume_venta,dfeventa_venta,dfevenci_venta,ncode_cliente,ncode_clidire,smone_venta,ntc_venta,ncode_fopago,sobse_venta,ncode_compra,ncode_profo,nbrutoex_venta,nbrutoaf_venta,ndctoex_venta,ndsctoaf_venta,nsubex_venta,nsubaf_venta,nigvex_venta,nigvaf_venta,ntotaex_venta,ntotaaf_venta,ntotal_venta,ntotalMN_venta,ntotalUs_venta,besta_venta,nvalIGV_venta,suser_venta,dfech_venta,susmo_venta,dfemo_venta")] VENTAS vENTAS)
+        public JsonResult Create(string model_json)
         {
-            if (ModelState.IsValid)
-            {
-                db.VENTAS.Add(vENTAS);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
 
-            ViewBag.ncode_clidire = new SelectList(db.CLI_DIRE, "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
-            ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", vENTAS.ncode_cliente);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_docu);
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_fopago);
-            return View(vENTAS);
+            int code;
+            string data = "";
+            int fila = 0;
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    data = model_json;
+                    var jsonSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    if (data != null)
+                    {
+                        var mofView = JsonConvert.DeserializeObject<ventaView>(data, jsonSettings);
+
+                        if (mofView != null)
+                        {
+
+                            //db.Pr_movimientoCrear(DateTime.Parse(mofView.dfemov_movi), mofView.smone_movi, mofView.ntc_movi, mofView.sobse_movi,
+                              //  "", "", User.Identity.Name, mofView.ncode_timovi, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_movi, sw);
+
+                            code = int.Parse(sw.Value.ToString());
+
+                            if (mofView.ventaViewDetas != null)
+                            {
+                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+                                {
+                                    fila++;
+                                //    db.Pr_movimientoDetaCrea(item.ncode_arti, item.ncant_movidet, item.npu_movidet, User.Identity.Name, code, item.ncode_umed);
+                                };
+
+                            }
+
+                            db.Pr_KardexCrea("Venta", 4, "I", code, User.Identity.Name);
+                        }
+                    }
+                }
+
+                return Json(new { Success = 1 });
+
+            }
+            catch (Exception ex)
+            {
+                string mensaje = ex.Message;
+                ViewBag.mensaje = mensaje;
+                return Json(new { Success = 0 });
+            }
         }
+
+        //public async Task<ActionResult> Create(VENTAS vENTAS)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.VENTAS.Add(vENTAS);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.ncode_clidire = new SelectList(db.CLI_DIRE, "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
+        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", vENTAS.ncode_cliente);
+        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_docu);
+        //    ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_fopago);
+        //    return View(vENTAS);
+        //}
 
         // GET: VENTAS/Edit/5
         public async Task<ActionResult> Edit(long? id)

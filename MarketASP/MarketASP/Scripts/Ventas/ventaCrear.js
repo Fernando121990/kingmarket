@@ -9,7 +9,7 @@
         },
         {
             "sClass": "my_class",
-            "aTargets": [5,7]
+            "aTargets": [3,5]
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -93,7 +93,11 @@
                         { "data": "Medida" },
                         { "data": "Precio" },
                         { "data": "Stock" },
-                        { "data": "ncode_umed" }],
+                            { "data": "ncode_umed" },
+                            { "data": "bafecto_arti" },
+                            { "data": "bisc_arti" },
+                            { "data": "bdscto_arti" }
+                        ],
                     "aoColumnDefs": [{
                         "bVisible": false,
                         "aTargets": [0]
@@ -138,7 +142,8 @@
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod,0,0, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed]).draw();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti]).draw();
         Totales();
     });
 
@@ -146,30 +151,87 @@
         mattable.destroy();
     });
 
+    $("#btnventa").click(function () {
+
+        if ($("#COD_CLIENTE").val().length < 1) {
+            alert("Seleccione Cliente");
+            return false;
+        };
+
+
+        if ($("#NRO_DCLIENTE option:selected").text().length < 1) {
+            alert("Seleccione Ubicacion");
+            return false;
+        };
+
+        var otbly = $('#tbl').dataTable();
+        var nrowsy = otbly.fnGetData().length;
+
+        console.log(nrowsy);
+
+        if (nrowsy < 1) {
+            alert("Seleccione Articulos");
+            return false;
+        }
+
+        Sales_save();
+    });
+
+
 });
 
 
 
 function Sales_save() {
 
-    var moviViewDetas = {
-        "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": "", "ncode_umed": ""
+    console.log('nueva venta');
+
+    var ventaViewDetas = {
+        "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
+        "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
+        "ncode_alma": "","ndsctomax_vedeta":"","ndsctomin_vedeta":"","ndsctoporc_vedeta":""
     };
 
-    var moviView = {
-        "ncode_movi": "", "dfemov_movi": "", "smone_movi": "", "ntc_movi": "", "sobse_movi": "", "ncode_timovi": "",
-        "ncode_alma": "", "ndestino_alma": "", "stipo_movi": "", "moviViewDetas": []
+    var ventaView = {
+        "ncode_docu":"","sseri_venta":"", "snume_venta":"",
+        "dfeventa_venta":"","dfevenci_venta":"","ncode_cliente":"",
+        "ncode_clidire":"","smone_venta":"","ntc_venta":"",
+        "ncode_fopago":"","sobse_venta":"","ncode_compra":"",
+        "ncode_profo":"","nbrutoex_venta":"","nbrutoaf_venta":"",
+        "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
+        "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
+        "ntotaaf_venta":"","ntotal_venta":"","ntotalMN_venta":"","ntotalUs_venta":"",
+        "nvalIGV_venta":"","ventaViewDetas": []
+
     };
 
-    moviView.ncode_movi = $('#ncode_movi').val();
-    moviView.dfemov_movi = $("#dfemov_movi").val();
-    moviView.smone_movi = $("#smone_movi").val();
-    moviView.ntc_movi = $("#ntc_movi").val();
-    moviView.sobse_movi = $("#sobse_movi").val();
-    moviView.ncode_timovi = $("#ncode_timovi").val();
-    moviView.ncode_alma = $("#ncode_alma").val();
-    moviView.ndestino_alma = $("#ndestino_alma").val();
-    moviView.stipo_movi = $("#ncode_timovi option:selected").text().substring(0, 1);
+    ventaView.ncode_docu = $("#ncode_docu option:selected").val();
+    ventaView.sseri_venta = $('#sseri_venta').val();
+    ventaView.snume_venta = $('#snume_venta').val();
+    ventaView.dfeventa_venta = $('#dfeventa_venta').val();
+    ventaView.dfevenci_venta = $('#dfevenci_venta').val();
+    ventaView.ncode_cliente = $('#COD_CLIENTE').val(); 
+    ventaView.ncode_clidire = $("#NRO_DCLIENTE option:selected").val();
+    ventaView.smone_venta = $('#smone_venta').val();
+    ventaView.ntc_venta = $('#ntc_venta').val();
+    ventaView.ncode_fopago = $("#ncode_fopago option:selected").val();
+    ventaView.sobse_venta = $('#sobse_venta').val();
+    ventaView.ncode_compra = $('#ncode_compra').val();
+    ventaView.ncode_profo = $('#ncode_profo').val();
+    ventaView.nbrutoex_venta = $('#nbrutoex_venta').val();
+    ventaView.nbrutoaf_venta = $('#nbrutoaf_venta').val();
+    ventaView.ndctoex_venta = $('#ndctoex_venta').val();
+    ventaView.ndsctoaf_venta = $('#ndsctoaf_venta').val();
+    ventaView.nsubex_venta = $('#nsubex_venta').val();
+    ventaView.nsubaf_venta = $('#nsubaf_venta').val();
+    ventaView.nigvex_venta = $('#nigvex_venta').val();
+    ventaView.nigvaf_venta = $('#nigvaf_venta').val();
+    ventaView.ntotaex_venta = $('#ntotaex_venta').val();
+    ventaView.ntotaaf_venta = $('#ntotaaf_venta').val();
+    ventaView.ntotal_venta = $('#ntotal_venta').val();
+    ventaView.ntotalMN_venta = $('#ntotalMN_venta').val();
+    ventaView.ntotalUs_venta = $('#ntotalUs_venta').val();
+    ventaView.nvalIGV_venta = $('#nvalIGV_venta').val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -177,19 +239,26 @@ function Sales_save() {
 
     for (var i = 0; i < nrowsx; i++) {
 
-        moviViewDetas.ncode_arti = oTable[i][0];
-        moviViewDetas.ncant_movidet = oTable[i][3];
-        moviViewDetas.npu_movidet = oTable[i][5];
-        moviViewDetas.ncode_umed = oTable[i][7];
+        ventaViewDetas.ncode_arti = oTable[i][0];
+        ventaViewDetas.ncant_vedeta = oTable[i][3];
+        ventaViewDetas.npu_vedeta = oTable[i][5];
+        ventaViewDetas.ndscto_vedeta = oTable[i][6] - oTable[i][5];
+        ventaViewDetas.nexon_vedeta = oTable[i][5] * oTable[i][3];
+        ventaViewDetas.nafecto_vedeta = oTable[i][5] * oTable[i][3];
+        ventaViewDetas.besafecto_vedeta = oTable[i][8];
+        ventaViewDetas.ndsctoporc_vedeta = oTable[i][6];
 
-        moviView.moviViewDetas.push(moviViewDetas);
+        ventaView.ventaViewDetas.push(ventaViewDetas);
 
-        moviViewDetas = {
-            "ncode_arti": "", "ncant_movidet": "", "npu_movidet": "", "ncode_movi": "", "ncode_umed": ""
+        ventaViewDetas = {
+            "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
+            "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
+            "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": ""
         };
+
     }
 
-    //console.log(profView);
+    console.log(ventaView);
 
     var token = $('[name=__RequestVerificationToken]').val();
 
@@ -197,7 +266,7 @@ function Sales_save() {
         url: urlventaCrea, // '/MOFs/Create',
         type: 'POST',
         dataType: 'json',
-        data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(moviView) },
+        data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(ventaView) },
         success: function (result) {
             if (result.Success == "1") {
                 window.location.href = urlventaLista;
@@ -213,7 +282,7 @@ function Sales_save() {
 
 }
 function Totales() {
-    //console.log('calculo de totales');
+    console.log('calculo de totales');
 
     var TOT_AFECTO = 0;
     var TOT_EXON = 0;
@@ -238,10 +307,10 @@ function Totales() {
         //console.log(i);
         //console.log(nrowsx);
 
-        var AFECTO_ART = oTable[i][1].toString();
-        var COL_TISC = oTable[i][2];
-        var CANT_DV = oTable[i][5];
-        var PU_DV = oTable[i][7];
+        var AFECTO_ART = oTable[i][8].toString();
+        var COL_TISC = oTable[i][9];
+        var CANT_DV = oTable[i][3];
+        var PU_DV = oTable[i][5];
         var DSCTO_DV = 0;
 
         TOT = 0;
@@ -250,7 +319,7 @@ function Totales() {
         TOT = CANT_DV * PU_DV;
         TOT = TOT - (TOT * DSCTO_DV / 100);
 
-        //console.log(AFECTO_ART);
+        console.log(AFECTO_ART);
 
         if (AFECTO_ART == 'true' || AFECTO_ART == 'True') {
             TOT_AFECTO = TOT_AFECTO + Math.round(TOT, 2);

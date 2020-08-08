@@ -132,7 +132,7 @@
                             <div class="form-group">
                                 <label class="col-md-2">Ubicación</label>
                                 <div class="col-md-10">
-                                    <input id="subigeo_cliente" name="subigeo_cliente" type="hidden" />
+                                    <input id="scode_ubigeo" name="scode_ubigeo" type="text" />
                                     <input id="subigeo" name="subigeo" type="text" class="form-control" />
                                 </div>
                             </div>
@@ -199,8 +199,6 @@
                 <thead>
                     <tr>
                         <th>CodArt</th>
-                        <th> Afecto</th>
-                        <th> ISC</th>
                         <th>Codigo</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -208,6 +206,9 @@
                         <th>Precio</th>
                         <th>Precio</th>
                         <th>M</th>
+                        <th>bafecto</th>
+                        <th>bisc</th>
+                        <th>bdscto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -216,32 +217,36 @@
                         foreach (var item in Model.VENTA_DETALLE)
                         {
                             var currentItem = item;
-                            <tr>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ncant_vedeta)
-                                </td>
-                                <td></td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.npu_vedeta)
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ncant_vedeta)
+                        </td>
+                        <td></td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.npu_vedeta)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
+                        </td>
+                        <td>
+                            @Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)
+                        </td>
+
+                    </tr>
 
                         }
                     }
@@ -266,16 +271,9 @@
                                         <th>Stock</th>
                                         <th>Precio</th>
                                         <th>CodUM</th>
-
-                                        @*<th> CodArt</th>
-                                            <th> Afecto</th>
-                                            <th> ISC</th>
-                                            <th> Cod</th>
-                                            <th> Descripcion</th>
-                                            <th> Unidad</th>
-                                            <th> Stock</th>
-                                            <th> Precio</th>
-                                            <th> M</th>*@
+                                        <th>bafecto</th>
+                                        <th>bisc</th>
+                                        <th>bdscto</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -287,16 +285,9 @@
                                         <th>Stock</th>
                                         <th>Precio</th>
                                         <th>CodUM</th>
-
-                                        @*<th> CodArt</th>
-                                            <th> Afecto</th>
-                                            <th> ISC</th>
-                                            <th> Cod</th>
-                                            <th> Descripcion</th>
-                                            <th> Unidad</th>
-                                            <th> Stock</th>
-                                            <th> Precio</th>
-                                            <th> M</th>*@
+                                        <th>bafecto</th>
+                                        <th>bisc</th>
+                                        <th>bdscto</th>
                                     </tr>
                                 </tfoot>
                             </Table>
@@ -371,7 +362,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-4">
-                <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Añadir</button>
+                <button id="btnventa" type="button" class="btn btn-success btn-block">Añadir</button>
             </div>
         </div>
     </div>
@@ -388,9 +379,10 @@
     <script type="text/javascript">
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+        var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
-        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+        var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlventaCrea = '@Url.Action("Create", "ventas")';
         var urlventaLista = '@Url.Action("Index", "ventas")';
     </script>
