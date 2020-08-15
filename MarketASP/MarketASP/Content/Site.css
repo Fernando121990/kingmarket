@@ -1,12 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image:url(imagen/fondo.jpg)
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color:white;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -34,5 +36,10 @@ textarea {
 
 .ptp-titulos {
     background-color: #4095ea; 
+    color: white;
+}
+
+.ptp-subtitulos {
+    background-color:burlywood ;
     color: white;
 }

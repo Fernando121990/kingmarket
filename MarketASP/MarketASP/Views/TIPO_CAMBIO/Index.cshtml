@@ -1,32 +1,35 @@
 ﻿@model IEnumerable<MarketASP.Models.TIPO_CAMBIO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tipo de Cambio";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Articulo" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
             Fecha
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ncompra_tc)
+            TC Compra
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nventa_tc)
+            TC Venta
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderByDescending(t=>t.dfecha_tc)) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.dfecha_tc)
+            @string.Format("{0:d}",item.dfecha_tc)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ncompra_tc)
@@ -35,8 +38,8 @@
             @Html.DisplayFor(modelItem => item.nventa_tc)
         </td>
         <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.dfecha_tc }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-            @Html.ActionLink(" ", "DeleteTC", new { id = item.dfecha_tc }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+            @Html.ActionLink(" ", "Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}",item.dfecha_tc) }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
         </td>
     </tr>
 }

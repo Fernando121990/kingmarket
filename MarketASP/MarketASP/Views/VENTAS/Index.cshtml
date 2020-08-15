@@ -1,219 +1,109 @@
 ﻿@model IEnumerable<MarketASP.Models.VENTAS>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Consulta de Ventas";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="row" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cliente" })
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sseri_venta)
+            Doc.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.snume_venta)
+            Cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dfeventa_venta)
+            No Doc.
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dfevenci_venta)
+            F.Venta
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.smone_venta)
+            F.Vcto
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ntc_venta)
+            TC
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sobse_venta)
+            Obs
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ncode_compra)
+            OC
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ncode_profo)
+            Proforma
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nbrutoex_venta)
+            M
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nbrutoaf_venta)
+            Total
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ndctoex_venta)
+            Estado
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ndsctoaf_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nsubex_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nsubaf_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nigvex_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nigvaf_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotaex_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotaaf_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotal_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotalMN_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotalUs_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.besta_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nvalIGV_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_venta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLI_DIRE.sdesc_clidire)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLIENTE.srazon_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CONFIGURACION1.sdesc_confi)
+            F.Pago
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sseri_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.snume_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfeventa_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfevenci_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.smone_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntc_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sobse_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ncode_compra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ncode_profo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbrutoex_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbrutoaf_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ndctoex_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ndsctoaf_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nsubex_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nsubaf_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nigvex_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nigvaf_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotaex_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotaaf_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotal_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotalMN_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotalUs_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.besta_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nvalIGV_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_venta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLI_DIRE.sdesc_clidire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_venta }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_venta }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_venta })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sseri_venta) - @Html.DisplayFor(modelItem => item.snume_venta)
+            </td>
+            <td>
+                @string.Format("{0:d}", item.dfeventa_venta)
+            </td>
+            <td>
+                @string.Format("{0:d}", item.dfevenci_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ntc_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sobse_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ncode_compra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ncode_profo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.smone_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ntotal_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.besta_venta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ncode_venta }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                @Html.ActionLink(" ", "anulaVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-thumbs-down", title = "Anular", onclick = "return confirm('¿ Seguro de anular registro ?');" })
+                @Html.ActionLink(" ", "DeleteVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+            </td>
+        </tr>
+    }
 
 </table>

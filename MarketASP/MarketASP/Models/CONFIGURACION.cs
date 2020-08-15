@@ -20,6 +20,15 @@ namespace MarketASP.Models
             this.KARDEX = new HashSet<KARDEX>();
             this.VENTAS = new HashSet<VENTAS>();
             this.VENTAS1 = new HashSet<VENTAS>();
+            this.COMPRAS = new HashSet<COMPRAS>();
+            this.COMPRAS1 = new HashSet<COMPRAS>();
+            this.CTAS_PAGAR = new HashSet<CTAS_PAGAR>();
+            this.CTAS_PAGAR1 = new HashSet<CTAS_PAGAR>();
+            this.CTA_COBRAR = new HashSet<CTA_COBRAR>();
+            this.CTASCO_DETALLE = new HashSet<CTASCO_DETALLE>();
+            this.CTASCO_DETALLE1 = new HashSet<CTASCO_DETALLE>();
+            this.CTASPA_DETALLE = new HashSet<CTASPA_DETALLE>();
+            this.CTASPA_DETALLE1 = new HashSet<CTASPA_DETALLE>();
         }
     
         public int ncode_confi { get; set; }
@@ -34,5 +43,23 @@ namespace MarketASP.Models
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRAS> COMPRAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRAS> COMPRAS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTAS_PAGAR> CTAS_PAGAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTAS_PAGAR> CTAS_PAGAR1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTA_COBRAR> CTA_COBRAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTASCO_DETALLE> CTASCO_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTASCO_DETALLE> CTASCO_DETALLE1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE1 { get; set; }
     }
 }

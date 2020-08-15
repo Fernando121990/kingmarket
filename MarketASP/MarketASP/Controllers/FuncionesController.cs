@@ -34,6 +34,15 @@ namespace MarketASP.Controllers
             return Json(result);
         }
 
+        public JsonResult getProveedor(string sdescProvee)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = from s in db.PROVEEDOR
+                         where s.sdesc_prove.Contains(sdescProvee)
+                         select new { s.ncode_provee, s.sdesc_prove};
+            return Json(result);
+        }
+
         public JsonResult getClienteDire(Int32 scodCliente)
         {
             db.Configuration.ProxyCreationEnabled = false;

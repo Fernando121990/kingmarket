@@ -63,6 +63,30 @@
         <AssociationConnector Association="MarketWebModel.R_27" />
         <AssociationConnector Association="MarketWebModel.R_30" />
         <AssociationConnector Association="MarketWebModel.R_31" />
+        <EntityTypeShape EntityType="MarketWebModel.COMPRA_DETALLE" Width="1.5" PointX="20.25" PointY="10" />
+        <EntityTypeShape EntityType="MarketWebModel.COMPRAS" Width="1.5" PointX="18" PointY="6" />
+        <EntityTypeShape EntityType="MarketWebModel.CTA_COBRAR" Width="1.5" PointX="13" PointY="13.25" />
+        <EntityTypeShape EntityType="MarketWebModel.CTAS_PAGAR" Width="1.5" PointX="16" PointY="15.375" />
+        <EntityTypeShape EntityType="MarketWebModel.CTASCO_DETALLE" Width="1.5" PointX="15.25" PointY="3.125" />
+        <EntityTypeShape EntityType="MarketWebModel.CTASPA_DETALLE" Width="1.5" PointX="20.25" PointY="4.5" />
+        <AssociationConnector Association="MarketWebModel.R_36" />
+        <AssociationConnector Association="MarketWebModel.R_37" />
+        <AssociationConnector Association="MarketWebModel.R_39" />
+        <AssociationConnector Association="MarketWebModel.R_46" />
+        <AssociationConnector Association="MarketWebModel.R_35" />
+        <AssociationConnector Association="MarketWebModel.R_38" />
+        <AssociationConnector Association="MarketWebModel.R_40" />
+        <AssociationConnector Association="MarketWebModel.R_41" />
+        <AssociationConnector Association="MarketWebModel.R_43" />
+        <AssociationConnector Association="MarketWebModel.R_45" />
+        <AssociationConnector Association="MarketWebModel.R_47" />
+        <AssociationConnector Association="MarketWebModel.R_50" />
+        <AssociationConnector Association="MarketWebModel.R_51" />
+        <AssociationConnector Association="MarketWebModel.R_52" />
+        <AssociationConnector Association="MarketWebModel.R_53" />
+        <AssociationConnector Association="MarketWebModel.R_48" />
+        <AssociationConnector Association="MarketWebModel.R_42" />
+        <AssociationConnector Association="MarketWebModel.R_44" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

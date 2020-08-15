@@ -179,6 +179,8 @@
     <Compile Include="Areas\Inventario\Clases\moviViewDeta.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
     <Compile Include="Clases\clienteView.cs" />
+    <Compile Include="Clases\compraView.cs" />
+    <Compile Include="Clases\compraViewDeta.cs" />
     <Compile Include="Clases\ventaView.cs" />
     <Compile Include="Clases\ventaViewDeta.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -187,7 +189,12 @@
     <Compile Include="Controllers\CLASEsController.cs" />
     <Compile Include="Controllers\CLIDI_CONTACController.cs" />
     <Compile Include="Controllers\CLIENTEsController.cs" />
+    <Compile Include="Controllers\COMPRASController.cs" />
     <Compile Include="Controllers\CONFIGURACIONsController.cs" />
+    <Compile Include="Controllers\CTASCO_DETALLEController.cs" />
+    <Compile Include="Controllers\CTASPA_DETALLEController.cs" />
+    <Compile Include="Controllers\CTAS_PAGARController.cs" />
+    <Compile Include="Controllers\CTA_COBRARController.cs" />
     <Compile Include="Controllers\FAMILIAsController.cs" />
     <Compile Include="Controllers\FuncionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -203,7 +210,6 @@
     <Compile Include="Controllers\UBIGEOsController.cs" />
     <Compile Include="Controllers\UMEDIDAsController.cs" />
     <Compile Include="Controllers\VENTASController.cs" />
-    <Compile Include="Controllers\VENTA_DETALLEController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,10 +242,28 @@
     <Compile Include="Models\CLI_DIRE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\COMPRAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COMPRA_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONFIGURACION.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTACTO.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTASCO_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTASPA_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTAS_PAGAR.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTA_COBRAR.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FAMILIA.cs">
@@ -469,6 +493,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\imagen\fondo.jpg" />
     <Content Include="Content\jquery-ui-1.12.1.custom\AUTHORS.txt" />
     <Content Include="Content\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
     <Content Include="Content\jquery-ui-1.12.1.custom\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -523,6 +548,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Cliente\clienteCrear.js" />
+    <Content Include="Scripts\Compras\compraCrear.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -752,11 +778,6 @@
     <Content Include="Views\VENTAS\Details.cshtml" />
     <Content Include="Views\VENTAS\Edit.cshtml" />
     <Content Include="Views\VENTAS\Index.cshtml" />
-    <Content Include="Views\VENTA_DETALLE\Create.cshtml" />
-    <Content Include="Views\VENTA_DETALLE\Delete.cshtml" />
-    <Content Include="Views\VENTA_DETALLE\Details.cshtml" />
-    <Content Include="Views\VENTA_DETALLE\Edit.cshtml" />
-    <Content Include="Views\VENTA_DETALLE\Index.cshtml" />
     <Content Include="Views\Shared\_Mensaje.cshtml" />
     <Content Include="Views\CLIENTEs\CreateDireccion.cshtml" />
     <Content Include="Views\CLIENTEs\EditDire.cshtml" />
@@ -766,6 +787,31 @@
     <Content Include="Views\ARTICULOs\EditBarra.cshtml" />
     <Content Include="Views\ARTICULOs\CreateProveedor.cshtml" />
     <Content Include="Views\ARTICULOs\EditProveedor.cshtml" />
+    <Content Include="Views\COMPRAS\Create.cshtml" />
+    <Content Include="Views\COMPRAS\Delete.cshtml" />
+    <Content Include="Views\COMPRAS\Details.cshtml" />
+    <Content Include="Views\COMPRAS\Edit.cshtml" />
+    <Content Include="Views\COMPRAS\Index.cshtml" />
+    <Content Include="Views\CTA_COBRAR\Create.cshtml" />
+    <Content Include="Views\CTA_COBRAR\Delete.cshtml" />
+    <Content Include="Views\CTA_COBRAR\Details.cshtml" />
+    <Content Include="Views\CTA_COBRAR\Edit.cshtml" />
+    <Content Include="Views\CTA_COBRAR\Index.cshtml" />
+    <Content Include="Views\CTASCO_DETALLE\Create.cshtml" />
+    <Content Include="Views\CTASCO_DETALLE\Delete.cshtml" />
+    <Content Include="Views\CTASCO_DETALLE\Details.cshtml" />
+    <Content Include="Views\CTASCO_DETALLE\Edit.cshtml" />
+    <Content Include="Views\CTASCO_DETALLE\Index.cshtml" />
+    <Content Include="Views\CTAS_PAGAR\Create.cshtml" />
+    <Content Include="Views\CTAS_PAGAR\Delete.cshtml" />
+    <Content Include="Views\CTAS_PAGAR\Details.cshtml" />
+    <Content Include="Views\CTAS_PAGAR\Edit.cshtml" />
+    <Content Include="Views\CTAS_PAGAR\Index.cshtml" />
+    <Content Include="Views\CTASPA_DETALLE\Create.cshtml" />
+    <Content Include="Views\CTASPA_DETALLE\Delete.cshtml" />
+    <Content Include="Views\CTASPA_DETALLE\Details.cshtml" />
+    <Content Include="Views\CTASPA_DETALLE\Edit.cshtml" />
+    <Content Include="Views\CTASPA_DETALLE\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

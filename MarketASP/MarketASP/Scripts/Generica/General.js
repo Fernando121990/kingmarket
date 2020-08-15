@@ -26,6 +26,28 @@
         }
     });
 
+
+    //listado de proveedores
+    $("#sdesc_prove").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: urlGetProveedor, // "/Encuesta/GetCliente",
+                type: "POST", dataType: "json",
+                data: { sdescProvee: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.sdesc_prove, value: item.sdesc_prove, id: item.ncode_provee
+                        };
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#ncode_provee').val(ui.item.id);
+        }
+    });
+
     $("#ncode_gere").change(function () {
         $("#ncode_orar").empty();
         $.ajax({
@@ -85,9 +107,6 @@
         $("#sapma_cliente").val("");
         $("#snomb_cliente").val("");
     });
-
-
-
 
 });
 

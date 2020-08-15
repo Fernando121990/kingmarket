@@ -49,6 +49,10 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/venta").Include(
                "~/Scripts/Ventas/ventaCrear.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/compra").Include(
+               "~/Scripts/Compras/compraCrear.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/cliente").Include(
                "~/Scripts/Cliente/clienteCrear.js"));
 

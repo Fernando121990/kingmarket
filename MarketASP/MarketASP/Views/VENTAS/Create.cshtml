@@ -32,13 +32,19 @@
             </div>
             @Html.LabelFor(model => model.ntc_venta, "TC", htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-1">
-                <input id="TC_Prof" style="width:6em" name="TC_Prof" type="text" value="@ViewBag.tc" readonly />
+                <input id="ntc_venta" style="width:6em" name="ntc_venta" type="text" value="@ViewBag.tc" readonly />
                 @Html.ValidationMessageFor(model => model.ntc_venta, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-3">
-                @Html.DropDownList("ncode_fopago");
+                @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2">Almacen</label>
+            <div class="col-md-3">
+                @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
@@ -384,7 +390,7 @@
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlventaCrea = '@Url.Action("Create", "ventas")';
-        var urlventaLista = '@Url.Action("Index", "ventas")';
+        var urlventaLista = '@Url.Action("Create", "cta_cobrar")';
     </script>
 
 }

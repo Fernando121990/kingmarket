@@ -21,6 +21,8 @@ namespace MarketASP.Models
             this.MOVIMIENTO1 = new HashSet<MOVIMIENTO>();
             this.KARDEX = new HashSet<KARDEX>();
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
+            this.COMPRAS = new HashSet<COMPRAS>();
+            this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
         }
     
         public int ncode_alma { get; set; }
@@ -35,5 +37,9 @@ namespace MarketASP.Models
         public virtual ICollection<KARDEX> KARDEX { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRAS> COMPRAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRA_DETALLE> COMPRA_DETALLE { get; set; }
     }
 }

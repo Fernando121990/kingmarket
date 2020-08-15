@@ -53,6 +53,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfech_venta { get; set; }
         public string susmo_venta { get; set; }
         public Nullable<System.DateTime> dfemo_venta { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }

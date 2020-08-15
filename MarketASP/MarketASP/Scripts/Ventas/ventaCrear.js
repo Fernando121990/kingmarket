@@ -193,8 +193,9 @@ function Sales_save() {
     };
 
     var ventaView = {
+        "ncode_venta": "", "ncode_alma": "",
         "ncode_docu":"","sseri_venta":"", "snume_venta":"",
-        "dfeventa_venta":"","dfevenci_venta":"","ncode_cliente":"",
+        "sfeventa_venta":"","sfevenci_venta":"","ncode_cliente":"",
         "ncode_clidire":"","smone_venta":"","ntc_venta":"",
         "ncode_fopago":"","sobse_venta":"","ncode_compra":"",
         "ncode_profo":"","nbrutoex_venta":"","nbrutoaf_venta":"",
@@ -205,11 +206,12 @@ function Sales_save() {
 
     };
 
+    ventaView.ncode_venta = $('#ncode_venta').val();
     ventaView.ncode_docu = $("#ncode_docu option:selected").val();
     ventaView.sseri_venta = $('#sseri_venta').val();
     ventaView.snume_venta = $('#snume_venta').val();
-    ventaView.dfeventa_venta = $('#dfeventa_venta').val();
-    ventaView.dfevenci_venta = $('#dfevenci_venta').val();
+    ventaView.sfeventa_venta = $('#dfeventa_venta').val();
+    ventaView.sfevenci_venta = $('#dfevenci_venta').val();
     ventaView.ncode_cliente = $('#COD_CLIENTE').val(); 
     ventaView.ncode_clidire = $("#NRO_DCLIENTE option:selected").val();
     ventaView.smone_venta = $('#smone_venta').val();
@@ -232,6 +234,7 @@ function Sales_save() {
     ventaView.ntotalMN_venta = $('#ntotalMN_venta').val();
     ventaView.ntotalUs_venta = $('#ntotalUs_venta').val();
     ventaView.nvalIGV_venta = $('#nvalIGV_venta').val();
+    ventaView.ncode_alma = $("#ncode_alma option:selected").val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -247,6 +250,7 @@ function Sales_save() {
         ventaViewDetas.nafecto_vedeta = oTable[i][5] * oTable[i][3];
         ventaViewDetas.besafecto_vedeta = oTable[i][8];
         ventaViewDetas.ndsctoporc_vedeta = oTable[i][6];
+        ventaViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ventaView.ventaViewDetas.push(ventaViewDetas);
 
@@ -394,3 +398,4 @@ function ComparaPrecio(Precio, PrecioOrigen) {
     return xprecio;
 
 }
+

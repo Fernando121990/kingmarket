@@ -53,9 +53,10 @@ namespace MarketASP.Controllers
             }
             ViewBag.tc = result.nventa_tc;
 
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "svalor_confi", "sdesc_confi");
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "svalor_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             return View();
         }
 
@@ -85,8 +86,13 @@ namespace MarketASP.Controllers
                         if (mofView != null)
                         {
 
-                            //db.Pr_movimientoCrear(DateTime.Parse(mofView.dfemov_movi), mofView.smone_movi, mofView.ntc_movi, mofView.sobse_movi,
-                              //  "", "", User.Identity.Name, mofView.ncode_timovi, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_movi, sw);
+                            db.Pr_ventaCrea(mofView.ncode_docu, mofView.sseri_venta, mofView.snume_venta, DateTime.Parse(mofView.sfeventa_venta),
+                                DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
+                                mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
+                                mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
+                                mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
+                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma, sw);
+
 
                             code = int.Parse(sw.Value.ToString());
 
@@ -95,12 +101,14 @@ namespace MarketASP.Controllers
                                 foreach (ventaViewDeta item in mofView.ventaViewDetas)
                                 {
                                     fila++;
-                                //    db.Pr_movimientoDetaCrea(item.ncode_arti, item.ncant_movidet, item.npu_movidet, User.Identity.Name, code, item.ncode_umed);
+                                    db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
+                                        item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta);
                                 };
 
                             }
 
-                            db.Pr_KardexCrea("Venta", 4, "I", code, User.Identity.Name);
+                            db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
                         }
                     }
                 }
@@ -116,21 +124,6 @@ namespace MarketASP.Controllers
             }
         }
 
-        //public async Task<ActionResult> Create(VENTAS vENTAS)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.VENTAS.Add(vENTAS);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.ncode_clidire = new SelectList(db.CLI_DIRE, "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
-        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", vENTAS.ncode_cliente);
-        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_docu);
-        //    ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_fopago);
-        //    return View(vENTAS);
-        //}
 
         // GET: VENTAS/Edit/5
         public async Task<ActionResult> Edit(long? id)
@@ -144,58 +137,122 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ncode_clidire = new SelectList(db.CLI_DIRE, "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
-            ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", vENTAS.ncode_cliente);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_docu);
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_fopago);
+            ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",vENTAS.smone_venta);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi",vENTAS.ncode_docu);
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
+            ViewBag.sdesc_cliente = vENTAS.CLIENTE.srazon_cliente;
+            ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
 
-        // POST: VENTAS/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_venta,ncode_docu,sseri_venta,snume_venta,dfeventa_venta,dfevenci_venta,ncode_cliente,ncode_clidire,smone_venta,ntc_venta,ncode_fopago,sobse_venta,ncode_compra,ncode_profo,nbrutoex_venta,nbrutoaf_venta,ndctoex_venta,ndsctoaf_venta,nsubex_venta,nsubaf_venta,nigvex_venta,nigvaf_venta,ntotaex_venta,ntotaaf_venta,ntotal_venta,ntotalMN_venta,ntotalUs_venta,besta_venta,nvalIGV_venta,suser_venta,dfech_venta,susmo_venta,dfemo_venta")] VENTAS vENTAS)
+        public JsonResult Edit(string model_json)
         {
-            if (ModelState.IsValid)
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+
+            int xsw;
+            long code;
+            string data = "";
+            int fila = 0;
+            try
             {
-                db.Entry(vENTAS).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    data = model_json;
+                    var jsonSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    if (data != null)
+                    {
+                        var mofView = JsonConvert.DeserializeObject<ventaView>(data, jsonSettings);
+
+                        if (mofView != null)
+                        {
+
+                            db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, mofView.dfeventa_venta,
+                                mofView.dfevenci_venta, mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
+                                mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
+                                mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
+                                mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
+                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, sw);
+
+
+                            xsw = int.Parse(sw.Value.ToString());
+                            code = mofView.ncode_venta;
+
+                            if (mofView.ventaViewDetas != null)
+                            {
+                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+                                {
+                                    fila++;
+                                    db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
+                                        item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta);
+                                };
+
+                            }
+
+                            db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
+
+                            db.Pr_ventaDetaEdita(code);
+                        }
+                    }
+                }
+
+                return Json(new { Success = 1 });
+
             }
-            ViewBag.ncode_clidire = new SelectList(db.CLI_DIRE, "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
-            ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", vENTAS.ncode_cliente);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_docu);
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", vENTAS.ncode_fopago);
-            return View(vENTAS);
+            catch (Exception ex)
+            {
+                string mensaje = ex.Message;
+                ViewBag.mensaje = mensaje;
+                return Json(new { Success = 0 });
+            }
         }
 
-        // GET: VENTAS/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+
+        public async Task<ActionResult> anulaVenta(int? id)
         {
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             VENTAS vENTAS = await db.VENTAS.FindAsync(id);
             if (vENTAS == null)
             {
                 return HttpNotFound();
             }
-            return View(vENTAS);
-        }
 
-        // POST: VENTAS/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
-        {
-            VENTAS vENTAS = await db.VENTAS.FindAsync(id);
-            db.VENTAS.Remove(vENTAS);
-            await db.SaveChangesAsync();
+            db.Pr_ventaAnula(id, sw);
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> DeleteVenta(int? id)
+        {
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            VENTAS vENTAS = await db.VENTAS.FindAsync(id);
+            if (vENTAS == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Pr_ventaElimina(id,sw);
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

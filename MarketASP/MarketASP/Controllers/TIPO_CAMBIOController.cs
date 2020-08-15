@@ -31,6 +31,18 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                //verificar que exista tc del dia
+
+                string xfecha = tIPO_CAMBIO.dfecha_tc.ToString();
+
+                //string.Format("{0:d}", tIPO_CAMBIO.dfecha_tc)
+
+                TIPO_CAMBIO _CAMBIO  = await db.TIPO_CAMBIO.FindAsync(DateTime.Parse(xfecha));
+                if (_CAMBIO != null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 db.TIPO_CAMBIO.Add(tIPO_CAMBIO);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index","Home");
@@ -40,13 +52,15 @@ namespace MarketASP.Controllers
         }
 
         // GET: TIPO_CAMBIO/Edit/5
-        public async Task<ActionResult> Edit(DateTime id)
+        public async Task<ActionResult> Edit(string id)
         {
-            if (id == null)
+            DateTime xid = DateTime.Parse(id);
+
+            if (xid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TIPO_CAMBIO tIPO_CAMBIO = await db.TIPO_CAMBIO.FindAsync(id);
+            TIPO_CAMBIO tIPO_CAMBIO = await db.TIPO_CAMBIO.FindAsync(xid);
             if (tIPO_CAMBIO == null)
             {
                 return HttpNotFound();
@@ -67,14 +81,16 @@ namespace MarketASP.Controllers
             return View(tIPO_CAMBIO);
         }
 
-        public async Task<ActionResult> DeleteTC(DateTime id)
+        public async Task<ActionResult> DeleteTC(string id)
         {
-            if (id == null)
+            DateTime xid = DateTime.Parse(id);
+
+            if (xid == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            TIPO_CAMBIO tIPO_CAMBIO = await db.TIPO_CAMBIO.FindAsync(id);
+            TIPO_CAMBIO tIPO_CAMBIO = await db.TIPO_CAMBIO.FindAsync(xid);
             db.TIPO_CAMBIO.Remove(tIPO_CAMBIO);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

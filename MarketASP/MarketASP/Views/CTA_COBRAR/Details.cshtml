@@ -1,0 +1,162 @@
+﻿@model MarketASP.Models.CTA_COBRAR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CTA_COBRAR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ncodeDoc_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncodeDoc_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sdocu_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sdocu_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfecta_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfecta_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.smone_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.smone_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntotal_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntotal_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfevenci_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfevenci_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntc_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntc_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntotalMN_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntotalMN_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ntotalUS_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ntotalUS_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.npago_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.npago_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ncode_letra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ncode_letra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sesta_letra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sesta_letra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.suser_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.suser_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfech_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfech_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.susmo_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.susmo_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dfemo_ctaco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dfemo_ctaco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTE.srazon_cliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTE.srazon_cliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONFIGURACION.sdesc_confi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_ctaco }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
