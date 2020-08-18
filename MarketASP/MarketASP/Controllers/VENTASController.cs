@@ -1,16 +1,15 @@
-﻿ using System;
-using System.Collections.Generic;
+﻿using MarketASP.Clases;
+using MarketASP.Models;
+using Newtonsoft.Json;
+using System;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MarketASP.Models;
 using System.Data.Entity.Core.Objects;
-using Newtonsoft.Json;
-using MarketASP.Clases;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+
 
 namespace MarketASP.Controllers
 {
@@ -65,8 +64,10 @@ namespace MarketASP.Controllers
         public JsonResult Create(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter cc = new ObjectParameter("cc", typeof(int));
 
-            int code;
+            int code = 0;
+            int cccode = 0;
             string data = "";
             int fila = 0;
             try
@@ -91,10 +92,11 @@ namespace MarketASP.Controllers
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma, sw);
+                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
+                            cccode = int.Parse(cc.Value.ToString());
 
                             if (mofView.ventaViewDetas != null)
                             {
@@ -111,6 +113,10 @@ namespace MarketASP.Controllers
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
                         }
                     }
+                }
+                if (ConfiguracionSingleton.Instance.glbcobroAutomatico == "SI")
+                {
+                    return Json(new { Success = 2, CtaCo = cccode });
                 }
 
                 return Json(new { Success = 1 });

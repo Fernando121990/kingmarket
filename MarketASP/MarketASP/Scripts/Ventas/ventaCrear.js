@@ -19,11 +19,11 @@
                     switch (idx) {
                         case 7:
                             var xvalue = ofunciones.cell(aPos, 8).data();
-                            console.log(xvalue);
+                            //console.log(xvalue);
                             var yValue = ComparaPrecio(sValue, xvalue);
-                            console.log(yValue);
+                            //console.log(yValue);
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            console.log('Precio insertado');
+                            //console.log('Precio insertado');
                             break;
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
@@ -184,7 +184,7 @@
 
 function Sales_save() {
 
-    console.log('nueva venta');
+    //console.log('nueva venta');
 
     var ventaViewDetas = {
         "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
@@ -262,7 +262,7 @@ function Sales_save() {
 
     }
 
-    console.log(ventaView);
+   // console.log(ventaView);
 
     var token = $('[name=__RequestVerificationToken]').val();
 
@@ -272,11 +272,19 @@ function Sales_save() {
         dataType: 'json',
         data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(ventaView) },
         success: function (result) {
-            if (result.Success == "1") {
-                window.location.href = urlventaLista;
-            }
-            else {
-                alert('No se puede registrar venta');
+            console.log(result.Success)
+            switch (result.Success) {
+                case 1:
+                    window.location.href = urlventaLista;
+                    break;
+                case 2:
+                    urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo));
+                    console.log(urlventaCobro);
+                    window.location.href = urlventaCobro;
+                    break;
+                default:
+                    window.location.href = urlventaLista;
+                    //alert('No se puede registrar venta');
             }
         },
         error: function (ex) {
@@ -398,4 +406,5 @@ function ComparaPrecio(Precio, PrecioOrigen) {
     return xprecio;
 
 }
+
 

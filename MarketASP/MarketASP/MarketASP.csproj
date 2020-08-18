@@ -181,6 +181,7 @@
     <Compile Include="Clases\clienteView.cs" />
     <Compile Include="Clases\compraView.cs" />
     <Compile Include="Clases\compraViewDeta.cs" />
+    <Compile Include="Clases\ConfiguracionSingleton.cs" />
     <Compile Include="Clases\ventaView.cs" />
     <Compile Include="Clases\ventaViewDeta.cs" />
     <Compile Include="Controllers\AccountController.cs" />

@@ -282,7 +282,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clienteDireElimina", ncode_clidireParameter, sw);
         }
     
-        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, Nullable<long> ncode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, ObjectParameter sw)
+        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, Nullable<long> ncode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, string ctacobraAuto, ObjectParameter sw, ObjectParameter cc)
         {
             var ncode_docuParameter = ncode_docu.HasValue ?
                 new ObjectParameter("ncode_docu", ncode_docu) :
@@ -404,7 +404,11 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_alma", ncode_alma) :
                 new ObjectParameter("ncode_alma", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, ncode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, sw);
+            var ctacobraAutoParameter = ctacobraAuto != null ?
+                new ObjectParameter("ctacobraAuto", ctacobraAuto) :
+                new ObjectParameter("ctacobraAuto", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, ncode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ctacobraAutoParameter, sw, cc);
         }
     
         public virtual int Pr_ventaDetaCrea(Nullable<long> ncode_venta, Nullable<long> ncode_arti, Nullable<decimal> ncant_vedeta, Nullable<decimal> npu_vedeta, Nullable<decimal> ndscto_vedeta, Nullable<decimal> ndscto2_vedeta, Nullable<decimal> nexon_vedeta, Nullable<decimal> nafecto_vedeta, Nullable<bool> besafecto_vedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_vedeta, Nullable<decimal> ndsctomin_vedeta, Nullable<decimal> ndsctoporc_vedeta)
@@ -916,6 +920,71 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_compra", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_compraElimina", ncode_compraParameter, sw);
+        }
+    
+        public virtual int Pr_CtaCobrarCrea(Nullable<long> ncodeDoc_ctaco, string sdocu_ctaco, Nullable<System.DateTime> dfecta_ctaco, string smone_ctaco, Nullable<decimal> ntotal_ctaco, Nullable<System.DateTime> dfevenci_ctaco, Nullable<decimal> ntc_ctaco, Nullable<decimal> ntotalMN_ctaco, Nullable<decimal> ntotalUS_ctaco, Nullable<decimal> npago_ctaco, Nullable<int> ncode_letra, string sesta_letra, string suser_ctaco, Nullable<int> ncode_cliente, Nullable<int> ncode_docu, ObjectParameter sw)
+        {
+            var ncodeDoc_ctacoParameter = ncodeDoc_ctaco.HasValue ?
+                new ObjectParameter("ncodeDoc_ctaco", ncodeDoc_ctaco) :
+                new ObjectParameter("ncodeDoc_ctaco", typeof(long));
+    
+            var sdocu_ctacoParameter = sdocu_ctaco != null ?
+                new ObjectParameter("sdocu_ctaco", sdocu_ctaco) :
+                new ObjectParameter("sdocu_ctaco", typeof(string));
+    
+            var dfecta_ctacoParameter = dfecta_ctaco.HasValue ?
+                new ObjectParameter("dfecta_ctaco", dfecta_ctaco) :
+                new ObjectParameter("dfecta_ctaco", typeof(System.DateTime));
+    
+            var smone_ctacoParameter = smone_ctaco != null ?
+                new ObjectParameter("smone_ctaco", smone_ctaco) :
+                new ObjectParameter("smone_ctaco", typeof(string));
+    
+            var ntotal_ctacoParameter = ntotal_ctaco.HasValue ?
+                new ObjectParameter("ntotal_ctaco", ntotal_ctaco) :
+                new ObjectParameter("ntotal_ctaco", typeof(decimal));
+    
+            var dfevenci_ctacoParameter = dfevenci_ctaco.HasValue ?
+                new ObjectParameter("dfevenci_ctaco", dfevenci_ctaco) :
+                new ObjectParameter("dfevenci_ctaco", typeof(System.DateTime));
+    
+            var ntc_ctacoParameter = ntc_ctaco.HasValue ?
+                new ObjectParameter("ntc_ctaco", ntc_ctaco) :
+                new ObjectParameter("ntc_ctaco", typeof(decimal));
+    
+            var ntotalMN_ctacoParameter = ntotalMN_ctaco.HasValue ?
+                new ObjectParameter("ntotalMN_ctaco", ntotalMN_ctaco) :
+                new ObjectParameter("ntotalMN_ctaco", typeof(decimal));
+    
+            var ntotalUS_ctacoParameter = ntotalUS_ctaco.HasValue ?
+                new ObjectParameter("ntotalUS_ctaco", ntotalUS_ctaco) :
+                new ObjectParameter("ntotalUS_ctaco", typeof(decimal));
+    
+            var npago_ctacoParameter = npago_ctaco.HasValue ?
+                new ObjectParameter("npago_ctaco", npago_ctaco) :
+                new ObjectParameter("npago_ctaco", typeof(decimal));
+    
+            var ncode_letraParameter = ncode_letra.HasValue ?
+                new ObjectParameter("ncode_letra", ncode_letra) :
+                new ObjectParameter("ncode_letra", typeof(int));
+    
+            var sesta_letraParameter = sesta_letra != null ?
+                new ObjectParameter("sesta_letra", sesta_letra) :
+                new ObjectParameter("sesta_letra", typeof(string));
+    
+            var suser_ctacoParameter = suser_ctaco != null ?
+                new ObjectParameter("suser_ctaco", suser_ctaco) :
+                new ObjectParameter("suser_ctaco", typeof(string));
+    
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(int));
+    
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_CtaCobrarCrea", ncodeDoc_ctacoParameter, sdocu_ctacoParameter, dfecta_ctacoParameter, smone_ctacoParameter, ntotal_ctacoParameter, dfevenci_ctacoParameter, ntc_ctacoParameter, ntotalMN_ctacoParameter, ntotalUS_ctacoParameter, npago_ctacoParameter, ncode_letraParameter, sesta_letraParameter, suser_ctacoParameter, ncode_clienteParameter, ncode_docuParameter, sw);
         }
     }
 }

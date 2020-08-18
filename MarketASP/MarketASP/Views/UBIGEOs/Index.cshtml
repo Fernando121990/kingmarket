@@ -1,26 +1,28 @@
 ﻿@model IEnumerable<MarketASP.Models.UBIGEO>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Ubigeo";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="row ptp-titulos" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Ubigeo" })
+    </div>
+</div>
+<table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sdepa_ubigeo)
+            Departamento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sprovi_ubigeo)
+            Provincia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sdistri_ubigeo)
+            Distrito
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -33,11 +35,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.sdistri_ubigeo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.scode_ubigeo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.scode_ubigeo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.scode_ubigeo })
         </td>
     </tr>
 }

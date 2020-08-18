@@ -1,51 +1,54 @@
 ﻿@model IEnumerable<MarketASP.Models.CONFIGURACION>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Configuracion General";
 }
 
-<h2>Index</h2>
+<div class="row ptp-titulos" style="margin-top:5px">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Configuracion" })
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.sdesc_confi)
+            Tipo
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.svalor_confi)
+            Descripción
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.besta_confi)
+            Valor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ntipo_confi)
+            Activo
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.svalor_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.besta_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntipo_confi)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_confi }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_confi }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_confi })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.OrderBy(t => t.ntipo_confi))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ntipo_confi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc_confi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.svalor_confi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.besta_confi)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.ncode_confi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            </td>
+        </tr>
+    }
 
 </table>

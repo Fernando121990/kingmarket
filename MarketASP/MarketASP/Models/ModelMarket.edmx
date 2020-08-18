@@ -1259,6 +1259,24 @@
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Pr_CtaCobrarCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncodeDoc_ctaco" Type="bigint" Mode="In" />
+          <Parameter Name="sdocu_ctaco" Type="varchar" Mode="In" />
+          <Parameter Name="dfecta_ctaco" Type="datetime" Mode="In" />
+          <Parameter Name="smone_ctaco" Type="varchar" Mode="In" />
+          <Parameter Name="ntotal_ctaco" Type="decimal" Mode="In" />
+          <Parameter Name="dfevenci_ctaco" Type="datetime" Mode="In" />
+          <Parameter Name="ntc_ctaco" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalMN_ctaco" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalUS_ctaco" Type="decimal" Mode="In" />
+          <Parameter Name="npago_ctaco" Type="decimal" Mode="In" />
+          <Parameter Name="ncode_letra" Type="int" Mode="In" />
+          <Parameter Name="sesta_letra" Type="varchar" Mode="In" />
+          <Parameter Name="suser_ctaco" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+          <Parameter Name="ncode_docu" Type="int" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
         <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="modulo" Type="varchar" Mode="In" />
           <Parameter Name="ncode_confi" Type="int" Mode="In" />
@@ -1353,7 +1371,9 @@
           <Parameter Name="nvalIGV_venta" Type="decimal" Mode="In" />
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
-          <Parameter Name="sw" Type="int" Mode="InOut" />
+          <Parameter Name="ctacobraAuto" Type="char" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+          <Parameter Name="cc" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_ventaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
@@ -1906,7 +1926,9 @@
             <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
             <Parameter Name="suser_venta" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+            <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+            <Parameter Name="cc" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_ventaDetaCrea">
             <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
@@ -2091,7 +2113,7 @@
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_compraDetaEdita">
-            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_compraEdita">
             <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
@@ -2128,6 +2150,24 @@
           <FunctionImport Name="Pr_compraElimina">
             <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_CtaCobrarCrea">
+            <Parameter Name="ncodeDoc_ctaco" Mode="In" Type="Int64" />
+            <Parameter Name="sdocu_ctaco" Mode="In" Type="String" />
+            <Parameter Name="dfecta_ctaco" Mode="In" Type="DateTime" />
+            <Parameter Name="smone_ctaco" Mode="In" Type="String" />
+            <Parameter Name="ntotal_ctaco" Mode="In" Type="Decimal" />
+            <Parameter Name="dfevenci_ctaco" Mode="In" Type="DateTime" />
+            <Parameter Name="ntc_ctaco" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalMN_ctaco" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalUS_ctaco" Mode="In" Type="Decimal" />
+            <Parameter Name="npago_ctaco" Mode="In" Type="Decimal" />
+            <Parameter Name="ncode_letra" Mode="In" Type="Int32" />
+            <Parameter Name="sesta_letra" Mode="In" Type="String" />
+            <Parameter Name="suser_ctaco" Mode="In" Type="String" />
+            <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
@@ -4023,6 +4063,7 @@
           <FunctionImportMapping FunctionImportName="Pr_compraDetaEdita" FunctionName="MarketWebModel.Store.Pr_compraDetaEdita" />
           <FunctionImportMapping FunctionImportName="Pr_compraEdita" FunctionName="MarketWebModel.Store.Pr_compraEdita" />
           <FunctionImportMapping FunctionImportName="Pr_compraElimina" FunctionName="MarketWebModel.Store.Pr_compraElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_CtaCobrarCrea" FunctionName="MarketWebModel.Store.Pr_CtaCobrarCrea" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

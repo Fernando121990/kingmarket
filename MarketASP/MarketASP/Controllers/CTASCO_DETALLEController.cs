@@ -38,7 +38,7 @@ namespace MarketASP.Controllers
         }
 
         // GET: CTASCO_DETALLE/Create
-        public ActionResult Create()
+        public ActionResult Create(long id)
         {
             ViewBag.ncode_banco = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi");
             ViewBag.ncode_tpago = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi");

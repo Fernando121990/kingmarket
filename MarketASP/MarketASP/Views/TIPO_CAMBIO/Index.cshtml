@@ -3,16 +3,16 @@
 @{
     ViewBag.Title = "Tipo de Cambio";
 }
-
-<div class="row" style="margin-top:5px">
+<div class="row ptp-titulos" style="margin-top:5px">
     <div class="col-md-6 col-sm-6">
         <h4>@ViewBag.Title</h4>
     </div>
     <div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Articulo" })
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir tipo de Cambio" })
     </div>
 </div>
-<table class="table">
+
+<table class="table table-striped">
     <tr>
         <th>
             Fecha
@@ -26,22 +26,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.OrderByDescending(t=>t.dfecha_tc)) {
-    <tr>
-        <td>
-            @string.Format("{0:d}",item.dfecha_tc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ncompra_tc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nventa_tc)
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-            @Html.ActionLink(" ", "DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}",item.dfecha_tc) }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.OrderByDescending(t => t.dfecha_tc))
+    {
+        <tr>
+            <td>
+                @string.Format("{0:d}", item.dfecha_tc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ncompra_tc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nventa_tc)
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                @Html.ActionLink(" ", "DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+            </td>
+        </tr>
+    }
 
 </table>
