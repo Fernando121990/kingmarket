@@ -1,162 +1,92 @@
 ﻿@model MarketASP.Models.CTA_COBRAR
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Cobros Registrados";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>CTA_COBRAR</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ncodeDoc_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ncodeDoc_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sdocu_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sdocu_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfecta_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfecta_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.smone_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.smone_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ntotal_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ntotal_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfevenci_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfevenci_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ntc_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ntc_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ntotalMN_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ntotalMN_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ntotalUS_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ntotalUS_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.npago_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.npago_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ncode_letra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ncode_letra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sesta_letra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sesta_letra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.suser_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.suser_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfech_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfech_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.susmo_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.susmo_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfemo_ctaco)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfemo_ctaco)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENTE.srazon_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENTE.srazon_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CONFIGURACION.sdesc_confi)
-        </dd>
-
-    </dl>
+<div class="row ptp-subtitulos">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title @Model.CONFIGURACION.sdesc_confi @Model.sdocu_ctaco</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "CreateCobro", new { id = Model.ncode_ctaco }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cobro" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_ctaco }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (Model.CTASCO_DETALLE.Count == 0)
+{
+    <h4>No se han registrado Cobros para esta Cuenta</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <tr>
+            <th>Tipo</th>
+            <th>
+                F.Pago
+            </th>
+            <th>
+                M
+            </th>
+            <th>
+                Monto
+            </th>
+            <th>
+                TC
+            </th>
+            <th>
+                Vuelto MN
+            </th>
+            <th>
+                Usuario Tarjeta
+            </th>
+            <th>
+                Nro Tarjeta
+            </th>
+            <th>
+                Observacion
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var itemp in Model.CTASCO_DETALLE)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.CONFIGURACION1.sdesc_confi)
+                </td>
+                <td>
+                    @string.Format("{0:d}", itemp.dfepago_ctacode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.smone_ctacode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.nmonto_ctacode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.ntc_ctacode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.nvuelto_ctacode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.suser_tarjeta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.snro_tarjeta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemp.sobse_ctacode)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "DeleteCobro", new { id = itemp.ncode_ctacode }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+<div>
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Ctas x Cobrar" })
+</div>
+

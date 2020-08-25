@@ -31,6 +31,9 @@ namespace MarketASP.Models
         public long ncode_ctaco { get; set; }
         public Nullable<int> ncode_banco { get; set; }
         public int ncode_tpago { get; set; }
+        public Nullable<int> ncode_tarjeta { get; set; }
+        public Nullable<decimal> nmontoMN_ctacode { get; set; }
+        public Nullable<decimal> nmontoUS_ctacode { get; set; }
     
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }

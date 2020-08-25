@@ -56,6 +56,8 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/cliente").Include(
                "~/Scripts/Cliente/clienteCrear.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ctacobrar").Include(
+               "~/Scripts/CtaCobrar/ctacobrarCrea.js"));
 
             bundles.Add(new StyleBundle("~/Content/estructura").Include(
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.css",

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "FAMILIAS";
 }
-<div class="row" style="margin-top:5px">
+<div class="col-md-12 ptp-titulos">
     <div class="col-md-6 col-sm-6">
         <h4>@ViewBag.Title</h4>
     </div>
@@ -11,7 +11,7 @@
         @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Familia" })
     </div>
 </div>
-<table class="table table-bordered">
+<table class="table table-striped">
     <tr>
         <th>
             <label>Descripción</label>

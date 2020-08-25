@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<MarketASP.Models.UMEDIDA>
 
 @{
-    ViewBag.Title = "Unidad Medida";
+    ViewBag.Title = "LIstado de Medidas";
 }
 
-<div class="row" style="margin-top:5px">
+<div class="row ptp-titulos">
     <div class="col-md-6 col-sm-6">
         <h4>@ViewBag.Title</h4>
     </div>
     <div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Familia" })
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Medida" })
     </div>
 </div>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             Descripción

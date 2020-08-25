@@ -1,7 +1,7 @@
 ﻿@model MarketASP.Clases.clienteView
 
 @{
-    ViewBag.Title = "Clientes";
+    ViewBag.Title = "Registrar Cliente";
 }
 
 @using (Html.BeginForm())
@@ -9,10 +9,13 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>@ViewBag.Title</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*@Html.HiddenFor(model => model.stipo_cliente)*@
+
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-12 text-center">
@@ -141,8 +144,8 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="btncliSave" type="submit" value="Create" class="btn btn-default" />
+        <div class="col-md-offset-2 col-md-8">
+            <input id="btncliSave" type="submit" value="Registrar" class="btn btn-block btn-success" />
         </div>
     </div>
 </div>

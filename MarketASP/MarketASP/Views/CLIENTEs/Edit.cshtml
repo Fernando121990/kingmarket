@@ -1,7 +1,7 @@
 ﻿@model MarketASP.Models.CLIENTE
 
 @{
-    ViewBag.Title = "Editar Cliente";
+    ViewBag.Title = "Actualizar Cliente";
 }
 
 @using (Html.BeginForm())
@@ -9,11 +9,14 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>@ViewBag.Title</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ncode_cliente)
-    @*@Html.HiddenFor(model => model.stipo_cliente)*@
+
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-12 text-center">
@@ -38,7 +41,7 @@
     <div class="form-group natural">
         @Html.LabelFor(model => model.sdnice_cliente, "DNI/CE", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-2">
-            @Html.EditorFor(model => model.sdnice_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" , @readonly = "readonly" } })
+            @Html.EditorFor(model => model.sdnice_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number", @readonly = "readonly" } })
             @Html.ValidationMessageFor(model => model.sdnice_cliente, "", new { @class = "text-danger" })
         </div>
         @Html.LabelFor(model => model.snomb_cliente, "Nombres", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -132,8 +135,8 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="btncliSave" type="submit" value="Create" class="btn btn-default" />
+        <div class="col-md-offset-2 col-md-8">
+            <input id="btncliSave" type="submit" value="Actualizar" class="btn btn-block btn-success" />
         </div>
     </div>
 

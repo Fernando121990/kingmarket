@@ -44,3 +44,14 @@ textarea {
     color: white;
 }
 
+fieldset.ptp-border {
+    border: solid 1px #DDD !important;
+    padding: 0 10px 10px 10px;
+    border-bottom: none;
+}
+
+legend.ptp-border {
+    width: auto!important;
+    border-bottom: none;
+    font-size: 14px;
+}

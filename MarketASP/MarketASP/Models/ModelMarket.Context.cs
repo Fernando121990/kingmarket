@@ -986,5 +986,95 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_CtaCobrarCrea", ncodeDoc_ctacoParameter, sdocu_ctacoParameter, dfecta_ctacoParameter, smone_ctacoParameter, ntotal_ctacoParameter, dfevenci_ctacoParameter, ntc_ctacoParameter, ntotalMN_ctacoParameter, ntotalUS_ctacoParameter, npago_ctacoParameter, ncode_letraParameter, sesta_letraParameter, suser_ctacoParameter, ncode_clienteParameter, ncode_docuParameter, sw);
         }
+    
+        public virtual int Pr_ctaCobrarDetaCrea(Nullable<System.DateTime> dfepago_ctacode, string sdoc_ctacode, string smone_ctacode, Nullable<decimal> ntc_ctacode, Nullable<decimal> nmonto_ctacode, Nullable<decimal> nmontoMN_ctacode, Nullable<decimal> nmontoUS_ctacode, Nullable<decimal> nvuelto_ctacode, Nullable<long> ncode_tarjeta, string suser_tarjeta, string snro_tarjeta, string sobse_ctacode, string suser_ctacode, Nullable<long> ncode_ctaco, Nullable<int> ncode_banco, Nullable<int> ncode_tpago, ObjectParameter sw)
+        {
+            var dfepago_ctacodeParameter = dfepago_ctacode.HasValue ?
+                new ObjectParameter("dfepago_ctacode", dfepago_ctacode) :
+                new ObjectParameter("dfepago_ctacode", typeof(System.DateTime));
+    
+            var sdoc_ctacodeParameter = sdoc_ctacode != null ?
+                new ObjectParameter("sdoc_ctacode", sdoc_ctacode) :
+                new ObjectParameter("sdoc_ctacode", typeof(string));
+    
+            var smone_ctacodeParameter = smone_ctacode != null ?
+                new ObjectParameter("smone_ctacode", smone_ctacode) :
+                new ObjectParameter("smone_ctacode", typeof(string));
+    
+            var ntc_ctacodeParameter = ntc_ctacode.HasValue ?
+                new ObjectParameter("ntc_ctacode", ntc_ctacode) :
+                new ObjectParameter("ntc_ctacode", typeof(decimal));
+    
+            var nmonto_ctacodeParameter = nmonto_ctacode.HasValue ?
+                new ObjectParameter("nmonto_ctacode", nmonto_ctacode) :
+                new ObjectParameter("nmonto_ctacode", typeof(decimal));
+    
+            var nmontoMN_ctacodeParameter = nmontoMN_ctacode.HasValue ?
+                new ObjectParameter("nmontoMN_ctacode", nmontoMN_ctacode) :
+                new ObjectParameter("nmontoMN_ctacode", typeof(decimal));
+    
+            var nmontoUS_ctacodeParameter = nmontoUS_ctacode.HasValue ?
+                new ObjectParameter("nmontoUS_ctacode", nmontoUS_ctacode) :
+                new ObjectParameter("nmontoUS_ctacode", typeof(decimal));
+    
+            var nvuelto_ctacodeParameter = nvuelto_ctacode.HasValue ?
+                new ObjectParameter("nvuelto_ctacode", nvuelto_ctacode) :
+                new ObjectParameter("nvuelto_ctacode", typeof(decimal));
+    
+            var ncode_tarjetaParameter = ncode_tarjeta.HasValue ?
+                new ObjectParameter("ncode_tarjeta", ncode_tarjeta) :
+                new ObjectParameter("ncode_tarjeta", typeof(long));
+    
+            var suser_tarjetaParameter = suser_tarjeta != null ?
+                new ObjectParameter("suser_tarjeta", suser_tarjeta) :
+                new ObjectParameter("suser_tarjeta", typeof(string));
+    
+            var snro_tarjetaParameter = snro_tarjeta != null ?
+                new ObjectParameter("snro_tarjeta", snro_tarjeta) :
+                new ObjectParameter("snro_tarjeta", typeof(string));
+    
+            var sobse_ctacodeParameter = sobse_ctacode != null ?
+                new ObjectParameter("sobse_ctacode", sobse_ctacode) :
+                new ObjectParameter("sobse_ctacode", typeof(string));
+    
+            var suser_ctacodeParameter = suser_ctacode != null ?
+                new ObjectParameter("suser_ctacode", suser_ctacode) :
+                new ObjectParameter("suser_ctacode", typeof(string));
+    
+            var ncode_ctacoParameter = ncode_ctaco.HasValue ?
+                new ObjectParameter("ncode_ctaco", ncode_ctaco) :
+                new ObjectParameter("ncode_ctaco", typeof(long));
+    
+            var ncode_bancoParameter = ncode_banco.HasValue ?
+                new ObjectParameter("ncode_banco", ncode_banco) :
+                new ObjectParameter("ncode_banco", typeof(int));
+    
+            var ncode_tpagoParameter = ncode_tpago.HasValue ?
+                new ObjectParameter("ncode_tpago", ncode_tpago) :
+                new ObjectParameter("ncode_tpago", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ctaCobrarDetaCrea", dfepago_ctacodeParameter, sdoc_ctacodeParameter, smone_ctacodeParameter, ntc_ctacodeParameter, nmonto_ctacodeParameter, nmontoMN_ctacodeParameter, nmontoUS_ctacodeParameter, nvuelto_ctacodeParameter, ncode_tarjetaParameter, suser_tarjetaParameter, snro_tarjetaParameter, sobse_ctacodeParameter, suser_ctacodeParameter, ncode_ctacoParameter, ncode_bancoParameter, ncode_tpagoParameter, sw);
+        }
+    
+        public virtual int Pr_ctaCobrarDetaElimina(Nullable<long> ncode_ctacode, Nullable<long> ncode_ctaco, Nullable<long> ncode_venta, string suser_ctacode, ObjectParameter sw)
+        {
+            var ncode_ctacodeParameter = ncode_ctacode.HasValue ?
+                new ObjectParameter("ncode_ctacode", ncode_ctacode) :
+                new ObjectParameter("ncode_ctacode", typeof(long));
+    
+            var ncode_ctacoParameter = ncode_ctaco.HasValue ?
+                new ObjectParameter("ncode_ctaco", ncode_ctaco) :
+                new ObjectParameter("ncode_ctaco", typeof(long));
+    
+            var ncode_ventaParameter = ncode_venta.HasValue ?
+                new ObjectParameter("ncode_venta", ncode_venta) :
+                new ObjectParameter("ncode_venta", typeof(long));
+    
+            var suser_ctacodeParameter = suser_ctacode != null ?
+                new ObjectParameter("suser_ctacode", suser_ctacode) :
+                new ObjectParameter("suser_ctacode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ctaCobrarDetaElimina", ncode_ctacodeParameter, ncode_ctacoParameter, ncode_ventaParameter, suser_ctacodeParameter, sw);
+        }
     }
 }

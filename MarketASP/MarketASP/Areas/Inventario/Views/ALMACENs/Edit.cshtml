@@ -1,21 +1,23 @@
 ﻿@model MarketASP.Models.ALMACEN
 
 @{
-    ViewBag.Title = "Editar Almacen";
+    ViewBag.Title = "Actualizar Almacen";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>@ViewBag.Title</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ncode_alma)
-
+        <div class="form-group ptp-subtitulos">
+            <div class="col-md-12">
+                <h4 class="text-center">@ViewBag.Title</h4>
+            </div>
+        </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.sdesc_alma,"Descipción", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.sdesc_alma, "Descipción", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sdesc_alma, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.sdesc_alma, "", new { @class = "text-danger" })
@@ -23,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.besta_alma,"Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.besta_alma, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.besta_alma)
@@ -33,16 +35,17 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Grabar" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-8">
+                <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Almacen" })
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

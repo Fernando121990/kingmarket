@@ -192,7 +192,6 @@
     <Compile Include="Controllers\CLIENTEsController.cs" />
     <Compile Include="Controllers\COMPRASController.cs" />
     <Compile Include="Controllers\CONFIGURACIONsController.cs" />
-    <Compile Include="Controllers\CTASCO_DETALLEController.cs" />
     <Compile Include="Controllers\CTASPA_DETALLEController.cs" />
     <Compile Include="Controllers\CTAS_PAGARController.cs" />
     <Compile Include="Controllers\CTA_COBRARController.cs" />
@@ -550,6 +549,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Cliente\clienteCrear.js" />
     <Content Include="Scripts\Compras\compraCrear.js" />
+    <Content Include="Scripts\CtaCobrar\ctacobrarCrea.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -794,15 +794,9 @@
     <Content Include="Views\COMPRAS\Edit.cshtml" />
     <Content Include="Views\COMPRAS\Index.cshtml" />
     <Content Include="Views\CTA_COBRAR\Create.cshtml" />
-    <Content Include="Views\CTA_COBRAR\Delete.cshtml" />
     <Content Include="Views\CTA_COBRAR\Details.cshtml" />
-    <Content Include="Views\CTA_COBRAR\Edit.cshtml" />
     <Content Include="Views\CTA_COBRAR\Index.cshtml" />
-    <Content Include="Views\CTASCO_DETALLE\Create.cshtml" />
-    <Content Include="Views\CTASCO_DETALLE\Delete.cshtml" />
-    <Content Include="Views\CTASCO_DETALLE\Details.cshtml" />
-    <Content Include="Views\CTASCO_DETALLE\Edit.cshtml" />
-    <Content Include="Views\CTASCO_DETALLE\Index.cshtml" />
+    <Content Include="Views\CTA_COBRAR\CreateCobro.cshtml" />
     <Content Include="Views\CTAS_PAGAR\Create.cshtml" />
     <Content Include="Views\CTAS_PAGAR\Delete.cshtml" />
     <Content Include="Views\CTAS_PAGAR\Details.cshtml" />

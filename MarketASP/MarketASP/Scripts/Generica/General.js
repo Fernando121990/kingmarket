@@ -196,7 +196,7 @@ function fnclienteNuevo() {
     clienteView.sapma_cliente = $("#sapma_cliente").val();
     clienteView.snomb_cliente = $("#snomb_cliente").val();
 
-    if (clienteView.tipo_contribuyente == 'N') {
+    if (clienteView.stipo_cliente == 'N') {
         clienteView.srazon_cliente = clienteView.snomb_cliente + ' ' + clienteView.sappa_cliente + ' ' + clienteView.sapma_cliente;
     }
 

@@ -297,6 +297,9 @@
           <Property Name="ncode_ctaco" Type="bigint" Nullable="false" />
           <Property Name="ncode_banco" Type="int" />
           <Property Name="ncode_tpago" Type="int" Nullable="false" />
+          <Property Name="ncode_tarjeta" Type="int" />
+          <Property Name="nmontoMN_ctacode" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nmontoUS_ctacode" Type="decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="CTASPA_DETALLE">
           <Key>
@@ -549,6 +552,8 @@
           <Property Name="susmo_venta" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_venta" Type="datetime" />
           <Property Name="ncode_alma" Type="int" />
+          <Property Name="bmontocancelado_venta" Type="bit" />
+          <Property Name="dfcancelado_venta" Type="datetime" />
         </EntityType>
         <Association Name="R_1">
           <End Role="FAMILIA" Type="Self.FAMILIA" Multiplicity="0..1" />
@@ -1276,6 +1281,32 @@
           <Parameter Name="ncode_cliente" Type="int" Mode="In" />
           <Parameter Name="ncode_docu" Type="int" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_ctaCobrarDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dfepago_ctacode" Type="datetime" Mode="In" />
+          <Parameter Name="sdoc_ctacode" Type="varchar" Mode="In" />
+          <Parameter Name="smone_ctacode" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_ctacode" Type="decimal" Mode="In" />
+          <Parameter Name="nmonto_ctacode" Type="decimal" Mode="In" />
+          <Parameter Name="nmontoMN_ctacode" Type="decimal" Mode="In" />
+          <Parameter Name="nmontoUS_ctacode" Type="decimal" Mode="In" />
+          <Parameter Name="nvuelto_ctacode" Type="decimal" Mode="In" />
+          <Parameter Name="ncode_tarjeta" Type="bigint" Mode="In" />
+          <Parameter Name="suser_tarjeta" Type="varchar" Mode="In" />
+          <Parameter Name="snro_tarjeta" Type="varchar" Mode="In" />
+          <Parameter Name="sobse_ctacode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="suser_ctacode" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_ctaco" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_banco" Type="int" Mode="In" />
+          <Parameter Name="ncode_tpago" Type="int" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_ctaCobrarDetaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_ctacode" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_ctaco" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+          <Parameter Name="suser_ctacode" Type="varchar" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="modulo" Type="varchar" Mode="In" />
@@ -2169,6 +2200,32 @@
             <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="Pr_ctaCobrarDetaCrea">
+            <Parameter Name="dfepago_ctacode" Mode="In" Type="DateTime" />
+            <Parameter Name="sdoc_ctacode" Mode="In" Type="String" />
+            <Parameter Name="smone_ctacode" Mode="In" Type="String" />
+            <Parameter Name="ntc_ctacode" Mode="In" Type="Decimal" />
+            <Parameter Name="nmonto_ctacode" Mode="In" Type="Decimal" />
+            <Parameter Name="nmontoMN_ctacode" Mode="In" Type="Decimal" />
+            <Parameter Name="nmontoUS_ctacode" Mode="In" Type="Decimal" />
+            <Parameter Name="nvuelto_ctacode" Mode="In" Type="Decimal" />
+            <Parameter Name="ncode_tarjeta" Mode="In" Type="Int64" />
+            <Parameter Name="suser_tarjeta" Mode="In" Type="String" />
+            <Parameter Name="snro_tarjeta" Mode="In" Type="String" />
+            <Parameter Name="sobse_ctacode" Mode="In" Type="String" />
+            <Parameter Name="suser_ctacode" Mode="In" Type="String" />
+            <Parameter Name="ncode_ctaco" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_banco" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_tpago" Mode="In" Type="Int32" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_ctaCobrarDetaElimina">
+            <Parameter Name="ncode_ctacode" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_ctaco" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+            <Parameter Name="suser_ctacode" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2974,6 +3031,8 @@
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
           <Property Name="ncode_alma" Type="Int32" />
+          <Property Name="bmontocancelado_venta" Type="Boolean" />
+          <Property Name="dfcancelado_venta" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="R_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -3202,6 +3261,9 @@
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_50" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_51" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_48" FromRole="CTASCO_DETALLE" ToRole="CTA_COBRAR" />
+          <Property Name="ncode_tarjeta" Type="Int32" />
+          <Property Name="nmontoMN_ctacode" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nmontoUS_ctacode" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="CTASPA_DETALLE">
           <Key>
@@ -3859,6 +3921,8 @@
           <EntitySetMapping Name="VENTAS">
             <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
               <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="dfcancelado_venta" ColumnName="dfcancelado_venta" />
+                <ScalarProperty Name="bmontocancelado_venta" ColumnName="bmontocancelado_venta" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
                 <ScalarProperty Name="dfemo_venta" ColumnName="dfemo_venta" />
                 <ScalarProperty Name="susmo_venta" ColumnName="susmo_venta" />
@@ -4015,6 +4079,9 @@
           <EntitySetMapping Name="CTASCO_DETALLE">
             <EntityTypeMapping TypeName="MarketWebModel.CTASCO_DETALLE">
               <MappingFragment StoreEntitySet="CTASCO_DETALLE">
+                <ScalarProperty Name="nmontoUS_ctacode" ColumnName="nmontoUS_ctacode" />
+                <ScalarProperty Name="nmontoMN_ctacode" ColumnName="nmontoMN_ctacode" />
+                <ScalarProperty Name="ncode_tarjeta" ColumnName="ncode_tarjeta" />
                 <ScalarProperty Name="ncode_tpago" ColumnName="ncode_tpago" />
                 <ScalarProperty Name="ncode_banco" ColumnName="ncode_banco" />
                 <ScalarProperty Name="ncode_ctaco" ColumnName="ncode_ctaco" />
@@ -4064,6 +4131,8 @@
           <FunctionImportMapping FunctionImportName="Pr_compraEdita" FunctionName="MarketWebModel.Store.Pr_compraEdita" />
           <FunctionImportMapping FunctionImportName="Pr_compraElimina" FunctionName="MarketWebModel.Store.Pr_compraElimina" />
           <FunctionImportMapping FunctionImportName="Pr_CtaCobrarCrea" FunctionName="MarketWebModel.Store.Pr_CtaCobrarCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaCrea" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaElimina" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaElimina" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

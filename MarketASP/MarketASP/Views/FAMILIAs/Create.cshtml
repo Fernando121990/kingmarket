@@ -1,7 +1,7 @@
 ﻿@model MarketASP.Models.FAMILIA
 
 @{
-    ViewBag.Title = "Crear Familia";
+    ViewBag.Title = "Registrar Familia";
 }
 
 
@@ -9,10 +9,13 @@
 {
     @Html.AntiForgeryToken()
 <div class="form-horizontal">
-    <h4>FAMILIA</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <input type="hidden" name="nesta_fami" value="true" />
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.sdesc_fami, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -21,15 +24,15 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Crear" class="btn btn-default" />
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="Registrar" class="btn btn-block btn-success" />
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "LIsta de Configuración" })
 </div>
 
 @section Scripts {

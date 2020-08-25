@@ -4,12 +4,12 @@
     ViewBag.Title = "Consulta de Ventas";
 }
 
-<div class="row" style="margin-top:5px">
+<div class="row ptp-titulos">
     <div class="col-md-6 col-sm-6">
         <h4>@ViewBag.Title</h4>
     </div>
     <div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cliente" })
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Venta" })
     </div>
 </div>
 <table class="table">
@@ -48,10 +48,13 @@
             Total
         </th>
         <th>
-            Estado
+            Activo
         </th>
         <th>
             F.Pago
+        </th>
+        <th>
+            Cancelada
         </th>
         <th></th>
     </tr>
@@ -93,15 +96,28 @@
                 @Html.DisplayFor(modelItem => item.ntotal_venta)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.besta_venta)
+                @if (item.besta_venta==false)
+                {
+                    <h5>Anulado</h5>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
             </td>
             <td>
-                @Html.ActionLink(" ", "Edit", new { id = item.ncode_venta }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-                @Html.ActionLink(" ", "anulaVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-thumbs-down", title = "Anular", onclick = "return confirm('¿ Seguro de anular registro ?');" })
-                @Html.ActionLink(" ", "DeleteVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                @if (item.bmontocancelado_venta == true)
+                {
+                    <h5>Cancelado</h5>
+                }
+
+            </td>
+            <td>
+                @if (item.besta_venta == true)
+                {
+                    @Html.ActionLink(" ", "Edit", new { id = item.ncode_venta }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+                    @Html.ActionLink(" ", "anulaVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-thumbs-down", title = "Anular", onclick = "return confirm('¿ Seguro de anular registro ?');" })
+                    @Html.ActionLink(" ", "DeleteVenta", new { id = item.ncode_venta }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                }
             </td>
         </tr>
     }

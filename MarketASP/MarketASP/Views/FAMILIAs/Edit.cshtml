@@ -1,47 +1,49 @@
 ﻿@model MarketASP.Models.FAMILIA
 
 @{
-    ViewBag.Title = "Editar";
+    ViewBag.Title = "Actualizar Familia";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>FAMILIA</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ncode_fami)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.sdesc_fami,"Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                    @Html.EditorFor(model => model.sdesc_fami, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sdesc_fami, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ncode_fami)
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.nesta_fami,"Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBox("nesta_fami")
-                    @Html.ValidationMessageFor(model => model.nesta_fami, "", new { @class = "text-danger" })
-                </div>
-            </div>
-         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Actualizar" class="btn btn-default" />
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.sdesc_fami, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.sdesc_fami, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sdesc_fami, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.nesta_fami, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBox("nesta_fami")
+                @Html.ValidationMessageFor(model => model.nesta_fami, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
+        </div>
+    </div>
+</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Familias" })
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

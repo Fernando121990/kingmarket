@@ -186,7 +186,8 @@ namespace MarketASP.Controllers
             }
             else
             {
-                return View(cLIENTE);
+                ViewBag.mensaje = "No se puede eliminar cliente, tiene registros asociados";
+                return View("_Mensaje");
             }
            
         }

@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<MarketASP.Models.MARCA>
 
 @{
-    ViewBag.Title = "Marca";
+    ViewBag.Title = "Listado de Marcas";
 }
-<div class="row" style="margin-top:5px">
+<div class="row ptp-titulos">
     <div class="col-md-6 col-sm-6">
         <h4>@ViewBag.Title</h4>
     </div>
@@ -11,7 +11,7 @@
         @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Clase" })
     </div>
 </div>
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             Descripción
