@@ -1076,5 +1076,18 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ctaCobrarDetaElimina", ncode_ctacodeParameter, ncode_ctacoParameter, ncode_ventaParameter, suser_ctacodeParameter, sw);
         }
+    
+        public virtual int Pr_PermisoAcceso(string usuario, string nivel, ObjectParameter xcode)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
+    
+            var nivelParameter = nivel != null ?
+                new ObjectParameter("nivel", nivel) :
+                new ObjectParameter("nivel", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_PermisoAcceso", usuarioParameter, nivelParameter, xcode);
+        }
     }
 }

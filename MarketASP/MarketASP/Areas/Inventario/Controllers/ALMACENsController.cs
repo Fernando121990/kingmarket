@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Areas.Inventario.Controllers
 {
@@ -18,11 +19,33 @@ namespace MarketASP.Areas.Inventario.Controllers
         // GET: ALMACENs
         public async Task<ActionResult> Index()
         {
+            int xvalue =  0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View(await db.ALMACEN.ToListAsync());
         }
 
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0102", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View();
         }
 
@@ -42,6 +65,18 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public async Task<ActionResult> Edit(int? id)
         {
+
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0103", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -69,6 +104,17 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public async Task<ActionResult> DeleteAlma(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0104", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

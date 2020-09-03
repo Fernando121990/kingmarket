@@ -21,6 +21,17 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0301", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var mOVIMIENTO = db.MOVIMIENTO.Include(m => m.ALMACEN).Include(m => m.ALMACEN1).Include(m => m.TIPO_MOVIMIENTO);
             return View(await mOVIMIENTO.ToListAsync());
         }
@@ -41,6 +52,17 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0302", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var rtimovi = from s in db.TIPO_MOVIMIENTO
                          where (s.besta_tipomovi == true)
                          select new { s.ncode_timovi, sdesc_timovi = s.stipo_timovi + " " + s.sdesc_timovi };
@@ -119,6 +141,17 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         public async Task<ActionResult> Edit(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0303", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -197,6 +230,17 @@ namespace MarketASP.Areas.Inventario.Controllers
         }
         public ActionResult DeleteMovi(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0304", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

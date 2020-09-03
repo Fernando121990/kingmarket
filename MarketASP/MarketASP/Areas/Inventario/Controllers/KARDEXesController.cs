@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using MarketASP.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.Entity.Core.Objects;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using MarketASP.Models;
 
 namespace MarketASP.Areas.Inventario.Controllers
 {
@@ -18,6 +14,17 @@ namespace MarketASP.Areas.Inventario.Controllers
         // GET: KARDEXes
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0401", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var kARDEX = db.KARDEX.Include(k => k.ALMACEN);
             return View(await kARDEX.ToListAsync());
         }

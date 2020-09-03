@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
@@ -18,6 +19,17 @@ namespace MarketASP.Controllers
         // GET: PROVEEDORs
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View(await db.PROVEEDOR.ToListAsync());
         }
 
@@ -39,12 +51,20 @@ namespace MarketASP.Controllers
         // GET: PROVEEDORs/Create
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1102", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View();
         }
 
-        // POST: PROVEEDORs/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ncode_provee,sdesc_prove,sdire_prove,sruc_prove,sfono_prove,sfax_prove,smail_prove,sobse_prove,sweb_prove,scontac_prove,nesta_prove,scargoconta_prove,bprocedencia_prove,suser_prove,dfech_prove,susmo_prove,dfemo_prove")] PROVEEDOR pROVEEDOR)
@@ -62,6 +82,17 @@ namespace MarketASP.Controllers
         // GET: PROVEEDORs/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1103", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,9 +105,6 @@ namespace MarketASP.Controllers
             return View(pROVEEDOR);
         }
 
-        // POST: PROVEEDORs/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ncode_provee,sdesc_prove,sdire_prove,sruc_prove,sfono_prove,sfax_prove,smail_prove,sobse_prove,sweb_prove,scontac_prove,nesta_prove,scargoconta_prove,bprocedencia_prove,suser_prove,dfech_prove,susmo_prove,dfemo_prove")] PROVEEDOR pROVEEDOR)
@@ -93,6 +121,17 @@ namespace MarketASP.Controllers
         // GET: PROVEEDORs/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1104", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

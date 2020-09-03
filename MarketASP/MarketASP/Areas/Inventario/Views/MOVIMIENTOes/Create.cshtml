@@ -1,7 +1,7 @@
 ﻿@model MarketASP.Models.MOVIMIENTO
 
 @{
-    ViewBag.Title = "Nuevo Movimiento";
+    ViewBag.Title = "Registrar Movimiento";
 }
 
 @using (Html.BeginForm())
@@ -9,10 +9,12 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>@ViewBag.Title</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.ncode_timovi, "Tipo", htmlAttributes: new { @class = "control-label col-md-1" })
         <div class="col-md-11">
@@ -153,8 +155,8 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-4 col-md-4">
-            <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Añadir</button>
+        <div class="col-md-offset-2 col-md-8">
+            <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Registrar</button>
         </div>
     </div>
 </div>

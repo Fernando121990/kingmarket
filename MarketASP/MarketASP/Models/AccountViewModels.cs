@@ -64,6 +64,11 @@ namespace MarketASP.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "Rol")]
+        public string UserRoles { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]

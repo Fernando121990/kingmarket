@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
@@ -18,6 +19,17 @@ namespace MarketASP.Controllers
         // GET: UMEDIDAs
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0901", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View(await db.UMEDIDA.ToListAsync());
         }
 
@@ -39,6 +51,17 @@ namespace MarketASP.Controllers
         // GET: UMEDIDAs/Create
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0902", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             return View();
         }
 
@@ -59,6 +82,17 @@ namespace MarketASP.Controllers
         // GET: UMEDIDAs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0903", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -71,9 +105,6 @@ namespace MarketASP.Controllers
             return View(uMEDIDA);
         }
 
-        // POST: UMEDIDAs/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ncode_umed,sdesc_umed,ssunat_umed,scodsunat_umed,nesta_umed,suser_umed,dfech_umed,susmo_umed,dfemo_umed")] UMEDIDA uMEDIDA)
@@ -89,6 +120,17 @@ namespace MarketASP.Controllers
 
         public async Task<ActionResult> DeleteUmed(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0904", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -9,11 +9,13 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>@ViewBag.Title</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ncode_movi)
-
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.ncode_timovi, "Tipo", htmlAttributes: new { @class = "control-label col-md-1" })
         <div class="col-md-11">
@@ -39,7 +41,7 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="row ptp-cabebuscar">
+        <div class="col-md-12 ptp-cabebuscar">
             <div class="col-md-4">
                 <label>Articulos seleccionados</label>
             </div>
@@ -68,33 +70,33 @@
                 {
                     foreach (var item in Model.MOVI_DETALLE)
                     {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ARTICULO.ncode_arti)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ARTICULO.scode_arti)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ncant_movidet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.npu_movidet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.npu_movidet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ncode_umed)
-                    </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICULO.ncode_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICULO.scode_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ncant_movidet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.npu_movidet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.npu_movidet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ncode_umed)
+                            </td>
 
-                </tr>
+                        </tr>
                     }
 
                 }
@@ -162,8 +164,8 @@
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-4 col-md-4">
-            <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Añadir</button>
+        <div class="col-md-offset-2 col-md-8">
+            <button type="button" class="btn btn-success btn-block" onclick="Sales_save()">Actualizar</button>
         </div>
     </div>
 </div>

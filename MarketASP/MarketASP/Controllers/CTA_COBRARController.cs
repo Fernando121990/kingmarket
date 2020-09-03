@@ -19,6 +19,17 @@ namespace MarketASP.Controllers
         // GET: CTA_COBRAR
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1501", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var cTA_COBRAR = db.CTA_COBRAR.Include(c => c.CLIENTE).Include(c => c.CONFIGURACION);
             return View(await cTA_COBRAR.ToListAsync());
         }
@@ -40,6 +51,17 @@ namespace MarketASP.Controllers
 
         public async Task<ActionResult> CreateCobro(long? id, string xtipo)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1502", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +132,18 @@ namespace MarketASP.Controllers
 
         public async Task<ActionResult> DeleteCobro(int? id)
         {
+
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1503", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
 
             if (id == null)

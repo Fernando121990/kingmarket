@@ -175,6 +175,49 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administracion\AdministracionAreaRegistration.cs" />
+    <Compile Include="Areas\Administracion\Clases\permisoView.cs" />
+    <Compile Include="Areas\Administracion\Clases\ventanaView.cs" />
+    <Compile Include="Areas\Administracion\Controllers\AspNetRolesController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\AspNetUsersController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\PermisoesController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\VentanasController.cs" />
+    <Compile Include="Areas\Administracion\Models\AspNetRoles.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\AspNetUserClaims.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\AspNetUserLogins.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\AspNetUsers.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\ModelAdmin.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAdmin.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\ModelAdmin.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\ModelAdmin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAdmin.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\Permiso.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\Pr_PermisoLista_Result.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\Ventana.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Inventario\Clases\moviView.cs" />
     <Compile Include="Areas\Inventario\Clases\moviViewDeta.cs" />
     <Compile Include="Areas\Inventario\InventarioAreaRegistration.cs" />
@@ -332,6 +375,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Administracion\Models\ModelAdmin.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAdmin.edmx</DependentUpon>
+      <LastGenOutput>ModelAdmin.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administracion\Models\ModelAdmin.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAdmin.edmx</DependentUpon>
+      <LastGenOutput>ModelAdmin.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -545,6 +598,35 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Areas\Administracion\Views\web.config" />
+    <EntityDeploy Include="Areas\Administracion\Models\ModelAdmin.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelAdmin.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Areas\Administracion\Models\ModelAdmin.edmx.diagram">
+      <DependentUpon>ModelAdmin.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\Administracion\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administracion\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Ventanas\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\Ventanas\Delete.cshtml" />
+    <Content Include="Areas\Administracion\Views\Ventanas\Details.cshtml" />
+    <Content Include="Areas\Administracion\Views\Ventanas\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\Ventanas\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Permisoes\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetRoles\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetRoles\Delete.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetRoles\Details.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetRoles\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\AspNetRoles\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\Permisoes\EditorTemplates\ventanaView.cshtml" />
+    <Content Include="Areas\Inventario\Views\Shared\_Mensaje.cshtml" />
+    <Content Include="Areas\Administracion\Views\Shared\_Mensaje.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Cliente\clienteCrear.js" />

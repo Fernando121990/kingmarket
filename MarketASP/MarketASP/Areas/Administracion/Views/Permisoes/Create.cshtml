@@ -1,0 +1,53 @@
+﻿@model MarketASP.Areas.Administracion.Clases.permisoView
+
+@{
+    ViewBag.Title = "Asignar Permisos";
+}
+
+@{
+
+    using (Html.BeginForm("Create", "Permisoes",null, FormMethod.Get))
+    {
+        <div class="row ptp-cabebuscar">
+            <div class="col-md-2">
+                <label>@ViewBag.Title</label>
+            </div>
+            <div class="col-md-2">
+                <label>Usuario :</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownList("username")
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default col-md-3" type="submit">
+                    <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    }
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <table class="table">
+            <tr>
+                <th>Nivel</th>
+                <th>Menu</th>
+                <th>Operacion</th>
+                <th>Permiso</th>
+            </tr>
+            @Html.EditorFor(p => p.detalle)
+        </table>
+
+        <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    <input type="submit" value="Registrar" class="btn btn-block btn-success" />
+                </div>
+        </div>
+    </div>
+}
+
+

@@ -18,9 +18,11 @@ namespace MarketASP.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
 
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -141,6 +143,7 @@ namespace MarketASP.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             return View();
         }
 
@@ -158,15 +161,19 @@ namespace MarketASP.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
+                    //agregando el rol al usuario
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+
                     return RedirectToAction("Index", "Home");
                 }
+                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
                 AddErrors(result);
             }
 

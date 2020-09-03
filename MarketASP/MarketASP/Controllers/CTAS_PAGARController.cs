@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
@@ -18,6 +19,17 @@ namespace MarketASP.Controllers
         // GET: CTAS_PAGAR
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var cTAS_PAGAR = db.CTAS_PAGAR.Include(c => c.CONFIGURACION).Include(c => c.CONFIGURACION1).Include(c => c.PROVEEDOR);
             return View(await cTAS_PAGAR.ToListAsync());
         }
@@ -40,15 +52,23 @@ namespace MarketASP.Controllers
         // GET: CTAS_PAGAR/Create
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi");
             ViewBag.ncode_banco = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi");
             ViewBag.ncode_provee = new SelectList(db.PROVEEDOR, "ncode_provee", "sdesc_prove");
             return View();
         }
 
-        // POST: CTAS_PAGAR/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ncode_ctapa,ncodeDoc_ctapa,sdocu_ctapa,dfecta_ctapa,dfevenci_ctapa,smone_ctapa,ntotal_ctapa,ntotalMN_ctapa,ntotal_US_ctapa,ntc_ctapa,npago_ctapa,ncode_letra,sesta_letra,suser_ctapa,dfech_ctapa,susmo_ctapa,dfemo_ctapa,ncode_docu,ncode_provee,ncode_banco")] CTAS_PAGAR cTAS_PAGAR)
@@ -69,6 +89,18 @@ namespace MarketASP.Controllers
         // GET: CTAS_PAGAR/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
+
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -106,6 +138,18 @@ namespace MarketASP.Controllers
         // GET: CTAS_PAGAR/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

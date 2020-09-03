@@ -21,6 +21,17 @@ namespace MarketASP.Controllers
         // GET: COMPRAS
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1401", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var cOMPRAS = db.COMPRAS.Include(c => c.ALMACEN).Include(c => c.PROVEEDOR).Include(c => c.CONFIGURACION).Include(c => c.CONFIGURACION1);
             return View(await cOMPRAS.ToListAsync());
         }
@@ -43,6 +54,17 @@ namespace MarketASP.Controllers
         // GET: COMPRAS/Create
         public ActionResult Create()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1402", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var yfecha = DateTime.Now.Date;
             var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc == yfecha);
             if (result == null)
@@ -124,6 +146,17 @@ namespace MarketASP.Controllers
 
         public async Task<ActionResult> Edit(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1403", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -231,6 +264,18 @@ namespace MarketASP.Controllers
 
         public async Task<ActionResult> DeleteCompra(int? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1404", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
+
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
 
             if (id == null)

@@ -1363,6 +1363,11 @@
         <Function Name="Pr_movimientoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_movi" Type="numeric" Mode="In" />
         </Function>
+        <Function Name="Pr_PermisoAcceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="nivel" Type="varchar" Mode="In" />
+          <Parameter Name="xcode" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Pr_tipoCambioExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfecha_tc" Type="varchar" Mode="In" />
           <Parameter Name="valor" Type="int" Mode="InOut" />
@@ -2225,6 +2230,11 @@
             <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
             <Parameter Name="suser_ctacode" Mode="In" Type="String" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_PermisoAcceso">
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="nivel" Mode="In" Type="String" />
+            <Parameter Name="xcode" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
@@ -4133,6 +4143,7 @@
           <FunctionImportMapping FunctionImportName="Pr_CtaCobrarCrea" FunctionName="MarketWebModel.Store.Pr_CtaCobrarCrea" />
           <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaCrea" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaCrea" />
           <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaElimina" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_PermisoAcceso" FunctionName="MarketWebModel.Store.Pr_PermisoAcceso" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

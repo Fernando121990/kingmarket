@@ -8,368 +8,367 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <div class="form-group" style="background-color:Teal">
-            <div class="col-md-12">
-                <h4 class="text-center" style="color:White">@ViewBag.Title</h4>
-            </div>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group ptp-subtitulos">
+        <div class="col-md-12">
+            <h4 class="text-center">@ViewBag.Title</h4>
         </div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.dfecompra_compra, "Fecha", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
-                <input id="dfecompra_compra" style="width:6em" name="dfecompra_compra" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
-                @Html.ValidationMessageFor(model => model.dfecompra_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.dfevenci_compra, "Vcto", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
-                <input id="dfevenci_compra" style="width:6em" name="dfevenci_compra" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" readonly />
-                @Html.ValidationMessageFor(model => model.dfevenci_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.smone_compra, "Moneda", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1 col-sm-1">
-                @Html.DropDownList("smone_compra")
-                @Html.ValidationMessageFor(model => model.smone_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.ntc_compra, "TC", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
-                <input id="ntc_compra" style="width:6em" name="ntc_compra" type="text" value="@ViewBag.tc" readonly />
-                @Html.ValidationMessageFor(model => model.ntc_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
-                @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.dfecompra_compra, "Fecha", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <input id="dfecompra_compra" style="width:6em" name="dfecompra_compra" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
+            @Html.ValidationMessageFor(model => model.dfecompra_compra, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label class="col-md-2">Almacen</label>
-            <div class="col-md-3">
-                @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
-            </div>
+        @Html.LabelFor(model => model.dfevenci_compra, "Vcto", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <input id="dfevenci_compra" style="width:6em" name="dfevenci_compra" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" readonly />
+            @Html.ValidationMessageFor(model => model.dfevenci_compra, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ncode_docu, "Documento", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-2  col-sm-2">
-                @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.sseri_compra, "No Doc", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-1">
-                @Html.EditorFor(model => model.sseri_compra, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sseri_compra, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.snume_compra, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.snume_compra, "", new { @class = "text-danger" })
-            </div>
+        @Html.LabelFor(model => model.smone_compra, "Moneda", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1 col-sm-1">
+            @Html.DropDownList("smone_compra")
+            @Html.ValidationMessageFor(model => model.smone_compra, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <div class="col-md-1">
-                <label for="ncode_provee" class="col-form-label">Proveedor</label>
-            </div>
-            <div class="col-md-10">
-                <input id="ncode_provee" name="ncode_provee" type="hidden" />
-                <input id="sdesc_prove" name="sdesc_prove" type="text" class="form-control" />
-                @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-1">
-                <span Class="addProveedor glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalProveedor"></span>
-            </div>
+        @Html.LabelFor(model => model.ntc_compra, "TC", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            <input id="ntc_compra" style="width:6em" name="ntc_compra" type="text" value="@ViewBag.tc" readonly />
+            @Html.ValidationMessageFor(model => model.ntc_compra, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <div Class="modal fade" id="modalCliente" role="dialog">
-                <div Class="modal-dialog">
-                    <div Class="modal-content">
-                        <div Class="modal-header">
-                            <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
-                            <h4 Class="modal-title">Nuevo Cliente</h4>
-                        </div>
-                        <div Class="modal-body">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    Persona Juridica
-                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
-                                    Persona Natural
-                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
-                                </div>
-                            </div>
-                            <div class="form-group natural">
-                                <label class="col-md-1">Nombres</label>
-                                <div class="col-md-11">
-                                    <input id="snomb_cliente" name="snomb_cliente" type="text" class="form-control" maxlength="20" />
-                                </div>
-                            </div>
-                            <div class="form-group natural">
-                                <label class="col-md-1">A.Paterno</label>
-                                <div class="col-md-5">
-                                    <input id="sappa_cliente" name="sappa_cliente" type="text" class="form-control" maxlength="20" />
-                                </div>
-                                <label class="col-md-1">A.Materno</label>
-                                <div class="col-md-5">
-                                    <input id="sapma_cliente" name="sapma_cliente" type="text" class="form-control" maxlength="20" />
-                                </div>
-                            </div>
-                            <div class="form-group juridica">
-                                <label class="col-md-1">Razón Social</label>
-                                <div class="col-md-11">
-                                    <input id="srazon_cliente" name="srazon_cliente" type="text" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-1">RUC</label>
-                                <div class="col-md-5">
-                                    <input id="sruc_cliente" name="sruc_cliente" type="text" class="form-control" maxlength="11" />
-                                </div>
-                                <label class="col-md-1">DNI</label>
-                                <div class="col-md-5">
-                                    <input id="sdnice_cliente" name="sdnice_cliente" type="text" class="form-control" maxlength="14" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2">Dirección</label>
-                                <div class="col-md-10">
-                                    <input id="sdire_cliente" name="sdire_cliente" type="text" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2">Ubicación</label>
-                                <div class="col-md-10">
-                                    <input id="scode_ubigeo" name="scode_ubigeo" type="text" />
-                                    <input id="subigeo" name="subigeo" type="text" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-1">Telefono</label>
-                                <div class="col-md-5">
-                                    <input id="sfono1_cliente" name="sfono1_cliente" type="tel" class="form-control" />
-                                </div>
-                                <label class="col-md-1">Correo</label>
-                                <div class="col-md-5">
-                                    <input id="smail_cliente" name="smail_cliente" type="email" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-1">Contacto</label>
-                                <div class="col-md-5">
-                                    <input id="srepre_cliente" name="srepre_cliente" type="text" class="form-control" />
-                                </div>
-                                <label class="col-md-1">Telefono</label>
-                                <div class="col-md-5">
-                                    <input id="sfono2_cliente" name="sfono2_cliente" type="tel" class="form-control" />
-                                </div>
+        @Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-3">
+            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2">Almacen</label>
+        <div class="col-md-3">
+            @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ncode_docu, "Documento", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2  col-sm-2">
+            @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sseri_compra, "No Doc", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-1">
+            @Html.EditorFor(model => model.sseri_compra, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sseri_compra, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.snume_compra, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.snume_compra, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-1">
+            <label for="ncode_provee" class="col-form-label">Proveedor</label>
+        </div>
+        <div class="col-md-10">
+            <input id="ncode_provee" name="ncode_provee" type="hidden" />
+            <input id="sdesc_prove" name="sdesc_prove" type="text" class="form-control" />
+            @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-1">
+            <span Class="addProveedor glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalProveedor"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div Class="modal fade" id="modalCliente" role="dialog">
+            <div Class="modal-dialog">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
+                        <h4 Class="modal-title">Nuevo Cliente</h4>
+                    </div>
+                    <div Class="modal-body">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                Persona Juridica
+                                <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
+                                Persona Natural
+                                <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
                             </div>
                         </div>
-                        <div Class="modal-footer">
-                            <Button id="btnCliente" name="btnCliente" type="button" Class="btn btn-default">Añadir</Button>
-                            <Button id="btnCliCierre" name="btnCliCierre" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
+                        <div class="form-group natural">
+                            <label class="col-md-1">Nombres</label>
+                            <div class="col-md-11">
+                                <input id="snomb_cliente" name="snomb_cliente" type="text" class="form-control" maxlength="20" />
+                            </div>
+                        </div>
+                        <div class="form-group natural">
+                            <label class="col-md-1">A.Paterno</label>
+                            <div class="col-md-5">
+                                <input id="sappa_cliente" name="sappa_cliente" type="text" class="form-control" maxlength="20" />
+                            </div>
+                            <label class="col-md-1">A.Materno</label>
+                            <div class="col-md-5">
+                                <input id="sapma_cliente" name="sapma_cliente" type="text" class="form-control" maxlength="20" />
+                            </div>
+                        </div>
+                        <div class="form-group juridica">
+                            <label class="col-md-1">Razón Social</label>
+                            <div class="col-md-11">
+                                <input id="srazon_cliente" name="srazon_cliente" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1">RUC</label>
+                            <div class="col-md-5">
+                                <input id="sruc_cliente" name="sruc_cliente" type="text" class="form-control" maxlength="11" />
+                            </div>
+                            <label class="col-md-1">DNI</label>
+                            <div class="col-md-5">
+                                <input id="sdnice_cliente" name="sdnice_cliente" type="text" class="form-control" maxlength="14" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">Dirección</label>
+                            <div class="col-md-10">
+                                <input id="sdire_cliente" name="sdire_cliente" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2">Ubicación</label>
+                            <div class="col-md-10">
+                                <input id="scode_ubigeo" name="scode_ubigeo" type="text" />
+                                <input id="subigeo" name="subigeo" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1">Telefono</label>
+                            <div class="col-md-5">
+                                <input id="sfono1_cliente" name="sfono1_cliente" type="tel" class="form-control" />
+                            </div>
+                            <label class="col-md-1">Correo</label>
+                            <div class="col-md-5">
+                                <input id="smail_cliente" name="smail_cliente" type="email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1">Contacto</label>
+                            <div class="col-md-5">
+                                <input id="srepre_cliente" name="srepre_cliente" type="text" class="form-control" />
+                            </div>
+                            <label class="col-md-1">Telefono</label>
+                            <div class="col-md-5">
+                                <input id="sfono2_cliente" name="sfono2_cliente" type="tel" class="form-control" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.sguia_compra, "Guia OC", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.sguia_compra, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sguia_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.sproforma_compra, "Proforma", htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.sproforma_compra, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sproforma_compra, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.sobs_compra, "Observaciones", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.TextAreaFor(model => model.sobs_compra, 3, 30, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.sobs_compra, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row ptp-cabebuscar">
-                <div class="col-md-4">
-                    <label>Articulos seleccionados</label>
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4 text-right">
-                    <span Class="addMat glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalMat"></span>
-                    <span Class="delMat glyphicon glyphicon-trash btn btn-default"></span>
-                </div>
-            </div>
-            <Table id="tbl" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>CodArt</th>
-                        <th>Codigo</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>UM</th>
-                        <th>Precio</th>
-                        <th>Precio</th>
-                        <th>M</th>
-                        <th>bafecto</th>
-                        <th>bisc</th>
-                        <th>bdscto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.COMPRA_DETALLE)
-                        {
-                            var currentItem = item;
-                            <tr>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ncant_comdeta)
-                                </td>
-                                <td></td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.npu_comdeta)
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)
-                                </td>
-
-                            </tr>
-
-                        }
-                    }
-                </tbody>
-            </Table>
-
-            <div Class="modal fade" id="modalMat" role="dialog">
-                <div Class="modal-dialog">
-                    <div Class="modal-content">
-                        <div Class="modal-header">
-                            <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
-                            <h4 Class="modal-title">Seleccionar Articulo</h4>
-                        </div>
-                        <div Class="modal-body">
-                            <Table id="matetabla" Class="matetabla table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th>U.M</th>
-                                        <th>Stock</th>
-                                        <th>Precio</th>
-                                        <th>CodUM</th>
-                                        <th>bafecto</th>
-                                        <th>bisc</th>
-                                        <th>bdscto</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th>U.M</th>
-                                        <th>Stock</th>
-                                        <th>Precio</th>
-                                        <th>CodUM</th>
-                                        <th>bafecto</th>
-                                        <th>bisc</th>
-                                        <th>bdscto</th>
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                        </div>
-                        <div Class="modal-footer">
-                            <Button id="btnmate" name="btnmate" type="button" Class="btn btn-default">Añadir</Button>
-                            <Button id="btncerrar" name="btncerrar" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
-                        </div>
+                    <div Class="modal-footer">
+                        <Button id="btnCliente" name="btnCliente" type="button" Class="btn btn-default">Añadir</Button>
+                        <Button id="btnCliCierre" name="btnCliCierre" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
                     </div>
                 </div>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <table class="table table-striped table-responsive">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>T.Bruto</th>
-                        <th>Dscto</th>
-                        <th>SubTotal</th>
-                        <th>IGV</th>
-                        <th>Total</th>
-                        <th>Total-Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Exonerado</td>
-                        <td>
-                            <input id="nbrutoex_compra" name="nbrutoex_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="ndsctoex_compra" name="ndsctoex_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="nsubex_compra" name="nsubex_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="nigvex_compra" name="nigvex_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="ntotaex_compra" name="ntotaex_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td rowspan="2">
-                            <input id="ntotal_compra" name="ntotal_compra" type="text" class="form-control" readonly />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Afecto</td>
-                        <td>
-                            <input id="nbrutoaf_compra" name="nbrutoaf_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="ndsctoaf_compra" name="ndsctoaf_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="nsubaf_compra" name="nsubaf_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="nigvaf_compra" name="nigvaf_compra" type="text" class="form-control" readonly />
-                        </td>
-                        <td>
-                            <input id="ntotaaf_compra" name="ntotaaf_compra" type="text" class="form-control" readonly />
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-4">
-                <button id="btncompra" type="button" class="btn btn-success btn-block">Añadir</button>
             </div>
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.sguia_compra, "Guia OC", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.sguia_compra, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sguia_compra, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sproforma_compra, "Proforma", htmlAttributes: new { @class = "control-label col-md-1" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.sproforma_compra, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sproforma_compra, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sobs_compra, "Observaciones", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.TextAreaFor(model => model.sobs_compra, 3, 30, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sobs_compra, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12 ptp-cabebuscar">
+            <div class="col-md-4">
+                <label>Articulos seleccionados</label>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4 text-right">
+                <span Class="addMat glyphicon glyphicon-file btn btn-default" data-toggle="modal" data-target="#modalMat"></span>
+                <span Class="delMat glyphicon glyphicon-trash btn btn-default"></span>
+            </div>
+        </div>
+        <Table id="tbl" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>CodArt</th>
+                    <th>Codigo</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>UM</th>
+                    <th>Precio</th>
+                    <th>Precio</th>
+                    <th>M</th>
+                    <th>bafecto</th>
+                    <th>bisc</th>
+                    <th>bdscto</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model.COMPRA_DETALLE)
+                    {
+                        var currentItem = item;
+                        <tr>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ncant_comdeta)
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.npu_comdeta)
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)
+                            </td>
+
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </Table>
+
+        <div Class="modal fade" id="modalMat" role="dialog">
+            <div Class="modal-dialog">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <Button type="button" Class="close" data-dismiss="modal">&times;</Button>
+                        <h4 Class="modal-title">Seleccionar Articulo</h4>
+                    </div>
+                    <div Class="modal-body">
+                        <Table id="matetabla" Class="matetabla table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>CodUM</th>
+                                    <th>bafecto</th>
+                                    <th>bisc</th>
+                                    <th>bdscto</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>CodUM</th>
+                                    <th>bafecto</th>
+                                    <th>bisc</th>
+                                    <th>bdscto</th>
+                                </tr>
+                            </tfoot>
+                        </Table>
+                    </div>
+                    <div Class="modal-footer">
+                        <Button id="btnmate" name="btnmate" type="button" Class="btn btn-default">Añadir</Button>
+                        <Button id="btncerrar" name="btncerrar" type="button" Class="btn btn-default" data-dismiss="modal">Cerrar</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>T.Bruto</th>
+                    <th>Dscto</th>
+                    <th>SubTotal</th>
+                    <th>IGV</th>
+                    <th>Total</th>
+                    <th>Total-Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Exonerado</td>
+                    <td>
+                        <input id="nbrutoex_compra" name="nbrutoex_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="ndsctoex_compra" name="ndsctoex_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="nsubex_compra" name="nsubex_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="nigvex_compra" name="nigvex_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="ntotaex_compra" name="ntotaex_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td rowspan="2">
+                        <input id="ntotal_compra" name="ntotal_compra" type="text" class="form-control" readonly />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Afecto</td>
+                    <td>
+                        <input id="nbrutoaf_compra" name="nbrutoaf_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="ndsctoaf_compra" name="ndsctoaf_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="nsubaf_compra" name="nsubaf_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="nigvaf_compra" name="nigvaf_compra" type="text" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input id="ntotaaf_compra" name="ntotaaf_compra" type="text" class="form-control" readonly />
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <button id="btncompra" type="button" class="btn btn-success btn-block">Registrar</button>
+        </div>
+    </div>
+</div>
 }
 
 <div>
