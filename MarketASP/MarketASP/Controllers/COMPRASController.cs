@@ -11,6 +11,7 @@ using MarketASP.Models;
 using System.Data.Entity.Core.Objects;
 using Newtonsoft.Json;
 using MarketASP.Clases;
+using MarketASP.Extensiones;
 
 namespace MarketASP.Controllers
 {
@@ -111,7 +112,7 @@ namespace MarketASP.Controllers
                                 mofView.ndsctoex_compra, mofView.ndsctoaf_compra, mofView.nsubex_compra, mofView.nsubaf_compra, mofView.nigvex_compra,
                                 mofView.nigvaf_compra, mofView.ntotaex_compra, mofView.ntotaaf_compra, mofView.ntotal_compra, mofView.ntotalMN_compra,
                                 mofView.ntotalUS_compra,mofView.nvalIGV_compra, User.Identity.Name, mofView.ncode_alma,mofView.ncode_provee,
-                                mofView.ncode_docu,mofView.ncode_fopago, sw);
+                                mofView.ncode_docu,mofView.ncode_fopago, int.Parse(User.Identity.GetLocal()), sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -208,7 +209,7 @@ namespace MarketASP.Controllers
                                 mofView.ndsctoex_compra, mofView.ndsctoaf_compra, mofView.nsubex_compra, mofView.nsubaf_compra, mofView.nigvex_compra,
                                 mofView.nigvaf_compra, mofView.ntotaex_compra, mofView.ntotaaf_compra, mofView.ntotal_compra, mofView.ntotalMN_compra,
                                 mofView.ntotalUS_compra, mofView.nvalIGV_compra, User.Identity.Name, mofView.ncode_alma, mofView.ncode_provee,
-                                mofView.ncode_docu, mofView.ncode_fopago, sw);
+                                mofView.ncode_docu, mofView.ncode_fopago, int.Parse(User.Identity.GetLocal()), sw);
 
                             xsw = int.Parse(sw.Value.ToString());
                             code = mofView.ncode_compra;

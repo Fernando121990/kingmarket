@@ -33,6 +33,10 @@ namespace MarketASP.Areas.Administracion.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Permiso> Permiso { get; set; }
         public virtual DbSet<Ventana> Ventana { get; set; }
+        public virtual DbSet<LOCAL> LOCAL { get; set; }
+        public virtual DbSet<SUCURSAL> SUCURSAL { get; set; }
+        public virtual DbSet<CONFIGURACION> CONFIGURACION { get; set; }
+        public virtual DbSet<DOCU_SERIE> DOCU_SERIE { get; set; }
     
         public virtual int Pr_PermisoCrear(string username, string nivel)
         {

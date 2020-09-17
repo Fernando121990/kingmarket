@@ -180,7 +180,10 @@
     <Compile Include="Areas\Administracion\Clases\ventanaView.cs" />
     <Compile Include="Areas\Administracion\Controllers\AspNetRolesController.cs" />
     <Compile Include="Areas\Administracion\Controllers\AspNetUsersController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\DOCU_SERIEController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\LOCALsController.cs" />
     <Compile Include="Areas\Administracion\Controllers\PermisoesController.cs" />
+    <Compile Include="Areas\Administracion\Controllers\SUCURSALsController.cs" />
     <Compile Include="Areas\Administracion\Controllers\VentanasController.cs" />
     <Compile Include="Areas\Administracion\Models\AspNetRoles.cs">
       <DependentUpon>ModelAdmin.tt</DependentUpon>
@@ -192,6 +195,15 @@
       <DependentUpon>ModelAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Administracion\Models\AspNetUsers.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\CONFIGURACION.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\DOCU_SERIE.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\LOCAL.cs">
       <DependentUpon>ModelAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Administracion\Models\ModelAdmin.Context.cs">
@@ -213,6 +225,9 @@
       <DependentUpon>ModelAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Administracion\Models\Pr_PermisoLista_Result.cs">
+      <DependentUpon>ModelAdmin.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administracion\Models\SUCURSAL.cs">
       <DependentUpon>ModelAdmin.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Administracion\Models\Ventana.cs">
@@ -253,10 +268,20 @@
     <Compile Include="Controllers\UBIGEOsController.cs" />
     <Compile Include="Controllers\UMEDIDAsController.cs" />
     <Compile Include="Controllers\VENTASController.cs" />
+    <Compile Include="Extensiones\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\UsersHelper.cs" />
+    <Compile Include="Migrations\202007131309232_InitialCreate.cs" />
+    <Compile Include="Migrations\202007131309232_InitialCreate.Designer.cs">
+      <DependentUpon>202007131309232_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009041514296_UpdateTable.cs" />
+    <Compile Include="Migrations\202009041514296_UpdateTable.Designer.cs">
+      <DependentUpon>202009041514296_UpdateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ALMACEN.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
@@ -317,6 +342,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LISTA_PRECIO.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LOCAL.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
@@ -610,7 +638,6 @@
     <Content Include="Areas\Administracion\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administracion\Views\AspNetUsers\Create.cshtml" />
     <Content Include="Areas\Administracion\Views\AspNetUsers\Delete.cshtml" />
-    <Content Include="Areas\Administracion\Views\AspNetUsers\Details.cshtml" />
     <Content Include="Areas\Administracion\Views\AspNetUsers\Edit.cshtml" />
     <Content Include="Areas\Administracion\Views\AspNetUsers\Index.cshtml" />
     <Content Include="Areas\Administracion\Views\Ventanas\Create.cshtml" />
@@ -627,6 +654,17 @@
     <Content Include="Areas\Administracion\Views\Permisoes\EditorTemplates\ventanaView.cshtml" />
     <Content Include="Areas\Inventario\Views\Shared\_Mensaje.cshtml" />
     <Content Include="Areas\Administracion\Views\Shared\_Mensaje.cshtml" />
+    <Content Include="Areas\Administracion\Views\DOCU_SERIE\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\DOCU_SERIE\Delete.cshtml" />
+    <Content Include="Areas\Administracion\Views\DOCU_SERIE\Details.cshtml" />
+    <Content Include="Areas\Administracion\Views\DOCU_SERIE\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\DOCU_SERIE\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\SUCURSALs\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\SUCURSALs\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\SUCURSALs\Index.cshtml" />
+    <Content Include="Areas\Administracion\Views\LOCALs\Create.cshtml" />
+    <Content Include="Areas\Administracion\Views\LOCALs\Edit.cshtml" />
+    <Content Include="Areas\Administracion\Views\LOCALs\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Cliente\clienteCrear.js" />
@@ -824,8 +862,6 @@
     <Content Include="Views\CLIDI_CONTAC\Edit.cshtml" />
     <Content Include="Views\CLIDI_CONTAC\Index.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Create.cshtml" />
-    <Content Include="Views\CONFIGURACIONs\Delete.cshtml" />
-    <Content Include="Views\CONFIGURACIONs\Details.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Edit.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\KARDEXes\Index.cshtml" />
@@ -911,6 +947,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007131309232_InitialCreate.resx">
+      <DependentUpon>202007131309232_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009041514296_UpdateTable.resx">
+      <DependentUpon>202009041514296_UpdateTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

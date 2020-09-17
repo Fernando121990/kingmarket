@@ -14,7 +14,14 @@
         <AssociationConnector Association="MarketWebModel1.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MarketWebModel1.Permiso" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="MarketWebModel1.Ventana" Width="1.5" PointX="2.75" PointY="6.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="MarketWebModel1.LOCAL" Width="1.5" PointX="9.625" PointY="0.875" />
+        <EntityTypeShape EntityType="MarketWebModel1.SUCURSAL" Width="1.5" PointX="7.375" PointY="1.125" />
+        <AssociationConnector Association="MarketWebModel1.R_56" />
+        <EntityTypeShape EntityType="MarketWebModel1.CONFIGURACION" Width="1.5" PointX="9.625" PointY="5.25" />
+        <EntityTypeShape EntityType="MarketWebModel1.DOCU_SERIE" Width="1.5" PointX="11.875" PointY="0.75" />
+        <AssociationConnector Association="MarketWebModel1.R_55" />
+        <AssociationConnector Association="MarketWebModel1.R_57" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

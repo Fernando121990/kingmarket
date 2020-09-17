@@ -31,8 +31,8 @@ namespace MarketASP.Models
         public Nullable<int> ncode_banco { get; set; }
         public int ncode_tpago { get; set; }
     
+        public virtual CTAS_PAGAR CTAS_PAGAR { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
-        public virtual CTAS_PAGAR CTAS_PAGAR { get; set; }
     }
 }

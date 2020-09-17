@@ -41,10 +41,10 @@ namespace MarketASP.Models
         public Nullable<long> ncode_provee { get; set; }
         public Nullable<int> ncode_banco { get; set; }
     
-        public virtual CONFIGURACION CONFIGURACION { get; set; }
-        public virtual CONFIGURACION CONFIGURACION1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
+        public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual CONFIGURACION CONFIGURACION1 { get; set; }
     }
 }

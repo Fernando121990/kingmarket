@@ -1,5 +1,6 @@
 ﻿using MarketASP.Clases;
 using MarketASP.Models;
+using MarketASP.Extensiones;
 using Newtonsoft.Json;
 using System;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 
 
 namespace MarketASP.Controllers
@@ -116,7 +118,8 @@ namespace MarketASP.Controllers
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
+                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),
+                                ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -220,7 +223,7 @@ namespace MarketASP.Controllers
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, sw);
+                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

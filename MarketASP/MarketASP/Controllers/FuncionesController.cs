@@ -222,6 +222,22 @@ namespace MarketASP.Controllers
             };
 
         }
+        //private ActionResult RedirectToTipoCambio(string returnUrl)
+        //{
 
+        //    MarketWebEntities db = new MarketWebEntities();
+
+        //    ObjectParameter valor = new ObjectParameter("valor", typeof(int));
+        //    int xvalor = 0;
+        //    var result = db.Pr_tipoCambioExiste(DateTime.Today.ToShortDateString(), valor);
+        //    xvalor = int.Parse(valor.Value.ToString());
+
+        //    if (xvalor == 0)
+        //    {
+        //        return RedirectToAction("Create", "tipo_cambio");
+        //    }
+
+        //    return RedirectToAction("Index", "Home");
+        //}
     }
 }

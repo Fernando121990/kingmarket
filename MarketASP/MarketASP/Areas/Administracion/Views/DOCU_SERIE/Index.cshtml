@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MarketASP.Areas.Administracion.Models.DOCU_SERIE>
+
+@{
+    ViewBag.Title = "Series x Local";
+}
+
+<div class="col-md-12 ptp-titulos">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Serie" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Local
+        </th>
+        <th>Usuario</th>
+        <th>
+            Documento
+        </th>
+        <th>
+            Numeración
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(l=>l.ncode_local))
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOCAL.sdesc_local)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susuario_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.snumeracion_dose)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_dose }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteOperador", new { id = item.ncode_dose }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+
+        </td>
+    </tr>
+    }
+
+</table>

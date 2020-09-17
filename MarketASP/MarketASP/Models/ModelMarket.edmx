@@ -142,6 +142,9 @@
           <Property Name="susmo_cliente" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_cliente" Type="datetime" />
           <Property Name="stipo_cliente" Type="varchar" MaxLength="1" />
+          <Property Name="bacti_cliente" Type="bit" />
+          <Property Name="ncode_fopago" Type="int" />
+          <Property Name="ncode_afepercepcion" Type="int" />
         </EntityType>
         <EntityType Name="COMPRA_DETALLE">
           <Key>
@@ -197,6 +200,7 @@
           <Property Name="ncode_provee" Type="bigint" Nullable="false" />
           <Property Name="ncode_docu" Type="int" Nullable="false" />
           <Property Name="ncode_fopago" Type="int" Nullable="false" />
+          <Property Name="ncode_local" Type="int" />
         </EntityType>
         <EntityType Name="CONFIGURACION">
           <Key>
@@ -207,6 +211,7 @@
           <Property Name="svalor_confi" Type="varchar" MaxLength="50" />
           <Property Name="besta_confi" Type="bit" Nullable="false" />
           <Property Name="ntipo_confi" Type="int" Nullable="false" />
+          <Property Name="stipo_confi" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
@@ -372,6 +377,15 @@
           <Property Name="dfech_lipre" Type="datetime" />
           <Property Name="susmo_lipre" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_lipre" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LOCAL">
+          <Key>
+            <PropertyRef Name="ncode_local" />
+          </Key>
+          <Property Name="ncode_local" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_local" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="bacti_local" Type="bit" Nullable="false" />
+          <Property Name="ncode_sucu" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MARCA">
           <Key>
@@ -554,6 +568,7 @@
           <Property Name="ncode_alma" Type="int" />
           <Property Name="bmontocancelado_venta" Type="bit" />
           <Property Name="dfcancelado_venta" Type="datetime" />
+          <Property Name="ncode_local" Type="int" />
         </EntityType>
         <Association Name="R_1">
           <End Role="FAMILIA" Type="Self.FAMILIA" Multiplicity="0..1" />
@@ -1121,6 +1136,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_58">
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_59">
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="0..1" />
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_6">
           <End Role="LISTA_PRECIO" Type="Self.LISTA_PRECIO" Multiplicity="1" />
           <End Role="ART_PRECIO" Type="Self.ART_PRECIO" Multiplicity="*" />
@@ -1130,6 +1169,30 @@
             </Principal>
             <Dependent Role="ART_PRECIO">
               <PropertyRef Name="ncode_lipre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_60">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_61">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ncode_afepercepcion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1210,6 +1273,7 @@
           <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
           <Parameter Name="ncode_docu" Type="int" Mode="In" />
           <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_compraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1257,6 +1321,7 @@
           <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
           <Parameter Name="ncode_docu" Type="int" Mode="In" />
           <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_compraElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1407,6 +1472,7 @@
           <Parameter Name="nvalIGV_venta" Type="decimal" Mode="In" />
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="ctacobraAuto" Type="char" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
           <Parameter Name="cc" Type="bigint" Mode="InOut" />
@@ -1458,6 +1524,7 @@
           <Parameter Name="nvalIGV_venta" Type="decimal" Mode="In" />
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_ventaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1485,6 +1552,7 @@
           <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LISTA_PRECIO" EntityType="Self.LISTA_PRECIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOCAL" EntityType="Self.LOCAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
@@ -1684,9 +1752,25 @@
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
           </AssociationSet>
+          <AssociationSet Name="R_58" Association="Self.R_58">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_59" Association="Self.R_59">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
           <AssociationSet Name="R_6" Association="Self.R_6">
             <End Role="LISTA_PRECIO" EntitySet="LISTA_PRECIO" />
             <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_60" Association="Self.R_60">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="R_61" Association="Self.R_61">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
           </AssociationSet>
           <AssociationSet Name="R_7" Association="Self.R_7">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -1715,7 +1799,6 @@
           <EntitySet Name="CLI_DIRE" EntityType="MarketWebModel.CLI_DIRE" />
           <EntitySet Name="CLIDI_CONTAC" EntityType="MarketWebModel.CLIDI_CONTAC" />
           <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
-          <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel.CONFIGURACION" />
           <EntitySet Name="CONTACTO" EntityType="MarketWebModel.CONTACTO" />
           <EntitySet Name="FAMILIA" EntityType="MarketWebModel.FAMILIA" />
           <EntitySet Name="LISTA_PRECIO" EntityType="MarketWebModel.LISTA_PRECIO" />
@@ -1862,10 +1945,6 @@
             <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="KARDEX" EntitySet="KARDEX" />
           </AssociationSet>
-          <AssociationSet Name="R_24" Association="MarketWebModel.R_24">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="KARDEX" EntitySet="KARDEX" />
-          </AssociationSet>
           <AssociationSet Name="R_25" Association="MarketWebModel.R_25">
             <End Role="UMEDIDA" EntitySet="UMEDIDA" />
             <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
@@ -1911,14 +1990,6 @@
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="VENTAS" EntitySet="VENTAS" />
           </AssociationSet>
-          <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="VENTAS" EntitySet="VENTAS" />
-          </AssociationSet>
-          <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="VENTAS" EntitySet="VENTAS" />
-          </AssociationSet>
           <AssociationSet Name="R_31" Association="MarketWebModel.R_31">
             <End Role="VENTAS" EntitySet="VENTAS" />
             <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
@@ -1962,6 +2033,7 @@
             <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
             <Parameter Name="suser_venta" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
             <Parameter Name="cc" Mode="InOut" Type="Int64" />
@@ -2013,6 +2085,7 @@
             <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
             <Parameter Name="suser_venta" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_ventaAnula">
@@ -2052,42 +2125,6 @@
           <AssociationSet Name="R_38" Association="MarketWebModel.R_38">
             <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
             <End Role="COMPRAS" EntitySet="COMPRAS" />
-          </AssociationSet>
-          <AssociationSet Name="R_40" Association="MarketWebModel.R_40">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="COMPRAS" EntitySet="COMPRAS" />
-          </AssociationSet>
-          <AssociationSet Name="R_41" Association="MarketWebModel.R_41">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="COMPRAS" EntitySet="COMPRAS" />
-          </AssociationSet>
-          <AssociationSet Name="R_43" Association="MarketWebModel.R_43">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
-          </AssociationSet>
-          <AssociationSet Name="R_45" Association="MarketWebModel.R_45">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
-          </AssociationSet>
-          <AssociationSet Name="R_47" Association="MarketWebModel.R_47">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
-          </AssociationSet>
-          <AssociationSet Name="R_50" Association="MarketWebModel.R_50">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="R_51" Association="MarketWebModel.R_51">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="R_52" Association="MarketWebModel.R_52">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="R_53" Association="MarketWebModel.R_53">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
           </AssociationSet>
           <AssociationSet Name="R_48" Association="MarketWebModel.R_48">
             <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
@@ -2130,6 +2167,7 @@
             <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
             <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
             <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_compraDetaCrea">
@@ -2181,6 +2219,7 @@
             <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
             <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
             <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_compraElimina">
@@ -2236,6 +2275,72 @@
             <Parameter Name="nivel" Mode="In" Type="String" />
             <Parameter Name="xcode" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="LOCAL" EntityType="MarketWebModel.LOCAL" />
+          <AssociationSet Name="R_59" Association="MarketWebModel.R_59">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_58" Association="MarketWebModel.R_58">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel.CONFIGURACION" />
+          <AssociationSet Name="R_60" Association="MarketWebModel.R_60">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="R_61" Association="MarketWebModel.R_61">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="R_40" Association="MarketWebModel.R_40">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_41" Association="MarketWebModel.R_41">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_24" Association="MarketWebModel.R_24">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_43" Association="MarketWebModel.R_43">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+          </AssociationSet>
+          <AssociationSet Name="R_45" Association="MarketWebModel.R_45">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+          </AssociationSet>
+          <AssociationSet Name="R_47" Association="MarketWebModel.R_47">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
+          </AssociationSet>
+          <AssociationSet Name="R_50" Association="MarketWebModel.R_50">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_51" Association="MarketWebModel.R_51">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_52" Association="MarketWebModel.R_52">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_53" Association="MarketWebModel.R_53">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2407,28 +2512,11 @@
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
           <Property Name="stipo_cliente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
-        </EntityType>
-        <EntityType Name="CONFIGURACION">
-          <Key>
-            <PropertyRef Name="ncode_confi" />
-          </Key>
-          <Property Name="ncode_confi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sdesc_confi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="besta_confi" Type="Boolean" Nullable="false" />
-          <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_24" FromRole="CONFIGURACION" ToRole="KARDEX" />
-          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
-          <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
-          <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_40" FromRole="CONFIGURACION" ToRole="COMPRAS" />
-          <NavigationProperty Name="COMPRAS1" Relationship="MarketWebModel.R_41" FromRole="CONFIGURACION" ToRole="COMPRAS" />
-          <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_43" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
-          <NavigationProperty Name="CTAS_PAGAR1" Relationship="MarketWebModel.R_45" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
-          <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_47" FromRole="CONFIGURACION" ToRole="CTA_COBRAR" />
-          <NavigationProperty Name="CTASCO_DETALLE" Relationship="MarketWebModel.R_50" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
-          <NavigationProperty Name="CTASCO_DETALLE1" Relationship="MarketWebModel.R_51" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
-          <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_52" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
-          <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
+          <Property Name="bacti_cliente" Type="Boolean" />
+          <Property Name="ncode_fopago" Type="Int32" />
+          <Property Name="ncode_afepercepcion" Type="Int32" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
         </EntityType>
         <EntityType Name="CONTACTO">
           <Key>
@@ -2911,9 +2999,9 @@
           <Property Name="ncode_confi" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_22" FromRole="KARDEX" ToRole="ALMACEN" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
           <Property Name="ncode_umed" Type="Int64" Nullable="false" />
           <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_26" FromRole="KARDEX" ToRole="UMEDIDA" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
         </EntityType>
         <Association Name="R_22">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -2936,18 +3024,6 @@
             </Principal>
             <Dependent Role="KARDEX">
               <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_24">
-          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONFIGURACION">
-              <PropertyRef Name="ncode_confi" />
-            </Principal>
-            <Dependent Role="KARDEX">
-              <PropertyRef Name="ncode_confi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3037,12 +3113,14 @@
           <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
           <Property Name="ncode_alma" Type="Int32" />
           <Property Name="bmontocancelado_venta" Type="Boolean" />
           <Property Name="dfcancelado_venta" Type="DateTime" Precision="3" />
+          <Property Name="ncode_local" Type="Int32" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_58" FromRole="VENTAS" ToRole="LOCAL" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
         </EntityType>
         <Association Name="R_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -3089,30 +3167,6 @@
             </Principal>
             <Dependent Role="VENTAS">
               <PropertyRef Name="ncode_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_27">
-          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONFIGURACION">
-              <PropertyRef Name="ncode_confi" />
-            </Principal>
-            <Dependent Role="VENTAS">
-              <PropertyRef Name="ncode_docu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_30">
-          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONFIGURACION">
-              <PropertyRef Name="ncode_confi" />
-            </Principal>
-            <Dependent Role="VENTAS">
-              <PropertyRef Name="ncode_fopago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3188,6 +3242,8 @@
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_36" FromRole="COMPRAS" ToRole="ALMACEN" />
           <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_35" FromRole="COMPRAS" ToRole="COMPRA_DETALLE" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_38" FromRole="COMPRAS" ToRole="PROVEEDOR" />
+          <Property Name="ncode_local" Type="Int32" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_59" FromRole="COMPRAS" ToRole="LOCAL" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_40" FromRole="COMPRAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_41" FromRole="COMPRAS" ToRole="CONFIGURACION" />
         </EntityType>
@@ -3215,8 +3271,8 @@
           <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
           <Property Name="ncode_docu" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_46" FromRole="CTA_COBRAR" ToRole="CLIENTE" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_47" FromRole="CTA_COBRAR" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CTASCO_DETALLE" Relationship="MarketWebModel.R_48" FromRole="CTA_COBRAR" ToRole="CTASCO_DETALLE" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_47" FromRole="CTA_COBRAR" ToRole="CONFIGURACION" />
         </EntityType>
         <EntityType Name="CTAS_PAGAR">
           <Key>
@@ -3242,10 +3298,10 @@
           <Property Name="ncode_docu" Type="Int32" Nullable="false" />
           <Property Name="ncode_provee" Type="Int64" />
           <Property Name="ncode_banco" Type="Int32" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_43" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_45" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_42" FromRole="CTAS_PAGAR" ToRole="CTASPA_DETALLE" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_44" FromRole="CTAS_PAGAR" ToRole="PROVEEDOR" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_43" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_45" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
         </EntityType>
         <EntityType Name="CTASCO_DETALLE">
           <Key>
@@ -3268,12 +3324,12 @@
           <Property Name="ncode_ctaco" Type="Int64" Nullable="false" />
           <Property Name="ncode_banco" Type="Int32" />
           <Property Name="ncode_tpago" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_50" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_51" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_48" FromRole="CTASCO_DETALLE" ToRole="CTA_COBRAR" />
           <Property Name="ncode_tarjeta" Type="Int32" />
           <Property Name="nmontoMN_ctacode" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="nmontoUS_ctacode" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_50" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_51" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
         </EntityType>
         <EntityType Name="CTASPA_DETALLE">
           <Key>
@@ -3295,9 +3351,9 @@
           <Property Name="ncode_ctapa" Type="Int64" Nullable="false" />
           <Property Name="ncode_banco" Type="Int32" />
           <Property Name="ncode_tpago" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_42" FromRole="CTASPA_DETALLE" ToRole="CTAS_PAGAR" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_52" FromRole="CTASPA_DETALLE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_53" FromRole="CTASPA_DETALLE" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_42" FromRole="CTASPA_DETALLE" ToRole="CTAS_PAGAR" />
         </EntityType>
         <Association Name="R_36">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3371,6 +3427,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_48">
+          <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="1" />
+          <End Type="MarketWebModel.CTASCO_DETALLE" Role="CTASCO_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CTA_COBRAR">
+              <PropertyRef Name="ncode_ctaco" />
+            </Principal>
+            <Dependent Role="CTASCO_DETALLE">
+              <PropertyRef Name="ncode_ctaco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_42">
+          <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="1" />
+          <End Type="MarketWebModel.CTASPA_DETALLE" Role="CTASPA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CTAS_PAGAR">
+              <PropertyRef Name="ncode_ctapa" />
+            </Principal>
+            <Dependent Role="CTASPA_DETALLE">
+              <PropertyRef Name="ncode_ctapa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_44">
+          <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDOR">
+              <PropertyRef Name="ncode_provee" />
+            </Principal>
+            <Dependent Role="CTAS_PAGAR">
+              <PropertyRef Name="ncode_provee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LOCAL">
+          <Key>
+            <PropertyRef Name="ncode_local" />
+          </Key>
+          <Property Name="ncode_local" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_local" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="bacti_local" Type="Boolean" Nullable="false" />
+          <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_59" FromRole="LOCAL" ToRole="COMPRAS" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
+        </EntityType>
+        <Association Name="R_59">
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
+          <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_58">
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONFIGURACION">
+          <Key>
+            <PropertyRef Name="ncode_confi" />
+          </Key>
+          <Property Name="ncode_confi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_confi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="besta_confi" Type="Boolean" Nullable="false" />
+          <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
+          <Property Name="stipo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+          <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+          <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_40" FromRole="CONFIGURACION" ToRole="COMPRAS" />
+          <NavigationProperty Name="COMPRAS1" Relationship="MarketWebModel.R_41" FromRole="CONFIGURACION" ToRole="COMPRAS" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_24" FromRole="CONFIGURACION" ToRole="KARDEX" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
+          <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
+          <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_43" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
+          <NavigationProperty Name="CTAS_PAGAR1" Relationship="MarketWebModel.R_45" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
+          <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_47" FromRole="CONFIGURACION" ToRole="CTA_COBRAR" />
+          <NavigationProperty Name="CTASCO_DETALLE" Relationship="MarketWebModel.R_50" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
+          <NavigationProperty Name="CTASCO_DETALLE1" Relationship="MarketWebModel.R_51" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
+          <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_52" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
+          <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
+        </EntityType>
+        <Association Name="R_60">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_61">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ncode_afepercepcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_40">
           <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
           <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
@@ -3391,6 +3567,42 @@
               <PropertyRef Name="ncode_confi" />
             </Principal>
             <Dependent Role="COMPRAS">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_24">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_confi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_27">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_30">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="VENTAS">
               <PropertyRef Name="ncode_fopago" />
             </Dependent>
           </ReferentialConstraint>
@@ -3476,42 +3688,6 @@
             </Principal>
             <Dependent Role="CTASPA_DETALLE">
               <PropertyRef Name="ncode_tpago" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_48">
-          <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="1" />
-          <End Type="MarketWebModel.CTASCO_DETALLE" Role="CTASCO_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CTA_COBRAR">
-              <PropertyRef Name="ncode_ctaco" />
-            </Principal>
-            <Dependent Role="CTASCO_DETALLE">
-              <PropertyRef Name="ncode_ctaco" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_42">
-          <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="1" />
-          <End Type="MarketWebModel.CTASPA_DETALLE" Role="CTASPA_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CTAS_PAGAR">
-              <PropertyRef Name="ncode_ctapa" />
-            </Principal>
-            <Dependent Role="CTASPA_DETALLE">
-              <PropertyRef Name="ncode_ctapa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_44">
-          <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
-          <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROVEEDOR">
-              <PropertyRef Name="ncode_provee" />
-            </Principal>
-            <Dependent Role="CTAS_PAGAR">
-              <PropertyRef Name="ncode_provee" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3643,6 +3819,9 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ncode_afepercepcion" ColumnName="ncode_afepercepcion" />
+                <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+                <ScalarProperty Name="bacti_cliente" ColumnName="bacti_cliente" />
                 <ScalarProperty Name="stipo_cliente" ColumnName="stipo_cliente" />
                 <ScalarProperty Name="dfemo_cliente" ColumnName="dfemo_cliente" />
                 <ScalarProperty Name="susmo_cliente" ColumnName="susmo_cliente" />
@@ -3665,17 +3844,6 @@
                 <ScalarProperty Name="sruc_cliente" ColumnName="sruc_cliente" />
                 <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
                 <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CONFIGURACION">
-            <EntityTypeMapping TypeName="MarketWebModel.CONFIGURACION">
-              <MappingFragment StoreEntitySet="CONFIGURACION">
-                <ScalarProperty Name="ntipo_confi" ColumnName="ntipo_confi" />
-                <ScalarProperty Name="besta_confi" ColumnName="besta_confi" />
-                <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
-                <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
-                <ScalarProperty Name="ncode_confi" ColumnName="ncode_confi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3931,6 +4099,7 @@
           <EntitySetMapping Name="VENTAS">
             <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
               <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
                 <ScalarProperty Name="dfcancelado_venta" ColumnName="dfcancelado_venta" />
                 <ScalarProperty Name="bmontocancelado_venta" ColumnName="bmontocancelado_venta" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
@@ -3999,6 +4168,7 @@
           <EntitySetMapping Name="COMPRAS">
             <EntityTypeMapping TypeName="MarketWebModel.COMPRAS">
               <MappingFragment StoreEntitySet="COMPRAS">
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
                 <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
                 <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
                 <ScalarProperty Name="ncode_provee" ColumnName="ncode_provee" />
@@ -4144,6 +4314,28 @@
           <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaCrea" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaCrea" />
           <FunctionImportMapping FunctionImportName="Pr_ctaCobrarDetaElimina" FunctionName="MarketWebModel.Store.Pr_ctaCobrarDetaElimina" />
           <FunctionImportMapping FunctionImportName="Pr_PermisoAcceso" FunctionName="MarketWebModel.Store.Pr_PermisoAcceso" />
+          <EntitySetMapping Name="LOCAL">
+            <EntityTypeMapping TypeName="MarketWebModel.LOCAL">
+              <MappingFragment StoreEntitySet="LOCAL">
+                <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+                <ScalarProperty Name="bacti_local" ColumnName="bacti_local" />
+                <ScalarProperty Name="sdesc_local" ColumnName="sdesc_local" />
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONFIGURACION">
+            <EntityTypeMapping TypeName="MarketWebModel.CONFIGURACION">
+              <MappingFragment StoreEntitySet="CONFIGURACION">
+                <ScalarProperty Name="stipo_confi" ColumnName="stipo_confi" />
+                <ScalarProperty Name="ntipo_confi" ColumnName="ntipo_confi" />
+                <ScalarProperty Name="besta_confi" ColumnName="besta_confi" />
+                <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
+                <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
+                <ScalarProperty Name="ncode_confi" ColumnName="ncode_confi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15,6 +15,7 @@
 
 <table class="table table-striped">
     <tr>
+        <th>Cod.</th>
         <th>
             Tipo
         </th>
@@ -32,23 +33,26 @@
 
     @foreach (var item in Model.OrderBy(t => t.ntipo_confi))
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ntipo_confi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sdesc_confi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.svalor_confi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.besta_confi)
-            </td>
-            <td>
-                @Html.ActionLink(" ", "Edit", new { id = item.ncode_confi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntipo_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stipo_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.svalor_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.besta_confi)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_confi }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+        </td>
+    </tr>
     }
 
 </table>

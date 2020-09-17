@@ -44,6 +44,9 @@ namespace MarketASP.Models
         public string susmo_cliente { get; set; }
         public Nullable<System.DateTime> dfemo_cliente { get; set; }
         public string stipo_cliente { get; set; }
+        public Nullable<bool> bacti_cliente { get; set; }
+        public Nullable<int> ncode_fopago { get; set; }
+        public Nullable<int> ncode_afepercepcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }
@@ -51,5 +54,7 @@ namespace MarketASP.Models
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTA_COBRAR> CTA_COBRAR { get; set; }
+        public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual CONFIGURACION CONFIGURACION1 { get; set; }
     }
 }

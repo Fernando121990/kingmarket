@@ -55,3 +55,8 @@ legend.ptp-border {
     border-bottom: none;
     font-size: 14px;
 }
+
+.ptp-cabecera {
+    padding-left: 15px;
+    padding-right: 15px;
+}

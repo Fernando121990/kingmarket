@@ -39,7 +39,7 @@ namespace MarketASP.Models
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual ARTICULO ARTICULO { get; set; }
-        public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }
+        public virtual CONFIGURACION CONFIGURACION { get; set; }
     }
 }

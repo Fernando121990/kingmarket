@@ -20,10 +20,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Usuarios", "Index", "AspNetUsers")</li>
-                    <li>@Html.ActionLink("Roles", "Index", "AspNetRoles")</li>
-                    <li>@Html.ActionLink("Ventanas", "Index", "Ventanas")</li>
-                    <li>@Html.ActionLink("Permisos", "Create", "Permisoes")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Usuarios<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Usuarios", "Index", "AspNetUsers")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "AspNetRoles")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Permisos<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Ventanas", "Index", "Ventanas")</li>
+                            <li>@Html.ActionLink("Permisos", "Create", "Permisoes")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sucursales<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Sucursal", "Index", "sucursals")</li>
+                            <li>@Html.ActionLink("Local", "Index", "Locals")</li>
+                            <li>@Html.ActionLink("Operador", "Index", "docu_serie")</li>
+                        </ul>
+                    </li>
+                    
                 </ul>
             </div>
         </div>

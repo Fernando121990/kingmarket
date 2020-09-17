@@ -35,8 +35,8 @@ namespace MarketASP.Models
         public Nullable<decimal> nmontoMN_ctacode { get; set; }
         public Nullable<decimal> nmontoUS_ctacode { get; set; }
     
+        public virtual CTA_COBRAR CTA_COBRAR { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
-        public virtual CTA_COBRAR CTA_COBRAR { get; set; }
     }
 }

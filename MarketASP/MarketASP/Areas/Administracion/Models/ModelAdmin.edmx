@@ -55,6 +55,45 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="OrganizationId" Type="bigint" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Apellido" Type="nvarchar(max)" />
+          <Property Name="Local" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CONFIGURACION">
+          <Key>
+            <PropertyRef Name="ncode_confi" />
+          </Key>
+          <Property Name="ncode_confi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_confi" Type="varchar" MaxLength="200" />
+          <Property Name="svalor_confi" Type="varchar" MaxLength="50" />
+          <Property Name="besta_confi" Type="bit" Nullable="false" />
+          <Property Name="ntipo_confi" Type="int" Nullable="false" />
+          <Property Name="stipo_confi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DOCU_SERIE">
+          <Key>
+            <PropertyRef Name="ncode_dose" />
+          </Key>
+          <Property Name="ncode_dose" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_docu" Type="int" Nullable="false" />
+          <Property Name="snumeracion_dose" Type="varchar" MaxLength="20" />
+          <Property Name="susuario_dose" Type="varchar" MaxLength="200" />
+          <Property Name="sdocumento_dose" Type="varchar" MaxLength="20" />
+          <Property Name="suser_dose" Type="varchar" MaxLength="20" />
+          <Property Name="dfech_dose" Type="datetime" />
+          <Property Name="susmo_dose" Type="varchar" MaxLength="20" />
+          <Property Name="dfemo_dose" Type="datetime" />
+          <Property Name="ncode_local" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LOCAL">
+          <Key>
+            <PropertyRef Name="ncode_local" />
+          </Key>
+          <Property Name="ncode_local" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_local" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="bacti_local" Type="bit" Nullable="false" />
+          <Property Name="ncode_sucu" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Permiso">
           <Key>
@@ -63,6 +102,14 @@
           </Key>
           <Property Name="username" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="nivel" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUCURSAL">
+          <Key>
+            <PropertyRef Name="ncode_sucu" />
+          </Key>
+          <Property Name="ncode_sucu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_sucu" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="bacti_sucu" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Ventana">
           <Key>
@@ -128,6 +175,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_55">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_56">
+          <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="1" />
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUCURSAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_57">
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+          <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Pr_PermisoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="varchar" Mode="In" />
           <Parameter Name="nivel" Type="varchar" Mode="In" />
@@ -144,7 +227,11 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONFIGURACION" EntityType="Self.CONFIGURACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOCAL" EntityType="Self.LOCAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -161,6 +248,18 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="R_55" Association="Self.R_55">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+          </AssociationSet>
+          <AssociationSet Name="R_56" Association="Self.R_56">
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
+          </AssociationSet>
+          <AssociationSet Name="R_57" Association="Self.R_57">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -215,6 +314,10 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="OrganizationId" Type="Int64" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Local" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -277,6 +380,22 @@
           <FunctionImport Name="Pr_PermisoLista" ReturnType="Collection(MarketWebModel1.Pr_PermisoLista_Result)">
           <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="LOCAL" EntityType="MarketWebModel1.LOCAL" />
+          <EntitySet Name="SUCURSAL" EntityType="MarketWebModel1.SUCURSAL" />
+          <AssociationSet Name="R_56" Association="MarketWebModel1.R_56">
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
+          </AssociationSet>
+          <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel1.CONFIGURACION" />
+          <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel1.DOCU_SERIE" />
+          <AssociationSet Name="R_55" Association="MarketWebModel1.R_55">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+          </AssociationSet>
+          <AssociationSet Name="R_57" Association="MarketWebModel1.R_57">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Permiso">
           <Key>
@@ -300,6 +419,91 @@
           <Property Type="String" Name="Operacion" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Acceso" Nullable="false" MaxLength="5" />
         </ComplexType>
+        <EntityType Name="LOCAL">
+          <Key>
+            <PropertyRef Name="ncode_local" />
+          </Key>
+          <Property Name="ncode_local" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_local" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="bacti_local" Type="Boolean" Nullable="false" />
+          <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel1.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
+          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel1.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
+        </EntityType>
+        <EntityType Name="SUCURSAL">
+          <Key>
+            <PropertyRef Name="ncode_sucu" />
+          </Key>
+          <Property Name="ncode_sucu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_sucu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="bacti_sucu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel1.R_56" FromRole="SUCURSAL" ToRole="LOCAL" />
+        </EntityType>
+        <Association Name="R_56">
+          <End Type="MarketWebModel1.SUCURSAL" Role="SUCURSAL" Multiplicity="1" />
+          <End Type="MarketWebModel1.LOCAL" Role="LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUCURSAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONFIGURACION">
+          <Key>
+            <PropertyRef Name="ncode_confi" />
+          </Key>
+          <Property Name="ncode_confi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_confi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="besta_confi" Type="Boolean" Nullable="false" />
+          <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
+          <Property Name="stipo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel1.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
+        </EntityType>
+        <EntityType Name="DOCU_SERIE">
+          <Key>
+            <PropertyRef Name="ncode_dose" />
+          </Key>
+          <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+          <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+          <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+          <Property Name="ncode_local" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel1.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel1.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+        </EntityType>
+        <Association Name="R_55">
+          <End Type="MarketWebModel1.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel1.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_57">
+          <End Type="MarketWebModel1.LOCAL" Role="LOCAL" Multiplicity="1" />
+          <End Type="MarketWebModel1.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -336,6 +540,10 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="MarketWebModel1.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
@@ -388,7 +596,54 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="LOCAL">
+            <EntityTypeMapping TypeName="MarketWebModel1.LOCAL">
+              <MappingFragment StoreEntitySet="LOCAL">
+                <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+                <ScalarProperty Name="bacti_local" ColumnName="bacti_local" />
+                <ScalarProperty Name="sdesc_local" ColumnName="sdesc_local" />
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUCURSAL">
+            <EntityTypeMapping TypeName="MarketWebModel1.SUCURSAL">
+              <MappingFragment StoreEntitySet="SUCURSAL">
+                <ScalarProperty Name="bacti_sucu" ColumnName="bacti_sucu" />
+                <ScalarProperty Name="sdesc_sucu" ColumnName="sdesc_sucu" />
+                <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONFIGURACION">
+            <EntityTypeMapping TypeName="MarketWebModel1.CONFIGURACION">
+              <MappingFragment StoreEntitySet="CONFIGURACION">
+                <ScalarProperty Name="stipo_confi" ColumnName="stipo_confi" />
+                <ScalarProperty Name="ntipo_confi" ColumnName="ntipo_confi" />
+                <ScalarProperty Name="besta_confi" ColumnName="besta_confi" />
+                <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
+                <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
+                <ScalarProperty Name="ncode_confi" ColumnName="ncode_confi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCU_SERIE">
+            <EntityTypeMapping TypeName="MarketWebModel1.DOCU_SERIE">
+              <MappingFragment StoreEntitySet="DOCU_SERIE">
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+                <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+                <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+                <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+                <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+                <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
+                <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+                <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+                <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

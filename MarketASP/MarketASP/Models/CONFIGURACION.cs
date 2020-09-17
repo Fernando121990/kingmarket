@@ -17,11 +17,13 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CONFIGURACION()
         {
+            this.CLIENTE = new HashSet<CLIENTE>();
+            this.CLIENTE1 = new HashSet<CLIENTE>();
+            this.COMPRAS = new HashSet<COMPRAS>();
+            this.COMPRAS1 = new HashSet<COMPRAS>();
             this.KARDEX = new HashSet<KARDEX>();
             this.VENTAS = new HashSet<VENTAS>();
             this.VENTAS1 = new HashSet<VENTAS>();
-            this.COMPRAS = new HashSet<COMPRAS>();
-            this.COMPRAS1 = new HashSet<COMPRAS>();
             this.CTAS_PAGAR = new HashSet<CTAS_PAGAR>();
             this.CTAS_PAGAR1 = new HashSet<CTAS_PAGAR>();
             this.CTA_COBRAR = new HashSet<CTA_COBRAR>();
@@ -36,17 +38,22 @@ namespace MarketASP.Models
         public string svalor_confi { get; set; }
         public bool besta_confi { get; set; }
         public int ntipo_confi { get; set; }
+        public string stipo_confi { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRAS> COMPRAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<COMPRAS> COMPRAS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMPRAS> COMPRAS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<COMPRAS> COMPRAS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTAS_PAGAR> CTAS_PAGAR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

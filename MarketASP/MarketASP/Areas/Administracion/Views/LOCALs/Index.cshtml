@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MarketASP.Areas.Administracion.Models.LOCAL>
+
+@{
+    ViewBag.Title = "Locales";
+}
+
+<div class="col-md-12 ptp-titulos">
+    <div class="col-md-6 col-sm-6">
+        <h4>@ViewBag.Title</h4>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Serie" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Sucursal
+        </th>
+        <th>
+            Local
+        </th>
+        <th>
+            Activo
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUCURSAL.sdesc_sucu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdesc_local)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bacti_local)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.ncode_sucu }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
+            @Html.ActionLink(" ", "DeleteLocal", new { id = item.ncode_sucu }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+        </td>
+    </tr>
+}
+
+</table>

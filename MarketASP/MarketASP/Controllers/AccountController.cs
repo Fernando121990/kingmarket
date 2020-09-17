@@ -19,10 +19,12 @@ namespace MarketASP.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
+        MarketWebEntities dBContext;
 
         public AccountController()
         {
             context = new ApplicationDbContext();
+            dBContext = new MarketWebEntities();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -60,6 +62,7 @@ namespace MarketASP.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -78,12 +81,12 @@ namespace MarketASP.Controllers
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    //return RedirectToLocal(returnUrl);
-                    return RedirectToTipoCambio(returnUrl);
+                    return RedirectToLocal(returnUrl);
+                    //return RedirectToTipoCambio(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -144,6 +147,7 @@ namespace MarketASP.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            ViewBag.Local = new SelectList(dBContext.LOCAL.Where(l=>l.bacti_local==true).ToList(),"ncode_local","sdesc_local");
             return View();
         }
 
@@ -156,7 +160,7 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombre = model.Nombre, Apellido = model.Apellido, Local = model.Local };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -462,27 +466,23 @@ namespace MarketASP.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private ActionResult RedirectToTipoCambio(string returnUrl)
-        {
+        //private ActionResult RedirectToTipoCambio(string returnUrl)
+        //{
 
-            MarketWebEntities db = new MarketWebEntities();
+        //    MarketWebEntities db = new MarketWebEntities();
 
-            ObjectParameter valor = new ObjectParameter("valor", typeof(int));
-            int xvalor = 0;
-            var result = db.Pr_tipoCambioExiste(DateTime.Today.ToShortDateString(), valor);
-            xvalor = int.Parse(valor.Value.ToString());
+        //    ObjectParameter valor = new ObjectParameter("valor", typeof(int));
+        //    int xvalor = 0;
+        //    var result = db.Pr_tipoCambioExiste(DateTime.Today.ToShortDateString(), valor);
+        //    xvalor = int.Parse(valor.Value.ToString());
 
-            if (xvalor == 0)
-            {
-                return RedirectToAction("Create", "tipo_cambio");
-            }
+        //    if (xvalor == 0)
+        //    {
+        //        return RedirectToAction("Create", "tipo_cambio");
+        //    }
 
-            //if (Url.IsLocalUrl(returnUrl))
-            //{
-            //    return Redirect(returnUrl);
-            //}
-            return RedirectToAction("Index", "Home");
-        }
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
