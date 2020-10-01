@@ -26,11 +26,11 @@ namespace MarketASP.Models
         public int ncode_cliente { get; set; }
         public string scode_ubigeo { get; set; }
     
-        public virtual CLIENTE CLIENTE { get; set; }
         public virtual UBIGEO UBIGEO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIDI_CONTAC> CLIDI_CONTAC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace MarketASP.Clases
         private static ConfiguracionSingleton instance = null;
         public decimal glbIGV { get; set; }
         public string glbcobroAutomatico { get; set; }
+        public int glbDecimales { get; set; }
 
         public ConfiguracionSingleton()
         {
@@ -19,7 +20,7 @@ namespace MarketASP.Clases
                 var lblconfiguracion = db.CONFIGURACION.Where(c => c.ntipo_confi == 1).ToList();
                 glbIGV = decimal.Parse(lblconfiguracion.Where(c => c.ncode_confi == 1).First().svalor_confi);
                 glbcobroAutomatico = lblconfiguracion.Where(c => c.ncode_confi == 1012).First().svalor_confi;
-
+                glbDecimales = int.Parse(lblconfiguracion.Where(c => c.ncode_confi == 1031).First().svalor_confi);
             }
 
         }

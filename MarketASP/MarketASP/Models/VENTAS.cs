@@ -59,11 +59,11 @@ namespace MarketASP.Models
         public Nullable<int> ncode_local { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
-        public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
         public virtual LOCAL LOCAL { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
     }
 }

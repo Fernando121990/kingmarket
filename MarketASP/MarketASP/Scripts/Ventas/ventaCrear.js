@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
 
+    fnDocumentoSerieNumero();
+
+    $("#ncode_docu").change(function () {
+        fnDocumentoSerieNumero();
+    });
+
+    $("#ncode_fopago").change(function () {
+        fnFormaPagoDiasFecha()
+    });
+
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -17,13 +27,24 @@
                     var aPos = ofunciones.row(this).index();
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
-                        case 7:
-                            var xvalue = ofunciones.cell(aPos, 8).data();
-                            //console.log(xvalue);
+                        case 3: //quantity column
+                            console.log('cantidad');
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            console.log(xcant);
+                            var xvalue = ofunciones.cell(aPos, 5).data();
+                            console.log(xvalue);
+                            var subto = xcant * parseFloat(xvalue);
+                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            break;
+                        case 5: //price column
+                            console.log('subtotal');
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            var xvalue = ofunciones.cell(aPos, 6).data();
                             var yValue = ComparaPrecio(sValue, xvalue);
-                            //console.log(yValue);
+                            var subto = xcant*yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            //console.log('Precio insertado');
+                            ofunciones.cell(aPos, 11).data(subto).draw;
                             break;
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
@@ -90,17 +111,17 @@
                         [{ "data": "Cod" },
                         { "data": "Cod2" },
                         { "data": "DescArt" },
+                        { "data": "Stock" },
                         { "data": "Medida" },
                         { "data": "Precio" },
-                        { "data": "Stock" },
-                            { "data": "ncode_umed" },
-                            { "data": "bafecto_arti" },
-                            { "data": "bisc_arti" },
-                            { "data": "bdscto_arti" }
+                        { "data": "ncode_umed" },
+                        { "data": "bafecto_arti" },
+                        { "data": "bisc_arti" },
+                        { "data": "bdscto_arti" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0]
+                        "aTargets": [0,6,7,8,9]
                     },
                     {
                         "sClass": "my_class",
@@ -143,7 +164,7 @@
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,xcan*data.Precio]).draw();
         Totales();
     });
 
@@ -405,6 +426,66 @@ function ComparaPrecio(Precio, PrecioOrigen) {
 
     return xprecio;
 
+}
+function fnFormaPagoDiasFecha() {
+    $.ajax({
+        type: 'POST',
+        url: urlGetDiasFormaPago,
+        dataType: 'json',
+        data: { ncode_fopago: $("#ncode_fopago").val() },
+        success: function (fopago) {
+            console.log(fopago);
+            $.each(fopago, function (i, dias) {
+
+                var m = $("#dfeventa_venta").val();
+                var parts = m.split("/");
+                var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+                //var fecha = new Date($('#dfeventa_venta').val());
+                //console.log(fecha);
+                //console.log(fecha.getDate());
+                //console.log(fecha.getFullYear());
+                //console.log(fecha.getMonth());
+                //console.log(dias.dias);
+                //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
+                //console.log(xdias);
+                fecha.setDate(fecha.getDate() + parseInt(dias.dias));
+                var xfecha = new Date(fecha).toLocaleDateString()
+                $('#dfevenci_venta').val(xfecha);
+                //console.log(fecha);
+                //console.log(xfecha);
+            });
+
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las areas.' + ex);
+        }
+    });
+    return false;
+
+}
+
+function fnDocumentoSerieNumero() {
+    console.log($("#ncode_docu").val());
+
+    $.ajax({
+        type: 'POST',
+        url: urlGetDocuNumero,
+        dataType: 'json',
+        data: { ndocu: $("#ncode_docu").val() },
+        success: function (docu) {
+            console.log(docu);
+            $.each(docu, function (i, doc) {
+                $('#sseri_venta').val(doc.serie);
+                $('#snume_venta').val(doc.numero);
+                console.log(doc.serie);
+            });
+
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las areas.' + ex);
+        }
+    });
+    return false;
 }
 
 

@@ -104,21 +104,16 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.sobse_cliente, "Obs.", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-4">
             @Html.EditorFor(model => model.sobse_cliente, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.sobse_cliente, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.sfono3_cliente, "Telf.", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.sfono3_cliente, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
             @Html.ValidationMessageFor(model => model.sfono3_cliente, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
     <div class="form-group">
         @Html.LabelFor(model => model.bprocedencia_cliente, "Es Extrajero", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
@@ -127,31 +122,51 @@
                 @Html.ValidationMessageFor(model => model.bprocedencia_cliente, "", new { @class = "text-danger" })
             </div>
         </div>
+        @Html.LabelFor(model => model.ncode_afepercepcion, "Percepción", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ncode_afepercepcion", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_afepercepcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+        </div>
         @Html.LabelFor(model => model.slineacred_cliente, "Linea Cred.", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.slineacred_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
             @Html.ValidationMessageFor(model => model.slineacred_cliente, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-8">
-            <input id="btncliSave" type="submit" value="Actualizar" class="btn btn-block btn-success" />
+        @Html.LabelFor(model => model.bacti_cliente, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            <div class="checkbox">
+                @Html.CheckBox("bacti_cliente")
+                @Html.ValidationMessageFor(model => model.bacti_cliente, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-8">
+                <input id="btncliSave" type="submit" value="Actualizar" class="btn btn-block btn-success" />
+            </div>
+        </div>
 
-</div>
-}
+    </div>
+    }
 
-<div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Clientes" })
-</div>
+    <div>
+        @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Clientes" })
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/cliente")
-    <script type="text/javascript">
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/cliente")
+        <script type="text/javascript">
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
-    </script>
+        </script>
 
-}
+    }

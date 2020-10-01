@@ -40,9 +40,9 @@ namespace MarketASP.Models
         public int ncode_cliente { get; set; }
         public int ncode_docu { get; set; }
     
-        public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTASCO_DETALLE> CTASCO_DETALLE { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
     }
 }

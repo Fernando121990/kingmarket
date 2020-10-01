@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="MarketWebModel.CLASE" Width="1.5" PointX="3" PointY="17.75" />
         <EntityTypeShape EntityType="MarketWebModel.CLI_DIRE" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="MarketWebModel.CLIDI_CONTAC" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="0.75" PointY="13.125" />
         <EntityTypeShape EntityType="MarketWebModel.CONTACTO" Width="1.5" PointX="3" PointY="25" />
         <EntityTypeShape EntityType="MarketWebModel.FAMILIA" Width="1.5" PointX="0.75" PointY="9.25" />
         <EntityTypeShape EntityType="MarketWebModel.LISTA_PRECIO" Width="1.5" PointX="8.25" PointY="17.625" />
@@ -36,7 +35,6 @@
         <AssociationConnector Association="MarketWebModel.R_3" />
         <AssociationConnector Association="MarketWebModel.R_4" />
         <AssociationConnector Association="MarketWebModel.R_5" />
-        <AssociationConnector Association="MarketWebModel.R_11" />
         <AssociationConnector Association="MarketWebModel.R_12" />
         <AssociationConnector Association="MarketWebModel.R_13" />
         <AssociationConnector Association="MarketWebModel.R_14" />
@@ -57,7 +55,6 @@
         <AssociationConnector Association="MarketWebModel.R_33" />
         <AssociationConnector Association="MarketWebModel.R_32" />
         <AssociationConnector Association="MarketWebModel.R_29" />
-        <AssociationConnector Association="MarketWebModel.R_28" />
         <AssociationConnector Association="MarketWebModel.R_31" />
         <EntityTypeShape EntityType="MarketWebModel.COMPRA_DETALLE" Width="1.5" PointX="20.25" PointY="10" />
         <EntityTypeShape EntityType="MarketWebModel.COMPRAS" Width="1.5" PointX="18" PointY="6" />
@@ -68,7 +65,6 @@
         <AssociationConnector Association="MarketWebModel.R_36" />
         <AssociationConnector Association="MarketWebModel.R_37" />
         <AssociationConnector Association="MarketWebModel.R_39" />
-        <AssociationConnector Association="MarketWebModel.R_46" />
         <AssociationConnector Association="MarketWebModel.R_35" />
         <AssociationConnector Association="MarketWebModel.R_38" />
         <AssociationConnector Association="MarketWebModel.R_48" />
@@ -78,8 +74,6 @@
         <AssociationConnector Association="MarketWebModel.R_59" />
         <AssociationConnector Association="MarketWebModel.R_58" />
         <EntityTypeShape EntityType="MarketWebModel.CONFIGURACION" Width="1.5" PointX="0.75" PointY="3.625" />
-        <AssociationConnector Association="MarketWebModel.R_60" />
-        <AssociationConnector Association="MarketWebModel.R_61" />
         <AssociationConnector Association="MarketWebModel.R_40" />
         <AssociationConnector Association="MarketWebModel.R_41" />
         <AssociationConnector Association="MarketWebModel.R_24" />
@@ -92,6 +86,12 @@
         <AssociationConnector Association="MarketWebModel.R_51" />
         <AssociationConnector Association="MarketWebModel.R_52" />
         <AssociationConnector Association="MarketWebModel.R_53" />
+        <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="3" PointY="30.625" />
+        <AssociationConnector Association="MarketWebModel.R_11" />
+        <AssociationConnector Association="MarketWebModel.R_28" />
+        <AssociationConnector Association="MarketWebModel.R_46" />
+        <AssociationConnector Association="MarketWebModel.R_60" />
+        <AssociationConnector Association="MarketWebModel.R_61" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

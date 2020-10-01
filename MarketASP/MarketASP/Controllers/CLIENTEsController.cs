@@ -62,6 +62,9 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
+
             return View();
         }
 
@@ -71,6 +74,9 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+
                 //VERIFICAR RUC O DNI
 
                 if (cLIENTE.stipo_cliente == "J")
@@ -107,8 +113,17 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.mensaje = ex.Message.ToString();
+                    return View("_mensaje");
+                }
+
             }
 
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
             return View(cLIENTE);
         }
 
@@ -145,6 +160,9 @@ namespace MarketASP.Controllers
                 stipo_cliente = cliView.stipo_cliente,
                 suser_cliente = User.Identity.Name,
                 sweb_cliente = cliView.sweb_cliente,
+                bacti_cliente = true,
+                ncode_fopago = cliView.ncode_fopago,
+                ncode_afepercepcion = cliView.ncode_afepercepcion
             };
 
         }
@@ -183,6 +201,8 @@ namespace MarketASP.Controllers
                 ViewBag.pna = "Checked";
             }
 
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",cLIENTE.ncode_fopago);
+            ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi",cLIENTE.ncode_afepercepcion);
             return View(cLIENTE);
         }
 
@@ -197,6 +217,8 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", cLIENTE.ncode_fopago);
+            ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi", cLIENTE.ncode_afepercepcion);
             return View(cLIENTE);
         }
         public async Task<ActionResult> DeleteCliente(int? id)

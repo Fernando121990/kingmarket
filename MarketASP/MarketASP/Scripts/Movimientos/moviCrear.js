@@ -10,7 +10,7 @@
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0,6]  //0,1,2,8,9
+            "aTargets": [0,6,7] 
         },
         {
             "sClass": "my_class",
@@ -90,22 +90,33 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (resultado) {
-                console.log(resultado);
+                //console.log(resultado);
                 //alert('exito');
 
                 mattable = $('#matetabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
                         [{ "data": "Cod" },
-                        { "data": "Cod2" },
-                        { "data": "DescArt" },
-                        { "data": "Medida" },
-                        { "data": "Precio" },
-                        { "data": "Stock" },
-                        { "data": "ncode_umed" }],
+                            { "data": "Cod2" },
+                            { "data": "DescArt" },
+                            { "data": "Stock" },
+                            { "data": "Medida" },
+                            { "data": "Precio" },
+                            { "data": "ncode_umed" },
+                            { "data": "bafecto_arti" },
+                            { "data": "bisc_arti" },
+                            { "data": "bdscto_arti" }
+                        ],
+                        //[{ "data": "Cod" },
+                        //{ "data": "Cod2" },
+                        //{ "data": "DescArt" },
+                        //{ "data": "Medida" },
+                        //{ "data": "Precio" },
+                        //{ "data": "Stock" },
+                        //{ "data": "ncode_umed" }],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0]
+                        "aTargets": [0,6,7,8,9]
                     },
                     {
                         "sClass": "my_class",

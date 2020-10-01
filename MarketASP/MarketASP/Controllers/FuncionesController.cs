@@ -1,4 +1,5 @@
-﻿using MarketASP.Clases;
+﻿using MarketASP.Extensiones;
+using MarketASP.Clases;
 using MarketASP.Models;
 using Newtonsoft.Json;
 using System;
@@ -28,9 +29,37 @@ namespace MarketASP.Controllers
         public JsonResult getCliente(string sdescCliente)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var result = from s in db.CLIENTE
-                         where s.srazon_cliente.Contains(sdescCliente)
-                         select new { s.ncode_cliente, s.srazon_cliente };
+            var result = db.Pr_ClienteBusca(1, sdescCliente, "", "").ToList();
+            return Json(result);
+        }
+
+        public JsonResult getRucCliente(string srucCliente)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_ClienteBusca(1, "",srucCliente, "").ToList();
+            return Json(result);
+        }
+
+        public JsonResult getDniCliente(string sdniCliente)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_ClienteBusca(1, "", "",sdniCliente).ToList();
+            return Json(result);
+        }
+
+        public JsonResult getDocuNumero(int ndocu)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_DocNumeracion(1,User.Identity.Name, int.Parse(User.Identity.GetLocal()),ndocu).ToList();
+            return Json(result);
+        }
+
+        public JsonResult getDiasFormaPago(int ncode_fopago)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = from s in db.CONFIGURACION
+                         where (s.ncode_confi == ncode_fopago)
+                         select new { dias = s.svalor_confi };
             return Json(result);
         }
 

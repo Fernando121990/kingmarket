@@ -17,8 +17,6 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CONFIGURACION()
         {
-            this.CLIENTE = new HashSet<CLIENTE>();
-            this.CLIENTE1 = new HashSet<CLIENTE>();
             this.COMPRAS = new HashSet<COMPRAS>();
             this.COMPRAS1 = new HashSet<COMPRAS>();
             this.KARDEX = new HashSet<KARDEX>();
@@ -31,6 +29,8 @@ namespace MarketASP.Models
             this.CTASCO_DETALLE1 = new HashSet<CTASCO_DETALLE>();
             this.CTASPA_DETALLE = new HashSet<CTASPA_DETALLE>();
             this.CTASPA_DETALLE1 = new HashSet<CTASPA_DETALLE>();
+            this.CLIENTE = new HashSet<CLIENTE>();
+            this.CLIENTE1 = new HashSet<CLIENTE>();
         }
     
         public int ncode_confi { get; set; }
@@ -40,10 +40,6 @@ namespace MarketASP.Models
         public int ntipo_confi { get; set; }
         public string stipo_confi { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CLIENTE> CLIENTE1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRAS> COMPRAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -68,5 +64,9 @@ namespace MarketASP.Models
         public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE1 { get; set; }
     }
 }

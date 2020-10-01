@@ -35,7 +35,6 @@ namespace MarketASP.Models
         public virtual DbSet<CLASE> CLASE { get; set; }
         public virtual DbSet<CLI_DIRE> CLI_DIRE { get; set; }
         public virtual DbSet<CLIDI_CONTAC> CLIDI_CONTAC { get; set; }
-        public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<CONTACTO> CONTACTO { get; set; }
         public virtual DbSet<FAMILIA> FAMILIA { get; set; }
         public virtual DbSet<LISTA_PRECIO> LISTA_PRECIO { get; set; }
@@ -59,6 +58,7 @@ namespace MarketASP.Models
         public virtual DbSet<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
         public virtual DbSet<LOCAL> LOCAL { get; set; }
         public virtual DbSet<CONFIGURACION> CONFIGURACION { get; set; }
+        public virtual DbSet<CLIENTE> CLIENTE { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -1105,6 +1105,48 @@ namespace MarketASP.Models
                 new ObjectParameter("nivel", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_PermisoAcceso", usuarioParameter, nivelParameter, xcode);
+        }
+    
+        public virtual ObjectResult<Pr_ClienteBusca_Result> Pr_ClienteBusca(Nullable<int> tipo, string sdesc_cliente, string sruc_cliente, string sdni_cliente)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var sdesc_clienteParameter = sdesc_cliente != null ?
+                new ObjectParameter("sdesc_cliente", sdesc_cliente) :
+                new ObjectParameter("sdesc_cliente", typeof(string));
+    
+            var sruc_clienteParameter = sruc_cliente != null ?
+                new ObjectParameter("sruc_cliente", sruc_cliente) :
+                new ObjectParameter("sruc_cliente", typeof(string));
+    
+            var sdni_clienteParameter = sdni_cliente != null ?
+                new ObjectParameter("sdni_cliente", sdni_cliente) :
+                new ObjectParameter("sdni_cliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ClienteBusca_Result>("Pr_ClienteBusca", tipoParameter, sdesc_clienteParameter, sruc_clienteParameter, sdni_clienteParameter);
+        }
+    
+        public virtual ObjectResult<Pr_DocNumeracion_Result> Pr_DocNumeracion(Nullable<int> tipo, string susario_dose, Nullable<int> ncode_local, Nullable<int> ncode_docu)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var susario_doseParameter = susario_dose != null ?
+                new ObjectParameter("susario_dose", susario_dose) :
+                new ObjectParameter("susario_dose", typeof(string));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_DocNumeracion_Result>("Pr_DocNumeracion", tipoParameter, susario_doseParameter, ncode_localParameter, ncode_docuParameter);
         }
     }
 }

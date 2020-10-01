@@ -67,14 +67,14 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            
-
             ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             var yfecha = DateTime.Now.Date;
             var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc == yfecha);
             if (result == null)
             {
-                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
+                ViewBag.mensaje = "No se ha registrado el tipo de cambio, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+//                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
             ViewBag.tc = result.nventa_tc;
 

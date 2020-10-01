@@ -4,6 +4,8 @@
         dateFormat: "dd/mm/yy"
     });
 
+
+
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {
@@ -14,7 +16,8 @@
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            label: item.srazon_cliente, value: item.srazon_cliente, id: item.ncode_cliente
+                            label: item.srazon_cliente, value: item.srazon_cliente, id: item.ncode_cliente,
+                            rucid: item.sruc_cliente, dnid: item.sdnice_cliente, fopagoid : item.ncode_fopago
                         };
                     }));
                 }
@@ -22,10 +25,65 @@
         },
         select: function (event, ui) {
             $('#COD_CLIENTE').val(ui.item.id);
+            $('#sruc_cliente').val(ui.item.rucid);
+            $('#sdni_cliente').val(ui.item.dnid);
+            $('#ncode_fopago').val(ui.item.fopagoid);
             fnclienteDire();
+            fnFormaPagoDiasFecha();
         }
     });
 
+    $("#sruc_cliente").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: urlGetRucCliente, // "/Encuesta/GetCliente",
+                type: "POST", dataType: "json",
+                data: { srucCliente: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.sruc_cliente, value: item.sruc_cliente, id: item.ncode_cliente,
+                            razon: item.srazon_cliente, dnid: item.sdnice_cliente, fopagoid: item.ncode_fopago
+                        };
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#COD_CLIENTE').val(ui.item.id);
+            $('#sdesc_cliente').val(ui.item.razon);
+            $('#sdni_cliente').val(ui.item.dnid);
+            $('#ncode_fopago').val(ui.item.fopagoid);
+            fnclienteDire();
+            fnFormaPagoDiasFecha();
+        }
+    });
+
+    $("#sdni_cliente").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: urlGetDniCliente, // "/Encuesta/GetCliente",
+                type: "POST", dataType: "json",
+                data: { sdniCliente: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.sdnice_cliente, value: item.sdnice_cliente, id: item.ncode_cliente,
+                            razon: item.srazon_cliente, rucid: item.sruc_cliente, fopagoid: item.ncode_fopago
+                        };
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#COD_CLIENTE').val(ui.item.id);
+            $('#sdesc_cliente').val(ui.item.razon);
+            $('#sruc_cliente').val(ui.item.rucid);
+            $('#ncode_fopago').val(ui.item.fopagoid);
+            fnclienteDire();
+            fnFormaPagoDiasFecha();
+        }
+    });
 
     //listado de proveedores
     $("#sdesc_prove").autocomplete({
