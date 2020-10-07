@@ -118,7 +118,7 @@ namespace MarketASP.Controllers
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),
+                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
                                 ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
 
 
@@ -187,6 +187,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
             ViewBag.sdesc_cliente = vENTAS.CLIENTE.srazon_cliente;
+            ViewBag.sruc_cliente = vENTAS.CLIENTE.sruc_cliente;
+            ViewBag.sdni_cliente = vENTAS.CLIENTE.sdnice_cliente;
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
@@ -218,12 +220,12 @@ namespace MarketASP.Controllers
                         if (mofView != null)
                         {
 
-                            db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, mofView.dfeventa_venta,
-                                mofView.dfevenci_venta, mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
+                            db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, DateTime.Parse(mofView.sfeventa_venta),
+                                DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), sw);
+                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()),mofView.ncode_mone, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());
@@ -241,9 +243,11 @@ namespace MarketASP.Controllers
 
                             }
 
+                            db.Pr_ventaDetaEdita(code);
+
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
-                            db.Pr_ventaDetaEdita(code);
+                            
                         }
                     }
                 }

@@ -1,6 +1,19 @@
 ﻿$(document).ready(function () {
+    var code = 0;
+    code = $("#ncode_venta").val();
+    console.log(code);
+    console.log('xx')
 
-    fnDocumentoSerieNumero();
+    if (typeof code === 'undefined') {
+        console.log('series');
+        fnDocumentoSerieNumero();
+    }
+
+    if (code > 0) {
+        fnclienteDire();
+        console.log($('#ncode_clidire').val());
+        $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
+    }
 
     $("#ncode_docu").change(function () {
         fnDocumentoSerieNumero();
@@ -9,7 +22,6 @@
     $("#ncode_fopago").change(function () {
         fnFormaPagoDiasFecha()
     });
-
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -197,8 +209,6 @@
 
         Sales_save();
     });
-
-
 });
 
 
@@ -214,7 +224,7 @@ function Sales_save() {
     };
 
     var ventaView = {
-        "ncode_venta": "", "ncode_alma": "",
+        "ncode_venta": "", "ncode_alma": "","ncode_mone":"",
         "ncode_docu":"","sseri_venta":"", "snume_venta":"",
         "sfeventa_venta":"","sfevenci_venta":"","ncode_cliente":"",
         "ncode_clidire":"","smone_venta":"","ntc_venta":"",
@@ -256,6 +266,7 @@ function Sales_save() {
     ventaView.ntotalUs_venta = $('#ntotalUs_venta').val();
     ventaView.nvalIGV_venta = $('#nvalIGV_venta').val();
     ventaView.ncode_alma = $("#ncode_alma option:selected").val();
+    ventaView.ncode_mone = $("#ncode_mone option:selected").val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -300,7 +311,7 @@ function Sales_save() {
                     break;
                 case 2:
                     urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo));
-                    console.log(urlventaCobro);
+                    //console.log(urlventaCobro);
                     window.location.href = urlventaCobro;
                     break;
                 default:
@@ -465,7 +476,7 @@ function fnFormaPagoDiasFecha() {
 }
 
 function fnDocumentoSerieNumero() {
-    console.log($("#ncode_docu").val());
+    //console.log($("#ncode_docu").val());
 
     $.ajax({
         type: 'POST',
@@ -473,16 +484,16 @@ function fnDocumentoSerieNumero() {
         dataType: 'json',
         data: { ndocu: $("#ncode_docu").val() },
         success: function (docu) {
-            console.log(docu);
+            console.log(docu.length);
             $.each(docu, function (i, doc) {
                 $('#sseri_venta').val(doc.serie);
                 $('#snume_venta').val(doc.numero);
-                console.log(doc.serie);
+                //console.log(doc.serie);
             });
 
         },
         error: function (ex) {
-            alert('No se pueden recuperar las areas.' + ex);
+            alert('No se puede recuperar el número y serie' + ex);
         }
     });
     return false;

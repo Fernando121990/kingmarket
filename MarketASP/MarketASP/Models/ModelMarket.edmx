@@ -356,9 +356,9 @@
           <Property Name="sserie_kardex" Type="varchar" MaxLength="20" />
           <Property Name="snume_kardex" Type="varchar" MaxLength="20" />
           <Property Name="dfvence_kardex" Type="datetime" />
-          <Property Name="suser_kardex" Type="varchar" MaxLength="20" />
+          <Property Name="suser_kardex" Type="varchar" MaxLength="200" />
           <Property Name="dfech_kardex" Type="datetime" />
-          <Property Name="susmo_kardex" Type="varchar" MaxLength="20" />
+          <Property Name="susmo_kardex" Type="varchar" MaxLength="200" />
           <Property Name="dfemo_kardex" Type="datetime" />
           <Property Name="ncode_alma" Type="int" Nullable="false" />
           <Property Name="ncode_arti" Type="bigint" Nullable="false" />
@@ -426,9 +426,9 @@
           <Property Name="besta_movi" Type="bit" Nullable="false" />
           <Property Name="sserie_movi" Type="varchar" MaxLength="20" />
           <Property Name="snume_movi" Type="varchar" MaxLength="20" />
-          <Property Name="suser_movi" Type="varchar" MaxLength="20" />
+          <Property Name="suser_movi" Type="varchar" MaxLength="200" />
           <Property Name="dfech_movi" Type="datetime" />
-          <Property Name="susmo_movi" Type="varchar" MaxLength="20" />
+          <Property Name="susmo_movi" Type="varchar" MaxLength="200" />
           <Property Name="dfemo_movi" Type="datetime" />
           <Property Name="ncode_timovi" Type="int" Nullable="false" />
           <Property Name="ncode_alma" Type="int" Nullable="false" />
@@ -561,14 +561,15 @@
           <Property Name="ntotalUs_venta" Type="decimal" Precision="18" Scale="4" />
           <Property Name="besta_venta" Type="bit" />
           <Property Name="nvalIGV_venta" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="suser_venta" Type="varchar" MaxLength="20" />
+          <Property Name="suser_venta" Type="varchar" MaxLength="200" />
           <Property Name="dfech_venta" Type="datetime" />
-          <Property Name="susmo_venta" Type="varchar" MaxLength="20" />
+          <Property Name="susmo_venta" Type="varchar" MaxLength="200" />
           <Property Name="dfemo_venta" Type="datetime" />
           <Property Name="ncode_alma" Type="int" />
           <Property Name="bmontocancelado_venta" Type="bit" />
           <Property Name="dfcancelado_venta" Type="datetime" />
           <Property Name="ncode_local" Type="int" />
+          <Property Name="ncode_mone" Type="int" />
         </EntityType>
         <Association Name="R_1">
           <End Role="FAMILIA" Type="Self.FAMILIA" Multiplicity="0..1" />
@@ -1485,6 +1486,7 @@
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
           <Parameter Name="ncode_local" Type="int" Mode="In" />
+          <Parameter Name="ncode_mone" Type="int" Mode="In" />
           <Parameter Name="ctacobraAuto" Type="char" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
           <Parameter Name="cc" Type="bigint" Mode="InOut" />
@@ -1537,6 +1539,7 @@
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
           <Parameter Name="ncode_local" Type="int" Mode="In" />
+          <Parameter Name="ncode_mone" Type="int" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_ventaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2037,6 +2040,7 @@
             <Parameter Name="suser_venta" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
             <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
             <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
             <Parameter Name="cc" Mode="InOut" Type="Int64" />
@@ -2089,6 +2093,7 @@
             <Parameter Name="suser_venta" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
             <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_ventaAnula">
@@ -2886,9 +2891,9 @@
           <Property Name="besta_movi" Type="Boolean" Nullable="false" />
           <Property Name="sserie_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="snume_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="suser_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfech_movi" Type="DateTime" Precision="3" />
-          <Property Name="susmo_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_movi" Type="DateTime" Precision="3" />
           <Property Name="ncode_timovi" Type="Int32" Nullable="false" />
           <Property Name="ncode_alma" Type="Int32" Nullable="false" />
@@ -2966,9 +2971,9 @@
           <Property Name="sserie_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="snume_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfvence_kardex" Type="DateTime" Precision="3" />
-          <Property Name="suser_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_kardex" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfech_kardex" Type="DateTime" Precision="3" />
-          <Property Name="susmo_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_kardex" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_kardex" Type="DateTime" Precision="3" />
           <Property Name="ncode_alma" Type="Int32" Nullable="false" />
           <Property Name="ncode_arti" Type="Int64" Nullable="false" />
@@ -3084,9 +3089,9 @@
           <Property Name="ntotalUs_venta" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="besta_venta" Type="Boolean" />
           <Property Name="nvalIGV_venta" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="suser_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfech_venta" Type="DateTime" Precision="3" />
-          <Property Name="susmo_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
@@ -3098,6 +3103,7 @@
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
+          <Property Name="ncode_mone" Type="Int32" />
         </EntityType>
         <Association Name="R_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -4103,6 +4109,7 @@
           <EntitySetMapping Name="VENTAS">
             <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
               <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
                 <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
                 <ScalarProperty Name="dfcancelado_venta" ColumnName="dfcancelado_venta" />
                 <ScalarProperty Name="bmontocancelado_venta" ColumnName="bmontocancelado_venta" />

@@ -4,8 +4,6 @@
         dateFormat: "dd/mm/yy"
     });
 
-
-
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {

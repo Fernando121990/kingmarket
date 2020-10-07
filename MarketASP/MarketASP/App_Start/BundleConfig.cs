@@ -8,6 +8,19 @@ namespace MarketASP
         // Para obtener más información sobre las uniones, visite https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.UseCdn = true;
+
+
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                   "~/Content/vendor/jquery/jquery.min.js",
+                   "~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                   "~/Content/vendor/jquery-easing/jquery.easing.min.js",
+                   "~/Content/js/sb-admin-2.min.js",
+                   "~/Content/vendor/chart.js/Chart.min.js",
+                   "~/Content/js/demo/chart-area-demo.js",
+                   "~/Content/js/demo/chart-pie-demo.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -36,9 +49,16 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            var jquerycdnpath = "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i";
+            bundles.Add(new StyleBundle("~/fonts", jquerycdnpath));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                  "~/Content/vendor/fontawesome-free/css/all.min.css",
+                  "~/Content/css/sb-admin-2.min.css"));
+
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //"~/Content/bootstrap.css",
+            //"~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/desarrollo").Include(
                "~/Scripts/Generica/General.js"));

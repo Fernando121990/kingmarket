@@ -57,6 +57,7 @@ namespace MarketASP.Models
         public Nullable<bool> bmontocancelado_venta { get; set; }
         public Nullable<System.DateTime> dfcancelado_venta { get; set; }
         public Nullable<int> ncode_local { get; set; }
+        public Nullable<int> ncode_mone { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
