@@ -4,21 +4,23 @@
     ViewBag.Title = "Editar Dirección";
 }
 
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>@ViewBag.Title</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ncode_clidire)
         <input type="hidden" name="ncode_cliente" id="ncode_cliente" value="@ViewBag.ncode_cliente" />
 
-        <div class="form-group">
+        <div class="form-group row">
             <label class="col-md-2 control-label">Dirección</label>
             <div class="col-md-4">
-                @Html.EditorFor(model => model.sdesc_clidire, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                @Html.EditorFor(model => model.sdesc_clidire, new { htmlAttributes = new { @class = "form-control", @required = "required", @autofocus = "autofocus" } })
                 @Html.ValidationMessageFor(model => model.sdesc_clidire, "", new { @class = "text-danger" })
             </div>
             <label class="col-md-2 control-label">Ubicacion</label>
@@ -29,15 +31,15 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Actualizar" class="btn btn-default" />
+            <div class="offset-md-2 col-md-8">
+                <input type="submit" value="Actualizar" class="btn btn-success btn-block" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink(" ", "Details", new { id = @ViewBag.ncode_cliente }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Clientes" })
+    @Html.ActionLink(" ", "Details", new { id = @ViewBag.ncode_cliente }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Clientes" })
 </div>
 
 @section Scripts {

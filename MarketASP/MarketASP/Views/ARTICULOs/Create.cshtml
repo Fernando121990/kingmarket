@@ -3,18 +3,16 @@
 @{
     ViewBag.Title = "Registrar Articulo";
 }
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group ptp-subtitulos">
-            <div class="col-md-12">
-                <h4 class="text-center">@ViewBag.Title</h4>
-            </div>
-        </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.scode_arti, "Codigo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.scode_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -26,7 +24,7 @@
                 @Html.ValidationMessageFor(model => model.sabrev_arti, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sdesc1_arti, "Descripciòn", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sdesc1_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -34,7 +32,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sdesc2_arti, "Descripciòn Alt.", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sdesc2_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -42,7 +40,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sdescweb_arti, "Desc.Web", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sdescweb_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -51,7 +49,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.ncode_fami, "Familia", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.DropDownList("ncode_fami", null, "", htmlAttributes: new { @class = "form-control" })
@@ -64,7 +62,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.ncode_marca, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.DropDownList("ncode_marca", null, "", htmlAttributes: new { @class = "form-control" })
@@ -77,7 +75,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.bisc_arti, "ISC", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
                 <div class="checkbox">
@@ -100,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.bdscto_arti, "Dscto", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
                 <div class="checkbox">
@@ -123,7 +121,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.bvenc_arti, "Vencimiento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 <div class="checkbox">
@@ -139,7 +137,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.nstockmin_arti, "Stock Min", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.nstockmin_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -154,7 +152,7 @@
 
 
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.spaisOrigen_arti, "Origen", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.spaisOrigen_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -168,7 +166,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sobse_arti, "Observaciòn", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sobse_arti, new { htmlAttributes = new { @class = "form-control" } })
@@ -176,7 +174,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.nesta_arti, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 <div class="checkbox">
@@ -187,7 +185,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
+            <div class="offset-md-2 col-md-8">
                 <input type="submit" value="Registrar" class="btn btn-block btn-success" />
             </div>
         </div>
@@ -195,7 +193,7 @@
 }
 
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Articulos" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Articulos" })
 </div>
 
 @section Scripts {

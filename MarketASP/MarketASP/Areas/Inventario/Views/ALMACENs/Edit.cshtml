@@ -11,22 +11,19 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ncode_alma)
-        <div class="form-group ptp-subtitulos">
+        <div class="row">
             <div class="col-md-12">
-                <h4 class="text-center">@ViewBag.Title</h4>
+                <h5 class="text-center">@ViewBag.Title</h5>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sdesc_alma, "Descipción", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.sdesc_alma, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.sdesc_alma, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.besta_alma, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.besta_alma, "Activo", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-1">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.besta_alma)
                     @Html.ValidationMessageFor(model => model.besta_alma, "", new { @class = "text-danger" })
@@ -34,8 +31,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
+        <div class="form-group row">
+            <div class="col m-2">
                 <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
             </div>
         </div>
@@ -43,8 +40,9 @@
 }
 
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Almacen" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Listado" })
 </div>
+
 
 
 @section Scripts {

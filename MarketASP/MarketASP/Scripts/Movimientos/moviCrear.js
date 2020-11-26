@@ -97,26 +97,19 @@
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
                         [{ "data": "Cod" },
-                            { "data": "Cod2" },
-                            { "data": "DescArt" },
-                            { "data": "Stock" },
-                            { "data": "Medida" },
-                            { "data": "Precio" },
-                            { "data": "ncode_umed" },
-                            { "data": "bafecto_arti" },
-                            { "data": "bisc_arti" },
-                            { "data": "bdscto_arti" }
+                        { "data": "Cod2" },
+                        { "data": "DescArt" },
+                        { "data": "Stock" },
+                        { "data": "Medida" },
+                        { "data": "Precio" },
+                        { "data": "ncode_umed" },
+                        { "data": "bafecto_arti" },
+                        { "data": "bisc_arti" },
+                        { "data": "bdscto_arti" }
                         ],
-                        //[{ "data": "Cod" },
-                        //{ "data": "Cod2" },
-                        //{ "data": "DescArt" },
-                        //{ "data": "Medida" },
-                        //{ "data": "Precio" },
-                        //{ "data": "Stock" },
-                        //{ "data": "ncode_umed" }],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0,6,7,8,9]
+                        "aTargets": [0, 6, 7, 8, 9]
                     },
                     {
                         "sClass": "my_class",
@@ -162,9 +155,38 @@
         //Totales();
     });
 
+    $("#btnmatcerrar").click(function () {
+        mattable.destroy();
+    });
+
     $("#btncerrar").click(function () {
         mattable.destroy();
     });
+
+
+    $("#btnmovi").click(function () {
+
+        if ($("#ncode_timovi option:selected").text().length < 1) {
+            alert("Seleccione Movimiento");
+            return false;
+        };
+
+        if ($("#ncode_alma option:selected").text().length < 1) {
+            alert("Seleccione Almacen");
+            return false;
+        };
+
+        var otbly = $('#tbl').dataTable();
+        var nrowsy = otbly.fnGetData().length;
+
+        if (nrowsy < 1) {
+            alert("Seleccione Articulos");
+            return false;
+        }
+
+        Sales_save();
+    });
+
 
 });
 

@@ -3,42 +3,40 @@
 @{
     ViewBag.Title = "Actualizar Tipo de Cambio";
 }
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.dfecha_tc)
-    <div class="form-group ptp-subtitulos">
-        <div class="col-md-12">
-            <h4 class="text-center">@ViewBag.Title</h4>
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ncompra_tc, "Compra", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @autofocus = "autofocus", @required = "required" } })
-            @Html.ValidationMessageFor(model => model.ncompra_tc, "Ingrese TC de Compra", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.nventa_tc, "Venta", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
-            @Html.ValidationMessageFor(model => model.nventa_tc, "Ingrese TC de Venta", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-8">
-            <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.dfecha_tc)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.ncompra_tc, "Compra", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @autofocus = "autofocus", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.ncompra_tc, "Ingrese TC de Compra", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.nventa_tc, "Venta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required" } })
+                @Html.ValidationMessageFor(model => model.nventa_tc, "Ingrese TC de Venta", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-md-2 col-md-8">
+                <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "LIsta de Configuración" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "LIsta de Configuración" })
 </div>
 
 @section Scripts {

@@ -18,8 +18,8 @@
 
     $("#npagoMN").on("input", function () {
 
-        cambioUS = this.value / xtc
-        $('#ncambioUS').val(cambioUS);
+        cambioUS =  this.value / xtc
+        $('#ncambioUS').val(cambioUS.toFixed(2));
         $('#nmonto_ctacode').val(saldoMN);
 
         //calculando vuelto en moneda nacional
@@ -37,7 +37,7 @@
 
         cambioMN = this.value * xtc
 
-        $('#ncambioMN').val(cambioMN);
+        $('#ncambioMN').val(cambioMN.toFixed(2));
 
         $('#nmonto_ctacode').val(saldoUS);
 
@@ -74,6 +74,36 @@
             alert("Ingrese Pago");
             return false;
         };
+
+        var ncode_tpago = $("#ncode_tpago option:selected").val();
+
+        //console.log(ncode_docu);
+        //console.log(ntotal);
+        if (ncode_tpago == 1017 && $("#ncode_banco").val().length < 1) {
+            alert("Seleccione banco");
+            return false;
+        }
+
+        if (ncode_tpago == 1021 && $("#ncode_banco").val().length < 1) {
+            alert("Seleccione banco");
+            return false;
+        }
+
+        if (ncode_tpago == 1019 && $("#ncode_tarjeta").val().length < 1) {
+            alert("Seleccione tipo de tarjeta");
+            return false;
+        }
+
+        if (ncode_tpago == 1019 && $("#suser_tarjeta").val().length < 1) {
+            alert("Ingrese usuario de tarjeta");
+            return false;
+        }
+
+        if (ncode_tpago == 1019 && $("#snro_tarjeta").val().length < 1) {
+            alert("Ingrese numero de tarjeta");
+            return false;
+        }
+
 
     });
 

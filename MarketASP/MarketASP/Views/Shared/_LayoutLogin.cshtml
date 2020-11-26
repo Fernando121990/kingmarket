@@ -7,19 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MARKET</title>
     @Styles.Render("~/fonts")
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/sbadmin")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="bg-gradient-primary">
     <div class="container">
         @RenderBody()
     </div>
-    @Scripts.Render("~/bundles/js")
-    @RenderSection("scripts", required: false)
-
-    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)*@
-
+    @RenderSection("scripts", required: false)
 </body>
 </html>

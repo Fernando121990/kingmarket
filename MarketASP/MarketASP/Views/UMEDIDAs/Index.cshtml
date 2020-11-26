@@ -4,50 +4,56 @@
     ViewBag.Title = "LIstado de Medidas";
 }
 
-<div class="row ptp-titulos">
-    <div class="col-md-6 col-sm-6">
-        <h4>@ViewBag.Title</h4>
-    </div>
-    <div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Medida" })
-    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Medida">
+        <i class="fas fa-file"></i>
+    </a>
 </div>
-<table class="table table-striped">
-    <tr>
-        <th>
-            Descripción
-        </th>
-        <th>
-            Cod.Sunat 
-        </th>
-        <th>
-            Desc.Sunat
-        </th>
-        <th>
-            Activo
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc_umed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.scodsunat_umed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ssunat_umed)
-        </td>
-        <td>
-            <input type="checkbox" checked="@item.nesta_umed" readonly />
-        </td>
-        <td>
-            @Html.ActionLink(" ", "Edit", new { id = item.ncode_umed }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-            @Html.ActionLink(" ", "DeleteUmed", new { id = item.ncode_umed }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
-        </td>
-    </tr>
-}
-
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Cod.Sunat
+            </th>
+            <th>
+                Desc.Sunat
+            </th>
+            <th>
+                Activo
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sdesc_umed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.scodsunat_umed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ssunat_umed)
+                </td>
+                <td>
+                    <input type="checkbox" checked="@item.nesta_umed" readonly />
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.ncode_umed })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="@Url.Action("DeleteUmed", new { id = item.ncode_umed })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

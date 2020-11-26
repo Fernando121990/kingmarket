@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Registrar U.Medida";
 }
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
 
 @using (Html.BeginForm())
 {
@@ -11,19 +14,14 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <input type="hidden" name="nesta_umed" value="true" />
-        <div class="form-group ptp-subtitulos">
-            <div class="col-md-12">
-                <h4 class="text-center">@ViewBag.Title</h4>
-            </div>
-        </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.sdesc_umed, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.sdesc_umed, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.sdesc_umed, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
                 @Html.ValidationMessageFor(model => model.sdesc_umed, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.scodsunat_umed, "Cod.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.scodsunat_umed, new { htmlAttributes = new { @class = "form-control" } })
@@ -31,7 +29,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.ssunat_umed, "Desc.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
@@ -41,7 +39,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
+            <div class="offset-md-2 col-md-8">
                 <input type="submit" value="Registrar" class="btn btn-block btn-success" />
             </div>
         </div>
@@ -49,7 +47,7 @@
 }
 
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Medidas" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Medidas" })
 </div>
 
 

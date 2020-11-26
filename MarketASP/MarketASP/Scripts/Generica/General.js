@@ -4,6 +4,10 @@
         dateFormat: "dd/mm/yy"
     });
 
+    //DATATBLE GENERICO
+
+    $('.datatbl').DataTable();
+
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {

@@ -3,51 +3,52 @@
 @{
     ViewBag.Title = "Cobros Registrados";
 }
-
-<div class="row ptp-subtitulos">
-    <div class="col-md-6 col-sm-6">
-        <h4>@ViewBag.Title @Model.CONFIGURACION.sdesc_confi @Model.sdocu_ctaco</h4>
-    </div>
-    <div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "CreateCobro", new { id = Model.ncode_ctaco }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cobro" })
-    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title @Model.CONFIGURACION.sdesc_confi @Model.sdocu_ctaco</h5>
+    <a href="@Url.Action("CreateCobro", new { id = Model.ncode_ctaco })" class="btn btn-primary btn-circle btn-sm" title="Añadir Cobro">
+        <i class="fas fa-file"></i>
+    </a>
 </div>
-@if (Model.CTASCO_DETALLE.Count == 0)
-{
-    <h4>No se han registrado Cobros para esta Cuenta</h4>
-}
-else
-{
-    <table class="table table-striped">
-        <tr>
-            <th>Tipo</th>
-            <th>
-                F.Pago
-            </th>
-            <th>
-                M
-            </th>
-            <th>
-                Monto
-            </th>
-            <th>
-                TC
-            </th>
-            <th>
-                Vuelto MN
-            </th>
-            <th>
-                Usuario Tarjeta
-            </th>
-            <th>
-                Nro Tarjeta
-            </th>
-            <th>
-                Observacion
-            </th>
-            <th></th>
-        </tr>
 
+
+        @if (Model.CTASCO_DETALLE.Count == 0)
+        {
+            <h4>No se han registrado Cobros para esta Cuenta</h4>
+        }
+        else
+        {
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+                <tr>
+                    <th>Tipo</th>
+                    <th>
+                        F.Pago
+                    </th>
+                    <th>
+                        M
+                    </th>
+                    <th>
+                        Monto
+                    </th>
+                    <th>
+                        TC
+                    </th>
+                    <th>
+                        Vuelto MN
+                    </th>
+                    <th>
+                        Usuario Tarjeta
+                    </th>
+                    <th>
+                        Nro Tarjeta
+                    </th>
+                    <th>
+                        Observacion
+                    </th>
+                    <th></th>
+                </tr>
+</thead>
+    <tbody>
         @foreach (var itemp in Model.CTASCO_DETALLE)
         {
             <tr>
@@ -79,14 +80,16 @@ else
                     @Html.DisplayFor(modelItem => itemp.sobse_ctacode)
                 </td>
                 <td>
-                    @Html.ActionLink(" ", "DeleteCobro", new { id = itemp.ncode_ctacode }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                    <a href="@Url.Action("DeleteCobro", new { id = itemp.ncode_ctacode })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </td>
             </tr>
         }
-
-    </table>
-}
+    </tbody>
+            </table>
+        }
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Ctas x Cobrar" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Ctas x Cobrar" })
 </div>
 

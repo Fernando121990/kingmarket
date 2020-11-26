@@ -4,7 +4,7 @@
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []  //0,1,2,8,9
+            "aTargets": [0, 6, 7, 8, 9, 10]  //0,1,2,8,9
         },
         {
             "sClass": "my_class",
@@ -16,17 +16,27 @@
                     var aPos = ofunciones.row(this).index();
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
-                        case 7:
-                            var xvalue = ofunciones.cell(aPos, 8).data();
-                            console.log(xvalue);
+                        case 3: //quantity column
+                            //console.log('cantidad');
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            //console.log(xcant);
+                            var xvalue = ofunciones.cell(aPos, 5).data();
+                            //console.log(xvalue);
+                            var subto = xcant * parseFloat(xvalue);
+                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            break;
+                        case 5: //price column
+                            //console.log('subtotal');
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            var xvalue = ofunciones.cell(aPos, 6).data();
                             var yValue = ComparaPrecio(sValue, xvalue);
-                            console.log(yValue);
+                            var subto = xcant * yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            console.log('Precio insertado');
+                            ofunciones.cell(aPos, 11).data(subto).draw;
                             break;
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
-
                     }
 
                     Totales();
@@ -99,7 +109,7 @@
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0]
+                        "aTargets": [0, 6, 7, 8, 9]
                     },
                     {
                         "sClass": "my_class",
@@ -142,7 +152,7 @@
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti]).draw();
+        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio]).draw();
         Totales();
     });
 

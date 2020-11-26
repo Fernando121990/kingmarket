@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MarketASP.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MarketASP.Models;
 using System.Data.Entity.Core.Objects;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using MarketASP.Helpers ;
+using MarketASP.Clases;
 
 namespace MarketASP.Controllers
 {
     public class CTA_COBRARController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
+        private Funciones fnfunciones = new Funciones();
 
         // GET: CTA_COBRAR
         public async Task<ActionResult> Index()
@@ -77,23 +78,25 @@ namespace MarketASP.Controllers
             {
                 return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
-            ViewBag.tc = result.nventa_tc;
+            
 
             ViewBag.ncode_ctaco = cTA_COBRAR.ncode_ctaco;
-            ViewBag.ntotal = cTA_COBRAR.ntotal_ctaco;
+            ViewBag.ntotal = fnfunciones.FnRedondear(cTA_COBRAR.ntotal_ctaco, ConfiguracionSingleton.Instance.glbDecimales);
+            ViewBag.tc = fnfunciones.FnRedondear(result.nventa_tc, ConfiguracionSingleton.Instance.glbDecimales);
 
             if (cTA_COBRAR.smone_ctaco == "MN")
             {
-                ViewBag.nsaldoMN = cTA_COBRAR.ntotal_ctaco - cTA_COBRAR.npago_ctaco;
-                ViewBag.nsaldoUS = ViewBag.nsaldoMN / ViewBag.tc;
+                ViewBag.nsaldoMN = fnfunciones.FnRedondear(cTA_COBRAR.ntotal_ctaco - cTA_COBRAR.npago_ctaco, ConfiguracionSingleton.Instance.glbDecimales);
+                ViewBag.nsaldoUS = fnfunciones.FnRedondear( ViewBag.nsaldoMN / ViewBag.tc,ConfiguracionSingleton.Instance.glbDecimales);
             }
             else
             {
 
-                ViewBag.nsaldoUS = cTA_COBRAR.ntotal_ctaco - cTA_COBRAR.npago_ctaco;
-                ViewBag.nsaldoMN = ViewBag.nsaldoUS * ViewBag.tc;
+                ViewBag.nsaldoUS = fnfunciones.FnRedondear(cTA_COBRAR.ntotal_ctaco - cTA_COBRAR.npago_ctaco,ConfiguracionSingleton.Instance.glbDecimales);
+                ViewBag.nsaldoMN = fnfunciones.FnRedondear(ViewBag.nsaldoUS * ViewBag.tc,ConfiguracionSingleton.Instance.glbDecimales);
             }
 
+            ViewBag.sdocu_ctaco = cTA_COBRAR.sdocu_ctaco;
             ViewBag.smone_ctacode = cTA_COBRAR.smone_ctaco;
             ViewBag.ncode_banco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 7), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_tpago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 8), "ncode_confi", "sdesc_confi");
@@ -162,90 +165,6 @@ namespace MarketASP.Controllers
         }
 
 
-        //// GET: CTA_COBRAR/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente");
-        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi");
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "ncode_ctaco,ncodeDoc_ctaco,sdocu_ctaco,dfecta_ctaco,smone_ctaco,ntotal_ctaco,dfevenci_ctaco,ntc_ctaco,ntotalMN_ctaco,ntotalUS_ctaco,npago_ctaco,ncode_letra,sesta_letra,suser_ctaco,dfech_ctaco,susmo_ctaco,dfemo_ctaco,ncode_cliente,ncode_docu")] CTA_COBRAR cTA_COBRAR)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.CTA_COBRAR.Add(cTA_COBRAR);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", cTA_COBRAR.ncode_cliente);
-        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", cTA_COBRAR.ncode_docu);
-        //    return View(cTA_COBRAR);
-        //}
-
-        // GET: CTA_COBRAR/Edit/5
-        //public async Task<ActionResult> Edit(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CTA_COBRAR cTA_COBRAR = await db.CTA_COBRAR.FindAsync(id);
-        //    if (cTA_COBRAR == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", cTA_COBRAR.ncode_cliente);
-        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", cTA_COBRAR.ncode_docu);
-        //    return View(cTA_COBRAR);
-        //}
-
-        //// POST: CTA_COBRAR/Edit/5
-        //// Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        //// más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "ncode_ctaco,ncodeDoc_ctaco,sdocu_ctaco,dfecta_ctaco,smone_ctaco,ntotal_ctaco,dfevenci_ctaco,ntc_ctaco,ntotalMN_ctaco,ntotalUS_ctaco,npago_ctaco,ncode_letra,sesta_letra,suser_ctaco,dfech_ctaco,susmo_ctaco,dfemo_ctaco,ncode_cliente,ncode_docu")] CTA_COBRAR cTA_COBRAR)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(cTA_COBRAR).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", cTA_COBRAR.ncode_cliente);
-        //    ViewBag.ncode_docu = new SelectList(db.CONFIGURACION, "ncode_confi", "sdesc_confi", cTA_COBRAR.ncode_docu);
-        //    return View(cTA_COBRAR);
-        //}
-
-        // GET: CTA_COBRAR/Delete/5
-        //public async Task<ActionResult> Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CTA_COBRAR cTA_COBRAR = await db.CTA_COBRAR.FindAsync(id);
-        //    if (cTA_COBRAR == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(cTA_COBRAR);
-        //}
-
-        //// POST: CTA_COBRAR/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(long id)
-        //{
-        //    CTA_COBRAR cTA_COBRAR = await db.CTA_COBRAR.FindAsync(id);
-        //    db.CTA_COBRAR.Remove(cTA_COBRAR);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

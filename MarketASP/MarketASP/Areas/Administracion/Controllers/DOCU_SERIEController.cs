@@ -46,9 +46,9 @@ namespace MarketASP.Areas.Administracion.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ncode_local = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 10), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_local);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 5), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_docu);
-            ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName",dOCU_SERIE.susuario_dose);
+            ViewBag.ncode_local = new SelectList(db.LOCAL.Where(L => L.bacti_local == true), "ncode_local", "sdesc_local");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(D => D.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
+            ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName");
             return View(dOCU_SERIE);
         }
 
@@ -63,9 +63,11 @@ namespace MarketASP.Areas.Administracion.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ncode_local = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 10), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_local);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 5), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_docu);
-            ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName", dOCU_SERIE.susuario_dose);
+
+            ViewBag.ncode_local = new SelectList(db.LOCAL.Where(L => L.bacti_local == true), "ncode_local", "sdesc_local",dOCU_SERIE.ncode_local);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(D => D.ntipo_confi == 5), "ncode_confi", "sdesc_confi",dOCU_SERIE.ncode_docu);
+            ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName",dOCU_SERIE.susuario_dose);
+
             return View(dOCU_SERIE);
         }
 
@@ -79,35 +81,54 @@ namespace MarketASP.Areas.Administracion.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ncode_local = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 10), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_local);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(L => L.ntipo_confi == 5), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_docu);
+
+            ViewBag.ncode_local = new SelectList(db.LOCAL.Where(L => L.bacti_local == true), "ncode_local", "sdesc_local", dOCU_SERIE.ncode_local);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(D => D.ntipo_confi == 5), "ncode_confi", "sdesc_confi", dOCU_SERIE.ncode_docu);
             ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName", dOCU_SERIE.susuario_dose);
+
             return View(dOCU_SERIE);
         }
 
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<ActionResult> DeleteDocSerie(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
             if (dOCU_SERIE == null)
             {
                 return HttpNotFound();
             }
-            return View(dOCU_SERIE);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
-        {
-            DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
             db.DOCU_SERIE.Remove(dOCU_SERIE);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        //public async Task<ActionResult> Delete(long? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
+        //    if (dOCU_SERIE == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dOCU_SERIE);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> DeleteConfirmed(long id)
+        //{
+        //    DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
+        //    db.DOCU_SERIE.Remove(dOCU_SERIE);
+        //    await db.SaveChangesAsync();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

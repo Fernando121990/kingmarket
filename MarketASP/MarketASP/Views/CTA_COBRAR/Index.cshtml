@@ -3,98 +3,93 @@
 @{
     ViewBag.Title = "Consulta de Ctas x Cobrar";
 }
-
-<div class="row ptp-titulos">
-    <div class="col-md-6 col-sm-6">
-        <h4>@ViewBag.Title</h4>
-    </div>
-    @*<div class="col-md-6 col-sm-6">
-        @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Venta" })
-    </div>*@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
 </div>
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+            <tr>
+                <th>
+                    Cod.Doc
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Tipo.Doc
+                </th>
+                <th>
+                    Num.Doc
+                </th>
+                <th>
+                    F.Doc
+                </th>
+                <th>
+                    F.Venc
+                </th>
+                <th>
+                    M
+                </th>
+                <th>
+                    Monto
+                </th>
+                <th>
+                    Pago
+                </th>
+                @*<th>
+                        Letra
+                    </th>
+                    <th>
+                        Cond.Letra
+                    </th>*@
+                <th></th>
+            </tr>
+</thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ncodeDoc_ctaco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+                </td>
+                <td>
+                    @Html.ActionLink(item.CONFIGURACION.sdesc_confi, "Details", new { id = item.ncode_ctaco })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sdocu_ctaco)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfecta_ctaco)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfevenci_ctaco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.smone_ctaco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntotal_ctaco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.npago_ctaco)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.ncode_letra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sesta_letra)
+                </td>*@
+                <td>
+                    @if ((item.ntotal_ctaco - item.npago_ctaco) > 0)
+                    {
+                        @Html.ActionLink(" ", "CreateCobro", new { id = item.ncode_ctaco, xtipo = "CtaCo" }, new { @class = "btn btn-primary fas fa-credit-card", title = "Cobrar Cta" })
+                    }
 
-<table class="table">
-    <tr>
-        <th>
-            Cod.Doc
-        </th>
-        <th>
-            Cliente
-        </th>
-        <th>
-            Tipo.Doc
-        </th>
-        <th>
-            Num.Doc
-        </th>
-        <th>
-            F.Doc
-        </th>
-        <th>
-           F.Venc
-        </th>
-        <th>
-            M
-        </th>
-        <th>
-            Monto
-        </th>
-        <th>
-            Pago
-        </th>
-        @*<th>
-            Letra
-        </th>
-        <th>
-            Cond.Letra
-        </th>*@
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ncodeDoc_ctaco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
-        </td>
-        <td>
-            @Html.ActionLink(item.CONFIGURACION.sdesc_confi, "Details", new { id = item.ncode_ctaco })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdocu_ctaco)
-        </td>
-        <td>
-            @string.Format("{0:d}", item.dfecta_ctaco)
-        </td>
-        <td>
-            @string.Format("{0:d}", item.dfevenci_ctaco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.smone_ctaco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotal_ctaco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.npago_ctaco)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ncode_letra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sesta_letra)
-        </td>*@
-        <td>
-            @if ((item.ntotal_ctaco - item.npago_ctaco) > 0)
-            {
-                @Html.ActionLink(" ", "CreateCobro", new { id = item.ncode_ctaco, xtipo = "CtaCo" }, new { @class = "btn btn-primary glyphicon glyphicon-credit-card", title = "Cobrar Cta" })
-            }
-
-        </td>
-    </tr>
-    }
-
-</table>
+                </td>
+            </tr>
+        }
+    </tbody>
+        </table>

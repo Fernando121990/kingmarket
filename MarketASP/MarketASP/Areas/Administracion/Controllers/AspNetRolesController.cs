@@ -81,31 +81,48 @@ namespace MarketASP.Areas.Administracion.Controllers
             return View(aspNetRoles);
         }
 
-        // GET: Administracion/AspNetRoles/Delete/5
-        public async Task<ActionResult> Delete(string id)
+
+        public async Task<ActionResult> DeleteRol(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             AspNetRoles aspNetRoles = await db.AspNetRoles.FindAsync(id);
             if (aspNetRoles == null)
             {
                 return HttpNotFound();
             }
-            return View(aspNetRoles);
-        }
 
-        // POST: Administracion/AspNetRoles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            AspNetRoles aspNetRoles = await db.AspNetRoles.FindAsync(id);
             db.AspNetRoles.Remove(aspNetRoles);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        //public async Task<ActionResult> Delete(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    AspNetRoles aspNetRoles = await db.AspNetRoles.FindAsync(id);
+        //    if (aspNetRoles == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(aspNetRoles);
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> DeleteConfirmed(string id)
+        //{
+        //    AspNetRoles aspNetRoles = await db.AspNetRoles.FindAsync(id);
+        //    db.AspNetRoles.Remove(aspNetRoles);
+        //    await db.SaveChangesAsync();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

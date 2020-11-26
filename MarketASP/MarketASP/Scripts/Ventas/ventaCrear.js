@@ -1,17 +1,17 @@
 ﻿$(document).ready(function () {
     var code = 0;
     code = $("#ncode_venta").val();
-    console.log(code);
-    console.log('xx')
+    //console.log(code);
+    //console.log('xx')
 
     if (typeof code === 'undefined') {
-        console.log('series');
+      //  console.log('series');
         fnDocumentoSerieNumero();
     }
 
     if (code > 0) {
         fnclienteDire();
-        console.log($('#ncode_clidire').val());
+        //console.log($('#ncode_clidire').val());
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
     }
 
@@ -27,7 +27,7 @@
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []  //0,1,2,8,9
+            "aTargets": [0,6,7,8,9,10] 
         },
         {
             "sClass": "my_class",
@@ -40,17 +40,17 @@
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
                         case 3: //quantity column
-                            console.log('cantidad');
+                            //console.log('cantidad');
                             ofunciones.cell(aPos, idx).data(sValue).draw;
                             var xcant = ofunciones.cell(aPos, 3).data();
-                            console.log(xcant);
+                            //console.log(xcant);
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            console.log(xvalue);
+                            //console.log(xvalue);
                             var subto = xcant * parseFloat(xvalue);
                             ofunciones.cell(aPos, 11).data(subto).draw;
                             break;
                         case 5: //price column
-                            console.log('subtotal');
+                            //console.log('subtotal');
                             var xcant = ofunciones.cell(aPos, 3).data();
                             var xvalue = ofunciones.cell(aPos, 6).data();
                             var yValue = ComparaPrecio(sValue, xvalue);
@@ -98,6 +98,7 @@
         }
     });
 
+    
     $(".delMat").click(function () {
 
         ofunciones.rows('.selected').remove().draw(false);
@@ -184,24 +185,78 @@
         mattable.destroy();
     });
 
+    $("#btnmatcerrar").click(function () {
+        mattable.destroy();
+    });
+
     $("#btnventa").click(function () {
+
+        //Validaciones
 
         if ($("#COD_CLIENTE").val().length < 1) {
             alert("Seleccione Cliente");
             return false;
         };
 
-
         if ($("#NRO_DCLIENTE option:selected").text().length < 1) {
             alert("Seleccione Ubicacion");
             return false;
         };
+        ////*******
 
+        if ($("#ntc_venta").val().length < 1) {
+            alert("Ingrese tipo de cambio");
+            return false;
+        }
+
+        var ncode_docu = $("#ncode_docu option:selected").val();
+        var ntotal = $('#ntotal_venta').val();
+
+        //console.log(ncode_docu);
+        //console.log(ntotal);
+
+        if ($("#sseri_venta").val().length < 1) {
+            alert("Ingrese serie del documento");
+            return false;
+        }
+
+        if ($("#snume_venta").val().length < 1) {
+            alert("Ingrese número del documento");
+            return false;
+        }
+
+        if(ncode_docu == 10 && $("#sruc_cliente").val().length < 1){
+            alert("Ingrese RUC");
+            return false;
+        }
+
+        if (ncode_docu == 11 && $("#sdni_cliente").val().length < 1) {
+            alert("Ingrese DNI");
+            return false;
+        }
+
+        if (ncode_docu = 11 && $("#COD_CLIENTE").val() == 5 && ntotal > 700 ) {
+            alert("La boleta supera los S/ 700, debe registrar al cliente.");
+            return false;
+        }
+
+        //If Val(Me.TXT_TC.Text) = 0 Then vrpta = False : MsgBox("Ingrese Tipo de Cambio", MsgBoxStyle.Information) : Exit Function
+
+        //If Combo_DOC.SelectedValue = "001" And DBLISTAR.Rows.Count - 1 > CONFIG_ITEM_FACTURA Then
+        //vrpta = False
+        //MessageBox.Show("Solo puede ingresar " & CONFIG_ITEM_FACTURA & " Items.", "GRABAR", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        //Exit Function
+        //End If
+
+        //If Combo_DOC.SelectedValue = "002" And DBLISTAR.Rows.Count - 1 > CONFIG_ITEM_BOLETA Then
+        //vrpta = False
+        //MessageBox.Show("Solo puede ingresar " & CONFIG_ITEM_BOLETA & " Items.", "GRABAR", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        //Exit Function
+        //End If
+        /////******
         var otbly = $('#tbl').dataTable();
         var nrowsy = otbly.fnGetData().length;
-
-        console.log(nrowsy);
-
+        //console.log(nrowsy);
         if (nrowsy < 1) {
             alert("Seleccione Articulos");
             return false;
@@ -484,7 +539,7 @@ function fnDocumentoSerieNumero() {
         dataType: 'json',
         data: { ndocu: $("#ncode_docu").val() },
         success: function (docu) {
-            console.log(docu.length);
+            //console.log(docu.length);
             $.each(docu, function (i, doc) {
                 $('#sseri_venta').val(doc.serie);
                 $('#snume_venta').val(doc.numero);
