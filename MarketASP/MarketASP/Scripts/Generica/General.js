@@ -6,7 +6,22 @@
 
     //DATATBLE GENERICO
 
-    $('.datatbl').DataTable();
+    $('.datatbl').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ ",
+            "zeroRecords": "No hay datos disponibles",
+            "info": "Página _PAGE_ of _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": " Siguiente",
+                "previous": "Anterior "
+            }
+        }
+    });
 
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
@@ -276,7 +291,7 @@ function fnclienteNuevo() {
                 alert('Registro Exitoso');
             }
             else {
-                alert('No se puede registrar cliente.');
+                alert(result.mensaje);
             }
         },
         error: function (ex) {

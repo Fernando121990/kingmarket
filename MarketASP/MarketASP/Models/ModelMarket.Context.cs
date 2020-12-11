@@ -59,6 +59,8 @@ namespace MarketASP.Models
         public virtual DbSet<LOCAL> LOCAL { get; set; }
         public virtual DbSet<CONFIGURACION> CONFIGURACION { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
+        public virtual DbSet<PROFORMAS> PROFORMAS { get; set; }
+        public virtual DbSet<PROFORMA_DETALLE> PROFORMA_DETALLE { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {

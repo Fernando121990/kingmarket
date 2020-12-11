@@ -133,7 +133,6 @@ namespace MarketASP.Controllers
         {
             ObjectParameter xcod = new ObjectParameter("xcod", typeof(String));
             ObjectParameter ingproc_001 = new ObjectParameter("ingproc_001", typeof(long));
-            string code;
             string data = "";
             try
             {
@@ -160,9 +159,8 @@ namespace MarketASP.Controllers
                                 CLIENTE xcli = db.CLIENTE.SingleOrDefault(c => c.sruc_cliente == cLIENTE.sruc_cliente);
                                 if (xcli != null)
                                 {
-                                    ViewBag.mensaje = "El cliente ya existe";
-                                    //return View("_Mensaje");
-                                    return Json(new { Success = 0 });
+                                    //ViewBag.mensaje = "El cliente ya existe";
+                                    return Json(new { Success = 0, mensaje = "El cliente ya existe" });
                                 }
 
                             }
@@ -172,9 +170,7 @@ namespace MarketASP.Controllers
                                 CLIENTE xcli = db.CLIENTE.SingleOrDefault(c => c.sdnice_cliente == cLIENTE.sdnice_cliente);
                                 if (xcli != null)
                                 {
-                                    ViewBag.mensaje = "El cliente ya existe";
-                                    //return View("_Mensaje");
-                                    return Json(new { Success = 0 });
+                                    return Json(new { Success = 0, mensaje = "El cliente ya existe" });
                                 }
 
                             }

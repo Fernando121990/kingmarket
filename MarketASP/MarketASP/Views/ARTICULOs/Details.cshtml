@@ -3,313 +3,189 @@
 @{
     ViewBag.Title = "Detalles del  Articulo";
 }
-<div class="row ptp-titulos">
-    <div class="col-md-12 col-sm-12 text-center">
-        <h4>@ViewBag.Title</h4>
-    </div>
-</div>
 <div class="row">
     <div class=" col-md-6 col-sm-6">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.LabelFor(model => model.scode_arti, "Codigo", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
+        <div class="card shadow">
+            <div class="card-header">
+                <h5 class="h5 font-weight-bold">Datos generales</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Código : </strong>@Html.DisplayFor(model => model.scode_arti) <br />
+                    <strong>Abreviatura : </strong>@Html.DisplayFor(model => model.sabrev_arti) <br />
+                    <strong>Descripción : </strong>@Html.DisplayFor(model => model.sdesc1_arti) <br />
+                    <strong>Descripción Alt : </strong>@Html.DisplayFor(model => model.sdesc2_arti) <br />
+                    <strong>Descripción Web : </strong>@Html.DisplayFor(model => model.sdescweb_arti) <br />
+                    <strong>Familia : </strong>@Html.DisplayFor(model => model.FAMILIA.sdesc_fami) <br />
+                    <strong>Clase : </strong>@Html.DisplayFor(model => model.CLASE.sdesc_clase) <br />
+                    <strong>Marca : </strong>@Html.DisplayFor(model => model.MARCA.sdesc_marca) <br />
+                    <strong>U.Medida : </strong>@Html.DisplayFor(model => model.UMEDIDA.sdesc_umed) <br />
+                    <strong>ISC : </strong><input type="checkbox" checked="@Model.bisc_arti" readonly />
+                    <strong>Afecto : </strong><input type="checkbox" checked="@Model.bafecto_arti" readonly />
+                    <strong>IVAP : </strong><input type="checkbox" checked="@Model.bivap_arti" readonly /> <br />
+                    <strong>Percepción : </strong><input type="checkbox" checked="@Model.bpercepcion_arti" readonly />
+                    <strong>Porcentaje Perc. : </strong>@Html.DisplayFor(model => model.nporpercepcion_arti) <br />
+                    <strong>Vencimiento : </strong><input type="checkbox" checked="@Model.bvenc_arti" readonly />
+                    <strong>Dscto : </strong><input type="checkbox" checked="@Model.bdscto_arti" readonly />
+                    <strong>Serie : </strong>@Html.DisplayFor(model => model.sserie_arti) <br />
+                    <strong>Stock Min : </strong>@Html.DisplayFor(model => model.nstockmin_arti)
+                    <strong>Stock Max : </strong>@Html.DisplayFor(model => model.nstockmax_arti) <br />
+                    <strong>Pais Origen : </strong>@Html.DisplayFor(model => model.spaisOrigen_arti) <br />
+                    <strong>Procedencia : </strong>                @{
+                        if (Model.bprocedencia_arti == true)
+                        {
+                            <a>Nacional</a>
 
-            <dd>
-                @Html.DisplayFor(model => model.scode_arti)
-            </dd>
-            <dt>
-                @Html.LabelFor(model => model.sdesc1_arti, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sdesc1_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.sdesc2_arti, "Descripción Alt.", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sdesc2_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.sdescweb_arti, "Descripción Web", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sdescweb_arti)
-            </dd>
-
-
-            <dt>
-                @Html.LabelFor(model => model.bisc_arti, "ISC", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bisc_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bafecto_arti, "Afecto", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bafecto_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bivap_arti, "IVAP", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bivap_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bpercepcion_arti, "Percepción", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bpercepcion_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.nporpercepcion_arti, "Porcentaje Perc.", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.nporpercepcion_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bvenc_arti, "Vencimiento", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bvenc_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.sserie_arti, "Serie", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sserie_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.sobse_arti, "Observación", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sobse_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.nesta_arti, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.nesta_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.nstockmin_arti, "Stock Min", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.nstockmin_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.nstockmax_arti, "Stock Max", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.nstockmax_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.sabrev_arti, "Abreviatura", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.sabrev_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bdscto_arti, "Dscto", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                <input type="checkbox" checked="@Model.bdscto_arti" readonly />
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.spaisOrigen_arti, "Pais Origen", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.spaisOrigen_arti)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.bprocedencia_arti, "Procedencia", htmlAttributes: new { @class = "control-label col-md-2" })
-            </dt>
-
-            <dd>
-                @{
-                    if (Model.bprocedencia_arti == true)
-                    {
-                        <a>Nacional</a>
-
+                        }
+                        else
+                        {
+                            <a>Importado</a>
+                        }
                     }
-                    else
-                    {
-                        <a>Importado</a>
-                    }
-                }
 
-            </dd>
+                    <br />
+                    <strong>Activo : </strong><input type="checkbox" checked="@Model.nesta_arti" readonly /><br />
+                    <strong>Observación : </strong>@Html.DisplayFor(model => model.sobse_arti) <br />
+                </p>
 
-            <dt>
-                <label class="col-md-2 control-label">Familia</label>
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.FAMILIA.sdesc_fami)
-            </dd>
-
-            <dt>
-                <label class="col-md-2 control-label">Clase</label>
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CLASE.sdesc_clase)
-            </dd>
-
-            <dt>
-                <label class="col-md-2 control-label">Marca</label>
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MARCA.sdesc_marca)
-            </dd>
-
-            <dt>
-                <label class="col-md-2 control-label">U.Medida</label>
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.UMEDIDA.sdesc_umed)
-            </dd>
-
-        </dl>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
-        <div class="row" style="margin-top:5px">
-            <div class="col-md-6 col-sm-6">
-                <h4>Precios</h4>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                @Html.ActionLink(" ", "CreatePrecio", new { id = Model.ncode_arti }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Precio" })
-            </div>
-        </div>
-        @if (Model.ART_PRECIO.Count == 0)
-        {
-            <h4>No se han registrado Precios para este articulo</h4>
-        }
-        else
-        {
-            <table class="table">
-                <tr>
-                    <th>
-                        Lista Precio
-                    </th>
-                    <th>
-                        Precio
-                    </th>
-                    <th>
-                        Activo
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var itemp in Model.ART_PRECIO)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => itemp.LISTA_PRECIO.sdesc_lipre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => itemp.nprecio_artpre)
-                        </td>
-                        <td>
-                            <input type="checkbox" checked="@itemp.nesta_artpre" readonly />
-                        </td>
-                        <td>
-                            @Html.ActionLink(" ", "EditPrecio", new { id = itemp.ncode_artpre }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-                            @Html.ActionLink(" ", "DeletePrecio", new { id = itemp.ncode_artpre }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        }
-
-        <div class="row" style="margin-top:5px">
-            <div class="col-md-6 col-sm-6">
-                <h4>Proveedores</h4>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                @Html.ActionLink(" ", "CreateProveedor", new { id = Model.ncode_arti }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Proveedor" })
-            </div>
-        </div>
-        @if (Model.ART_PROVE.Count == 0)
-        {
-            <h4>No se han registrado Proveedores para este articulo</h4>
-        }
-        else
-        {
-            <table class="table">
-                <tr>
-                    <th>
-                        Descripción
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model.ART_PROVE)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
-                        </td>
-                        <td>
-                            @Html.ActionLink(" ", "EditProveedor", new { id = item.ncode_arprove }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-                            @Html.ActionLink(" ", "DeleteProveedor", new { id = item.ncode_arprove }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
-                        </td>
-                    </tr>
-                }
-                </table>
-          }
-                <div class="row" style="margin-top:5px">
-                    <div class="col-md-6 col-sm-6">
-                        <h4>Cod. Barra</h4>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="h5 font-weight-bold">Precios del articulo</h5>
                     </div>
-                    <div class="col-md-6 col-sm-6">
-                        @Html.ActionLink(" ", "CreateBarra", new { id = Model.ncode_arti }, new { @class = "btn btn-primary glyphicon glyphicon-file", title = "Añadir Cod.Barra" })
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("CreatePrecio", new { id = Model.ncode_arti })" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+                            <i class="fas fa-file"></i>
+                        </a>
                     </div>
                 </div>
-                @if (Model.ART_BARRA.Count == 0)
+            </div>
+            <div class="card-body">
+                @if (Model.ART_PRECIO.Count == 0)
                 {
-                    <h4>No se han registrado codigos de barra para este articulo</h4>
+                    <h5>No se han registrado Precios para este articulo</h5>
                 }
                 else
                 {
-                    <table class="table">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                Lista Precio
+                            </th>
+                            <th>
+                                Precio
+                            </th>
+                            <th>
+                                Activo
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var itemp in Model.ART_PRECIO)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => itemp.LISTA_PRECIO.sdesc_lipre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => itemp.nprecio_artpre)
+                                </td>
+                                <td>
+                                    <input type="checkbox" checked="@itemp.nesta_artpre" readonly />
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditPrecio", new { id = itemp.ncode_artpre })" class="btn btn-success btn-circle btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeletePrecio", new { id = itemp.ncode_artpre })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="h5 font-weight-bold">Proveedores del articulo</h5>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("CreateProveedor", new { id = Model.ncode_arti })" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+                            <i class="fas fa-file"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                @if (Model.ART_PROVE.Count == 0)
+                {
+                    <h5>No se han registrado Proveedores para este articulo</h5>
+                }
+                else
+                {
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                Descripción
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model.ART_PROVE)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditProveedor", new { id = item.ncode_arprove })" class="btn btn-success btn-circle btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteProveedor", new { id = item.ncode_arprove })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5 class="h5 font-weight-bold">Códigos de barra del articulo</h5>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="@Url.Action("CreateBarra", new { id = Model.ncode_arti })" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+                            <i class="fas fa-file"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+                @if (Model.ART_BARRA.Count == 0)
+                {
+                    <h5 class="h5">No se han registrado codigos de barra para este articulo</h5>
+                }
+                else
+                {
+                    <table class="table table-striped">
                         <tr>
                             <th>
                                 Cod.Barra
@@ -330,8 +206,12 @@
                                     <input type="checkbox" checked="@itemb.nesta_barra" readonly />
                                 </td>
                                 <td>
-                                    @Html.ActionLink(" ", "EditBarra", new { id = itemb.ncode_barra }, new { @class = "btn btn-primary btn-sm glyphicon glyphicon-pencil", title = "Editar" })
-                                    @Html.ActionLink(" ", "DeleteBarra", new { id = itemb.ncode_barra }, new { @class = "btn btn-danger btn-sm glyphicon glyphicon-trash", title = "Eliminar", onclick = "return confirm('¿ Seguro de eliminar registro ?');" })
+                                    <a href="@Url.Action("EditBarra", new { id = itemb.ncode_barra })" class="btn btn-success btn-circle btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteBarra", new { id = itemb.ncode_barra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -340,10 +220,11 @@
 
                 }
 
-
-</div>
+            </div>
+        </div>
+    </div>
 </div>
 <div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Articulos" })
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Articulos" })
 </div>
 

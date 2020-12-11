@@ -10,7 +10,7 @@
     </a>
 </div>
 
-<table class="table table-striped table-responsive-sm">
+<table class="table datatbl table-striped table-responsive-sm">
     <thead class="thead-dark">
         <tr>
             <th>
@@ -19,6 +19,7 @@
             <th>
                 Descripción
             </th>
+            <th>U.M</th>
             <th>
                 ISC
             </th>
@@ -37,34 +38,37 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.scode_arti, "Details", new { id = item.ncode_arti })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sdesc1_arti)
-                </td>
-                <td>
-                    <input type="checkbox" checked="@item.bisc_arti" readonly />
-                </td>
-                <td>
-                    <input type="checkbox" checked="@item.bafecto_arti" readonly />
-                </td>
-                <td>
-                    <input type="checkbox" checked="@item.bivap_arti" readonly />
-                </td>
-                <td>
-                    <input type="checkbox" checked="@item.nesta_arti" readonly />
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit", new { id = item.ncode_arti })" class="btn btn-success btn-circle btn-sm" title="Edita Clase">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="@Url.Action("DeleteArti", new { id = item.ncode_arti })" class="btn btn-danger btn-circle btn-sm" title="Eliminar Clase" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(item.scode_arti, "Details", new { id = item.ncode_arti })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc1_arti)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UMEDIDA.sdesc_umed)
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.bisc_arti" readonly />
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.bafecto_arti" readonly />
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.bivap_arti" readonly />
+            </td>
+            <td>
+                <input type="checkbox" checked="@item.nesta_arti" readonly />
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ncode_arti })" class="btn btn-success btn-circle btn-sm" title="Edita Clase">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="@Url.Action("DeleteArti", new { id = item.ncode_arti })" class="btn btn-danger btn-circle btn-sm" title="Eliminar Clase" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

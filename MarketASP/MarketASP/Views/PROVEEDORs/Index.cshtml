@@ -1,123 +1,91 @@
 ﻿@model IEnumerable<MarketASP.Models.PROVEEDOR>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Proveedores ";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.sdesc_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sdire_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sruc_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sfono_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sfax_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.smail_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sobse_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sweb_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.scontac_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nesta_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.scargoconta_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bprocedencia_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_prove)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_prove)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdesc_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sdire_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sruc_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfono_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sfax_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.smail_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sobse_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sweb_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.scontac_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nesta_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.scargoconta_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.bprocedencia_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_prove)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_prove)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_provee }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_provee }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_provee })
-        </td>
-    </tr>
-}
-
+<div class="d-sm-flex align-items-center justify-content-lg-center mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+        <i class="fas fa-file"></i>
+    </a>
+</div>
+<table class="datatbl table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Cod.</th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                RUC
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Teléfono
+            </th>
+            <th>Correo</th>
+            <th>Web</th>
+            <th>
+                Contacto
+            </th>
+            <th>
+                Cargo
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+</thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ncode_provee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdesc_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sruc_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdire_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sfono_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.smail_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sweb_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.scontac_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.scargoconta_prove)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nesta_prove)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ncode_provee })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+            <td>
+                <a href="@Url.Action("DeleteProve", new { id = item.ncode_provee })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
 </table>

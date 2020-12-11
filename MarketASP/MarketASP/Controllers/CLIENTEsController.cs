@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MarketASP.Clases;
+using MarketASP.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using MarketASP.Models;
-using MarketASP.Clases;
 using System.Data.Entity.Core.Objects;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MarketASP.Controllers
 {

@@ -1,30 +1,7 @@
-﻿/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    background-image:url(imagen/fondo.jpg)
+﻿.ui-front {
+    z-index: 2000 !important;
 }
 
-
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color:white;
-}
-
-.dl-horizontal dt {
-    white-space: normal;
-}*/
-
-.ui-front {
-    z-index: 9999999 !important;
-}
-
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
-}*/
 
 .ptp-cabebuscar {
     background-color: #4095ea; /* #16214d;  #2874f0;*/
@@ -42,19 +19,3 @@ textarea {
     color: white;
 }
 
-/*fieldset.ptp-border {
-    border: solid 1px #DDD !important;
-    padding: 0 10px 10px 10px;
-    border-bottom: none;
-}
-
-legend.ptp-border {
-    width: auto!important;
-    border-bottom: none;
-    font-size: 14px;
-}
-
-.ptp-cabecera {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/

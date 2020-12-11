@@ -20,6 +20,7 @@ namespace MarketASP.Models
             this.CLI_DIRE = new HashSet<CLI_DIRE>();
             this.VENTAS = new HashSet<VENTAS>();
             this.CTA_COBRAR = new HashSet<CTA_COBRAR>();
+            this.PROFORMAS = new HashSet<PROFORMAS>();
         }
     
         public int ncode_cliente { get; set; }
@@ -56,5 +57,7 @@ namespace MarketASP.Models
         public virtual ICollection<CTA_COBRAR> CTA_COBRAR { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
     }
 }

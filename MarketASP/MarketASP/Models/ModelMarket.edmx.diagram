@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1">
+      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="MarketWebModel.ALMACEN" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="24.875" />
         <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="13.375" />
@@ -92,6 +92,16 @@
         <AssociationConnector Association="MarketWebModel.R_46" />
         <AssociationConnector Association="MarketWebModel.R_60" />
         <AssociationConnector Association="MarketWebModel.R_61" />
+        <EntityTypeShape EntityType="MarketWebModel.PROFORMAS" Width="1.5" PointX="19.625" PointY="15.875" />
+        <AssociationConnector Association="MarketWebModel.R_67" />
+        <AssociationConnector Association="MarketWebModel.R_66" />
+        <AssociationConnector Association="MarketWebModel.R_65" />
+        <AssociationConnector Association="MarketWebModel.R_64" />
+        <AssociationConnector Association="MarketWebModel.R_69" />
+        <AssociationConnector Association="MarketWebModel.R_68" />
+        <EntityTypeShape EntityType="MarketWebModel.PROFORMA_DETALLE" Width="1.5" PointX="21.875" PointY="15.75" />
+        <AssociationConnector Association="MarketWebModel.R_63" />
+        <AssociationConnector Association="MarketWebModel.R_62" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

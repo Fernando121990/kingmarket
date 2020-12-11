@@ -29,7 +29,7 @@ namespace MarketASP
                             "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
                             "~/Scripts/jquery.jeditable.js",
                             "~/Scripts/DataTables/jquery.dataTables.js",
-                            "~/Scripts/DataTables/dataTables.bootstrap.js",
+                            "~/Scripts/DataTables/dataTables.bootstrap4.js",
                             "~/Scripts/DataTables/dataTables.buttons.js",
                             "~/Scripts/DataTables/buttons.flash.js",
                             "~/Scripts/DataTables/buttons.html5.js",
@@ -66,6 +66,7 @@ namespace MarketASP
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.css",
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.structure.css",
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.theme.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap4.css",
                       "~/Content/DataTables/css/dataTables.jqueryui.css",
                       "~/Content/DataTables/css/buttons.dataTables.css"));
 
@@ -79,7 +80,10 @@ namespace MarketASP
                 bundles.Add(new ScriptBundle("~/bundles/movimiento").Include(
                    "~/Scripts/Movimientos/moviCrear.js"));
 
-                bundles.Add(new ScriptBundle("~/bundles/venta").Include(
+            bundles.Add(new ScriptBundle("~/bundles/proforma").Include(
+               "~/Scripts/Ventas/profoCrear.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/venta").Include(
                    "~/Scripts/Ventas/ventaCrear.js"));
 
                 bundles.Add(new ScriptBundle("~/bundles/compra").Include(

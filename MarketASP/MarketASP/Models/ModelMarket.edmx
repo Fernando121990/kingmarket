@@ -435,6 +435,65 @@
           <Property Name="ndestino_alma" Type="int" />
           <Property Name="stipo_movi" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="PROFORMA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_profdeta" />
+          </Key>
+          <Property Name="ncode_profdeta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+          <Property Name="ncant_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="npu_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto2_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nexon_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nafecto_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="besafecto_profdeta" Type="bit" Nullable="false" />
+          <Property Name="ncode_alma" Type="int" />
+          <Property Name="ndsctomax_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctomin_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoporc_profdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nback_profdeta" Type="int" />
+          <Property Name="ncode_prof" Type="bigint" />
+        </EntityType>
+        <EntityType Name="PROFORMAS">
+          <Key>
+            <PropertyRef Name="ncode_prof" />
+          </Key>
+          <Property Name="ncode_prof" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_docu" Type="int" Nullable="false" />
+          <Property Name="sseri_prof" Type="varchar" MaxLength="20" />
+          <Property Name="snume_prof" Type="varchar" MaxLength="20" />
+          <Property Name="dfeprofo_prof" Type="datetime" />
+          <Property Name="dfevenci_prof" Type="datetime" />
+          <Property Name="ncode_cliente" Type="int" Nullable="false" />
+          <Property Name="ncode_clidire" Type="int" />
+          <Property Name="smone_prof" Type="varchar" MaxLength="20" />
+          <Property Name="ntc_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncode_fopago" Type="int" Nullable="false" />
+          <Property Name="sobse_prof" Type="varchar(max)" />
+          <Property Name="ncode_compra" Type="bigint" />
+          <Property Name="nbrutoex_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndctoex_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUs_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="besta_prof" Type="bit" />
+          <Property Name="nvalIGV_prof" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="suser_prof" Type="varchar" MaxLength="20" />
+          <Property Name="dfech_prof" Type="datetime" />
+          <Property Name="susmo_prof" Type="varchar" MaxLength="20" />
+          <Property Name="dfemo_prof" Type="datetime" />
+          <Property Name="ncode_alma" Type="int" Nullable="false" />
+          <Property Name="ncode_local" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PROV_CONTACTO">
           <Key>
             <PropertyRef Name="ncode_provcontac" />
@@ -1197,6 +1256,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_62">
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="0..1" />
+          <End Role="PROFORMA_DETALLE" Type="Self.PROFORMA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFORMAS">
+              <PropertyRef Name="ncode_prof" />
+            </Principal>
+            <Dependent Role="PROFORMA_DETALLE">
+              <PropertyRef Name="ncode_prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_63">
+          <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+          <End Role="PROFORMA_DETALLE" Type="Self.PROFORMA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="PROFORMA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_64">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_65">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_66">
+          <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="0..1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLI_DIRE">
+              <PropertyRef Name="ncode_clidire" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_clidire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_67">
+          <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_68">
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_69">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+          <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_7">
           <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
           <End Role="ART_PRECIO" Type="Self.ART_PRECIO" Multiplicity="*" />
@@ -1571,6 +1726,8 @@
           <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROFORMA_DETALLE" EntityType="Self.PROFORMA_DETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROFORMAS" EntityType="Self.PROFORMAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROV_CONTACTO" EntityType="Self.PROV_CONTACTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CAMBIO" EntityType="Self.TIPO_CAMBIO" Schema="dbo" store:Type="Tables" />
@@ -1786,6 +1943,38 @@
           <AssociationSet Name="R_61" Association="Self.R_61">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="R_62" Association="Self.R_62">
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_63" Association="Self.R_63">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_64" Association="Self.R_64">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_65" Association="Self.R_65">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_66" Association="Self.R_66">
+            <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_67" Association="Self.R_67">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_68" Association="Self.R_68">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_69" Association="Self.R_69">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
           </AssociationSet>
           <AssociationSet Name="R_7" Association="Self.R_7">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -2370,6 +2559,40 @@
             <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="PROFORMAS" EntityType="MarketWebModel.PROFORMAS" />
+          <AssociationSet Name="R_67" Association="MarketWebModel.R_67">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_66" Association="MarketWebModel.R_66">
+            <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_65" Association="MarketWebModel.R_65">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_64" Association="MarketWebModel.R_64">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_69" Association="MarketWebModel.R_69">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <AssociationSet Name="R_68" Association="MarketWebModel.R_68">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+          </AssociationSet>
+          <EntitySet Name="PROFORMA_DETALLE" EntityType="MarketWebModel.PROFORMA_DETALLE" />
+          <AssociationSet Name="R_63" Association="MarketWebModel.R_63">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_62" Association="MarketWebModel.R_62">
+            <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2384,6 +2607,7 @@
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_33" FromRole="ALMACEN" ToRole="VENTA_DETALLE" />
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_36" FromRole="ALMACEN" ToRole="COMPRAS" />
           <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_37" FromRole="ALMACEN" ToRole="COMPRA_DETALLE" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_67" FromRole="ALMACEN" ToRole="PROFORMAS" />
         </EntityType>
         <EntityType Name="ART_BARRA">
           <Key>
@@ -2472,6 +2696,7 @@
           <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
           <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_39" FromRole="ARTICULO" ToRole="COMPRA_DETALLE" />
+          <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_63" FromRole="ARTICULO" ToRole="PROFORMA_DETALLE" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -2500,6 +2725,7 @@
           <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_13" FromRole="CLI_DIRE" ToRole="CLIDI_CONTAC" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_66" FromRole="CLI_DIRE" ToRole="PROFORMAS" />
         </EntityType>
         <EntityType Name="CLIDI_CONTAC">
           <Key>
@@ -3432,6 +3658,7 @@
           <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_59" FromRole="LOCAL" ToRole="COMPRAS" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_68" FromRole="LOCAL" ToRole="PROFORMAS" />
         </EntityType>
         <Association Name="R_59">
           <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -3481,6 +3708,8 @@
           <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
           <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_64" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
+          <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
         </EntityType>
         <Association Name="R_40">
           <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -3660,6 +3889,7 @@
           <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
         </EntityType>
         <Association Name="R_11">
           <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -3732,6 +3962,170 @@
           <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
           <Property Type="String" Name="numero" Nullable="true" MaxLength="8" />
         </ComplexType>
+        <EntityType Name="PROFORMAS">
+          <Key>
+            <PropertyRef Name="ncode_prof" />
+          </Key>
+          <Property Name="ncode_prof" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+          <Property Name="sseri_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="snume_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfeprofo_prof" Type="DateTime" Precision="3" />
+          <Property Name="dfevenci_prof" Type="DateTime" Precision="3" />
+          <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+          <Property Name="ncode_clidire" Type="Int32" />
+          <Property Name="smone_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ntc_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+          <Property Name="sobse_prof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_compra" Type="Int64" />
+          <Property Name="nbrutoex_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndctoex_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUs_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="besta_prof" Type="Boolean" />
+          <Property Name="nvalIGV_prof" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="suser_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_prof" Type="DateTime" Precision="3" />
+          <Property Name="susmo_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_prof" Type="DateTime" Precision="3" />
+          <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+          <Property Name="ncode_local" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_67" FromRole="PROFORMAS" ToRole="ALMACEN" />
+          <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_66" FromRole="PROFORMAS" ToRole="CLI_DIRE" />
+          <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_65" FromRole="PROFORMAS" ToRole="CLIENTE" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_64" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_69" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_68" FromRole="PROFORMAS" ToRole="LOCAL" />
+          <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_62" FromRole="PROFORMAS" ToRole="PROFORMA_DETALLE" />
+        </EntityType>
+        <Association Name="R_67">
+          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_66">
+          <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLI_DIRE">
+              <PropertyRef Name="ncode_clidire" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_clidire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_65">
+          <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_64">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_69">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_68">
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="PROFORMAS">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PROFORMA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_profdeta" />
+          </Key>
+          <Property Name="ncode_profdeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+          <Property Name="ncant_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="npu_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndscto2_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nexon_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nafecto_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="besafecto_profdeta" Type="Boolean" Nullable="false" />
+          <Property Name="ncode_alma" Type="Int32" />
+          <Property Name="ndsctomax_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctomin_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoporc_profdeta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nback_profdeta" Type="Int32" />
+          <Property Name="ncode_prof" Type="Int64" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_63" FromRole="PROFORMA_DETALLE" ToRole="ARTICULO" />
+          <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_62" FromRole="PROFORMA_DETALLE" ToRole="PROFORMAS" />
+        </EntityType>
+        <Association Name="R_63">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="PROFORMA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_62">
+          <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="0..1" />
+          <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROFORMAS">
+              <PropertyRef Name="ncode_prof" />
+            </Principal>
+            <Dependent Role="PROFORMA_DETALLE">
+              <PropertyRef Name="ncode_prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4397,6 +4791,67 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="PROFORMAS">
+            <EntityTypeMapping TypeName="MarketWebModel.PROFORMAS">
+              <MappingFragment StoreEntitySet="PROFORMAS">
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="dfemo_prof" ColumnName="dfemo_prof" />
+                <ScalarProperty Name="susmo_prof" ColumnName="susmo_prof" />
+                <ScalarProperty Name="dfech_prof" ColumnName="dfech_prof" />
+                <ScalarProperty Name="suser_prof" ColumnName="suser_prof" />
+                <ScalarProperty Name="nvalIGV_prof" ColumnName="nvalIGV_prof" />
+                <ScalarProperty Name="besta_prof" ColumnName="besta_prof" />
+                <ScalarProperty Name="ntotalUs_prof" ColumnName="ntotalUs_prof" />
+                <ScalarProperty Name="ntotalMN_prof" ColumnName="ntotalMN_prof" />
+                <ScalarProperty Name="ntotal_prof" ColumnName="ntotal_prof" />
+                <ScalarProperty Name="ntotaaf_prof" ColumnName="ntotaaf_prof" />
+                <ScalarProperty Name="ntotaex_prof" ColumnName="ntotaex_prof" />
+                <ScalarProperty Name="nigvaf_prof" ColumnName="nigvaf_prof" />
+                <ScalarProperty Name="nigvex_prof" ColumnName="nigvex_prof" />
+                <ScalarProperty Name="nsubaf_prof" ColumnName="nsubaf_prof" />
+                <ScalarProperty Name="nsubex_prof" ColumnName="nsubex_prof" />
+                <ScalarProperty Name="ndsctoaf_prof" ColumnName="ndsctoaf_prof" />
+                <ScalarProperty Name="ndctoex_prof" ColumnName="ndctoex_prof" />
+                <ScalarProperty Name="nbrutoaf_prof" ColumnName="nbrutoaf_prof" />
+                <ScalarProperty Name="nbrutoex_prof" ColumnName="nbrutoex_prof" />
+                <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
+                <ScalarProperty Name="sobse_prof" ColumnName="sobse_prof" />
+                <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+                <ScalarProperty Name="ntc_prof" ColumnName="ntc_prof" />
+                <ScalarProperty Name="smone_prof" ColumnName="smone_prof" />
+                <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
+                <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+                <ScalarProperty Name="dfevenci_prof" ColumnName="dfevenci_prof" />
+                <ScalarProperty Name="dfeprofo_prof" ColumnName="dfeprofo_prof" />
+                <ScalarProperty Name="snume_prof" ColumnName="snume_prof" />
+                <ScalarProperty Name="sseri_prof" ColumnName="sseri_prof" />
+                <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+                <ScalarProperty Name="ncode_prof" ColumnName="ncode_prof" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROFORMA_DETALLE">
+            <EntityTypeMapping TypeName="MarketWebModel.PROFORMA_DETALLE">
+              <MappingFragment StoreEntitySet="PROFORMA_DETALLE">
+                <ScalarProperty Name="ncode_prof" ColumnName="ncode_prof" />
+                <ScalarProperty Name="nback_profdeta" ColumnName="nback_profdeta" />
+                <ScalarProperty Name="ndsctoporc_profdeta" ColumnName="ndsctoporc_profdeta" />
+                <ScalarProperty Name="ndsctomin_profdeta" ColumnName="ndsctomin_profdeta" />
+                <ScalarProperty Name="ndsctomax_profdeta" ColumnName="ndsctomax_profdeta" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="besafecto_profdeta" ColumnName="besafecto_profdeta" />
+                <ScalarProperty Name="nafecto_profdeta" ColumnName="nafecto_profdeta" />
+                <ScalarProperty Name="nexon_profdeta" ColumnName="nexon_profdeta" />
+                <ScalarProperty Name="ndscto2_profdeta" ColumnName="ndscto2_profdeta" />
+                <ScalarProperty Name="ndscto_profdeta" ColumnName="ndscto_profdeta" />
+                <ScalarProperty Name="npu_profdeta" ColumnName="npu_profdeta" />
+                <ScalarProperty Name="ncant_profdeta" ColumnName="ncant_profdeta" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="ncode_profdeta" ColumnName="ncode_profdeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -16,7 +16,6 @@ namespace MarketASP.Controllers
     {
         private MarketWebEntities db = new MarketWebEntities();
 
-        // GET: PROVEEDORs
         public async Task<ActionResult> Index()
         {
             int xvalue = 0;
@@ -33,22 +32,6 @@ namespace MarketASP.Controllers
             return View(await db.PROVEEDOR.ToListAsync());
         }
 
-        // GET: PROVEEDORs/Details/5
-        public async Task<ActionResult> Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PROVEEDOR pROVEEDOR = await db.PROVEEDOR.FindAsync(id);
-            if (pROVEEDOR == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pROVEEDOR);
-        }
-
-        // GET: PROVEEDORs/Create
         public ActionResult Create()
         {
             int xvalue = 0;
@@ -79,7 +62,6 @@ namespace MarketASP.Controllers
             return View(pROVEEDOR);
         }
 
-        // GET: PROVEEDORs/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
             int xvalue = 0;
@@ -118,8 +100,7 @@ namespace MarketASP.Controllers
             return View(pROVEEDOR);
         }
 
-        // GET: PROVEEDORs/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public async Task<ActionResult> DeleteProve(long? id)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -141,19 +122,22 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(pROVEEDOR);
-        }
-
-        // POST: PROVEEDORs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
-        {
-            PROVEEDOR pROVEEDOR = await db.PROVEEDOR.FindAsync(id);
             db.PROVEEDOR.Remove(pROVEEDOR);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+
         }
+
+        //// POST: PROVEEDORs/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> DeleteConfirmed(long id)
+        //{
+        //    PROVEEDOR pROVEEDOR = await db.PROVEEDOR.FindAsync(id);
+        //    db.PROVEEDOR.Remove(pROVEEDOR);
+        //    await db.SaveChangesAsync();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

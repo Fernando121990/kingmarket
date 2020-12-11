@@ -31,6 +31,8 @@ namespace MarketASP.Models
             this.CTASPA_DETALLE1 = new HashSet<CTASPA_DETALLE>();
             this.CLIENTE = new HashSet<CLIENTE>();
             this.CLIENTE1 = new HashSet<CLIENTE>();
+            this.PROFORMAS = new HashSet<PROFORMAS>();
+            this.PROFORMAS1 = new HashSet<PROFORMAS>();
         }
     
         public int ncode_confi { get; set; }
@@ -68,5 +70,9 @@ namespace MarketASP.Models
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIENTE> CLIENTE1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PROFORMAS> PROFORMAS1 { get; set; }
     }
 }
