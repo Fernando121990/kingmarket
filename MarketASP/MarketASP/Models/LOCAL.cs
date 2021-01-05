@@ -26,6 +26,7 @@ namespace MarketASP.Models
         public string sdesc_local { get; set; }
         public bool bacti_local { get; set; }
         public int ncode_sucu { get; set; }
+        public string scode_ubigeo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRAS> COMPRAS { get; set; }
@@ -33,5 +34,6 @@ namespace MarketASP.Models
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
+        public virtual UBIGEO UBIGEO { get; set; }
     }
 }

@@ -54,6 +54,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_prof { get; set; }
         public int ncode_alma { get; set; }
         public int ncode_local { get; set; }
+        public Nullable<int> ncode_mone { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CLI_DIRE CLI_DIRE { get; set; }

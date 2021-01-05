@@ -264,6 +264,7 @@
     <Compile Include="Controllers\MARCAsController.cs" />
     <Compile Include="Areas\Inventario\Controllers\MOVIMIENTOesController.cs" />
     <Compile Include="Controllers\PROFORMASController.cs" />
+    <Compile Include="Controllers\PROFORMA_DETALLEController.cs" />
     <Compile Include="Controllers\PROVEEDORsController.cs" />
     <Compile Include="Controllers\PROV_CONTACTOController.cs" />
     <Compile Include="Controllers\TIPO_CAMBIOController.cs" />
@@ -395,6 +396,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_DocNumeracion_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_ProformaLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_CAMBIO.cs">
@@ -954,6 +958,11 @@
     <Content Include="Views\PROFORMAS\Details.cshtml" />
     <Content Include="Views\PROFORMAS\Edit.cshtml" />
     <Content Include="Views\PROFORMAS\Index.cshtml" />
+    <Content Include="Views\PROFORMA_DETALLE\Create.cshtml" />
+    <Content Include="Views\PROFORMA_DETALLE\Delete.cshtml" />
+    <Content Include="Views\PROFORMA_DETALLE\Details.cshtml" />
+    <Content Include="Views\PROFORMA_DETALLE\Edit.cshtml" />
+    <Content Include="Views\PROFORMA_DETALLE\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

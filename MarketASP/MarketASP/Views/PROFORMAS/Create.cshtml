@@ -78,14 +78,14 @@
                                 <label class="text-xs text-primary text-uppercase font-weight-bold">F.Emisión :</label>
                             </div>
                             <div class="col-lg-4">
-                                <input id="dfeventa_venta" style="width:6em" name="dfeventa_venta" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
+                                <input id="dfeprofo_prof" style="width:6em" name="dfeprofo_prof" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
                                 @Html.ValidationMessageFor(model => model.dfeprofo_prof, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-lg-2">
                                 <label class="text-xs text-primary text-uppercase font-weight-bold">F.Vcto :</label>
                             </div>
                             <div class="col-lg-4">
-                                <input id="dfevenci_venta" style="width:6em" name="dfevenci_venta" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" readonly />
+                                <input id="dfevenci_prof" style="width:6em" name="dfevenci_prof" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" readonly />
                                 @Html.ValidationMessageFor(model => model.dfevenci_prof, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                 <label class="text-xs text-primary text-uppercase font-weight-bold">Observación :</label>
                             </div>
                             <div class="col-lg-10">
-                                <textarea class="form-control" rows="2" id="sobse_venta" name="sobse_venta"></textarea>
+                                <textarea class="form-control" rows="2" id="sobse_prof" name="sobse_prof"></textarea>
                                 @Html.ValidationMessageFor(model => model.sobse_prof, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                 <label class="text-xs text-primary text-uppercase font-weight-bold">T.C :</label>
                             </div>
                             <div class="col-lg-4">
-                                <input id="ntc_venta" style="width:6em" name="ntc_venta" type="text" value="@ViewBag.tc" readonly />
+                                <input id="ntc_prof" style="width:6em" name="ntc_prof" type="text" value="@ViewBag.tc" readonly />
                                 @Html.ValidationMessageFor(model => model.ntc_prof, "", new { @class = "text-danger" })
                             </div>
                         </div>

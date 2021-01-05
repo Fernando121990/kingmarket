@@ -1158,5 +1158,347 @@ namespace MarketASP.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_DocNumeracion_Result>("Pr_DocNumeracion", tipoParameter, susario_doseParameter, ncode_localParameter, ncode_docuParameter);
         }
+    
+        public virtual int Pr_proformaCrea(Nullable<int> ncode_docu, string sseri_prof, string snume_prof, Nullable<System.DateTime> dfeprofo_prof, Nullable<System.DateTime> dfevenci_prof, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_prof, Nullable<decimal> ntc_prof, Nullable<int> ncode_fopago, string sobse_prof, Nullable<long> ncode_compra, Nullable<decimal> nbrutoex_prof, Nullable<decimal> nbrutoaf_prof, Nullable<decimal> ndctoex_prof, Nullable<decimal> ndsctoaf_prof, Nullable<decimal> nsubex_prof, Nullable<decimal> nsubaf_prof, Nullable<decimal> nigvex_prof, Nullable<decimal> nigvaf_prof, Nullable<decimal> ntotaex_prof, Nullable<decimal> ntotaaf_prof, Nullable<decimal> ntotal_prof, Nullable<decimal> ntotalMN_prof, Nullable<decimal> ntotalUs_prof, Nullable<bool> besta_prof, Nullable<decimal> nvalIGV_prof, string suser_prof, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, ObjectParameter sw)
+        {
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            var sseri_profParameter = sseri_prof != null ?
+                new ObjectParameter("sseri_prof", sseri_prof) :
+                new ObjectParameter("sseri_prof", typeof(string));
+    
+            var snume_profParameter = snume_prof != null ?
+                new ObjectParameter("snume_prof", snume_prof) :
+                new ObjectParameter("snume_prof", typeof(string));
+    
+            var dfeprofo_profParameter = dfeprofo_prof.HasValue ?
+                new ObjectParameter("dfeprofo_prof", dfeprofo_prof) :
+                new ObjectParameter("dfeprofo_prof", typeof(System.DateTime));
+    
+            var dfevenci_profParameter = dfevenci_prof.HasValue ?
+                new ObjectParameter("dfevenci_prof", dfevenci_prof) :
+                new ObjectParameter("dfevenci_prof", typeof(System.DateTime));
+    
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(int));
+    
+            var ncode_clidireParameter = ncode_clidire.HasValue ?
+                new ObjectParameter("ncode_clidire", ncode_clidire) :
+                new ObjectParameter("ncode_clidire", typeof(int));
+    
+            var smone_profParameter = smone_prof != null ?
+                new ObjectParameter("smone_prof", smone_prof) :
+                new ObjectParameter("smone_prof", typeof(string));
+    
+            var ntc_profParameter = ntc_prof.HasValue ?
+                new ObjectParameter("ntc_prof", ntc_prof) :
+                new ObjectParameter("ntc_prof", typeof(decimal));
+    
+            var ncode_fopagoParameter = ncode_fopago.HasValue ?
+                new ObjectParameter("ncode_fopago", ncode_fopago) :
+                new ObjectParameter("ncode_fopago", typeof(int));
+    
+            var sobse_profParameter = sobse_prof != null ?
+                new ObjectParameter("sobse_prof", sobse_prof) :
+                new ObjectParameter("sobse_prof", typeof(string));
+    
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            var nbrutoex_profParameter = nbrutoex_prof.HasValue ?
+                new ObjectParameter("nbrutoex_prof", nbrutoex_prof) :
+                new ObjectParameter("nbrutoex_prof", typeof(decimal));
+    
+            var nbrutoaf_profParameter = nbrutoaf_prof.HasValue ?
+                new ObjectParameter("nbrutoaf_prof", nbrutoaf_prof) :
+                new ObjectParameter("nbrutoaf_prof", typeof(decimal));
+    
+            var ndctoex_profParameter = ndctoex_prof.HasValue ?
+                new ObjectParameter("ndctoex_prof", ndctoex_prof) :
+                new ObjectParameter("ndctoex_prof", typeof(decimal));
+    
+            var ndsctoaf_profParameter = ndsctoaf_prof.HasValue ?
+                new ObjectParameter("ndsctoaf_prof", ndsctoaf_prof) :
+                new ObjectParameter("ndsctoaf_prof", typeof(decimal));
+    
+            var nsubex_profParameter = nsubex_prof.HasValue ?
+                new ObjectParameter("nsubex_prof", nsubex_prof) :
+                new ObjectParameter("nsubex_prof", typeof(decimal));
+    
+            var nsubaf_profParameter = nsubaf_prof.HasValue ?
+                new ObjectParameter("nsubaf_prof", nsubaf_prof) :
+                new ObjectParameter("nsubaf_prof", typeof(decimal));
+    
+            var nigvex_profParameter = nigvex_prof.HasValue ?
+                new ObjectParameter("nigvex_prof", nigvex_prof) :
+                new ObjectParameter("nigvex_prof", typeof(decimal));
+    
+            var nigvaf_profParameter = nigvaf_prof.HasValue ?
+                new ObjectParameter("nigvaf_prof", nigvaf_prof) :
+                new ObjectParameter("nigvaf_prof", typeof(decimal));
+    
+            var ntotaex_profParameter = ntotaex_prof.HasValue ?
+                new ObjectParameter("ntotaex_prof", ntotaex_prof) :
+                new ObjectParameter("ntotaex_prof", typeof(decimal));
+    
+            var ntotaaf_profParameter = ntotaaf_prof.HasValue ?
+                new ObjectParameter("ntotaaf_prof", ntotaaf_prof) :
+                new ObjectParameter("ntotaaf_prof", typeof(decimal));
+    
+            var ntotal_profParameter = ntotal_prof.HasValue ?
+                new ObjectParameter("ntotal_prof", ntotal_prof) :
+                new ObjectParameter("ntotal_prof", typeof(decimal));
+    
+            var ntotalMN_profParameter = ntotalMN_prof.HasValue ?
+                new ObjectParameter("ntotalMN_prof", ntotalMN_prof) :
+                new ObjectParameter("ntotalMN_prof", typeof(decimal));
+    
+            var ntotalUs_profParameter = ntotalUs_prof.HasValue ?
+                new ObjectParameter("ntotalUs_prof", ntotalUs_prof) :
+                new ObjectParameter("ntotalUs_prof", typeof(decimal));
+    
+            var besta_profParameter = besta_prof.HasValue ?
+                new ObjectParameter("besta_prof", besta_prof) :
+                new ObjectParameter("besta_prof", typeof(bool));
+    
+            var nvalIGV_profParameter = nvalIGV_prof.HasValue ?
+                new ObjectParameter("nvalIGV_prof", nvalIGV_prof) :
+                new ObjectParameter("nvalIGV_prof", typeof(decimal));
+    
+            var suser_profParameter = suser_prof != null ?
+                new ObjectParameter("suser_prof", suser_prof) :
+                new ObjectParameter("suser_prof", typeof(string));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_moneParameter = ncode_mone.HasValue ?
+                new ObjectParameter("ncode_mone", ncode_mone) :
+                new ObjectParameter("ncode_mone", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_proformaCrea", ncode_docuParameter, sseri_profParameter, snume_profParameter, dfeprofo_profParameter, dfevenci_profParameter, ncode_clienteParameter, ncode_clidireParameter, smone_profParameter, ntc_profParameter, ncode_fopagoParameter, sobse_profParameter, ncode_compraParameter, nbrutoex_profParameter, nbrutoaf_profParameter, ndctoex_profParameter, ndsctoaf_profParameter, nsubex_profParameter, nsubaf_profParameter, nigvex_profParameter, nigvaf_profParameter, ntotaex_profParameter, ntotaaf_profParameter, ntotal_profParameter, ntotalMN_profParameter, ntotalUs_profParameter, besta_profParameter, nvalIGV_profParameter, suser_profParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, sw);
+        }
+    
+        public virtual int Pr_proformaDetaCrea(Nullable<long> ncode_prof, Nullable<long> ncode_arti, Nullable<decimal> ncant_profdeta, Nullable<decimal> npu_profdeta, Nullable<decimal> ndscto_profdeta, Nullable<decimal> ndscto2_profdeta, Nullable<decimal> nexon_profdeta, Nullable<decimal> nafecto_profdeta, Nullable<bool> besafecto_profdeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_profdeta, Nullable<decimal> ndsctomin_profdeta, Nullable<decimal> ndsctoporc_profdeta)
+        {
+            var ncode_profParameter = ncode_prof.HasValue ?
+                new ObjectParameter("ncode_prof", ncode_prof) :
+                new ObjectParameter("ncode_prof", typeof(long));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var ncant_profdetaParameter = ncant_profdeta.HasValue ?
+                new ObjectParameter("ncant_profdeta", ncant_profdeta) :
+                new ObjectParameter("ncant_profdeta", typeof(decimal));
+    
+            var npu_profdetaParameter = npu_profdeta.HasValue ?
+                new ObjectParameter("npu_profdeta", npu_profdeta) :
+                new ObjectParameter("npu_profdeta", typeof(decimal));
+    
+            var ndscto_profdetaParameter = ndscto_profdeta.HasValue ?
+                new ObjectParameter("ndscto_profdeta", ndscto_profdeta) :
+                new ObjectParameter("ndscto_profdeta", typeof(decimal));
+    
+            var ndscto2_profdetaParameter = ndscto2_profdeta.HasValue ?
+                new ObjectParameter("ndscto2_profdeta", ndscto2_profdeta) :
+                new ObjectParameter("ndscto2_profdeta", typeof(decimal));
+    
+            var nexon_profdetaParameter = nexon_profdeta.HasValue ?
+                new ObjectParameter("nexon_profdeta", nexon_profdeta) :
+                new ObjectParameter("nexon_profdeta", typeof(decimal));
+    
+            var nafecto_profdetaParameter = nafecto_profdeta.HasValue ?
+                new ObjectParameter("nafecto_profdeta", nafecto_profdeta) :
+                new ObjectParameter("nafecto_profdeta", typeof(decimal));
+    
+            var besafecto_profdetaParameter = besafecto_profdeta.HasValue ?
+                new ObjectParameter("besafecto_profdeta", besafecto_profdeta) :
+                new ObjectParameter("besafecto_profdeta", typeof(bool));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ndsctomax_profdetaParameter = ndsctomax_profdeta.HasValue ?
+                new ObjectParameter("ndsctomax_profdeta", ndsctomax_profdeta) :
+                new ObjectParameter("ndsctomax_profdeta", typeof(decimal));
+    
+            var ndsctomin_profdetaParameter = ndsctomin_profdeta.HasValue ?
+                new ObjectParameter("ndsctomin_profdeta", ndsctomin_profdeta) :
+                new ObjectParameter("ndsctomin_profdeta", typeof(decimal));
+    
+            var ndsctoporc_profdetaParameter = ndsctoporc_profdeta.HasValue ?
+                new ObjectParameter("ndsctoporc_profdeta", ndsctoporc_profdeta) :
+                new ObjectParameter("ndsctoporc_profdeta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_proformaDetaCrea", ncode_profParameter, ncode_artiParameter, ncant_profdetaParameter, npu_profdetaParameter, ndscto_profdetaParameter, ndscto2_profdetaParameter, nexon_profdetaParameter, nafecto_profdetaParameter, besafecto_profdetaParameter, ncode_almaParameter, ndsctomax_profdetaParameter, ndsctomin_profdetaParameter, ndsctoporc_profdetaParameter);
+        }
+    
+        public virtual int Pr_proformaDetaEdita(Nullable<long> ncode_prof)
+        {
+            var ncode_profParameter = ncode_prof.HasValue ?
+                new ObjectParameter("ncode_prof", ncode_prof) :
+                new ObjectParameter("ncode_prof", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_proformaDetaEdita", ncode_profParameter);
+        }
+    
+        public virtual int Pr_proformaEdita(Nullable<long> ncode_prof, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeprofo_prof, Nullable<System.DateTime> dfevenci_prof, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_prof, Nullable<decimal> ntc_prof, Nullable<int> ncode_fopago, string sobse_prof, Nullable<long> ncode_compra, Nullable<decimal> nbrutoex_prof, Nullable<decimal> nbrutoaf_prof, Nullable<decimal> ndctoex_prof, Nullable<decimal> ndsctoaf_prof, Nullable<decimal> nsubex_prof, Nullable<decimal> nsubaf_prof, Nullable<decimal> nigvex_prof, Nullable<decimal> nigvaf_prof, Nullable<decimal> ntotaex_prof, Nullable<decimal> ntotaaf_prof, Nullable<decimal> ntotal_prof, Nullable<decimal> ntotalMN_prof, Nullable<decimal> ntotalUs_prof, Nullable<bool> besta_prof, Nullable<decimal> nvalIGV_prof, string suser_prof, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, ObjectParameter sw)
+        {
+            var ncode_profParameter = ncode_prof.HasValue ?
+                new ObjectParameter("ncode_prof", ncode_prof) :
+                new ObjectParameter("ncode_prof", typeof(long));
+    
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            var dfeprofo_profParameter = dfeprofo_prof.HasValue ?
+                new ObjectParameter("dfeprofo_prof", dfeprofo_prof) :
+                new ObjectParameter("dfeprofo_prof", typeof(System.DateTime));
+    
+            var dfevenci_profParameter = dfevenci_prof.HasValue ?
+                new ObjectParameter("dfevenci_prof", dfevenci_prof) :
+                new ObjectParameter("dfevenci_prof", typeof(System.DateTime));
+    
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(int));
+    
+            var ncode_clidireParameter = ncode_clidire.HasValue ?
+                new ObjectParameter("ncode_clidire", ncode_clidire) :
+                new ObjectParameter("ncode_clidire", typeof(int));
+    
+            var smone_profParameter = smone_prof != null ?
+                new ObjectParameter("smone_prof", smone_prof) :
+                new ObjectParameter("smone_prof", typeof(string));
+    
+            var ntc_profParameter = ntc_prof.HasValue ?
+                new ObjectParameter("ntc_prof", ntc_prof) :
+                new ObjectParameter("ntc_prof", typeof(decimal));
+    
+            var ncode_fopagoParameter = ncode_fopago.HasValue ?
+                new ObjectParameter("ncode_fopago", ncode_fopago) :
+                new ObjectParameter("ncode_fopago", typeof(int));
+    
+            var sobse_profParameter = sobse_prof != null ?
+                new ObjectParameter("sobse_prof", sobse_prof) :
+                new ObjectParameter("sobse_prof", typeof(string));
+    
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            var nbrutoex_profParameter = nbrutoex_prof.HasValue ?
+                new ObjectParameter("nbrutoex_prof", nbrutoex_prof) :
+                new ObjectParameter("nbrutoex_prof", typeof(decimal));
+    
+            var nbrutoaf_profParameter = nbrutoaf_prof.HasValue ?
+                new ObjectParameter("nbrutoaf_prof", nbrutoaf_prof) :
+                new ObjectParameter("nbrutoaf_prof", typeof(decimal));
+    
+            var ndctoex_profParameter = ndctoex_prof.HasValue ?
+                new ObjectParameter("ndctoex_prof", ndctoex_prof) :
+                new ObjectParameter("ndctoex_prof", typeof(decimal));
+    
+            var ndsctoaf_profParameter = ndsctoaf_prof.HasValue ?
+                new ObjectParameter("ndsctoaf_prof", ndsctoaf_prof) :
+                new ObjectParameter("ndsctoaf_prof", typeof(decimal));
+    
+            var nsubex_profParameter = nsubex_prof.HasValue ?
+                new ObjectParameter("nsubex_prof", nsubex_prof) :
+                new ObjectParameter("nsubex_prof", typeof(decimal));
+    
+            var nsubaf_profParameter = nsubaf_prof.HasValue ?
+                new ObjectParameter("nsubaf_prof", nsubaf_prof) :
+                new ObjectParameter("nsubaf_prof", typeof(decimal));
+    
+            var nigvex_profParameter = nigvex_prof.HasValue ?
+                new ObjectParameter("nigvex_prof", nigvex_prof) :
+                new ObjectParameter("nigvex_prof", typeof(decimal));
+    
+            var nigvaf_profParameter = nigvaf_prof.HasValue ?
+                new ObjectParameter("nigvaf_prof", nigvaf_prof) :
+                new ObjectParameter("nigvaf_prof", typeof(decimal));
+    
+            var ntotaex_profParameter = ntotaex_prof.HasValue ?
+                new ObjectParameter("ntotaex_prof", ntotaex_prof) :
+                new ObjectParameter("ntotaex_prof", typeof(decimal));
+    
+            var ntotaaf_profParameter = ntotaaf_prof.HasValue ?
+                new ObjectParameter("ntotaaf_prof", ntotaaf_prof) :
+                new ObjectParameter("ntotaaf_prof", typeof(decimal));
+    
+            var ntotal_profParameter = ntotal_prof.HasValue ?
+                new ObjectParameter("ntotal_prof", ntotal_prof) :
+                new ObjectParameter("ntotal_prof", typeof(decimal));
+    
+            var ntotalMN_profParameter = ntotalMN_prof.HasValue ?
+                new ObjectParameter("ntotalMN_prof", ntotalMN_prof) :
+                new ObjectParameter("ntotalMN_prof", typeof(decimal));
+    
+            var ntotalUs_profParameter = ntotalUs_prof.HasValue ?
+                new ObjectParameter("ntotalUs_prof", ntotalUs_prof) :
+                new ObjectParameter("ntotalUs_prof", typeof(decimal));
+    
+            var besta_profParameter = besta_prof.HasValue ?
+                new ObjectParameter("besta_prof", besta_prof) :
+                new ObjectParameter("besta_prof", typeof(bool));
+    
+            var nvalIGV_profParameter = nvalIGV_prof.HasValue ?
+                new ObjectParameter("nvalIGV_prof", nvalIGV_prof) :
+                new ObjectParameter("nvalIGV_prof", typeof(decimal));
+    
+            var suser_profParameter = suser_prof != null ?
+                new ObjectParameter("suser_prof", suser_prof) :
+                new ObjectParameter("suser_prof", typeof(string));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_moneParameter = ncode_mone.HasValue ?
+                new ObjectParameter("ncode_mone", ncode_mone) :
+                new ObjectParameter("ncode_mone", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_proformaEdita", ncode_profParameter, ncode_docuParameter, dfeprofo_profParameter, dfevenci_profParameter, ncode_clienteParameter, ncode_clidireParameter, smone_profParameter, ntc_profParameter, ncode_fopagoParameter, sobse_profParameter, ncode_compraParameter, nbrutoex_profParameter, nbrutoaf_profParameter, ndctoex_profParameter, ndsctoaf_profParameter, nsubex_profParameter, nsubaf_profParameter, nigvex_profParameter, nigvaf_profParameter, ntotaex_profParameter, ntotaaf_profParameter, ntotal_profParameter, ntotalMN_profParameter, ntotalUs_profParameter, besta_profParameter, nvalIGV_profParameter, suser_profParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, sw);
+        }
+    
+        public virtual int Pr_proformaElimina(Nullable<long> ncode_prof, ObjectParameter sw)
+        {
+            var ncode_profParameter = ncode_prof.HasValue ?
+                new ObjectParameter("ncode_prof", ncode_prof) :
+                new ObjectParameter("ncode_prof", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_proformaElimina", ncode_profParameter, sw);
+        }
+    
+        public virtual ObjectResult<Pr_ProformaLista_Result> Pr_ProformaLista(string documento, string cliente)
+        {
+            var documentoParameter = documento != null ?
+                new ObjectParameter("documento", documento) :
+                new ObjectParameter("documento", typeof(string));
+    
+            var clienteParameter = cliente != null ?
+                new ObjectParameter("cliente", cliente) :
+                new ObjectParameter("cliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ProformaLista_Result>("Pr_ProformaLista", documentoParameter, clienteParameter);
+        }
     }
 }

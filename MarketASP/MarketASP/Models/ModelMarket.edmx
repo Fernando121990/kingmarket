@@ -386,6 +386,7 @@
           <Property Name="sdesc_local" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="bacti_local" Type="bit" Nullable="false" />
           <Property Name="ncode_sucu" Type="int" Nullable="false" />
+          <Property Name="scode_ubigeo" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="MARCA">
           <Key>
@@ -487,12 +488,13 @@
           <Property Name="ntotalUs_prof" Type="decimal" Precision="18" Scale="4" />
           <Property Name="besta_prof" Type="bit" />
           <Property Name="nvalIGV_prof" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="suser_prof" Type="varchar" MaxLength="20" />
+          <Property Name="suser_prof" Type="varchar" MaxLength="30" />
           <Property Name="dfech_prof" Type="datetime" />
-          <Property Name="susmo_prof" Type="varchar" MaxLength="20" />
+          <Property Name="susmo_prof" Type="varchar" MaxLength="30" />
           <Property Name="dfemo_prof" Type="datetime" />
           <Property Name="ncode_alma" Type="int" Nullable="false" />
           <Property Name="ncode_local" Type="int" Nullable="false" />
+          <Property Name="ncode_mone" Type="int" />
         </EntityType>
         <EntityType Name="PROV_CONTACTO">
           <Key>
@@ -629,7 +631,20 @@
           <Property Name="dfcancelado_venta" Type="datetime" />
           <Property Name="ncode_local" Type="int" />
           <Property Name="ncode_mone" Type="int" />
+          <Property Name="nicbper_venta" Type="decimal" Precision="18" Scale="4" />
         </EntityType>
+        <Association Name="FK_LOCAL_UBIGEO">
+          <End Role="UBIGEO" Type="Self.UBIGEO" Multiplicity="0..1" />
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UBIGEO">
+              <PropertyRef Name="scode_ubigeo" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="scode_ubigeo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_1">
           <End Role="FAMILIA" Type="Self.FAMILIA" Multiplicity="0..1" />
           <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
@@ -1601,6 +1616,99 @@
           <Parameter Name="nivel" Type="varchar" Mode="In" />
           <Parameter Name="xcode" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="Pr_proformaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_docu" Type="int" Mode="In" />
+          <Parameter Name="sseri_prof" Type="varchar" Mode="In" />
+          <Parameter Name="snume_prof" Type="varchar" Mode="In" />
+          <Parameter Name="dfeprofo_prof" Type="datetime" Mode="In" />
+          <Parameter Name="dfevenci_prof" Type="datetime" Mode="In" />
+          <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+          <Parameter Name="ncode_clidire" Type="int" Mode="In" />
+          <Parameter Name="smone_prof" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+          <Parameter Name="sobse_prof" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+          <Parameter Name="nbrutoex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nbrutoaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ndctoex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctoaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nsubex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nsubaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nigvex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nigvaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotal_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalMN_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalUs_prof" Type="decimal" Mode="In" />
+          <Parameter Name="besta_prof" Type="bit" Mode="In" />
+          <Parameter Name="nvalIGV_prof" Type="decimal" Mode="In" />
+          <Parameter Name="suser_prof" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
+          <Parameter Name="ncode_mone" Type="int" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_proformaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_prof" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+          <Parameter Name="ncant_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="npu_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="ndscto_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="ndscto2_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="nexon_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="nafecto_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="besafecto_profdeta" Type="bit" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ndsctomax_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctomin_profdeta" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctoporc_profdeta" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Pr_proformaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_prof" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_proformaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_prof" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_docu" Type="int" Mode="In" />
+          <Parameter Name="dfeprofo_prof" Type="datetime" Mode="In" />
+          <Parameter Name="dfevenci_prof" Type="datetime" Mode="In" />
+          <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+          <Parameter Name="ncode_clidire" Type="int" Mode="In" />
+          <Parameter Name="smone_prof" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+          <Parameter Name="sobse_prof" Type="varchar(max)" Mode="In" />
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+          <Parameter Name="nbrutoex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nbrutoaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ndctoex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctoaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nsubex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nsubaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nigvex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="nigvaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaex_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaaf_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotal_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalMN_prof" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalUs_prof" Type="decimal" Mode="In" />
+          <Parameter Name="besta_prof" Type="bit" Mode="In" />
+          <Parameter Name="nvalIGV_prof" Type="decimal" Mode="In" />
+          <Parameter Name="suser_prof" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
+          <Parameter Name="ncode_mone" Type="int" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_proformaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_prof" Type="bigint" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_ProformaLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="documento" Type="varchar" Mode="In" />
+          <Parameter Name="cliente" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="Pr_tipoCambioExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dfecha_tc" Type="varchar" Mode="In" />
           <Parameter Name="valor" Type="int" Mode="InOut" />
@@ -1736,6 +1844,10 @@
           <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LOCAL_UBIGEO" Association="Self.FK_LOCAL_UBIGEO">
+            <End Role="UBIGEO" EntitySet="UBIGEO" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
+          </AssociationSet>
           <AssociationSet Name="R_1" Association="Self.R_1">
             <End Role="FAMILIA" EntitySet="FAMILIA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -2593,6 +2705,103 @@
             <End Role="PROFORMAS" EntitySet="PROFORMAS" />
             <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
           </AssociationSet>
+          <FunctionImport Name="Pr_proformaCrea">
+            <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+            <Parameter Name="sseri_prof" Mode="In" Type="String" />
+            <Parameter Name="snume_prof" Mode="In" Type="String" />
+            <Parameter Name="dfeprofo_prof" Mode="In" Type="DateTime" />
+            <Parameter Name="dfevenci_prof" Mode="In" Type="DateTime" />
+            <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+            <Parameter Name="smone_prof" Mode="In" Type="String" />
+            <Parameter Name="ntc_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+            <Parameter Name="sobse_prof" Mode="In" Type="String" />
+            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+            <Parameter Name="nbrutoex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nbrutoaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ndctoex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctoaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotal_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalMN_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalUs_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="besta_prof" Mode="In" Type="Boolean" />
+            <Parameter Name="nvalIGV_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_prof" Mode="In" Type="String" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_proformaDetaCrea">
+            <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+            <Parameter Name="ncant_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="npu_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="ndscto_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="ndscto2_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="nexon_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="nafecto_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="besafecto_profdeta" Mode="In" Type="Boolean" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ndsctomax_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctomin_profdeta" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctoporc_profdeta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_proformaDetaEdita">
+          <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_proformaEdita">
+            <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+            <Parameter Name="dfeprofo_prof" Mode="In" Type="DateTime" />
+            <Parameter Name="dfevenci_prof" Mode="In" Type="DateTime" />
+            <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+            <Parameter Name="smone_prof" Mode="In" Type="String" />
+            <Parameter Name="ntc_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+            <Parameter Name="sobse_prof" Mode="In" Type="String" />
+            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+            <Parameter Name="nbrutoex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nbrutoaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ndctoex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctoaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaex_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaaf_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotal_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalMN_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalUs_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="besta_prof" Mode="In" Type="Boolean" />
+            <Parameter Name="nvalIGV_prof" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_prof" Mode="In" Type="String" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_proformaElimina">
+            <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_ProformaLista" ReturnType="Collection(MarketWebModel.Pr_ProformaLista_Result)">
+            <Parameter Name="documento" Mode="In" Type="String" />
+            <Parameter Name="cliente" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="FK_LOCAL_UBIGEO" Association="MarketWebModel.FK_LOCAL_UBIGEO">
+            <End Role="UBIGEO" EntitySet="UBIGEO" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2883,6 +3092,7 @@
           <Property Name="sprovi_ubigeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <Property Name="sdistri_ubigeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_12" FromRole="UBIGEO" ToRole="CLI_DIRE" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="UBIGEO" ToRole="LOCAL" />
         </EntityType>
         <EntityType Name="UMEDIDA">
           <Key>
@@ -3330,6 +3540,7 @@
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
           <Property Name="ncode_mone" Type="Int32" />
+          <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <Association Name="R_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -3659,6 +3870,8 @@
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_59" FromRole="LOCAL" ToRole="COMPRAS" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
           <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_68" FromRole="LOCAL" ToRole="PROFORMAS" />
+          <Property Name="scode_ubigeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
         </EntityType>
         <Association Name="R_59">
           <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -3994,9 +4207,9 @@
           <Property Name="ntotalUs_prof" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="besta_prof" Type="Boolean" />
           <Property Name="nvalIGV_prof" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="suser_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_prof" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="dfech_prof" Type="DateTime" Precision="3" />
-          <Property Name="susmo_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_prof" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_prof" Type="DateTime" Precision="3" />
           <Property Name="ncode_alma" Type="Int32" Nullable="false" />
           <Property Name="ncode_local" Type="Int32" Nullable="false" />
@@ -4007,6 +4220,7 @@
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_69" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_68" FromRole="PROFORMAS" ToRole="LOCAL" />
           <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_62" FromRole="PROFORMAS" ToRole="PROFORMA_DETALLE" />
+          <Property Name="ncode_mone" Type="Int32" />
         </EntityType>
         <Association Name="R_67">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -4123,6 +4337,23 @@
             </Principal>
             <Dependent Role="PROFORMA_DETALLE">
               <PropertyRef Name="ncode_prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Pr_ProformaLista_Result">
+          <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
+          <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+          <Property Type="Int64" Name="ncode_prof" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_LOCAL_UBIGEO">
+          <End Type="MarketWebModel.UBIGEO" Role="UBIGEO" Multiplicity="0..1" />
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UBIGEO">
+              <PropertyRef Name="scode_ubigeo" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="scode_ubigeo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4503,6 +4734,7 @@
           <EntitySetMapping Name="VENTAS">
             <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
               <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="nicbper_venta" ColumnName="nicbper_venta" />
                 <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
                 <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
                 <ScalarProperty Name="dfcancelado_venta" ColumnName="dfcancelado_venta" />
@@ -4722,6 +4954,7 @@
           <EntitySetMapping Name="LOCAL">
             <EntityTypeMapping TypeName="MarketWebModel.LOCAL">
               <MappingFragment StoreEntitySet="LOCAL">
+                <ScalarProperty Name="scode_ubigeo" ColumnName="scode_ubigeo" />
                 <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
                 <ScalarProperty Name="bacti_local" ColumnName="bacti_local" />
                 <ScalarProperty Name="sdesc_local" ColumnName="sdesc_local" />
@@ -4794,6 +5027,7 @@
           <EntitySetMapping Name="PROFORMAS">
             <EntityTypeMapping TypeName="MarketWebModel.PROFORMAS">
               <MappingFragment StoreEntitySet="PROFORMAS">
+                <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
                 <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
                 <ScalarProperty Name="dfemo_prof" ColumnName="dfemo_prof" />
@@ -4852,6 +5086,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_proformaCrea" FunctionName="MarketWebModel.Store.Pr_proformaCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_proformaDetaCrea" FunctionName="MarketWebModel.Store.Pr_proformaDetaCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_proformaDetaEdita" FunctionName="MarketWebModel.Store.Pr_proformaDetaEdita" />
+          <FunctionImportMapping FunctionImportName="Pr_proformaEdita" FunctionName="MarketWebModel.Store.Pr_proformaEdita" />
+          <FunctionImportMapping FunctionImportName="Pr_proformaElimina" FunctionName="MarketWebModel.Store.Pr_proformaElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_ProformaLista" FunctionName="MarketWebModel.Store.Pr_ProformaLista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_ProformaLista_Result">
+                <ScalarProperty Name="numeracion" ColumnName="numeracion" />
+                <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
+                <ScalarProperty Name="ncode_prof" ColumnName="ncode_prof" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

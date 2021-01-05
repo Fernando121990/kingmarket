@@ -1,225 +1,118 @@
 ﻿@model IEnumerable<MarketASP.Models.PROFORMAS>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Consulta de Proformas";
 }
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Proforma">
+        <i class="fas fa-file"></i>
+    </a>
+</div>
 
-<h2>Index</h2>
+<table class="datatbl table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Doc.
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                No Doc.
+            </th>
+            <th>
+                F.Venta
+            </th>
+            <th>
+                F.Vcto
+            </th>
+            <th>
+                TC
+            </th>
+            <th>
+                Obs
+            </th>
+            <th>
+                M
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Activo
+            </th>
+            <th>
+                F.Pago
+            </th>
+            <th>
+                Cancelada
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sseri_prof) - @Html.DisplayFor(modelItem => item.snume_prof)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfeprofo_prof)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfevenci_prof)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntc_prof)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sobse_prof)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.smone_prof)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntotal_prof)
+                </td>
+                <td>
+                    @if (item.besta_prof == false)
+                    {
+                        <h5>Anulado</h5>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+                </td>
+                <td>
+                </td>
+                <td>
+                    @if (item.besta_prof == true)
+                    {
+                        <a href="@Url.Action("Edit", new { id = item.ncode_prof })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    }
+                </td>
+                <td>
+                    @if (item.besta_prof == true)
+                    {
+                        <a href="@Url.Action("DeleteProforma", new { id = item.ncode_prof })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.sseri_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.snume_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfeprofo_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfevenci_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.smone_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntc_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.sobse_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ncode_compra)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nbrutoex_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nbrutoaf_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ndctoex_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ndsctoaf_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nsubex_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nsubaf_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nigvex_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nigvaf_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotaex_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotaaf_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotal_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotalMN_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ntotalUs_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.besta_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nvalIGV_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.suser_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfech_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.susmo_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dfemo_prof)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLI_DIRE.sdesc_clidire)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLIENTE.srazon_cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CONFIGURACION1.sdesc_confi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LOCAL.sdesc_local)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.sseri_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.snume_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfeprofo_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfevenci_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.smone_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntc_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sobse_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ncode_compra)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbrutoex_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nbrutoaf_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ndctoex_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ndsctoaf_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nsubex_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nsubaf_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nigvex_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nigvaf_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotaex_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotaaf_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotal_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotalMN_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ntotalUs_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.besta_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nvalIGV_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.suser_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfech_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.susmo_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dfemo_prof)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLI_DIRE.sdesc_clidire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LOCAL.sdesc_local)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_prof }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ncode_prof }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_prof })
-        </td>
-    </tr>
-}
-
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

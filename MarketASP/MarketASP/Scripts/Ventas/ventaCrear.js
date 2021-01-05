@@ -1,8 +1,6 @@
 ﻿$(document).ready(function () {
     var code = 0;
     code = $("#ncode_venta").val();
-    //console.log(code);
-    //console.log('xx')
 
     if (typeof code === 'undefined') {
       //  console.log('series');
@@ -98,7 +96,27 @@
         }
     });
 
-    
+    $("#sdesc_profo").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: urlGetProforma, // "/Encuesta/GetCliente",
+                type: "POST", dataType: "json",
+                data: { snume: request.term },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.numeracion, value: item.numeracion, id: item.ncode_prof
+                        };
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#ncode_profo').val(ui.item.id);
+            fnCargaProforma();
+        }
+    });
+        
     $(".delMat").click(function () {
 
         ofunciones.rows('.selected').remove().draw(false);
@@ -212,8 +230,6 @@
         var ncode_docu = $("#ncode_docu option:selected").val();
         var ntotal = $('#ntotal_venta').val();
 
-        //console.log(ncode_docu);
-        //console.log(ntotal);
 
         if ($("#sseri_venta").val().length < 1) {
             alert("Ingrese serie del documento");
@@ -529,7 +545,6 @@ function fnFormaPagoDiasFecha() {
     return false;
 
 }
-
 function fnDocumentoSerieNumero() {
     //console.log($("#ncode_docu").val());
 
@@ -553,5 +568,63 @@ function fnDocumentoSerieNumero() {
     });
     return false;
 }
+function fnCargaProforma() {
 
+    //console.log($("#ncode_profo").val());
+    fnlimpiar();
+
+    $.ajax({
+        type: 'POST',
+        url: urlGetProfoVenta,
+        dataType: 'json',
+        data: { ncode_prof: $("#ncode_profo").val() },
+        success: function (venta) {
+            console.log(venta);
+
+            $('#sdesc_cliente').val(venta.scliente);
+            $('#COD_CLIENTE').val(venta.ncode_cliente);
+            $('#sruc_cliente').val(venta.sruc);
+            $('#sdni_cliente').val(venta.sdni);
+            $('#sobse_venta').val(venta.ncode_cliente);
+            $("#ncode_mone").val(venta.ncode_mone);
+
+            var num = parseInt(venta.ventaViewDetas.length);
+            var oprof = $('#tbl').DataTable();
+            oprof.clear();
+            for (var i = 0; i < num; i++) {
+                oprof.row.add([venta.ventaViewDetas[i].ncode_arti,
+                    venta.ventaViewDetas[i].scod2,
+                    venta.ventaViewDetas[i].sdesc,
+                    venta.ventaViewDetas[i].ncant_vedeta,
+                    1,
+                    venta.ventaViewDetas[i].npu_vedeta,
+                    venta.ventaViewDetas[i].npu_vedeta,
+                    1,
+                    venta.ventaViewDetas[i].besafecto_vedeta,
+                    venta.ventaViewDetas[i].bisc_vedeta,
+                    venta.ventaViewDetas[i].npu_vedeta,
+                    venta.ventaViewDetas[i].nafecto_vedeta]).draw();
+            }
+
+            fnclienteDire();
+            $("#NRO_DCLIENTE").val(venta.ncode_clidire);
+        },
+        error: function (ex) {
+            alert('No se puede recuperar datos de proforma' + ex);
+        }
+    });
+
+    Totales();
+
+    return false;
+
+    
+}
+function fnlimpiar() {
+
+    $('#COD_CLIENTE').val();
+    $("#NRO_DCLIENTE").empty();
+    $('#sobse_venta').val();
+    $('#ncode_compra').val();
+}
 

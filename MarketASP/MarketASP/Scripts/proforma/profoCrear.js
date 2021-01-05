@@ -483,7 +483,7 @@ function fnFormaPagoDiasFecha() {
             console.log(fopago);
             $.each(fopago, function (i, dias) {
 
-                var m = $("#dfeventa_venta").val();
+                var m = $("#dfeprofo_prof").val();
                 var parts = m.split("/");
                 var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
                 //var fecha = new Date($('#dfeventa_venta').val());

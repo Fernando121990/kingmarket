@@ -81,7 +81,7 @@ namespace MarketASP
                    "~/Scripts/Movimientos/moviCrear.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/proforma").Include(
-               "~/Scripts/Ventas/profoCrear.js"));
+               "~/Scripts/proforma/profoCrear.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/venta").Include(
                    "~/Scripts/Ventas/ventaCrear.js"));

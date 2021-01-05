@@ -102,6 +102,7 @@
         <EntityTypeShape EntityType="MarketWebModel.PROFORMA_DETALLE" Width="1.5" PointX="21.875" PointY="15.75" />
         <AssociationConnector Association="MarketWebModel.R_63" />
         <AssociationConnector Association="MarketWebModel.R_62" />
+        <AssociationConnector Association="MarketWebModel.FK_LOCAL_UBIGEO" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

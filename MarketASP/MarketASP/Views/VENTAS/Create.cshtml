@@ -116,7 +116,8 @@
                                 <label class="text-xs text-primary text-uppercase font-weight-bold">Proforma :</label>
                             </div>
                             <div class="col-lg-4">
-                                @Html.EditorFor(model => model.ncode_profo, new { htmlAttributes = new { @class = "form-control" } })
+                                <input id="ncode_profo" name="ncode_profo" type="hidden" />
+                                <input id="sdesc_profo" name="sdesc_profo" type="text" class="form-control" placeholder="nro de proforma" autofocus />
                                 @Html.ValidationMessageFor(model => model.ncode_profo, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -431,6 +432,8 @@
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
         var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
         var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+        var urlGetProforma = '@Url.Action("getProforma", "Funciones",new { area = ""})';
+        var urlGetProfoVenta = '@Url.Action("getProfoVenta", "Funciones",new { area = ""})';
         var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';

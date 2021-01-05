@@ -88,36 +88,55 @@ namespace MarketASP.Controllers
             return Json(result); 
         }
 
-        //public async Task<JsonResult> getArticulos()
-        //{
-        //    var result = db.Pr_ConsultaArticulos();
+        public JsonResult getProforma(string snume)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_ProformaLista(snume, "");
+            return Json(result);
+        }
 
-        //    return Json(await Task.FromResult(result));
-        //}
+        public JsonResult getProfoVenta(Int32 ncode_prof)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            PROFORMAS pROFORMAS = db.PROFORMAS.Find(ncode_prof);
+            CLIENTE cLIENTE = db.CLIENTE.Find(pROFORMAS.ncode_cliente);
+            List<PROFORMA_DETALLE> lista = db.PROFORMA_DETALLE.Include("ARTICULO").Where(p => p.ncode_prof == ncode_prof).ToList();
+            List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
 
-        //public JsonResult getArticulos(int listaPrecio)
-        //{
-        //    db.Configuration.ProxyCreationEnabled = false;
-        //    var result = from s in db.ARTICULO
-        //                 join m in db.UMEDIDA
-        //                 on s.ncode_umed equals m.ncode_umed
-        //                 join p in db.ART_PRECIO
-        //                 on s.ncode_arti equals p.ncode_arti
-        //                 where s.nesta_arti == true && p.ncode_lipre == listaPrecio
-        //                 select new
-        //                 {
-        //                     codigo = s.ncode_arti,
-        //                     afecto = s.bafecto_arti,
-        //                     isc = s.bisc_arti,
-        //                     scodigo = s.scode_arti,
-        //                     descripcion = s.sdesc1_arti,
-        //                     medida = m.sdesc_umed,
-        //                     stock = Math.Round(s.nstockmin_arti ?? 0, 2),
-        //                     precio = p.nprecio_artpre,
-        //                     moneda = ""
-        //                 };
-        //    return Json(result);
-        //}
+            foreach (var item in lista)
+            {
+                ventaViewDeta deta = new ventaViewDeta
+                {
+                    besafecto_vedeta = item.besafecto_profdeta,
+                    bisc_vedeta = item.ARTICULO.bisc_arti,
+                    scod2 = item.ARTICULO.scode_arti,
+                    sdesc = item.ARTICULO.sdesc1_arti,
+                    nafecto_vedeta = item.nafecto_profdeta,
+                    ncant_vedeta = item.ncant_profdeta,
+                    ncode_arti = item.ncode_arti,
+                    npu_vedeta = item.npu_profdeta,
+                    ndscto_vedeta = item.ndscto_profdeta,
+                    nexon_vedeta = item.nexon_profdeta
+                };
+                listadeta.Add(deta);
+            }
+
+
+            ventaView ventaView = new ventaView
+            {
+                ncode_cliente = pROFORMAS.ncode_cliente,
+                ncode_clidire = pROFORMAS.ncode_clidire,
+                scliente = cLIENTE.srazon_cliente,
+                sruc = cLIENTE.sruc_cliente,
+                sdni = cLIENTE.sdnice_cliente,
+                ncode_fopago = pROFORMAS.ncode_fopago,
+                ncode_mone = pROFORMAS.ncode_mone,
+                ventaViewDetas = listadeta
+            };
+
+            return Json(ventaView);
+        }
+
         public string fncadenaeditar(string id, string value, int column)
         {
             return value;
@@ -247,22 +266,8 @@ namespace MarketASP.Controllers
             };
 
         }
-        //private ActionResult RedirectToTipoCambio(string returnUrl)
-        //{
 
-        //    MarketWebEntities db = new MarketWebEntities();
+        
 
-        //    ObjectParameter valor = new ObjectParameter("valor", typeof(int));
-        //    int xvalor = 0;
-        //    var result = db.Pr_tipoCambioExiste(DateTime.Today.ToShortDateString(), valor);
-        //    xvalor = int.Parse(valor.Value.ToString());
-
-        //    if (xvalor == 0)
-        //    {
-        //        return RedirectToAction("Create", "tipo_cambio");
-        //    }
-
-        //    return RedirectToAction("Index", "Home");
-        //}
     }
 }
