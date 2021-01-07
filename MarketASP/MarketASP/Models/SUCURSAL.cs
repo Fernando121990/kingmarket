@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MarketASP.Areas.Administracion.Models
+namespace MarketASP.Models
 {
     using System;
     using System.Collections.Generic;
@@ -23,6 +23,7 @@ namespace MarketASP.Areas.Administracion.Models
         public int ncode_sucu { get; set; }
         public string sdesc_sucu { get; set; }
         public bool bacti_sucu { get; set; }
+        public string sruc_sucu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOCAL> LOCAL { get; set; }

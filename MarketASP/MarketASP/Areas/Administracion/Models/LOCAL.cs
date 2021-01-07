@@ -24,8 +24,9 @@ namespace MarketASP.Areas.Administracion.Models
         public string sdesc_local { get; set; }
         public bool bacti_local { get; set; }
         public int ncode_sucu { get; set; }
+        public string scode_ubigeo { get; set; }
+        public string sdire_local { get; set; }
     
-        public virtual SUCURSAL SUCURSAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DOCU_SERIE> DOCU_SERIE { get; set; }
     }

@@ -145,6 +145,7 @@
           <Property Name="bacti_cliente" Type="bit" />
           <Property Name="ncode_fopago" Type="int" />
           <Property Name="ncode_afepercepcion" Type="int" />
+          <Property Name="nidtipodoc_cliente" Type="int" />
         </EntityType>
         <EntityType Name="COMPRA_DETALLE">
           <Key>
@@ -387,6 +388,7 @@
           <Property Name="bacti_local" Type="bit" Nullable="false" />
           <Property Name="ncode_sucu" Type="int" Nullable="false" />
           <Property Name="scode_ubigeo" Type="varchar" MaxLength="20" />
+          <Property Name="sdire_local" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="MARCA">
           <Key>
@@ -526,6 +528,15 @@
           <Property Name="dfech_prove" Type="datetime" />
           <Property Name="susmo_prove" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_prove" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SUCURSAL">
+          <Key>
+            <PropertyRef Name="ncode_sucu" />
+          </Key>
+          <Property Name="ncode_sucu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_sucu" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="bacti_sucu" Type="bit" Nullable="false" />
+          <Property Name="sruc_sucu" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="TIPO_CAMBIO">
           <Key>
@@ -1211,6 +1222,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="R_56">
+          <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="1" />
+          <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUCURSAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="R_58">
           <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="0..1" />
           <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
@@ -1838,6 +1861,7 @@
           <EntitySet Name="PROFORMAS" EntityType="Self.PROFORMAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROV_CONTACTO" EntityType="Self.PROV_CONTACTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CAMBIO" EntityType="Self.TIPO_CAMBIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_MOVIMIENTO" EntityType="Self.TIPO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
@@ -2035,6 +2059,10 @@
           <AssociationSet Name="R_53" Association="Self.R_53">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_56" Association="Self.R_56">
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
           </AssociationSet>
           <AssociationSet Name="R_58" Association="Self.R_58">
             <End Role="LOCAL" EntitySet="LOCAL" />
@@ -2800,6 +2828,11 @@
           </FunctionImport>
           <AssociationSet Name="FK_LOCAL_UBIGEO" Association="MarketWebModel.FK_LOCAL_UBIGEO">
             <End Role="UBIGEO" EntitySet="UBIGEO" />
+            <End Role="LOCAL" EntitySet="LOCAL" />
+          </AssociationSet>
+          <EntitySet Name="SUCURSAL" EntityType="MarketWebModel.SUCURSAL" />
+          <AssociationSet Name="R_56" Association="MarketWebModel.R_56">
+            <End Role="SUCURSAL" EntitySet="SUCURSAL" />
             <End Role="LOCAL" EntitySet="LOCAL" />
           </AssociationSet>
         </EntityContainer>
@@ -3872,6 +3905,8 @@
           <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_68" FromRole="LOCAL" ToRole="PROFORMAS" />
           <Property Name="scode_ubigeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
+          <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
         </EntityType>
         <Association Name="R_59">
           <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -4103,6 +4138,7 @@
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
+          <Property Name="nidtipodoc_cliente" Type="Int32" />
         </EntityType>
         <Association Name="R_11">
           <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -4354,6 +4390,28 @@
             </Principal>
             <Dependent Role="LOCAL">
               <PropertyRef Name="scode_ubigeo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SUCURSAL">
+          <Key>
+            <PropertyRef Name="ncode_sucu" />
+          </Key>
+          <Property Name="ncode_sucu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_sucu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="bacti_sucu" Type="Boolean" Nullable="false" />
+          <Property Name="sruc_sucu" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_56" FromRole="SUCURSAL" ToRole="LOCAL" />
+        </EntityType>
+        <Association Name="R_56">
+          <End Type="MarketWebModel.SUCURSAL" Role="SUCURSAL" Multiplicity="1" />
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUCURSAL">
+              <PropertyRef Name="ncode_sucu" />
+            </Principal>
+            <Dependent Role="LOCAL">
+              <PropertyRef Name="ncode_sucu" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4954,6 +5012,7 @@
           <EntitySetMapping Name="LOCAL">
             <EntityTypeMapping TypeName="MarketWebModel.LOCAL">
               <MappingFragment StoreEntitySet="LOCAL">
+                <ScalarProperty Name="sdire_local" ColumnName="sdire_local" />
                 <ScalarProperty Name="scode_ubigeo" ColumnName="scode_ubigeo" />
                 <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
                 <ScalarProperty Name="bacti_local" ColumnName="bacti_local" />
@@ -4977,6 +5036,7 @@
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="nidtipodoc_cliente" ColumnName="nidtipodoc_cliente" />
                 <ScalarProperty Name="ncode_afepercepcion" ColumnName="ncode_afepercepcion" />
                 <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
                 <ScalarProperty Name="bacti_cliente" ColumnName="bacti_cliente" />
@@ -5100,6 +5160,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SUCURSAL">
+            <EntityTypeMapping TypeName="MarketWebModel.SUCURSAL">
+              <MappingFragment StoreEntitySet="SUCURSAL">
+                <ScalarProperty Name="sruc_sucu" ColumnName="sruc_sucu" />
+                <ScalarProperty Name="bacti_sucu" ColumnName="bacti_sucu" />
+                <ScalarProperty Name="sdesc_sucu" ColumnName="sdesc_sucu" />
+                <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

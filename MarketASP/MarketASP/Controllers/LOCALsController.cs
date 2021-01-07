@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MarketASP.Areas.Administracion.Models;
+using MarketASP.Models;
 
-namespace MarketASP.Areas.Administracion.Controllers
+namespace MarketASP.Controllers
 {
     public class LOCALsController : Controller
     {
-        private MarketWebEntitiesAdmin db = new MarketWebEntitiesAdmin();
+        private MarketWebEntities db = new MarketWebEntities();
 
         public async Task<ActionResult> Index()
         {
@@ -43,7 +43,7 @@ namespace MarketASP.Areas.Administracion.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_local,sdesc_local,bacti_local,ncode_sucu")] LOCAL lOCAL)
+        public async Task<ActionResult> Create([Bind(Include = "ncode_local,sdesc_local,sdire_local,scode_ubigeo,bacti_local,ncode_sucu")] LOCAL lOCAL)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace MarketASP.Areas.Administracion.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_local,sdesc_local,bacti_local,ncode_sucu")] LOCAL lOCAL)
+        public async Task<ActionResult> Edit([Bind(Include = "ncode_local,sdesc_local,sdire_local,scode_ubigeo,bacti_local,ncode_sucu")] LOCAL lOCAL)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +81,8 @@ namespace MarketASP.Areas.Administracion.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            
             ViewBag.ncode_sucu = new SelectList(db.SUCURSAL.Where(s => s.bacti_sucu == true).OrderByDescending(s => s.sdesc_sucu), "ncode_sucu", "sdesc_sucu", lOCAL.ncode_sucu);
             return View(lOCAL);
         }
@@ -101,29 +103,6 @@ namespace MarketASP.Areas.Administracion.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        //public async Task<ActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    LOCAL lOCAL = await db.LOCAL.FindAsync(id);
-        //    if (lOCAL == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(lOCAL);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(int id)
-        //{
-        //    LOCAL lOCAL = await db.LOCAL.FindAsync(id);
-        //    db.LOCAL.Remove(lOCAL);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

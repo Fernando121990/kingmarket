@@ -103,6 +103,8 @@
         <AssociationConnector Association="MarketWebModel.R_63" />
         <AssociationConnector Association="MarketWebModel.R_62" />
         <AssociationConnector Association="MarketWebModel.FK_LOCAL_UBIGEO" />
+        <EntityTypeShape EntityType="MarketWebModel.SUCURSAL" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="MarketWebModel.R_56" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
