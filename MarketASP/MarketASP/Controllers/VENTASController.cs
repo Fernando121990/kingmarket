@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.IO;
+using SunatService.Modelos;
 
 namespace MarketASP.Controllers
 {
@@ -91,7 +92,8 @@ namespace MarketASP.Controllers
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
             ObjectParameter cc = new ObjectParameter("cc", typeof(int));
-
+            SunatResponse resultado = new SunatResponse();
+            string xmensaje = "";
             int code = 0;
             int cccode = 0;
             string data = "";
@@ -140,26 +142,34 @@ namespace MarketASP.Controllers
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
                             //inicio el proceso de envio a sunat
-                            int xNumero = 0;
                             try
                             {
-                                xNumero = EnviarComprobante(mofView);
-                                return Json(new { success = "Registro grabado con exito", responseText = xNumero });
+                                resultado = EnviarComprobante(mofView);
                             }
                             catch (Exception ex)
                             {
 
-                                return Json(new { success = ex.Message, responseText = xNumero });
+                                resultado.Error.Description = ex.Message;
                             }
                         }
                     }
                 }
-                if (ConfiguracionSingleton.Instance.glbcobroAutomatico == "SI")
+
+                if (resultado.Success)
                 {
-                    return Json(new { Success = 2, CtaCo = cccode });
+                    xmensaje = "Registro exitoso en Sunat y Local";
+                }
+                else
+                {
+                    xmensaje = "Error Sunat - " + resultado.Error.Description;
                 }
 
-                return Json(new { Success = 1 });
+                if (ConfiguracionSingleton.Instance.glbcobroAutomatico == "SI")
+                {
+                    return Json(new { Success = 2, CtaCo = cccode, Mensaje = xmensaje });
+                }
+
+                return Json(new { Success = 1, Mensaje = xmensaje });
 
             }
             catch (Exception ex)
@@ -338,18 +348,15 @@ namespace MarketASP.Controllers
             return RedirectToAction("Index");
         }
 
-        public int EnviarComprobante(ventaView venta)
+        public SunatResponse EnviarComprobante(ventaView venta)
         {
-
-            string xresultado = "";
-
 
             //Crear una clase cabecera de la capa SUNAT SERVICES
             SunatService.ViewModels.Cabecera comprobante = new SunatService.ViewModels.Cabecera();
             //Cargamos las propiedades de la clase cabecera de la capa sunat services
             comprobante.Idcabecera = 0; // venta.ncode_venta; 
-            comprobante.Fechaemision = venta.dfeventa_venta;
-            comprobante.Fechavencimiento = venta.dfevenci_venta;
+            comprobante.Fechaemision = DateTime.Parse(venta.sfeventa_venta);
+            comprobante.Fechavencimiento = DateTime.Parse(venta.sfevenci_venta);
             comprobante.Idtipocomp = db.CONFIGURACION.Where(C => C.ncode_confi == venta.ncode_docu).SingleOrDefault().svalor_confi; // venta.CONFIGURACION.svalor_confi; // .Idtipocomp.ToString().PadLeft(2, '0'); 
             comprobante.Serie = venta.sseri_venta;
             comprobante.Numero = venta.snume_venta;
@@ -363,7 +370,7 @@ namespace MarketASP.Controllers
             comprobante.ClienteTipodocumento = "6"; // cliente.IdTipoDoc; 
             comprobante.ClienteNumeroDocumento = cliente.sruc_cliente;
             //Cargamos los totales del comprobante
-            comprobante.Igv = decimal.Parse(Helpers.Funciones.ObtenerValorParam("GENERAL","IGV"));
+            comprobante.Igv = decimal.Parse(Helpers.Funciones.ObtenerValorParam("GENERAL","IGV"))/100;
             comprobante.TotSubtotal = (decimal) (venta.nsubaf_venta + venta.nsubex_venta); /// .TotSubtotal);
             comprobante.TotDsctos = venta.ndsctoaf_venta + venta.ndctoex_venta; // .TotDsctos;
             comprobante.TotIcbper = 0; // venta.TotIcbper; 
@@ -375,7 +382,7 @@ namespace MarketASP.Controllers
             comprobante.TotTributos = comprobante.TotIgv + comprobante.TotISC + comprobante.TotOtros;
             comprobante.TotNeto = venta.ntotal_venta + comprobante.TotTributos;
             comprobante.Total = venta.ntotal_venta + comprobante.TotTributos;
-            comprobante.Idmoneda = "01"; // venta.ncode_mone; // .Idmoneda;
+            comprobante.Idmoneda = "PEN"; // venta.ncode_mone; // .Idmoneda;
 
             //Capturar los datos de la empresa emisora
             //Captiurar datos del ubigeo de la empresa remitente
@@ -403,9 +410,10 @@ namespace MarketASP.Controllers
             foreach (var item in venta.ventaViewDetas)
             {
                 SunatService.ViewModels.Detalles det = new SunatService.ViewModels.Detalles();
+                var articulo = db.ARTICULO.Where(a => a.ncode_arti == item.ncode_arti).SingleOrDefault();
                 det.Cantidad = (decimal) item.ncant_vedeta;
-                det.Codcom = item.scod2;
-                det.DescripcionProducto = item.sdesc;
+                det.Codcom = articulo.scode_arti;
+                det.DescripcionProducto = articulo.sdesc1_arti;
                 det.Precio = (decimal) item.npu_vedeta;
                 det.Total = (decimal) item.nafecto_vedeta;
                 det.UnidadMedida = "NIU";
@@ -438,15 +446,18 @@ namespace MarketASP.Controllers
             servicioSUNAT.Ruta_CDRS = Path.Combine(RutaAplicacion, RutaCDR);
             //servicioSUNAT.Ruta_QR = Path.Combine(RutaAplicacion, RutaQR);
 
+            SunatResponse resultado = new SunatResponse();
             try
             {
-                xresultado = servicioSUNAT.GenerarComprobanteFB_XML(comprobante);
-                return 1;
+                resultado = servicioSUNAT.GenerarComprobanteFB_XML(comprobante);
+                //return 1;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
+                resultado.Error.Description = ex.InnerException.Message;
             }
+            return resultado;
         }
 
         protected override void Dispose(bool disposing)

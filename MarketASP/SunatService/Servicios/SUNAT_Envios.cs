@@ -30,9 +30,9 @@ namespace SunatService.Servicios
         public  string Ruta_ENVIOS { get; set; }
         public  string Ruta_CDRS { get; set; }
 
-        public string GenerarComprobanteFB_XML(Cabecera Comprobante)
+        public SunatResponse GenerarComprobanteFB_XML(Cabecera Comprobante)
         {
-            string xresultado = "";
+           
             SunatService.Modelos.InvoiceType Factura = new SunatService.Modelos.InvoiceType();
 
             try
@@ -702,9 +702,10 @@ namespace SunatService.Servicios
                 string strEnvio = Ruta_ENVIOS + Path.GetFileName(archXML).Replace(".xml", ".zip");
                 Comprimir(archXML, strEnvio);
 
-                string rptadoc = EnviarDocumento(strEnvio);
+                SunatResponse resultado = new SunatResponse();
+                resultado = EnviarDocumento(strEnvio);
 
-                return rptadoc;
+                return resultado;
 
             }
             catch (Exception ex)
@@ -890,57 +891,17 @@ namespace SunatService.Servicios
             return rpta;
         }
 
-        //public string EnviarDocumentoX(string pArchivo)
-        //{
-        //    string strRetorno = "";
-        //    string filezip = pArchivo;
-        //    //string filepath = Directory.GetCurrentDirectory() + "\\Envios\\" + filezip;
-        //    string filepath = filezip;
-        //    byte[] bitArray = File.ReadAllBytes(filepath);
-        //    try
-        //    {
-
-        //        billServiceClient servicio = new billServiceClient(billServiceClient.EndpointConfiguration.BillServicePort);
-
-        //        ServicePointManager.UseNagleAlgorithm = true;
-        //        ServicePointManager.Expect100Continue = false;
-        //        ServicePointManager.CheckCertificateRevocationList = true;
-
-        //        servicio.OpenAsync();
-
-        //        //obtener el nombre del archivo sin ruta
-        //        filezip = Path.GetFileName(filezip);
-        //        //Enviar el archivo zipeado convertido a Bytes a la SUNAT  
-        //        byte[] returnByte = servicio.sendBill(filezip, bitArray, "");
-        //        servicio.CloseAsync();
-
-        //        filezip = Path.GetFileName(filezip);
-        //        FileStream fs = new FileStream(Ruta_CDRS + "R-" + filezip, FileMode.Create);
-        //        fs.Write(returnByte, 0, returnByte.Length);
-        //        fs.Close();
-        //        strRetorno = "Archivo generado con exito";
-
-        //    }
-        //    catch (System.ServiceModel.FaultException ex)
-        //    {
-        //        strRetorno = ex.Code.Name;
-        //        throw;
-        //    }
-        //    return strRetorno;
-        //}
-        public string EnviarDocumento(string pArchivo)
+        public SunatResponse EnviarDocumento(string pArchivo)
         {
-            string strRetorno = "";
             string filezip = pArchivo;
-                //string filepath = Directory.GetCurrentDirectory() + "\\Envios\\" + filezip;
-                string filepath = filezip;
-                byte[] bitArray = File.ReadAllBytes(filepath);
-
+            string filepath = filezip;
+            byte[] bitArray = File.ReadAllBytes(filepath);
 
             var response = new SunatResponse
             {
                 Success = false
             };
+
             try
             {
 
@@ -950,35 +911,29 @@ namespace SunatService.Servicios
                 ServicePointManager.Expect100Continue = false;
                 ServicePointManager.CheckCertificateRevocationList = true;
 
-                
-
                 servicio.OpenAsync();
-
                 //obtener el nombre del archivo sin ruta
                 filezip = Path.GetFileName(filezip);
-                var rpta = servicio.sendBill(filezip, bitArray, "");
-
-                //Enviar el archivo zipeado convertido a Bytes a la SUNAT               
-                //var result = await servicio.sendBill(filezip, bitArray, string.Empty);
-
+                var rpta = servicio.sendBill(filezip, bitArray, string.Empty);
+                rpta.Wait();
                 servicio.CloseAsync();
 
-                filezip = Path.GetFileName(filezip);
-                FileStream fs = new FileStream(Ruta_CDRS + "R-" + filezip, FileMode.Create);
-                fs.Write(rpta.Result.applicationResponse, 0, rpta.Result.applicationResponse.Length);
-                fs.Close();
-                strRetorno = "Archivo generado con exito";
-
-
-                using (var outputXml = ProcessZip.ExtractFile(rpta.Result.applicationResponse))
+                var result = rpta.Result;
+                using (var outputXml = ProcessZip.ExtractFile(result.applicationResponse))
                 {
                     response = new SunatResponse
                     {
                         Success = true,
                         ApplicationResponse = ProcessXml.GetAppResponse(outputXml),
-                        ContentZip = rpta.Result.applicationResponse
+                        ContentZip = result.applicationResponse
                     };
                 }
+
+                filezip = Path.GetFileName(filezip);
+                FileStream fs = new FileStream(Ruta_CDRS + "R-" + filezip, FileMode.Create);
+                fs.Write(result.applicationResponse, 0, result.applicationResponse.Length);
+                fs.Close();
+
             }
             catch (System.ServiceModel.FaultException ex)
             {
@@ -992,7 +947,7 @@ namespace SunatService.Servicios
                 };
             }
 
-            return strRetorno;
+            return response;
         }
 
         public async Task<SunatResponse> ObtenerEstado(string pstrTicket)

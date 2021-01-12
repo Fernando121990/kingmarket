@@ -50,7 +50,7 @@ namespace MarketASP.Controllers
             return View(cTA_COBRAR);
         }
 
-        public async Task<ActionResult> CreateCobro(long? id, string xtipo)
+        public async Task<ActionResult> CreateCobro(long? id, string mensaje, string xtipo)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -102,6 +102,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_tpago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 8), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_tarjeta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 9), "ncode_confi", "sdesc_confi");
             ViewBag.xtipo = xtipo;
+            ViewBag.mensaje = mensaje;
             return View();
         }
 

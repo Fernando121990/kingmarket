@@ -375,19 +375,20 @@ function Sales_save() {
         dataType: 'json',
         data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(ventaView) },
         success: function (result) {
-            console.log(result.Success)
+            console.log(result.Mensaje)
             switch (result.Success) {
                 case 1:
                     window.location.href = urlventaLista;
+                    alert(result.Mensaje);
                     break;
                 case 2:
-                    urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo));
-                    //console.log(urlventaCobro);
+                    urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo))
+                                        .replace("param-mensaje", encodeURIComponent(result.Mensaje));
                     window.location.href = urlventaCobro;
                     break;
                 default:
                     window.location.href = urlventaLista;
-                    //alert('No se puede registrar venta');
+                    alert(result.Mensaje);
             }
         },
         error: function (ex) {
