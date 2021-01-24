@@ -50,7 +50,7 @@ namespace MarketASP.Controllers
             return View(cTA_COBRAR);
         }
 
-        public async Task<ActionResult> CreateCobro(long? id, string mensaje, string xtipo)
+        public async Task<ActionResult> CreateCobro(long? id, string xtipo, string mensaje)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));

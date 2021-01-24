@@ -59,6 +59,8 @@ namespace SunatService.Modelos
         /// Bytes de un archivo zip Devuelto por Sunat
         /// </summary>
         public byte[] ContentZip{ get; set; }
+
+        public string info { get; set; }
     }
     /// <summary>
     /// Representa la respuesta al enviar un Resumen o Comunicacion de Baja.

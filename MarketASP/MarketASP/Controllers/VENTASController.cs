@@ -83,12 +83,15 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Create(string model_json)
+        public ActionResult Create(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
             ObjectParameter cc = new ObjectParameter("cc", typeof(int));
@@ -120,7 +123,7 @@ namespace MarketASP.Controllers
                                 mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
+                                mofView.ntotalUs_venta,mofView.nicbper_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
                                 ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
 
 
@@ -149,7 +152,8 @@ namespace MarketASP.Controllers
                             catch (Exception ex)
                             {
 
-                                resultado.Error.Description = ex.Message;
+                                resultado.Error.Description = "EnvSuna" + ex.Message;
+                                return Json(new { Success = 3, Mensaje = resultado.Error.Description });
                             }
                         }
                     }
@@ -157,7 +161,7 @@ namespace MarketASP.Controllers
 
                 if (resultado.Success)
                 {
-                    xmensaje = "Registro exitoso en Sunat y Local";
+                    xmensaje = "Registro exitoso en Sunat y Local - " + resultado.info;
                 }
                 else
                 {
@@ -175,7 +179,7 @@ namespace MarketASP.Controllers
             catch (Exception ex)
             {
                 string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
+                ViewBag.mensaje = "Venta" + mensaje + xmensaje;
                 return Json(new { Success = 0 });
             }
         }
@@ -428,7 +432,7 @@ namespace MarketASP.Controllers
             SunatService.Servicios.SUNAT_UTIL servicioSUNAT = new SunatService.Servicios.SUNAT_UTIL();
 
             //Obtner la ruta de la aplicacion
-            string RutaAplicacion = ControllerContext.HttpContext.Server.MapPath("/"); ;// _hostingEnvironment.WebRootPath;
+            string RutaAplicacion = ControllerContext.HttpContext.Server.MapPath("/"); // _hostingEnvironment.WebRootPath;
 
             string pathsunat = ControllerContext.HttpContext.Server.MapPath("/");
 
@@ -450,12 +454,11 @@ namespace MarketASP.Controllers
             try
             {
                 resultado = servicioSUNAT.GenerarComprobanteFB_XML(comprobante);
-                //return 1;
             }
             catch (Exception ex)
             {
-                //throw new Exception(ex.Message);
-                resultado.Error.Description = ex.InnerException.Message;
+                resultado.Error.Description = "GenCom " + ex.InnerException.Message;
+                throw new Exception("EVCom " + ex.Message);
             }
             return resultado;
         }

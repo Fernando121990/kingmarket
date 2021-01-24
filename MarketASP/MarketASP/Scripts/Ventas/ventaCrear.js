@@ -1,6 +1,17 @@
 ﻿$(document).ready(function () {
+
     var code = 0;
+    var conf_igv = 0;
+    var conf_decimal = 0;
+
     code = $("#ncode_venta").val();
+    conf_igv = $("#cnfigv").val();
+    conf_decimal = $("#cnfdeci").val();
+    conf_icbper = $("#cnficbper").val();
+
+    console.log(conf_igv);
+    console.log(conf_decimal);
+    console.log(conf_icbper);
 
     if (typeof code === 'undefined') {
       //  console.log('series');
@@ -45,7 +56,7 @@
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             //console.log(xvalue);
                             var subto = xcant * parseFloat(xvalue);
-                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         case 5: //price column
                             //console.log('subtotal');
@@ -54,14 +65,14 @@
                             var yValue = ComparaPrecio(sValue, xvalue);
                             var subto = xcant*yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
 
                     }
 
-                    Totales();
+                    Totales(conf_igv, conf_decimal, conf_icbper);;
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -72,7 +83,7 @@
                 "height": "20px",
                 "width": "100%"
             });
-            Totales();
+            Totales(conf_igv, conf_decimal, conf_icbper);
         },
         select: {
             style: 'single'
@@ -148,11 +159,12 @@
                         { "data": "ncode_umed" },
                         { "data": "bafecto_arti" },
                         { "data": "bisc_arti" },
-                        { "data": "bdscto_arti" }
+                        { "data": "bdscto_arti" },
+                        { "data": "bicbper_arti" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0,6,7,8,9]
+                        "aTargets": [] //0,6,7,8,9
                     },
                     {
                         "sClass": "my_class",
@@ -195,8 +207,9 @@
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,xcan*data.Precio]).draw();
-        Totales();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio]).draw();
+
+        Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
     $("#btncerrar").click(function () {
@@ -291,7 +304,7 @@ function Sales_save() {
     var ventaViewDetas = {
         "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
         "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
-        "ncode_alma": "","ndsctomax_vedeta":"","ndsctomin_vedeta":"","ndsctoporc_vedeta":""
+        "ncode_alma": "","ndsctomax_vedeta":"","ndsctomin_vedeta":"","ndsctoporc_vedeta":"","bicbper_vedeta" :""
     };
 
     var ventaView = {
@@ -304,7 +317,7 @@ function Sales_save() {
         "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
         "ntotaaf_venta":"","ntotal_venta":"","ntotalMN_venta":"","ntotalUs_venta":"",
-        "nvalIGV_venta":"","ventaViewDetas": []
+        "nvalIGV_venta": "","nicbper_venta":"","ventaViewDetas": []
 
     };
 
@@ -335,6 +348,7 @@ function Sales_save() {
     ventaView.ntotal_venta = $('#ntotal_venta').val();
     ventaView.ntotalMN_venta = $('#ntotalMN_venta').val();
     ventaView.ntotalUs_venta = $('#ntotalUs_venta').val();
+    ventaView.nicbper_venta = $('#nicbper_venta').val();
     ventaView.nvalIGV_venta = $('#nvalIGV_venta').val();
     ventaView.ncode_alma = $("#ncode_alma option:selected").val();
     ventaView.ncode_mone = $("#ncode_mone option:selected").val();
@@ -353,6 +367,7 @@ function Sales_save() {
         ventaViewDetas.nafecto_vedeta = oTable[i][5] * oTable[i][3];
         ventaViewDetas.besafecto_vedeta = oTable[i][8];
         ventaViewDetas.ndsctoporc_vedeta = oTable[i][6];
+        ventaViewDetas.bicbper_vedeta = oTable[i][11];
         ventaViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ventaView.ventaViewDetas.push(ventaViewDetas);
@@ -360,7 +375,8 @@ function Sales_save() {
         ventaViewDetas = {
             "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
             "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
-            "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": ""
+            "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "",
+            "bicbper_vedeta" : ""
         };
 
     }
@@ -382,8 +398,10 @@ function Sales_save() {
                     alert(result.Mensaje);
                     break;
                 case 2:
+                    console.log(urlventaCobro);
                     urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo))
-                                        .replace("param-mensaje", encodeURIComponent(result.Mensaje));
+                        .replace("param-mensaje", encodeURIComponent(result.Mensaje));
+                    console.log(urlventaCobro);
                     window.location.href = urlventaCobro;
                     break;
                 default:
@@ -397,8 +415,11 @@ function Sales_save() {
     });
 
 }
-function Totales() {
+function Totales(conf_igv, conf_decimal, conf_icbper) {
     console.log('calculo de totales');
+    console.log(conf_igv);
+    console.log(conf_decimal);
+    console.log(conf_icbper);
 
     var TOT_AFECTO = 0;
     var TOT_EXON = 0;
@@ -410,12 +431,14 @@ function Totales() {
     var DSCTO_AFECTO = 0;
     var DSCTO_EXON = 0;
     var TOT_ISC = 0;
-    var CONFIG_IGV = 18;
+    var CONFIG_IGV = 0;
+    var TOT_ICBPER = 0;
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
     var oTable = otblx.fnGetData();
 
+    CONFIG_IGV = conf_igv;
 
 
     for (var i = 0; i < nrowsx; i++) {
@@ -425,6 +448,7 @@ function Totales() {
 
         var AFECTO_ART = oTable[i][8].toString();
         var COL_TISC = oTable[i][9];
+        var COL_ICBPER = oTable[i][11].toString();
         var CANT_DV = oTable[i][3];
         var PU_DV = oTable[i][5];
         var DSCTO_DV = 0;
@@ -435,17 +459,21 @@ function Totales() {
         TOT = CANT_DV * PU_DV;
         TOT = TOT - (TOT * DSCTO_DV / 100);
 
-        console.log(AFECTO_ART);
+        console.log(COL_ICBPER);
 
-        if (AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, 2);
+        if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
+            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
             //  console.log('afecto');
         }
 
-        if (AFECTO_ART == 'false' || AFECTO_ART == 'False') {
+        if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
 
-            TOT_EXON = TOT_EXON + Math.round(TOT, 2);
+            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
             //console.log('exone');
+        }
+
+        if (COL_ICBPER.toUpperCase() == 'TRUE') {
+            TOT_ICBPER = TOT_ICBPER + conf_icbper * CANT_DV;
         }
 
         SUBT = CANT_DV * PU_DV;
@@ -477,27 +505,28 @@ function Totales() {
         }
     }
 
-    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(2));
-    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(2));
-    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(2));
-    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(2));
-    $("#ntotaex_venta").val(SUBT_EXON.toFixed(2));
+    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(conf_decimal));
+    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(conf_decimal));
+    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(conf_decimal));
+    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(conf_decimal));
+    $("#ntotaex_venta").val(SUBT_EXON.toFixed(conf_decimal));
+    $("#nicbper_venta").val(TOT_ICBPER.toFixed(conf_decimal));
 
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
     var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
     var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
 
-    $("#nsubex_venta").val(SUBT_EX.toFixed(2));
-    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(2));
-    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(2));
+    $("#nsubex_venta").val(SUBT_EX.toFixed(conf_decimal));
+    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
+    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(conf_decimal));
 
     var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
-    $("#nigvaf_venta").val(IGV_AF.toFixed(2));
+    $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
     $("#nigvex_venta").val(0);
 
     var TOTAL = TOTAL_AFEC + SUBT_EX;
 
-    $("#ntotal_venta").val(TOTAL.toFixed(2));
+    $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
 }
 function ComparaPrecio(Precio, PrecioOrigen) {
 

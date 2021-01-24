@@ -23,5 +23,6 @@ namespace MarketASP.Models
         public Nullable<bool> bafecto_arti { get; set; }
         public Nullable<bool> bisc_arti { get; set; }
         public Nullable<bool> bdscto_arti { get; set; }
+        public Nullable<bool> bicbper_arti { get; set; }
     }
 }

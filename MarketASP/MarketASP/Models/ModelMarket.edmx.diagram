@@ -105,6 +105,9 @@
         <AssociationConnector Association="MarketWebModel.FK_LOCAL_UBIGEO" />
         <EntityTypeShape EntityType="MarketWebModel.SUCURSAL" Width="1.5" PointX="7.375" PointY="0.875" />
         <AssociationConnector Association="MarketWebModel.R_56" />
+        <EntityTypeShape EntityType="MarketWebModel.SUNAT_CodProductos" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MarketWebModel.SUNAT_TipoMercaderias" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MarketWebModel.SUNAT_UnidadMedidas" Width="1.5" PointX="9.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

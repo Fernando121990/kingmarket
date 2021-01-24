@@ -84,6 +84,9 @@
           <Property Name="dfech_arti" Type="datetime" />
           <Property Name="susmo_arti" Type="varchar" MaxLength="200" />
           <Property Name="dfemo_arti" Type="datetime" />
+          <Property Name="bicbper_arti" Type="bit" />
+          <Property Name="scodsunat_arti" Type="varchar" MaxLength="10" />
+          <Property Name="stipomerca_arti" Type="varchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -537,6 +540,37 @@
           <Property Name="sdesc_sucu" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="bacti_sucu" Type="bit" Nullable="false" />
           <Property Name="sruc_sucu" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_CodProductos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="SUNAT_CodProductos">
+          <Key>
+            <PropertyRef Name="codsunat" />
+          </Key>
+          <Property Name="codsunat" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="detalle" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_TipoMercaderias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="SUNAT_TipoMercaderias">
+          <Key>
+            <PropertyRef Name="CODIGO" />
+            <PropertyRef Name="ACTIVADO" />
+          </Key>
+          <Property Name="CODIGO" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+          <Property Name="ACTIVADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="SUNAT_UnidadMedidas">
+          <Key>
+            <PropertyRef Name="CODIGO" />
+            <PropertyRef Name="ACTIVADO" />
+          </Key>
+          <Property Name="CODIGO" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar(max)" />
+          <Property Name="ACTIVADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_CAMBIO">
           <Key>
@@ -1767,6 +1801,7 @@
           <Parameter Name="ntotal_venta" Type="decimal" Mode="In" />
           <Parameter Name="ntotalMN_venta" Type="decimal" Mode="In" />
           <Parameter Name="ntotalUs_venta" Type="decimal" Mode="In" />
+          <Parameter Name="nicbper_venta" Type="decimal" Mode="In" />
           <Parameter Name="besta_venta" Type="bit" Mode="In" />
           <Parameter Name="nvalIGV_venta" Type="decimal" Mode="In" />
           <Parameter Name="suser_venta" Type="varchar" Mode="In" />
@@ -1868,6 +1903,26 @@
           <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUNAT_CodProductos" EntityType="Self.SUNAT_CodProductos" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SUNAT_CodProductos].[codsunat] AS [codsunat], 
+    [SUNAT_CodProductos].[detalle] AS [detalle]
+    FROM [dbo].[SUNAT_CodProductos] AS [SUNAT_CodProductos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SUNAT_TipoMercaderias" EntityType="Self.SUNAT_TipoMercaderias" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SUNAT_TipoMercaderias].[CODIGO] AS [CODIGO], 
+    [SUNAT_TipoMercaderias].[DESCRIPCION] AS [DESCRIPCION], 
+    [SUNAT_TipoMercaderias].[ACTIVADO] AS [ACTIVADO]
+    FROM [dbo].[SUNAT_TipoMercaderias] AS [SUNAT_TipoMercaderias]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SUNAT_UnidadMedidas" EntityType="Self.SUNAT_UnidadMedidas" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SUNAT_UnidadMedidas].[CODIGO] AS [CODIGO], 
+    [SUNAT_UnidadMedidas].[DESCRIPCION] AS [DESCRIPCION], 
+    [SUNAT_UnidadMedidas].[ACTIVADO] AS [ACTIVADO]
+    FROM [dbo].[SUNAT_UnidadMedidas] AS [SUNAT_UnidadMedidas]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_LOCAL_UBIGEO" Association="Self.FK_LOCAL_UBIGEO">
             <End Role="UBIGEO" EntitySet="UBIGEO" />
             <End Role="LOCAL" EntitySet="LOCAL" />
@@ -2364,6 +2419,7 @@
             <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
             <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
             <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
+            <Parameter Name="nicbper_venta" Mode="In" Type="Decimal" />
             <Parameter Name="besta_venta" Mode="In" Type="Boolean" />
             <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
             <Parameter Name="suser_venta" Mode="In" Type="String" />
@@ -2835,6 +2891,9 @@
             <End Role="SUCURSAL" EntitySet="SUCURSAL" />
             <End Role="LOCAL" EntitySet="LOCAL" />
           </AssociationSet>
+          <EntitySet Name="SUNAT_CodProductos" EntityType="MarketWebModel.SUNAT_CodProductos" />
+          <EntitySet Name="SUNAT_TipoMercaderias" EntityType="MarketWebModel.SUNAT_TipoMercaderias" />
+          <EntitySet Name="SUNAT_UnidadMedidas" EntityType="MarketWebModel.SUNAT_UnidadMedidas" />
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -2939,6 +2998,9 @@
           <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
           <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_39" FromRole="ARTICULO" ToRole="COMPRA_DETALLE" />
           <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_63" FromRole="ARTICULO" ToRole="PROFORMA_DETALLE" />
+          <Property Name="bicbper_arti" Type="Boolean" />
+          <Property Name="scodsunat_arti" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="stipomerca_arti" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -3347,6 +3409,7 @@
           <Property Type="Boolean" Name="bafecto_arti" Nullable="true" />
           <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
           <Property Type="Boolean" Name="bdscto_arti" Nullable="true" />
+          <Property Type="Boolean" Name="bicbper_arti" Nullable="true" />
         </ComplexType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -4415,6 +4478,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SUNAT_CodProductos">
+          <Key>
+            <PropertyRef Name="codsunat" />
+          </Key>
+          <Property Name="codsunat" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SUNAT_TipoMercaderias">
+          <Key>
+            <PropertyRef Name="CODIGO" />
+            <PropertyRef Name="ACTIVADO" />
+          </Key>
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVADO" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUNAT_UnidadMedidas">
+          <Key>
+            <PropertyRef Name="CODIGO" />
+            <PropertyRef Name="ACTIVADO" />
+          </Key>
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ACTIVADO" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4475,6 +4563,9 @@
           <EntitySetMapping Name="ARTICULO">
             <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
               <MappingFragment StoreEntitySet="ARTICULO">
+                <ScalarProperty Name="stipomerca_arti" ColumnName="stipomerca_arti" />
+                <ScalarProperty Name="scodsunat_arti" ColumnName="scodsunat_arti" />
+                <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
                 <ScalarProperty Name="dfemo_arti" ColumnName="dfemo_arti" />
                 <ScalarProperty Name="susmo_arti" ColumnName="susmo_arti" />
                 <ScalarProperty Name="dfech_arti" ColumnName="dfech_arti" />
@@ -4708,6 +4799,7 @@
                 <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
                 <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
                 <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
+                <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -5167,6 +5259,32 @@
                 <ScalarProperty Name="bacti_sucu" ColumnName="bacti_sucu" />
                 <ScalarProperty Name="sdesc_sucu" ColumnName="sdesc_sucu" />
                 <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUNAT_CodProductos">
+            <EntityTypeMapping TypeName="MarketWebModel.SUNAT_CodProductos">
+              <MappingFragment StoreEntitySet="SUNAT_CodProductos">
+                <ScalarProperty Name="detalle" ColumnName="detalle" />
+                <ScalarProperty Name="codsunat" ColumnName="codsunat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUNAT_TipoMercaderias">
+            <EntityTypeMapping TypeName="MarketWebModel.SUNAT_TipoMercaderias">
+              <MappingFragment StoreEntitySet="SUNAT_TipoMercaderias">
+                <ScalarProperty Name="ACTIVADO" ColumnName="ACTIVADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUNAT_UnidadMedidas">
+            <EntityTypeMapping TypeName="MarketWebModel.SUNAT_UnidadMedidas">
+              <MappingFragment StoreEntitySet="SUNAT_UnidadMedidas">
+                <ScalarProperty Name="ACTIVADO" ColumnName="ACTIVADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

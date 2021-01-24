@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,16 @@ namespace MarketASP.Controllers
     {
         public ActionResult Index()
         {
+
+            ViewBag.ruta = ControllerContext.HttpContext.Server.MapPath("/");
+            string RutaAplicacion = ControllerContext.HttpContext.Server.MapPath("/");
+            string RutaCertificado = Helpers.Funciones.ObtenerValorParam("RUTA", "CERTIFICADO");
+            string RutaXML = Helpers.Funciones.ObtenerValorParam("RUTA", "XML");
+            string RutaCDR = Helpers.Funciones.ObtenerValorParam("RUTA", "CDR");
+            string RutaEnvio = Helpers.Funciones.ObtenerValorParam("RUTA", "ENVIO");
+            string RutaQR = Helpers.Funciones.ObtenerValorParam("RUTA", "QR");
+            //Enviar las credenciales
+            ViewBag.certificado = Path.Combine(RutaAplicacion, RutaCertificado);
             return View();
         }
 

@@ -55,6 +55,9 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfech_arti { get; set; }
         public string susmo_arti { get; set; }
         public Nullable<System.DateTime> dfemo_arti { get; set; }
+        public Nullable<bool> bicbper_arti { get; set; }
+        public string scodsunat_arti { get; set; }
+        public string stipomerca_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }

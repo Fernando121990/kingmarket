@@ -703,6 +703,7 @@ namespace SunatService.Servicios
                 Comprimir(archXML, strEnvio);
 
                 SunatResponse resultado = new SunatResponse();
+                //resultado.Success = true;
                 resultado = EnviarDocumento(strEnvio);
 
                 return resultado;
@@ -710,7 +711,7 @@ namespace SunatService.Servicios
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("GenFB " + ex.Message);
             }
         }
                         
