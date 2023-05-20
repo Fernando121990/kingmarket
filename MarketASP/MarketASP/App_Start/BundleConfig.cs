@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Data;
+using System.Web;
 using System.Web.Optimization;
 
 namespace MarketASP
@@ -12,21 +13,34 @@ namespace MarketASP
 
             #region JS
 
-                bundles.Add(new ScriptBundle("~/bundles/sbadmin").Include(
-                       "~/Content/vendor/jquery-easing/jquery.easing.min.js",
-                       "~/Content/js/sb-admin-2.min.js"));
-
-
                 bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                             "~/Scripts/jquery-{version}.js"));
 
                 bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                             "~/Scripts/jquery.validate*"));
 
-                bundles.Add(new ScriptBundle("~/bundles/estructura").Include(
-                            "~/Scripts/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
-                            "~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js",
-                            "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-*"));
+
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/template").Include(
+                    "~/Scripts/assets/js/app.js"));
+
+
+
+            bundles.Add(new ScriptBundle("~/bundles/assets").Include(
+                    "~/Scripts/assets/libs/metismenu/metisMenu.min.js",
+                    "~/Scripts/assets/libs/simplebar/simplebar.min.js",
+                    "~/Scripts/assets/libs/node-waves/waves.min.js",
+                    "~/Scripts/assets/js/pages/datatables.init.js",
+                    "~/Scripts/assets/js/app.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tablas").Include(
+                            "~/Scripts/librerias/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
+                            "~/Scripts/librerias/jquery-ui-1.12.1.custom/jquery-ui.js",
+                            "~/Scripts/librerias/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
                             "~/Scripts/jquery.jeditable.js",
                             "~/Scripts/DataTables/jquery.dataTables.js",
                             "~/Scripts/DataTables/dataTables.bootstrap4.js",
@@ -34,16 +48,27 @@ namespace MarketASP
                             "~/Scripts/DataTables/buttons.flash.js",
                             "~/Scripts/DataTables/buttons.html5.js",
                             "~/Scripts/DataTables/buttons.print.js",
-                            "~/Scripts/DataTables/dataTables.select.min.js"
+                            "~/Scripts/DataTables/dataTables.select.min.js",
+                            "~/Scripts/Datatables/dataTables.responsive.min.js",
+                            "~/Scripts/Datatables/responsive.bootstrap4.min.js"
                             ));
 
-                // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
-                // para la producción, use la herramienta de compilación disponible en https://modernizr.com para seleccionar solo las pruebas que necesite.
-                bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                            "~/Scripts/modernizr-*"));
 
-                bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                          "~/Scripts/bootstrap.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/estructura").Include(
+            //                "~/Scripts/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
+            //                "~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js",
+            //                "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
+            //                "~/Scripts/jquery.jeditable.js",
+            //                "~/Scripts/DataTables/jquery.dataTables.js",
+            //                "~/Scripts/DataTables/dataTables.bootstrap4.js",
+            //                "~/Scripts/DataTables/dataTables.buttons.js",
+            //                "~/Scripts/DataTables/buttons.flash.js",
+            //                "~/Scripts/DataTables/buttons.html5.js",
+            //                "~/Scripts/DataTables/buttons.print.js",
+            //                "~/Scripts/DataTables/dataTables.select.min.js"
+            //                ));
+
 
 
             #endregion
@@ -52,23 +77,27 @@ namespace MarketASP
             var jquerycdnpath = "https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i";
             bundles.Add(new StyleBundle("~/fonts", jquerycdnpath));
 
-            bundles.Add(new StyleBundle("~/Content/sbadmin").Include(
-                "~/Content/css/sb-admin-2.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/csspersonalizado").Include(
-                "~/Content/css/Site.css"));
+            bundles.Add(new StyleBundle("~/Content/css/css").Include(
+                  "~/Content/css/bootstrap.min.css",
+                  "~/Content/css/icons.min.css",
+                  "~/Content/css/app.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css"));
-
-
-            bundles.Add(new StyleBundle("~/Content/estructura").Include(
+            bundles.Add(new StyleBundle("~/Content/librerias/css").Include(
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.css",
                       "~/Content/jquery-ui-1.12.1.custom/jquery-ui.structure.css",
-                      "~/Content/jquery-ui-1.12.1.custom/jquery-ui.theme.css",
+                      "~/Content/jquery-ui-1.12.1.custom/jquery-ui.theme.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/DataTables/css/css").Include(
                       "~/Content/DataTables/css/dataTables.bootstrap4.css",
-                      "~/Content/DataTables/css/dataTables.jqueryui.css",
-                      "~/Content/DataTables/css/buttons.dataTables.css"));
+                      "~/Content/DataTables/css/buttons.bootstrap4.min.css",
+                      "~/Content/DataTables/css/select.bootstrap4.min.css",
+                      "~/Content/DataTables/css/responsive.bootstrap4.min.css",
+                      "~/Content/DataTables/css/dataTables.jqueryui.css"));
+
+
+
 
             #endregion
 

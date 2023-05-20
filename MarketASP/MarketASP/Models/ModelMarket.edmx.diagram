@@ -108,6 +108,15 @@
         <EntityTypeShape EntityType="MarketWebModel.SUNAT_CodProductos" Width="1.5" PointX="7.375" PointY="3.75" />
         <EntityTypeShape EntityType="MarketWebModel.SUNAT_TipoMercaderias" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="MarketWebModel.SUNAT_UnidadMedidas" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MarketWebModel.LINEA" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MarketWebModel.SUBLINEA" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE" Width="1.5" PointX="19.625" PointY="0.75" />
+        <AssociationConnector Association="MarketWebModel.R_55" />
+        <AssociationConnector Association="MarketWebModel.R_57" />
+        <EntityTypeShape EntityType="MarketWebModel.AspNetUsers" Width="1.5" PointX="10.375" PointY="19.75" />
+        <EntityTypeShape EntityType="MarketWebModel.Permiso" Width="1.5" PointX="12.375" PointY="19.75" />
+        <EntityTypeShape EntityType="MarketWebModel.Ventana" Width="1.5" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MarketWebModel.AspNetRoles" Width="1.5" PointX="22.375" PointY="3.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

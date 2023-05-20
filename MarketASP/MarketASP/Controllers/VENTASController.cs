@@ -78,7 +78,6 @@ namespace MarketASP.Controllers
 //                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
             ViewBag.tc = result.nventa_tc;
-
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
@@ -86,6 +85,8 @@ namespace MarketASP.Controllers
             ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.dfeventa_venta = string.Format("{0:d}",yfecha);
+            ViewBag.dfevenci_venta = string.Format("{0:d}", yfecha);
             return View();
         }
 
@@ -144,17 +145,19 @@ namespace MarketASP.Controllers
 
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
-                            //inicio el proceso de envio a sunat
-                            try
-                            {
-                                resultado = EnviarComprobante(mofView);
-                            }
-                            catch (Exception ex)
-                            {
+                            resultado.Success = true;
 
-                                resultado.Error.Description = "EnvSuna" + ex.Message;
-                                return Json(new { Success = 3, Mensaje = resultado.Error.Description });
-                            }
+                            //inicio el proceso de envio a sunat
+                            //try
+                            //{
+                            //    resultado = EnviarComprobante(mofView);
+                            //}
+                            //catch (Exception ex)
+                            //{
+
+                            //    resultado.Error.Description = "EnvSuna" + ex.Message;
+                            //    return Json(new { Success = 3, Mensaje = resultado.Error.Description });
+                            //}
                         }
                     }
                 }
@@ -213,9 +216,17 @@ namespace MarketASP.Controllers
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi",vENTAS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
+            ViewBag.cod_cliente = vENTAS.ncode_cliente;
             ViewBag.sdesc_cliente = vENTAS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = vENTAS.CLIENTE.sruc_cliente;
             ViewBag.sdni_cliente = vENTAS.CLIENTE.sdnice_cliente;
+            ViewBag.tc = vENTAS.ntc_venta;
+            ViewBag.dfeventa_venta = string.Format("{0:d}", vENTAS.dfeventa_venta);  
+            ViewBag.dfevenci_venta = string.Format("{0:d}", vENTAS.dfevenci_venta);
+
+
+
+
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
@@ -279,7 +290,7 @@ namespace MarketASP.Controllers
                     }
                 }
 
-                return Json(new { Success = 1 });
+                return Json(new { Success = 1, Mensaje = "Registro Actualizado" });
 
             }
             catch (Exception ex)

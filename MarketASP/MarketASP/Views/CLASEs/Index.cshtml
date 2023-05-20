@@ -1,53 +1,58 @@
 ﻿@model IEnumerable<MarketASP.Models.CLASE>
 
 @{
-    ViewBag.Title = "Clases";
+    ViewBag.Title = "Clase";
+    ViewBag.pTitle = "Clase";
+    ViewBag.pageTitle = "Mantenimiento";
 }
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Clase">
-        <i class="fas fa-file"></i>
-    </a>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Clase</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    Familia
+                                </th>
+                                <th>
+                                    Descripción
+                                </th>
+                                <th>
+                                    Activo
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_clase)
+                                </td>
+                                <td>
+                                    <input type="checkbox" checked="@item.nesta_clase" readonly />
+                                </td>
+                                <td id="tooltip-container3">
+                                    <a href="@Url.Action("Edit", new { id = item.ncode_clase })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                    <a href="@Url.Action("DeleteClase", new { id = item.ncode_clase })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<table class="table table-striped table-responsive-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                Familia
-            </th>
-            <th>
-                Descripción
-            </th>
-            <th>
-                Activo
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FAMILIA.sdesc_fami)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sdesc_clase)
-                </td>
-                <td>
-                    <input type="checkbox" checked="@item.nesta_clase" readonly />
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit", new { id = item.ncode_clase })" class="btn btn-success btn-circle btn-sm" title="Edita Clase">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a href="@Url.Action("DeleteClase", new { id = item.ncode_clase })" class="btn btn-danger btn-circle btn-sm" title="Eliminar Clase" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- end row -->

@@ -29,6 +29,7 @@ namespace MarketASP.Models
         public Nullable<decimal> ndsctoporc_profdeta { get; set; }
         public Nullable<int> nback_profdeta { get; set; }
         public Nullable<long> ncode_prof { get; set; }
+        public Nullable<decimal> nsubt_profdeta { get; set; }
     
         public virtual ARTICULO ARTICULO { get; set; }
         public virtual PROFORMAS PROFORMAS { get; set; }

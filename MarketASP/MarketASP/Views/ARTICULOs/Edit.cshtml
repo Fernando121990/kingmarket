@@ -1,218 +1,38 @@
 ﻿@model MarketASP.Models.ARTICULO
 
 @{
-    ViewBag.Title = "Actualizar Articulo";
+    ViewBag.Title = "Editar Articulo";
+    ViewBag.pTitle = "Editar Articulo";
+    ViewBag.pageTitle = "Mantenimiento";
 }
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
-</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ncode_arti)
 
-<div class="form-horizontal">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ncode_arti)
-    <div class="form-group row">
-        @Html.LabelFor(model => model.scode_arti, "Codigo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.scode_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.scode_arti, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.sabrev_arti, "Abreviatura", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.sabrev_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sabrev_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.sdesc1_arti, "Descripciòn", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.sdesc1_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sdesc1_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    @Html.Partial("_Articulo")
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.sdesc2_arti, "Descripciòn Alt.", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.sdesc2_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sdesc2_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+                    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.sdescweb_arti, "Desc.Web", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.sdescweb_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sdescweb_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                </div>
+                }
 
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.ncode_fami, "Familia", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ncode_fami", null, "", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_fami, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.ncode_clase, "Clase", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ncode_clase", null, "", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_clase, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.ncode_marca, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ncode_marca", null, "", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_marca, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.ncode_umed, "Medida", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("ncode_umed", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_umed, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.scodsunat_arti, "Cod. sunat", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("scodsunat_arti", null, "", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.scodsunat_arti, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.stipomerca_arti, "Tipo Mercaderia", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownList("stipomerca_arti", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.stipomerca_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.bisc_arti, "ISC", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bisc_arti")
-                @Html.ValidationMessageFor(model => model.bisc_arti, "", new { @class = "text-danger" })
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Articulos" })
+                </div>
             </div>
-        </div>
-        @Html.LabelFor(model => model.bafecto_arti, "AFECTO", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bafecto_arti")
-                @Html.ValidationMessageFor(model => model.bafecto_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        @Html.LabelFor(model => model.bivap_arti, "IVAP", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bivap_arti")
-                @Html.ValidationMessageFor(model => model.bivap_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.bicbper_arti, "ICBPER", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bicbper_arti")
-                @Html.ValidationMessageFor(model => model.bicbper_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.bdscto_arti, "Dscto", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bdscto_arti")
-                @Html.ValidationMessageFor(model => model.bdscto_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        @Html.LabelFor(model => model.bpercepcion_arti, "Percepciòn", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            <div class="checkbox">
-                @Html.CheckBox("bpercepcion_arti")
-                @Html.ValidationMessageFor(model => model.bpercepcion_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        @Html.LabelFor(model => model.nporpercepcion_arti, "Porcentaje", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.nporpercepcion_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.nporpercepcion_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.bvenc_arti, "Vencimiento", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            <div class="checkbox">
-                @Html.CheckBox("bvenc_arti")
-                @Html.ValidationMessageFor(model => model.bvenc_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        @Html.LabelFor(model => model.sserie_arti, "Serie", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.sserie_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sserie_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.nstockmin_arti, "Stock Min", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.nstockmin_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.nstockmin_arti, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.nstockmax_arti, "Stock Max", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.nstockmax_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.nstockmax_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.spaisOrigen_arti, "Origen", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.EditorFor(model => model.spaisOrigen_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.spaisOrigen_arti, "", new { @class = "text-danger" })
-        </div>
-        @Html.LabelFor(model => model.bprocedencia_arti, "Procedencia", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.RadioButtonFor(Model => Model.bprocedencia_arti, true) Nacional
-            @Html.RadioButtonFor(Model => Model.bprocedencia_arti, false) Importado
-            @Html.ValidationMessageFor(model => model.bprocedencia_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.sobse_arti, "Observaciòn", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.sobse_arti, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.sobse_arti, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.nesta_arti, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            <div class="checkbox">
-                @Html.CheckBox("nesta_arti")
-                @Html.ValidationMessageFor(model => model.nesta_arti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="offset-md-2 col-md-8">
-            <input type="submit" value="Actualizar" class="btn btn-block btn-success" />
         </div>
     </div>
 </div>
-}
-
-<div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Articulos" })
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

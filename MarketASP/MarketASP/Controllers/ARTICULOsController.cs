@@ -32,8 +32,8 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            var aRTICULO = db.ARTICULO.Include(a => a.FAMILIA).Include(a => a.CLASE).Include(a => a.MARCA).Include(a => a.UMEDIDA);
-            return View(await aRTICULO.ToListAsync());
+            var aRTICULO = db.Pr_ArticuloListado().ToList();
+            return View(aRTICULO);
         }
 
         public async Task<ActionResult> Details(int? id)
@@ -110,6 +110,8 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(F => F.nesta_linea == true), "ncode_linea", "sdesc_linea", aRTICULO.ncode_linea);
+            ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea", aRTICULO.ncode_sublinea);
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
             ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
             ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
@@ -122,7 +124,7 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_arti,sdesc1_arti,sdesc2_arti,sdescweb_arti,scode_arti,ncode_fami,ncode_clase,ncode_marca,ncode_umed,bisc_arti,bafecto_arti,bivap_arti,bpercepcion_arti,nporpercepcion_arti,bvenc_arti,sserie_arti,sobse_arti,nesta_arti,nstockmin_arti,nstockmax_arti,sabrev_arti,bdscto_arti,spaisOrigen_arti,bprocedencia_arti,suser_arti,dfech_arti,susmo_arti,dfemo_arti,bicbper_arti")] ARTICULO aRTICULO)
+        public async Task<ActionResult> Edit(ARTICULO aRTICULO)
         {
             if (ModelState.IsValid)
             {
@@ -130,13 +132,14 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(F => F.nesta_linea == true), "ncode_linea", "sdesc_linea", aRTICULO.ncode_linea);
+            ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea", aRTICULO.ncode_sublinea);
             ViewBag.ncode_fami = new SelectList(db.FAMILIA, "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
             ViewBag.ncode_clase = new SelectList(db.CLASE, "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
             ViewBag.ncode_marca = new SelectList(db.MARCA, "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA, "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle", aRTICULO.scodsunat_arti);
             ViewBag.stipomerca_arti = new SelectList(db.SUNAT_TipoMercaderias.Where(F => F.ACTIVADO == true), "codigo", "descripcion", aRTICULO.stipomerca_arti);
-
             return View(aRTICULO);
         }
 
@@ -524,7 +527,8 @@ namespace MarketASP.Controllers
         }
 
         void CargaCombos() {
-
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(F => F.nesta_linea == true), "ncode_linea", "sdesc_linea");
+            ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea");
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami");
             ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase");
             ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca");

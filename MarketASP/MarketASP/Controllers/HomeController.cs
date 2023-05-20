@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketASP.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Web.Mvc;
 
 namespace MarketASP.Controllers
 {
+   
     public class HomeController : Controller
     {
+        private MarketWebEntities db = new MarketWebEntities();
         public ActionResult Index()
         {
 
@@ -21,6 +24,12 @@ namespace MarketASP.Controllers
             string RutaQR = Helpers.Funciones.ObtenerValorParam("RUTA", "QR");
             //Enviar las credenciales
             ViewBag.certificado = Path.Combine(RutaAplicacion, RutaCertificado);
+            var yfecha = DateTime.Now.Date;
+            var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc == yfecha);
+            if (result == null)
+            {
+                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
+            }
             return View();
         }
 

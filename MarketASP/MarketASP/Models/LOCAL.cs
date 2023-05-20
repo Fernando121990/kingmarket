@@ -20,6 +20,7 @@ namespace MarketASP.Models
             this.COMPRAS = new HashSet<COMPRAS>();
             this.VENTAS = new HashSet<VENTAS>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
+            this.DOCU_SERIE = new HashSet<DOCU_SERIE>();
         }
     
         public int ncode_local { get; set; }
@@ -37,5 +38,7 @@ namespace MarketASP.Models
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
         public virtual UBIGEO UBIGEO { get; set; }
         public virtual SUCURSAL SUCURSAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DOCU_SERIE> DOCU_SERIE { get; set; }
     }
 }

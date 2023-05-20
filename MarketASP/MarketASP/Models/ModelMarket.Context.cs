@@ -65,6 +65,13 @@ namespace MarketASP.Models
         public virtual DbSet<SUNAT_CodProductos> SUNAT_CodProductos { get; set; }
         public virtual DbSet<SUNAT_TipoMercaderias> SUNAT_TipoMercaderias { get; set; }
         public virtual DbSet<SUNAT_UnidadMedidas> SUNAT_UnidadMedidas { get; set; }
+        public virtual DbSet<LINEA> LINEA { get; set; }
+        public virtual DbSet<SUBLINEA> SUBLINEA { get; set; }
+        public virtual DbSet<DOCU_SERIE> DOCU_SERIE { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Permiso> Permiso { get; set; }
+        public virtual DbSet<Ventana> Ventana { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -1507,6 +1514,55 @@ namespace MarketASP.Models
                 new ObjectParameter("cliente", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ProformaLista_Result>("Pr_ProformaLista", documentoParameter, clienteParameter);
+        }
+    
+        public virtual ObjectResult<Pr_ArticuloListado_Result> Pr_ArticuloListado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ArticuloListado_Result>("Pr_ArticuloListado");
+        }
+    
+        public virtual ObjectResult<Pr_KardexArticulos_Result> Pr_KardexArticulos(string sdesc_arti, string sdesc_alma)
+        {
+            var sdesc_artiParameter = sdesc_arti != null ?
+                new ObjectParameter("sdesc_arti", sdesc_arti) :
+                new ObjectParameter("sdesc_arti", typeof(string));
+    
+            var sdesc_almaParameter = sdesc_alma != null ?
+                new ObjectParameter("sdesc_alma", sdesc_alma) :
+                new ObjectParameter("sdesc_alma", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexArticulos_Result>("Pr_KardexArticulos", sdesc_artiParameter, sdesc_almaParameter);
+        }
+    
+        public virtual int Pr_PermisoCrear(string username, string nivel)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var nivelParameter = nivel != null ?
+                new ObjectParameter("nivel", nivel) :
+                new ObjectParameter("nivel", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_PermisoCrear", usernameParameter, nivelParameter);
+        }
+    
+        public virtual int Pr_PermisoEliminar(string username)
+        {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_PermisoEliminar", usernameParameter);
+        }
+    
+        public virtual ObjectResult<Pr_PermisoLista_Result> Pr_PermisoLista(string usuario)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PermisoLista_Result>("Pr_PermisoLista", usuarioParameter);
         }
     }
 }

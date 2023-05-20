@@ -1,88 +1,31 @@
 ﻿@model MarketASP.Models.CONFIGURACION
 
-@{
-    ViewBag.Title = "Actualizar Configuración";
-}
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ncode_confi)
-    <div class="row">
-        <div class="col">
-            <h5 class="text-center mb-2 text-gray-800">@ViewBag.Title</h5>
+@{
+    ViewBag.Title = "Actualizar";
+    ViewBag.pTitle = "Actualizar";
+    ViewBag.pageTitle = "Configuración";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ncode_confi)
+
+                    @Html.Partial("_Configuracion")
+                }
+
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Configuración" })
+                </div>
+            </div>
         </div>
     </div>
-    <form>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-lg-2">
-                                <label class="text-xs text-primary text-uppercase font-weight-bold">Cod :</label>
-                            </div>
-                            <div class="col-lg-4">
-                                @Html.EditorFor(model => model.ntipo_confi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ntipo_confi, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="text-xs text-primary text-uppercase font-weight-bold">Tipo :</label>
-                            </div>
-                            <div class="col-lg-4">
-                                @Html.EditorFor(model => model.stipo_confi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.stipo_confi, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-2">
-                                <label class="text-xs text-primary text-uppercase font-weight-bold">Descripción :</label>
-                            </div>
-                            <div class="col-lg-4">
-                                @Html.EditorFor(model => model.sdesc_confi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.sdesc_confi, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="text-xs text-primary text-uppercase font-weight-bold">Valor :</label>
-                            </div>
-                            <div class="col-lg-4">
-                                @Html.EditorFor(model => model.svalor_confi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.svalor_confi, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-2">
-                                <label class="text-xs text-primary text-uppercase font-weight-bold"></label>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        @Html.EditorFor(model => model.besta_confi)
-                                        @Html.ValidationMessageFor(model => model.besta_confi, "", new { @class = "text-danger" })
-                                        Activo
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col m-2">
-                <button type="submit" class="btn btn-success btn-block">Actualizar</button>
-            </div>
-        </div>
-    </form>
-}
-
-<div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Configuración" })
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -33,6 +33,7 @@ namespace MarketASP.Models
             this.CLIENTE1 = new HashSet<CLIENTE>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
             this.PROFORMAS1 = new HashSet<PROFORMAS>();
+            this.DOCU_SERIE = new HashSet<DOCU_SERIE>();
         }
     
         public int ncode_confi { get; set; }
@@ -74,5 +75,7 @@ namespace MarketASP.Models
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMAS> PROFORMAS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DOCU_SERIE> DOCU_SERIE { get; set; }
     }
 }

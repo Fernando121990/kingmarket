@@ -169,7 +169,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN, "ncode_alma", "sdesc_alma", mOVIMIENTO.ndestino_alma);
             ViewBag.ncode_timovi = new SelectList(rtimovi, "ncode_timovi", "sdesc_timovi", mOVIMIENTO.ncode_timovi);
             ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",mOVIMIENTO.smone_movi);
-
+            ViewBag.tc = mOVIMIENTO.ntc_movi;
             return View(mOVIMIENTO);
         }
 

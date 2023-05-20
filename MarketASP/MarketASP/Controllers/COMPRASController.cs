@@ -173,6 +173,8 @@ namespace MarketASP.Controllers
             ViewBag.smone_compra = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", cOMPRAS.smone_compra);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", cOMPRAS.ncode_alma);
             ViewBag.sdesc_prove = cOMPRAS.PROVEEDOR.sdesc_prove;
+            ViewBag.ncode_provee = cOMPRAS.ncode_provee ;
+            ViewBag.tc = cOMPRAS.ntc_compra;
             return View(cOMPRAS);
         }
 
@@ -228,7 +230,7 @@ namespace MarketASP.Controllers
 
                             db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
 
-                            db.Pr_ventaDetaEdita(code);
+                            db.Pr_compraDetaEdita(code);
                         }
                     }
                 }

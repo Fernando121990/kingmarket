@@ -72,7 +72,7 @@
 
                     }
 
-                    Totales(conf_igv, conf_decimal, conf_icbper);;
+                    Totales(conf_igv, conf_decimal, conf_icbper);
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -89,6 +89,7 @@
             style: 'single'
         },
         "paging": false,
+        "keys":true,
         "info": false,
         "searching": false,
         "language": {
@@ -164,7 +165,7 @@
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [] //0,6,7,8,9
+                        "aTargets": [0,6,7,8,9,10]
                     },
                     {
                         "sClass": "my_class",
@@ -254,7 +255,7 @@
             return false;
         }
 
-        if(ncode_docu == 10 && $("#sruc_cliente").val().length < 1){
+        if(ncode_docu == 10 && $("#sruc").val().length < 1){
             alert("Ingrese RUC");
             return false;
         }
@@ -440,11 +441,12 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
     CONFIG_IGV = conf_igv;
 
+    console.log(oTable);
 
     for (var i = 0; i < nrowsx; i++) {
 
-        //console.log(i);
-        //console.log(nrowsx);
+        
+        console.log(nrowsx);
 
         var AFECTO_ART = oTable[i][8].toString();
         var COL_TISC = oTable[i][9];
@@ -564,7 +566,7 @@ function fnFormaPagoDiasFecha() {
                 var xfecha = new Date(fecha).toLocaleDateString()
                 $('#dfevenci_venta').val(xfecha);
                 //console.log(fecha);
-                //console.log(xfecha);
+                console.log(xfecha);
             });
 
         },

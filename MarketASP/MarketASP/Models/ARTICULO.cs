@@ -58,6 +58,31 @@ namespace MarketASP.Models
         public Nullable<bool> bicbper_arti { get; set; }
         public string scodsunat_arti { get; set; }
         public string stipomerca_arti { get; set; }
+        public string scodectadebe_ventas { get; set; }
+        public string ctadebe_ventas { get; set; }
+        public string scodectahaber_ventas { get; set; }
+        public string ctahaber_ventas { get; set; }
+        public string scodectadebe_compras { get; set; }
+        public string ctadebe_compras { get; set; }
+        public string scodectahaber_compras { get; set; }
+        public string ctahaber_compras { get; set; }
+        public string scodigo_sap { get; set; }
+        public string sorigen { get; set; }
+        public string snombre_equivalencia { get; set; }
+        public string sequivalenciaA { get; set; }
+        public string sequivalenciaB { get; set; }
+        public string smoneda { get; set; }
+        public Nullable<decimal> nstockactual { get; set; }
+        public Nullable<bool> bdetraccion { get; set; }
+        public Nullable<decimal> porcdetraccion { get; set; }
+        public string codigodetraccion { get; set; }
+        public string snombrepalletcaja { get; set; }
+        public string spallet { get; set; }
+        public string sbandeja { get; set; }
+        public Nullable<long> ncode_linea { get; set; }
+        public Nullable<long> ncode_sublinea { get; set; }
+        public Nullable<decimal> nprecio_arti { get; set; }
+        public Nullable<decimal> nstockreservado_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }

@@ -70,6 +70,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_prof = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
+            ViewBag.dfeprofo_prof = string.Format("{0:d}", yfecha);
+            ViewBag.dfevenci_prof = string.Format("{0:d}", yfecha);
             return View();
         }
         [HttpPost]
@@ -166,9 +168,13 @@ namespace MarketASP.Controllers
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1032), "ncode_confi", "sdesc_confi", pROFORMAS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", pROFORMAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", pROFORMAS.ncode_alma);
+            ViewBag.cod_cliente = pROFORMAS.ncode_cliente;
             ViewBag.sdesc_cliente = pROFORMAS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = pROFORMAS.CLIENTE.sruc_cliente;
             ViewBag.sdni_cliente = pROFORMAS.CLIENTE.sdnice_cliente;
+            ViewBag.dfeprofo_prof = string.Format("{0:d}", pROFORMAS.dfeprofo_prof);
+            ViewBag.dfevenci_prof = string.Format("{0:d}", pROFORMAS.dfevenci_prof);
+            ViewBag.tc = pROFORMAS.ntc_prof;
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == pROFORMAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", pROFORMAS.ncode_clidire);
             return View(pROFORMAS);
         }

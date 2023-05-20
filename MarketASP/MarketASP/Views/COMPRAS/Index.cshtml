@@ -1,126 +1,135 @@
 ﻿@model IEnumerable<MarketASP.Models.COMPRAS>
 
 @{
-    ViewBag.Title = "Consulta de Compras";
+    ViewBag.Title = "Compras";
+    ViewBag.pTitle = "Consulta";
+    ViewBag.pageTitle = "Compras";
 }
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
-    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Compra">
-        <i class="fas fa-file"></i>
-    </a>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Compra</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    Doc.
+                                </th>
+                                <th>
+                                    Proveedor
+                                </th>
+                                <th>
+                                    No Doc.
+                                </th>
+                                <th>
+                                    F.Compra
+                                </th>
+                                <th>
+                                    F.Vcto
+                                </th>
+                                <th>
+                                    TC
+                                </th>
+                                <th>
+                                    Obs
+                                </th>
+                                <th>
+                                    OC
+                                </th>
+                                <th>
+                                    Proforma
+                                </th>
+                                <th>
+                                    M
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                                <th>
+                                    Almacen
+                                </th>
+                                <th>
+                                    F.Pago
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sseri_compra) - @Html.DisplayFor(modelItem => item.snume_compra)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:d}", item.dfecompra_compra)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:d}", item.dfevenci_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ntc_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sobs_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sguia_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sproforma_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.smone_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ntotal_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.besta_compra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+                                    </td>
+                                    <td>
+                                        @if (item.besta_compra == true)
+                                        {
+                                            <a href="@Url.Action("Edit", new { id = item.ncode_compra })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("anulaCompra", new { id = item.ncode_compra })" class="btn btn-primary btn-circle btn-sm" title="Anular">
+                                                <i class="fas fa-circle-notch"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<table class="datatbl table table-striped table-responsive-sm">
-    <thead class="thead-dark">
-        <tr>
-            <th>
-                Doc.
-            </th>
-            <th>
-                Proveedor
-            </th>
-            <th>
-                No Doc.
-            </th>
-            <th>
-                F.Compra
-            </th>
-            <th>
-                F.Vcto
-            </th>
-            <th>
-                TC
-            </th>
-            <th>
-                Obs
-            </th>
-            <th>
-                OC
-            </th>
-            <th>
-                Proforma
-            </th>
-            <th>
-                M
-            </th>
-            <th>
-                Total
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                Almacen
-            </th>
-            <th>
-                F.Pago
-            </th>
-            <th></th>
-        </tr>
-</thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sseri_compra) - @Html.DisplayFor(modelItem => item.snume_compra)
-                </td>
-                <td>
-                    @string.Format("{0:d}", item.dfecompra_compra)
-                </td>
-                <td>
-                    @string.Format("{0:d}", item.dfevenci_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ntc_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sobs_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sguia_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sproforma_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.smone_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ntotal_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.besta_compra)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
-                </td>
-                <td>
-                    @if (item.besta_compra == true)
-                    {
-                        <a href="@Url.Action("Edit", new { id = item.ncode_compra })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="@Url.Action("anulaCompra", new { id = item.ncode_compra })" class="btn btn-primary btn-circle btn-sm" title="Anular">
-                            <i class="fas fa-circle-notch"></i>
-                        </a>
-                        <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                            <i class="fas fa-trash"></i>
-                        </a>
-
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- end row -->

@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    var mattable;
+
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
@@ -79,7 +81,7 @@
         ofunciones.rows('.selected').remove().draw(false);
     });
 
-    var mattable;
+    
 
     $(".addMat").click(function () {
 
@@ -94,7 +96,7 @@
                 //alert('exito');
 
                 mattable = $('#matetabla').DataTable({
-                    data: resultado, ///JSON.parse(data.d),
+                    data: resultado, 
                     "columns":
                         [{ "data": "Cod" },
                         { "data": "Cod2" },
@@ -146,6 +148,11 @@
 
     });
 
+    $('#matetabla tbody').on('click', 'tr', function () {
+        var data = table.row(this).data();
+        alert('You clicked on ' + data[0] + "'s row");
+    });
+
     $("#btnmate").click(function () {
         var data = mattable.row('.selected').data();
         var xcan = 1;
@@ -156,7 +163,7 @@
         Totales();
     });
 
-    $("#btncerrar").click(function () {
+    $("#btncerrar","btnmatcerrar").click(function () {
         mattable.destroy();
     });
 
