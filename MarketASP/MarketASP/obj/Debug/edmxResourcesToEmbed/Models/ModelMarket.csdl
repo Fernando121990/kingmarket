@@ -1,0 +1,2509 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarketWebModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MarketWebEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ALMACEN" EntityType="MarketWebModel.ALMACEN" />
+    <EntitySet Name="ART_BARRA" EntityType="MarketWebModel.ART_BARRA" />
+    <EntitySet Name="ART_PRECIO" EntityType="MarketWebModel.ART_PRECIO" />
+    <EntitySet Name="ART_PROVE" EntityType="MarketWebModel.ART_PROVE" />
+    <EntitySet Name="ARTICULO" EntityType="MarketWebModel.ARTICULO" />
+    <EntitySet Name="CLASE" EntityType="MarketWebModel.CLASE" />
+    <EntitySet Name="CLI_DIRE" EntityType="MarketWebModel.CLI_DIRE" />
+    <EntitySet Name="CLIDI_CONTAC" EntityType="MarketWebModel.CLIDI_CONTAC" />
+    <EntitySet Name="CONTACTO" EntityType="MarketWebModel.CONTACTO" />
+    <EntitySet Name="FAMILIA" EntityType="MarketWebModel.FAMILIA" />
+    <EntitySet Name="LISTA_PRECIO" EntityType="MarketWebModel.LISTA_PRECIO" />
+    <EntitySet Name="MARCA" EntityType="MarketWebModel.MARCA" />
+    <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
+    <EntitySet Name="PROV_CONTACTO" EntityType="MarketWebModel.PROV_CONTACTO" />
+    <EntitySet Name="PROVEEDOR" EntityType="MarketWebModel.PROVEEDOR" />
+    <EntitySet Name="TIPO_CAMBIO" EntityType="MarketWebModel.TIPO_CAMBIO" />
+    <EntitySet Name="TIPO_MOVIMIENTO" EntityType="MarketWebModel.TIPO_MOVIMIENTO" />
+    <EntitySet Name="UBIGEO" EntityType="MarketWebModel.UBIGEO" />
+    <EntitySet Name="UMEDIDA" EntityType="MarketWebModel.UMEDIDA" />
+    <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ART_BARRA" EntitySet="ART_BARRA" />
+    </AssociationSet>
+    <AssociationSet Name="R_6" Association="MarketWebModel.R_6">
+      <End Role="LISTA_PRECIO" EntitySet="LISTA_PRECIO" />
+      <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
+    </AssociationSet>
+    <AssociationSet Name="R_7" Association="MarketWebModel.R_7">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
+    </AssociationSet>
+    <AssociationSet Name="R_10" Association="MarketWebModel.R_10">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ART_PROVE" EntitySet="ART_PROVE" />
+    </AssociationSet>
+    <AssociationSet Name="R_9" Association="MarketWebModel.R_9">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="ART_PROVE" EntitySet="ART_PROVE" />
+    </AssociationSet>
+    <AssociationSet Name="R_1" Association="MarketWebModel.R_1">
+      <End Role="FAMILIA" EntitySet="FAMILIA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="R_18" Association="MarketWebModel.R_18">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_2" Association="MarketWebModel.R_2">
+      <End Role="CLASE" EntitySet="CLASE" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="R_3" Association="MarketWebModel.R_3">
+      <End Role="MARCA" EntitySet="MARCA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="R_4" Association="MarketWebModel.R_4">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="R_5" Association="MarketWebModel.R_5">
+      <End Role="FAMILIA" EntitySet="FAMILIA" />
+      <End Role="CLASE" EntitySet="CLASE" />
+    </AssociationSet>
+    <AssociationSet Name="R_12" Association="MarketWebModel.R_12">
+      <End Role="UBIGEO" EntitySet="UBIGEO" />
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+    </AssociationSet>
+    <AssociationSet Name="R_13" Association="MarketWebModel.R_13">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="CLIDI_CONTAC" EntitySet="CLIDI_CONTAC" />
+    </AssociationSet>
+    <AssociationSet Name="R_14" Association="MarketWebModel.R_14">
+      <End Role="CONTACTO" EntitySet="CONTACTO" />
+      <End Role="CLIDI_CONTAC" EntitySet="CLIDI_CONTAC" />
+    </AssociationSet>
+    <AssociationSet Name="R_16" Association="MarketWebModel.R_16">
+      <End Role="CONTACTO" EntitySet="CONTACTO" />
+      <End Role="PROV_CONTACTO" EntitySet="PROV_CONTACTO" />
+    </AssociationSet>
+    <AssociationSet Name="R_15" Association="MarketWebModel.R_15">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="PROV_CONTACTO" EntitySet="PROV_CONTACTO" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_tipoCambioExiste">
+      <Parameter Name="dfecha_tc" Mode="In" Type="String" />
+      <Parameter Name="valor" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ConsultaArticulos" ReturnType="Collection(MarketWebModel.Pr_ConsultaArticulos_Result)" />
+    <FunctionImport Name="Pr_movimientoCrear">
+      <Parameter Name="dfemov_movi" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_movi" Mode="In" Type="String" />
+      <Parameter Name="ntc_movi" Mode="In" Type="Decimal" />
+      <Parameter Name="sobse_movi" Mode="In" Type="String" />
+      <Parameter Name="sserie_movi" Mode="In" Type="String" />
+      <Parameter Name="snume_movi" Mode="In" Type="String" />
+      <Parameter Name="suser_movi" Mode="In" Type="String" />
+      <Parameter Name="ncode_timovi" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+      <Parameter Name="stipo_movi" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_movimientoDetaCrea">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_movidet" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_movidet" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_movidet" Mode="In" Type="String" />
+      <Parameter Name="ncode_movi" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="MOVIMIENTO" EntityType="MarketWebModel.MOVIMIENTO" />
+    <AssociationSet Name="R_20" Association="MarketWebModel.R_20">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="R_21" Association="MarketWebModel.R_21">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="R_19" Association="MarketWebModel.R_19">
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_17" Association="MarketWebModel.R_17">
+      <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_KardexCrea">
+      <Parameter Name="modulo" Mode="In" Type="String" />
+      <Parameter Name="ncode_confi" Mode="In" Type="Int32" />
+      <Parameter Name="tipo" Mode="In" Type="String" />
+      <Parameter Name="codigo" Mode="In" Type="Decimal" />
+      <Parameter Name="usuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_KardexElimina">
+      <Parameter Name="modulo" Mode="In" Type="String" />
+      <Parameter Name="codigo" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_movimientoElimina">
+      <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="KARDEX" EntityType="MarketWebModel.KARDEX" />
+    <AssociationSet Name="R_22" Association="MarketWebModel.R_22">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="KARDEX" EntitySet="KARDEX" />
+    </AssociationSet>
+    <AssociationSet Name="R_23" Association="MarketWebModel.R_23">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="KARDEX" EntitySet="KARDEX" />
+    </AssociationSet>
+    <AssociationSet Name="R_25" Association="MarketWebModel.R_25">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_26" Association="MarketWebModel.R_26">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="KARDEX" EntitySet="KARDEX" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_movimientoDetaElimina">
+      <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_movimientoEditar">
+      <Parameter Name="ncode_movi" Mode="In" Type="Decimal" />
+      <Parameter Name="dfemov_movi" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_movi" Mode="In" Type="String" />
+      <Parameter Name="ntc_movi" Mode="In" Type="Decimal" />
+      <Parameter Name="sobse_movi" Mode="In" Type="String" />
+      <Parameter Name="sserie_movi" Mode="In" Type="String" />
+      <Parameter Name="snume_movi" Mode="In" Type="String" />
+      <Parameter Name="suser_movi" Mode="In" Type="String" />
+      <Parameter Name="ncode_timovi" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+      <Parameter Name="stipo_movi" Mode="In" Type="String" />
+      <Parameter Name="besta_movi" Mode="In" Type="Boolean" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="VENTA_DETALLE" EntityType="MarketWebModel.VENTA_DETALLE" />
+    <EntitySet Name="VENTAS" EntityType="MarketWebModel.VENTAS" />
+    <AssociationSet Name="R_33" Association="MarketWebModel.R_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_32" Association="MarketWebModel.R_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_29" Association="MarketWebModel.R_29">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_31" Association="MarketWebModel.R_31">
+      <End Role="VENTAS" EntitySet="VENTAS" />
+      <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_ClienteElimina">
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_clienteDireElimina">
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaCrea">
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="sseri_venta" Mode="In" Type="String" />
+      <Parameter Name="snume_venta" Mode="In" Type="String" />
+      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_venta" Mode="In" Type="String" />
+      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nicbper_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+      <Parameter Name="cc" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaDetaCrea">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_vedeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndsctomax_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctomin_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoporc_vedeta" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaDetaEdita">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaEdita">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_venta" Mode="In" Type="String" />
+      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaAnula">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaElimina">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="COMPRA_DETALLE" EntityType="MarketWebModel.COMPRA_DETALLE" />
+    <EntitySet Name="COMPRAS" EntityType="MarketWebModel.COMPRAS" />
+    <EntitySet Name="CTA_COBRAR" EntityType="MarketWebModel.CTA_COBRAR" />
+    <EntitySet Name="CTAS_PAGAR" EntityType="MarketWebModel.CTAS_PAGAR" />
+    <EntitySet Name="CTASCO_DETALLE" EntityType="MarketWebModel.CTASCO_DETALLE" />
+    <EntitySet Name="CTASPA_DETALLE" EntityType="MarketWebModel.CTASPA_DETALLE" />
+    <AssociationSet Name="R_36" Association="MarketWebModel.R_36">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_37" Association="MarketWebModel.R_37">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="COMPRA_DETALLE" EntitySet="COMPRA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_39" Association="MarketWebModel.R_39">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="COMPRA_DETALLE" EntitySet="COMPRA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_35" Association="MarketWebModel.R_35">
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+      <End Role="COMPRA_DETALLE" EntitySet="COMPRA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_38" Association="MarketWebModel.R_38">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_48" Association="MarketWebModel.R_48">
+      <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
+      <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_42" Association="MarketWebModel.R_42">
+      <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+      <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_44" Association="MarketWebModel.R_44">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_compraCrea">
+      <Parameter Name="sseri_compra" Mode="In" Type="String" />
+      <Parameter Name="snume_compra" Mode="In" Type="String" />
+      <Parameter Name="dfecompra_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_compra" Mode="In" Type="String" />
+      <Parameter Name="ntc_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="sobs_compra" Mode="In" Type="String" />
+      <Parameter Name="sguia_compra" Mode="In" Type="String" />
+      <Parameter Name="sproforma_compra" Mode="In" Type="String" />
+      <Parameter Name="nbrutoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUS_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nvalIGV_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_compra" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraDetaCrea">
+      <Parameter Name="ncant_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_comdeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraAnula">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraDetaEdita">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraEdita">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="sseri_compra" Mode="In" Type="String" />
+      <Parameter Name="snume_compra" Mode="In" Type="String" />
+      <Parameter Name="dfecompra_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_compra" Mode="In" Type="String" />
+      <Parameter Name="ntc_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="sobs_compra" Mode="In" Type="String" />
+      <Parameter Name="sguia_compra" Mode="In" Type="String" />
+      <Parameter Name="sproforma_compra" Mode="In" Type="String" />
+      <Parameter Name="nbrutoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUS_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nvalIGV_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_compra" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraElimina">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_CtaCobrarCrea">
+      <Parameter Name="ncodeDoc_ctaco" Mode="In" Type="Int64" />
+      <Parameter Name="sdocu_ctaco" Mode="In" Type="String" />
+      <Parameter Name="dfecta_ctaco" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_ctaco" Mode="In" Type="String" />
+      <Parameter Name="ntotal_ctaco" Mode="In" Type="Decimal" />
+      <Parameter Name="dfevenci_ctaco" Mode="In" Type="DateTime" />
+      <Parameter Name="ntc_ctaco" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_ctaco" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUS_ctaco" Mode="In" Type="Decimal" />
+      <Parameter Name="npago_ctaco" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_letra" Mode="In" Type="Int32" />
+      <Parameter Name="sesta_letra" Mode="In" Type="String" />
+      <Parameter Name="suser_ctaco" Mode="In" Type="String" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ctaCobrarDetaCrea">
+      <Parameter Name="dfepago_ctacode" Mode="In" Type="DateTime" />
+      <Parameter Name="sdoc_ctacode" Mode="In" Type="String" />
+      <Parameter Name="smone_ctacode" Mode="In" Type="String" />
+      <Parameter Name="ntc_ctacode" Mode="In" Type="Decimal" />
+      <Parameter Name="nmonto_ctacode" Mode="In" Type="Decimal" />
+      <Parameter Name="nmontoMN_ctacode" Mode="In" Type="Decimal" />
+      <Parameter Name="nmontoUS_ctacode" Mode="In" Type="Decimal" />
+      <Parameter Name="nvuelto_ctacode" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_tarjeta" Mode="In" Type="Int64" />
+      <Parameter Name="suser_tarjeta" Mode="In" Type="String" />
+      <Parameter Name="snro_tarjeta" Mode="In" Type="String" />
+      <Parameter Name="sobse_ctacode" Mode="In" Type="String" />
+      <Parameter Name="suser_ctacode" Mode="In" Type="String" />
+      <Parameter Name="ncode_ctaco" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_banco" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_tpago" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ctaCobrarDetaElimina">
+      <Parameter Name="ncode_ctacode" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_ctaco" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="suser_ctacode" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PermisoAcceso">
+      <Parameter Name="usuario" Mode="In" Type="String" />
+      <Parameter Name="nivel" Mode="In" Type="String" />
+      <Parameter Name="xcode" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="LOCAL" EntityType="MarketWebModel.LOCAL" />
+    <AssociationSet Name="R_59" Association="MarketWebModel.R_59">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_58" Association="MarketWebModel.R_58">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel.CONFIGURACION" />
+    <AssociationSet Name="R_40" Association="MarketWebModel.R_40">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_41" Association="MarketWebModel.R_41">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_24" Association="MarketWebModel.R_24">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="KARDEX" EntitySet="KARDEX" />
+    </AssociationSet>
+    <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_43" Association="MarketWebModel.R_43">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+    </AssociationSet>
+    <AssociationSet Name="R_45" Association="MarketWebModel.R_45">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
+    </AssociationSet>
+    <AssociationSet Name="R_47" Association="MarketWebModel.R_47">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
+    </AssociationSet>
+    <AssociationSet Name="R_50" Association="MarketWebModel.R_50">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_51" Association="MarketWebModel.R_51">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTASCO_DETALLE" EntitySet="CTASCO_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_52" Association="MarketWebModel.R_52">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_53" Association="MarketWebModel.R_53">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
+    </AssociationSet>
+    <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
+    <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+    </AssociationSet>
+    <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_46" Association="MarketWebModel.R_46">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
+    </AssociationSet>
+    <AssociationSet Name="R_60" Association="MarketWebModel.R_60">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_61" Association="MarketWebModel.R_61">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_ClienteBusca" ReturnType="Collection(MarketWebModel.Pr_ClienteBusca_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="sdesc_cliente" Mode="In" Type="String" />
+      <Parameter Name="sruc_cliente" Mode="In" Type="String" />
+      <Parameter Name="sdni_cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_DocNumeracion" ReturnType="Collection(MarketWebModel.Pr_DocNumeracion_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="susario_dose" Mode="In" Type="String" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="PROFORMAS" EntityType="MarketWebModel.PROFORMAS" />
+    <AssociationSet Name="R_67" Association="MarketWebModel.R_67">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_66" Association="MarketWebModel.R_66">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_65" Association="MarketWebModel.R_65">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_64" Association="MarketWebModel.R_64">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_69" Association="MarketWebModel.R_69">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_68" Association="MarketWebModel.R_68">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <EntitySet Name="PROFORMA_DETALLE" EntityType="MarketWebModel.PROFORMA_DETALLE" />
+    <AssociationSet Name="R_63" Association="MarketWebModel.R_63">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_62" Association="MarketWebModel.R_62">
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+      <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_proformaCrea">
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="sseri_prof" Mode="In" Type="String" />
+      <Parameter Name="snume_prof" Mode="In" Type="String" />
+      <Parameter Name="dfeprofo_prof" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_prof" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_prof" Mode="In" Type="String" />
+      <Parameter Name="ntc_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_prof" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_prof" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_prof" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_proformaDetaCrea">
+      <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_profdeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndsctomax_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctomin_profdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoporc_profdeta" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_proformaDetaEdita">
+      <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_proformaEdita">
+      <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="dfeprofo_prof" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_prof" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_prof" Mode="In" Type="String" />
+      <Parameter Name="ntc_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_prof" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_prof" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_prof" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_prof" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_proformaElimina">
+      <Parameter Name="ncode_prof" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ProformaLista" ReturnType="Collection(MarketWebModel.Pr_ProformaLista_Result)">
+      <Parameter Name="documento" Mode="In" Type="String" />
+      <Parameter Name="cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <AssociationSet Name="FK_LOCAL_UBIGEO" Association="MarketWebModel.FK_LOCAL_UBIGEO">
+      <End Role="UBIGEO" EntitySet="UBIGEO" />
+      <End Role="LOCAL" EntitySet="LOCAL" />
+    </AssociationSet>
+    <EntitySet Name="SUCURSAL" EntityType="MarketWebModel.SUCURSAL" />
+    <AssociationSet Name="R_56" Association="MarketWebModel.R_56">
+      <End Role="SUCURSAL" EntitySet="SUCURSAL" />
+      <End Role="LOCAL" EntitySet="LOCAL" />
+    </AssociationSet>
+    <EntitySet Name="SUNAT_CodProductos" EntityType="MarketWebModel.SUNAT_CodProductos" />
+    <EntitySet Name="SUNAT_TipoMercaderias" EntityType="MarketWebModel.SUNAT_TipoMercaderias" />
+    <EntitySet Name="SUNAT_UnidadMedidas" EntityType="MarketWebModel.SUNAT_UnidadMedidas" />
+    <EntitySet Name="LINEA" EntityType="MarketWebModel.LINEA" />
+    <EntitySet Name="SUBLINEA" EntityType="MarketWebModel.SUBLINEA" />
+    <FunctionImport Name="Pr_ArticuloListado" ReturnType="Collection(MarketWebModel.Pr_ArticuloListado_Result)" />
+    <FunctionImport Name="Pr_KardexArticulos" ReturnType="Collection(MarketWebModel.Pr_KardexArticulos_Result)">
+      <Parameter Name="sdesc_arti" Mode="In" Type="String" />
+      <Parameter Name="sdesc_alma" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel.DOCU_SERIE" />
+    <AssociationSet Name="R_55" Association="MarketWebModel.R_55">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+    <AssociationSet Name="R_57" Association="MarketWebModel.R_57">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+    <EntitySet Name="AspNetUsers" EntityType="MarketWebModel.AspNetUsers" />
+    <EntitySet Name="Permiso" EntityType="MarketWebModel.Permiso" />
+    <EntitySet Name="Ventana" EntityType="MarketWebModel.Ventana" />
+    <FunctionImport Name="Pr_PermisoCrear">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="nivel" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PermisoEliminar">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PermisoLista" ReturnType="Collection(MarketWebModel.Pr_PermisoLista_Result)">
+      <Parameter Name="usuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="AspNetRoles" EntityType="MarketWebModel.AspNetRoles" />
+  </EntityContainer>
+  <EntityType Name="ALMACEN">
+    <Key>
+      <PropertyRef Name="ncode_alma" />
+    </Key>
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_alma" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="besta_alma" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_20" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
+    <NavigationProperty Name="MOVIMIENTO1" Relationship="MarketWebModel.R_21" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
+    <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_22" FromRole="ALMACEN" ToRole="KARDEX" />
+    <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_33" FromRole="ALMACEN" ToRole="VENTA_DETALLE" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_36" FromRole="ALMACEN" ToRole="COMPRAS" />
+    <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_37" FromRole="ALMACEN" ToRole="COMPRA_DETALLE" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_67" FromRole="ALMACEN" ToRole="PROFORMAS" />
+  </EntityType>
+  <EntityType Name="ART_BARRA">
+    <Key>
+      <PropertyRef Name="ncode_barra" />
+    </Key>
+    <Property Name="ncode_barra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_barra" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_barra" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="suser_barra" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_barra" Type="DateTime" Precision="3" />
+    <Property Name="susmo_barra" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_barra" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_8" FromRole="ART_BARRA" ToRole="ARTICULO" />
+  </EntityType>
+  <EntityType Name="ART_PRECIO">
+    <Key>
+      <PropertyRef Name="ncode_artpre" />
+    </Key>
+    <Property Name="ncode_artpre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nprecio_artpre" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nesta_artpre" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_lipre" Type="Int32" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="suser_artpre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_artpre" Type="DateTime" Precision="3" />
+    <Property Name="susmo_artpre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_artpre" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="LISTA_PRECIO" Relationship="MarketWebModel.R_6" FromRole="ART_PRECIO" ToRole="LISTA_PRECIO" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_7" FromRole="ART_PRECIO" ToRole="ARTICULO" />
+  </EntityType>
+  <EntityType Name="ART_PROVE">
+    <Key>
+      <PropertyRef Name="ncode_arprove" />
+    </Key>
+    <Property Name="ncode_arprove" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_provee" Type="Int64" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="suser_arprove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_arprove" Type="DateTime" Precision="3" />
+    <Property Name="susmo_arprove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_arprove" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_10" FromRole="ART_PROVE" ToRole="ARTICULO" />
+    <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_9" FromRole="ART_PROVE" ToRole="PROVEEDOR" />
+  </EntityType>
+  <EntityType Name="ARTICULO">
+    <Key>
+      <PropertyRef Name="ncode_arti" />
+    </Key>
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc1_arti" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sdesc2_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sdescweb_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="scode_arti" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_fami" Type="Int64" />
+    <Property Name="ncode_clase" Type="Int64" />
+    <Property Name="ncode_marca" Type="Int64" />
+    <Property Name="ncode_umed" Type="Int64" />
+    <Property Name="bisc_arti" Type="Boolean" />
+    <Property Name="bafecto_arti" Type="Boolean" />
+    <Property Name="bivap_arti" Type="Boolean" />
+    <Property Name="bpercepcion_arti" Type="Boolean" />
+    <Property Name="nporpercepcion_arti" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="bvenc_arti" Type="Boolean" />
+    <Property Name="sserie_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sobse_arti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_arti" Type="Boolean" Nullable="false" />
+    <Property Name="nstockmin_arti" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nstockmax_arti" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="sabrev_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="bdscto_arti" Type="Boolean" />
+    <Property Name="spaisOrigen_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="bprocedencia_arti" Type="Boolean" />
+    <Property Name="suser_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_arti" Type="DateTime" Precision="3" />
+    <Property Name="susmo_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_arti" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ART_BARRA" Relationship="MarketWebModel.R_8" FromRole="ARTICULO" ToRole="ART_BARRA" />
+    <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_7" FromRole="ARTICULO" ToRole="ART_PRECIO" />
+    <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_10" FromRole="ARTICULO" ToRole="ART_PROVE" />
+    <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
+    <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
+    <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
+    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
+    <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
+    <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
+    <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_39" FromRole="ARTICULO" ToRole="COMPRA_DETALLE" />
+    <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_63" FromRole="ARTICULO" ToRole="PROFORMA_DETALLE" />
+    <Property Name="bicbper_arti" Type="Boolean" />
+    <Property Name="scodsunat_arti" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="stipomerca_arti" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="scodectadebe_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ctadebe_ventas" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="scodectahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ctahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="scodectadebe_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ctadebe_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="scodectahaber_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ctahaber_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="scodigo_sap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sorigen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="snombre_equivalencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sequivalenciaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sequivalenciaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="smoneda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nstockactual" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="bdetraccion" Type="Boolean" />
+    <Property Name="porcdetraccion" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="codigodetraccion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="snombrepalletcaja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="spallet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sbandeja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_linea" Type="Int64" />
+    <Property Name="ncode_sublinea" Type="Int64" />
+    <Property Name="nprecio_arti" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nstockreservado_arti" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="CLASE">
+    <Key>
+      <PropertyRef Name="ncode_clase" />
+    </Key>
+    <Property Name="ncode_clase" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_clase" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_clase" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_fami" Type="Int64" />
+    <Property Name="suser_clase" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_clase" Type="DateTime" Precision="3" />
+    <Property Name="susmo_clase" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_clase" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_2" FromRole="CLASE" ToRole="ARTICULO" />
+    <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_5" FromRole="CLASE" ToRole="FAMILIA" />
+  </EntityType>
+  <EntityType Name="CLI_DIRE">
+    <Key>
+      <PropertyRef Name="ncode_clidire" />
+    </Key>
+    <Property Name="ncode_clidire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_clidire" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="scode_ubigeo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.R_12" FromRole="CLI_DIRE" ToRole="UBIGEO" />
+    <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_13" FromRole="CLI_DIRE" ToRole="CLIDI_CONTAC" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_66" FromRole="CLI_DIRE" ToRole="PROFORMAS" />
+  </EntityType>
+  <EntityType Name="CLIDI_CONTAC">
+    <Key>
+      <PropertyRef Name="ncode_clidco" />
+    </Key>
+    <Property Name="ncode_clidco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_clidire" Type="Int32" Nullable="false" />
+    <Property Name="ncode_contac" Type="Int32" Nullable="false" />
+    <Property Name="besta_clidco" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_13" FromRole="CLIDI_CONTAC" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="CONTACTO" Relationship="MarketWebModel.R_14" FromRole="CLIDI_CONTAC" ToRole="CONTACTO" />
+  </EntityType>
+  <EntityType Name="CONTACTO">
+    <Key>
+      <PropertyRef Name="ncode_contac" />
+    </Key>
+    <Property Name="ncode_contac" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="snomb_contac" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sappa_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sapma_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="scargo_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sfono1_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sfono2_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="smail_contac" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="suser_contac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_contac" Type="DateTime" Precision="3" />
+    <Property Name="susmo_contac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_contac" Type="DateTime" Precision="3" />
+    <Property Name="besta_contac" Type="Boolean" Nullable="false" />
+    <Property Name="stipo_contac" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_14" FromRole="CONTACTO" ToRole="CLIDI_CONTAC" />
+    <NavigationProperty Name="PROV_CONTACTO" Relationship="MarketWebModel.R_16" FromRole="CONTACTO" ToRole="PROV_CONTACTO" />
+  </EntityType>
+  <EntityType Name="FAMILIA">
+    <Key>
+      <PropertyRef Name="ncode_fami" />
+    </Key>
+    <Property Name="ncode_fami" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_fami" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_fami" Type="Boolean" Nullable="false" />
+    <Property Name="suser_fami" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_fami" Type="DateTime" Precision="3" />
+    <Property Name="susmo_fami" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_fami" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_1" FromRole="FAMILIA" ToRole="ARTICULO" />
+    <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_5" FromRole="FAMILIA" ToRole="CLASE" />
+  </EntityType>
+  <EntityType Name="LISTA_PRECIO">
+    <Key>
+      <PropertyRef Name="ncode_lipre" />
+    </Key>
+    <Property Name="ncode_lipre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_lipre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_lipre" Type="Boolean" Nullable="false" />
+    <Property Name="suser_lipre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_lipre" Type="DateTime" Precision="3" />
+    <Property Name="susmo_lipre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_lipre" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_6" FromRole="LISTA_PRECIO" ToRole="ART_PRECIO" />
+  </EntityType>
+  <EntityType Name="MARCA">
+    <Key>
+      <PropertyRef Name="ncode_marca" />
+    </Key>
+    <Property Name="ncode_marca" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_marca" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_marca" Type="Boolean" Nullable="false" />
+    <Property Name="suser_marca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_marca" Type="DateTime" Precision="3" />
+    <Property Name="susmo_marca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_marca" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_3" FromRole="MARCA" ToRole="ARTICULO" />
+  </EntityType>
+  <EntityType Name="MOVI_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_movidet" />
+    </Key>
+    <Property Name="ncode_movidet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_movidet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_movidet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_movidet" Type="DateTime" Precision="3" />
+    <Property Name="susmo_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_movidet" Type="DateTime" Precision="3" />
+    <Property Name="ncode_movi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
+    <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
+  </EntityType>
+  <EntityType Name="PROV_CONTACTO">
+    <Key>
+      <PropertyRef Name="ncode_provcontac" />
+    </Key>
+    <Property Name="ncode_provcontac" Type="Int32" Nullable="false" />
+    <Property Name="ncode_provee" Type="Int64" Nullable="false" />
+    <Property Name="ncode_contac" Type="Int32" Nullable="false" />
+    <Property Name="besta_provcontac" Type="Int32" />
+    <NavigationProperty Name="CONTACTO" Relationship="MarketWebModel.R_16" FromRole="PROV_CONTACTO" ToRole="CONTACTO" />
+    <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_15" FromRole="PROV_CONTACTO" ToRole="PROVEEDOR" />
+  </EntityType>
+  <EntityType Name="PROVEEDOR">
+    <Key>
+      <PropertyRef Name="ncode_provee" />
+    </Key>
+    <Property Name="ncode_provee" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_prove" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sdire_prove" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sruc_prove" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sfono_prove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sfax_prove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="smail_prove" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sobse_prove" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="sweb_prove" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="scontac_prove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_prove" Type="Boolean" Nullable="false" />
+    <Property Name="scargoconta_prove" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="bprocedencia_prove" Type="Int32" />
+    <Property Name="suser_prove" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_prove" Type="DateTime" Precision="3" />
+    <Property Name="susmo_prove" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_prove" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_9" FromRole="PROVEEDOR" ToRole="ART_PROVE" />
+    <NavigationProperty Name="PROV_CONTACTO" Relationship="MarketWebModel.R_15" FromRole="PROVEEDOR" ToRole="PROV_CONTACTO" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_38" FromRole="PROVEEDOR" ToRole="COMPRAS" />
+    <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_44" FromRole="PROVEEDOR" ToRole="CTAS_PAGAR" />
+  </EntityType>
+  <EntityType Name="TIPO_CAMBIO">
+    <Key>
+      <PropertyRef Name="dfecha_tc" />
+    </Key>
+    <Property Name="dfecha_tc" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ncompra_tc" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="nventa_tc" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="TIPO_MOVIMIENTO">
+    <Key>
+      <PropertyRef Name="ncode_timovi" />
+    </Key>
+    <Property Name="ncode_timovi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_timovi" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="binout_tipomovi" Type="Boolean" Nullable="false" />
+    <Property Name="btransf_tipomovi" Type="Boolean" Nullable="false" />
+    <Property Name="besta_tipomovi" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="TIPO_MOVIMIENTO" ToRole="MOVIMIENTO" />
+    <Property Name="stipo_timovi" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UBIGEO">
+    <Key>
+      <PropertyRef Name="scode_ubigeo" />
+    </Key>
+    <Property Name="scode_ubigeo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sdepa_ubigeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sprovi_ubigeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sdistri_ubigeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_12" FromRole="UBIGEO" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="UBIGEO" ToRole="LOCAL" />
+  </EntityType>
+  <EntityType Name="UMEDIDA">
+    <Key>
+      <PropertyRef Name="ncode_umed" />
+    </Key>
+    <Property Name="ncode_umed" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_umed" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ssunat_umed" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="scodsunat_umed" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_umed" Type="Boolean" Nullable="false" />
+    <Property Name="suser_umed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_umed" Type="DateTime" Precision="3" />
+    <Property Name="susmo_umed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_umed" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
+    <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
+  </EntityType>
+  <Association Name="R_8">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ART_BARRA">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_6">
+    <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
+    <End Type="MarketWebModel.ART_PRECIO" Role="ART_PRECIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LISTA_PRECIO">
+        <PropertyRef Name="ncode_lipre" />
+      </Principal>
+      <Dependent Role="ART_PRECIO">
+        <PropertyRef Name="ncode_lipre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_7">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.ART_PRECIO" Role="ART_PRECIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ART_PRECIO">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_10">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ART_PROVE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_9">
+    <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ncode_provee" />
+      </Principal>
+      <Dependent Role="ART_PROVE">
+        <PropertyRef Name="ncode_provee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_1">
+    <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAMILIA">
+        <PropertyRef Name="ncode_fami" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_fami" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_18">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_2">
+    <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLASE">
+        <PropertyRef Name="ncode_clase" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_clase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_3">
+    <End Type="MarketWebModel.MARCA" Role="MARCA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MARCA">
+        <PropertyRef Name="ncode_marca" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_marca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_4">
+    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_5">
+    <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FAMILIA">
+        <PropertyRef Name="ncode_fami" />
+      </Principal>
+      <Dependent Role="CLASE">
+        <PropertyRef Name="ncode_fami" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_12">
+    <End Type="MarketWebModel.UBIGEO" Role="UBIGEO" Multiplicity="1" />
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UBIGEO">
+        <PropertyRef Name="scode_ubigeo" />
+      </Principal>
+      <Dependent Role="CLI_DIRE">
+        <PropertyRef Name="scode_ubigeo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_13">
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="1" />
+    <End Type="MarketWebModel.CLIDI_CONTAC" Role="CLIDI_CONTAC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="CLIDI_CONTAC">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_14">
+    <End Type="MarketWebModel.CONTACTO" Role="CONTACTO" Multiplicity="1" />
+    <End Type="MarketWebModel.CLIDI_CONTAC" Role="CLIDI_CONTAC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTACTO">
+        <PropertyRef Name="ncode_contac" />
+      </Principal>
+      <Dependent Role="CLIDI_CONTAC">
+        <PropertyRef Name="ncode_contac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_16">
+    <End Type="MarketWebModel.CONTACTO" Role="CONTACTO" Multiplicity="1" />
+    <End Type="MarketWebModel.PROV_CONTACTO" Role="PROV_CONTACTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTACTO">
+        <PropertyRef Name="ncode_contac" />
+      </Principal>
+      <Dependent Role="PROV_CONTACTO">
+        <PropertyRef Name="ncode_contac" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_15">
+    <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="1" />
+    <End Type="MarketWebModel.PROV_CONTACTO" Role="PROV_CONTACTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ncode_provee" />
+      </Principal>
+      <Dependent Role="PROV_CONTACTO">
+        <PropertyRef Name="ncode_provee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_ConsultaArticulos_Result">
+    <Property Type="Decimal" Name="Precio" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Stock" Nullable="false" Precision="1" Scale="1" />
+    <Property Type="Int64" Name="Cod" Nullable="false" />
+    <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+    <Property Type="Boolean" Name="bafecto_arti" Nullable="true" />
+    <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
+    <Property Type="Boolean" Name="bdscto_arti" Nullable="true" />
+    <Property Type="Boolean" Name="bicbper_arti" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="MOVIMIENTO">
+    <Key>
+      <PropertyRef Name="ncode_movi" />
+    </Key>
+    <Property Name="ncode_movi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dfemov_movi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="smone_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_movi" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="sobse_movi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="besta_movi" Type="Boolean" Nullable="false" />
+    <Property Name="sserie_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_movi" Type="DateTime" Precision="3" />
+    <Property Name="susmo_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_movi" Type="DateTime" Precision="3" />
+    <Property Name="ncode_timovi" Type="Int32" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ndestino_alma" Type="Int32" />
+    <Property Name="stipo_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_20" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
+    <NavigationProperty Name="ALMACEN1" Relationship="MarketWebModel.R_21" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_19" FromRole="MOVIMIENTO" ToRole="MOVI_DETALLE" />
+    <NavigationProperty Name="TIPO_MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="MOVIMIENTO" ToRole="TIPO_MOVIMIENTO" />
+  </EntityType>
+  <Association Name="R_20">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_21">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ndestino_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_19">
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_movi" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_movi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_17">
+    <End Type="MarketWebModel.TIPO_MOVIMIENTO" Role="TIPO_MOVIMIENTO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_MOVIMIENTO">
+        <PropertyRef Name="ncode_timovi" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_timovi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="KARDEX">
+    <Key>
+      <PropertyRef Name="ncode_kardex" />
+    </Key>
+    <Property Name="ncode_kardex" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dfekard_kardex" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="stipomovi_kardex" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ncant_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="npuco_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="ntc_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="smone_kardex" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="npucoMN_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="npucoUS_kardex" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="ncodeDoc_kardex" Type="Int64" Nullable="false" />
+    <Property Name="sserie_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_kardex" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfvence_kardex" Type="DateTime" Precision="3" />
+    <Property Name="suser_kardex" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_kardex" Type="DateTime" Precision="3" />
+    <Property Name="susmo_kardex" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_kardex" Type="DateTime" Precision="3" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="smodulo_confi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_confi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_22" FromRole="KARDEX" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
+    <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_26" FromRole="KARDEX" ToRole="UMEDIDA" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
+  </EntityType>
+  <Association Name="R_22">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="KARDEX">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_23">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="KARDEX">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_25">
+    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_26">
+    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+    <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="KARDEX">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="VENTA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_vedeta" />
+    </Key>
+    <Property Name="ncode_vedeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_venta" Type="Int64" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_vedeta" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="ndsctomax_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctomin_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoporc_vedeta" Type="Decimal" Precision="18" Scale="4" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_33" FromRole="VENTA_DETALLE" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
+    <Property Name="nback_vedeta" Type="Int32" />
+    <Property Name="nsubt_vedeta" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="VENTAS">
+    <Key>
+      <PropertyRef Name="ncode_venta" />
+    </Key>
+    <Property Name="ncode_venta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="sseri_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfeventa_venta" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_venta" Type="DateTime" Precision="3" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="ncode_clidire" Type="Int32" />
+    <Property Name="smone_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+    <Property Name="sobse_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_compra" Type="Int64" />
+    <Property Name="ncode_profo" Type="Int64" />
+    <Property Name="nbrutoex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_venta" Type="Boolean" />
+    <Property Name="nvalIGV_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_venta" Type="DateTime" Precision="3" />
+    <Property Name="susmo_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="bmontocancelado_venta" Type="Boolean" />
+    <Property Name="dfcancelado_venta" Type="DateTime" Precision="3" />
+    <Property Name="ncode_local" Type="Int32" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_58" FromRole="VENTAS" ToRole="LOCAL" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
+    <Property Name="ncode_mone" Type="Int32" />
+    <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <Association Name="R_33">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="VENTA_DETALLE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_32">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="VENTA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_29">
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_31">
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTAS">
+        <PropertyRef Name="ncode_venta" />
+      </Principal>
+      <Dependent Role="VENTA_DETALLE">
+        <PropertyRef Name="ncode_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="COMPRA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_comdeta" />
+    </Key>
+    <Property Name="ncode_comdeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncant_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_comdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_comdeta" Type="Boolean" />
+    <Property Name="nback_comdeta" Type="Int32" />
+    <Property Name="ncode_compra" Type="Int64" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_37" FromRole="COMPRA_DETALLE" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_39" FromRole="COMPRA_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_35" FromRole="COMPRA_DETALLE" ToRole="COMPRAS" />
+    <Property Name="nsubt_comdeta" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="COMPRAS">
+    <Key>
+      <PropertyRef Name="ncode_compra" />
+    </Key>
+    <Property Name="ncode_compra" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sseri_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfecompra_compra" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_compra" Type="DateTime" Precision="3" />
+    <Property Name="smone_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="sobs_compra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="sguia_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sproforma_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="nbrutoex_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoex_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUS_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_compra" Type="Boolean" Nullable="false" />
+    <Property Name="nvalIGV_compra" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_compra" Type="DateTime" Precision="3" />
+    <Property Name="susmo_compra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_compra" Type="DateTime" Precision="3" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ncode_provee" Type="Int64" Nullable="false" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_36" FromRole="COMPRAS" ToRole="ALMACEN" />
+    <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_35" FromRole="COMPRAS" ToRole="COMPRA_DETALLE" />
+    <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_38" FromRole="COMPRAS" ToRole="PROVEEDOR" />
+    <Property Name="ncode_local" Type="Int32" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_59" FromRole="COMPRAS" ToRole="LOCAL" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_40" FromRole="COMPRAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_41" FromRole="COMPRAS" ToRole="CONFIGURACION" />
+  </EntityType>
+  <EntityType Name="CTA_COBRAR">
+    <Key>
+      <PropertyRef Name="ncode_ctaco" />
+    </Key>
+    <Property Name="ncode_ctaco" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncodeDoc_ctaco" Type="Int64" />
+    <Property Name="sdocu_ctaco" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfecta_ctaco" Type="DateTime" Precision="3" />
+    <Property Name="smone_ctaco" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntotal_ctaco" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="dfevenci_ctaco" Type="DateTime" Precision="3" />
+    <Property Name="ntc_ctaco" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_ctaco" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUS_ctaco" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npago_ctaco" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_letra" Type="Int32" />
+    <Property Name="sesta_letra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_ctaco" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_ctaco" Type="DateTime" Precision="3" />
+    <Property Name="susmo_ctaco" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_ctaco" Type="DateTime" Precision="3" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CTASCO_DETALLE" Relationship="MarketWebModel.R_48" FromRole="CTA_COBRAR" ToRole="CTASCO_DETALLE" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_47" FromRole="CTA_COBRAR" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_46" FromRole="CTA_COBRAR" ToRole="CLIENTE" />
+  </EntityType>
+  <EntityType Name="CTAS_PAGAR">
+    <Key>
+      <PropertyRef Name="ncode_ctapa" />
+    </Key>
+    <Property Name="ncode_ctapa" Type="Int64" Nullable="false" />
+    <Property Name="ncodeDoc_ctapa" Type="Int64" />
+    <Property Name="sdocu_ctapa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfecta_ctapa" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_ctapa" Type="DateTime" Precision="3" />
+    <Property Name="smone_ctapa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntotal_ctapa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_ctapa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_US_ctapa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntc_ctapa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npago_ctapa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_letra" Type="Int32" />
+    <Property Name="sesta_letra" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_ctapa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_ctapa" Type="DateTime" Precision="3" />
+    <Property Name="susmo_ctapa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_ctapa" Type="DateTime" Precision="3" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="ncode_provee" Type="Int64" />
+    <Property Name="ncode_banco" Type="Int32" />
+    <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_42" FromRole="CTAS_PAGAR" ToRole="CTASPA_DETALLE" />
+    <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_44" FromRole="CTAS_PAGAR" ToRole="PROVEEDOR" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_43" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_45" FromRole="CTAS_PAGAR" ToRole="CONFIGURACION" />
+  </EntityType>
+  <EntityType Name="CTASCO_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_ctacode" />
+    </Key>
+    <Property Name="ncode_ctacode" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dfepago_ctacode" Type="DateTime" Precision="3" />
+    <Property Name="sdoc_ctacode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="smone_ctacode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_ctacode" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nmonto_ctacode" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nvuelto_ctacode" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_tarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snro_tarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sobse_ctacode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suser_ctacode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_ctacode" Type="DateTime" Precision="3" />
+    <Property Name="susmo_ctacode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_ctacode" Type="DateTime" Precision="3" />
+    <Property Name="ncode_ctaco" Type="Int64" Nullable="false" />
+    <Property Name="ncode_banco" Type="Int32" />
+    <Property Name="ncode_tpago" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_48" FromRole="CTASCO_DETALLE" ToRole="CTA_COBRAR" />
+    <Property Name="ncode_tarjeta" Type="Int32" />
+    <Property Name="nmontoMN_ctacode" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nmontoUS_ctacode" Type="Decimal" Precision="18" Scale="4" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_50" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_51" FromRole="CTASCO_DETALLE" ToRole="CONFIGURACION" />
+  </EntityType>
+  <EntityType Name="CTASPA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_ctapade" />
+    </Key>
+    <Property Name="ncode_ctapade" Type="Int64" Nullable="false" />
+    <Property Name="dfepago_ctapade" Type="DateTime" Precision="3" />
+    <Property Name="smone_ctapade" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_ctapade" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nmonto_ctapade" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="sobse_ctapade" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="nvuelto_ctapade" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_ctapade" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_ctapade" Type="DateTime" Precision="3" />
+    <Property Name="susmo_ctapade" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_ctapade" Type="DateTime" Precision="3" />
+    <Property Name="suser_tarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snro_tarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_ctapa" Type="Int64" Nullable="false" />
+    <Property Name="ncode_banco" Type="Int32" />
+    <Property Name="ncode_tpago" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_42" FromRole="CTASPA_DETALLE" ToRole="CTAS_PAGAR" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_52" FromRole="CTASPA_DETALLE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_53" FromRole="CTASPA_DETALLE" ToRole="CONFIGURACION" />
+  </EntityType>
+  <Association Name="R_36">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="COMPRAS">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_37">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRA_DETALLE" Role="COMPRA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="COMPRA_DETALLE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_39">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRA_DETALLE" Role="COMPRA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="COMPRA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_35">
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRA_DETALLE" Role="COMPRA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMPRAS">
+        <PropertyRef Name="ncode_compra" />
+      </Principal>
+      <Dependent Role="COMPRA_DETALLE">
+        <PropertyRef Name="ncode_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_38">
+    <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ncode_provee" />
+      </Principal>
+      <Dependent Role="COMPRAS">
+        <PropertyRef Name="ncode_provee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_48">
+    <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="1" />
+    <End Type="MarketWebModel.CTASCO_DETALLE" Role="CTASCO_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CTA_COBRAR">
+        <PropertyRef Name="ncode_ctaco" />
+      </Principal>
+      <Dependent Role="CTASCO_DETALLE">
+        <PropertyRef Name="ncode_ctaco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_42">
+    <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="1" />
+    <End Type="MarketWebModel.CTASPA_DETALLE" Role="CTASPA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CTAS_PAGAR">
+        <PropertyRef Name="ncode_ctapa" />
+      </Principal>
+      <Dependent Role="CTASPA_DETALLE">
+        <PropertyRef Name="ncode_ctapa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_44">
+    <End Type="MarketWebModel.PROVEEDOR" Role="PROVEEDOR" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ncode_provee" />
+      </Principal>
+      <Dependent Role="CTAS_PAGAR">
+        <PropertyRef Name="ncode_provee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LOCAL">
+    <Key>
+      <PropertyRef Name="ncode_local" />
+    </Key>
+    <Property Name="ncode_local" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_local" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="bacti_local" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_59" FromRole="LOCAL" ToRole="COMPRAS" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_68" FromRole="LOCAL" ToRole="PROFORMAS" />
+    <Property Name="scode_ubigeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
+    <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
+  </EntityType>
+  <Association Name="R_59">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="COMPRAS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_58">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CONFIGURACION">
+    <Key>
+      <PropertyRef Name="ncode_confi" />
+    </Key>
+    <Property Name="ncode_confi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_confi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="besta_confi" Type="Boolean" Nullable="false" />
+    <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
+    <Property Name="stipo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_40" FromRole="CONFIGURACION" ToRole="COMPRAS" />
+    <NavigationProperty Name="COMPRAS1" Relationship="MarketWebModel.R_41" FromRole="CONFIGURACION" ToRole="COMPRAS" />
+    <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_24" FromRole="CONFIGURACION" ToRole="KARDEX" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
+    <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
+    <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_43" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
+    <NavigationProperty Name="CTAS_PAGAR1" Relationship="MarketWebModel.R_45" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
+    <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_47" FromRole="CONFIGURACION" ToRole="CTA_COBRAR" />
+    <NavigationProperty Name="CTASCO_DETALLE" Relationship="MarketWebModel.R_50" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
+    <NavigationProperty Name="CTASCO_DETALLE1" Relationship="MarketWebModel.R_51" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
+    <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_52" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
+    <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+    <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_64" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
+    <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
+  </EntityType>
+  <Association Name="R_40">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="COMPRAS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_41">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="COMPRAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_24">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="KARDEX">
+        <PropertyRef Name="ncode_confi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_27">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_30">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_43">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTAS_PAGAR">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_45">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CTAS_PAGAR" Role="CTAS_PAGAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTAS_PAGAR">
+        <PropertyRef Name="ncode_banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_47">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTA_COBRAR">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_50">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CTASCO_DETALLE" Role="CTASCO_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTASCO_DETALLE">
+        <PropertyRef Name="ncode_banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_51">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.CTASCO_DETALLE" Role="CTASCO_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTASCO_DETALLE">
+        <PropertyRef Name="ncode_tpago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_52">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CTASPA_DETALLE" Role="CTASPA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTASPA_DETALLE">
+        <PropertyRef Name="ncode_banco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_53">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.CTASPA_DETALLE" Role="CTASPA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CTASPA_DETALLE">
+        <PropertyRef Name="ncode_tpago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="ncode_cliente" />
+    </Key>
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="srazon_cliente" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sruc_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sdnice_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sfono1_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sfax_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="slineacred_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="srepre_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="smail_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sweb_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sobse_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="sfono2_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sfono3_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sappa_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sapma_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="snomb_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="bprocedencia_cliente" Type="Boolean" />
+    <Property Name="suser_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_cliente" Type="DateTime" Precision="3" />
+    <Property Name="susmo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_cliente" Type="DateTime" Precision="3" />
+    <Property Name="stipo_cliente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="bacti_cliente" Type="Boolean" />
+    <Property Name="ncode_fopago" Type="Int32" />
+    <Property Name="ncode_afepercepcion" Type="Int32" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
+    <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
+    <Property Name="nidtipodoc_cliente" Type="Int32" />
+  </EntityType>
+  <Association Name="R_11">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CLI_DIRE">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_28">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_46">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CTA_COBRAR">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_60">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_61">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_afepercepcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_ClienteBusca_Result">
+    <Property Type="Int32" Name="ncode_cliente" Nullable="false" />
+    <Property Type="String" Name="srazon_cliente" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="sruc_cliente" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="sdnice_cliente" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Pr_DocNumeracion_Result">
+    <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="numero" Nullable="true" MaxLength="8" />
+  </ComplexType>
+  <EntityType Name="PROFORMAS">
+    <Key>
+      <PropertyRef Name="ncode_prof" />
+    </Key>
+    <Property Name="ncode_prof" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="sseri_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfeprofo_prof" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_prof" Type="DateTime" Precision="3" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="ncode_clidire" Type="Int32" />
+    <Property Name="smone_prof" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+    <Property Name="sobse_prof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_compra" Type="Int64" />
+    <Property Name="nbrutoex_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_prof" Type="Boolean" />
+    <Property Name="nvalIGV_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_prof" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_prof" Type="DateTime" Precision="3" />
+    <Property Name="susmo_prof" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_prof" Type="DateTime" Precision="3" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ncode_local" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_67" FromRole="PROFORMAS" ToRole="ALMACEN" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_66" FromRole="PROFORMAS" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_65" FromRole="PROFORMAS" ToRole="CLIENTE" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_64" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_69" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_68" FromRole="PROFORMAS" ToRole="LOCAL" />
+    <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_62" FromRole="PROFORMAS" ToRole="PROFORMA_DETALLE" />
+    <Property Name="ncode_mone" Type="Int32" />
+  </EntityType>
+  <Association Name="R_67">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_66">
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_65">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_64">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_69">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_68">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PROFORMA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_profdeta" />
+    </Key>
+    <Property Name="ncode_profdeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_profdeta" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="ndsctomax_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctomin_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoporc_profdeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nback_profdeta" Type="Int32" />
+    <Property Name="ncode_prof" Type="Int64" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_63" FromRole="PROFORMA_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_62" FromRole="PROFORMA_DETALLE" ToRole="PROFORMAS" />
+    <Property Name="nsubt_profdeta" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <Association Name="R_63">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="PROFORMA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_62">
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="0..1" />
+    <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROFORMAS">
+        <PropertyRef Name="ncode_prof" />
+      </Principal>
+      <Dependent Role="PROFORMA_DETALLE">
+        <PropertyRef Name="ncode_prof" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_ProformaLista_Result">
+    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+    <Property Type="Int64" Name="ncode_prof" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_LOCAL_UBIGEO">
+    <End Type="MarketWebModel.UBIGEO" Role="UBIGEO" Multiplicity="0..1" />
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UBIGEO">
+        <PropertyRef Name="scode_ubigeo" />
+      </Principal>
+      <Dependent Role="LOCAL">
+        <PropertyRef Name="scode_ubigeo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SUCURSAL">
+    <Key>
+      <PropertyRef Name="ncode_sucu" />
+    </Key>
+    <Property Name="ncode_sucu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_sucu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="bacti_sucu" Type="Boolean" Nullable="false" />
+    <Property Name="sruc_sucu" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_56" FromRole="SUCURSAL" ToRole="LOCAL" />
+  </EntityType>
+  <Association Name="R_56">
+    <End Type="MarketWebModel.SUCURSAL" Role="SUCURSAL" Multiplicity="1" />
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUCURSAL">
+        <PropertyRef Name="ncode_sucu" />
+      </Principal>
+      <Dependent Role="LOCAL">
+        <PropertyRef Name="ncode_sucu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SUNAT_CodProductos">
+    <Key>
+      <PropertyRef Name="codsunat" />
+    </Key>
+    <Property Name="codsunat" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SUNAT_TipoMercaderias">
+    <Key>
+      <PropertyRef Name="CODIGO" />
+      <PropertyRef Name="ACTIVADO" />
+    </Key>
+    <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ACTIVADO" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SUNAT_UnidadMedidas">
+    <Key>
+      <PropertyRef Name="CODIGO" />
+      <PropertyRef Name="ACTIVADO" />
+    </Key>
+    <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ACTIVADO" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LINEA">
+    <Key>
+      <PropertyRef Name="ncode_linea" />
+    </Key>
+    <Property Name="ncode_linea" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_linea" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_linea" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="SUBLINEA">
+    <Key>
+      <PropertyRef Name="ncode_sublinea" />
+    </Key>
+    <Property Name="ncode_sublinea" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_sublinea" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="nesta_sublinea" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="Pr_ArticuloListado_Result">
+    <Property Type="Int64" Name="ncode_arti" Nullable="false" />
+    <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="sdesc_linea" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="sdesc_sublinea" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="sdesc_fami" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="sdesc_clase" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="sdesc_marca" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="sdesc_umed" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="bafecto_arti" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="nesta_arti" Nullable="false" MaxLength="8" />
+    <Property Type="Decimal" Name="nstockactual" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="nprecio_arti" Nullable="true" Precision="18" Scale="4" />
+  </ComplexType>
+  <ComplexType Name="Pr_KardexArticulos_Result">
+    <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
+    <Property Type="Int64" Name="ncode_arti" Nullable="false" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="Decimal" Name="INGRESOS" Nullable="true" Precision="38" Scale="4" />
+    <Property Type="Decimal" Name="SALIDAS" Nullable="true" Precision="38" Scale="4" />
+    <Property Type="Decimal" Name="STOCK" Nullable="true" Precision="38" Scale="4" />
+    <Property Type="Decimal" Name="RESERVADO" Nullable="true" Precision="38" Scale="4" />
+  </ComplexType>
+  <EntityType Name="DOCU_SERIE">
+    <Key>
+      <PropertyRef Name="ncode_dose" />
+    </Key>
+    <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+    <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+    <Property Name="ncode_local" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+  </EntityType>
+  <Association Name="R_55">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_57">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizationId" Type="Int64" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Local" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="nivel" />
+    </Key>
+    <Property Name="username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nivel" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Ventana">
+    <Key>
+      <PropertyRef Name="Nivel" />
+    </Key>
+    <Property Name="Nivel" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Menu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Operacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="Pr_PermisoLista_Result">
+    <Property Type="String" Name="nivel" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="Menu" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Operacion" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Acceso" Nullable="false" MaxLength="5" />
+  </ComplexType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

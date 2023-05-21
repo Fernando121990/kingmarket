@@ -1,0 +1,215 @@
+﻿@model MarketASP.Models.CLIENTE
+
+@{
+    ViewBag.Title = "Detalles del Cliente";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Datos Generales del Cliente</h6>
+            </div>
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Razon Social
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.srazon_cliente)
+                    </dd>
+
+                    <dt>
+                        RUC
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sruc_cliente)
+                    </dd>
+
+                    <dt>
+                        DNI/CE
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sdnice_cliente)
+                    </dd>
+
+                    <dt>
+                        Teléfono
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sfono1_cliente)
+                    </dd>
+
+                    <dt>
+                        Fax
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sfax_cliente)
+                    </dd>
+
+                    <dt>
+                        Linea Credito
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.slineacred_cliente)
+                    </dd>
+
+                    <dt>
+                        R.Legal
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.srepre_cliente)
+                    </dd>
+
+                    <dt>
+                        Correo
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.smail_cliente)
+                    </dd>
+
+                    <dt>
+                        Página
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sweb_cliente)
+                    </dd>
+
+                    <dt>
+                        Observación
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sobse_cliente)
+                    </dd>
+
+                    <dt>
+                        Teléfono
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sfono2_cliente)
+                    </dd>
+
+                    <dt>
+                        Teléfono
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sfono3_cliente)
+                    </dd>
+
+                    <dt>
+                        A.Paterno
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sappa_cliente)
+                    </dd>
+
+                    <dt>
+                        A.Materno
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.sapma_cliente)
+                    </dd>
+
+                    <dt>
+                        Nombres
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.snomb_cliente)
+                    </dd>
+
+                    <dt>
+                        Es Extranjero
+                    </dt>
+
+                    <dd>
+                        <input type="checkbox" checked="@Model.bprocedencia_cliente" readonly />
+
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+
+        
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col mr-2">
+                        <h6 class="m-0 font-weight-bold text-primary">Direcciones del Cliente</h6>
+                    </div>
+                    <div class="col-auto">
+                        <a href="@Url.Action("CreateDireccion", new { id = Model.ncode_cliente })" class="btn btn-primary btn-circle btn-sm" title="Añadir Direccion">
+                            <i class="fas fa-file"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Model.CLI_DIRE.Count == 0)
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">No se han registrado direcciones</h6>
+                }
+                else
+                {
+                    <table class="table table-striped table-responsive-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    Descripción
+                                </th>
+                                <th>
+                                    Ubicación
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            @foreach (var itemx in Model.CLI_DIRE)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => itemx.sdesc_clidire)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => itemx.UBIGEO.sdistri_ubigeo)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("EditDire", new { id = itemx.ncode_clidire })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteDire", new { id = itemx.ncode_clidire })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Clientes" })
+</div>

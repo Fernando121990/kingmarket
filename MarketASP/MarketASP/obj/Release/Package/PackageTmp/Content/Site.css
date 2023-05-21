@@ -1,0 +1,21 @@
+﻿.ui-front {
+    z-index: 2000 !important;
+}
+
+
+.ptp-cabebuscar {
+    background-color: #4095ea; /* #16214d;  #2874f0;*/
+    color: black;
+    padding: 5px;
+}
+
+.ptp-titulos {
+    background-color: #4095ea; 
+    color: white;
+}
+
+.ptp-subtitulos {
+    background-color: Teal;
+    color: white;
+}
+

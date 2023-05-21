@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarketWebModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+    <Property Name="OrganizationId" Type="Int64" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Local" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="MarketWebEntitiesAdmin" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="Permiso" EntityType="MarketWebModel1.Permiso" />
+    <EntitySet Name="Ventana" EntityType="MarketWebModel1.Ventana" />
+    <FunctionImport Name="Pr_PermisoCrear">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="nivel" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PermisoEliminar">
+      <Parameter Name="username" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PermisoLista" ReturnType="Collection(MarketWebModel1.Pr_PermisoLista_Result)">
+      <Parameter Name="usuario" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="LOCAL" EntityType="MarketWebModel1.LOCAL" />
+    <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel1.CONFIGURACION" />
+    <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel1.DOCU_SERIE" />
+    <AssociationSet Name="R_55" Association="MarketWebModel1.R_55">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+    <AssociationSet Name="R_57" Association="MarketWebModel1.R_57">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="nivel" />
+    </Key>
+    <Property Name="username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="nivel" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Ventana">
+    <Key>
+      <PropertyRef Name="Nivel" />
+    </Key>
+    <Property Name="Nivel" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="Menu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Operacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="Pr_PermisoLista_Result">
+    <Property Type="String" Name="nivel" Nullable="false" MaxLength="6" />
+    <Property Type="String" Name="Menu" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Operacion" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Acceso" Nullable="false" MaxLength="5" />
+  </ComplexType>
+  <EntityType Name="LOCAL">
+    <Key>
+      <PropertyRef Name="ncode_local" />
+    </Key>
+    <Property Name="ncode_local" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_local" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="bacti_local" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel1.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
+    <Property Name="scode_ubigeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CONFIGURACION">
+    <Key>
+      <PropertyRef Name="ncode_confi" />
+    </Key>
+    <Property Name="ncode_confi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_confi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="svalor_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="besta_confi" Type="Boolean" Nullable="false" />
+    <Property Name="ntipo_confi" Type="Int32" Nullable="false" />
+    <Property Name="stipo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel1.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
+  </EntityType>
+  <EntityType Name="DOCU_SERIE">
+    <Key>
+      <PropertyRef Name="ncode_dose" />
+    </Key>
+    <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+    <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+    <Property Name="ncode_local" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel1.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel1.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+  </EntityType>
+  <Association Name="R_55">
+    <End Type="MarketWebModel1.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel1.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_57">
+    <End Type="MarketWebModel1.LOCAL" Role="LOCAL" Multiplicity="1" />
+    <End Type="MarketWebModel1.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

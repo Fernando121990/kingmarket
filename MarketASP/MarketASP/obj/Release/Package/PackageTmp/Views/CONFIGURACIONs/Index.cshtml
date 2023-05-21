@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MarketASP.Models.CONFIGURACION>
+
+@{
+    ViewBag.Title = "Configuracion General";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+    @Html.ActionLink(" ", "Create", new { }, new { @class = "btn btn-primary fas fa-file ", title = "Añadir Configuracion" })
+</div>
+
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Cod.</th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Activo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(t => t.stipo_confi))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntipo_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stipo_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sdesc_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.svalor_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.besta_confi)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { id = item.ncode_confi }, new { @class = "btn btn-primary fas fa-edit ", title = "Editar" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

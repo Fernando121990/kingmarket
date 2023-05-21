@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MarketASP.Areas.Administracion.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Register", "Account", new { area = "" })" class="btn btn-primary btn-circle btn-sm" title="Añadir Usuario">
+        <i class="fas fa-file"></i>
+    </a>
+</div>
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+            <tr>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Correo
+                </th>
+                <th>
+                    Nombres y Apellidos
+                </th>
+                <th>Local</th>
+                <th></th>
+            </tr>
+</thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @string.Format("{0}" + " " + "{1}", item.Nombre, item.Apellido)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+        </table>

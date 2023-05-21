@@ -1,0 +1,46 @@
+﻿@model MarketASP.Models.TIPO_CAMBIO
+
+@{
+    ViewBag.Title = "Tipo Cambio";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.dfecha_tc, "Fecha", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) readonly />
+                @Html.ValidationMessageFor(model => model.dfecha_tc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.ncompra_tc, "Compra", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @autofocus = "autofocus", @required = "required", @maxlength = "4" }})
+                @Html.ValidationMessageFor(model => model.ncompra_tc, "Ingrese TC de Compra", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.nventa_tc, "Venta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required", @maxlength = "4" } })
+                @Html.ValidationMessageFor(model => model.nventa_tc, "Ingrese TC de Venta", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="offset-md-2 col-md-8">
+                <input type="submit" value="Crear" class="btn btn-success btn-block" />
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

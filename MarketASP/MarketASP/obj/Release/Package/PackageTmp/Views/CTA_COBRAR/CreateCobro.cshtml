@@ -1,0 +1,227 @@
+﻿@model MarketASP.Models.CTASCO_DETALLE
+
+@{
+    ViewBag.Title = "Registrar Cobro";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" name="ncode_ctaco" id="ncode_ctaco" value="@ViewBag.ncode_ctaco" />
+    <input type="hidden" name="xtipo" id="xtipo" value="@ViewBag.xtipo" />
+
+    <div class="row">
+        <div class="col">
+            <h5 class="text-center">@ViewBag.Title</h5>
+        </div>
+    </div>
+    <form>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow m-2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Doc. :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input id="sdoc_ctacode" name="sdoc_ctacode" type="text" value="@ViewBag.sdocu_ctaco" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">F.Pago :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input id="dfepago_ctacode" style="width:6em" name="dfepago_ctacode" type="text" class="dfech" value="@string.Format("{0:d}",DateTime.Now)" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">T.C :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                <input id="ntc_ctacode" style="width:6em" name="ntc_ctacode" type="text" value="@ViewBag.tc" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow m-2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Total :</label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input id="ntotal" name="ntotal" type="text" value="@ViewBag.ntotal" readonly class="form-control" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Saldo S/:</label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input id="nsaldoMN" name="nsaldoMN" type="text" value="@ViewBag.nsaldoMN" readonly class="form-control" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Saldo US :</label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input id="nsaldoUS" name="nsaldoUS" type="text" value="@ViewBag.nsaldoUS" readonly class="form-control" />
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                @*<input id="smone_ctacode" name="smone_ctacode" type="radio" value="MN" checked="checked" />
+                                <label for="npagoMN">Pago S/</label>*@
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input id="smone_ctacode" name="smone_ctacode" type="radio" class="form-check-input" value="MN" checked="checked" /> Pago S/
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <input id="npagoMN" style="width:6em" name="npagoMN" type="number" class="MN"  autofocus/>
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="ncambioUS">Cambio US</label>
+                            </div>
+                            <div class="col-lg-3">
+                                <input id="ncambioUS" style="width:6em" name="ncambioUS" type="text" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input id="smone_ctacode" name="smone_ctacode" type="radio" class="form-check-input" value="US" /> Pago US
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <input id="npagoUS" style="width:6em" name="npagoUS" type="number" class="US" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="ncambioMN">Cambio S/.</label>
+                            </div>
+                            <div class="col-lg-3">
+                                <input id="ncambioMN" style="width:6em" name="ncambioMN" type="text" disabled="disabled" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow m-2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Fo.Pago :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.DropDownList("ncode_tpago", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ncode_tpago, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Banco :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.DropDownList("ncode_banco", null, "", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ncode_banco, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Observación :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.sobse_ctacode, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sobse_ctacode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow m-2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Tarjeta :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.DropDownList("ncode_tarjeta", null, "", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ncode_tarjeta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Usuario :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.suser_tarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.suser_tarjeta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">Número :</label>
+                            </div>
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.snro_tarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.snro_tarjeta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow m-2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-2">
+                                <label id="smone" for="nmonto_ctacode" class="control-label text-xs text-primary text-uppercase font-weight-bold"></label>
+                            </div>
+                            <div class="col-lg-4">
+                                <input id="nmonto_ctacode" name="nmonto_ctacode" type="text" readonly="readonly" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="text-xs text-primary text-uppercase font-weight-bold">VUELTO S/. :</label>
+                            </div>
+                            <div class="col-lg-4">
+                                @Html.EditorFor(model => model.nvuelto_ctacode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m-2">
+                <input id="btnPago" name="btnPago" type="submit" value="Pagar" class="btn btn-block btn-success" />
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <h3 class="text-center">@ViewBag.mensaje</h3>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Ventas" })
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ctacobrar")
+}
+

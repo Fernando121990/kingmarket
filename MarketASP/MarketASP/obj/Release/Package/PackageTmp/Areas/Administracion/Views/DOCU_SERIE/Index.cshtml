@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MarketASP.Areas.Administracion.Models.DOCU_SERIE>
+
+@{
+    ViewBag.Title = "Series x Local";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+        <i class="fas fa-file"></i>
+    </a>
+</div>
+
+<table class="table table-striped table-responsive-lg">
+    <thead class="thead-dark">
+            <tr>
+                <th>
+                    Local
+                </th>
+                <th>Usuario</th>
+                <th>
+                    Documento
+                </th>
+                <th>
+                    Numeración
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.OrderBy(l => l.ncode_local))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LOCAL.sdesc_local)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.susuario_dose)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.snumeracion_dose)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.ncode_dose})" class="btn btn-success btn-circle btn-sm" title="Edita">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("DeleteDocSerie", new { id = item.ncode_dose })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>

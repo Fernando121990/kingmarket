@@ -1,0 +1,138 @@
+﻿@model IEnumerable<MarketASP.Models.VENTAS>
+
+@{
+    ViewBag.Title = "Consulta de Ventas";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h5 mb-0 text-gray-800">@ViewBag.Title</h5>
+    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Venta">
+        <i class="fas fa-file"></i>
+    </a>
+</div>
+
+<table class="datatbl table table-striped table-responsive-sm">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Doc.
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                No Doc.
+            </th>
+            <th>
+                F.Venta
+            </th>
+            <th>
+                F.Vcto
+            </th>
+            <th>
+                TC
+            </th>
+            <th>
+                Obs
+            </th>
+            <th>
+                OC
+            </th>
+            <th>
+                Proforma
+            </th>
+            <th>
+                M
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+                Activo
+            </th>
+            <th>
+                F.Pago
+            </th>
+            <th>
+                Cancelada
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sseri_venta) - @Html.DisplayFor(modelItem => item.snume_venta)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfeventa_venta)
+                </td>
+                <td>
+                    @string.Format("{0:d}", item.dfevenci_venta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntc_venta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sobse_venta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ncode_compra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ncode_profo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.smone_venta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ntotal_venta)
+                </td>
+                <td>
+                    @if (item.besta_venta == false)
+                    {
+                        <h5>Anulado</h5>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+                </td>
+                <td>
+                    @if (item.bmontocancelado_venta == true)
+                    {
+                        <h5>Cancelado</h5>
+                    }
+
+                </td>
+                <td>
+                    @if (item.besta_venta == true)
+                    {
+                        <a href="@Url.Action("Edit", new { id = item.ncode_venta })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    }
+                </td>
+                <td>
+                    @if (item.besta_venta == true)
+                    {
+                        <a href="@Url.Action("anulaVenta", new { id = item.ncode_venta })" class="btn btn-primary btn-circle btn-sm" title="Anular">
+                            <i class="fas fa-circle-notch"></i>
+                        </a>
+                        <a href="@Url.Action("DeleteVenta", new { id = item.ncode_venta })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
