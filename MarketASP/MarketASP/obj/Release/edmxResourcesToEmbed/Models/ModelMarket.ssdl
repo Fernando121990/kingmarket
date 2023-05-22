@@ -82,6 +82,65 @@
     <Property Name="bicbper_arti" Type="bit" />
     <Property Name="scodsunat_arti" Type="varchar" MaxLength="10" />
     <Property Name="stipomerca_arti" Type="varchar" MaxLength="2" />
+    <Property Name="scodectadebe_ventas" Type="varchar" MaxLength="50" />
+    <Property Name="ctadebe_ventas" Type="varchar" MaxLength="500" />
+    <Property Name="scodectahaber_ventas" Type="varchar" MaxLength="50" />
+    <Property Name="ctahaber_ventas" Type="varchar" MaxLength="50" />
+    <Property Name="scodectadebe_compras" Type="varchar" MaxLength="50" />
+    <Property Name="ctadebe_compras" Type="varchar" MaxLength="500" />
+    <Property Name="scodectahaber_compras" Type="varchar" MaxLength="50" />
+    <Property Name="ctahaber_compras" Type="varchar" MaxLength="500" />
+    <Property Name="scodigo_sap" Type="varchar" MaxLength="50" />
+    <Property Name="sorigen" Type="varchar" MaxLength="50" />
+    <Property Name="snombre_equivalencia" Type="varchar" MaxLength="50" />
+    <Property Name="sequivalenciaA" Type="varchar" MaxLength="50" />
+    <Property Name="sequivalenciaB" Type="varchar" MaxLength="50" />
+    <Property Name="smoneda" Type="varchar" MaxLength="50" />
+    <Property Name="nstockactual" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="bdetraccion" Type="bit" />
+    <Property Name="porcdetraccion" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="codigodetraccion" Type="varchar" MaxLength="10" />
+    <Property Name="snombrepalletcaja" Type="varchar" MaxLength="50" />
+    <Property Name="spallet" Type="varchar" MaxLength="50" />
+    <Property Name="sbandeja" Type="varchar" MaxLength="50" />
+    <Property Name="ncode_linea" Type="bigint" />
+    <Property Name="ncode_sublinea" Type="bigint" />
+    <Property Name="nprecio_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nstockreservado_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_espe" Type="bigint" />
+    <Property Name="ncode_subesp" Type="bigint" />
+    <Property Name="npreciotope_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nmargen_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncosto_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nultcosto_arti" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="OrganizationId" Type="bigint" />
+    <Property Name="Nombre" Type="nvarchar(max)" />
+    <Property Name="Apellido" Type="nvarchar(max)" />
+    <Property Name="Local" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="CLASE">
     <Key>
@@ -126,7 +185,7 @@
     <Property Name="sfax_cliente" Type="varchar" MaxLength="20" />
     <Property Name="slineacred_cliente" Type="varchar" MaxLength="20" />
     <Property Name="srepre_cliente" Type="varchar" MaxLength="20" />
-    <Property Name="smail_cliente" Type="varchar" MaxLength="20" />
+    <Property Name="smail_cliente" Type="varchar" MaxLength="200" />
     <Property Name="sweb_cliente" Type="varchar" MaxLength="20" />
     <Property Name="sobse_cliente" Type="varchar(max)" />
     <Property Name="sfono2_cliente" Type="varchar" MaxLength="20" />
@@ -144,6 +203,7 @@
     <Property Name="ncode_fopago" Type="int" />
     <Property Name="ncode_afepercepcion" Type="int" />
     <Property Name="nidtipodoc_cliente" Type="int" />
+    <Property Name="bretencion_cliente" Type="bit" />
   </EntityType>
   <EntityType Name="COMPRA_DETALLE">
     <Key>
@@ -161,6 +221,7 @@
     <Property Name="ncode_compra" Type="bigint" Nullable="false" />
     <Property Name="ncode_alma" Type="int" Nullable="false" />
     <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="nsubt_comdeta" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="COMPRAS">
     <Key>
@@ -326,6 +387,33 @@
     <Property Name="ncode_banco" Type="int" />
     <Property Name="ncode_tpago" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="DOCU_SERIE">
+    <Key>
+      <PropertyRef Name="ncode_dose" />
+    </Key>
+    <Property Name="ncode_dose" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_docu" Type="int" Nullable="false" />
+    <Property Name="snumeracion_dose" Type="varchar" MaxLength="20" />
+    <Property Name="susuario_dose" Type="varchar" MaxLength="200" />
+    <Property Name="sdocumento_dose" Type="varchar" MaxLength="20" />
+    <Property Name="suser_dose" Type="varchar" MaxLength="20" />
+    <Property Name="dfech_dose" Type="datetime" />
+    <Property Name="susmo_dose" Type="varchar" MaxLength="20" />
+    <Property Name="dfemo_dose" Type="datetime" />
+    <Property Name="ncode_local" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ESPECIE">
+    <Key>
+      <PropertyRef Name="ncode_espe" />
+    </Key>
+    <Property Name="ncode_espe" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_espe" Type="varchar" MaxLength="500" />
+    <Property Name="nesta_espe" Type="bit" />
+    <Property Name="suser_espe" Type="varchar" MaxLength="50" />
+    <Property Name="dfech_espe" Type="datetime" />
+    <Property Name="susmo_espe" Type="varchar" MaxLength="50" />
+    <Property Name="dfemo_espe" Type="datetime" />
+  </EntityType>
   <EntityType Name="FAMILIA">
     <Key>
       <PropertyRef Name="ncode_fami" />
@@ -364,6 +452,14 @@
     <Property Name="smodulo_confi" Type="varchar" MaxLength="20" />
     <Property Name="ncode_confi" Type="int" Nullable="false" />
     <Property Name="ncode_umed" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LINEA">
+    <Key>
+      <PropertyRef Name="ncode_linea" />
+    </Key>
+    <Property Name="ncode_linea" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_linea" Type="varchar" MaxLength="5000" />
+    <Property Name="nesta_linea" Type="bit" />
   </EntityType>
   <EntityType Name="LISTA_PRECIO">
     <Key>
@@ -436,6 +532,14 @@
     <Property Name="ndestino_alma" Type="int" />
     <Property Name="stipo_movi" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="nivel" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="nivel" Type="varchar" MaxLength="6" Nullable="false" />
+  </EntityType>
   <EntityType Name="PROFORMA_DETALLE">
     <Key>
       <PropertyRef Name="ncode_profdeta" />
@@ -455,6 +559,7 @@
     <Property Name="ndsctoporc_profdeta" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nback_profdeta" Type="int" />
     <Property Name="ncode_prof" Type="bigint" />
+    <Property Name="nsubt_profdeta" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="PROFORMAS">
     <Key>
@@ -518,7 +623,7 @@
     <Property Name="smail_prove" Type="varchar" MaxLength="2000" />
     <Property Name="sobse_prove" Type="varchar(max)" />
     <Property Name="sweb_prove" Type="varchar" MaxLength="2000" />
-    <Property Name="scontac_prove" Type="varchar" MaxLength="20" />
+    <Property Name="scontac_prove" Type="varchar" MaxLength="200" />
     <Property Name="nesta_prove" Type="bit" Nullable="false" />
     <Property Name="scargoconta_prove" Type="varchar" MaxLength="2000" />
     <Property Name="bprocedencia_prove" Type="int" />
@@ -526,6 +631,27 @@
     <Property Name="dfech_prove" Type="datetime" />
     <Property Name="susmo_prove" Type="varchar" MaxLength="20" />
     <Property Name="dfemo_prove" Type="datetime" />
+    <Property Name="ncode_fopago" Type="int" />
+  </EntityType>
+  <EntityType Name="SUBESPECIE">
+    <Key>
+      <PropertyRef Name="ncode_subesp" />
+    </Key>
+    <Property Name="ncode_subesp" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_subesp" Type="varchar" MaxLength="500" />
+    <Property Name="nesta_subesp" Type="bit" />
+    <Property Name="suser_subesp" Type="varchar" MaxLength="50" />
+    <Property Name="dfech_subesp" Type="datetime" />
+    <Property Name="susmo_subesp" Type="varchar" MaxLength="50" />
+    <Property Name="dfemo_subesp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SUBLINEA">
+    <Key>
+      <PropertyRef Name="ncode_sublinea" />
+    </Key>
+    <Property Name="ncode_sublinea" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_sublinea" Type="varchar" MaxLength="5000" />
+    <Property Name="nesta_sublinea" Type="bit" />
   </EntityType>
   <EntityType Name="SUCURSAL">
     <Key>
@@ -586,6 +712,23 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="besta_tipomovi" Type="bit" Nullable="false" />
     <Property Name="stipo_timovi" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
+  <EntityType Name="TRANSPORTISTA">
+    <Key>
+      <PropertyRef Name="ncode_tran" />
+    </Key>
+    <Property Name="ncode_tran" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="snomb_tran" Type="varchar" MaxLength="500" />
+    <Property Name="sappa_tran" Type="varchar" MaxLength="500" />
+    <Property Name="sapma_tran" Type="varchar" MaxLength="500" />
+    <Property Name="splaca_tran" Type="varchar" MaxLength="50" />
+    <Property Name="sdni_tran" Type="varchar" MaxLength="50" />
+    <Property Name="slicencia_tran" Type="varchar" MaxLength="50" />
+    <Property Name="suser_tran" Type="varchar" MaxLength="50" />
+    <Property Name="dfech_tran" Type="datetime" />
+    <Property Name="susmo_tran" Type="varchar" MaxLength="50" />
+    <Property Name="dfemo_tran" Type="datetime" />
+    <Property Name="nesta_tran" Type="bit" />
+  </EntityType>
   <EntityType Name="UBIGEO">
     <Key>
       <PropertyRef Name="scode_ubigeo" />
@@ -628,6 +771,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ndsctomin_vedeta" Type="decimal" Precision="18" Scale="4" />
     <Property Name="ndsctoporc_vedeta" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nback_vedeta" Type="int" />
+    <Property Name="nsubt_vedeta" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="Ventana">
+    <Key>
+      <PropertyRef Name="Nivel" />
+    </Key>
+    <Property Name="Nivel" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="Menu" Type="varchar" MaxLength="200" />
+    <Property Name="Operacion" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="VENTAS">
     <Key>
@@ -673,6 +825,42 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ncode_mone" Type="int" />
     <Property Name="nicbper_venta" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
+  <EntityType Name="ZONA">
+    <Key>
+      <PropertyRef Name="ncode_zona" />
+    </Key>
+    <Property Name="ncode_zona" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_zona" Type="varchar" MaxLength="500" />
+    <Property Name="nesta_zona" Type="bit" />
+    <Property Name="suser_zona" Type="varchar" MaxLength="50" />
+    <Property Name="dfech_zona" Type="datetime" />
+    <Property Name="susmo_zona" Type="varchar" MaxLength="50" />
+    <Property Name="dfemo_zona" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_ARTICULO_ESPECIE">
+    <End Role="ESPECIE" Type="Self.ESPECIE" Multiplicity="0..1" />
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESPECIE">
+        <PropertyRef Name="ncode_espe" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_espe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ARTICULO_SUBESPECIE">
+    <End Role="SUBESPECIE" Type="Self.SUBESPECIE" Multiplicity="0..1" />
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUBESPECIE">
+        <PropertyRef Name="ncode_subesp" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_subesp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_LOCAL_UBIGEO">
     <End Role="UBIGEO" Type="Self.UBIGEO" Multiplicity="0..1" />
     <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
@@ -682,6 +870,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="LOCAL">
         <PropertyRef Name="scode_ubigeo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PROVEEDOR_CONFIGURACION">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="0..1" />
+    <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="PROVEEDOR">
+        <PropertyRef Name="ncode_fopago" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1251,6 +1451,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_55">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_56">
     <End Role="SUCURSAL" Type="Self.SUCURSAL" Multiplicity="1" />
     <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
@@ -1260,6 +1472,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="LOCAL">
         <PropertyRef Name="ncode_sucu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_57">
+    <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+    <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_local" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1455,6 +1679,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+    <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
+    <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Pr_ClienteBusca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="sdesc_cliente" Type="varchar" Mode="In" />
@@ -1668,6 +1896,16 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="nivel" Type="varchar" Mode="In" />
     <Parameter Name="xcode" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="Pr_PermisoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="nivel" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_PermisoEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_PermisoLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuario" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Pr_proformaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_docu" Type="int" Mode="In" />
     <Parameter Name="sseri_prof" Type="varchar" Mode="In" />
@@ -1862,12 +2100,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <EntityContainer Name="MarketWebModelStoreContainer">
     <EntitySet Name="ALMACEN" EntityType="Self.ALMACEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ART_BARRA" EntityType="Self.ART_BARRA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ART_PRECIO" EntityType="Self.ART_PRECIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ART_PROVE" EntityType="Self.ART_PROVE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ARTICULO" EntityType="Self.ARTICULO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CLASE" EntityType="Self.CLASE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CLI_DIRE" EntityType="Self.CLI_DIRE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CLIDI_CONTAC" EntityType="Self.CLIDI_CONTAC" Schema="dbo" store:Type="Tables" />
@@ -1880,24 +2121,33 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="CTAS_PAGAR" EntityType="Self.CTAS_PAGAR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CTASCO_DETALLE" EntityType="Self.CTASCO_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CTASPA_DETALLE" EntityType="Self.CTASPA_DETALLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ESPECIE" EntityType="Self.ESPECIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LINEA" EntityType="Self.LINEA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LISTA_PRECIO" EntityType="Self.LISTA_PRECIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LOCAL" EntityType="Self.LOCAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROFORMA_DETALLE" EntityType="Self.PROFORMA_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROFORMAS" EntityType="Self.PROFORMAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROV_CONTACTO" EntityType="Self.PROV_CONTACTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUBESPECIE" EntityType="Self.SUBESPECIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUBLINEA" EntityType="Self.SUBLINEA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_CAMBIO" EntityType="Self.TIPO_CAMBIO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_MOVIMIENTO" EntityType="Self.TIPO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZONA" EntityType="Self.ZONA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUNAT_CodProductos" EntityType="Self.SUNAT_CodProductos" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [SUNAT_CodProductos].[codsunat] AS [codsunat], 
@@ -1918,9 +2168,21 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     [SUNAT_UnidadMedidas].[ACTIVADO] AS [ACTIVADO]
     FROM [dbo].[SUNAT_UnidadMedidas] AS [SUNAT_UnidadMedidas]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_ARTICULO_ESPECIE" Association="Self.FK_ARTICULO_ESPECIE">
+      <End Role="ESPECIE" EntitySet="ESPECIE" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ARTICULO_SUBESPECIE" Association="Self.FK_ARTICULO_SUBESPECIE">
+      <End Role="SUBESPECIE" EntitySet="SUBESPECIE" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
     <AssociationSet Name="FK_LOCAL_UBIGEO" Association="Self.FK_LOCAL_UBIGEO">
       <End Role="UBIGEO" EntitySet="UBIGEO" />
       <End Role="LOCAL" EntitySet="LOCAL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
     </AssociationSet>
     <AssociationSet Name="R_1" Association="Self.R_1">
       <End Role="FAMILIA" EntitySet="FAMILIA" />
@@ -2110,9 +2372,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
     </AssociationSet>
+    <AssociationSet Name="R_55" Association="Self.R_55">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
     <AssociationSet Name="R_56" Association="Self.R_56">
       <End Role="SUCURSAL" EntitySet="SUCURSAL" />
       <End Role="LOCAL" EntitySet="LOCAL" />
+    </AssociationSet>
+    <AssociationSet Name="R_57" Association="Self.R_57">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
     </AssociationSet>
     <AssociationSet Name="R_58" Association="Self.R_58">
       <End Role="LOCAL" EntitySet="LOCAL" />

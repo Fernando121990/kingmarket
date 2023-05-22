@@ -38,8 +38,8 @@ namespace MarketASP.Models
         public long ncode_umed { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

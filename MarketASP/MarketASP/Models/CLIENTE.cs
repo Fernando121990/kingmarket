@@ -49,6 +49,7 @@ namespace MarketASP.Models
         public Nullable<int> ncode_fopago { get; set; }
         public Nullable<int> ncode_afepercepcion { get; set; }
         public Nullable<int> nidtipodoc_cliente { get; set; }
+        public Nullable<bool> bretencion_cliente { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }

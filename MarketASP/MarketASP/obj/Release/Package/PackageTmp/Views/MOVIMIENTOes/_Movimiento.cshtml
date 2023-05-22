@@ -1,0 +1,113 @@
+﻿@model MarketASP.Models.MOVIMIENTO
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="mb-3">
+                    <label for="ncode_timovi" class="col-form-label">Tipo</label>
+                    @Html.DropDownList("ncode_timovi", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ncode_timovi, "", new { @class = "text-danger" })
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="dfemov_movi" class="col-form-label">Fecha</label>
+                            <input id="dfemov_movi" name="dfemov_movi" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" />
+                            @Html.ValidationMessageFor(model => model.dfemov_movi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ntc_movi" class="col-form-label">T.C</label>
+                            <input id="ntc_movi" name="ntc_movi" class="form-control" type="text" value="@ViewBag.tc" readonly />
+                            @Html.ValidationMessageFor(model => model.ntc_movi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="smone_movi" class="col-form-label">Moneda</label>
+                            @Html.DropDownList("smone_movi", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.smone_movi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Almacen</label>
+                            @Html.DropDownList("ncode_alma", null, "", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Al.Destino</label>
+                            <div>
+                                @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control destino" })
+                                @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Observación</label>
+                    @Html.EditorFor(model => model.sobse_movi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sobse_movi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <p>Productos</p>
+    </div>
+    <div class="col-lg-6">
+        <button type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+        <button type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+        <!--  Modal content for the above example -->
+        <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
+                        <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div Class="modal-body">
+                        <table id="matetabla" class="table dt-responsive nowrap w-100">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>CodUM</th>
+                                    <th>bafecto</th>
+                                    <th>bisc</th>
+                                    <th>bdscto</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

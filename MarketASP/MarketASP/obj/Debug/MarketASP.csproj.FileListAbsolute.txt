@@ -190,7 +190,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.pdb
 D:\oscarweb\MarketASP\MarketASP\bin\Antlr3.Runtime.dll
 D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.dll
 D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.SqlServer.dll
-D:\oscarweb\MarketASP\MarketASP\bin\Ionic.Zip.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Core.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Owin.dll

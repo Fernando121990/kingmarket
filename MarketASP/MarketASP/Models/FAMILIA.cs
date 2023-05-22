@@ -17,8 +17,8 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FAMILIA()
         {
-            this.ARTICULO = new HashSet<ARTICULO>();
             this.CLASE = new HashSet<CLASE>();
+            this.ARTICULO = new HashSet<ARTICULO>();
         }
     
         public long ncode_fami { get; set; }
@@ -30,8 +30,8 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_fami { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ARTICULO> ARTICULO { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLASE> CLASE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ARTICULO> ARTICULO { get; set; }
     }
 }

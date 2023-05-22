@@ -1,26 +1,11 @@
-﻿$(document).ready(function () {
+﻿var editor;
+
+$(document).ready(function () {
 
     $('.dfech').datepicker({
-        dateFormat: "dd/mm/yy"
-    });
-
-    //DATATBLE GENERICO
-
-    $('.datatbl').DataTable({
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ ",
-            "zeroRecords": "No hay datos disponibles",
-            "info": "Página _PAGE_ of _PAGES_",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(Filtrado de _MAX_ total registros)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": " Siguiente",
-                "previous": "Anterior "
-            }
-        }
+        language: 'es',
+        format: 'dd/mm/yyyy'
+//        dateFormat: "dd/mm/yy"
     });
 
     //listado de clientes por autocomplete
@@ -42,7 +27,7 @@
         },
         select: function (event, ui) {
             $('#COD_CLIENTE').val(ui.item.id);
-            $('#sruc_cliente').val(ui.item.rucid);
+            $("#sruc").val(ui.item.rucid);
             $('#sdni_cliente').val(ui.item.dnid);
             $('#ncode_fopago').val(ui.item.fopagoid);
             fnclienteDire();
@@ -50,7 +35,7 @@
         }
     });
 
-    $("#sruc_cliente").autocomplete({
+    $("#sruc").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: urlGetRucCliente, // "/Encuesta/GetCliente",
@@ -95,7 +80,7 @@
         select: function (event, ui) {
             $('#COD_CLIENTE').val(ui.item.id);
             $('#sdesc_cliente').val(ui.item.razon);
-            $('#sruc_cliente').val(ui.item.rucid);
+            $('#sruc').val(ui.item.rucid);
             $('#ncode_fopago').val(ui.item.fopagoid);
             fnclienteDire();
             fnFormaPagoDiasFecha();
@@ -182,6 +167,93 @@
         $("#sapma_cliente").val("");
         $("#snomb_cliente").val("");
     });
+
+
+    //DATATBLE GENERICO
+
+    //$('.datatbl').DataTable({
+    //    "language": {
+    //        "lengthMenu": "Mostrar _MENU_ ",
+    //        "zeroRecords": "No hay datos disponibles",
+    //        "info": "Página _PAGE_ of _PAGES_",
+    //        "infoEmpty": "No hay registros disponibles",
+    //        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+    //        "search": "Buscar:",
+    //        "paginate": {
+    //            "first": "Primero",
+    //            "last": "Ultimo",
+    //            "next": " Siguiente",
+    //            "previous": "Anterior "
+    //        }
+    //    }
+    //});
+
+
+    //$('.tblGralExporta').DataTable({
+    //    dom: 'lBfrtip',
+    //    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]],
+    //    buttons: [
+    //        'excel'
+    //    ],
+    //    "language": {
+    //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+    //    }
+    //});
+
+    //editor = new $.fn.dataTable.Editor({
+    //    table: ".tblGenerica",
+    //    idSrc: 'Cod',
+    //    fields: [{
+    //        label: "Codigo:",
+    //        name: "Cod"
+    //    }, {
+    //        label: "Descripción:",
+    //        name: "Descripcion"
+    //    }, {
+    //        label: "Activo:",
+    //        name: "Activo"
+    //    }, {
+    //        label: "Accion:",
+    //        name: ""
+    //    }
+    //    ]
+    //});
+
+    //$('.tblGenerica').on('click', 'tbody td:not(:first-child)', function (e) {
+    //    editor.inline(this);
+    //});
+
+
+    //$('.tblGenerica').DataTable({
+    //    dom: "Bfrtip",
+    //    order: [[2, 'asc']],
+    //    columns: [
+    //        { data: "Cod" },
+    //        { data: "Descripcion" },
+    //        { data: "Activo" },
+    //        { data: "" }
+    //    ],
+    //    select: false,
+    //    //{
+    //    //    style: 'os',
+    //    //    selector: 'td:first-child'
+    //    //},
+    //    buttons: [
+    //        //{ extend: "create", editor: editor },
+    //        //{ extend: "edit", editor: editor },
+    //        //{ extend: "remove", editor: editor },
+    //        {
+    //            extend: 'collection',
+    //            text: 'Exportar',
+    //            buttons: [
+    //                'excel',
+    //                'pdf'
+    //            ]
+    //        }
+    //    ]
+    //});
+
+
 
 });
 

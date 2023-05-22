@@ -1,6 +1,17 @@
 ﻿$(document).ready(function () {
     var code = 0;
+    var conf_igv = 0;
+    var conf_decimal = 0;
+
     code = $("#ncode_prof").val();
+    conf_igv = $("#cnfigv").val();
+    conf_decimal = $("#cnfdeci").val();
+    conf_icbper = $("#cnficbper").val();
+
+    console.log(conf_igv);
+    console.log(conf_decimal);
+    console.log(conf_icbper);
+
     //console.log(code);
     //console.log('xx')
 
@@ -63,7 +74,7 @@
 
                     }
 
-                    Totales();
+                    Totales(conf_igv, conf_decimal, conf_icbper);
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -74,7 +85,7 @@
                 "height": "20px",
                 "width": "100%"
             });
-            Totales();
+            Totales(conf_igv, conf_decimal, conf_icbper);
         },
         select: {
             style: 'single'
@@ -122,19 +133,20 @@
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
                         [{ "data": "Cod" },
-                        { "data": "Cod2" },
-                        { "data": "DescArt" },
-                        { "data": "Stock" },
-                        { "data": "Medida" },
-                        { "data": "Precio" },
-                        { "data": "ncode_umed" },
-                        { "data": "bafecto_arti" },
-                        { "data": "bisc_arti" },
-                        { "data": "bdscto_arti" }
+                            { "data": "Cod2" },
+                            { "data": "DescArt" },
+                            { "data": "Stock" },
+                            { "data": "Medida" },
+                            { "data": "Precio" },
+                            { "data": "ncode_umed" },
+                            { "data": "bafecto_arti" },
+                            { "data": "bisc_arti" },
+                            { "data": "bdscto_arti" },
+                            { "data": "bicbper_arti" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0, 6, 7, 8, 9]
+                        "aTargets": [0, 6, 7, 8, 9,10]
                     },
                     {
                         "sClass": "my_class",
@@ -178,7 +190,7 @@
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
         data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio]).draw();
-        Totales();
+        Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
     $("#btncerrar").click(function () {
@@ -360,8 +372,11 @@ function Sales_save() {
     });
 
 }
-function Totales() {
+function Totales(conf_igv, conf_decimal, conf_icbper) {
     console.log('calculo de totales');
+    console.log(conf_igv);
+    console.log(conf_decimal);
+    console.log(conf_icbper);
 
     var TOT_AFECTO = 0;
     var TOT_EXON = 0;
@@ -373,7 +388,7 @@ function Totales() {
     var DSCTO_AFECTO = 0;
     var DSCTO_EXON = 0;
     var TOT_ISC = 0;
-    var CONFIG_IGV = 18;
+    CONFIG_IGV = conf_igv;
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -400,14 +415,14 @@ function Totales() {
 
         console.log(AFECTO_ART);
 
-        if (AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, 2);
+        if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
+            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
             //  console.log('afecto');
         }
 
-        if (AFECTO_ART == 'false' || AFECTO_ART == 'False') {
+        if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
 
-            TOT_EXON = TOT_EXON + Math.round(TOT, 2);
+            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
             //console.log('exone');
         }
 
@@ -440,22 +455,22 @@ function Totales() {
         }
     }
 
-    $("#ndsctoaf_prof").val(DSCTO_AFECTO.toFixed(2));
-    $("#ndctoex_prof").val(DSCTO_EXON.toFixed(2));
-    $("#nbrutoaf_prof").val(SUBT_AFECTO.toFixed(2));
-    $("#nbrutoex_prof").val(SUBT_EXON.toFixed(2));
-    $("#ntotaex_prof").val(SUBT_EXON.toFixed(2));
+    $("#ndsctoaf_prof").val(DSCTO_AFECTO.toFixed(conf_decimal));
+    $("#ndctoex_prof").val(DSCTO_EXON.toFixed(conf_decimal));
+    $("#nbrutoaf_prof").val(SUBT_AFECTO.toFixed(conf_decimal));
+    $("#nbrutoex_prof").val(SUBT_EXON.toFixed(conf_decimal));
+    $("#ntotaex_prof").val(SUBT_EXON.toFixed(conf_decimal));
 
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
     var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
     var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
 
-    $("#nsubex_prof").val(SUBT_EX.toFixed(2));
-    $("#ntotaaf_prof").val(TOTAL_AFEC.toFixed(2));
-    $("#nsubaf_prof").val(SUBT_AFEC.toFixed(2));
+    $("#nsubex_prof").val(SUBT_EX.toFixed(conf_decimal));
+    $("#ntotaaf_prof").val(TOTAL_AFEC.toFixed(conf_decimal));
+    $("#nsubaf_prof").val(SUBT_AFEC.toFixed(conf_decimal));
 
     var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
-    $("#nigvaf_prof").val(IGV_AF.toFixed(2));
+    $("#nigvaf_prof").val(IGV_AF.toFixed(conf_decimal));
     $("#nigvex_prof").val(0);
 
     var TOTAL = TOTAL_AFEC + SUBT_EX;

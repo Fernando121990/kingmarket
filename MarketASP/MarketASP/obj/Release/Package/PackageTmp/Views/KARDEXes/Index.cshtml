@@ -1,0 +1,120 @@
+﻿@model IEnumerable<MarketASP.Models.KARDEX>
+
+@{
+    ViewBag.Title = "Kardex";
+    ViewBag.pTitle = "Kardex";
+    ViewBag.pageTitle = "Inventario";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    <label>Fecha</label>
+                                </th>
+                                <th>
+                                    <label>Articulo</label>
+                                </th>
+                                <th>
+                                    <label>I/S</label>
+                                </th>
+                                <th>
+                                    <label>Cant</label>
+                                </th>
+                                <th>
+                                    <label>P.U</label>
+                                </th>
+                                <th>
+                                    <label>T.C</label>
+                                </th>
+                                <th>
+                                    <label>Moneda</label>
+                                </th>
+                                <th>
+                                    <label>PUMN</label>
+                                </th>
+                                <th>
+                                    <label>PUUSD</label>
+                                </th>
+                                <th>Modulo</th>
+                                <th>
+                                    <label>Cod.Doc</label>
+                                </th>
+                                <th>
+                                    <label>Serie</label>
+                                </th>
+                                <th>
+                                    <label>Numero</label>
+                                </th>
+                                <th>
+                                    <label>F.Venc</label>
+                                </th>
+                                <th>
+                                    <label>Almacen</label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByDescending(X => X.dfekard_kardex))
+                            {
+                                <tr>
+                                    <td>
+                                        @string.Format("{0:d}", item.dfekard_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.stipomovi_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ncant_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.npuco_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ntc_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.smone_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.npucoMN_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.npucoUS_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.smodulo_confi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ncodeDoc_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sserie_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.snume_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.dfvence_kardex)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

@@ -80,6 +80,8 @@ namespace MarketASP.Controllers
             }
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
             ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(F => F.nesta_espe == true), "ncode_espe", "sdesc_espe", aRTICULO.ncode_espe);
+            ViewBag.ncode_subesp = new SelectList(db.SUBESPECIE.Where(F => F.nesta_subesp == true), "ncode_subesp", "sdesc_subesp", aRTICULO.ncode_subesp);
             ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle",aRTICULO.scodsunat_arti);
@@ -114,6 +116,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea", aRTICULO.ncode_sublinea);
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
             ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(F => F.nesta_espe == true), "ncode_espe", "sdesc_espe", aRTICULO.ncode_espe);
+            ViewBag.ncode_subesp = new SelectList(db.SUBESPECIE.Where(F => F.nesta_subesp == true), "ncode_subesp", "sdesc_subesp", aRTICULO.ncode_subesp);
             ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle", aRTICULO.scodsunat_arti);
@@ -136,6 +140,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea", aRTICULO.ncode_sublinea);
             ViewBag.ncode_fami = new SelectList(db.FAMILIA, "ncode_fami", "sdesc_fami", aRTICULO.ncode_fami);
             ViewBag.ncode_clase = new SelectList(db.CLASE, "ncode_clase", "sdesc_clase", aRTICULO.ncode_clase);
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(F => F.nesta_espe == true), "ncode_espe", "sdesc_espe", aRTICULO.ncode_espe);
+            ViewBag.ncode_subesp = new SelectList(db.SUBESPECIE.Where(F => F.nesta_subesp == true), "ncode_subesp", "sdesc_subesp", aRTICULO.ncode_subesp);
             ViewBag.ncode_marca = new SelectList(db.MARCA, "ncode_marca", "sdesc_marca", aRTICULO.ncode_marca);
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA, "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle", aRTICULO.scodsunat_arti);
@@ -531,6 +537,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_sublinea = new SelectList(db.SUBLINEA.Where(F => F.nesta_sublinea == true), "ncode_sublinea", "sdesc_sublinea");
             ViewBag.ncode_fami = new SelectList(db.FAMILIA.Where(F => F.nesta_fami == true), "ncode_fami", "sdesc_fami");
             ViewBag.ncode_clase = new SelectList(db.CLASE.Where(C => C.nesta_clase == true), "ncode_clase", "sdesc_clase");
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(F => F.nesta_espe == true), "ncode_espe", "sdesc_espe");
+            ViewBag.ncode_subesp = new SelectList(db.SUBESPECIE.Where(F => F.nesta_subesp == true), "ncode_subesp", "sdesc_subesp");
             ViewBag.ncode_marca = new SelectList(db.MARCA.Where(F => F.nesta_marca == true), "ncode_marca", "sdesc_marca");
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed");
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle");

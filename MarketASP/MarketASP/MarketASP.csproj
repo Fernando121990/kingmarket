@@ -204,11 +204,14 @@
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
+    <Compile Include="Controllers\EspecieController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
     <Compile Include="Controllers\PermisoesController.cs" />
+    <Compile Include="Controllers\SubespecieController.cs" />
     <Compile Include="Controllers\SublineaController.cs" />
     <Compile Include="Controllers\SUCURSALsController.cs" />
+    <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="Controllers\VentanasController.cs" />
     <Compile Include="Areas\Inventario\Clases\moviView.cs" />
     <Compile Include="Areas\Inventario\Clases\moviViewDeta.cs" />
@@ -249,6 +252,7 @@
     <Compile Include="Controllers\UBIGEOsController.cs" />
     <Compile Include="Controllers\UMEDIDAsController.cs" />
     <Compile Include="Controllers\VENTASController.cs" />
+    <Compile Include="Controllers\ZONAController.cs" />
     <Compile Include="Extensiones\IdentityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -323,6 +327,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DOCU_SERIE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESPECIE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FAMILIA.cs">
@@ -402,6 +409,9 @@
     <Compile Include="Models\Pr_ProformaLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SUBESPECIE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SUBLINEA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -423,6 +433,9 @@
     <Compile Include="Models\TIPO_MOVIMIENTO.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRANSPORTISTA.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UBIGEO.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -436,6 +449,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VENTA_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ZONA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2304,6 +2320,20 @@
     <Content Include="Views\ARTICULOs\RptProducto.cshtml" />
     <Content Include="Views\CONFIGURACIONs\_Configuracion.cshtml" />
     <Content Include="Views\PROFORMAS\_Proformas.cshtml" />
+    <Content Include="Views\Especie\Create.cshtml" />
+    <Content Include="Views\Especie\Edit.cshtml" />
+    <Content Include="Views\Especie\Index.cshtml" />
+    <Content Include="Views\Subespecie\Create.cshtml" />
+    <Content Include="Views\Subespecie\Edit.cshtml" />
+    <Content Include="Views\Subespecie\Index.cshtml" />
+    <Content Include="Views\ZONA\Create.cshtml" />
+    <Content Include="Views\ZONA\Edit.cshtml" />
+    <Content Include="Views\ZONA\Index.cshtml" />
+    <Content Include="Views\Transportista\Create.cshtml" />
+    <Content Include="Views\Transportista\Edit.cshtml" />
+    <Content Include="Views\Transportista\Index.cshtml" />
+    <Content Include="Views\Transportista\_Transportista.cshtml" />
+    <Content Include="Views\PROVEEDORs\_Proveedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

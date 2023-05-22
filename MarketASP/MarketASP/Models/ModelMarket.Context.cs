@@ -31,7 +31,6 @@ namespace MarketASP.Models
         public virtual DbSet<ART_BARRA> ART_BARRA { get; set; }
         public virtual DbSet<ART_PRECIO> ART_PRECIO { get; set; }
         public virtual DbSet<ART_PROVE> ART_PROVE { get; set; }
-        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
         public virtual DbSet<CLASE> CLASE { get; set; }
         public virtual DbSet<CLI_DIRE> CLI_DIRE { get; set; }
         public virtual DbSet<CLIDI_CONTAC> CLIDI_CONTAC { get; set; }
@@ -41,7 +40,6 @@ namespace MarketASP.Models
         public virtual DbSet<MARCA> MARCA { get; set; }
         public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual DbSet<PROV_CONTACTO> PROV_CONTACTO { get; set; }
-        public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public virtual DbSet<TIPO_CAMBIO> TIPO_CAMBIO { get; set; }
         public virtual DbSet<TIPO_MOVIMIENTO> TIPO_MOVIMIENTO { get; set; }
         public virtual DbSet<UBIGEO> UBIGEO { get; set; }
@@ -72,6 +70,12 @@ namespace MarketASP.Models
         public virtual DbSet<Permiso> Permiso { get; set; }
         public virtual DbSet<Ventana> Ventana { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<ESPECIE> ESPECIE { get; set; }
+        public virtual DbSet<SUBESPECIE> SUBESPECIE { get; set; }
+        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
+        public virtual DbSet<ZONA> ZONA { get; set; }
+        public virtual DbSet<TRANSPORTISTA> TRANSPORTISTA { get; set; }
+        public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {

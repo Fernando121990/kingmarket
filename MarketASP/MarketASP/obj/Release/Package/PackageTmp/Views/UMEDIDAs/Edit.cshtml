@@ -1,65 +1,69 @@
 ﻿@model MarketASP.Models.UMEDIDA
 
 @{
-    ViewBag.Title = "Actualizar U.Medida";
+    ViewBag.Title = "Editar U.Medida";
+    ViewBag.pTitle = "Editar U.Medida";
+    ViewBag.pageTitle = "Mantenimiento";
 }
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
-</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ncode_umed)
-        <div class="form-group row">
-            @Html.LabelFor(model => model.sdesc_umed, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.sdesc_umed, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
-                @Html.ValidationMessageFor(model => model.sdesc_umed, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.LabelFor(model => model.scodsunat_umed, "Cod.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.scodsunat_umed, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.scodsunat_umed, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ncode_umed)
+                    <div class="mb-3 form-group row">
+                        @Html.LabelFor(model => model.sdesc_umed, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.sdesc_umed, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
+                            @Html.ValidationMessageFor(model => model.sdesc_umed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="mb-3 form-group row">
+                        @Html.LabelFor(model => model.scodsunat_umed, "Cod.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.scodsunat_umed, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.scodsunat_umed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.ssunat_umed, "Desc.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ssunat_umed, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ssunat_umed, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="mb-3 form-group row">
+                        @Html.LabelFor(model => model.ssunat_umed, "Desc.Sunat", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ssunat_umed, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ssunat_umed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
 
-        <div class="form-group row">
-            @Html.LabelFor(model => model.nesta_umed, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBox("nesta_umed")
-                    @Html.ValidationMessageFor(model => model.nesta_umed, "", new { @class = "text-danger" })
+                    <div class="mb-3 form-group row">
+                        @Html.LabelFor(model => model.nesta_umed, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBox("nesta_umed")
+                                @Html.ValidationMessageFor(model => model.nesta_umed, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="offset-md-2 col-md-8">
-                <input type="submit" value="Actualizar" class="btn  btn-block btn-success" />
+                }
+
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Medidas" })
+                </div>
+
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Medidas" })
 </div>
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,0 +1,58 @@
+﻿@model MarketASP.Models.TRANSPORTISTA
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">DNI</label>
+                    @Html.EditorFor(model => model.sdni_tran, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sdni_tran, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Nombres</label>
+                    @Html.EditorFor(model => model.snomb_tran, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.snomb_tran, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">A.Paterno</label>
+                    @Html.EditorFor(model => model.sappa_tran, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sappa_tran, "", new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">A.Materno</label>
+                    @Html.EditorFor(model => model.sapma_tran, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sapma_tran, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <label for="example-text-input" class="col-form-label">Placa</label>
+                @Html.EditorFor(model => model.splaca_tran, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.splaca_tran, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                <label for="example-text-input" class="col-form-label">Licencia</label>
+                @Html.EditorFor(model => model.slicencia_tran, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.slicencia_tran, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.nesta_tran, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="checkbox">
+                        @Html.CheckBox("nesta_tran")
+                        @Html.ValidationMessageFor(model => model.nesta_tran, "", new { @class = "text-danger" })
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+
+

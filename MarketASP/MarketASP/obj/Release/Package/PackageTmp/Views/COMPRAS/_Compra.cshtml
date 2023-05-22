@@ -1,0 +1,183 @@
+﻿@model MarketASP.Models.COMPRAS
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Proveedor</label>
+                            <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.ncode_provee"/>
+                            <input id="sdesc_prove" name="sdesc_prove" type="text" value="@ViewBag.sdesc_prove" class="form-control" placeholder="Ingrese Proveedor" />
+                            @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <span Class="addProveedor btn btn-default fas fa-file fa-2x text-gray-300" data-toggle="modal" data-target="#modalProveedor"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Almacen</label>
+                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Guia O.C</label>
+                            @Html.EditorFor(model => model.sguia_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sguia_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">Proforma</label>
+                            <div>
+                                @Html.EditorFor(model => model.sproforma_compra, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sproforma_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Documento</label>
+                    @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sseri_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sseri_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">Número</label>
+                            <div>
+                                @Html.EditorFor(model => model.snume_compra, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.snume_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">F.Emision</label>
+                            <input id="dfecompra_compra" style="width:10em" name="dfecompra_compra" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" />
+                            @Html.ValidationMessageFor(model => model.dfecompra_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">F.Venc</label>
+                            <div>
+                                <input id="dfevenci_compra" style="width:10em" name="dfevenci_compra" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" readonly />
+                                @Html.ValidationMessageFor(model => model.dfevenci_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Observación</label>
+                    <textarea class="form-control" rows="3" id="sobs_compra" name="sobs_compra"></textarea>
+                    @Html.ValidationMessageFor(model => model.sobs_compra, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">F.Pago</label>
+                    @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Moneda</label>
+                            @Html.DropDownList("smone_compra", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.smone_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">T.C</label>
+                            <div>
+                                <input id="ntc_compra" class="form-control" style="width:10em" name="ntc_compra" type="text" value="@ViewBag.tc" readonly />
+                                @Html.ValidationMessageFor(model => model.ntc_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-xl-3">
+        <p class="text-muted">Productos</p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-xl-3">
+        <button type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+        <button type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+        <!--  Modal content for the above example -->
+        <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
+                        <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div Class="modal-body">
+                        <table id="matetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>U.M</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th>CodUM</th>
+                                    <th>bafecto</th>
+                                    <th>bisc</th>
+                                    <th>bdscto</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -43,8 +43,8 @@ namespace MarketASP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
-        public virtual PROVEEDOR PROVEEDOR { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
+        public virtual PROVEEDOR PROVEEDOR { get; set; }
     }
 }

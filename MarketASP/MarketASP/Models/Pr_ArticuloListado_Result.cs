@@ -26,5 +26,8 @@ namespace MarketASP.Models
         public string nesta_arti { get; set; }
         public Nullable<decimal> nstockactual { get; set; }
         public Nullable<decimal> nprecio_arti { get; set; }
+        public Nullable<decimal> nstockreservado_arti { get; set; }
+        public Nullable<decimal> ncosto_arti { get; set; }
+        public Nullable<decimal> nultcosto_arti { get; set; }
     }
 }

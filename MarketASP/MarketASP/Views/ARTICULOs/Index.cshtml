@@ -19,15 +19,11 @@
                                 <th>Codigo</th>
                                 <th>Descripción</th>
                                 <th>Stock</th>
-                                <th>U.M</th>
+                                <th>Disponible</th>
                                 <th>Precio</th>
-                                <th>Afecto</th>
-                                <th>Estado</th>
-                                <th>Linea</th>
-                                <th>Sublinea</th>
-                                <th>Familia</th>
-                                <th>Clase</th>
-                                <th>Marca</th>
+                                <th>Costo</th>
+                                <th>U.Costo</th>
+                                <th>U.M</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -45,31 +41,19 @@
                                     @Html.DisplayFor(modelItem => item.nstockactual)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_umed)
+                                    @Html.DisplayFor(modelItem => item.nstockreservado_arti)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.nprecio_arti)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.bafecto_arti)
+                                    @Html.DisplayFor(modelItem => item.ncosto_arti)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.nesta_arti)
+                                    @Html.DisplayFor(modelItem => item.nultcosto_arti)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_linea)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_sublinea)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_fami)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_clase)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.sdesc_marca)
+                                    @Html.DisplayFor(modelItem => item.sdesc_umed)
                                 </td>
                                 <td id="tooltip-container3">
                                     <a href="@Url.Action("Edit", new { id = item.ncode_arti })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>

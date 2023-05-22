@@ -58,9 +58,9 @@ namespace MarketASP.Models
         public virtual ALMACEN ALMACEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRA_DETALLE> COMPRA_DETALLE { get; set; }
-        public virtual PROVEEDOR PROVEEDOR { get; set; }
         public virtual LOCAL LOCAL { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
+        public virtual PROVEEDOR PROVEEDOR { get; set; }
     }
 }

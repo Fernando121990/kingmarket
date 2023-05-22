@@ -29,7 +29,7 @@ namespace MarketASP.Models
         public Nullable<decimal> nsubt_comdeta { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual COMPRAS COMPRAS { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

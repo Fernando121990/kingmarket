@@ -83,6 +83,12 @@ namespace MarketASP.Models
         public Nullable<long> ncode_sublinea { get; set; }
         public Nullable<decimal> nprecio_arti { get; set; }
         public Nullable<decimal> nstockreservado_arti { get; set; }
+        public Nullable<long> ncode_espe { get; set; }
+        public Nullable<long> ncode_subesp { get; set; }
+        public Nullable<decimal> npreciotope_arti { get; set; }
+        public Nullable<decimal> nmargen_arti { get; set; }
+        public Nullable<decimal> ncosto_arti { get; set; }
+        public Nullable<decimal> nultcosto_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }
@@ -90,18 +96,20 @@ namespace MarketASP.Models
         public virtual ICollection<ART_PRECIO> ART_PRECIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_PROVE> ART_PROVE { get; set; }
+        public virtual ESPECIE ESPECIE { get; set; }
+        public virtual SUBESPECIE SUBESPECIE { get; set; }
         public virtual FAMILIA FAMILIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual CLASE CLASE { get; set; }
-        public virtual MARCA MARCA { get; set; }
-        public virtual UMEDIDA UMEDIDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }
+        public virtual MARCA MARCA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRA_DETALLE> COMPRA_DETALLE { get; set; }
+        public virtual UMEDIDA UMEDIDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMA_DETALLE> PROFORMA_DETALLE { get; set; }
     }
