@@ -317,6 +317,7 @@
     <EntitySetMapping Name="VENTAS">
       <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
         <MappingFragment StoreEntitySet="VENTAS">
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
           <ScalarProperty Name="nicbper_venta" ColumnName="nicbper_venta" />
           <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
           <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
@@ -562,6 +563,8 @@
     <EntitySetMapping Name="CLIENTE">
       <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
         <MappingFragment StoreEntitySet="CLIENTE">
+          <ScalarProperty Name="sencargado_zona" ColumnName="sencargado_zona" />
+          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
           <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
           <ScalarProperty Name="nidtipodoc_cliente" ColumnName="nidtipodoc_cliente" />
           <ScalarProperty Name="ncode_afepercepcion" ColumnName="ncode_afepercepcion" />
@@ -736,6 +739,7 @@
     <EntitySetMapping Name="SUBLINEA">
       <EntityTypeMapping TypeName="MarketWebModel.SUBLINEA">
         <MappingFragment StoreEntitySet="SUBLINEA">
+          <ScalarProperty Name="ncode_linea" ColumnName="ncode_linea" />
           <ScalarProperty Name="nesta_sublinea" ColumnName="nesta_sublinea" />
           <ScalarProperty Name="sdesc_sublinea" ColumnName="sdesc_sublinea" />
           <ScalarProperty Name="ncode_sublinea" ColumnName="ncode_sublinea" />
@@ -868,6 +872,7 @@
     <EntitySetMapping Name="SUBESPECIE">
       <EntityTypeMapping TypeName="MarketWebModel.SUBESPECIE">
         <MappingFragment StoreEntitySet="SUBESPECIE">
+          <ScalarProperty Name="ncode_espe" ColumnName="ncode_espe" />
           <ScalarProperty Name="dfemo_subesp" ColumnName="dfemo_subesp" />
           <ScalarProperty Name="susmo_subesp" ColumnName="susmo_subesp" />
           <ScalarProperty Name="dfech_subesp" ColumnName="dfech_subesp" />
@@ -1001,5 +1006,95 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_Sublinealista" FunctionName="MarketWebModel.Store.Pr_Sublinealista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_Sublinealista_Result">
+          <ScalarProperty Name="ncode_linea" ColumnName="ncode_linea" />
+          <ScalarProperty Name="sdesc_linea" ColumnName="sdesc_linea" />
+          <ScalarProperty Name="ncode_sublinea" ColumnName="ncode_sublinea" />
+          <ScalarProperty Name="sdesc_sublinea" ColumnName="sdesc_sublinea" />
+          <ScalarProperty Name="nesta_sublinea" ColumnName="nesta_sublinea" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_SubespecieLista" FunctionName="MarketWebModel.Store.Pr_SubespecieLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_SubespecieLista_Result">
+          <ScalarProperty Name="sdesc_espe" ColumnName="sdesc_espe" />
+          <ScalarProperty Name="ncode_subesp" ColumnName="ncode_subesp" />
+          <ScalarProperty Name="sdesc_subesp" ColumnName="sdesc_subesp" />
+          <ScalarProperty Name="nesta_subesp" ColumnName="nesta_subesp" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ORDEN_PEDIDOS">
+      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
+        <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="dfemo_orpe" ColumnName="dfemo_orpe" />
+          <ScalarProperty Name="susmo_orpe" ColumnName="susmo_orpe" />
+          <ScalarProperty Name="dfech_orpe" ColumnName="dfech_orpe" />
+          <ScalarProperty Name="suser_orpe" ColumnName="suser_orpe" />
+          <ScalarProperty Name="nvalIGV_orpe" ColumnName="nvalIGV_orpe" />
+          <ScalarProperty Name="besta_orpe" ColumnName="besta_orpe" />
+          <ScalarProperty Name="ntotalUs_orpe" ColumnName="ntotalUs_orpe" />
+          <ScalarProperty Name="ntotalMN_orpe" ColumnName="ntotalMN_orpe" />
+          <ScalarProperty Name="ntotal_orpe" ColumnName="ntotal_orpe" />
+          <ScalarProperty Name="ntotaaf_orpe" ColumnName="ntotaaf_orpe" />
+          <ScalarProperty Name="ntotaex_orpe" ColumnName="ntotaex_orpe" />
+          <ScalarProperty Name="nigvaf_orpe" ColumnName="nigvaf_orpe" />
+          <ScalarProperty Name="nigvex_orpe" ColumnName="nigvex_orpe" />
+          <ScalarProperty Name="nsubaf_orpe" ColumnName="nsubaf_orpe" />
+          <ScalarProperty Name="nsubex_orpe" ColumnName="nsubex_orpe" />
+          <ScalarProperty Name="ndsctoaf_orpe" ColumnName="ndsctoaf_orpe" />
+          <ScalarProperty Name="ndctoex_orpe" ColumnName="ndctoex_orpe" />
+          <ScalarProperty Name="nbrutoaf_orpe" ColumnName="nbrutoaf_orpe" />
+          <ScalarProperty Name="nbrutoex_orpe" ColumnName="nbrutoex_orpe" />
+          <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
+          <ScalarProperty Name="sobse_orpe" ColumnName="sobse_orpe" />
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="ntc_orpe" ColumnName="ntc_orpe" />
+          <ScalarProperty Name="smone_orpe" ColumnName="smone_orpe" />
+          <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
+          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+          <ScalarProperty Name="dfevenci_orpe" ColumnName="dfevenci_orpe" />
+          <ScalarProperty Name="dfeorpeo_orpe" ColumnName="dfeorpeo_orpe" />
+          <ScalarProperty Name="snume_orpe" ColumnName="snume_orpe" />
+          <ScalarProperty Name="sseri_orpe" ColumnName="sseri_orpe" />
+          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDEN_PEDIDOS_DETALLE">
+      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS_DETALLE">
+        <MappingFragment StoreEntitySet="ORDEN_PEDIDOS_DETALLE">
+          <ScalarProperty Name="nsubt_orpedeta" ColumnName="nsubt_orpedeta" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+          <ScalarProperty Name="nback_orpedeta" ColumnName="nback_orpedeta" />
+          <ScalarProperty Name="ndsctoporc_orpedeta" ColumnName="ndsctoporc_orpedeta" />
+          <ScalarProperty Name="ndsctomin_orpedeta" ColumnName="ndsctomin_orpedeta" />
+          <ScalarProperty Name="ndsctomax_orpedeta" ColumnName="ndsctomax_orpedeta" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="besafecto_orpedeta" ColumnName="besafecto_orpedeta" />
+          <ScalarProperty Name="nafecto_orpedeta" ColumnName="nafecto_orpedeta" />
+          <ScalarProperty Name="nexon_orpedeta" ColumnName="nexon_orpedeta" />
+          <ScalarProperty Name="ndscto2_orpedeta" ColumnName="ndscto2_orpedeta" />
+          <ScalarProperty Name="ndscto_orpedeta" ColumnName="ndscto_orpedeta" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="ncode_orpedeta" ColumnName="ncode_orpedeta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoCrea" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoCrea" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoDetaCrea" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoDetaCrea" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoDetaEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoDetaEdita" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoEdita" />
+    <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoElimina" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoElimina" />
+    <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoLista" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoLista" />
   </EntityContainerMapping>
 </Mapping>

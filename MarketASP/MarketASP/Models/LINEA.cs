@@ -14,8 +14,17 @@ namespace MarketASP.Models
     
     public partial class LINEA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LINEA()
+        {
+            this.ARTICULO = new HashSet<ARTICULO>();
+        }
+    
         public long ncode_linea { get; set; }
         public string sdesc_linea { get; set; }
         public Nullable<bool> nesta_linea { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ARTICULO> ARTICULO { get; set; }
     }
 }

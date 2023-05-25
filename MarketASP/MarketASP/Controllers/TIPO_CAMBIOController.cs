@@ -30,7 +30,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            return View(await db.TIPO_CAMBIO.ToListAsync());
+            return View(await db.TIPO_CAMBIO.OrderByDescending(x => x.dfecha_tc).ToListAsync());
         }
 
         public ActionResult Create()

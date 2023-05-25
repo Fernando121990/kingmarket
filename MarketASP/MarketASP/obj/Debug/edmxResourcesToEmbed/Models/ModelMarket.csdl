@@ -752,6 +752,147 @@
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
     </AssociationSet>
+    <FunctionImport Name="Pr_Sublinealista" ReturnType="Collection(MarketWebModel.Pr_Sublinealista_Result)" />
+    <FunctionImport Name="Pr_SubespecieLista" ReturnType="Collection(MarketWebModel.Pr_SubespecieLista_Result)" />
+    <AssociationSet Name="FK_CLIENTE_ZONA" Association="MarketWebModel.FK_CLIENTE_ZONA">
+      <End Role="ZONA" EntitySet="ZONA" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <EntitySet Name="ORDEN_PEDIDOS" EntityType="MarketWebModel.ORDEN_PEDIDOS" />
+    <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="MarketWebModel.ORDEN_PEDIDOS_DETALLE" />
+    <AssociationSet Name="R_670" Association="MarketWebModel.R_670">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_630" Association="MarketWebModel.R_630">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_660" Association="MarketWebModel.R_660">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_650" Association="MarketWebModel.R_650">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_640" Association="MarketWebModel.R_640">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_690" Association="MarketWebModel.R_690">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_680" Association="MarketWebModel.R_680">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <AssociationSet Name="R_620" Association="MarketWebModel.R_620">
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+      <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_Orden_PedidoCrea">
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="sseri_orpe" Mode="In" Type="String" />
+      <Parameter Name="snume_orpe" Mode="In" Type="String" />
+      <Parameter Name="dfeorpeo_orpe" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_orpe" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_orpe" Mode="In" Type="String" />
+      <Parameter Name="ntc_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_orpe" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_orpe" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_orpe" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_PedidoDetaCrea">
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_orpedeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndsctomax_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctomin_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoporc_orpedeta" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_PedidoDetaEdita">
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_PedidoEdita">
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="dfeorpeo_orpe" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_orpe" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_orpe" Mode="In" Type="String" />
+      <Parameter Name="ntc_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_orpe" Mode="In" Type="String" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_orpe" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_orpe" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_orpe" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_OrdenPedidoElimina">
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_OrdenPedidoLista">
+      <Parameter Name="documento" Mode="In" Type="String" />
+      <Parameter Name="cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <AssociationSet Name="FK_ARTICULO_LINEA" Association="MarketWebModel.FK_ARTICULO_LINEA">
+      <End Role="LINEA" EntitySet="LINEA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ARTICULO_SUBLINEA" Association="MarketWebModel.FK_ARTICULO_SUBLINEA">
+      <End Role="SUBLINEA" EntitySet="SUBLINEA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -767,6 +908,7 @@
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_36" FromRole="ALMACEN" ToRole="COMPRAS" />
     <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_37" FromRole="ALMACEN" ToRole="COMPRA_DETALLE" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_67" FromRole="ALMACEN" ToRole="PROFORMAS" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_670" FromRole="ALMACEN" ToRole="ORDEN_PEDIDOS" />
   </EntityType>
   <EntityType Name="ART_BARRA">
     <Key>
@@ -840,6 +982,7 @@
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_66" FromRole="CLI_DIRE" ToRole="PROFORMAS" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_660" FromRole="CLI_DIRE" ToRole="ORDEN_PEDIDOS" />
   </EntityType>
   <EntityType Name="CLIDI_CONTAC">
     <Key>
@@ -1290,6 +1433,7 @@
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
     <Property Name="ncode_mone" Type="Int32" />
     <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_orpe" Type="Int64" />
   </EntityType>
   <Association Name="R_33">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -1577,6 +1721,7 @@
     <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_680" FromRole="LOCAL" ToRole="ORDEN_PEDIDOS" />
   </EntityType>
   <Association Name="R_59">
     <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -1630,6 +1775,8 @@
     <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" FromRole="CONFIGURACION" ToRole="PROVEEDOR" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -1812,6 +1959,10 @@
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
     <Property Name="nidtipodoc_cliente" Type="Int32" />
     <Property Name="bretencion_cliente" Type="Boolean" />
+    <Property Name="ncode_zona" Type="Int64" />
+    <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="CLIENTE" ToRole="ZONA" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
+    <Property Name="sencargado_zona" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="R_11">
     <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -2109,6 +2260,7 @@
     <Property Name="ncode_linea" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="sdesc_linea" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
     <Property Name="nesta_linea" Type="Boolean" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_ARTICULO_LINEA" FromRole="LINEA" ToRole="ARTICULO" />
   </EntityType>
   <EntityType Name="SUBLINEA">
     <Key>
@@ -2117,6 +2269,8 @@
     <Property Name="ncode_sublinea" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="sdesc_sublinea" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
     <Property Name="nesta_sublinea" Type="Boolean" />
+    <Property Name="ncode_linea" Type="Int64" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_ARTICULO_SUBLINEA" FromRole="SUBLINEA" ToRole="ARTICULO" />
   </EntityType>
   <ComplexType Name="Pr_ArticuloListado_Result">
     <Property Type="Int64" Name="ncode_arti" Nullable="false" />
@@ -2261,6 +2415,7 @@
     <Property Name="susmo_subesp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dfemo_subesp" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_ARTICULO_SUBESPECIE" FromRole="SUBESPECIE" ToRole="ARTICULO" />
+    <Property Name="ncode_espe" Type="Int64" />
   </EntityType>
   <EntityType Name="ARTICULO">
     <Key>
@@ -2342,6 +2497,9 @@
     <Property Name="nmargen_arti" Type="Decimal" Precision="18" Scale="4" />
     <Property Name="ncosto_arti" Type="Decimal" Precision="18" Scale="4" />
     <Property Name="nultcosto_arti" Type="Decimal" Precision="18" Scale="4" />
+    <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_630" FromRole="ARTICULO" ToRole="ORDEN_PEDIDOS_DETALLE" />
+    <NavigationProperty Name="LINEA" Relationship="MarketWebModel.FK_ARTICULO_LINEA" FromRole="ARTICULO" ToRole="LINEA" />
+    <NavigationProperty Name="SUBLINEA" Relationship="MarketWebModel.FK_ARTICULO_SUBLINEA" FromRole="ARTICULO" ToRole="SUBLINEA" />
   </EntityType>
   <Association Name="R_8">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -2522,6 +2680,7 @@
     <Property Name="dfech_zona" Type="DateTime" Precision="3" />
     <Property Name="susmo_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dfemo_zona" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="ZONA" ToRole="CLIENTE" />
   </EntityType>
   <EntityType Name="TRANSPORTISTA">
     <Key>
@@ -2625,6 +2784,221 @@
       </Principal>
       <Dependent Role="PROVEEDOR">
         <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_Sublinealista_Result">
+    <Property Type="Int64" Name="ncode_linea" Nullable="false" />
+    <Property Type="String" Name="sdesc_linea" Nullable="true" MaxLength="5000" />
+    <Property Type="Int64" Name="ncode_sublinea" Nullable="false" />
+    <Property Type="String" Name="sdesc_sublinea" Nullable="true" MaxLength="5000" />
+    <Property Type="Boolean" Name="nesta_sublinea" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Pr_SubespecieLista_Result">
+    <Property Type="String" Name="sdesc_espe" Nullable="true" MaxLength="500" />
+    <Property Type="Int64" Name="ncode_subesp" Nullable="false" />
+    <Property Type="String" Name="sdesc_subesp" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="nesta_subesp" Nullable="true" />
+  </ComplexType>
+  <Association Name="FK_CLIENTE_ZONA">
+    <End Type="MarketWebModel.ZONA" Role="ZONA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZONA">
+        <PropertyRef Name="ncode_zona" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_zona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ORDEN_PEDIDOS">
+    <Key>
+      <PropertyRef Name="ncode_orpe" />
+    </Key>
+    <Property Name="ncode_orpe" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="sseri_orpe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_orpe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfeorpeo_orpe" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_orpe" Type="DateTime" Precision="3" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="ncode_clidire" Type="Int32" />
+    <Property Name="smone_orpe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+    <Property Name="sobse_orpe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_compra" Type="Int64" />
+    <Property Name="nbrutoex_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_orpe" Type="Boolean" />
+    <Property Name="nvalIGV_orpe" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_orpe" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_orpe" Type="DateTime" Precision="3" />
+    <Property Name="susmo_orpe" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_orpe" Type="DateTime" Precision="3" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ncode_local" Type="Int32" Nullable="false" />
+    <Property Name="ncode_mone" Type="Int32" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_670" FromRole="ORDEN_PEDIDOS" ToRole="ALMACEN" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_660" FromRole="ORDEN_PEDIDOS" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_650" FromRole="ORDEN_PEDIDOS" ToRole="CLIENTE" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_640" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_690" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
+    <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
+  </EntityType>
+  <EntityType Name="ORDEN_PEDIDOS_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_orpedeta" />
+    </Key>
+    <Property Name="ncode_orpedeta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_orpedeta" Type="Boolean" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="ndsctomax_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctomin_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoporc_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nback_orpedeta" Type="Int32" />
+    <Property Name="ncode_orpe" Type="Int64" />
+    <Property Name="nsubt_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_630" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ORDEN_PEDIDOS" />
+  </EntityType>
+  <Association Name="R_670">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_630">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Role="ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_660">
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_650">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_640">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_690">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_680">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_620">
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Role="ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_orpe" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS_DETALLE">
+        <PropertyRef Name="ncode_orpe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ARTICULO_LINEA">
+    <End Type="MarketWebModel.LINEA" Role="LINEA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LINEA">
+        <PropertyRef Name="ncode_linea" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ARTICULO_SUBLINEA">
+    <End Type="MarketWebModel.SUBLINEA" Role="SUBLINEA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUBLINEA">
+        <PropertyRef Name="ncode_sublinea" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_sublinea" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

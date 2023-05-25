@@ -89,6 +89,16 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="#">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Orden Pedidos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Orden_Pedido",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Orden_Pedido",null)>Consultas</a></li>
+                    </ul>
+                </li>
+                <li>
                     <a href="#" class="waves-effect">
                         <i class="ri-artboard-2-line"></i>
                         <span>Globales</span>
@@ -96,7 +106,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href=@Url.Action("Index", "Configuracions")>Configuraciones</a></li>
                         <li><a href=@Url.Action("Index", "docu_serie")>Series de documentos</a></li>
-
+                        <li><a href=@Url.Action("Index", "aspnetusers")>Usuarios</a></li>
                     </ul>
                 </li>
                 @*<li>

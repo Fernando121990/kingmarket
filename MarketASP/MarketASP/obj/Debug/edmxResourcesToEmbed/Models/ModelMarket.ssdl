@@ -204,6 +204,8 @@
     <Property Name="ncode_afepercepcion" Type="int" />
     <Property Name="nidtipodoc_cliente" Type="int" />
     <Property Name="bretencion_cliente" Type="bit" />
+    <Property Name="ncode_zona" Type="bigint" />
+    <Property Name="sencargado_zona" Type="varchar" MaxLength="5000" />
   </EntityType>
   <EntityType Name="COMPRA_DETALLE">
     <Key>
@@ -532,6 +534,67 @@
     <Property Name="ndestino_alma" Type="int" />
     <Property Name="stipo_movi" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="ORDEN_PEDIDOS">
+    <Key>
+      <PropertyRef Name="ncode_orpe" />
+    </Key>
+    <Property Name="ncode_orpe" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_docu" Type="int" Nullable="false" />
+    <Property Name="sseri_orpe" Type="varchar" MaxLength="20" />
+    <Property Name="snume_orpe" Type="varchar" MaxLength="20" />
+    <Property Name="dfeorpeo_orpe" Type="datetime" />
+    <Property Name="dfevenci_orpe" Type="datetime" />
+    <Property Name="ncode_cliente" Type="int" Nullable="false" />
+    <Property Name="ncode_clidire" Type="int" />
+    <Property Name="smone_orpe" Type="varchar" MaxLength="20" />
+    <Property Name="ntc_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="int" Nullable="false" />
+    <Property Name="sobse_orpe" Type="varchar(max)" />
+    <Property Name="ncode_compra" Type="bigint" />
+    <Property Name="nbrutoex_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="besta_orpe" Type="bit" />
+    <Property Name="nvalIGV_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="suser_orpe" Type="varchar" MaxLength="30" />
+    <Property Name="dfech_orpe" Type="datetime" />
+    <Property Name="susmo_orpe" Type="varchar" MaxLength="30" />
+    <Property Name="dfemo_orpe" Type="datetime" />
+    <Property Name="ncode_alma" Type="int" Nullable="false" />
+    <Property Name="ncode_local" Type="int" Nullable="false" />
+    <Property Name="ncode_mone" Type="int" />
+  </EntityType>
+  <EntityType Name="ORDEN_PEDIDOS_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_orpedeta" />
+    </Key>
+    <Property Name="ncode_orpedeta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="npu_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_orpedeta" Type="bit" Nullable="false" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="ndsctomax_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctomin_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoporc_orpedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nback_orpedeta" Type="int" />
+    <Property Name="ncode_orpe" Type="bigint" />
+    <Property Name="nsubt_orpedeta" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
   <EntityType Name="Permiso">
     <Key>
       <PropertyRef Name="username" />
@@ -644,6 +707,7 @@
     <Property Name="dfech_subesp" Type="datetime" />
     <Property Name="susmo_subesp" Type="varchar" MaxLength="50" />
     <Property Name="dfemo_subesp" Type="datetime" />
+    <Property Name="ncode_espe" Type="bigint" />
   </EntityType>
   <EntityType Name="SUBLINEA">
     <Key>
@@ -652,6 +716,7 @@
     <Property Name="ncode_sublinea" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="sdesc_sublinea" Type="varchar" MaxLength="5000" />
     <Property Name="nesta_sublinea" Type="bit" />
+    <Property Name="ncode_linea" Type="bigint" />
   </EntityType>
   <EntityType Name="SUCURSAL">
     <Key>
@@ -824,6 +889,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ncode_local" Type="int" />
     <Property Name="ncode_mone" Type="int" />
     <Property Name="nicbper_venta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_orpe" Type="bigint" />
   </EntityType>
   <EntityType Name="ZONA">
     <Key>
@@ -849,6 +915,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ARTICULO_LINEA">
+    <End Role="LINEA" Type="Self.LINEA" Multiplicity="0..1" />
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LINEA">
+        <PropertyRef Name="ncode_linea" />
+      </Principal>
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_linea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ARTICULO_SUBESPECIE">
     <End Role="SUBESPECIE" Type="Self.SUBESPECIE" Multiplicity="0..1" />
     <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
@@ -861,15 +939,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_LOCAL_UBIGEO">
-    <End Role="UBIGEO" Type="Self.UBIGEO" Multiplicity="0..1" />
-    <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="*" />
+  <Association Name="FK_ARTICULO_SUBLINEA">
+    <End Role="SUBLINEA" Type="Self.SUBLINEA" Multiplicity="0..1" />
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="UBIGEO">
-        <PropertyRef Name="scode_ubigeo" />
+      <Principal Role="SUBLINEA">
+        <PropertyRef Name="ncode_sublinea" />
       </Principal>
-      <Dependent Role="LOCAL">
-        <PropertyRef Name="scode_ubigeo" />
+      <Dependent Role="ARTICULO">
+        <PropertyRef Name="ncode_sublinea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLIENTE_ZONA">
+    <End Role="ZONA" Type="Self.ZONA" Multiplicity="0..1" />
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZONA">
+        <PropertyRef Name="ncode_zona" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_zona" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -918,18 +1008,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="CLI_DIRE">
         <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_12">
-    <End Role="UBIGEO" Type="Self.UBIGEO" Multiplicity="1" />
-    <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UBIGEO">
-        <PropertyRef Name="scode_ubigeo" />
-      </Principal>
-      <Dependent Role="CLI_DIRE">
-        <PropertyRef Name="scode_ubigeo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1559,6 +1637,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_620">
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="0..1" />
+    <End Role="ORDEN_PEDIDOS_DETALLE" Type="Self.ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_orpe" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS_DETALLE">
+        <PropertyRef Name="ncode_orpe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_63">
     <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
     <End Role="PROFORMA_DETALLE" Type="Self.PROFORMA_DETALLE" Multiplicity="*" />
@@ -1567,6 +1657,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <PropertyRef Name="ncode_arti" />
       </Principal>
       <Dependent Role="PROFORMA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_630">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS_DETALLE" Type="Self.ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS_DETALLE">
         <PropertyRef Name="ncode_arti" />
       </Dependent>
     </ReferentialConstraint>
@@ -1583,6 +1685,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_640">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_65">
     <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
     <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
@@ -1591,6 +1705,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <PropertyRef Name="ncode_cliente" />
       </Principal>
       <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_650">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
         <PropertyRef Name="ncode_cliente" />
       </Dependent>
     </ReferentialConstraint>
@@ -1607,6 +1733,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_660">
+    <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="0..1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_67">
     <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
     <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
@@ -1615,6 +1753,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <PropertyRef Name="ncode_alma" />
       </Principal>
       <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_670">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
         <PropertyRef Name="ncode_alma" />
       </Dependent>
     </ReferentialConstraint>
@@ -1631,6 +1781,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_680">
+    <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_69">
     <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
     <End Role="PROFORMAS" Type="Self.PROFORMAS" Multiplicity="*" />
@@ -1639,6 +1801,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <PropertyRef Name="ncode_confi" />
       </Principal>
       <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_690">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
         <PropertyRef Name="ncode_fopago" />
       </Dependent>
     </ReferentialConstraint>
@@ -1891,6 +2065,99 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   <Function Name="Pr_movimientoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_movi" Type="numeric" Mode="In" />
   </Function>
+  <Function Name="Pr_Orden_PedidoCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+    <Parameter Name="sseri_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="snume_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="dfeorpeo_orpe" Type="datetime" Mode="In" />
+    <Parameter Name="dfevenci_orpe" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+    <Parameter Name="ncode_clidire" Type="int" Mode="In" />
+    <Parameter Name="smone_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+    <Parameter Name="sobse_orpe" Type="varchar(max)" Mode="In" />
+    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+    <Parameter Name="nbrutoex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="besta_orpe" Type="bit" Mode="In" />
+    <Parameter Name="nvalIGV_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="suser_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_Orden_PedidoDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="npu_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndscto_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndscto2_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="nexon_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="nafecto_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="besafecto_orpedeta" Type="bit" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ndsctomax_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctomin_orpedeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoporc_orpedeta" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_PedidoDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_PedidoEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+    <Parameter Name="dfeorpeo_orpe" Type="datetime" Mode="In" />
+    <Parameter Name="dfevenci_orpe" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+    <Parameter Name="ncode_clidire" Type="int" Mode="In" />
+    <Parameter Name="smone_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+    <Parameter Name="sobse_orpe" Type="varchar(max)" Mode="In" />
+    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+    <Parameter Name="nbrutoex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="besta_orpe" Type="bit" Mode="In" />
+    <Parameter Name="nvalIGV_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="suser_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_OrdenPedidoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_OrdenPedidoLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="documento" Type="varchar" Mode="In" />
+    <Parameter Name="cliente" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Pr_PermisoAcceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="usuario" Type="varchar" Mode="In" />
     <Parameter Name="nivel" Type="varchar" Mode="In" />
@@ -2101,6 +2368,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <EntityContainer Name="MarketWebModelStoreContainer">
     <EntitySet Name="ALMACEN" EntityType="Self.ALMACEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ART_BARRA" EntityType="Self.ART_BARRA" Schema="dbo" store:Type="Tables" />
@@ -2131,6 +2400,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDEN_PEDIDOS" EntityType="Self.ORDEN_PEDIDOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="Self.ORDEN_PEDIDOS_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROFORMA_DETALLE" EntityType="Self.PROFORMA_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROFORMAS" EntityType="Self.PROFORMAS" Schema="dbo" store:Type="Tables" />
@@ -2172,13 +2443,21 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="ESPECIE" EntitySet="ESPECIE" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
     </AssociationSet>
+    <AssociationSet Name="FK_ARTICULO_LINEA" Association="Self.FK_ARTICULO_LINEA">
+      <End Role="LINEA" EntitySet="LINEA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
     <AssociationSet Name="FK_ARTICULO_SUBESPECIE" Association="Self.FK_ARTICULO_SUBESPECIE">
       <End Role="SUBESPECIE" EntitySet="SUBESPECIE" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
     </AssociationSet>
-    <AssociationSet Name="FK_LOCAL_UBIGEO" Association="Self.FK_LOCAL_UBIGEO">
-      <End Role="UBIGEO" EntitySet="UBIGEO" />
-      <End Role="LOCAL" EntitySet="LOCAL" />
+    <AssociationSet Name="FK_ARTICULO_SUBLINEA" Association="Self.FK_ARTICULO_SUBLINEA">
+      <End Role="SUBLINEA" EntitySet="SUBLINEA" />
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLIENTE_ZONA" Association="Self.FK_CLIENTE_ZONA">
+      <End Role="ZONA" EntitySet="ZONA" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
     </AssociationSet>
     <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -2194,10 +2473,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     </AssociationSet>
     <AssociationSet Name="R_11" Association="Self.R_11">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
-    </AssociationSet>
-    <AssociationSet Name="R_12" Association="Self.R_12">
-      <End Role="UBIGEO" EntitySet="UBIGEO" />
       <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
     </AssociationSet>
     <AssociationSet Name="R_13" Association="Self.R_13">
@@ -2408,33 +2683,65 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
       <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
     </AssociationSet>
+    <AssociationSet Name="R_620" Association="Self.R_620">
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+      <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
+    </AssociationSet>
     <AssociationSet Name="R_63" Association="Self.R_63">
       <End Role="ARTICULO" EntitySet="ARTICULO" />
       <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_630" Association="Self.R_630">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
     </AssociationSet>
     <AssociationSet Name="R_64" Association="Self.R_64">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
     </AssociationSet>
+    <AssociationSet Name="R_640" Association="Self.R_640">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
     <AssociationSet Name="R_65" Association="Self.R_65">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_650" Association="Self.R_650">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
     </AssociationSet>
     <AssociationSet Name="R_66" Association="Self.R_66">
       <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
     </AssociationSet>
+    <AssociationSet Name="R_660" Association="Self.R_660">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
     <AssociationSet Name="R_67" Association="Self.R_67">
       <End Role="ALMACEN" EntitySet="ALMACEN" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_670" Association="Self.R_670">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
     </AssociationSet>
     <AssociationSet Name="R_68" Association="Self.R_68">
       <End Role="LOCAL" EntitySet="LOCAL" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
     </AssociationSet>
+    <AssociationSet Name="R_680" Association="Self.R_680">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
     <AssociationSet Name="R_69" Association="Self.R_69">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_690" Association="Self.R_690">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
     </AssociationSet>
     <AssociationSet Name="R_7" Association="Self.R_7">
       <End Role="ARTICULO" EntitySet="ARTICULO" />

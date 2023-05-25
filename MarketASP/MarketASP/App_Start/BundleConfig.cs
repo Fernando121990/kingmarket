@@ -112,6 +112,10 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/proforma").Include(
                "~/Scripts/proforma/profoCrear.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/ordenpedido").Include(
+               "~/Scripts/ordenpedido/orpedidoCrear.js"));
+
+
             bundles.Add(new ScriptBundle("~/bundles/venta").Include(
                    "~/Scripts/Ventas/ventaCrear.js"));
 

@@ -131,7 +131,6 @@
                     <dd>
                         @Html.DisplayFor(model => model.snomb_cliente)
                     </dd>
-
                     <dt>
                         Es Extranjero
                     </dt>
@@ -140,6 +139,27 @@
                         <input type="checkbox" checked="@Model.bprocedencia_cliente" readonly />
 
                     </dd>
+                    <dt>
+                        Retencion
+                    </dt>
+                    <dd>
+                        <input type="checkbox" checked="@Model.bretencion_cliente" readonly />
+
+                    </dd>
+                    <dt>
+                        Zona
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ZONA.sdesc_zona)
+                    </dd>
+                    <dt>
+                        Encargado de zona
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.sencargado_zona)
+
+                    </dd>
+
                 </dl>
             </div>
         </div>

@@ -106,7 +106,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="sruc_cliente" class="col-form-label">RUC</label>
-                            <input id="sruc" name="sruc" type="text" value="@ViewBag.sruc" class="form-control" />
+                            <input id="sruc" name="sruc" type="text" value="@ViewBag.sruc_cliente" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -311,41 +311,19 @@
                     {
                         var currentItem = item;
                         <tr>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ncant_vedeta)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.npu_vedeta)
-                            </td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncant_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.npu_vedeta)</td>
                             <td></td>
                             <td></td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)
-                            </td>
-                            <td>
-                                @Html.DisplayTextFor(x => currentItem.nsubt_vedeta)
-                            </td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
                         </tr>
 
                     }

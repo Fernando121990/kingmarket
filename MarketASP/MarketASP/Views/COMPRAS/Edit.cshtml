@@ -45,40 +45,18 @@
                                         {
                                             var currentItem = item;
                                             <tr>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ncant_comdeta)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.npu_comdeta)
-                                                </td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ncant_comdeta)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.npu_comdeta)</td>
                                                 <td></td>
-                                                <td>
-                                                    @Model.smone_compra
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayTextFor(x => currentItem.nsubt_comdeta)
-                                                </td>
+                                                <td>@Model.smone_compra</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                                                <td>@Html.DisplayTextFor(x => currentItem.nsubt_comdeta)</td>
                                             </tr>
 
                                         }

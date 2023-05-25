@@ -283,6 +283,8 @@ namespace MarketASP.Controllers
 
                             db.Pr_ventaDetaEdita(code);
 
+                            db.Pr_KardexElimina("venta", code);
+
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
                             

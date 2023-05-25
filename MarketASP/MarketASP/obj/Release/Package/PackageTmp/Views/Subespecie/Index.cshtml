@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.SUBESPECIE>
+﻿@model IEnumerable<MarketASP.Models.Pr_SubespecieLista_Result>
 
 @{
     ViewBag.Title = "Subespecie";
@@ -17,6 +17,7 @@
                     <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
+                                <th>Especie</th>
                                 <th>
                                     <label>Descripción</label>
                                 </th>
@@ -30,6 +31,9 @@
                             @foreach (var item in Model)
                             {
                             <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_espe)
+                                </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sdesc_subesp)
                                 </td>

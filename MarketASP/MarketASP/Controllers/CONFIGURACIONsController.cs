@@ -46,7 +46,7 @@ namespace MarketASP.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_confi,sdesc_confi,svalor_confi,besta_confi,ntipo_confi,stipo_confi")] CONFIGURACION cONFIGURACION)
+        public async Task<ActionResult> Create(CONFIGURACION cONFIGURACION)
         {
             if (ModelState.IsValid)
             {

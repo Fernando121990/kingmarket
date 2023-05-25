@@ -14,6 +14,12 @@ namespace MarketASP.Models
     
     public partial class ZONA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ZONA()
+        {
+            this.CLIENTE = new HashSet<CLIENTE>();
+        }
+    
         public long ncode_zona { get; set; }
         public string sdesc_zona { get; set; }
         public Nullable<bool> nesta_zona { get; set; }
@@ -21,5 +27,8 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfech_zona { get; set; }
         public string susmo_zona { get; set; }
         public Nullable<System.DateTime> dfemo_zona { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
     }
 }

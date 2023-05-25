@@ -200,6 +200,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Clases\permisoView.cs" />
+    <Compile Include="Clases\ordenpedidoView.cs" />
+    <Compile Include="Clases\ordenpedidoViewDeta.cs" />
     <Compile Include="Clases\ventanaView.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
@@ -208,6 +210,8 @@
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
     <Compile Include="Controllers\PermisoesController.cs" />
+    <Compile Include="Controllers\ORDEN_PEDIDOController.cs" />
+    <Compile Include="Controllers\ORDEN_PEDIDO_DETALLEController.cs" />
     <Compile Include="Controllers\SubespecieController.cs" />
     <Compile Include="Controllers\SublineaController.cs" />
     <Compile Include="Controllers\SUCURSALsController.cs" />
@@ -373,6 +377,12 @@
     <Compile Include="Models\MOVI_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ORDEN_PEDIDOS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ORDEN_PEDIDOS_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Permiso.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -407,6 +417,12 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_ProformaLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_SubespecieLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_Sublinealista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SUBESPECIE.cs">
@@ -748,6 +764,7 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\ordenpedido\orpedidoCrear.js" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
     <Content Include="Views\AspNetUsers\Edit.cshtml" />
@@ -2334,6 +2351,17 @@
     <Content Include="Views\Transportista\Index.cshtml" />
     <Content Include="Views\Transportista\_Transportista.cshtml" />
     <Content Include="Views\PROVEEDORs\_Proveedor.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO_DETALLE\Create.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO_DETALLE\Delete.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO_DETALLE\Details.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO_DETALLE\Edit.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO_DETALLE\Index.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\_OrdenPedido.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\Create.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\Delete.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\Details.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\Edit.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

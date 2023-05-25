@@ -228,9 +228,13 @@ namespace MarketASP.Controllers
 
                             }
 
+                            db.Pr_compraDetaEdita(code);
+
+                            db.Pr_KardexElimina("compra", code);
+
                             db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
 
-                            db.Pr_compraDetaEdita(code);
+                            
                         }
                     }
                 }

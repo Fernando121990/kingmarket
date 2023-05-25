@@ -25,6 +25,7 @@ namespace MarketASP.Models
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
             this.PROFORMA_DETALLE = new HashSet<PROFORMA_DETALLE>();
+            this.ORDEN_PEDIDOS_DETALLE = new HashSet<ORDEN_PEDIDOS_DETALLE>();
         }
     
         public long ncode_arti { get; set; }
@@ -112,5 +113,9 @@ namespace MarketASP.Models
         public virtual UMEDIDA UMEDIDA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMA_DETALLE> PROFORMA_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_PEDIDOS_DETALLE> ORDEN_PEDIDOS_DETALLE { get; set; }
+        public virtual LINEA LINEA { get; set; }
+        public virtual SUBLINEA SUBLINEA { get; set; }
     }
 }

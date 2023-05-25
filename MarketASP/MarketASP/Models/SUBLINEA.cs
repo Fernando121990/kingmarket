@@ -14,8 +14,18 @@ namespace MarketASP.Models
     
     public partial class SUBLINEA
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SUBLINEA()
+        {
+            this.ARTICULO = new HashSet<ARTICULO>();
+        }
+    
         public long ncode_sublinea { get; set; }
         public string sdesc_sublinea { get; set; }
         public Nullable<bool> nesta_sublinea { get; set; }
+        public Nullable<long> ncode_linea { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ARTICULO> ARTICULO { get; set; }
     }
 }

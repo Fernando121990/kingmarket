@@ -27,6 +27,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfech_subesp { get; set; }
         public string susmo_subesp { get; set; }
         public Nullable<System.DateTime> dfemo_subesp { get; set; }
+        public Nullable<long> ncode_espe { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ARTICULO> ARTICULO { get; set; }
