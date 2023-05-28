@@ -43,7 +43,7 @@ namespace MarketASP.Controllers
                 ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
                 return View("_Mensaje");
             }
-
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(x => x.nesta_linea == true), "ncode_linea", "sdesc_linea");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(x => x.nesta_linea == true), "ncode_linea", "sdesc_linea");
             return View(sublinea);
         }
 
@@ -83,6 +83,7 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(x => x.nesta_linea == true), "ncode_linea", "sdesc_linea",sublinea.ncode_linea);
             return View(sublinea);
         }
 
@@ -97,6 +98,7 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ncode_linea = new SelectList(db.LINEA.Where(x => x.nesta_linea == true), "ncode_linea", "sdesc_linea", sublinea.ncode_linea);
             return View(sublinea);
         }
 

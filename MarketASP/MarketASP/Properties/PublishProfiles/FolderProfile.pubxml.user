@@ -7,7 +7,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\pxyKingMarket</_PublishTargetUrl>
-    <History>True|2023-05-25T03:00:17.1072262Z;True|2023-05-23T23:21:38.6555658-05:00;True|2023-05-21T22:51:45.0117745-05:00;</History>
+    <History>True|2023-05-26T01:24:10.3602365Z;True|2023-05-24T22:00:17.1072262-05:00;True|2023-05-23T23:21:38.6555658-05:00;True|2023-05-21T22:51:45.0117745-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -255,10 +255,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/22/2017 14:06:00</publishTime>
     </File>
     <File Include="bin/MarketASP.dll">
-      <publishTime>05/25/2023 00:48:46</publishTime>
+      <publishTime>05/25/2023 20:55:56</publishTime>
     </File>
     <File Include="bin/MarketASP.pdb">
-      <publishTime>05/25/2023 00:48:46</publishTime>
+      <publishTime>05/25/2023 20:55:56</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>04/24/2018 12:47:38</publishTime>
@@ -11397,25 +11397,28 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/19/2020 19:58:29</publishTime>
     </File>
     <File Include="Views/AspNetUsers/Create.cshtml">
-      <publishTime>08/27/2020 15:19:36</publishTime>
+      <publishTime>05/25/2023 19:55:22</publishTime>
     </File>
     <File Include="Views/AspNetUsers/Delete.cshtml">
-      <publishTime>09/05/2020 13:36:43</publishTime>
+      <publishTime>05/25/2023 19:55:22</publishTime>
     </File>
     <File Include="Views/AspNetUsers/Edit.cshtml">
-      <publishTime>11/19/2020 19:39:10</publishTime>
+      <publishTime>05/25/2023 19:54:56</publishTime>
     </File>
     <File Include="Views/AspNetUsers/Index.cshtml">
-      <publishTime>11/19/2020 15:21:30</publishTime>
+      <publishTime>05/25/2023 20:04:37</publishTime>
     </File>
     <File Include="Views/CLASEs/Create.cshtml">
-      <publishTime>05/08/2023 15:53:29</publishTime>
+      <publishTime>05/25/2023 19:20:40</publishTime>
     </File>
     <File Include="Views/CLASEs/Edit.cshtml">
-      <publishTime>05/08/2023 15:53:29</publishTime>
+      <publishTime>05/25/2023 19:21:13</publishTime>
     </File>
     <File Include="Views/CLASEs/Index.cshtml">
       <publishTime>05/08/2023 15:53:29</publishTime>
+    </File>
+    <File Include="Views/CLASEs/_clase.cshtml">
+      <publishTime>05/25/2023 19:19:57</publishTime>
     </File>
     <File Include="Views/CLIDI_CONTAC/Create.cshtml">
       <publishTime>05/08/2023 15:53:29</publishTime>
@@ -11700,10 +11703,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/24/2023 19:58:56</publishTime>
     </File>
     <File Include="Views/Permisoes/Create.cshtml">
-      <publishTime>11/19/2020 15:47:45</publishTime>
+      <publishTime>05/25/2023 20:11:30</publishTime>
     </File>
     <File Include="Views/Permisoes/EditorTemplates/ventanaView.cshtml">
-      <publishTime>11/19/2020 15:47:45</publishTime>
+      <publishTime>05/25/2023 19:56:23</publishTime>
     </File>
     <File Include="Views/PROFORMAS/Create.cshtml">
       <publishTime>05/08/2023 15:53:30</publishTime>
@@ -11805,28 +11808,34 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/08/2023 15:53:31</publishTime>
     </File>
     <File Include="Views/Shared/_Sidebar.cshtml">
-      <publishTime>05/24/2023 20:11:00</publishTime>
+      <publishTime>05/25/2023 20:53:00</publishTime>
     </File>
     <File Include="Views/Shared/_Topbar.cshtml">
       <publishTime>05/08/2023 15:53:31</publishTime>
     </File>
     <File Include="Views/Subespecie/Create.cshtml">
-      <publishTime>05/21/2023 08:59:06</publishTime>
+      <publishTime>05/25/2023 19:23:35</publishTime>
     </File>
     <File Include="Views/Subespecie/Edit.cshtml">
-      <publishTime>05/21/2023 08:58:21</publishTime>
+      <publishTime>05/25/2023 19:23:35</publishTime>
     </File>
     <File Include="Views/Subespecie/Index.cshtml">
       <publishTime>05/23/2023 22:10:17</publishTime>
     </File>
+    <File Include="Views/Subespecie/_subespecie.cshtml">
+      <publishTime>05/25/2023 19:41:47</publishTime>
+    </File>
     <File Include="Views/Sublinea/Create.cshtml">
-      <publishTime>05/08/2023 15:53:31</publishTime>
+      <publishTime>05/25/2023 18:35:23</publishTime>
     </File>
     <File Include="Views/Sublinea/Edit.cshtml">
-      <publishTime>05/08/2023 15:53:31</publishTime>
+      <publishTime>05/25/2023 18:39:52</publishTime>
     </File>
     <File Include="Views/Sublinea/Index.cshtml">
       <publishTime>05/23/2023 21:27:09</publishTime>
+    </File>
+    <File Include="Views/Sublinea/_sublinea.cshtml">
+      <publishTime>05/25/2023 19:16:50</publishTime>
     </File>
     <File Include="Views/SUCURSALs/Create.cshtml">
       <publishTime>05/08/2023 15:53:31</publishTime>

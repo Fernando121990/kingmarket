@@ -893,6 +893,25 @@
       <End Role="SUBLINEA" EntitySet="SUBLINEA" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
     </AssociationSet>
+    <EntitySet Name="CLI_FOPAGO" EntityType="MarketWebModel.CLI_FOPAGO" />
+    <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+    </AssociationSet>
+    <EntitySet Name="VENDEDOR" EntityType="MarketWebModel.VENDEDOR" />
+    <EntitySet Name="VENDEDOR_ZONA" EntityType="MarketWebModel.VENDEDOR_ZONA" />
+    <AssociationSet Name="FK_VENDEDOR_ZONA_VENDEDOR" Association="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR">
+      <End Role="VENDEDOR" EntitySet="VENDEDOR" />
+      <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VENDEDOR_ZONA_ZONA" Association="MarketWebModel.FK_VENDEDOR_ZONA_ZONA">
+      <End Role="ZONA" EntitySet="ZONA" />
+      <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1777,6 +1796,7 @@
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" FromRole="CONFIGURACION" ToRole="PROVEEDOR" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLI_FOPAGO" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -1963,6 +1983,8 @@
     <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="CLIENTE" ToRole="ZONA" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
     <Property Name="sencargado_zona" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLIENTE" ToRole="CLI_FOPAGO" />
+    <Property Name="smail2_cliente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="R_11">
     <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -2681,6 +2703,7 @@
     <Property Name="susmo_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dfemo_zona" Type="DateTime" Precision="3" />
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="ZONA" ToRole="CLIENTE" />
+    <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" FromRole="ZONA" ToRole="VENDEDOR_ZONA" />
   </EntityType>
   <EntityType Name="TRANSPORTISTA">
     <Key>
@@ -2999,6 +3022,97 @@
       </Principal>
       <Dependent Role="ARTICULO">
         <PropertyRef Name="ncode_sublinea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CLI_FOPAGO">
+    <Key>
+      <PropertyRef Name="ncode_clifo" />
+    </Key>
+    <Property Name="ncode_fopago" Type="Int32" />
+    <Property Name="ncode_cliente" Type="Int32" />
+    <Property Name="dfech_clifo" Type="DateTime" Precision="3" />
+    <Property Name="susuer_clifo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_clifo" Type="DateTime" Precision="3" />
+    <Property Name="susmo_clifo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_clifo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLI_FOPAGO" ToRole="CLIENTE" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CLI_FOPAGO" ToRole="CONFIGURACION" />
+  </EntityType>
+  <Association Name="FK_CLI_FOPAGO_CLIENTE">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CLI_FOPAGO">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLI_FOPAGO_CONFIGURACION">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLI_FOPAGO">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="VENDEDOR">
+    <Key>
+      <PropertyRef Name="ncode_vende" />
+    </Key>
+    <Property Name="ncode_vende" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_vende" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_vende" Type="DateTime" Precision="3" />
+    <Property Name="suser_vende" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_vende" Type="DateTime" Precision="3" />
+    <Property Name="susmo_vende" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_zona" Type="Int64" />
+    <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR" ToRole="VENDEDOR_ZONA" />
+    <Property Name="nesta_vende" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="VENDEDOR_ZONA">
+    <Key>
+      <PropertyRef Name="ncode_venzo" />
+    </Key>
+    <Property Name="ncode_vende" Type="Int64" />
+    <Property Name="ncode_zona" Type="Int64" />
+    <Property Name="ncode_venzo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nesta_venzo" Type="Boolean" />
+    <Property Name="dfech_venzo" Type="DateTime" Precision="3" />
+    <Property Name="suser_venzo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_venzo" Type="DateTime" Precision="3" />
+    <Property Name="susmo_venzo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VENDEDOR" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR_ZONA" ToRole="VENDEDOR" />
+    <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" FromRole="VENDEDOR_ZONA" ToRole="ZONA" />
+  </EntityType>
+  <Association Name="FK_VENDEDOR_ZONA_VENDEDOR">
+    <End Type="MarketWebModel.VENDEDOR" Role="VENDEDOR" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENDEDOR_ZONA" Role="VENDEDOR_ZONA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENDEDOR">
+        <PropertyRef Name="ncode_vende" />
+      </Principal>
+      <Dependent Role="VENDEDOR_ZONA">
+        <PropertyRef Name="ncode_vende" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VENDEDOR_ZONA_ZONA">
+    <End Type="MarketWebModel.ZONA" Role="ZONA" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENDEDOR_ZONA" Role="VENDEDOR_ZONA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZONA">
+        <PropertyRef Name="ncode_zona" />
+      </Principal>
+      <Dependent Role="VENDEDOR_ZONA">
+        <PropertyRef Name="ncode_zona" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -22,20 +22,6 @@ namespace MarketASP.Controllers
             return View(await cLIDI_CONTAC.ToListAsync());
         }
 
-        // GET: CLIDI_CONTAC/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CLIDI_CONTAC cLIDI_CONTAC = await db.CLIDI_CONTAC.FindAsync(id);
-            if (cLIDI_CONTAC == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cLIDI_CONTAC);
-        }
 
         // GET: CLIDI_CONTAC/Create
         public ActionResult Create()

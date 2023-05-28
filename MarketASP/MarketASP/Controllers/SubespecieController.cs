@@ -43,7 +43,7 @@ namespace MarketASP.Controllers
                 ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
                 return View("_Mensaje");
             }
-
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(x => x.nesta_espe == true), "ncode_espe", "sdesc_espe");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(x => x.nesta_espe == true), "ncode_espe", "sdesc_espe");
             return View(sUBESPECIE);
         }
 
@@ -86,6 +86,7 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(x => x.nesta_espe == true), "ncode_espe", "sdesc_espe",sUBESPECIE.ncode_espe);
             return View(sUBESPECIE);
         }
 
@@ -102,6 +103,7 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ncode_espe = new SelectList(db.ESPECIE.Where(x => x.nesta_espe == true), "ncode_espe", "sdesc_espe", sUBESPECIE.ncode_espe);
             return View(sUBESPECIE);
         }
 

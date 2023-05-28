@@ -205,6 +205,7 @@
     <Compile Include="Clases\ventanaView.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\CLI_FOPAGOController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
     <Compile Include="Controllers\EspecieController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Controllers\SublineaController.cs" />
     <Compile Include="Controllers\SUCURSALsController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
+    <Compile Include="Controllers\VENDEDORController.cs" />
     <Compile Include="Controllers\VentanasController.cs" />
     <Compile Include="Areas\Inventario\Clases\moviView.cs" />
     <Compile Include="Areas\Inventario\Clases\moviViewDeta.cs" />
@@ -304,6 +306,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CLI_DIRE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CLI_FOPAGO.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMPRAS.cs">
@@ -456,6 +461,12 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UMEDIDA.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENDEDOR.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENDEDOR_ZONA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ventana.cs">
@@ -2362,6 +2373,13 @@
     <Content Include="Views\ORDEN_PEDIDO\Details.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Edit.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Index.cshtml" />
+    <Content Include="Views\Sublinea\_sublinea.cshtml" />
+    <Content Include="Views\CLASEs\_clase.cshtml" />
+    <Content Include="Views\Subespecie\_subespecie.cshtml" />
+    <Content Include="Views\VENDEDOR\_vendedor.cshtml" />
+    <Content Include="Views\VENDEDOR\Create.cshtml" />
+    <Content Include="Views\VENDEDOR\Edit.cshtml" />
+    <Content Include="Views\VENDEDOR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2369,6 +2387,7 @@
     <Folder Include="CDR\" />
     <Folder Include="ENVIO\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\CLI_FOPAGO\" />
     <Folder Include="Views\Funciones\" />
     <Folder Include="XML\" />
   </ItemGroup>

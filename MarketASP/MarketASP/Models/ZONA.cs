@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public ZONA()
         {
             this.CLIENTE = new HashSet<CLIENTE>();
+            this.VENDEDOR_ZONA = new HashSet<VENDEDOR_ZONA>();
         }
     
         public long ncode_zona { get; set; }
@@ -30,5 +31,7 @@ namespace MarketASP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }
     }
 }

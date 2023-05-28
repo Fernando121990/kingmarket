@@ -1,33 +1,28 @@
-﻿@model MarketASP.Areas.Administracion.Clases.permisoView
+﻿@model MarketASP.Clases.permisoView
 
 @{
-    ViewBag.Title = "Asignar Permisos";
+    ViewBag.Title = "Permisos";
+    ViewBag.pTitle = "Permisos";
+    ViewBag.pageTitle = "Configuración";
 }
 
 @{
 
-    using (Html.BeginForm("Create", "Permisoes",null, FormMethod.Get))
+    using (Html.BeginForm("Create", "Permisoes", null, FormMethod.Get))
     {
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-lg-6">
-                                <label class="text-lg font-weight-bold">@ViewBag.Title</label>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Usuario</span>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Usuario</span>
-                                    </div>
-                                    @Html.DropDownList("username")
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            @Html.DropDownList("username")
+                            <div class="input-group-append">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -56,11 +51,8 @@
                 @Html.EditorFor(p => p.detalle)
             </tbody>
         </table>
-
-        <div class="form-group row">
-                <div class="col-lg-12">
-                    <input type="submit" value="Registrar" class="btn btn-block btn-success" />
-                </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
         </div>
     </div>
 }

@@ -22,6 +22,7 @@ namespace MarketASP.Models
             this.CTA_COBRAR = new HashSet<CTA_COBRAR>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
             this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
+            this.CLI_FOPAGO = new HashSet<CLI_FOPAGO>();
         }
     
         public int ncode_cliente { get; set; }
@@ -53,6 +54,7 @@ namespace MarketASP.Models
         public Nullable<bool> bretencion_cliente { get; set; }
         public Nullable<long> ncode_zona { get; set; }
         public string sencargado_zona { get; set; }
+        public string smail2_cliente { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }
@@ -67,5 +69,7 @@ namespace MarketASP.Models
         public virtual ZONA ZONA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLI_FOPAGO> CLI_FOPAGO { get; set; }
     }
 }

@@ -137,6 +137,13 @@
         <AssociationConnector Association="MarketWebModel.R_620" />
         <AssociationConnector Association="MarketWebModel.FK_ARTICULO_LINEA" />
         <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBLINEA" />
+        <EntityTypeShape EntityType="MarketWebModel.CLI_FOPAGO" Width="1.5" PointX="5.25" PointY="19.875" />
+        <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" />
+        <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" />
+        <EntityTypeShape EntityType="MarketWebModel.VENDEDOR" Width="1.5" PointX="14.375" PointY="26.875" />
+        <EntityTypeShape EntityType="MarketWebModel.VENDEDOR_ZONA" Width="1.5" PointX="16.625" PointY="22.625" />
+        <AssociationConnector Association="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" />
+        <AssociationConnector Association="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

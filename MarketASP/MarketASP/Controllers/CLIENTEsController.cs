@@ -258,6 +258,7 @@ namespace MarketASP.Controllers
             }
            
         }
+        #region CLIDIRECCION
 
         public ActionResult CreateDireccion(int? id)
         {
@@ -345,8 +346,94 @@ namespace MarketASP.Controllers
             ViewBag.subigeo = cLI_DIRE.UBIGEO.sdistri_ubigeo;
             return View(cLI_DIRE);
         }
+        #endregion
+        #region CLIFORMAPAGO
+
+        public ActionResult CreateFopago(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.ncode_cliente = id; //new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente");
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(x=> x.ntipo_confi == 6 ), "ncode_confi", "sdesc_confi");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateFopago(CLI_FOPAGO cli_fopago)
+        {
+            if (ModelState.IsValid)
+            {
+                db.CLI_FOPAGO.Add(cli_fopago);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Clientes", new { id = cli_fopago.ncode_cliente });
+            }
+
+            ViewBag.ncode_cliente = new SelectList(db.CLIENTE, "ncode_cliente", "srazon_cliente", cli_fopago.ncode_cliente);
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(x => x.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            return View(cli_fopago);
+        }
+
+        public async Task<ActionResult> DeleteFopago(int? id)
+        {
+            int ncodeCliente = 0;
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            CLI_FOPAGO cLI_FOPAGO = await db.CLI_FOPAGO.FindAsync(id);
+            ncodeCliente = (int) cLI_FOPAGO.ncode_cliente;
+
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            db.Pr_clienteDireElimina(id, sw);
+
+            int xsw = int.Parse(sw.Value.ToString());
+
+            if (xsw == 0)
+            {
+                return RedirectToAction("Details", "Clientes", new { id = ncodeCliente });
+            }
+            else
+            {
+                ViewBag.mensaje = "No se puede eliminar registro";
+                return View("_Mensaje");
+            }
+        }
+
+        public async Task<ActionResult> Editfopago(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CLI_FOPAGO cli_fopago = await db.CLI_FOPAGO.FindAsync(id);
+            if (cli_fopago == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_cliente = cli_fopago.ncode_cliente;
+            return View(cli_fopago);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Editfopago(CLI_FOPAGO cli_fopago)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cli_fopago).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Details", "Clientes", new { id = cli_fopago.ncode_cliente });
+            }
+            ViewBag.ncode_cliente = cli_fopago.ncode_cliente;
+            return View(cli_fopago);
+        }
 
 
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

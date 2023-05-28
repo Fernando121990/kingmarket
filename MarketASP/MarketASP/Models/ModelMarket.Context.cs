@@ -78,6 +78,9 @@ namespace MarketASP.Models
         public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
         public virtual DbSet<ORDEN_PEDIDOS_DETALLE> ORDEN_PEDIDOS_DETALLE { get; set; }
+        public virtual DbSet<CLI_FOPAGO> CLI_FOPAGO { get; set; }
+        public virtual DbSet<VENDEDOR> VENDEDOR { get; set; }
+        public virtual DbSet<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {

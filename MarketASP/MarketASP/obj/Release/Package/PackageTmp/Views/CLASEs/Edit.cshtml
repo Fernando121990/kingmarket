@@ -13,36 +13,9 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.ncode_clase)
-                    <div class="mb-3 form-group row">
-                        @Html.LabelFor(model => model.sdesc_clase, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.sdesc_clase, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
-                            @Html.ValidationMessageFor(model => model.sdesc_clase, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="mb-3 form-group row">
-                        @Html.LabelFor(model => model.ncode_fami, "Familia", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownList("ncode_fami", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ncode_fami, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="mb-3 form-group row">
-                        @Html.LabelFor(model => model.nesta_clase, "Activo", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.CheckBox("nesta_clase")
-                            @Html.ValidationMessageFor(model => model.nesta_clase, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
-                    </div>
-                </div>
+                    @Html.Partial("_clase")
                 }
 
                 <div>

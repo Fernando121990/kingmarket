@@ -169,6 +169,18 @@
           <Property Name="ncode_cliente" Type="int" Nullable="false" />
           <Property Name="scode_ubigeo" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="CLI_FOPAGO">
+          <Key>
+            <PropertyRef Name="ncode_clifo" />
+          </Key>
+          <Property Name="ncode_fopago" Type="int" />
+          <Property Name="ncode_cliente" Type="int" />
+          <Property Name="dfech_clifo" Type="datetime" />
+          <Property Name="susuer_clifo" Type="varchar" MaxLength="50" />
+          <Property Name="dfemo_clifo" Type="datetime" />
+          <Property Name="susmo_clifo" Type="varchar" MaxLength="50" />
+          <Property Name="ncode_clifo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="CLIDI_CONTAC">
           <Key>
             <PropertyRef Name="ncode_clidco" />
@@ -211,6 +223,7 @@
           <Property Name="bretencion_cliente" Type="bit" />
           <Property Name="ncode_zona" Type="bigint" />
           <Property Name="sencargado_zona" Type="varchar" MaxLength="5000" />
+          <Property Name="smail2_cliente" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="COMPRA_DETALLE">
           <Key>
@@ -822,6 +835,32 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="susmo_umed" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_umed" Type="datetime" />
         </EntityType>
+        <EntityType Name="VENDEDOR">
+          <Key>
+            <PropertyRef Name="ncode_vende" />
+          </Key>
+          <Property Name="ncode_vende" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_vende" Type="varchar" MaxLength="5000" />
+          <Property Name="dfech_vende" Type="datetime" />
+          <Property Name="suser_vende" Type="varchar" MaxLength="50" />
+          <Property Name="dfemo_vende" Type="datetime" />
+          <Property Name="susmo_vende" Type="varchar" MaxLength="50" />
+          <Property Name="ncode_zona" Type="bigint" />
+          <Property Name="nesta_vende" Type="bit" />
+        </EntityType>
+        <EntityType Name="VENDEDOR_ZONA">
+          <Key>
+            <PropertyRef Name="ncode_venzo" />
+          </Key>
+          <Property Name="ncode_vende" Type="bigint" />
+          <Property Name="ncode_zona" Type="bigint" />
+          <Property Name="ncode_venzo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nesta_venzo" Type="bit" />
+          <Property Name="dfech_venzo" Type="datetime" />
+          <Property Name="suser_venzo" Type="varchar" MaxLength="50" />
+          <Property Name="dfemo_venzo" Type="datetime" />
+          <Property Name="susmo_venzo" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="VENTA_DETALLE">
           <Key>
             <PropertyRef Name="ncode_vedeta" />
@@ -956,6 +995,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CLI_FOPAGO_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+          <End Role="CLI_FOPAGO" Type="Self.CLI_FOPAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="CLI_FOPAGO">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLI_FOPAGO_CONFIGURACION">
+          <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="0..1" />
+          <End Role="CLI_FOPAGO" Type="Self.CLI_FOPAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLI_FOPAGO">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTE_ZONA">
           <End Role="ZONA" Type="Self.ZONA" Multiplicity="0..1" />
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
@@ -977,6 +1040,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="PROVEEDOR">
               <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDEDOR_ZONA_VENDEDOR">
+          <End Role="VENDEDOR" Type="Self.VENDEDOR" Multiplicity="0..1" />
+          <End Role="VENDEDOR_ZONA" Type="Self.VENDEDOR_ZONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENDEDOR">
+              <PropertyRef Name="ncode_vende" />
+            </Principal>
+            <Dependent Role="VENDEDOR_ZONA">
+              <PropertyRef Name="ncode_vende" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDEDOR_ZONA_ZONA">
+          <End Role="ZONA" Type="Self.ZONA" Multiplicity="0..1" />
+          <End Role="VENDEDOR_ZONA" Type="Self.VENDEDOR_ZONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONA">
+              <PropertyRef Name="ncode_zona" />
+            </Principal>
+            <Dependent Role="VENDEDOR_ZONA">
+              <PropertyRef Name="ncode_zona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2385,6 +2472,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLASE" EntityType="Self.CLASE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLI_DIRE" EntityType="Self.CLI_DIRE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLI_FOPAGO" EntityType="Self.CLI_FOPAGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLIDI_CONTAC" EntityType="Self.CLIDI_CONTAC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMPRA_DETALLE" EntityType="Self.COMPRA_DETALLE" Schema="dbo" store:Type="Tables" />
@@ -2420,6 +2508,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENDEDOR" EntityType="Self.VENDEDOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENDEDOR_ZONA" EntityType="Self.VENDEDOR_ZONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
@@ -2460,6 +2550,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="SUBLINEA" EntitySet="SUBLINEA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="Self.FK_CLI_FOPAGO_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="Self.FK_CLI_FOPAGO_CONFIGURACION">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+          </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_ZONA" Association="Self.FK_CLIENTE_ZONA">
             <End Role="ZONA" EntitySet="ZONA" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -2467,6 +2565,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDEDOR_ZONA_VENDEDOR" Association="Self.FK_VENDEDOR_ZONA_VENDEDOR">
+            <End Role="VENDEDOR" EntitySet="VENDEDOR" />
+            <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDEDOR_ZONA_ZONA" Association="Self.FK_VENDEDOR_ZONA_ZONA">
+            <End Role="ZONA" EntitySet="ZONA" />
+            <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
           </AssociationSet>
           <AssociationSet Name="R_1" Association="Self.R_1">
             <End Role="FAMILIA" EntitySet="FAMILIA" />
@@ -3658,6 +3764,25 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="SUBLINEA" EntitySet="SUBLINEA" />
             <End Role="ARTICULO" EntitySet="ARTICULO" />
           </AssociationSet>
+          <EntitySet Name="CLI_FOPAGO" EntityType="MarketWebModel.CLI_FOPAGO" />
+          <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+          </AssociationSet>
+          <EntitySet Name="VENDEDOR" EntityType="MarketWebModel.VENDEDOR" />
+          <EntitySet Name="VENDEDOR_ZONA" EntityType="MarketWebModel.VENDEDOR_ZONA" />
+          <AssociationSet Name="FK_VENDEDOR_ZONA_VENDEDOR" Association="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR">
+            <End Role="VENDEDOR" EntitySet="VENDEDOR" />
+            <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDEDOR_ZONA_ZONA" Association="MarketWebModel.FK_VENDEDOR_ZONA_ZONA">
+            <End Role="ZONA" EntitySet="ZONA" />
+            <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -4542,6 +4667,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" FromRole="CONFIGURACION" ToRole="PROVEEDOR" />
           <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
           <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
+          <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLI_FOPAGO" />
         </EntityType>
         <Association Name="R_40">
           <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -4728,6 +4854,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="CLIENTE" ToRole="ZONA" />
           <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
           <Property Name="sencargado_zona" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLIENTE" ToRole="CLI_FOPAGO" />
+          <Property Name="smail2_cliente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="R_11">
           <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -5446,6 +5574,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="susmo_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_zona" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="ZONA" ToRole="CLIENTE" />
+          <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" FromRole="ZONA" ToRole="VENDEDOR_ZONA" />
         </EntityType>
         <EntityType Name="TRANSPORTISTA">
           <Key>
@@ -5764,6 +5893,97 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="ARTICULO">
               <PropertyRef Name="ncode_sublinea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CLI_FOPAGO">
+          <Key>
+            <PropertyRef Name="ncode_clifo" />
+          </Key>
+          <Property Name="ncode_fopago" Type="Int32" />
+          <Property Name="ncode_cliente" Type="Int32" />
+          <Property Name="dfech_clifo" Type="DateTime" Precision="3" />
+          <Property Name="susuer_clifo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_clifo" Type="DateTime" Precision="3" />
+          <Property Name="susmo_clifo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_clifo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLI_FOPAGO" ToRole="CLIENTE" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CLI_FOPAGO" ToRole="CONFIGURACION" />
+        </EntityType>
+        <Association Name="FK_CLI_FOPAGO_CLIENTE">
+          <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ncode_cliente" />
+            </Principal>
+            <Dependent Role="CLI_FOPAGO">
+              <PropertyRef Name="ncode_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLI_FOPAGO_CONFIGURACION">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+          <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="CLI_FOPAGO">
+              <PropertyRef Name="ncode_fopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VENDEDOR">
+          <Key>
+            <PropertyRef Name="ncode_vende" />
+          </Key>
+          <Property Name="ncode_vende" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_vende" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_vende" Type="DateTime" Precision="3" />
+          <Property Name="suser_vende" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_vende" Type="DateTime" Precision="3" />
+          <Property Name="susmo_vende" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_zona" Type="Int64" />
+          <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR" ToRole="VENDEDOR_ZONA" />
+          <Property Name="nesta_vende" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="VENDEDOR_ZONA">
+          <Key>
+            <PropertyRef Name="ncode_venzo" />
+          </Key>
+          <Property Name="ncode_vende" Type="Int64" />
+          <Property Name="ncode_zona" Type="Int64" />
+          <Property Name="ncode_venzo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nesta_venzo" Type="Boolean" />
+          <Property Name="dfech_venzo" Type="DateTime" Precision="3" />
+          <Property Name="suser_venzo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_venzo" Type="DateTime" Precision="3" />
+          <Property Name="susmo_venzo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VENDEDOR" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR_ZONA" ToRole="VENDEDOR" />
+          <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" FromRole="VENDEDOR_ZONA" ToRole="ZONA" />
+        </EntityType>
+        <Association Name="FK_VENDEDOR_ZONA_VENDEDOR">
+          <End Type="MarketWebModel.VENDEDOR" Role="VENDEDOR" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENDEDOR_ZONA" Role="VENDEDOR_ZONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENDEDOR">
+              <PropertyRef Name="ncode_vende" />
+            </Principal>
+            <Dependent Role="VENDEDOR_ZONA">
+              <PropertyRef Name="ncode_vende" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDEDOR_ZONA_ZONA">
+          <End Type="MarketWebModel.ZONA" Role="ZONA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENDEDOR_ZONA" Role="VENDEDOR_ZONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZONA">
+              <PropertyRef Name="ncode_zona" />
+            </Principal>
+            <Dependent Role="VENDEDOR_ZONA">
+              <PropertyRef Name="ncode_zona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6335,6 +6555,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="smail2_cliente" ColumnName="smail2_cliente" />
                 <ScalarProperty Name="sencargado_zona" ColumnName="sencargado_zona" />
                 <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
                 <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
@@ -6868,6 +7089,47 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoEdita" />
           <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoElimina" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoElimina" />
           <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoLista" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoLista" />
+          <EntitySetMapping Name="CLI_FOPAGO">
+            <EntityTypeMapping TypeName="MarketWebModel.CLI_FOPAGO">
+              <MappingFragment StoreEntitySet="CLI_FOPAGO">
+                <ScalarProperty Name="ncode_clifo" ColumnName="ncode_clifo" />
+                <ScalarProperty Name="susmo_clifo" ColumnName="susmo_clifo" />
+                <ScalarProperty Name="dfemo_clifo" ColumnName="dfemo_clifo" />
+                <ScalarProperty Name="susuer_clifo" ColumnName="susuer_clifo" />
+                <ScalarProperty Name="dfech_clifo" ColumnName="dfech_clifo" />
+                <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+                <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENDEDOR">
+            <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR">
+              <MappingFragment StoreEntitySet="VENDEDOR">
+                <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+                <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
+                <ScalarProperty Name="susmo_vende" ColumnName="susmo_vende" />
+                <ScalarProperty Name="dfemo_vende" ColumnName="dfemo_vende" />
+                <ScalarProperty Name="suser_vende" ColumnName="suser_vende" />
+                <ScalarProperty Name="dfech_vende" ColumnName="dfech_vende" />
+                <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+                <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENDEDOR_ZONA">
+            <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR_ZONA">
+              <MappingFragment StoreEntitySet="VENDEDOR_ZONA">
+                <ScalarProperty Name="susmo_venzo" ColumnName="susmo_venzo" />
+                <ScalarProperty Name="dfemo_venzo" ColumnName="dfemo_venzo" />
+                <ScalarProperty Name="suser_venzo" ColumnName="suser_venzo" />
+                <ScalarProperty Name="dfech_venzo" ColumnName="dfech_venzo" />
+                <ScalarProperty Name="nesta_venzo" ColumnName="nesta_venzo" />
+                <ScalarProperty Name="ncode_venzo" ColumnName="ncode_venzo" />
+                <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
+                <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
