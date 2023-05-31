@@ -7,7 +7,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\pxyKingMarket</_PublishTargetUrl>
-    <History>True|2023-05-26T01:24:10.3602365Z;True|2023-05-24T22:00:17.1072262-05:00;True|2023-05-23T23:21:38.6555658-05:00;True|2023-05-21T22:51:45.0117745-05:00;</History>
+    <History>True|2023-05-29T22:17:26.6243409Z;True|2023-05-25T20:24:10.3602365-05:00;True|2023-05-24T22:00:17.1072262-05:00;True|2023-05-23T23:21:38.6555658-05:00;True|2023-05-21T22:51:45.0117745-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -255,10 +255,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>11/22/2017 14:06:00</publishTime>
     </File>
     <File Include="bin/MarketASP.dll">
-      <publishTime>05/25/2023 20:55:56</publishTime>
+      <publishTime>05/29/2023 17:17:20</publishTime>
     </File>
     <File Include="bin/MarketASP.pdb">
-      <publishTime>05/25/2023 20:55:56</publishTime>
+      <publishTime>05/29/2023 17:17:20</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>04/24/2018 12:47:38</publishTime>
@@ -6897,7 +6897,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/09/2020 13:56:15</publishTime>
     </File>
     <File Include="Models/ModelMarket.edmx.diagram">
-      <publishTime>05/24/2023 23:35:38</publishTime>
+      <publishTime>05/28/2023 10:00:22</publishTime>
     </File>
     <File Include="Scripts/assets/css/app-dark-rtl.min.css">
       <publishTime>05/08/2023 15:52:55</publishTime>
@@ -11445,7 +11445,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/15/2020 16:16:35</publishTime>
     </File>
     <File Include="Views/CLIENTEs/Details.cshtml">
-      <publishTime>05/25/2023 00:33:48</publishTime>
+      <publishTime>05/28/2023 00:31:29</publishTime>
     </File>
     <File Include="Views/CLIENTEs/Edit.cshtml">
       <publishTime>05/23/2023 23:13:56</publishTime>
@@ -11808,7 +11808,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/08/2023 15:53:31</publishTime>
     </File>
     <File Include="Views/Shared/_Sidebar.cshtml">
-      <publishTime>05/25/2023 20:53:00</publishTime>
+      <publishTime>05/28/2023 08:32:42</publishTime>
     </File>
     <File Include="Views/Shared/_Topbar.cshtml">
       <publishTime>05/08/2023 15:53:31</publishTime>
@@ -11871,7 +11871,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/08/2023 15:53:31</publishTime>
     </File>
     <File Include="Views/Transportista/Create.cshtml">
-      <publishTime>05/21/2023 20:32:45</publishTime>
+      <publishTime>05/28/2023 08:24:46</publishTime>
     </File>
     <File Include="Views/Transportista/Edit.cshtml">
       <publishTime>05/21/2023 20:44:37</publishTime>
@@ -11905,6 +11905,18 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     </File>
     <File Include="Views/UMEDIDAs/Index.cshtml">
       <publishTime>05/08/2023 15:53:31</publishTime>
+    </File>
+    <File Include="Views/VENDEDOR/Create.cshtml">
+      <publishTime>05/28/2023 08:23:42</publishTime>
+    </File>
+    <File Include="Views/VENDEDOR/Edit.cshtml">
+      <publishTime>05/29/2023 16:51:39</publishTime>
+    </File>
+    <File Include="Views/VENDEDOR/Index.cshtml">
+      <publishTime>05/29/2023 16:53:18</publishTime>
+    </File>
+    <File Include="Views/VENDEDOR/_vendedor.cshtml">
+      <publishTime>05/29/2023 16:58:48</publishTime>
     </File>
     <File Include="Views/Ventanas/Create.cshtml">
       <publishTime>11/19/2020 14:49:39</publishTime>

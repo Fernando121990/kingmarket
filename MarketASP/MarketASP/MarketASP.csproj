@@ -430,6 +430,9 @@
     <Compile Include="Models\Pr_Sublinealista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_VendedoresLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SUBESPECIE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -2380,6 +2383,8 @@
     <Content Include="Views\VENDEDOR\Create.cshtml" />
     <Content Include="Views\VENDEDOR\Edit.cshtml" />
     <Content Include="Views\VENDEDOR\Index.cshtml" />
+    <Content Include="Views\CLIENTEs\CreateFopago.cshtml" />
+    <Content Include="Views\CLIENTEs\Editfopago.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

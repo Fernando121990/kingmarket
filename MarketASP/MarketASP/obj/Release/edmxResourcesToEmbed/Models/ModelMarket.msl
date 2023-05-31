@@ -563,6 +563,7 @@
     <EntitySetMapping Name="CLIENTE">
       <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
         <MappingFragment StoreEntitySet="CLIENTE">
+          <ScalarProperty Name="smail2_cliente" ColumnName="smail2_cliente" />
           <ScalarProperty Name="sencargado_zona" ColumnName="sencargado_zona" />
           <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
           <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
@@ -1096,5 +1097,57 @@
     <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoEdita" />
     <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoElimina" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoElimina" />
     <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoLista" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoLista" />
+    <EntitySetMapping Name="CLI_FOPAGO">
+      <EntityTypeMapping TypeName="MarketWebModel.CLI_FOPAGO">
+        <MappingFragment StoreEntitySet="CLI_FOPAGO">
+          <ScalarProperty Name="ncode_clifo" ColumnName="ncode_clifo" />
+          <ScalarProperty Name="susmo_clifo" ColumnName="susmo_clifo" />
+          <ScalarProperty Name="dfemo_clifo" ColumnName="dfemo_clifo" />
+          <ScalarProperty Name="susuer_clifo" ColumnName="susuer_clifo" />
+          <ScalarProperty Name="dfech_clifo" ColumnName="dfech_clifo" />
+          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VENDEDOR">
+      <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR">
+        <MappingFragment StoreEntitySet="VENDEDOR">
+          <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
+          <ScalarProperty Name="susmo_vende" ColumnName="susmo_vende" />
+          <ScalarProperty Name="dfemo_vende" ColumnName="dfemo_vende" />
+          <ScalarProperty Name="suser_vende" ColumnName="suser_vende" />
+          <ScalarProperty Name="dfech_vende" ColumnName="dfech_vende" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VENDEDOR_ZONA">
+      <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR_ZONA">
+        <MappingFragment StoreEntitySet="VENDEDOR_ZONA">
+          <ScalarProperty Name="susmo_venzo" ColumnName="susmo_venzo" />
+          <ScalarProperty Name="dfemo_venzo" ColumnName="dfemo_venzo" />
+          <ScalarProperty Name="suser_venzo" ColumnName="suser_venzo" />
+          <ScalarProperty Name="dfech_venzo" ColumnName="dfech_venzo" />
+          <ScalarProperty Name="nesta_venzo" ColumnName="nesta_venzo" />
+          <ScalarProperty Name="ncode_venzo" ColumnName="ncode_venzo" />
+          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_VendedoresLista" FunctionName="MarketWebModel.Store.Pr_VendedoresLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedoresLista_Result">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
+          <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
+          <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

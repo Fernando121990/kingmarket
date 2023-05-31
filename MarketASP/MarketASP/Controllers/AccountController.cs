@@ -148,7 +148,7 @@ namespace MarketASP.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
-            ViewBag.Local = new SelectList(dBContext.LOCAL.Where(l=>l.bacti_local==true).ToList(),"ncode_local","sdesc_local");
+            ViewBag.Local = new SelectList(dBContext.ALMACEN.Where(l => l.besta_alma == true).ToList(),"ncode_alma","sdesc_alma");
             return View();
         }
 
@@ -175,6 +175,16 @@ namespace MarketASP.Controllers
 
                     //agregando el rol al usuario
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+
+                    //agrgando a vendedores
+                    VENDEDOR vENDEDOR = new VENDEDOR();
+                    vENDEDOR.nesta_vende = true;
+                    vENDEDOR.suser_vende = User.Identity.Name;
+                    vENDEDOR.dfech_vende = DateTime.Now;
+                    vENDEDOR.sdesc_vende = string.Concat(user.Nombre, " ", user.Apellido);
+                    vENDEDOR.Iduser = user.Id;
+                    dBContext.VENDEDOR.Add(vENDEDOR);
+                    await dBContext.SaveChangesAsync();
 
                     return RedirectToAction("Index", "Home");
                 }

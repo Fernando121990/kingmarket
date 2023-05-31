@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1" ZoomLevel="71">
+      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1" ZoomLevel="40">
         <EntityTypeShape EntityType="MarketWebModel.ALMACEN" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="24.875" />
         <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="13.375" />
@@ -69,16 +69,9 @@
         <AssociationConnector Association="MarketWebModel.R_51" />
         <AssociationConnector Association="MarketWebModel.R_52" />
         <AssociationConnector Association="MarketWebModel.R_53" />
-        <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="3" PointY="30.625" />
-        <AssociationConnector Association="MarketWebModel.R_11" />
-        <AssociationConnector Association="MarketWebModel.R_28" />
-        <AssociationConnector Association="MarketWebModel.R_46" />
-        <AssociationConnector Association="MarketWebModel.R_60" />
-        <AssociationConnector Association="MarketWebModel.R_61" />
         <EntityTypeShape EntityType="MarketWebModel.PROFORMAS" Width="1.5" PointX="19.625" PointY="15.875" />
         <AssociationConnector Association="MarketWebModel.R_67" />
         <AssociationConnector Association="MarketWebModel.R_66" />
-        <AssociationConnector Association="MarketWebModel.R_65" />
         <AssociationConnector Association="MarketWebModel.R_64" />
         <AssociationConnector Association="MarketWebModel.R_69" />
         <AssociationConnector Association="MarketWebModel.R_68" />
@@ -124,13 +117,11 @@
         <AssociationConnector Association="MarketWebModel.R_44" />
         <AssociationConnector Association="MarketWebModel.R_15" />
         <AssociationConnector Association="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" />
-        <AssociationConnector Association="MarketWebModel.FK_CLIENTE_ZONA" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_PEDIDOS" Width="1.5" PointX="27.625" PointY="8.125" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Width="1.5" PointX="29.875" PointY="18.125" />
         <AssociationConnector Association="MarketWebModel.R_670" />
         <AssociationConnector Association="MarketWebModel.R_630" />
         <AssociationConnector Association="MarketWebModel.R_660" />
-        <AssociationConnector Association="MarketWebModel.R_650" />
         <AssociationConnector Association="MarketWebModel.R_640" />
         <AssociationConnector Association="MarketWebModel.R_690" />
         <AssociationConnector Association="MarketWebModel.R_680" />
@@ -138,12 +129,20 @@
         <AssociationConnector Association="MarketWebModel.FK_ARTICULO_LINEA" />
         <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBLINEA" />
         <EntityTypeShape EntityType="MarketWebModel.CLI_FOPAGO" Width="1.5" PointX="5.25" PointY="19.875" />
-        <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" />
         <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" />
         <EntityTypeShape EntityType="MarketWebModel.VENDEDOR" Width="1.5" PointX="14.375" PointY="26.875" />
         <EntityTypeShape EntityType="MarketWebModel.VENDEDOR_ZONA" Width="1.5" PointX="16.625" PointY="22.625" />
         <AssociationConnector Association="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" />
         <AssociationConnector Association="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" />
+        <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="3" PointY="42.625" />
+        <AssociationConnector Association="MarketWebModel.R_11" />
+        <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" />
+        <AssociationConnector Association="MarketWebModel.R_28" />
+        <AssociationConnector Association="MarketWebModel.R_46" />
+        <AssociationConnector Association="MarketWebModel.R_60" />
+        <AssociationConnector Association="MarketWebModel.R_61" />
+        <AssociationConnector Association="MarketWebModel.R_65" />
+        <AssociationConnector Association="MarketWebModel.R_650" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -22,7 +22,7 @@ namespace MarketASP.Models
         public string susmo_clifo { get; set; }
         public long ncode_clifo { get; set; }
     
-        public virtual CLIENTE CLIENTE { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
     }
 }

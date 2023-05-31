@@ -56,7 +56,6 @@ namespace MarketASP.Models
         public virtual DbSet<CTASPA_DETALLE> CTASPA_DETALLE { get; set; }
         public virtual DbSet<LOCAL> LOCAL { get; set; }
         public virtual DbSet<CONFIGURACION> CONFIGURACION { get; set; }
-        public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<PROFORMAS> PROFORMAS { get; set; }
         public virtual DbSet<PROFORMA_DETALLE> PROFORMA_DETALLE { get; set; }
         public virtual DbSet<SUCURSAL> SUCURSAL { get; set; }
@@ -81,6 +80,7 @@ namespace MarketASP.Models
         public virtual DbSet<CLI_FOPAGO> CLI_FOPAGO { get; set; }
         public virtual DbSet<VENDEDOR> VENDEDOR { get; set; }
         public virtual DbSet<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }
+        public virtual DbSet<CLIENTE> CLIENTE { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -1924,6 +1924,20 @@ namespace MarketASP.Models
                 new ObjectParameter("cliente", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenPedidoLista", documentoParameter, clienteParameter);
+        }
+    
+        public virtual ObjectResult<Pr_VendedoresLista_Result> Pr_VendedoresLista()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_VendedoresLista_Result>("Pr_VendedoresLista");
+        }
+    
+        public virtual int Pr_clientefopagoElimina(Nullable<long> ncode_clifo, ObjectParameter sw)
+        {
+            var ncode_clifoParameter = ncode_clifo.HasValue ?
+                new ObjectParameter("ncode_clifo", ncode_clifo) :
+                new ObjectParameter("ncode_clifo", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clientefopagoElimina", ncode_clifoParameter, sw);
         }
     }
 }

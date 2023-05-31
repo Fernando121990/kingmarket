@@ -11,14 +11,14 @@ namespace MarketASP.Models
 {
     using System;
     
-    public partial class Pr_ClienteBusca_Result
+    public partial class Pr_VendedoresLista_Result
     {
-        public int ncode_cliente { get; set; }
-        public string srazon_cliente { get; set; }
-        public string sruc_cliente { get; set; }
-        public string sdnice_cliente { get; set; }
-        public int ncode_fopago { get; set; }
         public long ncode_vende { get; set; }
-        public int ncode_alma { get; set; }
+        public string sdesc_vende { get; set; }
+        public Nullable<long> ncode_zona { get; set; }
+        public string sdesc_zona { get; set; }
+        public Nullable<bool> nesta_vende { get; set; }
+        public string sdesc_alma { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
     }
 }

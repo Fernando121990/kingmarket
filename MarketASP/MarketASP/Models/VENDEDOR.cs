@@ -28,6 +28,7 @@ namespace MarketASP.Models
         public string susmo_vende { get; set; }
         public Nullable<long> ncode_zona { get; set; }
         public Nullable<bool> nesta_vende { get; set; }
+        public string Iduser { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }

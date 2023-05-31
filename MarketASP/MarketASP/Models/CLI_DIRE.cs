@@ -33,10 +33,10 @@ namespace MarketASP.Models
         public virtual ICollection<CLIDI_CONTAC> CLIDI_CONTAC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS { get; set; }
-        public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
     }
 }

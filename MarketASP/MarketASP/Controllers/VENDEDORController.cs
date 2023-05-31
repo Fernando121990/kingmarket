@@ -28,7 +28,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            return View(await db.VENDEDOR.Include("VENDEDOR_ZONA").ToListAsync());
+            return View(db.Pr_VendedoresLista().ToList());
         }
 
         public ActionResult Create()
@@ -72,7 +72,7 @@ namespace MarketASP.Controllers
             return View(vENDEDOR);
         }
 
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? id,int? idzona)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -94,6 +94,7 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona",idzona);
             return View(vENDEDOR);
         }
 

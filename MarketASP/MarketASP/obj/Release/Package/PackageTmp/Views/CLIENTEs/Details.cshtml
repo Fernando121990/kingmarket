@@ -172,7 +172,7 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="col mr-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Direcciones del Cliente</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Direcciones</h6>
                     </div>
                     <div class="col-auto">
                         <a href="@Url.Action("CreateDireccion", new { id = Model.ncode_cliente })" class="btn btn-primary btn-circle btn-sm" title="Añadir Direccion">
@@ -199,7 +199,7 @@
                                 </th>
                                 <th></th>
                             </tr>
-                            </thead>
+                        </thead>
                         <tbody>
                             @foreach (var itemx in Model.CLI_DIRE)
                             {
@@ -215,6 +215,64 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a href="@Url.Action("DeleteDire", new { id = itemx.ncode_clidire })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col mr-2">
+                        <h6 class="m-0 font-weight-bold text-primary">Formas de Pago</h6>
+                    </div>
+                    <div class="col-auto">
+                        <a href="@Url.Action("Createfopago", new { id = Model.ncode_cliente })" class="btn btn-primary btn-circle btn-sm" title="Añadir Forma de Pago">
+                            <i class="fas fa-file"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (Model.CLI_FOPAGO.Count == 0)
+                {
+                    <h6 class="m-0 font-weight-bold text-primary">No se han registrado formas de pago</h6>
+                }
+                else
+                {
+                    <table class="table table-striped table-responsive-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    Descripción
+                                </th>
+                                <th>
+                                    Ubicación
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemx in Model.CLI_FOPAGO)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => itemx.CONFIGURACION.sdesc_confi)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Editfopago", new { id = itemx.ncode_clifo })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="@Url.Action("Deletefopago", new { id = itemx.ncode_clifo })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
 

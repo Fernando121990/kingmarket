@@ -62,7 +62,7 @@ namespace MarketASP.Controllers
 
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona");
+            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende");
             return View();
         }
 
@@ -122,7 +122,7 @@ namespace MarketASP.Controllers
 
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona");
+            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende");
             return View(cLIENTE);
         }
 
@@ -202,7 +202,7 @@ namespace MarketASP.Controllers
 
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",cLIENTE.ncode_fopago);
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi",cLIENTE.ncode_afepercepcion);
-            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona",cLIENTE.ncode_zona);
+            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende",cLIENTE.ncode_vende);
             return View(cLIENTE);
         }
 
@@ -219,7 +219,7 @@ namespace MarketASP.Controllers
             }
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", cLIENTE.ncode_fopago);
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi", cLIENTE.ncode_afepercepcion);
-            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona", cLIENTE.ncode_zona);
+            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende", cLIENTE.ncode_vende);
             return View(cLIENTE);
         }
         public async Task<ActionResult> DeleteCliente(int? id)
@@ -388,7 +388,7 @@ namespace MarketASP.Controllers
             ncodeCliente = (int) cLI_FOPAGO.ncode_cliente;
 
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
-            db.Pr_clienteDireElimina(id, sw);
+            db.Pr_clientefopagoElimina(id, sw);
 
             int xsw = int.Parse(sw.Value.ToString());
 
@@ -415,6 +415,7 @@ namespace MarketASP.Controllers
                 return HttpNotFound();
             }
             ViewBag.ncode_cliente = cli_fopago.ncode_cliente;
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(x => x.ntipo_confi == 6), "ncode_confi", "sdesc_confi",cli_fopago.ncode_fopago);
             return View(cli_fopago);
         }
 
@@ -429,6 +430,7 @@ namespace MarketASP.Controllers
                 return RedirectToAction("Details", "Clientes", new { id = cli_fopago.ncode_cliente });
             }
             ViewBag.ncode_cliente = cli_fopago.ncode_cliente;
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(x => x.ntipo_confi == 6), "ncode_confi", "sdesc_confi", cli_fopago.ncode_fopago);
             return View(cli_fopago);
         }
 
