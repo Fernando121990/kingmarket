@@ -42,7 +42,7 @@ namespace MarketASP.Areas.Inventario.Controllers
                 return View("_Mensaje");
             }
 
-            var kARDEX = db.Pr_KardexArticulos(sdesc_arti, sdesc_alma).ToList();
+            var kARDEX = db.Pr_KardexArticulos(0,sdesc_arti, sdesc_alma).ToList();
             return View(kARDEX);
         }
         // GET: KARDEXes/Details/5

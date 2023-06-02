@@ -19,6 +19,7 @@
                             <tr>
                                 <th>Nombre y Apellidos</th>
                                 <th>Zona</th>
+                                <th>Almacen</th>
                                 <th>Activo</th>
                                 <th></th>
                             </tr>
@@ -32,6 +33,9 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sdesc_zona)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_alma)
                                 </td>
                                 <td>
                                     <input type="checkbox" checked="@item.nesta_vende" readonly />

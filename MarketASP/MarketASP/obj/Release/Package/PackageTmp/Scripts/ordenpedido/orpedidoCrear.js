@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var ofunciones=null;
+
+$(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
     var conf_decimal = 0;
@@ -34,7 +36,7 @@
         fnFormaPagoDiasFecha()
     });
 
-    var ofunciones = $('#tbl').DataTable({
+     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
@@ -263,6 +265,141 @@
 
         Sales_save();
     });
+
+
+    var tblpedido;
+///lista de pedidos
+    $(".btnpedidos").click(function () {
+        var data = ofunciones.row('.selected').data();
+        console.log(data[0]);
+        var xcodarticulo = data[0];
+        console.log(xcodarticulo);
+
+        $.ajax({
+            type: 'POST',
+            url: urlPedidoPrecio,
+            dataType: 'json',
+            data: { ncode_arti: xcodarticulo },
+            success: function (resultado) {
+                //console.log(resultado);
+                alert('exito pedido');
+
+                $('#preciotabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "dfeorpeo_orpe" },
+                            { "data": "sseri_orpe" },
+                            { "data": "snume_orpe" },
+                            { "data": "ncant_orpedeta" },
+                            { "data": "npu_orpedeta" },
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+//lista de almacenes
+    $(".btnalma").click(function () {
+        //var tblop = $('#tbl').dataTable();
+        var data = ofunciones.row('.selected').data();
+        console.log(data[0]);
+        var xcodarticulo = data[0];
+        console.log(xcodarticulo);
+
+        $.ajax({
+            type: 'POST',
+            url: urlKardex,
+            dataType: 'json',
+            data: { ncode_arti: xcodarticulo},
+            success: function (resultado) {
+                //console.log(resultado);
+                alert('exito almacen');
+
+                mattable = $('#almatabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "sdesc_alma" },
+                        { "data": "ncode_arti" },
+                        { "data": "sdesc1_arti" },
+                            { "data": "INGRESOS" },
+                            { "data": "SALIDAS" },
+                            { "data": "STOCK" },
+                            { "data": "RESERVADO" },
+                            { "data": "DISPONIBLE" },
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    });
+
+
+
 });
 
 

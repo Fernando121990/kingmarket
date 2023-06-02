@@ -619,6 +619,7 @@
     <EntitySet Name="SUBLINEA" EntityType="MarketWebModel.SUBLINEA" />
     <FunctionImport Name="Pr_ArticuloListado" ReturnType="Collection(MarketWebModel.Pr_ArticuloListado_Result)" />
     <FunctionImport Name="Pr_KardexArticulos" ReturnType="Collection(MarketWebModel.Pr_KardexArticulos_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
       <Parameter Name="sdesc_arti" Mode="In" Type="String" />
       <Parameter Name="sdesc_alma" Mode="In" Type="String" />
     </FunctionImport>
@@ -912,6 +913,9 @@
     <FunctionImport Name="Pr_clientefopagoElimina">
       <Parameter Name="ncode_clifo" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
@@ -1950,7 +1954,7 @@
     <Property Type="String" Name="sdnice_cliente" Nullable="false" MaxLength="20" />
     <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
-    <Property Type="Int32" Name="ncode_alma" Nullable="false" />
+    <Property Type="Int64" Name="ncode_alma" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_DocNumeracion_Result">
     <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
@@ -2207,6 +2211,7 @@
     <Property Type="Decimal" Name="SALIDAS" Nullable="true" Precision="38" Scale="4" />
     <Property Type="Decimal" Name="STOCK" Nullable="true" Precision="38" Scale="4" />
     <Property Type="Decimal" Name="RESERVADO" Nullable="true" Precision="38" Scale="4" />
+    <Property Type="Decimal" Name="DISPONIBLE" Nullable="true" Precision="38" Scale="4" />
   </ComplexType>
   <EntityType Name="DOCU_SERIE">
     <Key>
@@ -2928,6 +2933,7 @@
     <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR" ToRole="VENDEDOR_ZONA" />
     <Property Name="nesta_vende" Type="Boolean" />
     <Property Name="Iduser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ncode_alma" Type="Int64" />
   </EntityType>
   <EntityType Name="VENDEDOR_ZONA">
     <Key>
@@ -2976,6 +2982,7 @@
     <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
     <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
     <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+    <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
   </ComplexType>
   <EntityType Name="CLIENTE">
     <Key>
@@ -3115,4 +3122,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="Pr_PedidoPrecio_Result">
+    <Property Type="Decimal" Name="ncant_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="sdesc_vende" Nullable="false" MaxLength="5000" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+  </ComplexType>
 </Schema>

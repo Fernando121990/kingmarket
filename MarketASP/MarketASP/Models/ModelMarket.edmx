@@ -848,6 +848,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="ncode_zona" Type="bigint" />
           <Property Name="nesta_vende" Type="bit" />
           <Property Name="Iduser" Type="nvarchar" MaxLength="128" />
+          <Property Name="ncode_alma" Type="bigint" />
         </EntityType>
         <EntityType Name="VENDEDOR_ZONA">
           <Key>
@@ -1935,6 +1936,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           </ReferentialConstraint>
         </Association>
         <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
           <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
           <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
         </Function>
@@ -2453,6 +2455,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+        <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
         <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
         <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
@@ -3480,6 +3485,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="SUBLINEA" EntityType="MarketWebModel.SUBLINEA" />
           <FunctionImport Name="Pr_ArticuloListado" ReturnType="Collection(MarketWebModel.Pr_ArticuloListado_Result)" />
           <FunctionImport Name="Pr_KardexArticulos" ReturnType="Collection(MarketWebModel.Pr_KardexArticulos_Result)">
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
             <Parameter Name="sdesc_arti" Mode="In" Type="String" />
             <Parameter Name="sdesc_alma" Mode="In" Type="String" />
           </FunctionImport>
@@ -3773,6 +3779,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <FunctionImport Name="Pr_clientefopagoElimina">
             <Parameter Name="ncode_clifo" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
+          <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
@@ -4811,7 +4820,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="String" Name="sdnice_cliente" Nullable="false" MaxLength="20" />
           <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
           <Property Type="Int64" Name="ncode_vende" Nullable="false" />
-          <Property Type="Int32" Name="ncode_alma" Nullable="false" />
+          <Property Type="Int64" Name="ncode_alma" Nullable="false" />
         </ComplexType>
         <ComplexType Name="Pr_DocNumeracion_Result">
           <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
@@ -5068,6 +5077,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Decimal" Name="SALIDAS" Nullable="true" Precision="38" Scale="4" />
           <Property Type="Decimal" Name="STOCK" Nullable="true" Precision="38" Scale="4" />
           <Property Type="Decimal" Name="RESERVADO" Nullable="true" Precision="38" Scale="4" />
+          <Property Type="Decimal" Name="DISPONIBLE" Nullable="true" Precision="38" Scale="4" />
         </ComplexType>
         <EntityType Name="DOCU_SERIE">
           <Key>
@@ -5789,6 +5799,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR" ToRole="VENDEDOR_ZONA" />
           <Property Name="nesta_vende" Type="Boolean" />
           <Property Name="Iduser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ncode_alma" Type="Int64" />
         </EntityType>
         <EntityType Name="VENDEDOR_ZONA">
           <Key>
@@ -5837,6 +5848,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
           <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
           <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+          <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
         </ComplexType>
         <EntityType Name="CLIENTE">
           <Key>
@@ -5976,6 +5988,13 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="Pr_PedidoPrecio_Result">
+          <Property Type="Decimal" Name="ncant_orpedeta" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="sdesc_vende" Nullable="false" MaxLength="5000" />
+          <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6726,6 +6745,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="SALIDAS" ColumnName="SALIDAS" />
                 <ScalarProperty Name="STOCK" ColumnName="STOCK" />
                 <ScalarProperty Name="RESERVADO" ColumnName="RESERVADO" />
+                <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -7061,6 +7081,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="VENDEDOR">
             <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR">
               <MappingFragment StoreEntitySet="VENDEDOR">
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
                 <ScalarProperty Name="Iduser" ColumnName="Iduser" />
                 <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
                 <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
@@ -7097,6 +7118,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
                 <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -7136,6 +7158,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Pr_clientefopagoElimina" FunctionName="MarketWebModel.Store.Pr_clientefopagoElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_PedidoPrecio" FunctionName="MarketWebModel.Store.Pr_PedidoPrecio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoPrecio_Result">
+                <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+                <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+                <ScalarProperty Name="documento" ColumnName="documento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

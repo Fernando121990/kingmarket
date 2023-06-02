@@ -418,6 +418,9 @@
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_PedidoPrecio_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_PermisoLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>

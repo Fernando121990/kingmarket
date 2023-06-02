@@ -20,5 +20,6 @@ namespace MarketASP.Models
         public Nullable<bool> nesta_vende { get; set; }
         public string sdesc_alma { get; set; }
         public Nullable<int> ncode_alma { get; set; }
+        public string VendeZona { get; set; }
     }
 }

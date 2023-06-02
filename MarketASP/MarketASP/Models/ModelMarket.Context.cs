@@ -1530,8 +1530,12 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ArticuloListado_Result>("Pr_ArticuloListado");
         }
     
-        public virtual ObjectResult<Pr_KardexArticulos_Result> Pr_KardexArticulos(string sdesc_arti, string sdesc_alma)
+        public virtual ObjectResult<Pr_KardexArticulos_Result> Pr_KardexArticulos(Nullable<long> ncode_arti, string sdesc_arti, string sdesc_alma)
         {
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
             var sdesc_artiParameter = sdesc_arti != null ?
                 new ObjectParameter("sdesc_arti", sdesc_arti) :
                 new ObjectParameter("sdesc_arti", typeof(string));
@@ -1540,7 +1544,7 @@ namespace MarketASP.Models
                 new ObjectParameter("sdesc_alma", sdesc_alma) :
                 new ObjectParameter("sdesc_alma", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexArticulos_Result>("Pr_KardexArticulos", sdesc_artiParameter, sdesc_almaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexArticulos_Result>("Pr_KardexArticulos", ncode_artiParameter, sdesc_artiParameter, sdesc_almaParameter);
         }
     
         public virtual int Pr_PermisoCrear(string username, string nivel)
@@ -1938,6 +1942,15 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_clifo", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clientefopagoElimina", ncode_clifoParameter, sw);
+        }
+    
+        public virtual ObjectResult<Pr_PedidoPrecio_Result> Pr_PedidoPrecio(Nullable<long> ncode_arti)
+        {
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoPrecio_Result>("Pr_PedidoPrecio", ncode_artiParameter);
         }
     }
 }

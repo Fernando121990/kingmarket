@@ -127,20 +127,20 @@
         </div>
     </div>
     <div class="form-group row">
-        @Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.ncode_fopago, "F.Pago", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
-        </div>
+        </div>*@
         @Html.LabelFor(model => model.slineacred_cliente, "Linea Cred.", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.slineacred_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
             @Html.ValidationMessageFor(model => model.slineacred_cliente, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.ncode_zona, "Zona", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ncode_vende, "Vendedor", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
-            @Html.DropDownList("ncode_zona", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_zona, "", new { @class = "text-danger" })
+            @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
         </div>
 
     </div>

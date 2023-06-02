@@ -560,42 +560,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CLIENTE">
-      <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
-        <MappingFragment StoreEntitySet="CLIENTE">
-          <ScalarProperty Name="smail2_cliente" ColumnName="smail2_cliente" />
-          <ScalarProperty Name="sencargado_zona" ColumnName="sencargado_zona" />
-          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
-          <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
-          <ScalarProperty Name="nidtipodoc_cliente" ColumnName="nidtipodoc_cliente" />
-          <ScalarProperty Name="ncode_afepercepcion" ColumnName="ncode_afepercepcion" />
-          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
-          <ScalarProperty Name="bacti_cliente" ColumnName="bacti_cliente" />
-          <ScalarProperty Name="stipo_cliente" ColumnName="stipo_cliente" />
-          <ScalarProperty Name="dfemo_cliente" ColumnName="dfemo_cliente" />
-          <ScalarProperty Name="susmo_cliente" ColumnName="susmo_cliente" />
-          <ScalarProperty Name="dfech_cliente" ColumnName="dfech_cliente" />
-          <ScalarProperty Name="suser_cliente" ColumnName="suser_cliente" />
-          <ScalarProperty Name="bprocedencia_cliente" ColumnName="bprocedencia_cliente" />
-          <ScalarProperty Name="snomb_cliente" ColumnName="snomb_cliente" />
-          <ScalarProperty Name="sapma_cliente" ColumnName="sapma_cliente" />
-          <ScalarProperty Name="sappa_cliente" ColumnName="sappa_cliente" />
-          <ScalarProperty Name="sfono3_cliente" ColumnName="sfono3_cliente" />
-          <ScalarProperty Name="sfono2_cliente" ColumnName="sfono2_cliente" />
-          <ScalarProperty Name="sobse_cliente" ColumnName="sobse_cliente" />
-          <ScalarProperty Name="sweb_cliente" ColumnName="sweb_cliente" />
-          <ScalarProperty Name="smail_cliente" ColumnName="smail_cliente" />
-          <ScalarProperty Name="srepre_cliente" ColumnName="srepre_cliente" />
-          <ScalarProperty Name="slineacred_cliente" ColumnName="slineacred_cliente" />
-          <ScalarProperty Name="sfax_cliente" ColumnName="sfax_cliente" />
-          <ScalarProperty Name="sfono1_cliente" ColumnName="sfono1_cliente" />
-          <ScalarProperty Name="sdnice_cliente" ColumnName="sdnice_cliente" />
-          <ScalarProperty Name="sruc_cliente" ColumnName="sruc_cliente" />
-          <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
-          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Pr_ClienteBusca" FunctionName="MarketWebModel.Store.Pr_ClienteBusca">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MarketWebModel.Pr_ClienteBusca_Result">
@@ -604,6 +568,8 @@
           <ScalarProperty Name="sruc_cliente" ColumnName="sruc_cliente" />
           <ScalarProperty Name="sdnice_cliente" ColumnName="sdnice_cliente" />
           <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -779,6 +745,7 @@
           <ScalarProperty Name="SALIDAS" ColumnName="SALIDAS" />
           <ScalarProperty Name="STOCK" ColumnName="STOCK" />
           <ScalarProperty Name="RESERVADO" ColumnName="RESERVADO" />
+          <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1031,6 +998,7 @@
     <EntitySetMapping Name="ORDEN_PEDIDOS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
           <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
@@ -1113,6 +1081,8 @@
     <EntitySetMapping Name="VENDEDOR">
       <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR">
         <MappingFragment StoreEntitySet="VENDEDOR">
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="Iduser" ColumnName="Iduser" />
           <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
           <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
           <ScalarProperty Name="susmo_vende" ColumnName="susmo_vende" />
@@ -1146,6 +1116,55 @@
           <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
           <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
           <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="CLIENTE">
+      <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
+        <MappingFragment StoreEntitySet="CLIENTE">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="smail2_cliente" ColumnName="smail2_cliente" />
+          <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
+          <ScalarProperty Name="nidtipodoc_cliente" ColumnName="nidtipodoc_cliente" />
+          <ScalarProperty Name="ncode_afepercepcion" ColumnName="ncode_afepercepcion" />
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="bacti_cliente" ColumnName="bacti_cliente" />
+          <ScalarProperty Name="stipo_cliente" ColumnName="stipo_cliente" />
+          <ScalarProperty Name="dfemo_cliente" ColumnName="dfemo_cliente" />
+          <ScalarProperty Name="susmo_cliente" ColumnName="susmo_cliente" />
+          <ScalarProperty Name="dfech_cliente" ColumnName="dfech_cliente" />
+          <ScalarProperty Name="suser_cliente" ColumnName="suser_cliente" />
+          <ScalarProperty Name="bprocedencia_cliente" ColumnName="bprocedencia_cliente" />
+          <ScalarProperty Name="snomb_cliente" ColumnName="snomb_cliente" />
+          <ScalarProperty Name="sapma_cliente" ColumnName="sapma_cliente" />
+          <ScalarProperty Name="sappa_cliente" ColumnName="sappa_cliente" />
+          <ScalarProperty Name="sfono3_cliente" ColumnName="sfono3_cliente" />
+          <ScalarProperty Name="sfono2_cliente" ColumnName="sfono2_cliente" />
+          <ScalarProperty Name="sobse_cliente" ColumnName="sobse_cliente" />
+          <ScalarProperty Name="sweb_cliente" ColumnName="sweb_cliente" />
+          <ScalarProperty Name="smail_cliente" ColumnName="smail_cliente" />
+          <ScalarProperty Name="srepre_cliente" ColumnName="srepre_cliente" />
+          <ScalarProperty Name="slineacred_cliente" ColumnName="slineacred_cliente" />
+          <ScalarProperty Name="sfax_cliente" ColumnName="sfax_cliente" />
+          <ScalarProperty Name="sfono1_cliente" ColumnName="sfono1_cliente" />
+          <ScalarProperty Name="sdnice_cliente" ColumnName="sdnice_cliente" />
+          <ScalarProperty Name="sruc_cliente" ColumnName="sruc_cliente" />
+          <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
+          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_clientefopagoElimina" FunctionName="MarketWebModel.Store.Pr_clientefopagoElimina" />
+    <FunctionImportMapping FunctionImportName="Pr_PedidoPrecio" FunctionName="MarketWebModel.Store.Pr_PedidoPrecio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoPrecio_Result">
+          <ScalarProperty Name="dfeorpeo_orpe" ColumnName="dfeorpeo_orpe" />
+          <ScalarProperty Name="sseri_orpe" ColumnName="sseri_orpe" />
+          <ScalarProperty Name="snume_orpe" ColumnName="snume_orpe" />
+          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

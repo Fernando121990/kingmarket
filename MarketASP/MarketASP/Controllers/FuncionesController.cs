@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Cryptography;
 
 namespace MarketASP.Controllers
 {
@@ -79,6 +80,20 @@ namespace MarketASP.Controllers
                          where s.ncode_cliente.Equals(scodCliente)
                          select new { s.ncode_clidire, s.sdesc_clidire };
             return Json(result);
+        }
+
+        public JsonResult getKardex(int ncode_arti)
+        {
+            var resultado = db.Pr_KardexArticulos(ncode_arti,"","");
+
+            return Json(resultado);
+        }
+
+        public JsonResult getPedidoPrecio(int ncode_arti)
+        {
+            var resultado = db.Pr_PedidoPrecio(ncode_arti);
+
+            return Json(resultado);
         }
 
         public JsonResult getArticulos()

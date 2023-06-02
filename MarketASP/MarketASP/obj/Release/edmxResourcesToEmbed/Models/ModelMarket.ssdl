@@ -216,9 +216,8 @@
     <Property Name="ncode_afepercepcion" Type="int" />
     <Property Name="nidtipodoc_cliente" Type="int" />
     <Property Name="bretencion_cliente" Type="bit" />
-    <Property Name="ncode_zona" Type="bigint" />
-    <Property Name="sencargado_zona" Type="varchar" MaxLength="5000" />
     <Property Name="smail2_cliente" Type="varchar" MaxLength="500" />
+    <Property Name="ncode_vende" Type="bigint" />
   </EntityType>
   <EntityType Name="COMPRA_DETALLE">
     <Key>
@@ -586,6 +585,7 @@
     <Property Name="ncode_alma" Type="int" Nullable="false" />
     <Property Name="ncode_local" Type="int" Nullable="false" />
     <Property Name="ncode_mone" Type="int" />
+    <Property Name="ncode_vende" Type="bigint" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS_DETALLE">
     <Key>
@@ -842,6 +842,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="susmo_vende" Type="varchar" MaxLength="50" />
     <Property Name="ncode_zona" Type="bigint" />
     <Property Name="nesta_vende" Type="bit" />
+    <Property Name="Iduser" Type="nvarchar" MaxLength="128" />
+    <Property Name="ncode_alma" Type="bigint" />
   </EntityType>
   <EntityType Name="VENDEDOR_ZONA">
     <Key>
@@ -1011,18 +1013,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="CLI_FOPAGO">
         <PropertyRef Name="ncode_fopago" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CLIENTE_ZONA">
-    <End Role="ZONA" Type="Self.ZONA" Multiplicity="0..1" />
-    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ZONA">
-        <PropertyRef Name="ncode_zona" />
-      </Principal>
-      <Dependent Role="CLIENTE">
-        <PropertyRef Name="ncode_zona" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1941,6 +1931,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     </ReferentialConstraint>
   </Association>
   <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
     <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
   </Function>
@@ -1956,6 +1947,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   </Function>
   <Function Name="Pr_ClienteElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_clientefopagoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_clifo" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_compraAnula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2455,6 +2450,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
@@ -2553,10 +2551,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="Self.FK_CLI_FOPAGO_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CLIENTE_ZONA" Association="Self.FK_CLIENTE_ZONA">
-      <End Role="ZONA" EntitySet="ZONA" />
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
     </AssociationSet>
     <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />

@@ -745,6 +745,7 @@
           <ScalarProperty Name="SALIDAS" ColumnName="SALIDAS" />
           <ScalarProperty Name="STOCK" ColumnName="STOCK" />
           <ScalarProperty Name="RESERVADO" ColumnName="RESERVADO" />
+          <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1080,6 +1081,7 @@
     <EntitySetMapping Name="VENDEDOR">
       <EntityTypeMapping TypeName="MarketWebModel.VENDEDOR">
         <MappingFragment StoreEntitySet="VENDEDOR">
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
           <ScalarProperty Name="Iduser" ColumnName="Iduser" />
           <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
           <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
@@ -1116,6 +1118,7 @@
           <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
           <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1155,5 +1158,16 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Pr_clientefopagoElimina" FunctionName="MarketWebModel.Store.Pr_clientefopagoElimina" />
+    <FunctionImportMapping FunctionImportName="Pr_PedidoPrecio" FunctionName="MarketWebModel.Store.Pr_PedidoPrecio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoPrecio_Result">
+          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

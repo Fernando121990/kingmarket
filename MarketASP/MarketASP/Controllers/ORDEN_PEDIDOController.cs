@@ -70,7 +70,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
-            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista().Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona","");
             ViewBag.dfeorpeo_orpe = string.Format("{0:d}", yfecha);
             ViewBag.dfevenci_orpe = string.Format("{0:d}", yfecha);
             return View();
@@ -171,7 +171,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", oRDEN_PEDIDOS.ncode_alma);
-            ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende",oRDEN_PEDIDOS.ncode_vende);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista().Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", oRDEN_PEDIDOS.ncode_vende);
             ViewBag.cod_cliente = oRDEN_PEDIDOS.ncode_cliente;
             ViewBag.sdesc_cliente = oRDEN_PEDIDOS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = oRDEN_PEDIDOS.CLIENTE.sruc_cliente;

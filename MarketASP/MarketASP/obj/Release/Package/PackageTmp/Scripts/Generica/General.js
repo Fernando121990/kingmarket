@@ -19,17 +19,25 @@ $(document).ready(function () {
                     response($.map(data, function (item) {
                         return {
                             label: item.srazon_cliente, value: item.srazon_cliente, id: item.ncode_cliente,
-                            rucid: item.sruc_cliente, dnid: item.sdnice_cliente, fopagoid : item.ncode_fopago
+                            rucid: item.sruc_cliente, dnid: item.sdnice_cliente, fopagoid: item.ncode_fopago,
+                            vendeid : item.ncode_vende, almaid : item.ncode_alma
                         };
                     }));
                 }
             });
         },
         select: function (event, ui) {
+            console.log('cliente');
+            console.log(ui.item.vendeid);
+            console.log(ui.item.almaid);
+            console.log(ui.item.fopagoid);
+
             $('#COD_CLIENTE').val(ui.item.id);
             $("#sruc").val(ui.item.rucid);
             $('#sdni_cliente').val(ui.item.dnid);
             $('#ncode_fopago').val(ui.item.fopagoid);
+            $('#ncode_vende').val(ui.item.vendeid);
+            $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
             fnFormaPagoDiasFecha();
         }

@@ -1,4 +1,9 @@
-﻿$(document).ready(function () {
+﻿var ofunciones=null;
+var mattable;
+var preciotable;
+var almatable;
+
+$(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
     var conf_decimal = 0;
@@ -34,7 +39,7 @@
         fnFormaPagoDiasFecha()
     });
 
-    var ofunciones = $('#tbl').DataTable({
+     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
@@ -115,7 +120,7 @@
         ofunciones.rows('.selected').remove().draw(false);
     });
 
-    var mattable;
+    
 
     $(".addMat").click(function () {
 
@@ -159,6 +164,7 @@
                     "scrollCollapse": true,
                     "paging": false,
                     "info": false,
+                    "bDestroy": true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",
                         "zeroRecords": "No hay datos disponibles",
@@ -199,6 +205,20 @@
 
     $("#btnmatcerrar").click(function () {
         mattable.destroy();
+    });
+    $("#btnalmacerrarx").click(function () {
+        almatable.destroy();
+    });
+
+    $("#btnalmacerrar").click(function () {
+        almatable.destroy();
+    });
+    $("#btnpreciocerrarx").click(function () {
+        preciotable.destroy();
+    });
+
+    $("#btnpreciocerrar").click(function () {
+        preciotable.destroy();
     });
 
     $("#btnorpe").click(function () {
@@ -263,6 +283,143 @@
 
         Sales_save();
     });
+
+
+    var tblpedido;
+///lista de pedidos
+    $(".btnpedidos").click(function () {
+        var data = ofunciones.row('.selected').data();
+        //console.log(data[0]);
+        var xcodarticulo = data[0];
+        //console.log(xcodarticulo);
+
+        $.ajax({
+            type: 'POST',
+            url: urlPedidoPrecio,
+            dataType: 'json',
+            data: { ncode_arti: xcodarticulo },
+            success: function (resultado) {
+                //console.log(resultado);
+                //alert('exito pedido');
+
+               preciotable = $('#preciotabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "fecha" },
+                            { "data": "documento" },
+                            { "data": "ncant_orpedeta" },
+                            { "data": "npu_orpedeta" },
+                            { "data": "sdesc_vende" },
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                   "info": false,
+                   "bDestroy": true,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+//lista de almacenes
+    $(".btnalma").click(function () {
+        //var tblop = $('#tbl').dataTable();
+        var data = ofunciones.row('.selected').data();
+        //console.log(data[0]);
+        var xcodarticulo = data[0];
+        //console.log(xcodarticulo);
+
+        $.ajax({
+            type: 'POST',
+            url: urlKardex,
+            dataType: 'json',
+            data: { ncode_arti: xcodarticulo},
+            success: function (resultado) {
+                //console.log(resultado);
+                //alert('exito almacen');
+
+                almatable = $('#almatabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "sdesc_alma" },
+                        { "data": "ncode_arti" },
+                        { "data": "sdesc1_arti" },
+                            { "data": "INGRESOS" },
+                            { "data": "SALIDAS" },
+                            { "data": "STOCK" },
+                            { "data": "RESERVADO" },
+                            { "data": "DISPONIBLE" },
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": [1,6]
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "bDestroy": true,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    });
+
+
+
 });
 
 

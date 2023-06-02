@@ -44,6 +44,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
             ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona");
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             return View();
         }
 
@@ -69,6 +70,7 @@ namespace MarketASP.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona");
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             return View(vENDEDOR);
         }
 
@@ -95,6 +97,7 @@ namespace MarketASP.Controllers
                 return HttpNotFound();
             }
             ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona",idzona);
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENDEDOR.ncode_alma);
             return View(vENDEDOR);
         }
 
@@ -111,6 +114,8 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona", vENDEDOR.ncode_zona);
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", vENDEDOR.ncode_alma);
             return View(vENDEDOR);
         }
 

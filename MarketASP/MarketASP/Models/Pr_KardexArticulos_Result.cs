@@ -20,5 +20,6 @@ namespace MarketASP.Models
         public Nullable<decimal> SALIDAS { get; set; }
         public Nullable<decimal> STOCK { get; set; }
         public Nullable<decimal> RESERVADO { get; set; }
+        public Nullable<decimal> DISPONIBLE { get; set; }
     }
 }

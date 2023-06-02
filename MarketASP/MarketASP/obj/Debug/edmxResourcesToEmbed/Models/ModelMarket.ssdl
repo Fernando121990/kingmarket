@@ -843,6 +843,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ncode_zona" Type="bigint" />
     <Property Name="nesta_vende" Type="bit" />
     <Property Name="Iduser" Type="nvarchar" MaxLength="128" />
+    <Property Name="ncode_alma" Type="bigint" />
   </EntityType>
   <EntityType Name="VENDEDOR_ZONA">
     <Key>
@@ -1930,6 +1931,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     </ReferentialConstraint>
   </Association>
   <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
     <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
   </Function>
@@ -2448,6 +2450,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />

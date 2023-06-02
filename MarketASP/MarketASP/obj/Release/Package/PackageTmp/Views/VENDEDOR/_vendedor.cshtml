@@ -23,8 +23,12 @@
         <div class="card">
             <div class="card-body">
                 @Html.LabelFor(model => model.ncode_zona, "Zona", htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.DropDownList("ncode_zona", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ncode_zona, "", new { @class = "text-danger" })
+                @Html.DropDownList("ncode_zona", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ncode_zona, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.ncode_alma, "Almacen", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ncode_alma, "", new { @class = "text-danger" })
+
             </div>
 
         </div>

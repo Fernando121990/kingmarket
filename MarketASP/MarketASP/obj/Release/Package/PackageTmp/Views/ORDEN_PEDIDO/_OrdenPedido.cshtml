@@ -174,7 +174,9 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="ncode_alma" class="col-form-label">Almacen</label>
-                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control"})
+                    @*@Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })*@
+                    @*@Html.HiddenFor(model => model.ncode_alma)*@
                 </div>
                         <div class="mb-3">
                             <label for="ncode_compra" class="col-form-label">O.C</label>
@@ -215,12 +217,18 @@
                     </div>
 
                 </div>
-                <div class="mb-3">
-                    <label for="sobse_venta" class="col-form-label">Observacion</label>
-                    @Html.TextAreaFor(model => model.sobse_orpe, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sobse_orpe, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="ncode_vende" class="col-form-label">vendedor</label>
+                        @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="sobse_venta" class="col-form-label">Observacion</label>
+                        @Html.TextAreaFor(model => model.sobse_orpe, new { htmlAttributes= new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.sobse_orpe, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -233,6 +241,8 @@
     <div class="col-lg-6">
         <button type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
         <button type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+        <button type="button" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
+        <button type="button" class="btnpedidos fas fa-money-check btn btn-info" data-bs-toggle="modal" data-bs-target="#modalprecio"></button>
         <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -267,6 +277,70 @@
                 </div>
             </div>
         </div>
+
+        <div id="modalAlma" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAlmalabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 Class="modal-title" id="modalAlmalabel">Lista Almacenes</h5>
+                        <button id="btnalmacerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Descripción:</h3>
+                        <table id="almatabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Disponible</th>
+                                    <th>Reservado</th>
+                                    <th>Cod1</th>
+                                    <th>Nomb1</th>
+                                    <th>Dispo1</th>
+                                    <th>Reserv1</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btnalmacencerrar" name="btnalmacencerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnalma" name="btnalma" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="modalprecio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalpreciolabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 Class="modal-title" id="modalpreciolabel">Ordenes de Pedido</h5>
+                        <button id="btnpreciocerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="preciotabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Serie</th>
+                                    <th>numero</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btnpreciocerrar" name="btnpreciocerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnprecio" name="btnprecio" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

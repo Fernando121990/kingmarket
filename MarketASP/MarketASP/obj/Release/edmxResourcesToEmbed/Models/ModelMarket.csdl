@@ -472,27 +472,6 @@
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
     </AssociationSet>
-    <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
-    <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
-    </AssociationSet>
-    <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_46" Association="MarketWebModel.R_46">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
-    </AssociationSet>
-    <AssociationSet Name="R_60" Association="MarketWebModel.R_60">
-      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-    </AssociationSet>
-    <AssociationSet Name="R_61" Association="MarketWebModel.R_61">
-      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-    </AssociationSet>
     <FunctionImport Name="Pr_ClienteBusca" ReturnType="Collection(MarketWebModel.Pr_ClienteBusca_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="sdesc_cliente" Mode="In" Type="String" />
@@ -512,10 +491,6 @@
     </AssociationSet>
     <AssociationSet Name="R_66" Association="MarketWebModel.R_66">
       <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
-      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_65" Association="MarketWebModel.R_65">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
       <End Role="PROFORMAS" EntitySet="PROFORMAS" />
     </AssociationSet>
     <AssociationSet Name="R_64" Association="MarketWebModel.R_64">
@@ -644,6 +619,7 @@
     <EntitySet Name="SUBLINEA" EntityType="MarketWebModel.SUBLINEA" />
     <FunctionImport Name="Pr_ArticuloListado" ReturnType="Collection(MarketWebModel.Pr_ArticuloListado_Result)" />
     <FunctionImport Name="Pr_KardexArticulos" ReturnType="Collection(MarketWebModel.Pr_KardexArticulos_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
       <Parameter Name="sdesc_arti" Mode="In" Type="String" />
       <Parameter Name="sdesc_alma" Mode="In" Type="String" />
     </FunctionImport>
@@ -754,10 +730,6 @@
     </AssociationSet>
     <FunctionImport Name="Pr_Sublinealista" ReturnType="Collection(MarketWebModel.Pr_Sublinealista_Result)" />
     <FunctionImport Name="Pr_SubespecieLista" ReturnType="Collection(MarketWebModel.Pr_SubespecieLista_Result)" />
-    <AssociationSet Name="FK_CLIENTE_ZONA" Association="MarketWebModel.FK_CLIENTE_ZONA">
-      <End Role="ZONA" EntitySet="ZONA" />
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-    </AssociationSet>
     <EntitySet Name="ORDEN_PEDIDOS" EntityType="MarketWebModel.ORDEN_PEDIDOS" />
     <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="MarketWebModel.ORDEN_PEDIDOS_DETALLE" />
     <AssociationSet Name="R_670" Association="MarketWebModel.R_670">
@@ -770,10 +742,6 @@
     </AssociationSet>
     <AssociationSet Name="R_660" Association="MarketWebModel.R_660">
       <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
-      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
-    </AssociationSet>
-    <AssociationSet Name="R_650" Association="MarketWebModel.R_650">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
       <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
     </AssociationSet>
     <AssociationSet Name="R_640" Association="MarketWebModel.R_640">
@@ -894,10 +862,6 @@
       <End Role="ARTICULO" EntitySet="ARTICULO" />
     </AssociationSet>
     <EntitySet Name="CLI_FOPAGO" EntityType="MarketWebModel.CLI_FOPAGO" />
-    <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
-    </AssociationSet>
     <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
@@ -913,6 +877,46 @@
       <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
     </AssociationSet>
     <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)" />
+    <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
+    <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
+    </AssociationSet>
+    <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_46" Association="MarketWebModel.R_46">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="CTA_COBRAR" EntitySet="CTA_COBRAR" />
+    </AssociationSet>
+    <AssociationSet Name="R_60" Association="MarketWebModel.R_60">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_61" Association="MarketWebModel.R_61">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_65" Association="MarketWebModel.R_65">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="PROFORMAS" EntitySet="PROFORMAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_650" Association="MarketWebModel.R_650">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_clientefopagoElimina">
+      <Parameter Name="ncode_clifo" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1000,9 +1004,9 @@
     <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.R_12" FromRole="CLI_DIRE" ToRole="UBIGEO" />
     <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_13" FromRole="CLI_DIRE" ToRole="CLIDI_CONTAC" />
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_66" FromRole="CLI_DIRE" ToRole="PROFORMAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_660" FromRole="CLI_DIRE" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
   </EntityType>
   <EntityType Name="CLIDI_CONTAC">
     <Key>
@@ -1450,10 +1454,10 @@
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_58" FromRole="VENTAS" ToRole="LOCAL" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
     <Property Name="ncode_mone" Type="Int32" />
     <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
     <Property Name="ncode_orpe" Type="Int64" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
   </EntityType>
   <Association Name="R_33">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -1789,8 +1793,6 @@
     <NavigationProperty Name="CTASCO_DETALLE1" Relationship="MarketWebModel.R_51" FromRole="CONFIGURACION" ToRole="CTASCO_DETALLE" />
     <NavigationProperty Name="CTASPA_DETALLE" Relationship="MarketWebModel.R_52" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
     <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
-    <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_64" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
     <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
@@ -1798,6 +1800,8 @@
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLI_FOPAGO" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
+    <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -1943,116 +1947,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="CLIENTE">
-    <Key>
-      <PropertyRef Name="ncode_cliente" />
-    </Key>
-    <Property Name="ncode_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="srazon_cliente" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-    <Property Name="sruc_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="sdnice_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="sfono1_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="sfax_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="slineacred_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="srepre_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="smail_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="sweb_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="sobse_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="sfono2_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="sfono3_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="sappa_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="sapma_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="snomb_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="bprocedencia_cliente" Type="Boolean" />
-    <Property Name="suser_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="dfech_cliente" Type="DateTime" Precision="3" />
-    <Property Name="susmo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="dfemo_cliente" Type="DateTime" Precision="3" />
-    <Property Name="stipo_cliente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="bacti_cliente" Type="Boolean" />
-    <Property Name="ncode_fopago" Type="Int32" />
-    <Property Name="ncode_afepercepcion" Type="Int32" />
-    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
-    <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
-    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
-    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
-    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
-    <Property Name="nidtipodoc_cliente" Type="Int32" />
-    <Property Name="bretencion_cliente" Type="Boolean" />
-    <Property Name="ncode_zona" Type="Int64" />
-    <NavigationProperty Name="ZONA" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="CLIENTE" ToRole="ZONA" />
-    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
-    <Property Name="sencargado_zona" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLIENTE" ToRole="CLI_FOPAGO" />
-    <Property Name="smail2_cliente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <Association Name="R_11">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="CLI_DIRE">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_28">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="VENTAS">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_46">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="CTA_COBRAR">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_60">
-    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONFIGURACION">
-        <PropertyRef Name="ncode_confi" />
-      </Principal>
-      <Dependent Role="CLIENTE">
-        <PropertyRef Name="ncode_fopago" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_61">
-    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONFIGURACION">
-        <PropertyRef Name="ncode_confi" />
-      </Principal>
-      <Dependent Role="CLIENTE">
-        <PropertyRef Name="ncode_afepercepcion" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <ComplexType Name="Pr_ClienteBusca_Result">
     <Property Type="Int32" Name="ncode_cliente" Nullable="false" />
     <Property Type="String" Name="srazon_cliente" Nullable="false" MaxLength="2000" />
     <Property Type="String" Name="sruc_cliente" Nullable="false" MaxLength="20" />
     <Property Type="String" Name="sdnice_cliente" Nullable="false" MaxLength="20" />
     <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
+    <Property Type="Int64" Name="ncode_vende" Nullable="false" />
+    <Property Type="Int64" Name="ncode_alma" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_DocNumeracion_Result">
     <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
@@ -2098,12 +2000,12 @@
     <Property Name="ncode_local" Type="Int32" Nullable="false" />
     <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_67" FromRole="PROFORMAS" ToRole="ALMACEN" />
     <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_66" FromRole="PROFORMAS" ToRole="CLI_DIRE" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_65" FromRole="PROFORMAS" ToRole="CLIENTE" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_64" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_69" FromRole="PROFORMAS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_68" FromRole="PROFORMAS" ToRole="LOCAL" />
     <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_62" FromRole="PROFORMAS" ToRole="PROFORMA_DETALLE" />
     <Property Name="ncode_mone" Type="Int32" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_65" FromRole="PROFORMAS" ToRole="CLIENTE" />
   </EntityType>
   <Association Name="R_67">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -2126,18 +2028,6 @@
       </Principal>
       <Dependent Role="PROFORMAS">
         <PropertyRef Name="ncode_clidire" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_65">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="PROFORMAS">
-        <PropertyRef Name="ncode_cliente" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2321,6 +2211,7 @@
     <Property Type="Decimal" Name="SALIDAS" Nullable="true" Precision="38" Scale="4" />
     <Property Type="Decimal" Name="STOCK" Nullable="true" Precision="38" Scale="4" />
     <Property Type="Decimal" Name="RESERVADO" Nullable="true" Precision="38" Scale="4" />
+    <Property Type="Decimal" Name="DISPONIBLE" Nullable="true" Precision="38" Scale="4" />
   </ComplexType>
   <EntityType Name="DOCU_SERIE">
     <Key>
@@ -2703,7 +2594,6 @@
     <Property Name="dfech_zona" Type="DateTime" Precision="3" />
     <Property Name="susmo_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="dfemo_zona" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLIENTE_ZONA" FromRole="ZONA" ToRole="CLIENTE" />
     <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_ZONA" FromRole="ZONA" ToRole="VENDEDOR_ZONA" />
   </EntityType>
   <EntityType Name="TRANSPORTISTA">
@@ -2824,18 +2714,6 @@
     <Property Type="String" Name="sdesc_subesp" Nullable="true" MaxLength="500" />
     <Property Type="Boolean" Name="nesta_subesp" Nullable="true" />
   </ComplexType>
-  <Association Name="FK_CLIENTE_ZONA">
-    <End Type="MarketWebModel.ZONA" Role="ZONA" Multiplicity="0..1" />
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ZONA">
-        <PropertyRef Name="ncode_zona" />
-      </Principal>
-      <Dependent Role="CLIENTE">
-        <PropertyRef Name="ncode_zona" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="ORDEN_PEDIDOS">
     <Key>
       <PropertyRef Name="ncode_orpe" />
@@ -2877,11 +2755,12 @@
     <Property Name="ncode_mone" Type="Int32" />
     <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_670" FromRole="ORDEN_PEDIDOS" ToRole="ALMACEN" />
     <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_660" FromRole="ORDEN_PEDIDOS" ToRole="CLI_DIRE" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_650" FromRole="ORDEN_PEDIDOS" ToRole="CLIENTE" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_640" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_690" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_650" FromRole="ORDEN_PEDIDOS" ToRole="CLIENTE" />
+    <Property Name="ncode_vende" Type="Int64" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS_DETALLE">
     <Key>
@@ -2939,18 +2818,6 @@
       </Principal>
       <Dependent Role="ORDEN_PEDIDOS">
         <PropertyRef Name="ncode_clidire" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_650">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="ORDEN_PEDIDOS">
-        <PropertyRef Name="ncode_cliente" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -3037,21 +2904,9 @@
     <Property Name="dfemo_clifo" Type="DateTime" Precision="3" />
     <Property Name="susmo_clifo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ncode_clifo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLI_FOPAGO" ToRole="CLIENTE" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CLI_FOPAGO" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLI_FOPAGO" ToRole="CLIENTE" />
   </EntityType>
-  <Association Name="FK_CLI_FOPAGO_CLIENTE">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
-    <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="CLI_FOPAGO">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CLI_FOPAGO_CONFIGURACION">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
     <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
@@ -3077,6 +2932,8 @@
     <Property Name="ncode_zona" Type="Int64" />
     <NavigationProperty Name="VENDEDOR_ZONA" Relationship="MarketWebModel.FK_VENDEDOR_ZONA_VENDEDOR" FromRole="VENDEDOR" ToRole="VENDEDOR_ZONA" />
     <Property Name="nesta_vende" Type="Boolean" />
+    <Property Name="Iduser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ncode_alma" Type="Int64" />
   </EntityType>
   <EntityType Name="VENDEDOR_ZONA">
     <Key>
@@ -3120,8 +2977,155 @@
   <ComplexType Name="Pr_VendedoresLista_Result">
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
     <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
-    <Property Type="Int64" Name="ncode_zona" Nullable="false" />
+    <Property Type="Int64" Name="ncode_zona" Nullable="true" />
     <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="500" />
     <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
+    <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
+    <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="ncode_cliente" />
+    </Key>
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="srazon_cliente" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="sruc_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sdnice_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sfono1_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sfax_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="slineacred_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="srepre_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="smail_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sweb_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sobse_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="sfono2_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sfono3_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sappa_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sapma_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="snomb_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="bprocedencia_cliente" Type="Boolean" />
+    <Property Name="suser_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_cliente" Type="DateTime" Precision="3" />
+    <Property Name="susmo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_cliente" Type="DateTime" Precision="3" />
+    <Property Name="stipo_cliente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="bacti_cliente" Type="Boolean" />
+    <Property Name="ncode_fopago" Type="Int32" />
+    <Property Name="ncode_afepercepcion" Type="Int32" />
+    <Property Name="nidtipodoc_cliente" Type="Int32" />
+    <Property Name="bretencion_cliente" Type="Boolean" />
+    <Property Name="smail2_cliente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_vende" Type="Int64" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLIENTE" ToRole="CLI_FOPAGO" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
+    <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
+    <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
+  </EntityType>
+  <Association Name="R_11">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CLI_DIRE">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CLI_FOPAGO_CLIENTE">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLI_FOPAGO" Role="CLI_FOPAGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CLI_FOPAGO">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_28">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_46">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.CTA_COBRAR" Role="CTA_COBRAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="CTA_COBRAR">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_60">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_61">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="ncode_afepercepcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_65">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.PROFORMAS" Role="PROFORMAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="PROFORMAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_650">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_PedidoPrecio_Result">
+    <Property Type="DateTime" Name="dfeorpeo_orpe" Nullable="true" Precision="23" />
+    <Property Type="String" Name="sseri_orpe" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="snume_orpe" Nullable="true" MaxLength="20" />
+    <Property Type="Decimal" Name="ncant_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
   </ComplexType>
 </Schema>
