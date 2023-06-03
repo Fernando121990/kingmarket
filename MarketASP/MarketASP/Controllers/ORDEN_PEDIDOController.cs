@@ -15,6 +15,7 @@ using MarketASP.Extensiones;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class ORDEN_PEDIDOController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -27,18 +28,16 @@ namespace MarketASP.Controllers
         }
 
         // GET: ORDEN_PEDIDOS/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public async Task<ActionResult> OPDetalles()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ORDEN_PEDIDOS oRDEN_PEDIDOS = await db.ORDEN_PEDIDOS.FindAsync(id);
-            if (oRDEN_PEDIDOS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(oRDEN_PEDIDOS);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+
+            var result = db.Pr_PedidoConsultaDetallada(0).ToList();
+
+            return View(result);
         }
 
         // GET: ORDEN_PEDIDOS/Create
@@ -55,7 +54,6 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             var yfecha = DateTime.Now.Date;
             var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc == yfecha);
             if (result == null)
@@ -65,14 +63,18 @@ namespace MarketASP.Controllers
                 //                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
             ViewBag.tc = result.nventa_tc;
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
 
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
-            ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
+            ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista().Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona","");
-            ViewBag.dfeorpeo_orpe = string.Format("{0:d}", yfecha);
-            ViewBag.dfevenci_orpe = string.Format("{0:d}", yfecha);
+            ViewBag.dfeorpeo_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfevenci_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
         [HttpPost]
@@ -104,11 +106,11 @@ namespace MarketASP.Controllers
 
                             db.Pr_Orden_PedidoCrea(mofView.ncode_docu, mofView.sseri_orpe, mofView.snume_orpe, DateTime.Parse(mofView.sfeordenpedido_orpe),
                                 DateTime.Parse(mofView.sfevenci_orpe), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orpe, mofView.ntc_orpe, mofView.ncode_fopago,
-                                mofView.sobse_orpe, mofView.ncode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
+                                mofView.sobse_orpe, mofView.scode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
-                                mofView.ntotalUs_orpe, true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), mofView.ncode_mone ,
-                                sw);
+                                mofView.ntotalUs_orpe, true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), 
+                                mofView.ncode_mone,mofView.ncode_vende ,sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -167,6 +169,12 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+ 
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", oRDEN_PEDIDOS.smone_orpe);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_fopago);
@@ -176,10 +184,11 @@ namespace MarketASP.Controllers
             ViewBag.sdesc_cliente = oRDEN_PEDIDOS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = oRDEN_PEDIDOS.CLIENTE.sruc_cliente;
             ViewBag.sdni_cliente = oRDEN_PEDIDOS.CLIENTE.sdnice_cliente;
-            ViewBag.dfeorpeo_orpe = string.Format("{0:d}", oRDEN_PEDIDOS.dfeorpeo_orpe);
-            ViewBag.dfevenci_orpe = string.Format("{0:d}", oRDEN_PEDIDOS.dfevenci_orpe);
+            ViewBag.dfeorpeo_orpe = string.Format("{0:dd/MM/yyyy}", oRDEN_PEDIDOS.dfeorpeo_orpe);
+            ViewBag.dfevenci_orpe = string.Format("{0:dd/MM/yyyy}", oRDEN_PEDIDOS.dfevenci_orpe);
             ViewBag.tc = oRDEN_PEDIDOS.ntc_orpe;
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == oRDEN_PEDIDOS.ncode_cliente), "ncode_clidire", "sdesc_clidire", oRDEN_PEDIDOS.ncode_clidire);
+            
             return View(oRDEN_PEDIDOS);
         }
 
@@ -212,10 +221,10 @@ namespace MarketASP.Controllers
 
                             db.Pr_Orden_PedidoEdita(mofView.ncode_orpe, mofView.ncode_docu, DateTime.Parse(mofView.sfeordenpedido_orpe),
                                 DateTime.Parse(mofView.sfevenci_orpe), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orpe, mofView.ntc_orpe, mofView.ncode_fopago,
-                                mofView.sobse_orpe, mofView.ncode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
+                                mofView.sobse_orpe, mofView.scode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
-                                mofView.ntotalUs_orpe,true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), mofView.ncode_mone, sw);
+                                mofView.ntotalUs_orpe,true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_vende, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

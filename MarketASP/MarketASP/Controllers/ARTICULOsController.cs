@@ -32,6 +32,15 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
+            ViewBag.vercosto = 1;
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0505", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.vercosto = 0;
+            }
+
             var aRTICULO = db.Pr_ArticuloListado().ToList();
             return View(aRTICULO);
         }

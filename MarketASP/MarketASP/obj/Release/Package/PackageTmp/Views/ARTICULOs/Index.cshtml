@@ -21,8 +21,13 @@
                                 <th>Stock</th>
                                 <th>Disponible</th>
                                 <th>Precio</th>
-                                <th>Costo</th>
-                                <th>U.Costo</th>
+                                @{
+                                    if (ViewBag.vercosto == 1)
+                                    {
+                                        <th>Costo</th>
+                                        <th>U.Costo</th>
+                                    } 
+                                  }
                                 <th>U.M</th>
                                 <th></th>
                             </tr>
@@ -41,17 +46,24 @@
                                     @Html.DisplayFor(modelItem => item.nstockactual)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.nstockreservado_arti)
+                                    @Html.DisplayFor(modelItem => item.Disponible)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.nprecio_arti)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ncosto_arti)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.nultcosto_arti)
-                                </td>
+                                @{
+                                    if (ViewBag.vercosto == 1)
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ncosto_arti)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nultcosto_arti)
+                                        </td>
+                                    }
+
+                                }
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.sdesc_umed)
                                 </td>

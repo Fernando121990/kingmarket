@@ -418,6 +418,9 @@
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_PedidoConsultaDetallada_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_PedidoPrecio_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -2376,7 +2379,7 @@
     <Content Include="Views\ORDEN_PEDIDO\_OrdenPedido.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Create.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Delete.cshtml" />
-    <Content Include="Views\ORDEN_PEDIDO\Details.cshtml" />
+    <Content Include="Views\ORDEN_PEDIDO\OPDetalles.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Edit.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Index.cshtml" />
     <Content Include="Views\Sublinea\_sublinea.cshtml" />

@@ -180,8 +180,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="ncode_compra" class="col-form-label">O.C</label>
-                    @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -262,6 +262,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
+                                    <th>Disponible</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
                                     <th>CodUM</th>
@@ -282,10 +283,10 @@
         </div>
 
         <div id="modalAlma" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAlmalabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 Class="modal-title" id="modalAlmalabel">Lista Almacenes</h5>
+                        <h5 Class="modal-title" id="modalAlmalabel">Almacen - detalle</h5>
                         <button id="btnalmacerrarx" name="btnalmacerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
@@ -314,7 +315,7 @@
 
 
         <div id="modalprecio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalpreciolabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 Class="modal-title" id="modalpreciolabel">Ordenes de Pedido</h5>

@@ -101,6 +101,11 @@
             @Html.EditorFor(model => model.smail_cliente, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
             @Html.ValidationMessageFor(model => model.smail_cliente, "", new { @class = "text-danger" })
         </div>
+        @Html.LabelFor(model => model.smail2_cliente, "Correo 2", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.smail2_cliente, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+            @Html.ValidationMessageFor(model => model.smail2_cliente, "", new { @class = "text-danger" })
+        </div>
         @Html.LabelFor(model => model.sweb_cliente, "Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.EditorFor(model => model.sweb_cliente, new { htmlAttributes = new { @class = "form-control" } })

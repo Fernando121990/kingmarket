@@ -732,6 +732,7 @@
           <ScalarProperty Name="nstockreservado_arti" ColumnName="nstockreservado_arti" />
           <ScalarProperty Name="ncosto_arti" ColumnName="ncosto_arti" />
           <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
+          <ScalarProperty Name="Disponible" ColumnName="Disponible" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1118,6 +1119,7 @@
           <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
           <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1160,11 +1162,23 @@
     <FunctionImportMapping FunctionImportName="Pr_PedidoPrecio" FunctionName="MarketWebModel.Store.Pr_PedidoPrecio">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoPrecio_Result">
-          <ScalarProperty Name="dfeorpeo_orpe" ColumnName="dfeorpeo_orpe" />
-          <ScalarProperty Name="sseri_orpe" ColumnName="sseri_orpe" />
-          <ScalarProperty Name="snume_orpe" ColumnName="snume_orpe" />
           <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
           <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_PedidoConsultaDetallada" FunctionName="MarketWebModel.Store.Pr_PedidoConsultaDetallada">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoConsultaDetallada_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

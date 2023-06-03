@@ -13,7 +13,7 @@ namespace MarketASP.Models
     
     public partial class Pr_ConsultaArticulos_Result
     {
-        public Nullable<decimal> Precio { get; set; }
+        public decimal Precio { get; set; }
         public decimal Stock { get; set; }
         public long Cod { get; set; }
         public string Cod2 { get; set; }
@@ -24,5 +24,7 @@ namespace MarketASP.Models
         public Nullable<bool> bisc_arti { get; set; }
         public Nullable<bool> bdscto_arti { get; set; }
         public Nullable<bool> bicbper_arti { get; set; }
+        public decimal StockReservado { get; set; }
+        public decimal Disponible { get; set; }
     }
 }

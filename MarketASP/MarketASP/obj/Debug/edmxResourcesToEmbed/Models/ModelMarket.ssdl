@@ -562,7 +562,7 @@
     <Property Name="ntc_orpe" Type="decimal" Precision="18" Scale="4" />
     <Property Name="ncode_fopago" Type="int" Nullable="false" />
     <Property Name="sobse_orpe" Type="varchar(max)" />
-    <Property Name="ncode_compra" Type="bigint" />
+    <Property Name="scode_compra" Type="varchar" MaxLength="50" />
     <Property Name="nbrutoex_orpe" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nbrutoaf_orpe" Type="decimal" Precision="18" Scale="4" />
     <Property Name="ndctoex_orpe" Type="decimal" Precision="18" Scale="4" />
@@ -2159,7 +2159,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ntc_orpe" Type="decimal" Mode="In" />
     <Parameter Name="ncode_fopago" Type="int" Mode="In" />
     <Parameter Name="sobse_orpe" Type="varchar(max)" Mode="In" />
-    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+    <Parameter Name="scode_compra" Type="varchar" Mode="In" />
     <Parameter Name="nbrutoex_orpe" Type="decimal" Mode="In" />
     <Parameter Name="nbrutoaf_orpe" Type="decimal" Mode="In" />
     <Parameter Name="ndctoex_orpe" Type="decimal" Mode="In" />
@@ -2179,6 +2179,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_alma" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_Orden_PedidoDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2210,7 +2211,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ntc_orpe" Type="decimal" Mode="In" />
     <Parameter Name="ncode_fopago" Type="int" Mode="In" />
     <Parameter Name="sobse_orpe" Type="varchar(max)" Mode="In" />
-    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+    <Parameter Name="scode_compra" Type="varchar" Mode="In" />
     <Parameter Name="nbrutoex_orpe" Type="decimal" Mode="In" />
     <Parameter Name="nbrutoaf_orpe" Type="decimal" Mode="In" />
     <Parameter Name="ndctoex_orpe" Type="decimal" Mode="In" />
@@ -2230,6 +2231,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_alma" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_OrdenPedidoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2450,6 +2452,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_PedidoConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
   </Function>

@@ -1,4 +1,7 @@
 ﻿var ofunciones=null;
+var mattable;
+var preciotable;
+var almatable;
 
 $(document).ready(function () {
     var code = 0;
@@ -117,7 +120,7 @@ $(document).ready(function () {
         ofunciones.rows('.selected').remove().draw(false);
     });
 
-    var mattable;
+    
 
     $(".addMat").click(function () {
 
@@ -161,6 +164,7 @@ $(document).ready(function () {
                     "scrollCollapse": true,
                     "paging": false,
                     "info": false,
+                    "bDestroy": true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",
                         "zeroRecords": "No hay datos disponibles",
@@ -201,6 +205,20 @@ $(document).ready(function () {
 
     $("#btnmatcerrar").click(function () {
         mattable.destroy();
+    });
+    $("#btnalmacerrarx").click(function () {
+        almatable.destroy();
+    });
+
+    $("#btnalmacerrar").click(function () {
+        almatable.destroy();
+    });
+    $("#btnpreciocerrarx").click(function () {
+        preciotable.destroy();
+    });
+
+    $("#btnpreciocerrar").click(function () {
+        preciotable.destroy();
     });
 
     $("#btnorpe").click(function () {
@@ -271,9 +289,9 @@ $(document).ready(function () {
 ///lista de pedidos
     $(".btnpedidos").click(function () {
         var data = ofunciones.row('.selected').data();
-        console.log(data[0]);
+        //console.log(data[0]);
         var xcodarticulo = data[0];
-        console.log(xcodarticulo);
+        //console.log(xcodarticulo);
 
         $.ajax({
             type: 'POST',
@@ -282,16 +300,16 @@ $(document).ready(function () {
             data: { ncode_arti: xcodarticulo },
             success: function (resultado) {
                 //console.log(resultado);
-                alert('exito pedido');
+                //alert('exito pedido');
 
-                $('#preciotabla').DataTable({
+               preciotable = $('#preciotabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
-                        [{ "data": "dfeorpeo_orpe" },
-                            { "data": "sseri_orpe" },
-                            { "data": "snume_orpe" },
+                        [{ "data": "fecha" },
+                            { "data": "documento" },
                             { "data": "ncant_orpedeta" },
                             { "data": "npu_orpedeta" },
+                            { "data": "sdesc_vende" },
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -307,7 +325,8 @@ $(document).ready(function () {
                     "scrollY": "300px",
                     "scrollCollapse": true,
                     "paging": false,
-                    "info": false,
+                   "info": false,
+                   "bDestroy": true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",
                         "zeroRecords": "No hay datos disponibles",
@@ -335,9 +354,9 @@ $(document).ready(function () {
     $(".btnalma").click(function () {
         //var tblop = $('#tbl').dataTable();
         var data = ofunciones.row('.selected').data();
-        console.log(data[0]);
+        //console.log(data[0]);
         var xcodarticulo = data[0];
-        console.log(xcodarticulo);
+        //console.log(xcodarticulo);
 
         $.ajax({
             type: 'POST',
@@ -346,9 +365,9 @@ $(document).ready(function () {
             data: { ncode_arti: xcodarticulo},
             success: function (resultado) {
                 //console.log(resultado);
-                alert('exito almacen');
+                //alert('exito almacen');
 
-                mattable = $('#almatabla').DataTable({
+                almatable = $('#almatabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
                         [{ "data": "sdesc_alma" },
@@ -362,7 +381,7 @@ $(document).ready(function () {
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": []
+                        "aTargets": [1,6]
                     },
                     {
                         "sClass": "my_class",
@@ -375,6 +394,7 @@ $(document).ready(function () {
                     "scrollCollapse": true,
                     "paging": false,
                     "info": false,
+                    "bDestroy": true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",
                         "zeroRecords": "No hay datos disponibles",
@@ -424,7 +444,7 @@ function Sales_save() {
         "ndctoex_orpe": "", "ndsctoaf_orpe": "", "nsubex_orpe": "",
         "nsubaf_orpe": "", "nigvex_orpe": "", "nigvaf_orpe": "", "ntotaex_orpe": "",
         "ntotaaf_orpe": "", "ntotal_orpe": "", "ntotalMN_orpe": "", "ntotalUs_orpe": "",
-        "nvalIGV_orpe": "", "ordenpedidoViewDetas": []
+        "nvalIGV_orpe": "", "ncode_vende": "", "ordenpedidoViewDetas": []
 
     };
 
@@ -457,6 +477,7 @@ function Sales_save() {
     ordenpedidoView.nvalIGV_orpe = $('#nvalIGV_orpe').val();
     ordenpedidoView.ncode_alma = $("#ncode_alma option:selected").val();
     ordenpedidoView.ncode_mone = $("#ncode_mone option:selected").val();
+    ordenpedidoView.ncode_vende = $("#ncode_vende option:selected").val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;

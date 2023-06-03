@@ -792,6 +792,7 @@
       <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_Orden_PedidoDetaCrea">
@@ -843,6 +844,7 @@
       <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_OrdenPedidoElimina">
@@ -915,6 +917,9 @@
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
   </EntityContainer>
@@ -2202,6 +2207,7 @@
     <Property Type="Decimal" Name="nstockreservado_arti" Nullable="true" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="ncosto_arti" Nullable="true" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="nultcosto_arti" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Disponible" Nullable="true" Precision="19" Scale="4" />
   </ComplexType>
   <ComplexType Name="Pr_KardexArticulos_Result">
     <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
@@ -2982,6 +2988,7 @@
     <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
     <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
     <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+    <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
   </ComplexType>
   <EntityType Name="CLIENTE">
     <Key>
@@ -3122,10 +3129,18 @@
     </ReferentialConstraint>
   </Association>
   <ComplexType Name="Pr_PedidoPrecio_Result">
-    <Property Type="DateTime" Name="dfeorpeo_orpe" Nullable="true" Precision="23" />
-    <Property Type="String" Name="sseri_orpe" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="snume_orpe" Nullable="true" MaxLength="20" />
     <Property Type="Decimal" Name="ncant_orpedeta" Nullable="true" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="sdesc_vende" Nullable="false" MaxLength="5000" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+  </ComplexType>
+  <ComplexType Name="Pr_PedidoConsultaDetallada_Result">
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+    <Property Type="Decimal" Name="ncant_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="sdesc_vende" Nullable="false" MaxLength="5000" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
   </ComplexType>
 </Schema>

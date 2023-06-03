@@ -27,10 +27,10 @@ $(document).ready(function () {
             });
         },
         select: function (event, ui) {
-            console.log('cliente');
-            console.log(ui.item.vendeid);
-            console.log(ui.item.almaid);
-            console.log(ui.item.fopagoid);
+            //console.log('cliente');
+            //console.log(ui.item.vendeid);
+            //console.log(ui.item.almaid);
+            //console.log(ui.item.fopagoid);
 
             $('#COD_CLIENTE').val(ui.item.id);
             $("#sruc").val(ui.item.rucid);
@@ -53,7 +53,8 @@ $(document).ready(function () {
                     response($.map(data, function (item) {
                         return {
                             label: item.sruc_cliente, value: item.sruc_cliente, id: item.ncode_cliente,
-                            razon: item.srazon_cliente, dnid: item.sdnice_cliente, fopagoid: item.ncode_fopago
+                            razon: item.srazon_cliente, dnid: item.sdnice_cliente, fopagoid: item.ncode_fopago,
+                            vendeid: item.ncode_vende, almaid: item.ncode_alma
                         };
                     }));
                 }
@@ -64,6 +65,8 @@ $(document).ready(function () {
             $('#sdesc_cliente').val(ui.item.razon);
             $('#sdni_cliente').val(ui.item.dnid);
             $('#ncode_fopago').val(ui.item.fopagoid);
+            $('#ncode_vende').val(ui.item.vendeid);
+            $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
             fnFormaPagoDiasFecha();
         }
@@ -79,7 +82,8 @@ $(document).ready(function () {
                     response($.map(data, function (item) {
                         return {
                             label: item.sdnice_cliente, value: item.sdnice_cliente, id: item.ncode_cliente,
-                            razon: item.srazon_cliente, rucid: item.sruc_cliente, fopagoid: item.ncode_fopago
+                            razon: item.srazon_cliente, rucid: item.sruc_cliente, fopagoid: item.ncode_fopago,
+                            vendeid: item.ncode_vende, almaid: item.ncode_alma
                         };
                     }));
                 }
@@ -90,6 +94,8 @@ $(document).ready(function () {
             $('#sdesc_cliente').val(ui.item.razon);
             $('#sruc').val(ui.item.rucid);
             $('#ncode_fopago').val(ui.item.fopagoid);
+            $('#ncode_vende').val(ui.item.vendeid);
+            $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
             fnFormaPagoDiasFecha();
         }
