@@ -2452,6 +2452,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_clienteFormaPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_clie" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_PedidoConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
   </Function>
@@ -2460,7 +2463,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   </Function>
   <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
-  <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
+  </Function>
   <EntityContainer Name="MarketWebModelStoreContainer">
     <EntitySet Name="ALMACEN" EntityType="Self.ALMACEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ART_BARRA" EntityType="Self.ART_BARRA" Schema="dbo" store:Type="Tables" />

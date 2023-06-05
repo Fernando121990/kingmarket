@@ -28,7 +28,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            return View(db.Pr_VendedoresLista().ToList());
+            return View(db.Pr_VendedoresLista(0).ToList());
         }
 
         public ActionResult Create()

@@ -853,7 +853,9 @@
       <End Role="ZONA" EntitySet="ZONA" />
       <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
     </AssociationSet>
-    <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)" />
+    <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+    </FunctionImport>
     <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
     <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -922,6 +924,9 @@
       <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
       <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
     </AssociationSet>
+    <FunctionImport Name="Pr_clienteFormaPagos" ReturnType="Collection(MarketWebModel.Pr_clienteFormaPagos_Result)">
+      <Parameter Name="ncode_clie" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -3146,4 +3151,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="Pr_clienteFormaPagos_Result">
+    <Property Type="Int32" Name="ncode_fopago" Nullable="true" />
+    <Property Type="String" Name="sdesc_fopago" Nullable="true" MaxLength="200" />
+  </ComplexType>
 </Schema>

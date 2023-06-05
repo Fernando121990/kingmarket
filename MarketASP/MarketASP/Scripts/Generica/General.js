@@ -35,11 +35,12 @@ $(document).ready(function () {
             $('#COD_CLIENTE').val(ui.item.id);
             $("#sruc").val(ui.item.rucid);
             $('#sdni_cliente').val(ui.item.dnid);
-            $('#ncode_fopago').val(ui.item.fopagoid);
+            //$('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
             $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
-            fnFormaPagoDiasFecha();
+            fnclienteFPago();
+            fnFormaPagoDiasFecha(ui.item.fopagoid);
         }
     });
 
@@ -182,93 +183,6 @@ $(document).ready(function () {
         $("#snomb_cliente").val("");
     });
 
-
-    //DATATBLE GENERICO
-
-    //$('.datatbl').DataTable({
-    //    "language": {
-    //        "lengthMenu": "Mostrar _MENU_ ",
-    //        "zeroRecords": "No hay datos disponibles",
-    //        "info": "Página _PAGE_ of _PAGES_",
-    //        "infoEmpty": "No hay registros disponibles",
-    //        "infoFiltered": "(Filtrado de _MAX_ total registros)",
-    //        "search": "Buscar:",
-    //        "paginate": {
-    //            "first": "Primero",
-    //            "last": "Ultimo",
-    //            "next": " Siguiente",
-    //            "previous": "Anterior "
-    //        }
-    //    }
-    //});
-
-
-    //$('.tblGralExporta').DataTable({
-    //    dom: 'lBfrtip',
-    //    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todo"]],
-    //    buttons: [
-    //        'excel'
-    //    ],
-    //    "language": {
-    //        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-    //    }
-    //});
-
-    //editor = new $.fn.dataTable.Editor({
-    //    table: ".tblGenerica",
-    //    idSrc: 'Cod',
-    //    fields: [{
-    //        label: "Codigo:",
-    //        name: "Cod"
-    //    }, {
-    //        label: "Descripción:",
-    //        name: "Descripcion"
-    //    }, {
-    //        label: "Activo:",
-    //        name: "Activo"
-    //    }, {
-    //        label: "Accion:",
-    //        name: ""
-    //    }
-    //    ]
-    //});
-
-    //$('.tblGenerica').on('click', 'tbody td:not(:first-child)', function (e) {
-    //    editor.inline(this);
-    //});
-
-
-    //$('.tblGenerica').DataTable({
-    //    dom: "Bfrtip",
-    //    order: [[2, 'asc']],
-    //    columns: [
-    //        { data: "Cod" },
-    //        { data: "Descripcion" },
-    //        { data: "Activo" },
-    //        { data: "" }
-    //    ],
-    //    select: false,
-    //    //{
-    //    //    style: 'os',
-    //    //    selector: 'td:first-child'
-    //    //},
-    //    buttons: [
-    //        //{ extend: "create", editor: editor },
-    //        //{ extend: "edit", editor: editor },
-    //        //{ extend: "remove", editor: editor },
-    //        {
-    //            extend: 'collection',
-    //            text: 'Exportar',
-    //            buttons: [
-    //                'excel',
-    //                'pdf'
-    //            ]
-    //        }
-    //    ]
-    //});
-
-
-
 });
 
 function fnclienteDire() {
@@ -289,6 +203,29 @@ function fnclienteDire() {
             alert('No se pueden recuperar las direcciones.' + ex);
         }
     });
+    return false;
+
+}
+
+function fnclienteFPago() {
+    $("#nro_fopago").empty();
+    $.ajax({
+        type: 'POST',
+        url: urlgetClienteFoPago,
+        dataType: 'json',
+        data: { scodCliente: $("#COD_CLIENTE").val() },
+        success: function (areas) {
+            $.each(areas, function (i, area) {
+                $("#nro_fopago").append('<option value="'
+                    + area.ncode_fopago + '">'
+                    + area.sdesc_fopago + '</option>');
+            });
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las formas de pago del cliente.' + ex);
+        }
+    });
+    //$("#ncode_fopago").val(codfpago);
     return false;
 
 }

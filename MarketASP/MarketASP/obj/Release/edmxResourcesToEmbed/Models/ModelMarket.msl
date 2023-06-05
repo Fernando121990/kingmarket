@@ -232,6 +232,8 @@
           <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
           <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
           <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
+          <ScalarProperty Name="StockReservado" ColumnName="StockReservado" />
+          <ScalarProperty Name="Disponible" ColumnName="Disponible" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -996,48 +998,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="ORDEN_PEDIDOS">
-      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
-        <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
-          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
-          <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
-          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
-          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
-          <ScalarProperty Name="dfemo_orpe" ColumnName="dfemo_orpe" />
-          <ScalarProperty Name="susmo_orpe" ColumnName="susmo_orpe" />
-          <ScalarProperty Name="dfech_orpe" ColumnName="dfech_orpe" />
-          <ScalarProperty Name="suser_orpe" ColumnName="suser_orpe" />
-          <ScalarProperty Name="nvalIGV_orpe" ColumnName="nvalIGV_orpe" />
-          <ScalarProperty Name="besta_orpe" ColumnName="besta_orpe" />
-          <ScalarProperty Name="ntotalUs_orpe" ColumnName="ntotalUs_orpe" />
-          <ScalarProperty Name="ntotalMN_orpe" ColumnName="ntotalMN_orpe" />
-          <ScalarProperty Name="ntotal_orpe" ColumnName="ntotal_orpe" />
-          <ScalarProperty Name="ntotaaf_orpe" ColumnName="ntotaaf_orpe" />
-          <ScalarProperty Name="ntotaex_orpe" ColumnName="ntotaex_orpe" />
-          <ScalarProperty Name="nigvaf_orpe" ColumnName="nigvaf_orpe" />
-          <ScalarProperty Name="nigvex_orpe" ColumnName="nigvex_orpe" />
-          <ScalarProperty Name="nsubaf_orpe" ColumnName="nsubaf_orpe" />
-          <ScalarProperty Name="nsubex_orpe" ColumnName="nsubex_orpe" />
-          <ScalarProperty Name="ndsctoaf_orpe" ColumnName="ndsctoaf_orpe" />
-          <ScalarProperty Name="ndctoex_orpe" ColumnName="ndctoex_orpe" />
-          <ScalarProperty Name="nbrutoaf_orpe" ColumnName="nbrutoaf_orpe" />
-          <ScalarProperty Name="nbrutoex_orpe" ColumnName="nbrutoex_orpe" />
-          <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
-          <ScalarProperty Name="sobse_orpe" ColumnName="sobse_orpe" />
-          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
-          <ScalarProperty Name="ntc_orpe" ColumnName="ntc_orpe" />
-          <ScalarProperty Name="smone_orpe" ColumnName="smone_orpe" />
-          <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
-          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
-          <ScalarProperty Name="dfevenci_orpe" ColumnName="dfevenci_orpe" />
-          <ScalarProperty Name="dfeorpeo_orpe" ColumnName="dfeorpeo_orpe" />
-          <ScalarProperty Name="snume_orpe" ColumnName="snume_orpe" />
-          <ScalarProperty Name="sseri_orpe" ColumnName="sseri_orpe" />
-          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
-          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ORDEN_PEDIDOS_DETALLE">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS_DETALLE">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS_DETALLE">
@@ -1179,6 +1139,57 @@
           <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
           <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
           <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ORDEN_PEDIDOS">
+      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
+        <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="dfemo_orpe" ColumnName="dfemo_orpe" />
+          <ScalarProperty Name="susmo_orpe" ColumnName="susmo_orpe" />
+          <ScalarProperty Name="dfech_orpe" ColumnName="dfech_orpe" />
+          <ScalarProperty Name="suser_orpe" ColumnName="suser_orpe" />
+          <ScalarProperty Name="nvalIGV_orpe" ColumnName="nvalIGV_orpe" />
+          <ScalarProperty Name="besta_orpe" ColumnName="besta_orpe" />
+          <ScalarProperty Name="ntotalUs_orpe" ColumnName="ntotalUs_orpe" />
+          <ScalarProperty Name="ntotalMN_orpe" ColumnName="ntotalMN_orpe" />
+          <ScalarProperty Name="ntotal_orpe" ColumnName="ntotal_orpe" />
+          <ScalarProperty Name="ntotaaf_orpe" ColumnName="ntotaaf_orpe" />
+          <ScalarProperty Name="ntotaex_orpe" ColumnName="ntotaex_orpe" />
+          <ScalarProperty Name="nigvaf_orpe" ColumnName="nigvaf_orpe" />
+          <ScalarProperty Name="nigvex_orpe" ColumnName="nigvex_orpe" />
+          <ScalarProperty Name="nsubaf_orpe" ColumnName="nsubaf_orpe" />
+          <ScalarProperty Name="nsubex_orpe" ColumnName="nsubex_orpe" />
+          <ScalarProperty Name="ndsctoaf_orpe" ColumnName="ndsctoaf_orpe" />
+          <ScalarProperty Name="ndctoex_orpe" ColumnName="ndctoex_orpe" />
+          <ScalarProperty Name="nbrutoaf_orpe" ColumnName="nbrutoaf_orpe" />
+          <ScalarProperty Name="nbrutoex_orpe" ColumnName="nbrutoex_orpe" />
+          <ScalarProperty Name="scode_compra" ColumnName="scode_compra" />
+          <ScalarProperty Name="sobse_orpe" ColumnName="sobse_orpe" />
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="ntc_orpe" ColumnName="ntc_orpe" />
+          <ScalarProperty Name="smone_orpe" ColumnName="smone_orpe" />
+          <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
+          <ScalarProperty Name="ncode_cliente" ColumnName="ncode_cliente" />
+          <ScalarProperty Name="dfevenci_orpe" ColumnName="dfevenci_orpe" />
+          <ScalarProperty Name="dfeorpeo_orpe" ColumnName="dfeorpeo_orpe" />
+          <ScalarProperty Name="snume_orpe" ColumnName="snume_orpe" />
+          <ScalarProperty Name="sseri_orpe" ColumnName="sseri_orpe" />
+          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_clienteFormaPagos" FunctionName="MarketWebModel.Store.Pr_clienteFormaPagos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_clienteFormaPagos_Result">
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="sdesc_fopago" ColumnName="sdesc_fopago" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

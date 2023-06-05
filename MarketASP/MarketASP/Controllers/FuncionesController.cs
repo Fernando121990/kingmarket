@@ -82,6 +82,12 @@ namespace MarketASP.Controllers
             return Json(result);
         }
 
+        public JsonResult getClienteFoPago(Int32 scodCliente)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_clienteFormaPagos(scodCliente);
+            return Json(result);
+        }
         public JsonResult getKardex(int ncode_arti)
         {
             var resultado = db.Pr_KardexArticulos(ncode_arti,"","");
@@ -154,10 +160,12 @@ namespace MarketASP.Controllers
 
         public string fncadenaeditar(string id, string value, int column)
         {
+            value = string.Format("{0:N4}", value);
             return value;
         }
         public decimal fnnumeroeditar(string id, decimal value, int column)
         {
+            value = Math.Round(value,4);
             return value;
         }
 

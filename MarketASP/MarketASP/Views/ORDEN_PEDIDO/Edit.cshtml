@@ -16,6 +16,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.ncode_orpe)
                     @Html.HiddenFor(model => model.ncode_clidire)
+                    @Html.HiddenFor(model => model.ncode_fopago)
                     <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
                     <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
                     <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
@@ -39,19 +40,20 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/ordenpedido")
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
         var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
         var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+        var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
         var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlorpeCrea = '@Url.Action("Edit", "orden_pedido")';
         var urlorpeLista = '@Url.Action("index", "orden_pedido")';
-    </script>
+</script>
 
 }

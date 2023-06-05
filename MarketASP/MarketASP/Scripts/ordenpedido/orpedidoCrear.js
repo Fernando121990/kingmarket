@@ -14,9 +14,9 @@ $(document).ready(function () {
     conf_icbper = $("#cnficbper").val();
     
 
-    console.log(conf_igv);
-    console.log(conf_decimal);
-    console.log(conf_icbper);
+    //console.log(conf_igv);
+    //console.log(conf_decimal);
+    //console.log(conf_icbper);
 
     //console.log(code);
     //console.log('xx')
@@ -30,15 +30,18 @@ $(document).ready(function () {
         fnclienteDire();
         //console.log($('#ncode_clidire').val());
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
+
+        fnclienteFPago();
+        $("#nro_fopago").val($('#ncode_fopago').val());
     }
 
     $("#ncode_docu").change(function () {
         fnDocumentoSerieNumero();
     });
 
-    $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
-    });
+    //$("#ncode_fopago").change(function () {
+    //    fnFormaPagoDiasFecha()
+    //});
 
      ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -58,15 +61,14 @@ $(document).ready(function () {
                     switch (idx) {
                         case 3: //quantity column
                             console.log('columna cantidad');
-                            
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
                             var xcant = ofunciones.cell(aPos, 3).data();
 
-                            console.log(typeof (xcant));
-                            console.log(ofunciones.cell(aPos, 3).data());
+                            //console.log(typeof (xcant));
+                            //console.log(ofunciones.cell(aPos, 3).data());
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            console.log(xvalue);
-                            var subto = xcant.toFixed(conf_decimal) * parseFloat(xvalue);
-                            ofunciones.cell(aPos, idx).data(xcant).draw;
+                            //console.log(xvalue);
+                            var subto = xcant * parseFloat(xvalue);
                             ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         case 5: //price column
@@ -79,7 +81,8 @@ $(document).ready(function () {
                             ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         default:
-                            ofunciones.cell(aPos, idx).data(sValue.toFixed(conf_decimal)).draw;
+                            console.log('el valor por default')
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
 
                     }
 
@@ -125,8 +128,6 @@ $(document).ready(function () {
 
         ofunciones.rows('.selected').remove().draw(false);
     });
-
-    
 
     $(".addMat").click(function () {
 
@@ -359,11 +360,8 @@ $(document).ready(function () {
     });
 //lista de almacenes
     $(".btnalma").click(function () {
-        //var tblop = $('#tbl').dataTable();
         var data = ofunciones.row('.selected').data();
-        //console.log(data[0]);
         var xcodarticulo = data[0];
-        //console.log(xcodarticulo);
 
         $.ajax({
             type: 'POST',
@@ -386,6 +384,34 @@ $(document).ready(function () {
                             { "data": "RESERVADO" },
                             { "data": "DISPONIBLE" },
                         ],
+                    footerCallback: function (row, data, start, end, display) {
+                        var api = this.api();
+
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function (i) {
+                            return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                        };
+
+                        // Total over all pages
+                        totstock = api
+                            .column(5)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Total over this page
+                        totDispo = api
+                            .column(7)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Update footer
+                        $(api.column(5).footer()).html(totstock);
+                        $(api.column(7).footer()).html(totDispo);
+                    },
                     "aoColumnDefs": [{
                         "bVisible": false,
                         "aTargets": [1,6]
@@ -465,7 +491,7 @@ function Sales_save() {
     ordenpedidoView.ncode_clidire = $("#NRO_DCLIENTE option:selected").val();
     ordenpedidoView.smone_orpe = $('#smone_orpe').val();
     ordenpedidoView.ntc_orpe = $('#ntc_orpe').val();
-    ordenpedidoView.ncode_fopago = $("#ncode_fopago option:selected").val();
+    ordenpedidoView.ncode_fopago = $("#nro_fopago option:selected").val();
     ordenpedidoView.sobse_orpe = $('#sobse_orpe').val();
     ordenpedidoView.scode_compra = $('#scode_compra').val();
     ordenpedidoView.nbrutoex_orpe = $('#nbrutoex_orpe').val();
@@ -653,14 +679,17 @@ function ComparaPrecio(Precio, PrecioOrigen) {
     return xprecio.toFixed(conf_decimal);
 
 }
-function fnFormaPagoDiasFecha() {
+function fnFormaPagoDiasFecha(codfopago) {
+    console.log('dias');
+    console.log(codfopago);
     $.ajax({
         type: 'POST',
         url: urlGetDiasFormaPago,
         dataType: 'json',
-        data: { ncode_fopago: $("#ncode_fopago").val() },
+        data: { ncode_fopago: codfopago },
+        //data: { ncode_fopago: $("#ncode_fopago").val() },
         success: function (fopago) {
-            console.log(fopago);
+            //console.log(fopago);
             $.each(fopago, function (i, dias) {
 
                 var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -684,7 +713,7 @@ function fnFormaPagoDiasFecha() {
 
         },
         error: function (ex) {
-            alert('No existen o no se pueden recuperar las formas de pago .' + ex);
+            alert('No se puede obtener la fecha de pago .' + ex);
         }
     });
     return false;

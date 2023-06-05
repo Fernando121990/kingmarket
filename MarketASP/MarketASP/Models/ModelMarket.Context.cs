@@ -1938,9 +1938,13 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenPedidoLista", documentoParameter, clienteParameter);
         }
     
-        public virtual ObjectResult<Pr_VendedoresLista_Result> Pr_VendedoresLista()
+        public virtual ObjectResult<Pr_VendedoresLista_Result> Pr_VendedoresLista(Nullable<long> ncode_vende)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_VendedoresLista_Result>("Pr_VendedoresLista");
+            var ncode_vendeParameter = ncode_vende.HasValue ?
+                new ObjectParameter("ncode_vende", ncode_vende) :
+                new ObjectParameter("ncode_vende", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_VendedoresLista_Result>("Pr_VendedoresLista", ncode_vendeParameter);
         }
     
         public virtual int Pr_clientefopagoElimina(Nullable<long> ncode_clifo, ObjectParameter sw)
@@ -1968,6 +1972,15 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_arti", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoConsultaDetallada_Result>("Pr_PedidoConsultaDetallada", ncode_artiParameter);
+        }
+    
+        public virtual ObjectResult<Pr_clienteFormaPagos_Result> Pr_clienteFormaPagos(Nullable<long> ncode_clie)
+        {
+            var ncode_clieParameter = ncode_clie.HasValue ?
+                new ObjectParameter("ncode_clie", ncode_clie) :
+                new ObjectParameter("ncode_clie", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_clienteFormaPagos_Result>("Pr_clienteFormaPagos", ncode_clieParameter);
         }
     }
 }

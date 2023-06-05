@@ -101,6 +101,7 @@
                 <div class="mb-3">
                     <label for="example-text-input" class="col-form-label">Dirección</label>
                     <select id="NRO_DCLIENTE" name="NRO_DCLIENTE" class="form-control"></select>
+                    <input id="ubigeo" name="ubigeo" type="text" class="form-control" />
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -193,7 +194,8 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="ncode_fopago" class="col-form-label">F.Pago</label>
-                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-select" })
+                            <select id="nro_fopago" name="nro_fopago" class="form-control"></select>
+                            @*@Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-select" })*@
                             @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -304,6 +306,18 @@
                                     <th>Disponible</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <div Class="modal-footer">

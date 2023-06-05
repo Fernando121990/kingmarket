@@ -1185,5 +1185,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_clienteFormaPagos" FunctionName="MarketWebModel.Store.Pr_clienteFormaPagos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_clienteFormaPagos_Result">
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="sdesc_fopago" ColumnName="sdesc_fopago" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

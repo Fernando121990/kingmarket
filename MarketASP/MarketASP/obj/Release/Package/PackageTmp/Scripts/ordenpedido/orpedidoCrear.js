@@ -2,20 +2,21 @@
 var mattable;
 var preciotable;
 var almatable;
-
+var conf_decimal = 2;
+var conf_moneda = 0;
 $(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
-    var conf_decimal = 0;
 
     code = $("#ncode_orpe").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
+    
 
-    console.log(conf_igv);
-    console.log(conf_decimal);
-    console.log(conf_icbper);
+    //console.log(conf_igv);
+    //console.log(conf_decimal);
+    //console.log(conf_icbper);
 
     //console.log(code);
     //console.log('xx')
@@ -29,15 +30,18 @@ $(document).ready(function () {
         fnclienteDire();
         //console.log($('#ncode_clidire').val());
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
+
+        fnclienteFPago();
+        $("#nro_fopago").val($('#ncode_fopago').val());
     }
 
     $("#ncode_docu").change(function () {
         fnDocumentoSerieNumero();
     });
 
-    $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
-    });
+    //$("#ncode_fopago").change(function () {
+    //    fnFormaPagoDiasFecha()
+    //});
 
      ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -56,25 +60,28 @@ $(document).ready(function () {
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
                         case 3: //quantity column
-                            //console.log('cantidad');
+                            console.log('columna cantidad');
                             ofunciones.cell(aPos, idx).data(sValue).draw;
                             var xcant = ofunciones.cell(aPos, 3).data();
-                            //console.log(xcant);
+
+                            //console.log(typeof (xcant));
+                            //console.log(ofunciones.cell(aPos, 3).data());
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             //console.log(xvalue);
                             var subto = xcant * parseFloat(xvalue);
-                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         case 5: //price column
-                            //console.log('subtotal');
+                           console.log('columna precio');
                             var xcant = ofunciones.cell(aPos, 3).data();
                             var xvalue = ofunciones.cell(aPos, 6).data();
                             var yValue = ComparaPrecio(sValue, xvalue);
                             var subto = xcant * yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         default:
+                            console.log('el valor por default')
                             ofunciones.cell(aPos, idx).data(sValue).draw;
 
                     }
@@ -82,7 +89,9 @@ $(document).ready(function () {
                     Totales(conf_igv, conf_decimal, conf_icbper);
                 },
                 "submitdata": function (value, settings) {
+                    console.log('submiit data');
                     return {
+
                         "column": ofunciones.column(this).index()
                     };
 
@@ -120,8 +129,6 @@ $(document).ready(function () {
         ofunciones.rows('.selected').remove().draw(false);
     });
 
-    
-
     $(".addMat").click(function () {
 
 
@@ -141,6 +148,7 @@ $(document).ready(function () {
                             { "data": "Cod2" },
                             { "data": "DescArt" },
                             { "data": "Stock" },
+                            { "data": "Disponible" },
                             { "data": "Medida" },
                             { "data": "Precio" },
                             { "data": "ncode_umed" },
@@ -151,7 +159,7 @@ $(document).ready(function () {
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0, 6, 7, 8, 9,10]
+                        "aTargets": [0, 7, 8, 9, 10,11]
                     },
                     {
                         "sClass": "my_class",
@@ -352,11 +360,8 @@ $(document).ready(function () {
     });
 //lista de almacenes
     $(".btnalma").click(function () {
-        //var tblop = $('#tbl').dataTable();
         var data = ofunciones.row('.selected').data();
-        //console.log(data[0]);
         var xcodarticulo = data[0];
-        //console.log(xcodarticulo);
 
         $.ajax({
             type: 'POST',
@@ -379,6 +384,34 @@ $(document).ready(function () {
                             { "data": "RESERVADO" },
                             { "data": "DISPONIBLE" },
                         ],
+                    footerCallback: function (row, data, start, end, display) {
+                        var api = this.api();
+
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function (i) {
+                            return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                        };
+
+                        // Total over all pages
+                        totstock = api
+                            .column(5)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Total over this page
+                        totDispo = api
+                            .column(7)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Update footer
+                        $(api.column(5).footer()).html(totstock);
+                        $(api.column(7).footer()).html(totDispo);
+                    },
                     "aoColumnDefs": [{
                         "bVisible": false,
                         "aTargets": [1,6]
@@ -439,7 +472,7 @@ function Sales_save() {
         "ncode_docu": "", "sseri_orpe": "", "snume_orpe": "",
         "sfeordenpedido_orpe": "", "sfevenci_orpe": "", "ncode_cliente": "",
         "ncode_clidire": "", "smone_orpe": "", "ntc_orpe": "",
-        "ncode_fopago": "", "sobse_orpe": "", "ncode_compra": "",
+        "ncode_fopago": "", "sobse_orpe": "", "scode_compra": "",
         "nbrutoex_orpe": "", "nbrutoaf_orpe": "",
         "ndctoex_orpe": "", "ndsctoaf_orpe": "", "nsubex_orpe": "",
         "nsubaf_orpe": "", "nigvex_orpe": "", "nigvaf_orpe": "", "ntotaex_orpe": "",
@@ -458,9 +491,9 @@ function Sales_save() {
     ordenpedidoView.ncode_clidire = $("#NRO_DCLIENTE option:selected").val();
     ordenpedidoView.smone_orpe = $('#smone_orpe').val();
     ordenpedidoView.ntc_orpe = $('#ntc_orpe').val();
-    ordenpedidoView.ncode_fopago = $("#ncode_fopago option:selected").val();
+    ordenpedidoView.ncode_fopago = $("#nro_fopago option:selected").val();
     ordenpedidoView.sobse_orpe = $('#sobse_orpe').val();
-    ordenpedidoView.ncode_compra = $('#ncode_compra').val();
+    ordenpedidoView.scode_compra = $('#scode_compra').val();
     ordenpedidoView.nbrutoex_orpe = $('#nbrutoex_orpe').val();
     ordenpedidoView.nbrutoaf_orpe = $('#nbrutoaf_orpe').val();
     ordenpedidoView.ndctoex_orpe = $('#ndctoex_orpe').val();
@@ -643,19 +676,23 @@ function ComparaPrecio(Precio, PrecioOrigen) {
         xprecio = parseFloat(PrecioOrigen);
     }
 
-    return xprecio;
+    return xprecio.toFixed(conf_decimal);
 
 }
-function fnFormaPagoDiasFecha() {
+function fnFormaPagoDiasFecha(codfopago) {
+    console.log('dias');
+    console.log(codfopago);
     $.ajax({
         type: 'POST',
         url: urlGetDiasFormaPago,
         dataType: 'json',
-        data: { ncode_fopago: $("#ncode_fopago").val() },
+        data: { ncode_fopago: codfopago },
+        //data: { ncode_fopago: $("#ncode_fopago").val() },
         success: function (fopago) {
-            console.log(fopago);
+            //console.log(fopago);
             $.each(fopago, function (i, dias) {
 
+                var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
                 var m = $("#dfeorpeo_orpe").val();
                 var parts = m.split("/");
                 var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -668,15 +705,15 @@ function fnFormaPagoDiasFecha() {
                 //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
                 //console.log(xdias);
                 fecha.setDate(fecha.getDate() + parseInt(dias.dias));
-                var xfecha = new Date(fecha).toLocaleDateString()
+                var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
                 $('#dfevenci_orpe').val(xfecha);
                 //console.log(fecha);
-                //console.log(xfecha);
+                console.log(xfecha);
             });
 
         },
         error: function (ex) {
-            alert('No se pueden recuperar las areas.' + ex);
+            alert('No se puede obtener la fecha de pago .' + ex);
         }
     });
     return false;
