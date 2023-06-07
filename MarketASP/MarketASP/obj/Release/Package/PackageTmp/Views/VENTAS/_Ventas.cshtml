@@ -1,11 +1,45 @@
 ﻿@model MarketASP.Models.VENTAS
 
+<input id="ncode_orpe" name="ncode_orpe" type="hidden" />
+
+<div class="row">
+    <div>
+        <button type="button" class="btnpedidos fas fa-archive btn btn-info" data-bs-toggle="modal" data-bs-target="#modalopedido"></button>
+        <div id="modalopedido" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 Class="modal-title" id="modalopedidolabel">Ordenes de Pedido</h5>
+                        <button id="btnpedidocerrarx" name="btnpedidocerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="pedidotabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Fecha</th>
+                                    <th>numeracion</th>
+                                    <th>srazon_cliente</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btnpedidocerrar" name="btnpedidocerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnorden" name="btnorden" type="button" class="btn btn-primary waves-effect waves-light">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Cliente</label>
                             <input id="COD_CLIENTE" name="COD_CLIENTE" type="hidden" value="@ViewBag.cod_cliente" />
@@ -13,89 +47,8 @@
                             @Html.ValidationMessageFor(model => model.ncode_cliente, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <button type="button" class="addCliente fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalCliente"></button>
-                            <div id="modalCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalClientelabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div Class="modal-content">
-                                        <div Class="modal-header">
-                                            <h5 Class="modal-title" id="modalClientelabel">Nuevo Cliente</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div Class="modal-body">
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    Persona Juridica
-                                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
-                                                    Persona Natural
-                                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row natural">
-                                                <div class="col-lg-12">
-                                                    <input id="snomb_cliente" name="snomb_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Nombres" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row natural">
-                                                <div class="col-lg-6">
-                                                    <input id="sappa_cliente" name="sappa_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Paterno" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sapma_cliente" name="sapma_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Materno" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row juridica">
-                                                <div class="col-lg-12">
-                                                    <input id="srazon_cliente" name="srazon_cliente" type="text" class="form-control" placeholder="Ingrese Razon Social" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="sruc_cliente" name="sruc_cliente" type="text" class="form-control" maxlength="11" placeholder="Ingrese RUC" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sdnice_cliente" name="sdnice_cliente" type="text" class="form-control" maxlength="14" placeholder="Ingrese DNI" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <input id="sdire_cliente" name="sdire_cliente" type="text" class="form-control" placeholder="Ingrese Dirección" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <input id="scode_ubigeo" name="scode_ubigeo" type="hidden" />
-                                                    <input id="subigeo" name="subigeo" type="text" class="form-control" placeholder="Ingrese Ubicación" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="sfono1_cliente" name="sfono1_cliente" type="tel" class="form-control" placeholder="Ingrese Teléfono" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="smail_cliente" name="smail_cliente" type="email" class="form-control" placeholder="Ingrese Correo" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="srepre_cliente" name="srepre_cliente" type="text" class="form-control" placeholder="Ingrese Contacto" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sfono2_cliente" name="sfono2_cliente" type="tel" class="form-control" placeholder="Ingrese Teléfono" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div Class="modal-footer">
-                                            <button id="btnCliCierre" name="btnCliCierre" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
-                                            <button id="btnCliente" name="btnCliente" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-auto mt-4">
+                        <a href="@Url.Action("Create","Clientes")" class="btn btn-success" target="_blank"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -106,7 +59,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="sruc_cliente" class="col-form-label">RUC</label>
-                            <input id="sruc" name="sruc" type="text" value="@ViewBag.sruc_cliente" class="form-control" />
+                            @*<input id="sruc" name="sruc" type="text" value="@ViewBag.sruc_cliente" class="form-control" />*@
+                            <input id="sruc_cliente" name="sruc_cliente" type="text" value="@ViewBag.sruc_cliente" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -179,9 +133,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="ncode_compra" class="col-form-label">O.C</label>
+                            <label for="scode_compra" class="col-form-label">O.C</label>
+                            @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
+
+                            @*<label for="ncode_compra" class="col-form-label">O.C</label>
                             @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -205,6 +163,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="ncode_fopago" class="col-form-label">F.Pago</label>
+                            @*<select id="nro_fopago" name="nro_fopago" class="form-control"></select>*@
                             @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
                         </div>
@@ -229,17 +188,26 @@
                     </div>
 
                 </div>
-                <div class="mb-3">
-                    <label for="sobse_venta" class="col-form-label">Observacion</label>
-                    @Html.TextAreaFor(model => model.sobse_venta, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sobse_venta, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="ncode_vende" class="col-form-label">vendedor</label>
+                        @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="mb-3">
+        <label for="sobse_venta" class="col-form-label">Observacion</label>
+        @Html.EditorFor(model => model.sobse_venta, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.sobse_venta, "", new { @class = "text-danger" })
+    </div>
 
+</div>
 <div class="row">
     <div class="col-lg-6">
         <p>Productos</p>

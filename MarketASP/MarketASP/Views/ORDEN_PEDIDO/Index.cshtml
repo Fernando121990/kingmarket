@@ -31,9 +31,9 @@
                                 <th>
                                     F.Vcto
                                 </th>
-                                <th>
+                                @*<th>
                                     TC
-                                </th>
+                                </th>*@
                                 <th>
                                     M
                                 </th>
@@ -67,9 +67,9 @@
                                     <td>
                                         @string.Format("{0:d}", item.dfevenci_orpe)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.ntc_orpe)
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.smone_orpe)
                                     </td>
@@ -86,7 +86,7 @@
                                         @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
                                     </td>
                                     <td>
-                                        @if (item.besta_orpe == true)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
                                         {
                                             <a href="@Url.Action("Edit", new { id = item.ncode_orpe })" class="btn btn-success btn-circle btn-sm" title="Edita">
                                                 <i class="fas fa-edit"></i>
@@ -94,7 +94,7 @@
                                         }
                                     </td>
                                     <td>
-                                        @if (item.besta_orpe == true)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
                                         {
                                             <a href="@Url.Action("DeleteOrden_Pedido", new { id = item.ncode_orpe })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                                 <i class="fas fa-trash"></i>

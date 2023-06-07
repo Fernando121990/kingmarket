@@ -76,9 +76,10 @@ namespace MarketASP.Controllers
         public JsonResult getClienteDire(Int32 scodCliente)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            var result = from s in db.CLI_DIRE
-                         where s.ncode_cliente.Equals(scodCliente)
-                         select new { s.ncode_clidire, s.sdesc_clidire };
+            //var result = from s in db.CLI_DIRE
+            //             where s.ncode_cliente.Equals(scodCliente)
+            //             select new { s.ncode_clidire, s.sdesc_clidire };
+            var result = db.Pr_ClienteDirecciones(scodCliente);
             return Json(result);
         }
 
@@ -99,6 +100,12 @@ namespace MarketASP.Controllers
         {
             var resultado = db.Pr_PedidoPrecio(ncode_arti);
 
+            return Json(resultado);
+        }
+
+        public JsonResult getPedidoVenta()
+        {
+            var resultado = db.Pr_OrdenPedidoLista(2,"","");
             return Json(resultado);
         }
 
@@ -152,6 +159,48 @@ namespace MarketASP.Controllers
                 sdni = cLIENTE.sdnice_cliente,
                 ncode_fopago = pROFORMAS.ncode_fopago,
                 ncode_mone = pROFORMAS.ncode_mone,
+                ventaViewDetas = listadeta
+            };
+
+            return Json(ventaView);
+        }
+
+        public JsonResult getOrdenPedidoVenta(Int32 ncode_orpe)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            ORDEN_PEDIDOS pedido = db.ORDEN_PEDIDOS.Find(ncode_orpe);
+            CLIENTE cLIENTE = db.CLIENTE.Find(pedido.ncode_cliente);
+            List<ORDEN_PEDIDOS_DETALLE> lista = db.ORDEN_PEDIDOS_DETALLE.Include("ARTICULO").Where(p => p.ncode_orpe == ncode_orpe).ToList();
+            List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
+
+            foreach (var item in lista)
+            {
+                ventaViewDeta deta = new ventaViewDeta
+                {
+                    besafecto_vedeta = item.besafecto_orpedeta,
+                    bisc_vedeta = item.ARTICULO.bisc_arti,
+                    scod2 = item.ARTICULO.scode_arti,
+                    sdesc = item.ARTICULO.sdesc1_arti,
+                    nafecto_vedeta = item.nafecto_orpedeta,
+                    ncant_vedeta = item.ncant_orpedeta,
+                    ncode_arti = item.ncode_arti,
+                    npu_vedeta = item.npu_orpedeta,
+                    ndscto_vedeta = item.ndscto_orpedeta,
+                    nexon_vedeta = item.nexon_orpedeta
+                };
+                listadeta.Add(deta);
+            }
+
+
+            ventaView ventaView = new ventaView
+            {
+                ncode_cliente = pedido.ncode_cliente,
+                ncode_clidire = pedido.ncode_clidire,
+                scliente = cLIENTE.srazon_cliente,
+                sruc = cLIENTE.sruc_cliente,
+                sdni = cLIENTE.sdnice_cliente,
+                ncode_fopago = pedido.ncode_fopago,
+                ncode_mone = pedido.ncode_mone,
                 ventaViewDetas = listadeta
             };
 

@@ -69,7 +69,6 @@ namespace MarketASP.Controllers
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
 
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi");
-            //ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona","");
@@ -122,8 +121,9 @@ namespace MarketASP.Controllers
                                 {
                                     fila++;
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
-                                        item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta, item.besafecto_orpedeta,
-                                        item.ncode_alma, item.ndsctomax_orpedeta, item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta);
+                                        item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta, 
+                                        item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta);
                                 };
 
                             }
@@ -236,8 +236,9 @@ namespace MarketASP.Controllers
                                 {
                                     fila++;
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
-                                        item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta, item.besafecto_orpedeta,
-                                        item.ncode_alma, item.ndsctomax_orpedeta, item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta);
+                                        item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta,
+                                        item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta);
                                 };
 
                             }

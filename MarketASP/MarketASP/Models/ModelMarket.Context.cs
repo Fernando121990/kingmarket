@@ -47,7 +47,6 @@ namespace MarketASP.Models
         public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
         public virtual DbSet<KARDEX> KARDEX { get; set; }
         public virtual DbSet<VENTA_DETALLE> VENTA_DETALLE { get; set; }
-        public virtual DbSet<VENTAS> VENTAS { get; set; }
         public virtual DbSet<COMPRA_DETALLE> COMPRA_DETALLE { get; set; }
         public virtual DbSet<COMPRAS> COMPRAS { get; set; }
         public virtual DbSet<CTA_COBRAR> CTA_COBRAR { get; set; }
@@ -81,6 +80,7 @@ namespace MarketASP.Models
         public virtual DbSet<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        public virtual DbSet<VENTAS> VENTAS { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -305,7 +305,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clienteDireElimina", ncode_clidireParameter, sw);
         }
     
-        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, Nullable<long> ncode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nicbper_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, string ctacobraAuto, ObjectParameter sw, ObjectParameter cc)
+        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nicbper_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, string ctacobraAuto, Nullable<long> ncode_vende, Nullable<long> ncode_orpe, ObjectParameter sw, ObjectParameter cc)
         {
             var ncode_docuParameter = ncode_docu.HasValue ?
                 new ObjectParameter("ncode_docu", ncode_docu) :
@@ -351,9 +351,9 @@ namespace MarketASP.Models
                 new ObjectParameter("sobse_venta", sobse_venta) :
                 new ObjectParameter("sobse_venta", typeof(string));
     
-            var ncode_compraParameter = ncode_compra.HasValue ?
-                new ObjectParameter("ncode_compra", ncode_compra) :
-                new ObjectParameter("ncode_compra", typeof(long));
+            var scode_compraParameter = scode_compra != null ?
+                new ObjectParameter("scode_compra", scode_compra) :
+                new ObjectParameter("scode_compra", typeof(string));
     
             var ncode_profoParameter = ncode_profo.HasValue ?
                 new ObjectParameter("ncode_profo", ncode_profo) :
@@ -443,7 +443,15 @@ namespace MarketASP.Models
                 new ObjectParameter("ctacobraAuto", ctacobraAuto) :
                 new ObjectParameter("ctacobraAuto", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, ncode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nicbper_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ctacobraAutoParameter, sw, cc);
+            var ncode_vendeParameter = ncode_vende.HasValue ?
+                new ObjectParameter("ncode_vende", ncode_vende) :
+                new ObjectParameter("ncode_vende", typeof(long));
+    
+            var ncode_orpeParameter = ncode_orpe.HasValue ?
+                new ObjectParameter("ncode_orpe", ncode_orpe) :
+                new ObjectParameter("ncode_orpe", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nicbper_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ctacobraAutoParameter, ncode_vendeParameter, ncode_orpeParameter, sw, cc);
         }
     
         public virtual int Pr_ventaDetaCrea(Nullable<long> ncode_venta, Nullable<long> ncode_arti, Nullable<decimal> ncant_vedeta, Nullable<decimal> npu_vedeta, Nullable<decimal> ndscto_vedeta, Nullable<decimal> ndscto2_vedeta, Nullable<decimal> nexon_vedeta, Nullable<decimal> nafecto_vedeta, Nullable<bool> besafecto_vedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_vedeta, Nullable<decimal> ndsctomin_vedeta, Nullable<decimal> ndsctoporc_vedeta)
@@ -512,7 +520,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaDetaEdita", ncode_ventaParameter);
         }
     
-        public virtual int Pr_ventaEdita(Nullable<long> ncode_venta, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, Nullable<long> ncode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, ObjectParameter sw)
+        public virtual int Pr_ventaEdita(Nullable<long> ncode_venta, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, ObjectParameter sw)
         {
             var ncode_ventaParameter = ncode_venta.HasValue ?
                 new ObjectParameter("ncode_venta", ncode_venta) :
@@ -554,9 +562,9 @@ namespace MarketASP.Models
                 new ObjectParameter("sobse_venta", sobse_venta) :
                 new ObjectParameter("sobse_venta", typeof(string));
     
-            var ncode_compraParameter = ncode_compra.HasValue ?
-                new ObjectParameter("ncode_compra", ncode_compra) :
-                new ObjectParameter("ncode_compra", typeof(long));
+            var scode_compraParameter = scode_compra != null ?
+                new ObjectParameter("scode_compra", scode_compra) :
+                new ObjectParameter("scode_compra", typeof(string));
     
             var ncode_profoParameter = ncode_profo.HasValue ?
                 new ObjectParameter("ncode_profo", ncode_profo) :
@@ -634,7 +642,11 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_mone", ncode_mone) :
                 new ObjectParameter("ncode_mone", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaEdita", ncode_ventaParameter, ncode_docuParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, ncode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, sw);
+            var ncode_vendeParameter = ncode_vende.HasValue ?
+                new ObjectParameter("ncode_vende", ncode_vende) :
+                new ObjectParameter("ncode_vende", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaEdita", ncode_ventaParameter, ncode_docuParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, sw);
         }
     
         public virtual int Pr_ventaAnula(Nullable<long> ncode_venta, ObjectParameter sw)
@@ -1721,7 +1733,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoCrea", ncode_docuParameter, sseri_orpeParameter, snume_orpeParameter, dfeorpeo_orpeParameter, dfevenci_orpeParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orpeParameter, ntc_orpeParameter, ncode_fopagoParameter, sobse_orpeParameter, scode_compraParameter, nbrutoex_orpeParameter, nbrutoaf_orpeParameter, ndctoex_orpeParameter, ndsctoaf_orpeParameter, nsubex_orpeParameter, nsubaf_orpeParameter, nigvex_orpeParameter, nigvaf_orpeParameter, ntotaex_orpeParameter, ntotaaf_orpeParameter, ntotal_orpeParameter, ntotalMN_orpeParameter, ntotalUs_orpeParameter, besta_orpeParameter, nvalIGV_orpeParameter, suser_orpeParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, sw);
         }
     
-        public virtual int Pr_Orden_PedidoDetaCrea(Nullable<long> ncode_orpe, Nullable<long> ncode_arti, Nullable<decimal> ncant_orpedeta, Nullable<decimal> npu_orpedeta, Nullable<decimal> ndscto_orpedeta, Nullable<decimal> ndscto2_orpedeta, Nullable<decimal> nexon_orpedeta, Nullable<decimal> nafecto_orpedeta, Nullable<bool> besafecto_orpedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_orpedeta, Nullable<decimal> ndsctomin_orpedeta, Nullable<decimal> ndsctoporc_orpedeta)
+        public virtual int Pr_Orden_PedidoDetaCrea(Nullable<long> ncode_orpe, Nullable<long> ncode_arti, Nullable<decimal> ncant_orpedeta, Nullable<decimal> npu_orpedeta, Nullable<decimal> ndscto_orpedeta, Nullable<decimal> ndscto2_orpedeta, Nullable<decimal> nexon_orpedeta, Nullable<decimal> nafecto_orpedeta, Nullable<bool> besafecto_orpedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_orpedeta, Nullable<decimal> ndsctomin_orpedeta, Nullable<decimal> ndsctoporc_orpedeta, Nullable<decimal> npuorigen_orpedeta)
         {
             var ncode_orpeParameter = ncode_orpe.HasValue ?
                 new ObjectParameter("ncode_orpe", ncode_orpe) :
@@ -1775,7 +1787,11 @@ namespace MarketASP.Models
                 new ObjectParameter("ndsctoporc_orpedeta", ndsctoporc_orpedeta) :
                 new ObjectParameter("ndsctoporc_orpedeta", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoDetaCrea", ncode_orpeParameter, ncode_artiParameter, ncant_orpedetaParameter, npu_orpedetaParameter, ndscto_orpedetaParameter, ndscto2_orpedetaParameter, nexon_orpedetaParameter, nafecto_orpedetaParameter, besafecto_orpedetaParameter, ncode_almaParameter, ndsctomax_orpedetaParameter, ndsctomin_orpedetaParameter, ndsctoporc_orpedetaParameter);
+            var npuorigen_orpedetaParameter = npuorigen_orpedeta.HasValue ?
+                new ObjectParameter("npuorigen_orpedeta", npuorigen_orpedeta) :
+                new ObjectParameter("npuorigen_orpedeta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoDetaCrea", ncode_orpeParameter, ncode_artiParameter, ncant_orpedetaParameter, npu_orpedetaParameter, ndscto_orpedetaParameter, ndscto2_orpedetaParameter, nexon_orpedetaParameter, nafecto_orpedetaParameter, besafecto_orpedetaParameter, ncode_almaParameter, ndsctomax_orpedetaParameter, ndsctomin_orpedetaParameter, ndsctoporc_orpedetaParameter, npuorigen_orpedetaParameter);
         }
     
         public virtual int Pr_Orden_PedidoDetaEdita(Nullable<long> ncode_orpe)
@@ -1925,8 +1941,12 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenPedidoElimina", ncode_orpeParameter, sw);
         }
     
-        public virtual int Pr_OrdenPedidoLista(string documento, string cliente)
+        public virtual ObjectResult<Pr_OrdenPedidoLista_Result> Pr_OrdenPedidoLista(Nullable<int> tipo, string documento, string cliente)
         {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
             var documentoParameter = documento != null ?
                 new ObjectParameter("documento", documento) :
                 new ObjectParameter("documento", typeof(string));
@@ -1935,7 +1955,7 @@ namespace MarketASP.Models
                 new ObjectParameter("cliente", cliente) :
                 new ObjectParameter("cliente", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenPedidoLista", documentoParameter, clienteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OrdenPedidoLista_Result>("Pr_OrdenPedidoLista", tipoParameter, documentoParameter, clienteParameter);
         }
     
         public virtual ObjectResult<Pr_VendedoresLista_Result> Pr_VendedoresLista(Nullable<long> ncode_vende)
@@ -1981,6 +2001,15 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_clie", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_clienteFormaPagos_Result>("Pr_clienteFormaPagos", ncode_clieParameter);
+        }
+    
+        public virtual ObjectResult<Pr_ClienteDirecciones_Result> Pr_ClienteDirecciones(Nullable<long> ncode_cliente)
+        {
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ClienteDirecciones_Result>("Pr_ClienteDirecciones", ncode_clienteParameter);
         }
     }
 }

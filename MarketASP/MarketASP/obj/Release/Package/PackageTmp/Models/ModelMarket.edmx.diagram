@@ -38,10 +38,7 @@
         <AssociationConnector Association="MarketWebModel.R_25" />
         <AssociationConnector Association="MarketWebModel.R_26" />
         <EntityTypeShape EntityType="MarketWebModel.VENTA_DETALLE" Width="1.5" PointX="15.25" PointY="9.25" />
-        <EntityTypeShape EntityType="MarketWebModel.VENTAS" Width="1.5" PointX="13" PointY="3.5" />
         <AssociationConnector Association="MarketWebModel.R_33" />
-        <AssociationConnector Association="MarketWebModel.R_29" />
-        <AssociationConnector Association="MarketWebModel.R_31" />
         <EntityTypeShape EntityType="MarketWebModel.COMPRA_DETALLE" Width="1.5" PointX="20.25" PointY="10" />
         <EntityTypeShape EntityType="MarketWebModel.COMPRAS" Width="1.5" PointX="18" PointY="6" />
         <EntityTypeShape EntityType="MarketWebModel.CTA_COBRAR" Width="1.5" PointX="13" PointY="13.25" />
@@ -55,13 +52,10 @@
         <AssociationConnector Association="MarketWebModel.R_42" />
         <EntityTypeShape EntityType="MarketWebModel.LOCAL" Width="1.5" PointX="17.375" PointY="0.875" />
         <AssociationConnector Association="MarketWebModel.R_59" />
-        <AssociationConnector Association="MarketWebModel.R_58" />
         <EntityTypeShape EntityType="MarketWebModel.CONFIGURACION" Width="1.5" PointX="0.75" PointY="3.625" />
         <AssociationConnector Association="MarketWebModel.R_40" />
         <AssociationConnector Association="MarketWebModel.R_41" />
         <AssociationConnector Association="MarketWebModel.R_24" />
-        <AssociationConnector Association="MarketWebModel.R_27" />
-        <AssociationConnector Association="MarketWebModel.R_30" />
         <AssociationConnector Association="MarketWebModel.R_43" />
         <AssociationConnector Association="MarketWebModel.R_45" />
         <AssociationConnector Association="MarketWebModel.R_47" />
@@ -130,7 +124,6 @@
         <EntityTypeShape EntityType="MarketWebModel.CLIENTE" Width="1.5" PointX="3" PointY="42.625" />
         <AssociationConnector Association="MarketWebModel.R_11" />
         <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" />
-        <AssociationConnector Association="MarketWebModel.R_28" />
         <AssociationConnector Association="MarketWebModel.R_46" />
         <AssociationConnector Association="MarketWebModel.R_60" />
         <AssociationConnector Association="MarketWebModel.R_61" />
@@ -143,6 +136,13 @@
         <AssociationConnector Association="MarketWebModel.R_690" />
         <AssociationConnector Association="MarketWebModel.R_680" />
         <AssociationConnector Association="MarketWebModel.R_620" />
+        <EntityTypeShape EntityType="MarketWebModel.VENTAS" Width="1.5" PointX="27.625" PointY="12.75" />
+        <AssociationConnector Association="MarketWebModel.R_29" />
+        <AssociationConnector Association="MarketWebModel.R_28" />
+        <AssociationConnector Association="MarketWebModel.R_27" />
+        <AssociationConnector Association="MarketWebModel.R_30" />
+        <AssociationConnector Association="MarketWebModel.R_58" />
+        <AssociationConnector Association="MarketWebModel.R_31" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

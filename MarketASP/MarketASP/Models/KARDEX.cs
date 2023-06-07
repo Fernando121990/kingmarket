@@ -36,6 +36,7 @@ namespace MarketASP.Models
         public string smodulo_confi { get; set; }
         public int ncode_confi { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<bool> borpe_kardex { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }

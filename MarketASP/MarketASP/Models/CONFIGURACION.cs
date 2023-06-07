@@ -20,8 +20,6 @@ namespace MarketASP.Models
             this.COMPRAS = new HashSet<COMPRAS>();
             this.COMPRAS1 = new HashSet<COMPRAS>();
             this.KARDEX = new HashSet<KARDEX>();
-            this.VENTAS = new HashSet<VENTAS>();
-            this.VENTAS1 = new HashSet<VENTAS>();
             this.CTAS_PAGAR = new HashSet<CTAS_PAGAR>();
             this.CTAS_PAGAR1 = new HashSet<CTAS_PAGAR>();
             this.CTA_COBRAR = new HashSet<CTA_COBRAR>();
@@ -38,6 +36,8 @@ namespace MarketASP.Models
             this.CLIENTE1 = new HashSet<CLIENTE>();
             this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
             this.ORDEN_PEDIDOS1 = new HashSet<ORDEN_PEDIDOS>();
+            this.VENTAS = new HashSet<VENTAS>();
+            this.VENTAS1 = new HashSet<VENTAS>();
         }
     
         public int ncode_confi { get; set; }
@@ -53,10 +53,6 @@ namespace MarketASP.Models
         public virtual ICollection<COMPRAS> COMPRAS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VENTAS> VENTAS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VENTAS> VENTAS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTAS_PAGAR> CTAS_PAGAR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -89,5 +85,9 @@ namespace MarketASP.Models
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTAS> VENTAS1 { get; set; }
     }
 }

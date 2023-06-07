@@ -78,15 +78,18 @@ namespace MarketASP.Controllers
 //                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
             ViewBag.tc = result.nventa_tc;
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
-            ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
-            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
-            ViewBag.dfeventa_venta = string.Format("{0:d}",yfecha);
-            ViewBag.dfevenci_venta = string.Format("{0:d}", yfecha);
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", "");
+            ViewBag.dfeventa_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
 
@@ -121,11 +124,11 @@ namespace MarketASP.Controllers
 
                             db.Pr_ventaCrea(mofView.ncode_docu, mofView.sseri_venta, mofView.snume_venta, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
-                                mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
+                                mofView.sobse_venta, mofView.scode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta,mofView.nicbper_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
-                                ConfiguracionSingleton.Instance.glbcobroAutomatico, sw,cc);
+                                ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.ncode_orpe, sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -221,12 +224,12 @@ namespace MarketASP.Controllers
             ViewBag.sruc_cliente = vENTAS.CLIENTE.sruc_cliente;
             ViewBag.sdni_cliente = vENTAS.CLIENTE.sdnice_cliente;
             ViewBag.tc = vENTAS.ntc_venta;
-            ViewBag.dfeventa_venta = string.Format("{0:d}", vENTAS.dfeventa_venta);  
-            ViewBag.dfevenci_venta = string.Format("{0:d}", vENTAS.dfevenci_venta);
+            ViewBag.dfeventa_venta = string.Format("{0:dd/MM/yyyy}", vENTAS.dfeventa_venta);  
+            ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", vENTAS.dfevenci_venta);
 
 
 
-
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", vENTAS.ncode_vende);
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
@@ -260,10 +263,11 @@ namespace MarketASP.Controllers
 
                             db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
-                                mofView.sobse_venta, mofView.ncode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
+                                mofView.sobse_venta, mofView.scode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
-                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()),mofView.ncode_mone, sw);
+                                mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, 
+                                int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

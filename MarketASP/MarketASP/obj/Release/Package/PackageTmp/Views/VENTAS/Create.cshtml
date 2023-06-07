@@ -37,7 +37,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/venta")
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
@@ -45,14 +45,16 @@
         var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
         var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
         var urlGetProforma = '@Url.Action("getProforma", "Funciones",new { area = ""})';
-        var urlGetProfoVenta = '@Url.Action("getProfoVenta", "Funciones",new { area = ""})';
+    var urlGetProfoVenta = '@Url.Action("getProfoVenta", "Funciones",new { area = ""})';
+    var urlGetOrdenPedidoVenta = '@Url.Action("getOrdenPedidoVenta", "Funciones",new { area = ""})';
         var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
+        var urlPedidoVenta = '@Url.Action("getPedidoVenta", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlventaCrea = '@Url.Action("Create", "ventas")';
         var urlventaLista = '@Url.Action("index", "ventas")';
         var urlventaCobro = '@Url.Action("CreateCobro", "cta_cobrar", new { id="param-id", xtipo = "venta", mensaje="param-mensaje" })';
-    </script>
+</script>
 
 }

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var mattable;
+var ordentable;
+$(document).ready(function () {
 
     var code = 0;
     var conf_igv = 0;
@@ -22,21 +24,24 @@
         fnclienteDire();
         //console.log($('#ncode_clidire').val());
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
+
+        fnclienteFPago();
+        $("#nro_fopago").val($('#ncode_fopago').val());
     }
 
     $("#ncode_docu").change(function () {
         fnDocumentoSerieNumero();
     });
 
-    $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
-    });
+    //$("#ncode_fopago").change(function () {
+    //    fnFormaPagoDiasFecha()
+    //});
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0,6,7,8,9,10] 
+            "aTargets": [0,6,7,8,9,10,11] 
         },
         {
             "sClass": "my_class",
@@ -134,7 +139,7 @@
         ofunciones.rows('.selected').remove().draw(false);
     });
 
-    var mattable;
+    
 
     $(".addMat").click(function () {
 
@@ -255,7 +260,7 @@
             return false;
         }
 
-        if(ncode_docu == 10 && $("#sruc").val().length < 1){
+        if(ncode_docu == 10 && $("#sruc_cliente").val().length < 1){
             alert("Ingrese RUC");
             return false;
         }
@@ -294,6 +299,81 @@
 
         Sales_save();
     });
+
+    $(".btnpedidos").click(function () {
+
+        $.ajax({
+            type: 'POST',
+            url: urlPedidoVenta,
+            dataType: 'json',
+            data: {},
+            success: function (resultado) {
+
+               ordentable = $('#pedidotabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "ncode_orpe" },
+                            { "data": "fecha" },
+                            { "data": "numeracion" },
+                            { "data": "srazon_cliente" }
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "bDestroy": true,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+
+    $("#btnorden").click(function () {
+        var data = ordentable.row('.selected').data();
+
+        console.log(data.ncode_orpe);
+
+        fnCargaOrdenPedido(data.ncode_orpe);
+
+    });
+
+    $("#btnpedidocerrarx").click(function () {
+        ordentable.destroy();
+    });
+
+    $("#btnpedidocerrar").click(function () {
+        ordentable.destroy();
+    });
+
 });
 
 
@@ -313,11 +393,12 @@ function Sales_save() {
         "ncode_docu":"","sseri_venta":"", "snume_venta":"",
         "sfeventa_venta":"","sfevenci_venta":"","ncode_cliente":"",
         "ncode_clidire":"","smone_venta":"","ntc_venta":"",
-        "ncode_fopago":"","sobse_venta":"","ncode_compra":"",
+        "ncode_fopago":"","sobse_venta":"","scode_compra":"",
         "ncode_profo":"","nbrutoex_venta":"","nbrutoaf_venta":"",
         "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
-        "ntotaaf_venta":"","ntotal_venta":"","ntotalMN_venta":"","ntotalUs_venta":"",
+        "ntotaaf_venta": "", "ntotal_venta": "", "ntotalMN_venta": "", "ntotalUs_venta": "",
+        "ncode_vende": "", "ncode_orpe": "",
         "nvalIGV_venta": "","nicbper_venta":"","ventaViewDetas": []
 
     };
@@ -334,7 +415,7 @@ function Sales_save() {
     ventaView.ntc_venta = $('#ntc_venta').val();
     ventaView.ncode_fopago = $("#ncode_fopago option:selected").val();
     ventaView.sobse_venta = $('#sobse_venta').val();
-    ventaView.ncode_compra = $('#ncode_compra').val();
+    ventaView.scode_compra = $('#scode_compra').val();
     ventaView.ncode_profo = $('#ncode_profo').val();
     ventaView.nbrutoex_venta = $('#nbrutoex_venta').val();
     ventaView.nbrutoaf_venta = $('#nbrutoaf_venta').val();
@@ -353,6 +434,8 @@ function Sales_save() {
     ventaView.nvalIGV_venta = $('#nvalIGV_venta').val();
     ventaView.ncode_alma = $("#ncode_alma option:selected").val();
     ventaView.ncode_mone = $("#ncode_mone option:selected").val();
+    ventaView.ncode_vende = $("#ncode_vende option:selected").val();
+    ventaView.ncode_orpe = $("#ncode_orpe").val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -538,7 +621,7 @@ function ComparaPrecio(Precio, PrecioOrigen) {
         xprecio = parseFloat(PrecioOrigen);
     }
 
-    return xprecio;
+    return xprecio.toFixed(conf_decimal);
 
 }
 function fnFormaPagoDiasFecha() {
@@ -551,6 +634,7 @@ function fnFormaPagoDiasFecha() {
             console.log(fopago);
             $.each(fopago, function (i, dias) {
 
+                var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
                 var m = $("#dfeventa_venta").val();
                 var parts = m.split("/");
                 var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -563,7 +647,7 @@ function fnFormaPagoDiasFecha() {
                 //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
                 //console.log(xdias);
                 fecha.setDate(fecha.getDate() + parseInt(dias.dias));
-                var xfecha = new Date(fecha).toLocaleDateString()
+                var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
                 $('#dfevenci_venta').val(xfecha);
                 //console.log(fecha);
                 console.log(xfecha);
@@ -659,4 +743,56 @@ function fnlimpiar() {
     $('#sobse_venta').val();
     $('#ncode_compra').val();
 }
+function fnCargaOrdenPedido(codigo) {
 
+    fnlimpiar();
+    console.log(codigo);
+    $.ajax({
+        type: 'POST',
+        url: urlGetOrdenPedidoVenta,
+        dataType: 'json',
+        data: { ncode_orpe: codigo },
+        success: function (venta) {
+            console.log(venta);
+
+            $('#sdesc_cliente').val(venta.scliente);
+            $('#COD_CLIENTE').val(venta.ncode_cliente);
+            $('#sruc_cliente').val(venta.sruc);
+            $('#sdni_cliente').val(venta.sdni);
+            $('#sobse_venta').val(venta.ncode_cliente);
+            $("#ncode_mone").val(venta.ncode_mone);
+            $("#ncode_orpe").val(codigo);
+            var num = parseInt(venta.ventaViewDetas.length);
+            var oprof = $('#tbl').DataTable();
+            oprof.clear();
+            for (var i = 0; i < num; i++) {
+                oprof.row.add([venta.ventaViewDetas[i].ncode_arti,
+                venta.ventaViewDetas[i].scod2,
+                venta.ventaViewDetas[i].sdesc,
+                venta.ventaViewDetas[i].ncant_vedeta,
+                    1,
+                venta.ventaViewDetas[i].npu_vedeta,
+                venta.ventaViewDetas[i].npu_vedeta,
+                    1,
+                venta.ventaViewDetas[i].besafecto_vedeta,
+                venta.ventaViewDetas[i].bisc_vedeta,
+                    venta.ventaViewDetas[i].npu_vedeta,
+                    false,
+                venta.ventaViewDetas[i].nafecto_vedeta]).draw();
+            }
+
+            fnclienteDire();
+            $("#NRO_DCLIENTE").val(venta.ncode_clidire);
+            $("#ncode_fopago").val(venta.ncode_fopago);
+        },
+        error: function (ex) {
+            alert('No se puede recuperar datos de la orden de pedido' + ex);
+        }
+    });
+
+    Totales();
+
+    return false;
+
+
+}

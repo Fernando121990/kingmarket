@@ -376,13 +376,9 @@ $(document).ready(function () {
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
                         [{ "data": "sdesc_alma" },
-                        { "data": "ncode_arti" },
                         { "data": "sdesc1_arti" },
-                            { "data": "INGRESOS" },
-                            { "data": "SALIDAS" },
                             { "data": "STOCK" },
-                            { "data": "RESERVADO" },
-                            { "data": "DISPONIBLE" },
+                            { "data": "DISPONIBLE"}
                         ],
                     footerCallback: function (row, data, start, end, display) {
                         var api = this.api();
@@ -394,7 +390,7 @@ $(document).ready(function () {
 
                         // Total over all pages
                         totstock = api
-                            .column(5)
+                            .column(2)
                             .data()
                             .reduce(function (a, b) {
                                 return intVal(a) + intVal(b);
@@ -402,19 +398,19 @@ $(document).ready(function () {
 
                         // Total over this page
                         totDispo = api
-                            .column(7)
+                            .column(3)
                             .data()
                             .reduce(function (a, b) {
                                 return intVal(a) + intVal(b);
                             }, 0);
 
                         // Update footer
-                        $(api.column(5).footer()).html(totstock);
-                        $(api.column(7).footer()).html(totDispo);
+                        $(api.column(2).footer()).html(totstock);
+                        $(api.column(3).footer()).html(totDispo);
                     },
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [1,6]
+                        "aTargets": []
                     },
                     {
                         "sClass": "my_class",
@@ -464,7 +460,8 @@ function Sales_save() {
     var ordenpedidoViewDetas = {
         "ncode_arti": "", "ncant_orpedeta": "", "npu_orpedeta": "", "ndscto_orpedeta": "",
         "ndscto2_orpedeta": "", "nexon_orpedeta": "", "nafecto_orpedeta": "", "besafecto_orpedeta": "",
-        "ncode_alma": "", "ndsctomax_orpedeta": "", "ndsctomin_orpedeta": "", "ndsctoporc_orpedeta": ""
+        "ncode_alma": "", "ndsctomax_orpedeta": "", "ndsctomin_orpedeta": "", "ndsctoporc_orpedeta": "",
+        "npuorigen_orpedeta": ""
     };
 
     var ordenpedidoView = {
@@ -521,6 +518,7 @@ function Sales_save() {
         ordenpedidoViewDetas.ncode_arti = oTable[i][0];
         ordenpedidoViewDetas.ncant_orpedeta = oTable[i][3];
         ordenpedidoViewDetas.npu_orpedeta = oTable[i][5];
+        ordenpedidoViewDetas.npuorigen_orpedeta = oTable[i][6];
         ordenpedidoViewDetas.ndscto_orpedeta = oTable[i][6] - oTable[i][5];
         ordenpedidoViewDetas.nexon_orpedeta = oTable[i][5] * oTable[i][3];
         ordenpedidoViewDetas.nafecto_orpedeta = oTable[i][5] * oTable[i][3];
@@ -669,6 +667,9 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     $("#ntotal_orpe").val(TOTAL.toFixed(2));
 }
 function ComparaPrecio(Precio, PrecioOrigen) {
+    console.log('compra precio');
+    console.log(Precio);
+    console.log(PrecioOrigen);
 
     var xprecio = parseFloat(Precio);
 

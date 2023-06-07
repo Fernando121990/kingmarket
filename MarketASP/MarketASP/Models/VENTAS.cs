@@ -32,7 +32,7 @@ namespace MarketASP.Models
         public Nullable<decimal> ntc_venta { get; set; }
         public int ncode_fopago { get; set; }
         public string sobse_venta { get; set; }
-        public Nullable<long> ncode_compra { get; set; }
+        public string scode_compra { get; set; }
         public Nullable<long> ncode_profo { get; set; }
         public Nullable<decimal> nbrutoex_venta { get; set; }
         public Nullable<decimal> nbrutoaf_venta { get; set; }
@@ -60,13 +60,15 @@ namespace MarketASP.Models
         public Nullable<int> ncode_mone { get; set; }
         public Nullable<decimal> nicbper_venta { get; set; }
         public Nullable<long> ncode_orpe { get; set; }
+        public string scode_orpe { get; set; }
+        public Nullable<long> ncode_vende { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
-        public virtual LOCAL LOCAL { get; set; }
+        public virtual CLIENTE CLIENTE { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
-        public virtual CLIENTE CLIENTE { get; set; }
+        public virtual LOCAL LOCAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
     }
 }

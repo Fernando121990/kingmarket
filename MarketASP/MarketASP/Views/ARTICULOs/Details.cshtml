@@ -52,8 +52,12 @@
                     <strong>Activo : </strong><input type="checkbox" checked="@Model.nesta_arti" readonly /><br />
                     <strong>Observación : </strong>@Html.DisplayFor(model => model.sobse_arti) <br />
                 </p>
+                @{
+                    Html.RenderAction("AlmacenArti", "Articulos", new { ncode_arti = Model.ncode_arti });
+                }
 
             </div>
+
         </div>
     </div>
     <div class="col-md-6">

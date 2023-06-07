@@ -409,6 +409,9 @@
     <Compile Include="Models\Pr_ClienteBusca_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_ClienteDirecciones_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_clienteFormaPagos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -419,6 +422,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_OrdenPedidoLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_PedidoConsultaDetallada_Result.cs">
@@ -2394,6 +2400,7 @@
     <Content Include="Views\VENDEDOR\Index.cshtml" />
     <Content Include="Views\CLIENTEs\CreateFopago.cshtml" />
     <Content Include="Views\CLIENTEs\Editfopago.cshtml" />
+    <Content Include="Views\ARTICULOs\AlmacenArti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

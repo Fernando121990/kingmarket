@@ -555,6 +555,12 @@ namespace MarketASP.Controllers
         }
 
         #endregion
+
+        public ActionResult AlmacenArti(int ncode_arti)
+        {
+            var result = db.Pr_KardexArticulos(ncode_arti,"","").ToList();
+            return PartialView(result);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

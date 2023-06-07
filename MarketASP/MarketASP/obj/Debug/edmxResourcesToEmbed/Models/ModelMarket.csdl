@@ -133,17 +133,8 @@
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <EntitySet Name="VENTA_DETALLE" EntityType="MarketWebModel.VENTA_DETALLE" />
-    <EntitySet Name="VENTAS" EntityType="MarketWebModel.VENTAS" />
     <AssociationSet Name="R_33" Association="MarketWebModel.R_33">
       <End Role="ALMACEN" EntitySet="ALMACEN" />
-      <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
-    </AssociationSet>
-    <AssociationSet Name="R_29" Association="MarketWebModel.R_29">
-      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_31" Association="MarketWebModel.R_31">
-      <End Role="VENTAS" EntitySet="VENTAS" />
       <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
     </AssociationSet>
     <FunctionImport Name="Pr_ClienteElimina">
@@ -166,7 +157,7 @@
       <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
       <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
       <Parameter Name="sobse_venta" Mode="In" Type="String" />
-      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
       <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
       <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
       <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
@@ -189,6 +180,8 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
       <Parameter Name="cc" Mode="InOut" Type="Int64" />
     </FunctionImport>
@@ -221,7 +214,7 @@
       <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
       <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
       <Parameter Name="sobse_venta" Mode="In" Type="String" />
-      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
       <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
       <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
       <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
@@ -241,6 +234,7 @@
       <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_ventaAnula">
@@ -419,10 +413,6 @@
       <End Role="LOCAL" EntitySet="LOCAL" />
       <End Role="COMPRAS" EntitySet="COMPRAS" />
     </AssociationSet>
-    <AssociationSet Name="R_58" Association="MarketWebModel.R_58">
-      <End Role="LOCAL" EntitySet="LOCAL" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
-    </AssociationSet>
     <EntitySet Name="CONFIGURACION" EntityType="MarketWebModel.CONFIGURACION" />
     <AssociationSet Name="R_40" Association="MarketWebModel.R_40">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -435,14 +425,6 @@
     <AssociationSet Name="R_24" Association="MarketWebModel.R_24">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="KARDEX" EntitySet="KARDEX" />
-    </AssociationSet>
-    <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
-      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
-      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
     </AssociationSet>
     <AssociationSet Name="R_43" Association="MarketWebModel.R_43">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -784,6 +766,7 @@
       <Parameter Name="ndsctomax_orpedeta" Mode="In" Type="Decimal" />
       <Parameter Name="ndsctomin_orpedeta" Mode="In" Type="Decimal" />
       <Parameter Name="ndsctoporc_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npuorigen_orpedeta" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="Pr_Orden_PedidoDetaEdita">
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
@@ -826,7 +809,8 @@
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Pr_OrdenPedidoLista">
+    <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="documento" Mode="In" Type="String" />
       <Parameter Name="cliente" Mode="In" Type="String" />
     </FunctionImport>
@@ -864,10 +848,6 @@
     <AssociationSet Name="FK_CLI_FOPAGO_CLIENTE" Association="MarketWebModel.FK_CLI_FOPAGO_CLIENTE">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
       <End Role="CLI_FOPAGO" EntitySet="CLI_FOPAGO" />
-    </AssociationSet>
-    <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="VENTAS" EntitySet="VENTAS" />
     </AssociationSet>
     <AssociationSet Name="R_46" Association="MarketWebModel.R_46">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -927,6 +907,34 @@
     <FunctionImport Name="Pr_clienteFormaPagos" ReturnType="Collection(MarketWebModel.Pr_clienteFormaPagos_Result)">
       <Parameter Name="ncode_clie" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="Pr_ClienteDirecciones" ReturnType="Collection(MarketWebModel.Pr_ClienteDirecciones_Result)">
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="VENTAS" EntityType="MarketWebModel.VENTAS" />
+    <AssociationSet Name="R_29" Association="MarketWebModel.R_29">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_28" Association="MarketWebModel.R_28">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_27" Association="MarketWebModel.R_27">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_30" Association="MarketWebModel.R_30">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_58" Association="MarketWebModel.R_58">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="VENTAS" EntitySet="VENTAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_31" Association="MarketWebModel.R_31">
+      <End Role="VENTAS" EntitySet="VENTAS" />
+      <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1013,10 +1021,10 @@
     <Property Name="scode_ubigeo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.R_12" FromRole="CLI_DIRE" ToRole="UBIGEO" />
     <NavigationProperty Name="CLIDI_CONTAC" Relationship="MarketWebModel.R_13" FromRole="CLI_DIRE" ToRole="CLIDI_CONTAC" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_66" FromRole="CLI_DIRE" ToRole="PROFORMAS" />
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_11" FromRole="CLI_DIRE" ToRole="CLIENTE" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_660" FromRole="CLI_DIRE" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_29" FromRole="CLI_DIRE" ToRole="VENTAS" />
   </EntityType>
   <EntityType Name="CLIDI_CONTAC">
     <Key>
@@ -1359,6 +1367,7 @@
     <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_26" FromRole="KARDEX" ToRole="UMEDIDA" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
+    <Property Name="borpe_kardex" Type="Boolean" />
   </EntityType>
   <Association Name="R_22">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -1415,61 +1424,10 @@
     <Property Name="ndsctomin_vedeta" Type="Decimal" Precision="18" Scale="4" />
     <Property Name="ndsctoporc_vedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_33" FromRole="VENTA_DETALLE" ToRole="ALMACEN" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
     <Property Name="nback_vedeta" Type="Int32" />
     <Property Name="nsubt_vedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
-  </EntityType>
-  <EntityType Name="VENTAS">
-    <Key>
-      <PropertyRef Name="ncode_venta" />
-    </Key>
-    <Property Name="ncode_venta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
-    <Property Name="sseri_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="snume_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="dfeventa_venta" Type="DateTime" Precision="3" />
-    <Property Name="dfevenci_venta" Type="DateTime" Precision="3" />
-    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
-    <Property Name="ncode_clidire" Type="Int32" />
-    <Property Name="smone_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ntc_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
-    <Property Name="sobse_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="ncode_compra" Type="Int64" />
-    <Property Name="ncode_profo" Type="Int64" />
-    <Property Name="nbrutoex_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="nbrutoaf_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ndctoex_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ndsctoaf_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="nsubex_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="nsubaf_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="nigvex_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="nigvaf_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ntotaex_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ntotaaf_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ntotal_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ntotalMN_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ntotalUs_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="besta_venta" Type="Boolean" />
-    <Property Name="nvalIGV_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="suser_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="dfech_venta" Type="DateTime" Precision="3" />
-    <Property Name="susmo_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
-    <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
-    <Property Name="ncode_alma" Type="Int32" />
-    <Property Name="bmontocancelado_venta" Type="Boolean" />
-    <Property Name="dfcancelado_venta" Type="DateTime" Precision="3" />
-    <Property Name="ncode_local" Type="Int32" />
-    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_58" FromRole="VENTAS" ToRole="LOCAL" />
-    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
-    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
-    <Property Name="ncode_mone" Type="Int32" />
-    <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="ncode_orpe" Type="Int64" />
-    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
   </EntityType>
   <Association Name="R_33">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -1480,30 +1438,6 @@
       </Principal>
       <Dependent Role="VENTA_DETALLE">
         <PropertyRef Name="ncode_alma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_29">
-    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLI_DIRE">
-        <PropertyRef Name="ncode_clidire" />
-      </Principal>
-      <Dependent Role="VENTAS">
-        <PropertyRef Name="ncode_clidire" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_31">
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="1" />
-    <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="VENTAS">
-        <PropertyRef Name="ncode_venta" />
-      </Principal>
-      <Dependent Role="VENTA_DETALLE">
-        <PropertyRef Name="ncode_venta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1750,7 +1684,6 @@
     <Property Name="bacti_local" Type="Boolean" Nullable="false" />
     <Property Name="ncode_sucu" Type="Int32" Nullable="false" />
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_59" FromRole="LOCAL" ToRole="COMPRAS" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_68" FromRole="LOCAL" ToRole="PROFORMAS" />
     <Property Name="scode_ubigeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
@@ -1758,6 +1691,7 @@
     <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_680" FromRole="LOCAL" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
   </EntityType>
   <Association Name="R_59">
     <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -1767,18 +1701,6 @@
         <PropertyRef Name="ncode_local" />
       </Principal>
       <Dependent Role="COMPRAS">
-        <PropertyRef Name="ncode_local" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_58">
-    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LOCAL">
-        <PropertyRef Name="ncode_local" />
-      </Principal>
-      <Dependent Role="VENTAS">
         <PropertyRef Name="ncode_local" />
       </Dependent>
     </ReferentialConstraint>
@@ -1796,8 +1718,6 @@
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_40" FromRole="CONFIGURACION" ToRole="COMPRAS" />
     <NavigationProperty Name="COMPRAS1" Relationship="MarketWebModel.R_41" FromRole="CONFIGURACION" ToRole="COMPRAS" />
     <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_24" FromRole="CONFIGURACION" ToRole="KARDEX" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
-    <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
     <NavigationProperty Name="CTAS_PAGAR" Relationship="MarketWebModel.R_43" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
     <NavigationProperty Name="CTAS_PAGAR1" Relationship="MarketWebModel.R_45" FromRole="CONFIGURACION" ToRole="CTAS_PAGAR" />
     <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_47" FromRole="CONFIGURACION" ToRole="CTA_COBRAR" />
@@ -1814,6 +1734,8 @@
     <NavigationProperty Name="CLIENTE1" Relationship="MarketWebModel.R_61" FromRole="CONFIGURACION" ToRole="CLIENTE" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_27" FromRole="CONFIGURACION" ToRole="VENTAS" />
+    <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -1848,30 +1770,6 @@
       </Principal>
       <Dependent Role="KARDEX">
         <PropertyRef Name="ncode_confi" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_27">
-    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONFIGURACION">
-        <PropertyRef Name="ncode_confi" />
-      </Principal>
-      <Dependent Role="VENTAS">
-        <PropertyRef Name="ncode_docu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_30">
-    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONFIGURACION">
-        <PropertyRef Name="ncode_confi" />
-      </Principal>
-      <Dependent Role="VENTAS">
-        <PropertyRef Name="ncode_fopago" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2749,6 +2647,7 @@
     <Property Name="nsubt_orpedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_630" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ARTICULO" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ORDEN_PEDIDOS" />
+    <Property Name="npuorigen_orpedeta" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <Association Name="R_630">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -2912,12 +2811,12 @@
     <Property Name="ncode_vende" Type="Int64" />
     <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_11" FromRole="CLIENTE" ToRole="CLI_DIRE" />
     <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CLIENTE" FromRole="CLIENTE" ToRole="CLI_FOPAGO" />
-    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
     <NavigationProperty Name="CTA_COBRAR" Relationship="MarketWebModel.R_46" FromRole="CLIENTE" ToRole="CTA_COBRAR" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_60" FromRole="CLIENTE" ToRole="CONFIGURACION" />
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_61" FromRole="CLIENTE" ToRole="CONFIGURACION" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
   </EntityType>
   <Association Name="R_11">
     <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -2939,18 +2838,6 @@
         <PropertyRef Name="ncode_cliente" />
       </Principal>
       <Dependent Role="CLI_FOPAGO">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_28">
-    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
-    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="VENTAS">
         <PropertyRef Name="ncode_cliente" />
       </Dependent>
     </ReferentialConstraint>
@@ -3066,6 +2953,7 @@
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_690" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
+    <Property Name="bventa_orpe" Type="Boolean" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3154,5 +3042,140 @@
   <ComplexType Name="Pr_clienteFormaPagos_Result">
     <Property Type="Int32" Name="ncode_fopago" Nullable="true" />
     <Property Type="String" Name="sdesc_fopago" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="Pr_ClienteDirecciones_Result">
+    <Property Type="Int32" Name="ncode_clidire" Nullable="false" />
+    <Property Type="String" Name="sdesc_clidire" Nullable="false" MaxLength="8000" />
+  </ComplexType>
+  <EntityType Name="VENTAS">
+    <Key>
+      <PropertyRef Name="ncode_venta" />
+    </Key>
+    <Property Name="ncode_venta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="sseri_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfeventa_venta" Type="DateTime" Precision="3" />
+    <Property Name="dfevenci_venta" Type="DateTime" Precision="3" />
+    <Property Name="ncode_cliente" Type="Int32" Nullable="false" />
+    <Property Name="ncode_clidire" Type="Int32" />
+    <Property Name="smone_venta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="Int32" Nullable="false" />
+    <Property Name="sobse_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="scode_compra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_profo" Type="Int64" />
+    <Property Name="nbrutoex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_venta" Type="Boolean" />
+    <Property Name="nvalIGV_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_venta" Type="DateTime" Precision="3" />
+    <Property Name="susmo_venta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_venta" Type="DateTime" Precision="3" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="bmontocancelado_venta" Type="Boolean" />
+    <Property Name="dfcancelado_venta" Type="DateTime" Precision="3" />
+    <Property Name="ncode_local" Type="Int32" />
+    <Property Name="ncode_mone" Type="Int32" />
+    <Property Name="nicbper_venta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_orpe" Type="Int64" />
+    <Property Name="scode_orpe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_vende" Type="Int64" />
+    <NavigationProperty Name="CLI_DIRE" Relationship="MarketWebModel.R_29" FromRole="VENTAS" ToRole="CLI_DIRE" />
+    <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_28" FromRole="VENTAS" ToRole="CLIENTE" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_27" FromRole="VENTAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_30" FromRole="VENTAS" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_58" FromRole="VENTAS" ToRole="LOCAL" />
+    <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_31" FromRole="VENTAS" ToRole="VENTA_DETALLE" />
+  </EntityType>
+  <Association Name="R_29">
+    <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_28">
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_27">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_30">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_58">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="VENTAS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_31">
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTAS">
+        <PropertyRef Name="ncode_venta" />
+      </Principal>
+      <Dependent Role="VENTA_DETALLE">
+        <PropertyRef Name="ncode_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_OrdenPedidoLista_Result">
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
   </ComplexType>
 </Schema>
