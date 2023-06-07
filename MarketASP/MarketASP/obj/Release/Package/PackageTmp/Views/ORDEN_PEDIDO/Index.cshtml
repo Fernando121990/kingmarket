@@ -13,7 +13,7 @@
                     <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Orden Pedido</a>
                 </div>
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
                                 @*<th>
@@ -40,11 +40,8 @@
                                 <th>
                                     Total
                                 </th>
-                                <th>Estado</th>
-                                <th>
-                                    F.Pago
-                                </th>
-                                <th></th>
+                                <th>Activa</th>
+                                <th>Venta</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -53,8 +50,8 @@
                             {
                                 <tr>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-                                    </td>*@
+            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
                                     </td>
@@ -68,8 +65,8 @@
                                         @string.Format("{0:d}", item.dfevenci_orpe)
                                     </td>
                                     @*<td>
-                                        @Html.DisplayFor(modelItem => item.ntc_orpe)
-                                    </td>*@
+            @Html.DisplayFor(modelItem => item.ntc_orpe)
+        </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.smone_orpe)
                                     </td>
@@ -79,22 +76,32 @@
                                     <td>
                                         @if (item.besta_orpe == false)
                                         {
-                                            <h5>Anulado</h5>
+                                            <div class="badge badge-soft-warning font-size-12">No</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-soft-success font-size-12">Si</div>
                                         }
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+                                        @if (item.bventa_orpe == false)
+                                        {
+                                            <div class="badge badge-soft-warning font-size-12">No</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-soft-success font-size-12">Si</div>
+                                        }
                                     </td>
+                                    @*@Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)*@
                                     <td>
-                                        @if (item.besta_orpe == true)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
                                         {
                                             <a href="@Url.Action("Edit", new { id = item.ncode_orpe })" class="btn btn-success btn-circle btn-sm" title="Edita">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         }
-                                    </td>
-                                    <td>
-                                        @if (item.besta_orpe == true)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
                                         {
                                             <a href="@Url.Action("DeleteOrden_Pedido", new { id = item.ncode_orpe })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                                 <i class="fas fa-trash"></i>

@@ -174,8 +174,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
-    </script>
+        var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
+</script>
 
 }
