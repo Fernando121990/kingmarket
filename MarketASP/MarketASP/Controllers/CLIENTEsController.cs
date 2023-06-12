@@ -17,7 +17,7 @@ namespace MarketASP.Controllers
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: CLIENTEs
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -30,7 +30,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            return View(await db.CLIENTE.ToListAsync());
+            return View(db.Pr_ClienteListado(0).ToList());
         }
 
         public async Task<ActionResult> Details(int? id)

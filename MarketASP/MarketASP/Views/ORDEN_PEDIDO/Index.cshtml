@@ -84,24 +84,28 @@
                                         }
                                     </td>
                                     <td>
-                                        @if (item.bventa_orpe == false)
+                                        @if (item.bventa_orpe == 0)
                                         {
-                                            <div class="badge badge-soft-warning font-size-12">No</div>
+                                            <div class="badge badge-soft-warning font-size-12">Pendiente</div>
+                                        }
+                                        else if (item.bventa_orpe == 1)
+                                        {
+                                            <div class="badge badge-soft-primary font-size-12">Parcial</div>
                                         }
                                         else
                                         {
-                                            <div class="badge badge-soft-success font-size-12">Si</div>
+                                        <div class="badge badge-soft-success font-size-12">Total</div>
                                         }
                                     </td>
                                     @*@Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)*@
                                     <td>
-                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == 0)
                                         {
                                             <a href="@Url.Action("Edit", new { id = item.ncode_orpe })" class="btn btn-success btn-circle btn-sm" title="Edita">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         }
-                                        @if (item.besta_orpe == true && item.bventa_orpe == false)
+                                        @if (item.besta_orpe == true && item.bventa_orpe == 0)
                                         {
                                             <a href="@Url.Action("DeleteOrden_Pedido", new { id = item.ncode_orpe })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                                 <i class="fas fa-trash"></i>

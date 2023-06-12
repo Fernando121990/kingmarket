@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.CLIENTE>
+﻿@model IEnumerable<MarketASP.Models.Pr_ClienteListado_Result>
 
 @{
     ViewBag.Title = "Clientes";
@@ -25,31 +25,10 @@
                                 <th>
                                     DNI/CE
                                 </th>
-                                <th>
-                                    Nombre
-                                </th>
-                                <th>
-                                    A.Paterno
-                                </th>
-                                <th>
-                                    A.Materno
-                                </th>
-                                <th>
-                                    Telf.
-                                </th>
-                                <th>
-                                    Correo
-                                </th>
-                                <th>
-                                    Web
-                                </th>
-                                <th>
-                                    J/N
-                                </th>
-                                <th>
-                                    Extranjero
-                                </th>
+                                <th>Vendedor</th>
                                 <th>Zona</th>
+                                <th>Almacen</th>
+                                <th>Activo</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -71,31 +50,23 @@
                                     @Html.DisplayFor(modelItem => item.sdnice_cliente)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.snomb_cliente)
+                                    @Html.DisplayFor(modelItem => item.sdesc_vende)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sappa_cliente)
+                                    @Html.DisplayFor(modelItem => item.sdesc_zona)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sapma_cliente)
+                                    @Html.DisplayFor(modelItem => item.sdesc_alma)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.sfono1_cliente)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.smail_cliente)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.sweb_cliente)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.stipo_cliente)
-                                </td>
-                                <td>
-                                    <input type="checkbox" checked="@item.bprocedencia_cliente" readonly />
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ncode_vende)
+                                    @if (item.bacti_cliente == false)
+                                    {
+                                        <div class="badge badge-soft-warning font-size-12">No</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-soft-success font-size-12">Si</div>
+                                    }
                                 </td>
                                 <td id="tooltip-container3">
                                     <a href="@Url.Action("Edit", new { id = item.ncode_cliente })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>

@@ -34,10 +34,10 @@ namespace MarketASP.Models
             this.CLI_FOPAGO = new HashSet<CLI_FOPAGO>();
             this.CLIENTE = new HashSet<CLIENTE>();
             this.CLIENTE1 = new HashSet<CLIENTE>();
-            this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
-            this.ORDEN_PEDIDOS1 = new HashSet<ORDEN_PEDIDOS>();
             this.VENTAS = new HashSet<VENTAS>();
             this.VENTAS1 = new HashSet<VENTAS>();
+            this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
+            this.ORDEN_PEDIDOS1 = new HashSet<ORDEN_PEDIDOS>();
         }
     
         public int ncode_confi { get; set; }
@@ -82,12 +82,12 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLIENTE> CLIENTE1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS1 { get; set; }
     }
 }

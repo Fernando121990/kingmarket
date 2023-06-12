@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.VENTAS>
+﻿@model IEnumerable<MarketASP.Models.Pr_VentaListado_Result>
 
 @{
     ViewBag.Title = "Consultar";
@@ -31,30 +31,21 @@
                                 <th>
                                     F.Vcto
                                 </th>
-                                @*<th>
-                                    TC
-                                </th>
-                                <th>
-                                    Obs
-                                </th>
-                                <th>
-                                    OC
-                                </th>
-                                <th>
-                                    Proforma
-                                </th>*@
                                 <th>
                                     Total
                                 </th>
                                 <th>
+                                    O.Pedido
+                                </th>
+                                <th>
                                     Activo
                                 </th>
-                                @*<th>
-                                    F.Pago
-                                </th>*@
                                 <th>
                                     Pago
                                 </th>
+                                <th>Vendedor</th>
+                                <th>Zona</th>
+                                <th>Almacen</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -63,35 +54,25 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                                        @Html.DisplayFor(modelItem => item.sdesc_confi)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+                                        @Html.DisplayFor(modelItem => item.srazon_cliente)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sseri_venta) - @Html.DisplayFor(modelItem => item.snume_venta)
+                                        @Html.DisplayFor(modelItem => item.Documento)
                                     </td>
                                     <td>
-                                        @string.Format("{0:d}", item.dfeventa_venta)
+                                        @string.Format("{0:d}", item.Fventa)
                                     </td>
                                     <td>
-                                        @string.Format("{0:d}", item.dfevenci_venta)
-                                    </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.ntc_venta)
+                                        @string.Format("{0:d}", item.Fvence)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sobse_venta)
+                                        @Html.DisplayFor(modelItem => item.total)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.scode_compra)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncode_profo)
-                                    </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.smone_venta)
-                                        @Html.DisplayFor(modelItem => item.ntotal_venta)
+                                        @Html.DisplayFor(modelItem => item.OrdenPedido)
                                     </td>
                                     <td>
                                         @if (item.besta_venta == false)
@@ -103,21 +84,27 @@
                                             <div class="badge badge-soft-success font-size-12">Si</div>
                                         }
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
-                                    </td>*@
-                                <td>
-                                    @if (item.bmontocancelado_venta == false)
-                                    {
-                                        <div class="badge badge-soft-warning font-size-12">No</div>
-                                    }
-                                    else
-                                    {
-                                        <div class="badge badge-soft-success font-size-12">Si</div>
-                                    }
-                                </td>
                                     <td>
-                                        @if (item.besta_venta == true)
+                                        @if (item.bmontocancelado_venta == false)
+                                        {
+                                            <div class="badge badge-soft-warning font-size-12">No</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-soft-success font-size-12">Si</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sdesc_vende)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sdesc_zona)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sdesc_alma)
+                                    </td>
+                                    <td>
+                                        @if (item.besta_venta == true && item.bventaxpedido == false)
                                         {
                                             <a href="@Url.Action("Edit", new { id = item.ncode_venta })" class="btn btn-success btn-circle btn-sm" title="Edita">
                                                 <i class="fas fa-edit"></i>

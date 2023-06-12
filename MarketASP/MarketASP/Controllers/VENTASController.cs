@@ -35,8 +35,9 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            var vENTAS = db.VENTAS.Include(v => v.CLI_DIRE).Include(v => v.CLIENTE).Include(v => v.CONFIGURACION).Include(v => v.CONFIGURACION1);
-            return View(await vENTAS.ToListAsync());
+            //var vENTAS = db.VENTAS.Include(v => v.CLI_DIRE).Include(v => v.CLIENTE).Include(v => v.CONFIGURACION).Include(v => v.CONFIGURACION1);
+            var result = db.Pr_VentaListado(1,"","").ToList();
+            return View(result);
         }
 
         // GET: VENTAS/Details/5
@@ -122,6 +123,41 @@ namespace MarketASP.Controllers
                         if (mofView != null)
                         {
 
+                            //verificar stock
+                            var bstock = true;
+
+                            if (mofView.ventaViewDetas != null)
+                            {
+                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+                                {
+                                    fila++;
+
+                                    var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+                                    
+                                    decimal cantdisponible = 0 ;
+
+                                    if (rstock != null && rstock.Count > 0)
+                                    {
+                                        var xstock = rstock.ToArray();
+                                        cantdisponible = (decimal) xstock[0].STOCK;
+                                    }
+
+
+                                    if (cantdisponible < item.ncant_vedeta) {
+                                        xmensaje += string.Format("{0}{1}",item.sdesc," - ");
+                                        bstock = false;
+                                    }
+                                };
+
+                            }
+
+                            if (!bstock)
+                            {
+                                xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
+                                return Json(new { Success = 3, Mensaje = xmensaje });
+                            }
+
+
                             db.Pr_ventaCrea(mofView.ncode_docu, mofView.sseri_venta, mofView.snume_venta, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
                                 mofView.sobse_venta, mofView.scode_compra, mofView.ncode_profo, mofView.nbrutoex_venta, mofView.nbrutoaf_venta,
@@ -147,6 +183,8 @@ namespace MarketASP.Controllers
                             }
 
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
+
+                            db.Pr_ventaActualizaPedido(0,mofView.ncode_orpe, code);
 
                             resultado.Success = true;
 
@@ -185,8 +223,8 @@ namespace MarketASP.Controllers
             catch (Exception ex)
             {
                 string mensaje = ex.Message;
-                ViewBag.mensaje = "Venta" + mensaje + xmensaje;
-                return Json(new { Success = 0 });
+                mensaje = "Venta" + mensaje + xmensaje;
+                return Json(new { Success = 3, Mensaje = mensaje });
             }
         }
 
@@ -215,10 +253,13 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+
+            
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",vENTAS.smone_venta);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi",vENTAS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
+
             ViewBag.cod_cliente = vENTAS.ncode_cliente;
             ViewBag.sdesc_cliente = vENTAS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = vENTAS.CLIENTE.sruc_cliente;

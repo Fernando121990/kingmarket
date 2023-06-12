@@ -128,6 +128,13 @@
         <AssociationConnector Association="MarketWebModel.R_60" />
         <AssociationConnector Association="MarketWebModel.R_61" />
         <AssociationConnector Association="MarketWebModel.R_65" />
+        <EntityTypeShape EntityType="MarketWebModel.VENTAS" Width="1.5" PointX="27.625" PointY="12.75" />
+        <AssociationConnector Association="MarketWebModel.R_29" />
+        <AssociationConnector Association="MarketWebModel.R_28" />
+        <AssociationConnector Association="MarketWebModel.R_27" />
+        <AssociationConnector Association="MarketWebModel.R_30" />
+        <AssociationConnector Association="MarketWebModel.R_58" />
+        <AssociationConnector Association="MarketWebModel.R_31" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_PEDIDOS" Width="1.5" PointX="19.625" PointY="26.125" />
         <AssociationConnector Association="MarketWebModel.R_670" />
         <AssociationConnector Association="MarketWebModel.R_660" />
@@ -136,13 +143,6 @@
         <AssociationConnector Association="MarketWebModel.R_690" />
         <AssociationConnector Association="MarketWebModel.R_680" />
         <AssociationConnector Association="MarketWebModel.R_620" />
-        <EntityTypeShape EntityType="MarketWebModel.VENTAS" Width="1.5" PointX="27.625" PointY="12.75" />
-        <AssociationConnector Association="MarketWebModel.R_29" />
-        <AssociationConnector Association="MarketWebModel.R_28" />
-        <AssociationConnector Association="MarketWebModel.R_27" />
-        <AssociationConnector Association="MarketWebModel.R_30" />
-        <AssociationConnector Association="MarketWebModel.R_58" />
-        <AssociationConnector Association="MarketWebModel.R_31" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

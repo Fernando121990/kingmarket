@@ -558,7 +558,7 @@ namespace MarketASP.Controllers
 
         public ActionResult AlmacenArti(int ncode_arti)
         {
-            var result = db.Pr_KardexArticulos(ncode_arti,"","").ToList();
+            var result = db.Pr_KardexArticulos(ncode_arti,"","",0).ToList();
             return PartialView(result);
         }
         protected override void Dispose(bool disposing)

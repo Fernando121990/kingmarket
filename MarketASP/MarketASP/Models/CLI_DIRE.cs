@@ -19,8 +19,8 @@ namespace MarketASP.Models
         {
             this.CLIDI_CONTAC = new HashSet<CLIDI_CONTAC>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
-            this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
             this.VENTAS = new HashSet<VENTAS>();
+            this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
         }
     
         public int ncode_clidire { get; set; }
@@ -35,8 +35,8 @@ namespace MarketASP.Models
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTAS> VENTAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
     }
 }

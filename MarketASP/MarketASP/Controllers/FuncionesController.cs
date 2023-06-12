@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
+using System.Collections;
 
 namespace MarketASP.Controllers
 {
@@ -91,9 +92,33 @@ namespace MarketASP.Controllers
         }
         public JsonResult getKardex(int ncode_arti)
         {
-            var resultado = db.Pr_KardexArticulos(ncode_arti,"","");
+            var resultado = db.Pr_KardexArticulos(ncode_arti,"","",0);
 
             return Json(resultado);
+        }
+        public JsonResult getStockDisponible(int ncode_arti, int ncode_alma)
+        {
+            try
+            {
+                var resultado = db.Pr_KardexArticulos(ncode_arti, "", "", ncode_alma).ToList();
+
+
+                decimal resudisponible = 0;
+
+                if (resultado != null && resultado.Count > 0)
+                {
+                    var xstock = resultado.ToArray();
+                    resudisponible = (decimal)xstock[0].STOCK;
+                }
+
+                return Json(resudisponible);
+
+            }
+            catch (Exception)
+            {
+
+                return Json(0);
+            }
         }
 
         public JsonResult getPedidoPrecio(int ncode_arti)
@@ -170,7 +195,8 @@ namespace MarketASP.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             ORDEN_PEDIDOS pedido = db.ORDEN_PEDIDOS.Find(ncode_orpe);
             CLIENTE cLIENTE = db.CLIENTE.Find(pedido.ncode_cliente);
-            List<ORDEN_PEDIDOS_DETALLE> lista = db.ORDEN_PEDIDOS_DETALLE.Include("ARTICULO").Where(p => p.ncode_orpe == ncode_orpe).ToList();
+            List<ORDEN_PEDIDOS_DETALLE> lista = db.ORDEN_PEDIDOS_DETALLE.Include("ARTICULO")
+                .Where(p => p.ncode_orpe == ncode_orpe).Where(p=> p.ncantventa_orpedeta > 0).ToList();
             List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
 
             foreach (var item in lista)
@@ -182,7 +208,7 @@ namespace MarketASP.Controllers
                     scod2 = item.ARTICULO.scode_arti,
                     sdesc = item.ARTICULO.sdesc1_arti,
                     nafecto_vedeta = item.nafecto_orpedeta,
-                    ncant_vedeta = item.ncant_orpedeta,
+                    ncant_vedeta = item.ncantventa_orpedeta,
                     ncode_arti = item.ncode_arti,
                     npu_vedeta = item.npu_orpedeta,
                     ndscto_vedeta = item.ndscto_orpedeta,

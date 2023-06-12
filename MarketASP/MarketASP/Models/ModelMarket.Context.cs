@@ -79,8 +79,8 @@ namespace MarketASP.Models
         public virtual DbSet<VENDEDOR> VENDEDOR { get; set; }
         public virtual DbSet<VENDEDOR_ZONA> VENDEDOR_ZONA { get; set; }
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
-        public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
         public virtual DbSet<VENTAS> VENTAS { get; set; }
+        public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -1542,7 +1542,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ArticuloListado_Result>("Pr_ArticuloListado");
         }
     
-        public virtual ObjectResult<Pr_KardexArticulos_Result> Pr_KardexArticulos(Nullable<long> ncode_arti, string sdesc_arti, string sdesc_alma)
+        public virtual ObjectResult<Pr_KardexArticulos_Result> Pr_KardexArticulos(Nullable<long> ncode_arti, string sdesc_arti, string sdesc_alma, Nullable<long> ncode_alma)
         {
             var ncode_artiParameter = ncode_arti.HasValue ?
                 new ObjectParameter("ncode_arti", ncode_arti) :
@@ -1556,7 +1556,11 @@ namespace MarketASP.Models
                 new ObjectParameter("sdesc_alma", sdesc_alma) :
                 new ObjectParameter("sdesc_alma", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexArticulos_Result>("Pr_KardexArticulos", ncode_artiParameter, sdesc_artiParameter, sdesc_almaParameter);
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexArticulos_Result>("Pr_KardexArticulos", ncode_artiParameter, sdesc_artiParameter, sdesc_almaParameter, ncode_almaParameter);
         }
     
         public virtual int Pr_PermisoCrear(string username, string nivel)
@@ -2010,6 +2014,49 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_cliente", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ClienteDirecciones_Result>("Pr_ClienteDirecciones", ncode_clienteParameter);
+        }
+    
+        public virtual int Pr_ventaActualizaPedido(Nullable<int> tipo, Nullable<long> ncode_orpe, Nullable<long> ncode_venta)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var ncode_orpeParameter = ncode_orpe.HasValue ?
+                new ObjectParameter("ncode_orpe", ncode_orpe) :
+                new ObjectParameter("ncode_orpe", typeof(long));
+    
+            var ncode_ventaParameter = ncode_venta.HasValue ?
+                new ObjectParameter("ncode_venta", ncode_venta) :
+                new ObjectParameter("ncode_venta", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaActualizaPedido", tipoParameter, ncode_orpeParameter, ncode_ventaParameter);
+        }
+    
+        public virtual ObjectResult<Pr_ClienteListado_Result> Pr_ClienteListado(Nullable<int> tipo)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_ClienteListado_Result>("Pr_ClienteListado", tipoParameter);
+        }
+    
+        public virtual ObjectResult<Pr_VentaListado_Result> Pr_VentaListado(Nullable<int> tipo, string fini, string ffin)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var finiParameter = fini != null ?
+                new ObjectParameter("fini", fini) :
+                new ObjectParameter("fini", typeof(string));
+    
+            var ffinParameter = ffin != null ?
+                new ObjectParameter("ffin", ffin) :
+                new ObjectParameter("ffin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_VentaListado_Result>("Pr_VentaListado", tipoParameter, finiParameter, ffinParameter);
         }
     }
 }

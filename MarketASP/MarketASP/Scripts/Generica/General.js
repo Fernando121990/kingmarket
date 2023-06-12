@@ -33,7 +33,7 @@ $(document).ready(function () {
             //console.log(ui.item.fopagoid);
 
             $('#COD_CLIENTE').val(ui.item.id);
-            $("#sruc").val(ui.item.rucid);
+            $("#sruc_cliente").val(ui.item.rucid);
             $('#sdni_cliente').val(ui.item.dnid);
             //$('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
@@ -44,7 +44,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#sruc").autocomplete({
+    $("#sruc_cliente").autocomplete({
         source: function (request, response) {
             $.ajax({
                 url: urlGetRucCliente, // "/Encuesta/GetCliente",
@@ -93,7 +93,7 @@ $(document).ready(function () {
         select: function (event, ui) {
             $('#COD_CLIENTE').val(ui.item.id);
             $('#sdesc_cliente').val(ui.item.razon);
-            $('#sruc').val(ui.item.rucid);
+            $('#sruc_cliente').val(ui.item.rucid);
             $('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
             $('#ncode_alma').val(ui.item.almaid);

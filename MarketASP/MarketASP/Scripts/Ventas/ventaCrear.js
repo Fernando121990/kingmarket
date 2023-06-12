@@ -1,11 +1,12 @@
 ﻿var mattable;
 var ordentable;
+var conf_igv = 0;
+var conf_decimal = 0;
+var conf_icbper = 0
+
 $(document).ready(function () {
 
     var code = 0;
-    var conf_igv = 0;
-    var conf_decimal = 0;
-
     code = $("#ncode_venta").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
@@ -55,13 +56,16 @@ $(document).ready(function () {
                     switch (idx) {
                         case 3: //quantity column
                             //console.log('cantidad');
-                            ofunciones.cell(aPos, idx).data(sValue).draw;
-                            var xcant = ofunciones.cell(aPos, 3).data();
-                            //console.log(xcant);
+                            var almacen = $("#ncode_alma option:selected").val();
+                            var codarticulo = ofunciones.cell(aPos, 0).data();
+                            var cantorigen = ofunciones.cell(aPos, 13).data();
+                            var cantvalida = ComparaCantidad(sValue, cantorigen)
+                            fnStockValida(codarticulo, cantvalida, almacen);
+                            ofunciones.cell(aPos, idx).data(cantvalida).draw;
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            //console.log(xvalue);
-                            var subto = xcant * parseFloat(xvalue);
+                            var subto = cantvalida * parseFloat(xvalue);
                             ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
+                            
                             break;
                         case 5: //price column
                             //console.log('subtotal');
@@ -213,7 +217,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,0]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
@@ -275,20 +279,6 @@ $(document).ready(function () {
             return false;
         }
 
-        //If Val(Me.TXT_TC.Text) = 0 Then vrpta = False : MsgBox("Ingrese Tipo de Cambio", MsgBoxStyle.Information) : Exit Function
-
-        //If Combo_DOC.SelectedValue = "001" And DBLISTAR.Rows.Count - 1 > CONFIG_ITEM_FACTURA Then
-        //vrpta = False
-        //MessageBox.Show("Solo puede ingresar " & CONFIG_ITEM_FACTURA & " Items.", "GRABAR", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        //Exit Function
-        //End If
-
-        //If Combo_DOC.SelectedValue = "002" And DBLISTAR.Rows.Count - 1 > CONFIG_ITEM_BOLETA Then
-        //vrpta = False
-        //MessageBox.Show("Solo puede ingresar " & CONFIG_ITEM_BOLETA & " Items.", "GRABAR", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        //Exit Function
-        //End If
-        /////******
         var otbly = $('#tbl').dataTable();
         var nrowsy = otbly.fnGetData().length;
         //console.log(nrowsy);
@@ -296,6 +286,7 @@ $(document).ready(function () {
             alert("Seleccione Articulos");
             return false;
         }
+
 
         Sales_save();
     });
@@ -385,7 +376,8 @@ function Sales_save() {
     var ventaViewDetas = {
         "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
         "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
-        "ncode_alma": "","ndsctomax_vedeta":"","ndsctomin_vedeta":"","ndsctoporc_vedeta":"","bicbper_vedeta" :""
+        "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "", "bicbper_vedeta": "",
+        "sdesc": ""
     };
 
     var ventaView = {
@@ -444,6 +436,7 @@ function Sales_save() {
     for (var i = 0; i < nrowsx; i++) {
 
         ventaViewDetas.ncode_arti = oTable[i][0];
+        ventaViewDetas.sdesc = oTable[i][2];
         ventaViewDetas.ncant_vedeta = oTable[i][3];
         ventaViewDetas.npu_vedeta = oTable[i][5];
         ventaViewDetas.ndscto_vedeta = oTable[i][6] - oTable[i][5];
@@ -460,7 +453,7 @@ function Sales_save() {
             "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
             "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
             "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "",
-            "bicbper_vedeta" : ""
+            "bicbper_vedeta": "", "sdesc": ""
         };
 
     }
@@ -485,8 +478,11 @@ function Sales_save() {
                     console.log(urlventaCobro);
                     urlventaCobro = urlventaCobro.replace("param-id", encodeURIComponent(result.CtaCo))
                         .replace("param-mensaje", encodeURIComponent(result.Mensaje));
-                    console.log(urlventaCobro);
+                    //console.log(urlventaCobro);
                     window.location.href = urlventaCobro;
+                    break;
+                case 3:
+                    alert(result.Mensaje);
                     break;
                 default:
                     window.location.href = urlventaLista;
@@ -612,6 +608,8 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     var TOTAL = TOTAL_AFEC + SUBT_EX;
 
     $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
+
+    return false;
 }
 function ComparaPrecio(Precio, PrecioOrigen) {
 
@@ -622,6 +620,24 @@ function ComparaPrecio(Precio, PrecioOrigen) {
     }
 
     return xprecio.toFixed(conf_decimal);
+
+}
+function ComparaCantidad(Cantidad, CantidadOrigen) {
+    console.log('valida cantidad');
+
+    var xcantidad = parseFloat(Cantidad);
+    //Verificar la cantidad origen sino viene de pedido no hay control de cantidades
+    if (CantidadOrigen > 0) {
+
+        if (parseFloat(Cantidad) > parseFloat(CantidadOrigen)) {
+            xcantidad = parseFloat(CantidadOrigen);
+        }
+
+
+    }
+
+
+    return xcantidad.toFixed(conf_decimal);
 
 }
 function fnFormaPagoDiasFecha() {
@@ -766,19 +782,20 @@ function fnCargaOrdenPedido(codigo) {
             var oprof = $('#tbl').DataTable();
             oprof.clear();
             for (var i = 0; i < num; i++) {
-                oprof.row.add([venta.ventaViewDetas[i].ncode_arti,
-                venta.ventaViewDetas[i].scod2,
-                venta.ventaViewDetas[i].sdesc,
-                venta.ventaViewDetas[i].ncant_vedeta,
-                    1,
-                venta.ventaViewDetas[i].npu_vedeta,
-                venta.ventaViewDetas[i].npu_vedeta,
-                    1,
-                venta.ventaViewDetas[i].besafecto_vedeta,
-                venta.ventaViewDetas[i].bisc_vedeta,
-                    venta.ventaViewDetas[i].npu_vedeta,
-                    false,
-                venta.ventaViewDetas[i].nafecto_vedeta]).draw();
+                oprof.row.add([venta.ventaViewDetas[i].ncode_arti
+                ,venta.ventaViewDetas[i].scod2
+                ,venta.ventaViewDetas[i].sdesc
+                ,venta.ventaViewDetas[i].ncant_vedeta
+                ,1
+                ,venta.ventaViewDetas[i].npu_vedeta
+                ,venta.ventaViewDetas[i].npu_vedeta
+                ,1
+                ,venta.ventaViewDetas[i].besafecto_vedeta
+                ,venta.ventaViewDetas[i].bisc_vedeta
+                    ,venta.ventaViewDetas[i].npu_vedeta
+                    ,false
+                    ,venta.ventaViewDetas[i].nafecto_vedeta
+                    ,venta.ventaViewDetas[i].ncant_vedeta]).draw();
             }
 
             fnclienteDire();
@@ -792,7 +809,40 @@ function fnCargaOrdenPedido(codigo) {
 
     Totales();
 
+    fnvalidararticulos();
+
     return false;
 
 
 }
+
+//function fnStockValida(codigo, cantidad, almacen, callback) {
+function fnStockValida(codigo, cantidad, almacen) {
+    //console.log(codigo);
+    //console.log(almacen);
+    $.ajax({
+        type: 'POST',
+        url: urlStockValida,
+        dataType: 'json',
+        data: { ncode_arti: codigo, ncode_alma:almacen },
+        success: function (resudisponible) {
+
+            if (resudisponible < cantidad) {
+                alert('El articulo no tiene stock disponible ');
+            }
+
+            //console.log(rpta);
+            //callback(rpta);
+        },
+        error: function (ex) {
+            alert('No se puede recuperar el stock disponible' + ex);
+        }
+    });
+
+}
+function fnmensaje(rpta) {
+    if (rpta == false) {
+        alert('el articulo no tiene disponible');
+    }
+}
+
