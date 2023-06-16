@@ -1,7 +1,7 @@
 ﻿@model MarketASP.Models.VENTAS
 
 <input id="ncode_orpe" name="ncode_orpe" type="hidden" />
-<input id="validacant" name="validacant" type="text" />
+
 
 <div class="row">
     <div>
@@ -232,6 +232,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
+                                    <th>Disponible</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
                                     <th>CodUM</th>
@@ -294,6 +295,7 @@
                             <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
+                            <td></td>
                         </tr>
 
                     }

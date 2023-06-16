@@ -29,6 +29,13 @@
                             </tr>
                         }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>TOTALES :</td>
+                            <td>@Model.Sum(x=>x.STOCK)</td>
+                            <td>@Model.Sum(x => x.DISPONIBLE)</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

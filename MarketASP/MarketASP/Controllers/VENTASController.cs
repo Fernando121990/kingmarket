@@ -106,6 +106,7 @@ namespace MarketASP.Controllers
             int cccode = 0;
             string data = "";
             int fila = 0;
+            int xcontado = 0;
             try
             {
 
@@ -122,7 +123,7 @@ namespace MarketASP.Controllers
 
                         if (mofView != null)
                         {
-
+                            xcontado = mofView.ncode_fopago;
                             //verificar stock
                             var bstock = true;
 
@@ -184,6 +185,15 @@ namespace MarketASP.Controllers
 
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
+                            //verificar si la venta esta asociada a una orden de pedido
+                             //var sconfi = Helpers.Funciones.ObtenerValorParam("GENERAL", "VENTA X PEDIDO");
+                            //if (sconfi == "SI")
+                            if (ConfiguracionSingleton.Instance.glbVentaxPedido == "SI" && mofView.ncode_orpe != null && mofView.ncode_orpe > 0)
+                            {
+                                db.Pr_KardexCrea("Venta", 5, "R", code, User.Identity.Name);
+                            }
+                            
+
                             db.Pr_ventaActualizaPedido(0,mofView.ncode_orpe, code);
 
                             resultado.Success = true;
@@ -212,10 +222,16 @@ namespace MarketASP.Controllers
                     xmensaje = "Error Sunat - " + resultado.Error.Description;
                 }
 
+                if (ConfiguracionSingleton.Instance.glbContado != xcontado)
+                {
+                    return Json(new { Success = 1, Mensaje = xmensaje });
+                }
+
                 if (ConfiguracionSingleton.Instance.glbcobroAutomatico == "SI")
                 {
                     return Json(new { Success = 2, CtaCo = cccode, Mensaje = xmensaje });
                 }
+
 
                 return Json(new { Success = 1, Mensaje = xmensaje });
 
@@ -280,11 +296,15 @@ namespace MarketASP.Controllers
         public JsonResult Edit(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
-
-            int xsw;
-            long code;
+            
+            string xmensaje = "";
+            long code = 0;
+            int cccode = 0;
             string data = "";
             int fila = 0;
+            int xcontado = 0;
+            int xsw;
+
             try
             {
 
@@ -301,6 +321,43 @@ namespace MarketASP.Controllers
 
                         if (mofView != null)
                         {
+
+                            xcontado = mofView.ncode_fopago;
+                            //verificar stock
+                            var bstock = true;
+
+                            if (mofView.ventaViewDetas != null)
+                            {
+                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+                                {
+                                    fila++;
+
+                                    var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+
+                                    decimal cantdisponible = 0;
+
+                                    if (rstock != null && rstock.Count > 0)
+                                    {
+                                        var xstock = rstock.ToArray();
+                                        cantdisponible = (decimal)xstock[0].STOCK;
+                                    }
+
+
+                                    if (cantdisponible < item.ncant_vedeta)
+                                    {
+                                        xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
+                                        bstock = false;
+                                    }
+                                };
+
+                            }
+
+                            if (!bstock)
+                            {
+                                xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
+                                return Json(new { Success = 3, Mensaje = xmensaje });
+                            }
+
 
                             db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,

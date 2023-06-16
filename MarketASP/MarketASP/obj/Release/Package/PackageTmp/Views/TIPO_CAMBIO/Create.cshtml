@@ -25,14 +25,14 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="ncompra_tc" class="col-form-label">Compra</label>
-                                @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @autofocus = "autofocus", @required = "required", @maxlength = "4" } })
+                                @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "text", @autofocus = "autofocus", @required = "required", @maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.ncompra_tc, "Ingrese TC de Compra", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="nventa_tc" class="col-form-label">Venta</label>
-                                @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "number", @required = "required", @maxlength = "4" } })
+                                @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = "required", @maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.nventa_tc, "Ingrese TC de Venta", new { @class = "text-danger" })
                             </div>
                         </div>

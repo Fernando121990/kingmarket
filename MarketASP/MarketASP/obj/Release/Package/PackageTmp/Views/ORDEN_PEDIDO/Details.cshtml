@@ -1,0 +1,101 @@
+﻿@model MarketASP.Models.ORDEN_PEDIDOS
+
+@{
+    ViewBag.Title = "Detalles";
+    ViewBag.pTitle = "Detalles";
+    ViewBag.pageTitle = "Orden de Pedido";
+}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Volver</a>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="example-text-input" class="col-form-label">Fecha</label>
+                                        <div>
+                                            @string.Format("{0:d}", Model.dfeorpeo_orpe)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label for="example-text-input" class="col-form-label">Documento</label>
+                                        <div>
+                                            @string.Concat(Model.sseri_orpe, "-", Model.snume_orpe)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="mb-3">
+                                        <label for="example-text-input" class="col-form-label">Cliente</label>
+                                        <div>
+                                            @Html.DisplayFor(model => model.CLIENTE.srazon_cliente, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="example-text-input" class="col-form-label">Total</label>
+                                        <div>
+                                            @Model.smone_orpe  @string.Format("{0:N2}", Model.ntotal_orpe)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>
+                                                Articulo
+                                            </th>
+                                            <th>
+                                                Cantidad
+                                            </th>
+                                            <th>
+                                                Precio
+                                            </th>
+                                            <th>
+                                                Cantidad Entregada
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ORDEN_PEDIDOS_DETALLE)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ncant_orpedeta)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.npu_orpedeta)
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        decimal xdespacho = 0;
+                                                        xdespacho = (decimal)item.ncant_orpedeta - (decimal)item.ncantventa_orpedeta;
+                                                    }
+
+                                                    @string.Format("{0:N2}", xdespacho)
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->

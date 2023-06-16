@@ -38,6 +38,7 @@ namespace MarketASP.Models
             this.VENTAS1 = new HashSet<VENTAS>();
             this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
             this.ORDEN_PEDIDOS1 = new HashSet<ORDEN_PEDIDOS>();
+            this.CLIENTE2 = new HashSet<CLIENTE>();
         }
     
         public int ncode_confi { get; set; }
@@ -89,5 +90,7 @@ namespace MarketASP.Models
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CLIENTE> CLIENTE2 { get; set; }
     }
 }

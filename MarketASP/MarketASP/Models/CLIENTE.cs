@@ -69,5 +69,6 @@ namespace MarketASP.Models
         public virtual ICollection<VENTAS> VENTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        public virtual CONFIGURACION CONFIGURACION2 { get; set; }
     }
 }

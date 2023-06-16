@@ -12,7 +12,8 @@ namespace MarketASP.Clases
         public decimal glbIGV { get; set; }
         public string glbcobroAutomatico { get; set; }
         public int glbDecimales { get; set; }
-
+        public string glbVentaxPedido { get; set; }
+        public int glbContado { get; set; }
         public ConfiguracionSingleton()
         {
             using (Models.MarketWebEntities db = new Models.MarketWebEntities())
@@ -21,6 +22,8 @@ namespace MarketASP.Clases
                 glbIGV = decimal.Parse(lblconfiguracion.Where(c => c.ncode_confi == 1).First().svalor_confi);
                 glbcobroAutomatico = lblconfiguracion.Where(c => c.ncode_confi == 1012).First().svalor_confi;
                 glbDecimales = int.Parse(lblconfiguracion.Where(c => c.ncode_confi == 1031).First().svalor_confi);
+                glbVentaxPedido = lblconfiguracion.Where(c => c.ncode_confi == 1068).First().svalor_confi;
+                glbContado = 1053;
             }
 
         }

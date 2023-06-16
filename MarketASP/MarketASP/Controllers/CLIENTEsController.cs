@@ -47,7 +47,8 @@ namespace MarketASP.Controllers
             
             var resultado = db.Pr_VendedoresLista(cLIENTE.ncode_vende).ToList();
             var encargadoarray = resultado.ToArray();
-            ViewBag.encargado = encargadoarray[0].VendeZona;
+            ViewBag.encargado = encargadoarray[0].sdesc_vende;
+            ViewBag.zona = encargadoarray[0].sdesc_zona;
             return View(cLIENTE);
         }
 
@@ -64,7 +65,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona");
             return View();
@@ -124,7 +125,7 @@ namespace MarketASP.Controllers
 
             }
 
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende");
             return View(cLIENTE);
@@ -204,7 +205,7 @@ namespace MarketASP.Controllers
                 ViewBag.pna = "Checked";
             }
 
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",cLIENTE.ncode_fopago);
+            ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi",cLIENTE.nidtipodoc_cliente);
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi",cLIENTE.ncode_afepercepcion);
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", cLIENTE.ncode_vende);
             return View(cLIENTE);
@@ -221,7 +222,7 @@ namespace MarketASP.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", cLIENTE.ncode_fopago);
+            ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi", cLIENTE.nidtipodoc_cliente);
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi", cLIENTE.ncode_afepercepcion);
             ViewBag.ncode_vende = new SelectList(db.VENDEDOR.Where(c => c.nesta_vende == true), "ncode_vende", "sdesc_vende", cLIENTE.ncode_vende);
             return View(cLIENTE);

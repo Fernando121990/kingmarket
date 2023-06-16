@@ -982,16 +982,6 @@
     <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoDetaEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoDetaEdita" />
     <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoEdita" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoEdita" />
     <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoElimina" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoElimina" />
-    <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoLista" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoLista">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OrdenPedidoLista_Result">
-          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-          <ScalarProperty Name="numeracion" ColumnName="numeracion" />
-          <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <EntitySetMapping Name="CLI_FOPAGO">
       <EntityTypeMapping TypeName="MarketWebModel.CLI_FOPAGO">
         <MappingFragment StoreEntitySet="CLI_FOPAGO">
@@ -1093,19 +1083,6 @@
           <ScalarProperty Name="fecha" ColumnName="fecha" />
           <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
           <ScalarProperty Name="documento" ColumnName="documento" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Pr_PedidoConsultaDetallada" FunctionName="MarketWebModel.Store.Pr_PedidoConsultaDetallada">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoConsultaDetallada_Result">
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-          <ScalarProperty Name="documento" ColumnName="documento" />
-          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
-          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
-          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
-          <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
-          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1248,7 +1225,46 @@
           <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
           <ScalarProperty Name="ncode_venta" ColumnName="ncode_venta" />
           <ScalarProperty Name="OrdenPedido" ColumnName="OrdenPedido" />
-          <ScalarProperty Name="bventaxpedido" ColumnName="bventaxpedido" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_OrdenPedidoLista" FunctionName="MarketWebModel.Store.Pr_OrdenPedidoLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OrdenPedidoLista_Result">
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="numeracion" ColumnName="numeracion" />
+          <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_PedidoConsulta" FunctionName="MarketWebModel.Store.Pr_PedidoConsulta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoConsulta_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+          <ScalarProperty Name="zona" ColumnName="zona" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+          <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
+          <ScalarProperty Name="almacen" ColumnName="almacen" />
+          <ScalarProperty Name="besta_orpe" ColumnName="besta_orpe" />
+          <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+          <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_PedidoConsultaDetallada" FunctionName="MarketWebModel.Store.Pr_PedidoConsultaDetallada">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_PedidoConsultaDetallada_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="ncant_orpedeta" ColumnName="ncant_orpedeta" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

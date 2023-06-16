@@ -810,11 +810,6 @@
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
-      <Parameter Name="tipo" Mode="In" Type="Int32" />
-      <Parameter Name="documento" Mode="In" Type="String" />
-      <Parameter Name="cliente" Mode="In" Type="String" />
-    </FunctionImport>
     <AssociationSet Name="FK_ARTICULO_LINEA" Association="MarketWebModel.FK_ARTICULO_LINEA">
       <End Role="LINEA" EntitySet="LINEA" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -871,9 +866,6 @@
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
-      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_clienteFormaPagos" ReturnType="Collection(MarketWebModel.Pr_clienteFormaPagos_Result)">
@@ -949,6 +941,22 @@
       <Parameter Name="fini" Mode="In" Type="String" />
       <Parameter Name="ffin" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="documento" Mode="In" Type="String" />
+      <Parameter Name="cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoConsulta" ReturnType="Collection(MarketWebModel.Pr_PedidoConsulta_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <AssociationSet Name="FK_CLIENTE_CONFIGURACION" Association="MarketWebModel.FK_CLIENTE_CONFIGURACION">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1750,6 +1758,7 @@
     <NavigationProperty Name="VENTAS1" Relationship="MarketWebModel.R_30" FromRole="CONFIGURACION" ToRole="VENTAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_640" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_PEDIDOS1" Relationship="MarketWebModel.R_690" FromRole="CONFIGURACION" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="CLIENTE2" Relationship="MarketWebModel.FK_CLIENTE_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLIENTE" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -2832,6 +2841,7 @@
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_65" FromRole="CLIENTE" ToRole="PROFORMAS" />
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
+    <NavigationProperty Name="CONFIGURACION2" Relationship="MarketWebModel.FK_CLIENTE_CONFIGURACION" FromRole="CLIENTE" ToRole="CONFIGURACION" />
   </EntityType>
   <Association Name="R_11">
     <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -3054,12 +3064,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="Pr_OrdenPedidoLista_Result">
-    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
-    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
-    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
-  </ComplexType>
   <EntityType Name="ORDEN_PEDIDOS">
     <Key>
       <PropertyRef Name="ncode_orpe" />
@@ -3228,6 +3232,36 @@
     <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
     <Property Type="Int64" Name="ncode_venta" Nullable="false" />
     <Property Type="String" Name="OrdenPedido" Nullable="false" MaxLength="41" />
-    <Property Type="Boolean" Name="bventaxpedido" Nullable="true" />
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="Pr_OrdenPedidoLista_Result">
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+  </ComplexType>
+  <ComplexType Name="Pr_PedidoConsulta_Result">
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+    <Property Type="String" Name="vendedor" Nullable="false" MaxLength="5000" />
+    <Property Type="String" Name="zona" Nullable="false" MaxLength="500" />
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="almacen" Nullable="false" MaxLength="2000" />
+    <Property Type="Boolean" Name="besta_orpe" Nullable="true" />
+    <Property Type="String" Name="TOTAL" Nullable="false" MaxLength="62" />
+    <Property Type="Int32" Name="bventa_orpe" Nullable="true" />
+  </ComplexType>
+  <Association Name="FK_CLIENTE_CONFIGURACION">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="nidtipodoc_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

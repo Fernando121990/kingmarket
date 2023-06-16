@@ -810,11 +810,6 @@
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
-      <Parameter Name="tipo" Mode="In" Type="Int32" />
-      <Parameter Name="documento" Mode="In" Type="String" />
-      <Parameter Name="cliente" Mode="In" Type="String" />
-    </FunctionImport>
     <AssociationSet Name="FK_ARTICULO_LINEA" Association="MarketWebModel.FK_ARTICULO_LINEA">
       <End Role="LINEA" EntitySet="LINEA" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
@@ -871,9 +866,6 @@
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_PedidoPrecio" ReturnType="Collection(MarketWebModel.Pr_PedidoPrecio_Result)">
-      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_clienteFormaPagos" ReturnType="Collection(MarketWebModel.Pr_clienteFormaPagos_Result)">
@@ -948,6 +940,18 @@
       <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="fini" Mode="In" Type="String" />
       <Parameter Name="ffin" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="documento" Mode="In" Type="String" />
+      <Parameter Name="cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoConsulta" ReturnType="Collection(MarketWebModel.Pr_PedidoConsulta_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
@@ -3054,12 +3058,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="Pr_OrdenPedidoLista_Result">
-    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
-    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
-    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
-    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
-  </ComplexType>
   <EntityType Name="ORDEN_PEDIDOS">
     <Key>
       <PropertyRef Name="ncode_orpe" />
@@ -3228,6 +3226,24 @@
     <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
     <Property Type="Int64" Name="ncode_venta" Nullable="false" />
     <Property Type="String" Name="OrdenPedido" Nullable="false" MaxLength="41" />
-    <Property Type="Boolean" Name="bventaxpedido" Nullable="true" />
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Pr_OrdenPedidoLista_Result">
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+  </ComplexType>
+  <ComplexType Name="Pr_PedidoConsulta_Result">
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+    <Property Type="String" Name="vendedor" Nullable="false" MaxLength="5000" />
+    <Property Type="String" Name="zona" Nullable="false" MaxLength="500" />
+    <Property Type="Int64" Name="ncode_orpe" Nullable="false" />
+    <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="almacen" Nullable="false" MaxLength="2000" />
+    <Property Type="Boolean" Name="besta_orpe" Nullable="true" />
+    <Property Type="String" Name="TOTAL" Nullable="false" MaxLength="62" />
+    <Property Type="Int32" Name="bventa_orpe" Nullable="true" />
   </ComplexType>
 </Schema>

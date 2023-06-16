@@ -2473,9 +2473,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   <Function Name="Pr_ClienteListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="tipo" Type="int" Mode="In" />
   </Function>
-  <Function Name="Pr_PedidoConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
-    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
-  </Function>
   <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
   </Function>
@@ -2493,6 +2490,13 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="fini" Type="varchar" Mode="In" />
     <Parameter Name="ffin" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_PedidoConsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OPedido">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_PedidoConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OPedido">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
   </Function>
   <EntityContainer Name="MarketWebModelStoreContainer">
     <EntitySet Name="ALMACEN" EntityType="Self.ALMACEN" Schema="dbo" store:Type="Tables" />

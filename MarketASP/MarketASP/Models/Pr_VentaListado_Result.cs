@@ -26,6 +26,6 @@ namespace MarketASP.Models
         public string srazon_cliente { get; set; }
         public long ncode_venta { get; set; }
         public string OrdenPedido { get; set; }
-        public Nullable<bool> bventaxpedido { get; set; }
+        public long ncode_orpe { get; set; }
     }
 }

@@ -21,13 +21,27 @@ namespace MarketASP.Controllers
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: ORDEN_PEDIDOS
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var ORDEN_PEDIDOS = db.ORDEN_PEDIDOS.Include(p => p.ALMACEN).Include(p => p.CLI_DIRE).Include(p => p.CLIENTE).Include(p => p.CONFIGURACION).Include(p => p.CONFIGURACION1).Include(p => p.LOCAL);
-            return View(await ORDEN_PEDIDOS.ToListAsync());
+            //var ORDEN_PEDIDOS = db.ORDEN_PEDIDOS.Include(p => p.ALMACEN).Include(p => p.CLI_DIRE).Include(p => p.CLIENTE).Include(p => p.CONFIGURACION).Include(p => p.CONFIGURACION1).Include(p => p.LOCAL);
+            var ORDEN_PEDIDOS = db.Pr_PedidoConsulta(1,0).ToList();
+            return View(ORDEN_PEDIDOS);
         }
 
-        // GET: ORDEN_PEDIDOS/Details/5
+        public async Task<ActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ORDEN_PEDIDOS pedido = await db.ORDEN_PEDIDOS.FindAsync(id);
+            if (pedido == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pedido);
+        }
+
         public async Task<ActionResult> OPDetalles()
         {
             //if (id == null)

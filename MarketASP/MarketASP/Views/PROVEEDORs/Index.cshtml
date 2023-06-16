@@ -18,7 +18,6 @@
                     <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
-                                <th>Cod.</th>
                                 <th>
                                     Descripción
                                 </th>
@@ -50,9 +49,6 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncode_provee)
-                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.sdesc_prove)
                                     </td>

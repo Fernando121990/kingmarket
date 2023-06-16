@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.ORDEN_PEDIDOS>
+﻿@model IEnumerable<MarketASP.Models.Pr_PedidoConsulta_Result>
 
 @{
     ViewBag.Title = "Consultar";
@@ -16,9 +16,6 @@
                     <table id="datatable" class="table table-centered datatable dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
-                                @*<th>
-                                    Doc.
-                                </th>*@
                                 <th>
                                     Cliente
                                 </th>
@@ -29,17 +26,11 @@
                                     F.Venta
                                 </th>
                                 <th>
-                                    F.Vcto
-                                </th>
-                                @*<th>
-                                    TC
-                                </th>*@
-                                <th>
-                                    M
-                                </th>
-                                <th>
                                     Total
                                 </th>
+                                <th>Vendedor</th>
+                                <th>Zona</th>
+                                <th>Almacen</th>
                                 <th>Activa</th>
                                 <th>Venta</th>
                                 <th></th>
@@ -49,29 +40,26 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    @*<td>
-            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-        </td>*@
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CLIENTE.srazon_cliente)
+                                        @Html.DisplayFor(modelItem => item.srazon_cliente)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sseri_orpe) - @Html.DisplayFor(modelItem => item.snume_orpe)
+                                        @Html.ActionLink(item.documento, "Details", new { id = item.ncode_orpe })
                                     </td>
                                     <td>
-                                        @string.Format("{0:d}", item.dfeorpeo_orpe)
+                                        @Html.DisplayFor(modelItem => item.fecha)
                                     </td>
                                     <td>
-                                        @string.Format("{0:d}", item.dfevenci_orpe)
-                                    </td>
-                                    @*<td>
-            @Html.DisplayFor(modelItem => item.ntc_orpe)
-        </td>*@
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.smone_orpe)
+                                        @Html.DisplayFor(modelItem => item.TOTAL)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ntotal_orpe)
+                                        @Html.DisplayFor(modelItem => item.vendedor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.zona)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.almacen)
                                     </td>
                                     <td>
                                         @if (item.besta_orpe == false)
@@ -94,10 +82,9 @@
                                         }
                                         else
                                         {
-                                        <div class="badge badge-soft-success font-size-12">Total</div>
+                                            <div class="badge badge-soft-success font-size-12">Total</div>
                                         }
                                     </td>
-                                    @*@Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)*@
                                     <td>
                                         @if (item.besta_orpe == true && item.bventa_orpe == 0)
                                         {

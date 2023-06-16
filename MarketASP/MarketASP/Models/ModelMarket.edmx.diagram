@@ -143,6 +143,7 @@
         <AssociationConnector Association="MarketWebModel.R_690" />
         <AssociationConnector Association="MarketWebModel.R_680" />
         <AssociationConnector Association="MarketWebModel.R_620" />
+        <AssociationConnector Association="MarketWebModel.FK_CLIENTE_CONFIGURACION" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

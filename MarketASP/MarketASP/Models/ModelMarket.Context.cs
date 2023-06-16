@@ -1945,23 +1945,6 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenPedidoElimina", ncode_orpeParameter, sw);
         }
     
-        public virtual ObjectResult<Pr_OrdenPedidoLista_Result> Pr_OrdenPedidoLista(Nullable<int> tipo, string documento, string cliente)
-        {
-            var tipoParameter = tipo.HasValue ?
-                new ObjectParameter("tipo", tipo) :
-                new ObjectParameter("tipo", typeof(int));
-    
-            var documentoParameter = documento != null ?
-                new ObjectParameter("documento", documento) :
-                new ObjectParameter("documento", typeof(string));
-    
-            var clienteParameter = cliente != null ?
-                new ObjectParameter("cliente", cliente) :
-                new ObjectParameter("cliente", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OrdenPedidoLista_Result>("Pr_OrdenPedidoLista", tipoParameter, documentoParameter, clienteParameter);
-        }
-    
         public virtual ObjectResult<Pr_VendedoresLista_Result> Pr_VendedoresLista(Nullable<long> ncode_vende)
         {
             var ncode_vendeParameter = ncode_vende.HasValue ?
@@ -1987,15 +1970,6 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_arti", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoPrecio_Result>("Pr_PedidoPrecio", ncode_artiParameter);
-        }
-    
-        public virtual ObjectResult<Pr_PedidoConsultaDetallada_Result> Pr_PedidoConsultaDetallada(Nullable<long> ncode_arti)
-        {
-            var ncode_artiParameter = ncode_arti.HasValue ?
-                new ObjectParameter("ncode_arti", ncode_arti) :
-                new ObjectParameter("ncode_arti", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoConsultaDetallada_Result>("Pr_PedidoConsultaDetallada", ncode_artiParameter);
         }
     
         public virtual ObjectResult<Pr_clienteFormaPagos_Result> Pr_clienteFormaPagos(Nullable<long> ncode_clie)
@@ -2057,6 +2031,45 @@ namespace MarketASP.Models
                 new ObjectParameter("ffin", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_VentaListado_Result>("Pr_VentaListado", tipoParameter, finiParameter, ffinParameter);
+        }
+    
+        public virtual ObjectResult<Pr_OrdenPedidoLista_Result> Pr_OrdenPedidoLista(Nullable<int> tipo, string documento, string cliente)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var documentoParameter = documento != null ?
+                new ObjectParameter("documento", documento) :
+                new ObjectParameter("documento", typeof(string));
+    
+            var clienteParameter = cliente != null ?
+                new ObjectParameter("cliente", cliente) :
+                new ObjectParameter("cliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OrdenPedidoLista_Result>("Pr_OrdenPedidoLista", tipoParameter, documentoParameter, clienteParameter);
+        }
+    
+        public virtual ObjectResult<Pr_PedidoConsulta_Result> Pr_PedidoConsulta(Nullable<int> tipo, Nullable<long> ncode_arti)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoConsulta_Result>("Pr_PedidoConsulta", tipoParameter, ncode_artiParameter);
+        }
+    
+        public virtual ObjectResult<Pr_PedidoConsultaDetallada_Result> Pr_PedidoConsultaDetallada(Nullable<long> ncode_arti)
+        {
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoConsultaDetallada_Result>("Pr_PedidoConsultaDetallada", ncode_artiParameter);
         }
     }
 }

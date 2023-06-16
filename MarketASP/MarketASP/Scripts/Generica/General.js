@@ -65,11 +65,12 @@ $(document).ready(function () {
             $('#COD_CLIENTE').val(ui.item.id);
             $('#sdesc_cliente').val(ui.item.razon);
             $('#sdni_cliente').val(ui.item.dnid);
-            $('#ncode_fopago').val(ui.item.fopagoid);
+            //$('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
             $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
-            fnFormaPagoDiasFecha();
+            fnclienteFPago();
+            fnFormaPagoDiasFecha(ui.item.fopagoid);
         }
     });
 
@@ -94,11 +95,12 @@ $(document).ready(function () {
             $('#COD_CLIENTE').val(ui.item.id);
             $('#sdesc_cliente').val(ui.item.razon);
             $('#sruc_cliente').val(ui.item.rucid);
-            $('#ncode_fopago').val(ui.item.fopagoid);
+            //$('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
             $('#ncode_alma').val(ui.item.almaid);
             fnclienteDire();
-            fnFormaPagoDiasFecha();
+            fnclienteFPago();
+            fnFormaPagoDiasFecha(ui.item.fopagoid);
         }
     });
 

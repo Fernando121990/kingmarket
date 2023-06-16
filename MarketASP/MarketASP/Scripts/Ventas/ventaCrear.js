@@ -27,6 +27,7 @@ $(document).ready(function () {
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
         fnclienteFPago();
+
         $("#nro_fopago").val($('#ncode_fopago').val());
     }
 
@@ -34,9 +35,9 @@ $(document).ready(function () {
         fnDocumentoSerieNumero();
     });
 
-    //$("#ncode_fopago").change(function () {
-    //    fnFormaPagoDiasFecha()
-    //});
+    $("#ncode_fopago").change(function () {
+        fnFormaPagoDiasFecha()
+    });
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -163,18 +164,20 @@ $(document).ready(function () {
                         [{ "data": "Cod" },
                         { "data": "Cod2" },
                         { "data": "DescArt" },
-                        { "data": "Stock" },
+                            { "data": "Stock" },
+                            { "data": "Disponible" },
                         { "data": "Medida" },
                         { "data": "Precio" },
                         { "data": "ncode_umed" },
                         { "data": "bafecto_arti" },
                         { "data": "bisc_arti" },
                         { "data": "bdscto_arti" },
-                        { "data": "bicbper_arti" }
+                            { "data": "bicbper_arti" }
+                            
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0,6,7,8,9,10]
+                        "aTargets": [0,7,8,9,10,11]
                     },
                     {
                         "sClass": "my_class",
@@ -809,9 +812,7 @@ function fnCargaOrdenPedido(codigo) {
 
     Totales();
 
-    fnvalidararticulos();
-
-    return false;
+   return false;
 
 
 }

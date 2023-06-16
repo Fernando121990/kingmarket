@@ -1,292 +1,188 @@
 ﻿@model MarketASP.Models.CLIENTE
 
 @{
-    ViewBag.Title = "Detalles del Cliente";
+    ViewBag.Title = "Detalles";
+    ViewBag.pTitle = "Detalles";
+    ViewBag.pageTitle = "Clientes";
 }
-
 <div class="row">
-    <div class="col-md-6">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Datos Generales del Cliente</h6>
-            </div>
-            <div class="card-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        Razon Social
-                    </dt>
+    <!-- Nav tabs -->
+    <ul class="nav nav-pills nav-justified" role="tablist">
+        <li class="nav-item waves-effect waves-light">
+            <a class="nav-link active" data-bs-toggle="tab" href="#home-1" role="tab">
+                <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                <span class="d-none d-sm-block">Datos</span>
+            </a>
+        </li>
+        <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" data-bs-toggle="tab" href="#profile-1" role="tab">
+                <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                <span class="d-none d-sm-block">Direcciones</span>
+            </a>
+        </li>
+        <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" data-bs-toggle="tab" href="#barra-1" role="tab">
+                <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
+                <span class="d-none d-sm-block">Forma Pago</span>
+            </a>
+        </li>
+    </ul>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.srazon_cliente)
-                    </dd>
-
-                    <dt>
-                        RUC
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sruc_cliente)
-                    </dd>
-
-                    <dt>
-                        DNI/CE
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sdnice_cliente)
-                    </dd>
-
-                    <dt>
-                        Teléfono
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sfono1_cliente)
-                    </dd>
-
-                    <dt>
-                        Fax
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sfax_cliente)
-                    </dd>
-
-                    <dt>
-                        Linea Credito
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.slineacred_cliente)
-                    </dd>
-
-                    <dt>
-                        R.Legal
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.srepre_cliente)
-                    </dd>
-
-                    <dt>
-                        Correo
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.smail_cliente)
-                    </dd>
-                    <dt>
-                        Correo 2
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.smail2_cliente)
-                    </dd>
-                    <dt>
-                        Página
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sweb_cliente)
-                    </dd>
-
-                    <dt>
-                        Observación
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sobse_cliente)
-                    </dd>
-
-                    <dt>
-                        Teléfono
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sfono2_cliente)
-                    </dd>
-
-                    <dt>
-                        Teléfono
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sfono3_cliente)
-                    </dd>
-
-                    @*<dt>
-                        A.Paterno
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sappa_cliente)
-                    </dd>
-
-                    <dt>
-                        A.Materno
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.sapma_cliente)
-                    </dd>
-
-                    <dt>
-                        Nombres
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.snomb_cliente)
-                    </dd>*@
-                    <dt>
-                        Es Extranjero
-                    </dt>
-
-                    <dd>
-                        <input type="checkbox" checked="@Model.bprocedencia_cliente" readonly />
-
-                    </dd>
-                    <dt>
-                        Retencion
-                    </dt>
-                    <dd>
-                        <input type="checkbox" checked="@Model.bretencion_cliente" readonly />
-
-                    </dd>
-                    <dt>
-                        Encargado de zona
-                    </dt>
-                    <dd>
-                        @ViewBag.encargado
-                    </dd>
-
-                </dl>
-            </div>
-        </div>
-
-
-        
-    </div>
-    <div class="col-md-6">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="row">
-                    <div class="col mr-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Direcciones</h6>
+    <!-- Tab panes -->
+    <div class="tab-content p-3 text-muted">
+        <div class="tab-pane active" id="home-1" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="mb-0">
+                                <strong>Razon Social : </strong>@Html.DisplayFor(model => model.srazon_cliente) <br />
+                                <strong>RUC : </strong>@Html.DisplayFor(model => model.sruc_cliente) <br />
+                                <strong>DNI/CE : </strong>@Html.DisplayFor(model => model.sdnice_cliente) <br />
+                                <strong>Teléfono : </strong>@Html.DisplayFor(model => model.sfono1_cliente) <br />
+                                <strong>Teléfono : </strong>@Html.DisplayFor(model => model.sfono2_cliente) <br />
+                                <strong>Teléfono : </strong>@Html.DisplayFor(model => model.sfono3_cliente) <br />
+                                <strong>Fax : </strong>@Html.DisplayFor(model => model.sfax_cliente) <br />
+                                <strong>Correo : </strong>@Html.DisplayFor(model => model.smail_cliente) <br />
+                                <strong>Correo : </strong>@Html.DisplayFor(model => model.smail2_cliente) <br />
+                                <strong>Página : </strong>@Html.DisplayFor(model => model.sweb_cliente) <br />
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="@Url.Action("CreateDireccion", new { id = Model.ncode_cliente })" class="btn btn-primary btn-circle btn-sm" title="Añadir Direccion">
-                            <i class="fas fa-file"></i>
-                        </a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="mb-0">
+                                <strong>Doc.Pago : </strong>@Html.DisplayFor(model => model.CONFIGURACION2.sdesc_confi) <br />
+                                <strong>Linea Crédito : </strong>@Html.DisplayFor(model => model.slineacred_cliente) <br />
+                                <strong>R.Legal : </strong>@Html.DisplayFor(model => model.srepre_cliente) <br />
+                                <strong>Observación : </strong>@Html.DisplayFor(model => model.sobse_cliente) <br />
+                                <strong>Extrajero : </strong>@Html.CheckBox("bprocedencia_cliente") <br />
+                                <strong>Retención : </strong>@Html.CheckBox("bretencion_cliente") <br />
+                                <strong>Vendedor : </strong>@ViewBag.encargado <br />
+                                <strong>Zona : </strong>@ViewBag.zona <br />
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                @if (Model.CLI_DIRE.Count == 0)
-                {
-                    <h6 class="m-0 font-weight-bold text-primary">No se han registrado direcciones</h6>
-                }
-                else
-                {
-                    <table class="table table-striped table-responsive-sm">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>
-                                    Descripción
-                                </th>
-                                <th>
-                                    Ubicación
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var itemx in Model.CLI_DIRE)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => itemx.sdesc_clidire)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => itemx.UBIGEO.sdistri_ubigeo)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("EditDire", new { id = itemx.ncode_clidire })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="@Url.Action("DeleteDire", new { id = itemx.ncode_clidire })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                }
-
-            </div>
+            <!-- end row -->
         </div>
+        <div class="tab-pane" id="profile-1" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <a href="@Url.Action("CreateDireccion", new { id = Model.ncode_cliente })" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Direccion</a>
+                            </div>
+                            @if (Model.CLI_DIRE.Count == 0)
+                            {
+                                <h6 class="m-0 font-weight-bold text-primary">No se han registrado direcciones</h6>
+                            }
+                            else
+                            {
+                                <table class="table table-striped table-responsive-sm">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>
+                                                Descripción
+                                            </th>
+                                            <th>
+                                                Ubicación
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var itemx in Model.CLI_DIRE)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemx.sdesc_clidire)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemx.UBIGEO.sdistri_ubigeo)
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("EditDire", new { id = itemx.ncode_clidire })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("DeleteDire", new { id = itemx.ncode_clidire })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
 
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="row">
-                    <div class="col mr-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Formas de Pago</h6>
-                    </div>
-                    <div class="col-auto">
-                        <a href="@Url.Action("Createfopago", new { id = Model.ncode_cliente })" class="btn btn-primary btn-circle btn-sm" title="Añadir Forma de Pago">
-                            <i class="fas fa-file"></i>
-                        </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            }
+
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                @if (Model.CLI_FOPAGO.Count == 0)
-                {
-                    <h6 class="m-0 font-weight-bold text-primary">No se han registrado formas de pago</h6>
-                }
-                else
-                {
-                    <table class="table table-striped table-responsive-sm">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>
-                                    Descripción
-                                </th>
-                                <th>
-                                    Ubicación
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var itemx in Model.CLI_FOPAGO)
+            <!-- end row -->
+        </div>
+        <div class="tab-pane" id="barra-1" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <a href="@Url.Action("Createfopago", new { id = Model.ncode_cliente })" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Cod.Barra</a>
+                            </div>
+                            @if (Model.CLI_FOPAGO.Count == 0)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => itemx.CONFIGURACION.sdesc_confi)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Editfopago", new { id = itemx.ncode_clifo })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="@Url.Action("Deletefopago", new { id = itemx.ncode_clifo })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-
-                                    </td>
-                                </tr>
+                                <h6 class="m-0 font-weight-bold text-primary">No se han registrado formas de pago</h6>
                             }
-                        </tbody>
-                    </table>
+                            else
+                            {
+                                <table class="table table-striped table-responsive-sm">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>
+                                                Descripción
+                                            </th>
+                                            <th>
+                                                Ubicación
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var itemx in Model.CLI_FOPAGO)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemx.CONFIGURACION.sdesc_confi)
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("Editfopago", new { id = itemx.ncode_clifo })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="@Url.Action("Deletefopago", new { id = itemx.ncode_clifo })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
 
-                }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
 
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- end row -->
         </div>
     </div>
-</div>
-<div>
-    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Clientes" })
-</div>
+    </div>
+    <div>
+        @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Clientes" })
+    </div>

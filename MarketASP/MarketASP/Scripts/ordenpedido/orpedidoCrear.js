@@ -32,6 +32,7 @@ $(document).ready(function () {
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
         fnclienteFPago();
+
         $("#nro_fopago").val($('#ncode_fopago').val());
     }
 

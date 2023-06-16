@@ -60,7 +60,7 @@
                                         @Html.DisplayFor(modelItem => item.srazon_cliente)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Documento)
+                                        @Html.ActionLink(item.Documento, "Details", new { id = item.ncode_venta })
                                     </td>
                                     <td>
                                         @string.Format("{0:d}", item.Fventa)
@@ -104,7 +104,7 @@
                                         @Html.DisplayFor(modelItem => item.sdesc_alma)
                                     </td>
                                     <td>
-                                        @if (item.besta_venta == true && item.bventaxpedido == false)
+                                        @if (item.besta_venta == true && item.ncode_orpe == 0)
                                         {
                                             <a href="@Url.Action("Edit", new { id = item.ncode_venta })" class="btn btn-success btn-circle btn-sm" title="Edita">
                                                 <i class="fas fa-edit"></i>

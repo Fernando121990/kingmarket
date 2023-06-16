@@ -1,11 +1,11 @@
 ﻿@model MarketASP.Models.VENTAS
 
 <input id="ncode_orpe" name="ncode_orpe" type="hidden" />
-<input id="validacant" name="validacant" type="text" />
+
 
 <div class="row">
     <div>
-        <button type="button" class="btnpedidos fas fa-archive btn btn-info" data-bs-toggle="modal" data-bs-target="#modalopedido"></button>
+        <button type="button" title="Ordenes de Pedido" class="btnpedidos fas fa-archive btn btn-info" data-bs-toggle="modal" data-bs-target="#modalopedido"></button>
         <div id="modalopedido" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col-auto mt-4">
-                        <a href="@Url.Action("Create","Clientes")" class="btn btn-success" target="_blank"><i class="fa fa-user"></i></a>
+                        <a href="@Url.Action("Create","Clientes")" class="btn btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -79,20 +79,22 @@
     <div class="col-xl-6">
         <div class="card">
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="example-text-input" class="col-form-label">Documento</label>
-                    @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
-                </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Documento</label>
+                            @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sseri_venta" class="col-form-label">Serie</label>
                             @Html.EditorFor(model => model.sseri_venta, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.sseri_venta, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">Número</label>
                             <div>
@@ -214,8 +216,8 @@
         <p>Productos</p>
     </div>
     <div class="col-lg-6">
-        <button type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
-        <button type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+        <button type="button" title="Agregar Articulo" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+        <button type="button" title="Eliminar Articulo" class="delMat fas fa-trash-alt btn btn-warning"></button>
         <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -232,6 +234,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
+                                    <th>Disponible</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
                                     <th>CodUM</th>
@@ -294,6 +297,7 @@
                             <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
+                            <td></td>
                         </tr>
 
                     }
