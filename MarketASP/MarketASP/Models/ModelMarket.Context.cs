@@ -81,6 +81,8 @@ namespace MarketASP.Models
         public virtual DbSet<CLIENTE> CLIENTE { get; set; }
         public virtual DbSet<VENTAS> VENTAS { get; set; }
         public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        public virtual DbSet<ORDEN_COMPRAS> ORDEN_COMPRAS { get; set; }
+        public virtual DbSet<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -2070,6 +2072,386 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_arti", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_PedidoConsultaDetallada_Result>("Pr_PedidoConsultaDetallada", ncode_artiParameter);
+        }
+    
+        public virtual ObjectResult<Pr_OCompraConsulta_Result> Pr_OCompraConsulta(Nullable<int> tipo, Nullable<long> ncode_arti)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OCompraConsulta_Result>("Pr_OCompraConsulta", tipoParameter, ncode_artiParameter);
+        }
+    
+        public virtual ObjectResult<Pr_OCompraConsultaDetallada_Result> Pr_OCompraConsultaDetallada(Nullable<long> ncode_arti)
+        {
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OCompraConsultaDetallada_Result>("Pr_OCompraConsultaDetallada", ncode_artiParameter);
+        }
+    
+        public virtual int Pr_Orden_CompraCrea(Nullable<int> ncode_docu, string sseri_orco, string snume_orco, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, ObjectParameter sw)
+        {
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            var sseri_orcoParameter = sseri_orco != null ?
+                new ObjectParameter("sseri_orco", sseri_orco) :
+                new ObjectParameter("sseri_orco", typeof(string));
+    
+            var snume_orcoParameter = snume_orco != null ?
+                new ObjectParameter("snume_orco", snume_orco) :
+                new ObjectParameter("snume_orco", typeof(string));
+    
+            var dfeorco_orcoParameter = dfeorco_orco.HasValue ?
+                new ObjectParameter("dfeorco_orco", dfeorco_orco) :
+                new ObjectParameter("dfeorco_orco", typeof(System.DateTime));
+    
+            var dfevenci_orcoParameter = dfevenci_orco.HasValue ?
+                new ObjectParameter("dfevenci_orco", dfevenci_orco) :
+                new ObjectParameter("dfevenci_orco", typeof(System.DateTime));
+    
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(int));
+    
+            var ncode_clidireParameter = ncode_clidire.HasValue ?
+                new ObjectParameter("ncode_clidire", ncode_clidire) :
+                new ObjectParameter("ncode_clidire", typeof(int));
+    
+            var smone_orcoParameter = smone_orco != null ?
+                new ObjectParameter("smone_orco", smone_orco) :
+                new ObjectParameter("smone_orco", typeof(string));
+    
+            var ntc_orcoParameter = ntc_orco.HasValue ?
+                new ObjectParameter("ntc_orco", ntc_orco) :
+                new ObjectParameter("ntc_orco", typeof(decimal));
+    
+            var ncode_fopagoParameter = ncode_fopago.HasValue ?
+                new ObjectParameter("ncode_fopago", ncode_fopago) :
+                new ObjectParameter("ncode_fopago", typeof(int));
+    
+            var sobse_orcoParameter = sobse_orco != null ?
+                new ObjectParameter("sobse_orco", sobse_orco) :
+                new ObjectParameter("sobse_orco", typeof(string));
+    
+            var scode_compraParameter = scode_compra != null ?
+                new ObjectParameter("scode_compra", scode_compra) :
+                new ObjectParameter("scode_compra", typeof(string));
+    
+            var nbrutoex_orcoParameter = nbrutoex_orco.HasValue ?
+                new ObjectParameter("nbrutoex_orco", nbrutoex_orco) :
+                new ObjectParameter("nbrutoex_orco", typeof(decimal));
+    
+            var nbrutoaf_orcoParameter = nbrutoaf_orco.HasValue ?
+                new ObjectParameter("nbrutoaf_orco", nbrutoaf_orco) :
+                new ObjectParameter("nbrutoaf_orco", typeof(decimal));
+    
+            var ndctoex_orcoParameter = ndctoex_orco.HasValue ?
+                new ObjectParameter("ndctoex_orco", ndctoex_orco) :
+                new ObjectParameter("ndctoex_orco", typeof(decimal));
+    
+            var ndsctoaf_orcoParameter = ndsctoaf_orco.HasValue ?
+                new ObjectParameter("ndsctoaf_orco", ndsctoaf_orco) :
+                new ObjectParameter("ndsctoaf_orco", typeof(decimal));
+    
+            var nsubex_orcoParameter = nsubex_orco.HasValue ?
+                new ObjectParameter("nsubex_orco", nsubex_orco) :
+                new ObjectParameter("nsubex_orco", typeof(decimal));
+    
+            var nsubaf_orcoParameter = nsubaf_orco.HasValue ?
+                new ObjectParameter("nsubaf_orco", nsubaf_orco) :
+                new ObjectParameter("nsubaf_orco", typeof(decimal));
+    
+            var nigvex_orcoParameter = nigvex_orco.HasValue ?
+                new ObjectParameter("nigvex_orco", nigvex_orco) :
+                new ObjectParameter("nigvex_orco", typeof(decimal));
+    
+            var nigvaf_orcoParameter = nigvaf_orco.HasValue ?
+                new ObjectParameter("nigvaf_orco", nigvaf_orco) :
+                new ObjectParameter("nigvaf_orco", typeof(decimal));
+    
+            var ntotaex_orcoParameter = ntotaex_orco.HasValue ?
+                new ObjectParameter("ntotaex_orco", ntotaex_orco) :
+                new ObjectParameter("ntotaex_orco", typeof(decimal));
+    
+            var ntotaaf_orcoParameter = ntotaaf_orco.HasValue ?
+                new ObjectParameter("ntotaaf_orco", ntotaaf_orco) :
+                new ObjectParameter("ntotaaf_orco", typeof(decimal));
+    
+            var ntotal_orcoParameter = ntotal_orco.HasValue ?
+                new ObjectParameter("ntotal_orco", ntotal_orco) :
+                new ObjectParameter("ntotal_orco", typeof(decimal));
+    
+            var ntotalMN_orcoParameter = ntotalMN_orco.HasValue ?
+                new ObjectParameter("ntotalMN_orco", ntotalMN_orco) :
+                new ObjectParameter("ntotalMN_orco", typeof(decimal));
+    
+            var ntotalUs_orcoParameter = ntotalUs_orco.HasValue ?
+                new ObjectParameter("ntotalUs_orco", ntotalUs_orco) :
+                new ObjectParameter("ntotalUs_orco", typeof(decimal));
+    
+            var besta_orcoParameter = besta_orco.HasValue ?
+                new ObjectParameter("besta_orco", besta_orco) :
+                new ObjectParameter("besta_orco", typeof(bool));
+    
+            var nvalIGV_orcoParameter = nvalIGV_orco.HasValue ?
+                new ObjectParameter("nvalIGV_orco", nvalIGV_orco) :
+                new ObjectParameter("nvalIGV_orco", typeof(decimal));
+    
+            var suser_orcoParameter = suser_orco != null ?
+                new ObjectParameter("suser_orco", suser_orco) :
+                new ObjectParameter("suser_orco", typeof(string));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_moneParameter = ncode_mone.HasValue ?
+                new ObjectParameter("ncode_mone", ncode_mone) :
+                new ObjectParameter("ncode_mone", typeof(int));
+    
+            var ncode_vendeParameter = ncode_vende.HasValue ?
+                new ObjectParameter("ncode_vende", ncode_vende) :
+                new ObjectParameter("ncode_vende", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraCrea", ncode_docuParameter, sseri_orcoParameter, snume_orcoParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, sw);
+        }
+    
+        public virtual int Pr_Orden_CompraDetaCrea(Nullable<long> ncode_orco, Nullable<long> ncode_arti, Nullable<decimal> ncant_orcodeta, Nullable<decimal> npu_orcodeta, Nullable<decimal> ndscto_orcodeta, Nullable<decimal> ndscto2_orcodeta, Nullable<decimal> nexon_orcodeta, Nullable<decimal> nafecto_orcodeta, Nullable<bool> besafecto_orcodeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_orcodeta, Nullable<decimal> ndsctomin_orcodeta, Nullable<decimal> ndsctoporc_orcodeta, Nullable<decimal> npuorigen_orcodeta)
+        {
+            var ncode_orcoParameter = ncode_orco.HasValue ?
+                new ObjectParameter("ncode_orco", ncode_orco) :
+                new ObjectParameter("ncode_orco", typeof(long));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var ncant_orcodetaParameter = ncant_orcodeta.HasValue ?
+                new ObjectParameter("ncant_orcodeta", ncant_orcodeta) :
+                new ObjectParameter("ncant_orcodeta", typeof(decimal));
+    
+            var npu_orcodetaParameter = npu_orcodeta.HasValue ?
+                new ObjectParameter("npu_orcodeta", npu_orcodeta) :
+                new ObjectParameter("npu_orcodeta", typeof(decimal));
+    
+            var ndscto_orcodetaParameter = ndscto_orcodeta.HasValue ?
+                new ObjectParameter("ndscto_orcodeta", ndscto_orcodeta) :
+                new ObjectParameter("ndscto_orcodeta", typeof(decimal));
+    
+            var ndscto2_orcodetaParameter = ndscto2_orcodeta.HasValue ?
+                new ObjectParameter("ndscto2_orcodeta", ndscto2_orcodeta) :
+                new ObjectParameter("ndscto2_orcodeta", typeof(decimal));
+    
+            var nexon_orcodetaParameter = nexon_orcodeta.HasValue ?
+                new ObjectParameter("nexon_orcodeta", nexon_orcodeta) :
+                new ObjectParameter("nexon_orcodeta", typeof(decimal));
+    
+            var nafecto_orcodetaParameter = nafecto_orcodeta.HasValue ?
+                new ObjectParameter("nafecto_orcodeta", nafecto_orcodeta) :
+                new ObjectParameter("nafecto_orcodeta", typeof(decimal));
+    
+            var besafecto_orcodetaParameter = besafecto_orcodeta.HasValue ?
+                new ObjectParameter("besafecto_orcodeta", besafecto_orcodeta) :
+                new ObjectParameter("besafecto_orcodeta", typeof(bool));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ndsctomax_orcodetaParameter = ndsctomax_orcodeta.HasValue ?
+                new ObjectParameter("ndsctomax_orcodeta", ndsctomax_orcodeta) :
+                new ObjectParameter("ndsctomax_orcodeta", typeof(decimal));
+    
+            var ndsctomin_orcodetaParameter = ndsctomin_orcodeta.HasValue ?
+                new ObjectParameter("ndsctomin_orcodeta", ndsctomin_orcodeta) :
+                new ObjectParameter("ndsctomin_orcodeta", typeof(decimal));
+    
+            var ndsctoporc_orcodetaParameter = ndsctoporc_orcodeta.HasValue ?
+                new ObjectParameter("ndsctoporc_orcodeta", ndsctoporc_orcodeta) :
+                new ObjectParameter("ndsctoporc_orcodeta", typeof(decimal));
+    
+            var npuorigen_orcodetaParameter = npuorigen_orcodeta.HasValue ?
+                new ObjectParameter("npuorigen_orcodeta", npuorigen_orcodeta) :
+                new ObjectParameter("npuorigen_orcodeta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraDetaCrea", ncode_orcoParameter, ncode_artiParameter, ncant_orcodetaParameter, npu_orcodetaParameter, ndscto_orcodetaParameter, ndscto2_orcodetaParameter, nexon_orcodetaParameter, nafecto_orcodetaParameter, besafecto_orcodetaParameter, ncode_almaParameter, ndsctomax_orcodetaParameter, ndsctomin_orcodetaParameter, ndsctoporc_orcodetaParameter, npuorigen_orcodetaParameter);
+        }
+    
+        public virtual int Pr_Orden_CompraDetaEdita(Nullable<long> ncode_orco)
+        {
+            var ncode_orcoParameter = ncode_orco.HasValue ?
+                new ObjectParameter("ncode_orco", ncode_orco) :
+                new ObjectParameter("ncode_orco", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraDetaEdita", ncode_orcoParameter);
+        }
+    
+        public virtual int Pr_Orden_CompraEdita(Nullable<long> ncode_orco, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, ObjectParameter sw)
+        {
+            var ncode_orcoParameter = ncode_orco.HasValue ?
+                new ObjectParameter("ncode_orco", ncode_orco) :
+                new ObjectParameter("ncode_orco", typeof(long));
+    
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            var dfeorco_orcoParameter = dfeorco_orco.HasValue ?
+                new ObjectParameter("dfeorco_orco", dfeorco_orco) :
+                new ObjectParameter("dfeorco_orco", typeof(System.DateTime));
+    
+            var dfevenci_orcoParameter = dfevenci_orco.HasValue ?
+                new ObjectParameter("dfevenci_orco", dfevenci_orco) :
+                new ObjectParameter("dfevenci_orco", typeof(System.DateTime));
+    
+            var ncode_clienteParameter = ncode_cliente.HasValue ?
+                new ObjectParameter("ncode_cliente", ncode_cliente) :
+                new ObjectParameter("ncode_cliente", typeof(int));
+    
+            var ncode_clidireParameter = ncode_clidire.HasValue ?
+                new ObjectParameter("ncode_clidire", ncode_clidire) :
+                new ObjectParameter("ncode_clidire", typeof(int));
+    
+            var smone_orcoParameter = smone_orco != null ?
+                new ObjectParameter("smone_orco", smone_orco) :
+                new ObjectParameter("smone_orco", typeof(string));
+    
+            var ntc_orcoParameter = ntc_orco.HasValue ?
+                new ObjectParameter("ntc_orco", ntc_orco) :
+                new ObjectParameter("ntc_orco", typeof(decimal));
+    
+            var ncode_fopagoParameter = ncode_fopago.HasValue ?
+                new ObjectParameter("ncode_fopago", ncode_fopago) :
+                new ObjectParameter("ncode_fopago", typeof(int));
+    
+            var sobse_orcoParameter = sobse_orco != null ?
+                new ObjectParameter("sobse_orco", sobse_orco) :
+                new ObjectParameter("sobse_orco", typeof(string));
+    
+            var scode_compraParameter = scode_compra != null ?
+                new ObjectParameter("scode_compra", scode_compra) :
+                new ObjectParameter("scode_compra", typeof(string));
+    
+            var nbrutoex_orcoParameter = nbrutoex_orco.HasValue ?
+                new ObjectParameter("nbrutoex_orco", nbrutoex_orco) :
+                new ObjectParameter("nbrutoex_orco", typeof(decimal));
+    
+            var nbrutoaf_orcoParameter = nbrutoaf_orco.HasValue ?
+                new ObjectParameter("nbrutoaf_orco", nbrutoaf_orco) :
+                new ObjectParameter("nbrutoaf_orco", typeof(decimal));
+    
+            var ndctoex_orcoParameter = ndctoex_orco.HasValue ?
+                new ObjectParameter("ndctoex_orco", ndctoex_orco) :
+                new ObjectParameter("ndctoex_orco", typeof(decimal));
+    
+            var ndsctoaf_orcoParameter = ndsctoaf_orco.HasValue ?
+                new ObjectParameter("ndsctoaf_orco", ndsctoaf_orco) :
+                new ObjectParameter("ndsctoaf_orco", typeof(decimal));
+    
+            var nsubex_orcoParameter = nsubex_orco.HasValue ?
+                new ObjectParameter("nsubex_orco", nsubex_orco) :
+                new ObjectParameter("nsubex_orco", typeof(decimal));
+    
+            var nsubaf_orcoParameter = nsubaf_orco.HasValue ?
+                new ObjectParameter("nsubaf_orco", nsubaf_orco) :
+                new ObjectParameter("nsubaf_orco", typeof(decimal));
+    
+            var nigvex_orcoParameter = nigvex_orco.HasValue ?
+                new ObjectParameter("nigvex_orco", nigvex_orco) :
+                new ObjectParameter("nigvex_orco", typeof(decimal));
+    
+            var nigvaf_orcoParameter = nigvaf_orco.HasValue ?
+                new ObjectParameter("nigvaf_orco", nigvaf_orco) :
+                new ObjectParameter("nigvaf_orco", typeof(decimal));
+    
+            var ntotaex_orcoParameter = ntotaex_orco.HasValue ?
+                new ObjectParameter("ntotaex_orco", ntotaex_orco) :
+                new ObjectParameter("ntotaex_orco", typeof(decimal));
+    
+            var ntotaaf_orcoParameter = ntotaaf_orco.HasValue ?
+                new ObjectParameter("ntotaaf_orco", ntotaaf_orco) :
+                new ObjectParameter("ntotaaf_orco", typeof(decimal));
+    
+            var ntotal_orcoParameter = ntotal_orco.HasValue ?
+                new ObjectParameter("ntotal_orco", ntotal_orco) :
+                new ObjectParameter("ntotal_orco", typeof(decimal));
+    
+            var ntotalMN_orcoParameter = ntotalMN_orco.HasValue ?
+                new ObjectParameter("ntotalMN_orco", ntotalMN_orco) :
+                new ObjectParameter("ntotalMN_orco", typeof(decimal));
+    
+            var ntotalUs_orcoParameter = ntotalUs_orco.HasValue ?
+                new ObjectParameter("ntotalUs_orco", ntotalUs_orco) :
+                new ObjectParameter("ntotalUs_orco", typeof(decimal));
+    
+            var besta_orcoParameter = besta_orco.HasValue ?
+                new ObjectParameter("besta_orco", besta_orco) :
+                new ObjectParameter("besta_orco", typeof(bool));
+    
+            var nvalIGV_orcoParameter = nvalIGV_orco.HasValue ?
+                new ObjectParameter("nvalIGV_orco", nvalIGV_orco) :
+                new ObjectParameter("nvalIGV_orco", typeof(decimal));
+    
+            var suser_orcoParameter = suser_orco != null ?
+                new ObjectParameter("suser_orco", suser_orco) :
+                new ObjectParameter("suser_orco", typeof(string));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_moneParameter = ncode_mone.HasValue ?
+                new ObjectParameter("ncode_mone", ncode_mone) :
+                new ObjectParameter("ncode_mone", typeof(int));
+    
+            var ncode_vendeParameter = ncode_vende.HasValue ?
+                new ObjectParameter("ncode_vende", ncode_vende) :
+                new ObjectParameter("ncode_vende", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraEdita", ncode_orcoParameter, ncode_docuParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, sw);
+        }
+    
+        public virtual int Pr_OrdenCompraElimina(Nullable<long> ncode_orco, ObjectParameter sw)
+        {
+            var ncode_orcoParameter = ncode_orco.HasValue ?
+                new ObjectParameter("ncode_orco", ncode_orco) :
+                new ObjectParameter("ncode_orco", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_OrdenCompraElimina", ncode_orcoParameter, sw);
+        }
+    
+        public virtual ObjectResult<Pr_OrdenCompraLista_Result> Pr_OrdenCompraLista(Nullable<int> tipo, string documento, string cliente)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var documentoParameter = documento != null ?
+                new ObjectParameter("documento", documento) :
+                new ObjectParameter("documento", typeof(string));
+    
+            var clienteParameter = cliente != null ?
+                new ObjectParameter("cliente", cliente) :
+                new ObjectParameter("cliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OrdenCompraLista_Result>("Pr_OrdenCompraLista", tipoParameter, documentoParameter, clienteParameter);
         }
     }
 }

@@ -62,6 +62,11 @@ namespace MarketASP.Models
         public Nullable<long> ncode_orpe { get; set; }
         public string scode_orpe { get; set; }
         public Nullable<long> ncode_vende { get; set; }
+        public Nullable<bool> btitgratuito_venta { get; set; }
+        public Nullable<bool> bitguia_venta { get; set; }
+        public Nullable<long> ncode_guia { get; set; }
+        public string sserie_guia { get; set; }
+        public string snumero_guia { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }

@@ -199,6 +199,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Clases\ordencompraView.cs" />
+    <Compile Include="Clases\ordencompraViewDeta.cs" />
     <Compile Include="Clases\permisoView.cs" />
     <Compile Include="Clases\ordenpedidoView.cs" />
     <Compile Include="Clases\ordenpedidoViewDeta.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Controllers\EspecieController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
+    <Compile Include="Controllers\ORDEN_COMPRAsController.cs" />
     <Compile Include="Controllers\PermisoesController.cs" />
     <Compile Include="Controllers\ORDEN_PEDIDOController.cs" />
     <Compile Include="Controllers\ORDEN_PEDIDO_DETALLEController.cs" />
@@ -382,6 +385,12 @@
     <Compile Include="Models\MOVI_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ORDEN_COMPRAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ORDEN_COMPRAS_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ORDEN_PEDIDOS.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -428,6 +437,15 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_OCompraConsultaDetallada_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_OCompraConsulta_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_OrdenCompraLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_OrdenPedidoLista_Result.cs">
@@ -805,6 +823,7 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\ordencompra\orcompraCrear.js" />
     <Content Include="Scripts\ordenpedido\orpedidoCrear.js" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
@@ -2415,6 +2434,13 @@
     <Content Include="Views\ARTICULOs\AlmacenArti.cshtml" />
     <Content Include="Views\ORDEN_PEDIDO\Details.cshtml" />
     <Content Include="Views\CLIENTEs\_Cliente.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\_OrdenCompra.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\Create.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\Delete.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\Details.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\Edit.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\Index.cshtml" />
+    <Content Include="Views\ORDEN_COMPRAs\OPDetalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

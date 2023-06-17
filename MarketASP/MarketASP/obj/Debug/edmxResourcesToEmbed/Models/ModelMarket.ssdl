@@ -113,6 +113,7 @@
     <Property Name="nmargen_arti" Type="decimal" Precision="18" Scale="4" />
     <Property Name="ncosto_arti" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nultcosto_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="blote_arti" Type="bit" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
@@ -275,6 +276,7 @@
     <Property Name="ncode_docu" Type="int" Nullable="false" />
     <Property Name="ncode_fopago" Type="int" Nullable="false" />
     <Property Name="ncode_local" Type="int" />
+    <Property Name="btitgratuito_compra" Type="bit" />
   </EntityType>
   <EntityType Name="CONFIGURACION">
     <Key>
@@ -546,6 +548,70 @@
     <Property Name="ncode_alma" Type="int" Nullable="false" />
     <Property Name="ndestino_alma" Type="int" />
     <Property Name="stipo_movi" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ORDEN_COMPRAS">
+    <Key>
+      <PropertyRef Name="ncode_orco" />
+    </Key>
+    <Property Name="ncode_orco" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_docu" Type="int" Nullable="false" />
+    <Property Name="sseri_orco" Type="varchar" MaxLength="20" />
+    <Property Name="snume_orco" Type="varchar" MaxLength="20" />
+    <Property Name="dfeorco_orco" Type="datetime" />
+    <Property Name="dfevenci_orco" Type="datetime" />
+    <Property Name="ncode_cliente" Type="int" Nullable="false" />
+    <Property Name="ncode_clidire" Type="int" />
+    <Property Name="smone_orco" Type="varchar" MaxLength="20" />
+    <Property Name="ntc_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_fopago" Type="int" Nullable="false" />
+    <Property Name="sobse_orco" Type="varchar(max)" />
+    <Property Name="nbrutoex_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndctoex_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUs_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="besta_orco" Type="bit" />
+    <Property Name="nvalIGV_orco" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="suser_orco" Type="varchar" MaxLength="30" />
+    <Property Name="dfech_orco" Type="datetime" />
+    <Property Name="susmo_orco" Type="varchar" MaxLength="30" />
+    <Property Name="dfemo_orco" Type="datetime" />
+    <Property Name="ncode_alma" Type="int" Nullable="false" />
+    <Property Name="ncode_local" Type="int" Nullable="false" />
+    <Property Name="ncode_mone" Type="int" />
+    <Property Name="ncode_vende" Type="bigint" />
+    <Property Name="bcompra_orco" Type="int" />
+  </EntityType>
+  <EntityType Name="ORDEN_COMPRAS_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_orcodeta" />
+    </Key>
+    <Property Name="ncode_orcodeta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="npu_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndscto2_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nexon_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nafecto_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="besafecto_orcodeta" Type="bit" Nullable="false" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="ndsctomax_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctomin_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoporc_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nback_orcodeta" Type="int" />
+    <Property Name="ncode_orco" Type="bigint" />
+    <Property Name="nsubt_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="npuorigen_orcodeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncantventa_orcodeta" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS">
     <Key>
@@ -937,6 +1003,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ncode_orpe" Type="bigint" />
     <Property Name="scode_orpe" Type="varchar" MaxLength="50" />
     <Property Name="ncode_vende" Type="bigint" />
+    <Property Name="btitgratuito_venta" Type="bit" />
+    <Property Name="bitguia_venta" Type="bit" />
+    <Property Name="ncode_guia" Type="bigint" />
+    <Property Name="sserie_guia" Type="varchar" MaxLength="50" />
+    <Property Name="snumero_guia" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ZONA">
     <Key>
@@ -1948,6 +2019,102 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_c620">
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="0..1" />
+    <End Role="ORDEN_COMPRAS_DETALLE" Type="Self.ORDEN_COMPRAS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_orco" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS_DETALLE">
+        <PropertyRef Name="ncode_orco" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c630">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS_DETALLE" Type="Self.ORDEN_COMPRAS_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c640">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c650">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="ncode_cliente" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c660">
+    <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="0..1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLI_DIRE">
+        <PropertyRef Name="ncode_clidire" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_clidire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c670">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c680">
+    <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_c690">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
@@ -2503,6 +2670,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="fini" Type="varchar" Mode="In" />
     <Parameter Name="ffin" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="Pr_OCompraConsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_PedidoConsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OPedido">
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -2541,6 +2712,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDEN_COMPRAS" EntityType="Self.ORDEN_COMPRAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDEN_COMPRAS_DETALLE" EntityType="Self.ORDEN_COMPRAS_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_PEDIDOS" EntityType="Self.ORDEN_PEDIDOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="Self.ORDEN_PEDIDOS_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
@@ -2913,6 +3086,38 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="R_9" Association="Self.R_9">
       <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
       <End Role="ART_PROVE" EntitySet="ART_PROVE" />
+    </AssociationSet>
+    <AssociationSet Name="R_c620" Association="Self.R_c620">
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+      <End Role="ORDEN_COMPRAS_DETALLE" EntitySet="ORDEN_COMPRAS_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_c630" Association="Self.R_c630">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="ORDEN_COMPRAS_DETALLE" EntitySet="ORDEN_COMPRAS_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_c640" Association="Self.R_c640">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_c650" Association="Self.R_c650">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_c660" Association="Self.R_c660">
+      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_c670" Association="Self.R_c670">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_c680" Association="Self.R_c680">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="R_c690" Association="Self.R_c690">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

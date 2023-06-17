@@ -54,6 +54,8 @@ namespace MarketASP.Models
         public int ncode_docu { get; set; }
         public int ncode_fopago { get; set; }
         public Nullable<int> ncode_local { get; set; }
+        public Nullable<bool> btitgratuito_compra { get; set; }
+        public Nullable<long> ncode_orco { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

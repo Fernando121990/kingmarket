@@ -119,7 +119,10 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/venta").Include(
                    "~/Scripts/Ventas/ventaCrear.js"));
 
-                bundles.Add(new ScriptBundle("~/bundles/compra").Include(
+            bundles.Add(new ScriptBundle("~/bundles/ordencompra").Include(
+               "~/Scripts/ordencompra/orcompraCrear.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/compra").Include(
                    "~/Scripts/Compras/compraCrear.js"));
 
 

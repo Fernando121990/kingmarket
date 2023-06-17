@@ -5,19 +5,17 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Proveedor</label>
-                            <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.ncode_provee"/>
+                            <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.ncode_provee" />
                             <input id="sdesc_prove" name="sdesc_prove" type="text" value="@ViewBag.sdesc_prove" class="form-control" placeholder="Ingrese Proveedor" />
                             @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
                         </div>
 
                     </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <span Class="addProveedor btn btn-default fas fa-file fa-2x text-gray-300" data-toggle="modal" data-target="#modalProveedor"></span>
-                        </div>
+                    <div class="col-auto mt-4">
+                        <a href="@Url.Action("Create","proveedors")" class="btn btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -71,6 +69,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="form-check mb-3">
+                    @Html.CheckBox("btitgratuito_compra")
+                    @Html.ValidationMessageFor(model => model.btitgratuito_compra, "", new { @class = "text-danger" })
+                    <label class="form-check-label" for="btitgratuito_compra">
+                        Titulo Gratuito
+                    </label>
                 </div>
                 <div class="row">
                     <div class="col-md-6">

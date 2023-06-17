@@ -26,6 +26,7 @@ namespace MarketASP.Models
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
             this.PROFORMA_DETALLE = new HashSet<PROFORMA_DETALLE>();
             this.ORDEN_PEDIDOS_DETALLE = new HashSet<ORDEN_PEDIDOS_DETALLE>();
+            this.ORDEN_COMPRAS_DETALLE = new HashSet<ORDEN_COMPRAS_DETALLE>();
         }
     
         public long ncode_arti { get; set; }
@@ -90,6 +91,7 @@ namespace MarketASP.Models
         public Nullable<decimal> nmargen_arti { get; set; }
         public Nullable<decimal> ncosto_arti { get; set; }
         public Nullable<decimal> nultcosto_arti { get; set; }
+        public Nullable<bool> blote_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }
@@ -117,5 +119,7 @@ namespace MarketASP.Models
         public virtual ICollection<ORDEN_PEDIDOS_DETALLE> ORDEN_PEDIDOS_DETALLE { get; set; }
         public virtual LINEA LINEA { get; set; }
         public virtual SUBLINEA SUBLINEA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
     }
 }

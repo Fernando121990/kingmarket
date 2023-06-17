@@ -1,0 +1,58 @@
+﻿@model MarketASP.Models.ORDEN_COMPRAS
+
+@{
+    ViewBag.Title = "Agregar Orden Compra";
+    ViewBag.pTitle = "Agregar Orden Compra";
+    ViewBag.pageTitle = "Orden Compra";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
+                    <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
+                    <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
+
+
+                    @Html.Partial("_OrdenCompra")
+
+                    <div class="text-center mt-4">
+                        <button id="btnorco" name="btnorco" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+                    </div>
+
+                }
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Listado" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/cliente")
+    @Scripts.Render("~/bundles/ordencompra")
+<script type="text/javascript">
+        var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+        var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
+        var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
+        var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
+        var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
+    var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+    var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
+        var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
+        var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
+        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
+        var urlPedidoPrecio = '@Url.Action("getPedidoPrecio", "Funciones",new { area = ""})';
+        var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
+        var urlorpeCrea = '@Url.Action("Create", "orden_pedido")';
+        var urlorpeLista = '@Url.Action("index", "orden_pedido")';
+</script>
+
+}

@@ -25,6 +25,7 @@ namespace MarketASP.Models
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
             this.ORDEN_PEDIDOS = new HashSet<ORDEN_PEDIDOS>();
+            this.ORDEN_COMPRAS = new HashSet<ORDEN_COMPRAS>();
         }
     
         public int ncode_alma { get; set; }
@@ -47,5 +48,7 @@ namespace MarketASP.Models
         public virtual ICollection<PROFORMAS> PROFORMAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_COMPRAS> ORDEN_COMPRAS { get; set; }
     }
 }

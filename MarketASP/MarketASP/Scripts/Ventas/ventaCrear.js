@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     if (typeof code === 'undefined') {
       //  console.log('series');
-        fnDocumentoSerieNumero();
+        fnDocumentoSerieNumero($("#ncode_docu").val());
     }
 
     if (code > 0) {
@@ -32,7 +32,7 @@ $(document).ready(function () {
     }
 
     $("#ncode_docu").change(function () {
-        fnDocumentoSerieNumero();
+        fnDocumentoSerieNumero(this.val());
     });
 
     $("#ncode_fopago").change(function () {
@@ -680,14 +680,14 @@ function fnFormaPagoDiasFecha() {
     return false;
 
 }
-function fnDocumentoSerieNumero() {
+function fnDocumentoSerieNumero(docu) {
     //console.log($("#ncode_docu").val());
 
     $.ajax({
         type: 'POST',
         url: urlGetDocuNumero,
         dataType: 'json',
-        data: { ndocu: $("#ncode_docu").val() },
+        data: { ndocu: docu },
         success: function (docu) {
             //console.log(docu.length);
             $.each(docu, function (i, doc) {

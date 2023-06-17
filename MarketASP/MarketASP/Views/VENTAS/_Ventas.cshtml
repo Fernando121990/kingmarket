@@ -106,6 +106,41 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="form-check mb-3">
+                            @Html.CheckBox("btitgratuito_venta")
+                            @Html.ValidationMessageFor(model => model.btitgratuito_venta, "", new { @class = "text-danger" })
+                            <label class="form-check-label" for="btitgratuito_venta">
+                                Titulo Gratuito
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            @Html.CheckBox("bitguia_venta")
+                            @Html.ValidationMessageFor(model => model.bitguia_venta, "", new { @class = "text-danger" })
+                            <label class="form-check-label" for="bitguia_venta">
+                                Guia
+                            </label>
+                        </div>
+                    </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="sserie_guia" class="col-form-label">Serie</label>
+                    @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="snumero_guia" class="col-form-label">Número</label>
+                    <div>
+                        @Html.EditorFor(model => model.snumero_guia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.snumero_guia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="dfeventa_venta" class="col-form-label">F.Emision</label>
                             <input id="dfeventa_venta" name="dfeventa_venta" type="text" value="@ViewBag.dfeventa_venta" class="dfech form-control" />
