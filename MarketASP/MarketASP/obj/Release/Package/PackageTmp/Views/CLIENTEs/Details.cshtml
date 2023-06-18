@@ -54,12 +54,14 @@
                     <div class="card">
                         <div class="card-body">
                             <p class="mb-0">
+                                <strong>Doc.Pago : </strong>@Html.DisplayFor(model => model.CONFIGURACION2.sdesc_confi) <br />
                                 <strong>Linea Crédito : </strong>@Html.DisplayFor(model => model.slineacred_cliente) <br />
                                 <strong>R.Legal : </strong>@Html.DisplayFor(model => model.srepre_cliente) <br />
                                 <strong>Observación : </strong>@Html.DisplayFor(model => model.sobse_cliente) <br />
                                 <strong>Extrajero : </strong>@Html.CheckBox("bprocedencia_cliente") <br />
                                 <strong>Retención : </strong>@Html.CheckBox("bretencion_cliente") <br />
-                                <strong>Encargado de Zona : </strong>@ViewBag.encargado <br />
+                                <strong>Vendedor : </strong>@ViewBag.encargado <br />
+                                <strong>Zona : </strong>@ViewBag.zona <br />
                             </p>
                         </div>
                     </div>

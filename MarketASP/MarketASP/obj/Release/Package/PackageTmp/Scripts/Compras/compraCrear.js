@@ -1,6 +1,10 @@
-﻿$(document).ready(function () {
+﻿var mattable;
+var ordentable;
+var conf_igv = 0;
+var conf_decimal = 0;
+var conf_icbper = 0
+$(document).ready(function () {
 
-    var mattable;
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -185,7 +189,79 @@
         Sales_save();
     });
 
+    $(".btnpedidos").click(function () {
 
+        $.ajax({
+            type: 'POST',
+            url: urlPedidoCompra,
+            dataType: 'json',
+            data: {},
+            success: function (resultado) {
+
+                ordentable = $('#pedidotabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "ncode_orco" },
+                        { "data": "fecha" },
+                        { "data": "numeracion" },
+                        { "data": "sdesc_prove" }
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "bDestroy": true,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+
+    $("#btnorden").click(function () {
+        var data = ordentable.row('.selected').data();
+
+        console.log(data.ncode_orco);
+
+        fnCargaOrdenPedido(data.ncode_orco);
+
+    });
+
+    $("#btnpedidocerrarx").click(function () {
+        ordentable.destroy();
+    });
+
+    $("#btnpedidocerrar").click(function () {
+        ordentable.destroy();
+    });
 });
 
 
@@ -210,10 +286,11 @@ function Sales_save() {
         "ndsctoex_compra": "", "ndsctoaf_compra": "", "nsubex_compra": "",
         "nsubaf_compra": "", "nigvex_compra": "", "nigvaf_compra": "", "ntotaex_compra": "",
         "ntotaaf_compra": "", "ntotal_compra": "", "ntotalMN_compra": "", "ntotalUs_compra": "",
-        "nvalIGV_compra": "", "compraViewDetas": []
+        "nvalIGV_compra": "", "ncode_orco": "", "compraViewDetas": []
 
     };
 
+    compraView.ncode_orco = $('#ncode_orco').val();
     compraView.ncode_compra = $('#ncode_compra').val();
     compraView.ncode_docu = $("#ncode_docu option:selected").val();
     compraView.sseri_compra = $('#sseri_compra').val();
@@ -403,3 +480,57 @@ function ComparaPrecio(Precio, PrecioOrigen) {
 
 }
 
+function fnCargaOrdenPedido(codigo) {
+
+    fnlimpiar();
+    console.log(codigo);
+    $.ajax({
+        type: 'POST',
+        url: urlGetOrdenCompra,
+        dataType: 'json',
+        data: { ncode_orco: codigo },
+        success: function (compra) {
+            console.log(compra);
+
+            $('#sdesc_prove').val(compra.sproveedor);
+            $('#ncode_provee').val(compra.ncode_provee);
+            //$('#sruc_provee').val(compra.sruc);
+            $('#sobse_compra').val(compra.ncode_cliente);
+            $("#ncode_mone").val(compra.ncode_mone);
+            $("#ncode_orco").val(codigo);
+            //$("#ncode_fopago").val(compra.ncode_fopago);
+            var num = parseInt(compra.compraViewDetas.length);
+            var oprof = $('#tbl').DataTable();
+            oprof.clear();
+            for (var i = 0; i < num; i++) {
+
+                oprof.row.add([compra.compraViewDetas[i].ncode_arti
+                    , compra.compraViewDetas[i].scod2
+                    , compra.compraViewDetas[i].sdesc
+                    , compra.compraViewDetas[i].ncant_comdeta
+                    , compra.compraViewDetas[i].sund
+                    , compra.compraViewDetas[i].npu_comdeta
+                    , compra.compraViewDetas[i].npu_comdeta
+                    , 1
+                    , compra.compraViewDetas[i].besafecto_comdeta
+                    , compra.compraViewDetas[i].bisc_comdeta
+                    , 0
+                    , compra.compraViewDetas[i].npu_comdeta*compra.compraViewDetas[i].ncant_comdeta]).draw();
+            }
+        },
+        error: function (ex) {
+            alert('No se puede recuperar datos de la orden de pedido' + ex);
+        }
+    });
+
+    Totales();
+
+    return false;
+}
+
+function fnlimpiar() {
+
+    $('#ncode_provee').val();
+    //$('#sobse_venta').val();
+    //$('#ncode_compra').val();
+}

@@ -11,16 +11,12 @@ namespace MarketASP.Models
 {
     using System;
     
-    public partial class Pr_KardexArticulos_Result
+    public partial class Pr_OCompraPrecio_Result
     {
-        public string sdesc_alma { get; set; }
-        public long ncode_arti { get; set; }
-        public string sdesc1_arti { get; set; }
-        public Nullable<decimal> INGRESOS { get; set; }
-        public Nullable<decimal> SALIDAS { get; set; }
-        public Nullable<decimal> STOCK { get; set; }
-        public Nullable<decimal> RESERVADO { get; set; }
-        public Nullable<decimal> DISPONIBLE { get; set; }
-        public Nullable<decimal> TRANSITO { get; set; }
+        public string fecha { get; set; }
+        public string documento { get; set; }
+        public Nullable<decimal> ncant_orcodeta { get; set; }
+        public Nullable<decimal> npu_orcodeta { get; set; }
+        public string sdesc_prove { get; set; }
     }
 }

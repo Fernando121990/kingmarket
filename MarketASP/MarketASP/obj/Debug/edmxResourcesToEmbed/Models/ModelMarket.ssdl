@@ -114,6 +114,7 @@
     <Property Name="ncosto_arti" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nultcosto_arti" Type="decimal" Precision="18" Scale="4" />
     <Property Name="blote_arti" Type="bit" />
+    <Property Name="nstocktransito_arti" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
@@ -277,6 +278,7 @@
     <Property Name="ncode_fopago" Type="int" Nullable="false" />
     <Property Name="ncode_local" Type="int" />
     <Property Name="btitgratuito_compra" Type="bit" />
+    <Property Name="ncode_orco" Type="bigint" />
   </EntityType>
   <EntityType Name="CONFIGURACION">
     <Key>
@@ -559,8 +561,6 @@
     <Property Name="snume_orco" Type="varchar" MaxLength="20" />
     <Property Name="dfeorco_orco" Type="datetime" />
     <Property Name="dfevenci_orco" Type="datetime" />
-    <Property Name="ncode_cliente" Type="int" Nullable="false" />
-    <Property Name="ncode_clidire" Type="int" />
     <Property Name="smone_orco" Type="varchar" MaxLength="20" />
     <Property Name="ntc_orco" Type="decimal" Precision="18" Scale="4" />
     <Property Name="ncode_fopago" Type="int" Nullable="false" />
@@ -589,6 +589,7 @@
     <Property Name="ncode_mone" Type="int" />
     <Property Name="ncode_vende" Type="bigint" />
     <Property Name="bcompra_orco" Type="int" />
+    <Property Name="ncode_provee" Type="bigint" />
   </EntityType>
   <EntityType Name="ORDEN_COMPRAS_DETALLE">
     <Key>
@@ -2019,6 +2020,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="R_C38">
+    <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="0..1" />
+    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVEEDOR">
+        <PropertyRef Name="ncode_provee" />
+      </Principal>
+      <Dependent Role="ORDEN_COMPRAS">
+        <PropertyRef Name="ncode_provee" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="R_c620">
     <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="0..1" />
     <End Role="ORDEN_COMPRAS_DETALLE" Type="Self.ORDEN_COMPRAS_DETALLE" Multiplicity="*" />
@@ -2052,30 +2065,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="ORDEN_COMPRAS">
         <PropertyRef Name="ncode_docu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_c650">
-    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
-    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLIENTE">
-        <PropertyRef Name="ncode_cliente" />
-      </Principal>
-      <Dependent Role="ORDEN_COMPRAS">
-        <PropertyRef Name="ncode_cliente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_c660">
-    <End Role="CLI_DIRE" Type="Self.CLI_DIRE" Multiplicity="0..1" />
-    <End Role="ORDEN_COMPRAS" Type="Self.ORDEN_COMPRAS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CLI_DIRE">
-        <PropertyRef Name="ncode_clidire" />
-      </Principal>
-      <Dependent Role="ORDEN_COMPRAS">
-        <PropertyRef Name="ncode_clidire" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2139,6 +2128,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_clifo" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="Pr_compraActualizaPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_compraAnula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
@@ -2173,6 +2167,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_docu" Type="int" Mode="In" />
     <Parameter Name="ncode_fopago" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_compraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2674,6 +2669,105 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="Pr_OCompraConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_OCompraPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_CompraCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+    <Parameter Name="sseri_orco" Type="varchar" Mode="In" />
+    <Parameter Name="snume_orco" Type="varchar" Mode="In" />
+    <Parameter Name="dfeorco_orco" Type="datetime" Mode="In" />
+    <Parameter Name="dfevenci_orco" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
+    <Parameter Name="smone_orco" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+    <Parameter Name="sobse_orco" Type="varchar(max)" Mode="In" />
+    <Parameter Name="scode_compra" Type="varchar" Mode="In" />
+    <Parameter Name="nbrutoex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_orco" Type="decimal" Mode="In" />
+    <Parameter Name="besta_orco" Type="bit" Mode="In" />
+    <Parameter Name="nvalIGV_orco" Type="decimal" Mode="In" />
+    <Parameter Name="suser_orco" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_Orden_CompraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="npu_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndscto_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndscto2_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="nexon_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="nafecto_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="besafecto_orcodeta" Type="bit" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ndsctomax_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctomin_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoporc_orcodeta" Type="decimal" Mode="In" />
+    <Parameter Name="npuorigen_orcodeta" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_CompraDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_CompraEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+    <Parameter Name="dfeorco_orco" Type="datetime" Mode="In" />
+    <Parameter Name="dfevenci_orco" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
+    <Parameter Name="smone_orco" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_fopago" Type="int" Mode="In" />
+    <Parameter Name="sobse_orco" Type="varchar(max)" Mode="In" />
+    <Parameter Name="scode_compra" Type="varchar" Mode="In" />
+    <Parameter Name="nbrutoex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_orco" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_orco" Type="decimal" Mode="In" />
+    <Parameter Name="besta_orco" Type="bit" Mode="In" />
+    <Parameter Name="nvalIGV_orco" Type="decimal" Mode="In" />
+    <Parameter Name="suser_orco" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_OrdenCompraElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_OrdenCompraLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="documento" Type="varchar" Mode="In" />
+    <Parameter Name="proveedor" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Pr_PedidoConsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OPedido">
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -3087,6 +3181,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
       <End Role="ART_PROVE" EntitySet="ART_PROVE" />
     </AssociationSet>
+    <AssociationSet Name="R_C38" Association="Self.R_C38">
+      <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
     <AssociationSet Name="R_c620" Association="Self.R_c620">
       <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
       <End Role="ORDEN_COMPRAS_DETALLE" EntitySet="ORDEN_COMPRAS_DETALLE" />
@@ -3097,14 +3195,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     </AssociationSet>
     <AssociationSet Name="R_c640" Association="Self.R_c640">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_c650" Association="Self.R_c650">
-      <End Role="CLIENTE" EntitySet="CLIENTE" />
-      <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
-    </AssociationSet>
-    <AssociationSet Name="R_c660" Association="Self.R_c660">
-      <End Role="CLI_DIRE" EntitySet="CLI_DIRE" />
       <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
     </AssociationSet>
     <AssociationSet Name="R_c670" Association="Self.R_c670">

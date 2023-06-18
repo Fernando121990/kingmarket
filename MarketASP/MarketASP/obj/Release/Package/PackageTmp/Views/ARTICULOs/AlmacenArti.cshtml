@@ -11,6 +11,7 @@
                             <th>Almacen</th>
                             <th>Stock</th>
                             <th>Disponible</th>
+                            <th>Transito</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,14 +27,19 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DISPONIBLE)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANSITO)
+                                </td>
+
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
                             <td>TOTALES :</td>
-                            <td>@Model.Sum(x=>x.STOCK)</td>
+                            <td>@Model.Sum(x => x.STOCK)</td>
                             <td>@Model.Sum(x => x.DISPONIBLE)</td>
+                            <td>@Model.Sum(x => x.TRANSITO)</td>
                         </tr>
                     </tfoot>
                 </table>

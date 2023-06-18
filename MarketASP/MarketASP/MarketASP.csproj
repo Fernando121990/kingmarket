@@ -445,6 +445,9 @@
     <Compile Include="Models\Pr_OCompraConsulta_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_OCompraPrecio_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_OrdenCompraLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>

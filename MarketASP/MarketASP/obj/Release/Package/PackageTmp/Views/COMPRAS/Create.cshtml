@@ -19,114 +19,6 @@
                     @Html.Partial("_Compra")
 
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <Table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>CodArt</th>
-                                            <th>Codigo</th>
-                                            <th>Producto</th>
-                                            <th>Cantidad</th>
-                                            <th>UM</th>
-                                            <th>Precio</th>
-                                            <th>Precio</th>
-                                            <th>M</th>
-                                            <th>bafecto</th>
-                                            <th>bisc</th>
-                                            <th>bdscto</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model != null)
-                                        {
-                                            foreach (var item in Model.COMPRA_DETALLE)
-                                            {
-                                                var currentItem = item;
-                                                <tr>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_comdeta)</td>
-                                                    <td></td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.npu_comdeta)</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
-                                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
-                                                    <td></td>
-                                                </tr>
-
-                                            }
-                                        }
-                                    </tbody>
-                                </Table>
-                            </div>
-                        </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <table class="table table-striped table-responsive-lg">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th></th>
-                                                <th>T.Bruto</th>
-                                                <th>Dscto</th>
-                                                <th>SubTotal</th>
-                                                <th>IGV</th>
-                                                <th>Total</th>
-                                                <th>Total-Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Exonerado</td>
-                                                <td>
-                                                    <input id="nbrutoex_compra" name="nbrutoex_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="ndsctoex_compra" name="ndsctoex_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="nsubex_compra" name="nsubex_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="nigvex_compra" name="nigvex_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="ntotaex_compra" name="ntotaex_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td rowspan="2">
-                                                    <input id="ntotal_compra" name="ntotal_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Afecto</td>
-                                                <td>
-                                                    <input id="nbrutoaf_compra" name="nbrutoaf_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="ndsctoaf_compra" name="ndsctoaf_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="nsubaf_compra" name="nsubaf_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="nigvaf_compra" name="nigvaf_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                                <td>
-                                                    <input id="ntotaaf_compra" name="ntotaaf_compra" type="text" class="form-control" readonly />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt-4">
-                                <button id="btncompra" name="btncompra" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
-                            </div>
 
                         </div>
                 }
@@ -141,13 +33,15 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/compra")
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlGetProveedor = '@Url.Action("getProveedor", "Funciones",new { area = ""})';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlcompraCrea = '@Url.Action("Create", "compras")';
         var urlcompraLista = '@Url.Action("Index", "compras")';
-    </script>
+    var urlPedidoCompra = '@Url.Action("getPedidoCompra", "Funciones")';
+    var urlGetOrdenCompra = '@Url.Action("getOrdenCompra", "Funciones",new { area = ""})';
+</script>
 
 }
 

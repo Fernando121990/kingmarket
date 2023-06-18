@@ -143,6 +143,16 @@
         <AssociationConnector Association="MarketWebModel.R_690" />
         <AssociationConnector Association="MarketWebModel.R_680" />
         <AssociationConnector Association="MarketWebModel.R_620" />
+        <AssociationConnector Association="MarketWebModel.FK_CLIENTE_CONFIGURACION" />
+        <EntityTypeShape EntityType="MarketWebModel.ORDEN_COMPRAS_DETALLE" Width="1.5" PointX="29.875" PointY="24.25" />
+        <AssociationConnector Association="MarketWebModel.R_c630" />
+        <EntityTypeShape EntityType="MarketWebModel.ORDEN_COMPRAS" Width="1.5" PointX="24.625" PointY="5.25" />
+        <AssociationConnector Association="MarketWebModel.R_c670" />
+        <AssociationConnector Association="MarketWebModel.R_c640" />
+        <AssociationConnector Association="MarketWebModel.R_c690" />
+        <AssociationConnector Association="MarketWebModel.R_c680" />
+        <AssociationConnector Association="MarketWebModel.R_c620" />
+        <AssociationConnector Association="MarketWebModel.R_C38" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

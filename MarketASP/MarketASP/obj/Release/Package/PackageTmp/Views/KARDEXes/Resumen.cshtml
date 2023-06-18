@@ -35,6 +35,8 @@
                                 <th>
                                     <label>Reserva</label>
                                 </th>
+                                <th>Disponible</th>
+                                <th>Transito</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +63,12 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.RESERVADO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DISPONIBLE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANSITO)
                                 </td>
                             </tr>
                             }

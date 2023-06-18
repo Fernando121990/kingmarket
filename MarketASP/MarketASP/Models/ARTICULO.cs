@@ -92,6 +92,7 @@ namespace MarketASP.Models
         public Nullable<decimal> ncosto_arti { get; set; }
         public Nullable<decimal> nultcosto_arti { get; set; }
         public Nullable<bool> blote_arti { get; set; }
+        public Nullable<decimal> nstocktransito_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }

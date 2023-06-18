@@ -70,7 +70,7 @@ namespace MarketASP.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             var result = from s in db.PROVEEDOR
                          where s.sdesc_prove.Contains(sdescProvee)
-                         select new { s.ncode_provee, s.sdesc_prove};
+                         select new { s.ncode_provee, s.sdesc_prove,s.sruc_prove};
             return Json(result);
         }
 
@@ -131,6 +131,18 @@ namespace MarketASP.Controllers
         public JsonResult getPedidoVenta()
         {
             var resultado = db.Pr_OrdenPedidoLista(2,"","");
+            return Json(resultado);
+        }
+        public JsonResult getPedidoCompra()
+        {
+            var resultado = db.Pr_OrdenCompraLista(2, "", "");
+            return Json(resultado);
+        }
+
+        public JsonResult getOCompraPrecio(int ncode_arti)
+        {
+            var resultado = db.Pr_OCompraPrecio(ncode_arti);
+
             return Json(resultado);
         }
 
@@ -233,6 +245,48 @@ namespace MarketASP.Controllers
             return Json(ventaView);
         }
 
+        public JsonResult getOrdenCompra(Int32 ncode_orco)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            ORDEN_COMPRAS pedido = db.ORDEN_COMPRAS.Find(ncode_orco);
+            PROVEEDOR pROVEEDOR = db.PROVEEDOR.Find(pedido.ncode_provee);
+            List<ORDEN_COMPRAS_DETALLE> lista = db.ORDEN_COMPRAS_DETALLE.Include("ARTICULO")
+                .Where(p => p.ncode_orco == ncode_orco).Where(p => p.ncantventa_orcodeta > 0).ToList();
+            List<compraViewDeta> listadeta = new List<compraViewDeta>();
+
+            foreach (var item in lista)
+            {
+                compraViewDeta deta = new compraViewDeta
+                {
+
+                    besafecto_comdeta = item.besafecto_orcodeta,
+                    bisc_comdeta = false,
+                    scod2 = item.ARTICULO.scode_arti,
+                    sdesc = item.ARTICULO.sdesc1_arti,
+                    //sund = item.ARTICULO.UMEDIDA.ssunat_umed,
+                    nafecto_comdeta = item.nafecto_orcodeta,
+                    ncant_comdeta = item.ncantventa_orcodeta,
+                    ncode_arti = item.ncode_arti,
+                    npu_comdeta = item.npu_orcodeta,
+                    ndscto_comdeta = item.ndscto_orcodeta,
+                    nexon_comdeta = item.nexon_orcodeta
+                };
+                listadeta.Add(deta);
+            }
+
+
+            compraView _compraView = new compraView
+            {
+                ncode_provee = (long)pedido.ncode_provee,
+                sproveedor = pROVEEDOR.sdesc_prove,
+                sruc = pROVEEDOR.sruc_prove,
+                ncode_fopago = pedido.ncode_fopago,
+                smone_compra = pedido.smone_orco,
+                compraViewDetas = listadeta
+            };
+
+            return Json(_compraView);
+        }
         public string fncadenaeditar(string id, string value, int column)
         {
             value = string.Format("{0:N4}", value);

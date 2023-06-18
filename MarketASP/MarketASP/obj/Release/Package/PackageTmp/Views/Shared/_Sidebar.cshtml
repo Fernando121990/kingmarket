@@ -57,7 +57,17 @@
                     </ul>
 
                 </li>
-
+                <li>
+                    <a href="#">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Orden Compra</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Orden_Compras",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Orden_Compras",null)>Consultas</a></li>
+                        <li><a href=@Url.Action("OPDetalles","Orden_Compras",null)>Consulta Detallada</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#" class="has-arrow waves-effect">
                         <i class="ri-store-2-line"></i>

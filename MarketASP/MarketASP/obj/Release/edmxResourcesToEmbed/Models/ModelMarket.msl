@@ -234,6 +234,7 @@
           <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
           <ScalarProperty Name="StockReservado" ColumnName="StockReservado" />
           <ScalarProperty Name="Disponible" ColumnName="Disponible" />
+          <ScalarProperty Name="StockTransito" ColumnName="StockTransito" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -347,6 +348,8 @@
     <EntitySetMapping Name="COMPRAS">
       <EntityTypeMapping TypeName="MarketWebModel.COMPRAS">
         <MappingFragment StoreEntitySet="COMPRAS">
+          <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
+          <ScalarProperty Name="btitgratuito_compra" ColumnName="btitgratuito_compra" />
           <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
           <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
           <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
@@ -690,6 +693,7 @@
           <ScalarProperty Name="ncosto_arti" ColumnName="ncosto_arti" />
           <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
           <ScalarProperty Name="Disponible" ColumnName="Disponible" />
+          <ScalarProperty Name="nstocktransito_arti" ColumnName="nstocktransito_arti" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -704,6 +708,7 @@
           <ScalarProperty Name="STOCK" ColumnName="STOCK" />
           <ScalarProperty Name="RESERVADO" ColumnName="RESERVADO" />
           <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
+          <ScalarProperty Name="TRANSITO" ColumnName="TRANSITO" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -812,6 +817,8 @@
     <EntitySetMapping Name="ARTICULO">
       <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
         <MappingFragment StoreEntitySet="ARTICULO">
+          <ScalarProperty Name="nstocktransito_arti" ColumnName="nstocktransito_arti" />
+          <ScalarProperty Name="blote_arti" ColumnName="blote_arti" />
           <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
           <ScalarProperty Name="ncosto_arti" ColumnName="ncosto_arti" />
           <ScalarProperty Name="nmargen_arti" ColumnName="nmargen_arti" />
@@ -1105,6 +1112,11 @@
     <EntitySetMapping Name="VENTAS">
       <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
         <MappingFragment StoreEntitySet="VENTAS">
+          <ScalarProperty Name="snumero_guia" ColumnName="snumero_guia" />
+          <ScalarProperty Name="sserie_guia" ColumnName="sserie_guia" />
+          <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
+          <ScalarProperty Name="bitguia_venta" ColumnName="bitguia_venta" />
+          <ScalarProperty Name="btitgratuito_venta" ColumnName="btitgratuito_venta" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="scode_orpe" ColumnName="scode_orpe" />
           <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
@@ -1268,5 +1280,124 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="ORDEN_COMPRAS_DETALLE">
+      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS_DETALLE">
+        <MappingFragment StoreEntitySet="ORDEN_COMPRAS_DETALLE">
+          <ScalarProperty Name="ncantventa_orcodeta" ColumnName="ncantventa_orcodeta" />
+          <ScalarProperty Name="npuorigen_orcodeta" ColumnName="npuorigen_orcodeta" />
+          <ScalarProperty Name="nsubt_orcodeta" ColumnName="nsubt_orcodeta" />
+          <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
+          <ScalarProperty Name="nback_orcodeta" ColumnName="nback_orcodeta" />
+          <ScalarProperty Name="ndsctoporc_orcodeta" ColumnName="ndsctoporc_orcodeta" />
+          <ScalarProperty Name="ndsctomin_orcodeta" ColumnName="ndsctomin_orcodeta" />
+          <ScalarProperty Name="ndsctomax_orcodeta" ColumnName="ndsctomax_orcodeta" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="besafecto_orcodeta" ColumnName="besafecto_orcodeta" />
+          <ScalarProperty Name="nafecto_orcodeta" ColumnName="nafecto_orcodeta" />
+          <ScalarProperty Name="nexon_orcodeta" ColumnName="nexon_orcodeta" />
+          <ScalarProperty Name="ndscto2_orcodeta" ColumnName="ndscto2_orcodeta" />
+          <ScalarProperty Name="ndscto_orcodeta" ColumnName="ndscto_orcodeta" />
+          <ScalarProperty Name="npu_orcodeta" ColumnName="npu_orcodeta" />
+          <ScalarProperty Name="ncant_orcodeta" ColumnName="ncant_orcodeta" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="ncode_orcodeta" ColumnName="ncode_orcodeta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_OCompraConsulta" FunctionName="MarketWebModel.Store.Pr_OCompraConsulta">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OCompraConsulta_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
+          <ScalarProperty Name="almacen" ColumnName="almacen" />
+          <ScalarProperty Name="bcompra_orco" ColumnName="bcompra_orco" />
+          <ScalarProperty Name="besta_orco" ColumnName="besta_orco" />
+          <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+          <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_OCompraConsultaDetallada" FunctionName="MarketWebModel.Store.Pr_OCompraConsultaDetallada">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OCompraConsultaDetallada_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="ncant_orcodeta" ColumnName="ncant_orcodeta" />
+          <ScalarProperty Name="npu_orcodeta" ColumnName="npu_orcodeta" />
+          <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+          <ScalarProperty Name="sdesc_prove" ColumnName="sdesc_prove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_Orden_CompraCrea" FunctionName="MarketWebModel.Store.Pr_Orden_CompraCrea" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_CompraDetaCrea" FunctionName="MarketWebModel.Store.Pr_Orden_CompraDetaCrea" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_CompraDetaEdita" FunctionName="MarketWebModel.Store.Pr_Orden_CompraDetaEdita" />
+    <FunctionImportMapping FunctionImportName="Pr_Orden_CompraEdita" FunctionName="MarketWebModel.Store.Pr_Orden_CompraEdita" />
+    <FunctionImportMapping FunctionImportName="Pr_OrdenCompraElimina" FunctionName="MarketWebModel.Store.Pr_OrdenCompraElimina" />
+    <FunctionImportMapping FunctionImportName="Pr_OrdenCompraLista" FunctionName="MarketWebModel.Store.Pr_OrdenCompraLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OrdenCompraLista_Result">
+          <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="numeracion" ColumnName="numeracion" />
+          <ScalarProperty Name="sdesc_prove" ColumnName="sdesc_prove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ORDEN_COMPRAS">
+      <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS">
+        <MappingFragment StoreEntitySet="ORDEN_COMPRAS">
+          <ScalarProperty Name="ncode_provee" ColumnName="ncode_provee" />
+          <ScalarProperty Name="bcompra_orco" ColumnName="bcompra_orco" />
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="dfemo_orco" ColumnName="dfemo_orco" />
+          <ScalarProperty Name="susmo_orco" ColumnName="susmo_orco" />
+          <ScalarProperty Name="dfech_orco" ColumnName="dfech_orco" />
+          <ScalarProperty Name="suser_orco" ColumnName="suser_orco" />
+          <ScalarProperty Name="nvalIGV_orco" ColumnName="nvalIGV_orco" />
+          <ScalarProperty Name="besta_orco" ColumnName="besta_orco" />
+          <ScalarProperty Name="ntotalUs_orco" ColumnName="ntotalUs_orco" />
+          <ScalarProperty Name="ntotalMN_orco" ColumnName="ntotalMN_orco" />
+          <ScalarProperty Name="ntotal_orco" ColumnName="ntotal_orco" />
+          <ScalarProperty Name="ntotaaf_orco" ColumnName="ntotaaf_orco" />
+          <ScalarProperty Name="ntotaex_orco" ColumnName="ntotaex_orco" />
+          <ScalarProperty Name="nigvaf_orco" ColumnName="nigvaf_orco" />
+          <ScalarProperty Name="nigvex_orco" ColumnName="nigvex_orco" />
+          <ScalarProperty Name="nsubaf_orco" ColumnName="nsubaf_orco" />
+          <ScalarProperty Name="nsubex_orco" ColumnName="nsubex_orco" />
+          <ScalarProperty Name="ndsctoaf_orco" ColumnName="ndsctoaf_orco" />
+          <ScalarProperty Name="ndctoex_orco" ColumnName="ndctoex_orco" />
+          <ScalarProperty Name="nbrutoaf_orco" ColumnName="nbrutoaf_orco" />
+          <ScalarProperty Name="nbrutoex_orco" ColumnName="nbrutoex_orco" />
+          <ScalarProperty Name="sobse_orco" ColumnName="sobse_orco" />
+          <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
+          <ScalarProperty Name="ntc_orco" ColumnName="ntc_orco" />
+          <ScalarProperty Name="smone_orco" ColumnName="smone_orco" />
+          <ScalarProperty Name="dfevenci_orco" ColumnName="dfevenci_orco" />
+          <ScalarProperty Name="dfeorco_orco" ColumnName="dfeorco_orco" />
+          <ScalarProperty Name="snume_orco" ColumnName="snume_orco" />
+          <ScalarProperty Name="sseri_orco" ColumnName="sseri_orco" />
+          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+          <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_OCompraPrecio" FunctionName="MarketWebModel.Store.Pr_OCompraPrecio">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_OCompraPrecio_Result">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="documento" ColumnName="documento" />
+          <ScalarProperty Name="ncant_orcodeta" ColumnName="ncant_orcodeta" />
+          <ScalarProperty Name="npu_orcodeta" ColumnName="npu_orcodeta" />
+          <ScalarProperty Name="sdesc_prove" ColumnName="sdesc_prove" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_compraActualizaPedido" FunctionName="MarketWebModel.Store.Pr_compraActualizaPedido" />
   </EntityContainerMapping>
 </Mapping>

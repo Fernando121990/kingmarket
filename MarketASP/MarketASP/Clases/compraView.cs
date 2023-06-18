@@ -9,6 +9,8 @@ namespace MarketASP.Clases
 {
     public class compraView:COMPRAS
     {
+        public string sproveedor { get; set; }
+        public string sruc { get; set; }
         public string sfecompra_compra { get; set; }
         public string sfevenci_compra { get; set; }
         [JsonProperty(PropertyName = "compraViewDetas")]

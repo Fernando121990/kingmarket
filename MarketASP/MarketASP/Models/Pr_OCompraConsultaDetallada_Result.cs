@@ -17,8 +17,8 @@ namespace MarketASP.Models
         public string documento { get; set; }
         public Nullable<decimal> ncant_orcodeta { get; set; }
         public Nullable<decimal> npu_orcodeta { get; set; }
-        public string sdesc_vende { get; set; }
         public string sdesc1_arti { get; set; }
         public string sdesc_alma { get; set; }
+        public string sdesc_prove { get; set; }
     }
 }

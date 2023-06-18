@@ -26,5 +26,6 @@ namespace MarketASP.Models
         public Nullable<bool> bicbper_arti { get; set; }
         public decimal StockReservado { get; set; }
         public decimal Disponible { get; set; }
+        public decimal StockTransito { get; set; }
     }
 }

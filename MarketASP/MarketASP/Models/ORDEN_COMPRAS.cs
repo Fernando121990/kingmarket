@@ -26,8 +26,6 @@ namespace MarketASP.Models
         public string snume_orco { get; set; }
         public Nullable<System.DateTime> dfeorco_orco { get; set; }
         public Nullable<System.DateTime> dfevenci_orco { get; set; }
-        public int ncode_cliente { get; set; }
-        public Nullable<int> ncode_clidire { get; set; }
         public string smone_orco { get; set; }
         public Nullable<decimal> ntc_orco { get; set; }
         public int ncode_fopago { get; set; }
@@ -56,14 +54,14 @@ namespace MarketASP.Models
         public Nullable<int> ncode_mone { get; set; }
         public Nullable<long> ncode_vende { get; set; }
         public Nullable<int> bcompra_orco { get; set; }
+        public Nullable<long> ncode_provee { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual CLI_DIRE CLI_DIRE { get; set; }
-        public virtual CLIENTE CLIENTE { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
         public virtual LOCAL LOCAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
+        public virtual PROVEEDOR PROVEEDOR { get; set; }
     }
 }

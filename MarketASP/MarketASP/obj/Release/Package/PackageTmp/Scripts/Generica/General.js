@@ -114,14 +114,17 @@ $(document).ready(function () {
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            label: item.sdesc_prove, value: item.sdesc_prove, id: item.ncode_provee
+                            label: item.sdesc_prove, value: item.sdesc_prove, id: item.ncode_provee,
+                            ruc: item.sruc_prove
                         };
                     }));
                 }
             });
         },
         select: function (event, ui) {
-            $('#ncode_provee').val(ui.item.id);
+            $('#COD_PROVE').val(ui.item.id);
+            //$('#ncode_provee').val(ui.item.id);
+            $('#sruc_prove').val(ui.item.ruc);
         }
     });
 

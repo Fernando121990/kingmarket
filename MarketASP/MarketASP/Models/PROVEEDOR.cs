@@ -21,6 +21,7 @@ namespace MarketASP.Models
             this.COMPRAS = new HashSet<COMPRAS>();
             this.CTAS_PAGAR = new HashSet<CTAS_PAGAR>();
             this.PROV_CONTACTO = new HashSet<PROV_CONTACTO>();
+            this.ORDEN_COMPRAS = new HashSet<ORDEN_COMPRAS>();
         }
     
         public long ncode_provee { get; set; }
@@ -51,5 +52,7 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROV_CONTACTO> PROV_CONTACTO { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_COMPRAS> ORDEN_COMPRAS { get; set; }
     }
 }

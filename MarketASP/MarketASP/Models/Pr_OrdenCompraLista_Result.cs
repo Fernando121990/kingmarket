@@ -16,6 +16,6 @@ namespace MarketASP.Models
         public long ncode_orco { get; set; }
         public string fecha { get; set; }
         public string numeracion { get; set; }
-        public string srazon_cliente { get; set; }
+        public string sdesc_prove { get; set; }
     }
 }

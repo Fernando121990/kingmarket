@@ -78,12 +78,11 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
-
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1074), "ncode_confi", "sdesc_confi");
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", "");
-            ViewBag.dfeorcoo_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
@@ -115,12 +114,12 @@ namespace MarketASP.Controllers
                         {
 
                             db.Pr_Orden_CompraCrea(mofView.ncode_docu, mofView.sseri_orco, mofView.snume_orco, DateTime.Parse(mofView.sfeordencompra_orco),
-                                DateTime.Parse(mofView.sfevenci_orco), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
-                                mofView.sobse_orco, "", mofView.nbrutoex_orco, mofView.nbrutoaf_orco,
+                                DateTime.Parse(mofView.sfevenci_orco),mofView.ncode_provee ,mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
+                                mofView.sobse_orco,"",mofView.nbrutoex_orco, mofView.nbrutoaf_orco,
                                 mofView.ndctoex_orco, mofView.ndsctoaf_orco, mofView.nsubex_orco, mofView.nsubaf_orco, mofView.nigvex_orco,
                                 mofView.nigvaf_orco, mofView.ntotaex_orco, mofView.ntotaaf_orco, mofView.ntotal_orco, mofView.ntotalMN_orco,
                                 mofView.ntotalUs_orco, true, mofView.nvalIGV_orco, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()),
-                                mofView.ncode_mone, mofView.ncode_vende, sw);
+                                mofView.ncode_mone,sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -187,18 +186,16 @@ namespace MarketASP.Controllers
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
 
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ORDEN_COMPRAS.smone_orco);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
-            //ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_fopago);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1074), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", ORDEN_COMPRAS.ncode_alma);
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", ORDEN_COMPRAS.ncode_vende);
-            ViewBag.cod_cliente = ORDEN_COMPRAS.ncode_cliente;
-            ViewBag.sdesc_cliente = ORDEN_COMPRAS.CLIENTE.srazon_cliente;
-            ViewBag.sruc_cliente = ORDEN_COMPRAS.CLIENTE.sruc_cliente;
-            ViewBag.sdni_cliente = ORDEN_COMPRAS.CLIENTE.sdnice_cliente;
-            ViewBag.dfeorcoo_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfeorco_orco);
+            ViewBag.cod_prove = ORDEN_COMPRAS.ncode_provee;
+            ViewBag.sdesc_prove = ORDEN_COMPRAS.PROVEEDOR.sdesc_prove;
+            ViewBag.sruc_prove = ORDEN_COMPRAS.PROVEEDOR.sruc_prove;
+            ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfeorco_orco);
             ViewBag.dfevenci_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfevenci_orco);
             ViewBag.tc = ORDEN_COMPRAS.ntc_orco;
-            //ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == ORDEN_COMPRAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", ORDEN_COMPRAS.ncode_clidire);
 
             return View(ORDEN_COMPRAS);
         }
@@ -231,11 +228,12 @@ namespace MarketASP.Controllers
                         {
 
                             db.Pr_Orden_CompraEdita(mofView.ncode_orco, mofView.ncode_docu, DateTime.Parse(mofView.sfeordencompra_orco),
-                                DateTime.Parse(mofView.sfevenci_orco), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
+                                DateTime.Parse(mofView.sfevenci_orco), mofView.ncode_provee,mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
                                 mofView.sobse_orco, "", mofView.nbrutoex_orco, mofView.nbrutoaf_orco,
                                 mofView.ndctoex_orco, mofView.ndsctoaf_orco, mofView.nsubex_orco, mofView.nsubaf_orco, mofView.nigvex_orco,
                                 mofView.nigvaf_orco, mofView.ntotaex_orco, mofView.ntotaaf_orco, mofView.ntotal_orco, mofView.ntotalMN_orco,
-                                mofView.ntotalUs_orco, true, mofView.nvalIGV_orco, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), mofView.ncode_mone, mofView.ncode_vende, sw);
+                                mofView.ntotalUs_orco, true, mofView.nvalIGV_orco, User.Identity.Name, mofView.ncode_alma,
+                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());
@@ -274,7 +272,7 @@ namespace MarketASP.Controllers
             }
         }
 
-        public async Task<ActionResult> DeleteOrden_Pedido(int? id)
+        public async Task<ActionResult> DeleteOrden_compra(int? id)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));

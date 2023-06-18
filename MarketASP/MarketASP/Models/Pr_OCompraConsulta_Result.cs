@@ -15,13 +15,11 @@ namespace MarketASP.Models
     {
         public string fecha { get; set; }
         public string documento { get; set; }
-        public string vendedor { get; set; }
-        public string zona { get; set; }
         public long ncode_orco { get; set; }
-        public string srazon_cliente { get; set; }
         public string almacen { get; set; }
         public Nullable<int> bcompra_orco { get; set; }
         public Nullable<bool> besta_orco { get; set; }
         public string TOTAL { get; set; }
+        public string Proveedor { get; set; }
     }
 }
