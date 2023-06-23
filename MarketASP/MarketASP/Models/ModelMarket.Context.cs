@@ -83,6 +83,7 @@ namespace MarketASP.Models
         public virtual DbSet<ORDEN_PEDIDOS> ORDEN_PEDIDOS { get; set; }
         public virtual DbSet<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
         public virtual DbSet<ORDEN_COMPRAS> ORDEN_COMPRAS { get; set; }
+        public virtual DbSet<LOTES> LOTES { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -2466,6 +2467,71 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_compra", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_compraActualizaPedido", tipoParameter, ncode_orcoParameter, ncode_compraParameter);
+        }
+    
+        public virtual int Pr_LotesLista()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_LotesLista");
+        }
+    
+        public virtual ObjectResult<Pr_CompraLotesArticulo_Result> Pr_CompraLotesArticulo(Nullable<long> ncode_compra)
+        {
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_CompraLotesArticulo_Result>("Pr_CompraLotesArticulo", ncode_compraParameter);
+        }
+    
+        public virtual int Pr_LoteCrear(string sdesc_lote, Nullable<System.DateTime> dfvenci_lote, Nullable<long> ncode_arti, Nullable<long> ncode_compra, Nullable<decimal> ncant_lote, string suser_lote, ObjectParameter mensaje, ObjectParameter sw)
+        {
+            var sdesc_loteParameter = sdesc_lote != null ?
+                new ObjectParameter("sdesc_lote", sdesc_lote) :
+                new ObjectParameter("sdesc_lote", typeof(string));
+    
+            var dfvenci_loteParameter = dfvenci_lote.HasValue ?
+                new ObjectParameter("dfvenci_lote", dfvenci_lote) :
+                new ObjectParameter("dfvenci_lote", typeof(System.DateTime));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            var ncant_loteParameter = ncant_lote.HasValue ?
+                new ObjectParameter("ncant_lote", ncant_lote) :
+                new ObjectParameter("ncant_lote", typeof(decimal));
+    
+            var suser_loteParameter = suser_lote != null ?
+                new ObjectParameter("suser_lote", suser_lote) :
+                new ObjectParameter("suser_lote", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_LoteCrear", sdesc_loteParameter, dfvenci_loteParameter, ncode_artiParameter, ncode_compraParameter, ncant_loteParameter, suser_loteParameter, mensaje, sw);
+        }
+    
+        public virtual int Pr_LoteEliminar(Nullable<long> ncode_compra)
+        {
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_LoteEliminar", ncode_compraParameter);
+        }
+    
+        public virtual int Pr_LoteActualizarCompra(Nullable<long> ncode_compra, Nullable<long> ncode_arti)
+        {
+            var ncode_compraParameter = ncode_compra.HasValue ?
+                new ObjectParameter("ncode_compra", ncode_compra) :
+                new ObjectParameter("ncode_compra", typeof(long));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_LoteActualizarCompra", ncode_compraParameter, ncode_artiParameter);
         }
     }
 }

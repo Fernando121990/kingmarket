@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -147,12 +153,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -199,6 +199,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Clases\loteView.cs" />
+    <Compile Include="Clases\loteViewDeta.cs" />
     <Compile Include="Clases\ordencompraView.cs" />
     <Compile Include="Clases\ordencompraViewDeta.cs" />
     <Compile Include="Clases\permisoView.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="Controllers\EspecieController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
+    <Compile Include="Controllers\LOTESController.cs" />
     <Compile Include="Controllers\ORDEN_COMPRAsController.cs" />
     <Compile Include="Controllers\PermisoesController.cs" />
     <Compile Include="Controllers\ORDEN_PEDIDOController.cs" />
@@ -360,6 +363,9 @@
     <Compile Include="Models\LOCAL.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LOTES.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MARCA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
@@ -428,6 +434,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_ClienteListado_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_CompraLotesArticulo_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_ConsultaArticulos_Result.cs">
@@ -826,6 +835,7 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Scripts\Compras\compraCrearLote.js" />
     <Content Include="Scripts\ordencompra\orcompraCrear.js" />
     <Content Include="Scripts\ordenpedido\orpedidoCrear.js" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
@@ -2444,6 +2454,14 @@
     <Content Include="Views\ORDEN_COMPRAs\Edit.cshtml" />
     <Content Include="Views\ORDEN_COMPRAs\Index.cshtml" />
     <Content Include="Views\ORDEN_COMPRAs\OPDetalles.cshtml" />
+    <Content Include="Views\LOTES\Create.cshtml" />
+    <Content Include="Views\LOTES\Delete.cshtml" />
+    <Content Include="Views\LOTES\Details.cshtml" />
+    <Content Include="Views\LOTES\Edit.cshtml" />
+    <Content Include="Views\LOTES\Index.cshtml" />
+    <Content Include="Views\LOTES\_lotes.cshtml" />
+    <Content Include="Views\COMPRAS\CreateLote.cshtml" />
+    <Content Include="Views\COMPRAS\_CompraLote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

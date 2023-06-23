@@ -1096,6 +1096,36 @@
       <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
       <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="Pr_LotesLista" />
+    <EntitySet Name="LOTES" EntityType="MarketWebModel.LOTES" />
+    <AssociationSet Name="FK_LOTES_COMPRAS" Association="MarketWebModel.FK_LOTES_COMPRAS">
+      <End Role="COMPRAS" EntitySet="COMPRAS" />
+      <End Role="LOTES" EntitySet="LOTES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LOTES_ARTICULO" Association="MarketWebModel.FK_LOTES_ARTICULO">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="LOTES" EntitySet="LOTES" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_CompraLotesArticulo" ReturnType="Collection(MarketWebModel.Pr_CompraLotesArticulo_Result)">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LoteCrear">
+      <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+      <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_lote" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_lote" Mode="In" Type="String" />
+      <Parameter Name="mensaje" Mode="InOut" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LoteEliminar">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LoteActualizarCompra">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1624,6 +1654,7 @@
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_35" FromRole="COMPRA_DETALLE" ToRole="COMPRAS" />
     <Property Name="nsubt_comdeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_39" FromRole="COMPRA_DETALLE" ToRole="ARTICULO" />
+    <Property Name="ncantLote_comdeta" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="COMPRAS">
     <Key>
@@ -1671,6 +1702,8 @@
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_38" FromRole="COMPRAS" ToRole="PROVEEDOR" />
     <Property Name="btitgratuito_compra" Type="Boolean" />
     <Property Name="ncode_orco" Type="Int64" />
+    <Property Name="blote_orco" Type="Int32" />
+    <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="COMPRAS" ToRole="LOTES" />
   </EntityType>
   <EntityType Name="CTA_COBRAR">
     <Key>
@@ -2499,6 +2532,7 @@
     <Property Name="blote_arti" Type="Boolean" />
     <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
     <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
+    <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
   </EntityType>
   <Association Name="R_8">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -3607,5 +3641,58 @@
     <Property Type="Decimal" Name="ncant_orcodeta" Nullable="true" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="npu_orcodeta" Nullable="true" Precision="18" Scale="4" />
     <Property Type="String" Name="sdesc_prove" Nullable="false" MaxLength="2000" />
+  </ComplexType>
+  <EntityType Name="LOTES">
+    <Key>
+      <PropertyRef Name="ncode_lote" />
+    </Key>
+    <Property Name="ncode_lote" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
+    <Property Name="ncode_arti" Type="Int64" />
+    <Property Name="ncode_compra" Type="Int64" />
+    <Property Name="ncant_lote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncantdespachada_lote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncantrestante_lote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="besta_lote" Type="Boolean" />
+    <Property Name="dfech_lote" Type="DateTime" Precision="3" />
+    <Property Name="suser_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_lote" Type="DateTime" Precision="3" />
+    <Property Name="susmo_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
+  </EntityType>
+  <Association Name="FK_LOTES_COMPRAS">
+    <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
+    <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMPRAS">
+        <PropertyRef Name="ncode_compra" />
+      </Principal>
+      <Dependent Role="LOTES">
+        <PropertyRef Name="ncode_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LOTES_ARTICULO">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+    <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="LOTES">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_CompraLotesArticulo_Result">
+    <Property Type="Int64" Name="Cod" Nullable="false" />
+    <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
+    <Property Type="Decimal" Name="Ctdad" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="true" />
+    <Property Type="Decimal" Name="CtdadLoteControl" Nullable="false" Precision="18" Scale="4" />
   </ComplexType>
 </Schema>

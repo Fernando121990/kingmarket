@@ -128,6 +128,7 @@ $(document).ready(function () {
                     "scrollCollapse": true,
                     "paging": false,
                     "info": false,
+                    "bDestroy": true,
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ registros por pagina",
                         "zeroRecords": "No hay datos disponibles",

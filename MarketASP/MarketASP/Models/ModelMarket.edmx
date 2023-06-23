@@ -243,6 +243,7 @@
           <Property Name="ncode_alma" Type="int" Nullable="false" />
           <Property Name="ncode_arti" Type="bigint" Nullable="false" />
           <Property Name="nsubt_comdeta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncantLote_comdeta" Type="decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="COMPRAS">
           <Key>
@@ -284,6 +285,7 @@
           <Property Name="ncode_local" Type="int" />
           <Property Name="btitgratuito_compra" Type="bit" />
           <Property Name="ncode_orco" Type="bigint" />
+          <Property Name="blote_orco" Type="int" />
         </EntityType>
         <EntityType Name="CONFIGURACION">
           <Key>
@@ -507,6 +509,24 @@
           <Property Name="ncode_sucu" Type="int" Nullable="false" />
           <Property Name="scode_ubigeo" Type="varchar" MaxLength="20" />
           <Property Name="sdire_local" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="LOTES">
+          <Key>
+            <PropertyRef Name="ncode_lote" />
+          </Key>
+          <Property Name="ncode_lote" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_lote" Type="varchar" MaxLength="50" />
+          <Property Name="dfvenci_lote" Type="datetime" />
+          <Property Name="ncode_arti" Type="bigint" />
+          <Property Name="ncode_compra" Type="bigint" />
+          <Property Name="ncant_lote" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncantdespachada_lote" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncantrestante_lote" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="besta_lote" Type="bit" />
+          <Property Name="dfech_lote" Type="datetime" />
+          <Property Name="suser_lote" Type="varchar" MaxLength="50" />
+          <Property Name="dfemo_lote" Type="datetime" />
+          <Property Name="susmo_lote" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="MARCA">
           <Key>
@@ -1108,6 +1128,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="CLIENTE">
               <PropertyRef Name="nidtipodoc_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOTES_ARTICULO">
+          <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOTES_COMPRAS">
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="0..1" />
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="ncode_compra" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="ncode_compra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2115,6 +2159,24 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="Pr_LoteActualizarCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_LoteCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+          <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+          <Parameter Name="ncant_lote" Type="decimal" Mode="In" />
+          <Parameter Name="suser_lote" Type="varchar" Mode="In" />
+          <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_LoteEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_LotesLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen" />
         <Function Name="Pr_ClienteBusca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tipo" Type="int" Mode="In" />
           <Parameter Name="sdesc_cliente" Type="varchar" Mode="In" />
@@ -2226,6 +2288,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <Function Name="Pr_compraElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_CompraLotesArticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_ConsultaArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Pr_CtaCobrarCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2808,6 +2873,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="LINEA" EntityType="Self.LINEA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LISTA_PRECIO" EntityType="Self.LISTA_PRECIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOCAL" EntityType="Self.LOCAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOTES" EntityType="Self.LOTES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
@@ -2881,6 +2947,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_CLIENTE_CONFIGURACION" Association="Self.FK_CLIENTE_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOTES_ARTICULO" Association="Self.FK_LOTES_ARTICULO">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOTES_COMPRAS" Association="Self.FK_LOTES_COMPRAS">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="LOTES" EntitySet="LOTES" />
           </AssociationSet>
           <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -4315,6 +4389,36 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
             <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="Pr_LotesLista" />
+          <EntitySet Name="LOTES" EntityType="MarketWebModel.LOTES" />
+          <AssociationSet Name="FK_LOTES_COMPRAS" Association="MarketWebModel.FK_LOTES_COMPRAS">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOTES_ARTICULO" Association="MarketWebModel.FK_LOTES_ARTICULO">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_CompraLotesArticulo" ReturnType="Collection(MarketWebModel.Pr_CompraLotesArticulo_Result)">
+          <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_LoteCrear">
+            <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+            <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+            <Parameter Name="ncant_lote" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_lote" Mode="In" Type="String" />
+            <Parameter Name="mensaje" Mode="InOut" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_LoteEliminar">
+          <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_LoteActualizarCompra">
+            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -4843,6 +4947,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_35" FromRole="COMPRA_DETALLE" ToRole="COMPRAS" />
           <Property Name="nsubt_comdeta" Type="Decimal" Precision="18" Scale="4" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_39" FromRole="COMPRA_DETALLE" ToRole="ARTICULO" />
+          <Property Name="ncantLote_comdeta" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="COMPRAS">
           <Key>
@@ -4890,6 +4995,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_38" FromRole="COMPRAS" ToRole="PROVEEDOR" />
           <Property Name="btitgratuito_compra" Type="Boolean" />
           <Property Name="ncode_orco" Type="Int64" />
+          <Property Name="blote_orco" Type="Int32" />
+          <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="COMPRAS" ToRole="LOTES" />
         </EntityType>
         <EntityType Name="CTA_COBRAR">
           <Key>
@@ -5718,6 +5825,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="blote_arti" Type="Boolean" />
           <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
           <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
         </EntityType>
         <Association Name="R_8">
           <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -6827,6 +6935,59 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Decimal" Name="npu_orcodeta" Nullable="true" Precision="18" Scale="4" />
           <Property Type="String" Name="sdesc_prove" Nullable="false" MaxLength="2000" />
         </ComplexType>
+        <EntityType Name="LOTES">
+          <Key>
+            <PropertyRef Name="ncode_lote" />
+          </Key>
+          <Property Name="ncode_lote" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
+          <Property Name="ncode_arti" Type="Int64" />
+          <Property Name="ncode_compra" Type="Int64" />
+          <Property Name="ncant_lote" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncantdespachada_lote" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncantrestante_lote" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="besta_lote" Type="Boolean" />
+          <Property Name="dfech_lote" Type="DateTime" Precision="3" />
+          <Property Name="suser_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_lote" Type="DateTime" Precision="3" />
+          <Property Name="susmo_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
+        </EntityType>
+        <Association Name="FK_LOTES_COMPRAS">
+          <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
+          <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="ncode_compra" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="ncode_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOTES_ARTICULO">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+          <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Pr_CompraLotesArticulo_Result">
+          <Property Type="Int64" Name="Cod" Nullable="false" />
+          <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
+          <Property Type="Decimal" Name="Ctdad" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+          <Property Type="Int64" Name="ncode_umed" Nullable="true" />
+          <Property Type="Decimal" Name="CtdadLoteControl" Nullable="false" Precision="18" Scale="4" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7161,6 +7322,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="COMPRA_DETALLE">
             <EntityTypeMapping TypeName="MarketWebModel.COMPRA_DETALLE">
               <MappingFragment StoreEntitySet="COMPRA_DETALLE">
+                <ScalarProperty Name="ncantLote_comdeta" ColumnName="ncantLote_comdeta" />
                 <ScalarProperty Name="nsubt_comdeta" ColumnName="nsubt_comdeta" />
                 <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
@@ -7180,6 +7342,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="COMPRAS">
             <EntityTypeMapping TypeName="MarketWebModel.COMPRAS">
               <MappingFragment StoreEntitySet="COMPRAS">
+                <ScalarProperty Name="blote_orco" ColumnName="blote_orco" />
                 <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
                 <ScalarProperty Name="btitgratuito_compra" ColumnName="btitgratuito_compra" />
                 <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
@@ -8231,6 +8394,42 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Pr_compraActualizaPedido" FunctionName="MarketWebModel.Store.Pr_compraActualizaPedido" />
+          <FunctionImportMapping FunctionImportName="Pr_LotesLista" FunctionName="MarketWebModel.Store.Pr_LotesLista" />
+          <EntitySetMapping Name="LOTES">
+            <EntityTypeMapping TypeName="MarketWebModel.LOTES">
+              <MappingFragment StoreEntitySet="LOTES">
+                <ScalarProperty Name="susmo_lote" ColumnName="susmo_lote" />
+                <ScalarProperty Name="dfemo_lote" ColumnName="dfemo_lote" />
+                <ScalarProperty Name="suser_lote" ColumnName="suser_lote" />
+                <ScalarProperty Name="dfech_lote" ColumnName="dfech_lote" />
+                <ScalarProperty Name="besta_lote" ColumnName="besta_lote" />
+                <ScalarProperty Name="ncantrestante_lote" ColumnName="ncantrestante_lote" />
+                <ScalarProperty Name="ncantdespachada_lote" ColumnName="ncantdespachada_lote" />
+                <ScalarProperty Name="ncant_lote" ColumnName="ncant_lote" />
+                <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="dfvenci_lote" ColumnName="dfvenci_lote" />
+                <ScalarProperty Name="sdesc_lote" ColumnName="sdesc_lote" />
+                <ScalarProperty Name="ncode_lote" ColumnName="ncode_lote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_CompraLotesArticulo" FunctionName="MarketWebModel.Store.Pr_CompraLotesArticulo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_CompraLotesArticulo_Result">
+                <ScalarProperty Name="Cod" ColumnName="Cod" />
+                <ScalarProperty Name="Cod2" ColumnName="Cod2" />
+                <ScalarProperty Name="DescArt" ColumnName="DescArt" />
+                <ScalarProperty Name="Ctdad" ColumnName="Ctdad" />
+                <ScalarProperty Name="Medida" ColumnName="Medida" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="CtdadLoteControl" ColumnName="CtdadLoteControl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_LoteCrear" FunctionName="MarketWebModel.Store.Pr_LoteCrear" />
+          <FunctionImportMapping FunctionImportName="Pr_LoteEliminar" FunctionName="MarketWebModel.Store.Pr_LoteEliminar" />
+          <FunctionImportMapping FunctionImportName="Pr_LoteActualizarCompra" FunctionName="MarketWebModel.Store.Pr_LoteActualizarCompra" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

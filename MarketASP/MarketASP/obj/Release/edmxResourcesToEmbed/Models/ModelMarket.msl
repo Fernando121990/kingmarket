@@ -329,6 +329,7 @@
     <EntitySetMapping Name="COMPRA_DETALLE">
       <EntityTypeMapping TypeName="MarketWebModel.COMPRA_DETALLE">
         <MappingFragment StoreEntitySet="COMPRA_DETALLE">
+          <ScalarProperty Name="ncantLote_comdeta" ColumnName="ncantLote_comdeta" />
           <ScalarProperty Name="nsubt_comdeta" ColumnName="nsubt_comdeta" />
           <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
@@ -348,6 +349,7 @@
     <EntitySetMapping Name="COMPRAS">
       <EntityTypeMapping TypeName="MarketWebModel.COMPRAS">
         <MappingFragment StoreEntitySet="COMPRAS">
+          <ScalarProperty Name="blote_orco" ColumnName="blote_orco" />
           <ScalarProperty Name="ncode_orco" ColumnName="ncode_orco" />
           <ScalarProperty Name="btitgratuito_compra" ColumnName="btitgratuito_compra" />
           <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
@@ -1399,5 +1401,41 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Pr_compraActualizaPedido" FunctionName="MarketWebModel.Store.Pr_compraActualizaPedido" />
+    <FunctionImportMapping FunctionImportName="Pr_LotesLista" FunctionName="MarketWebModel.Store.Pr_LotesLista" />
+    <EntitySetMapping Name="LOTES">
+      <EntityTypeMapping TypeName="MarketWebModel.LOTES">
+        <MappingFragment StoreEntitySet="LOTES">
+          <ScalarProperty Name="susmo_lote" ColumnName="susmo_lote" />
+          <ScalarProperty Name="dfemo_lote" ColumnName="dfemo_lote" />
+          <ScalarProperty Name="suser_lote" ColumnName="suser_lote" />
+          <ScalarProperty Name="dfech_lote" ColumnName="dfech_lote" />
+          <ScalarProperty Name="besta_lote" ColumnName="besta_lote" />
+          <ScalarProperty Name="ncantrestante_lote" ColumnName="ncantrestante_lote" />
+          <ScalarProperty Name="ncantdespachada_lote" ColumnName="ncantdespachada_lote" />
+          <ScalarProperty Name="ncant_lote" ColumnName="ncant_lote" />
+          <ScalarProperty Name="ncode_compra" ColumnName="ncode_compra" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="dfvenci_lote" ColumnName="dfvenci_lote" />
+          <ScalarProperty Name="sdesc_lote" ColumnName="sdesc_lote" />
+          <ScalarProperty Name="ncode_lote" ColumnName="ncode_lote" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_CompraLotesArticulo" FunctionName="MarketWebModel.Store.Pr_CompraLotesArticulo">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_CompraLotesArticulo_Result">
+          <ScalarProperty Name="Cod" ColumnName="Cod" />
+          <ScalarProperty Name="Cod2" ColumnName="Cod2" />
+          <ScalarProperty Name="DescArt" ColumnName="DescArt" />
+          <ScalarProperty Name="Ctdad" ColumnName="Ctdad" />
+          <ScalarProperty Name="Medida" ColumnName="Medida" />
+          <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+          <ScalarProperty Name="CtdadLoteControl" ColumnName="CtdadLoteControl" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_LoteCrear" FunctionName="MarketWebModel.Store.Pr_LoteCrear" />
+    <FunctionImportMapping FunctionImportName="Pr_LoteEliminar" FunctionName="MarketWebModel.Store.Pr_LoteEliminar" />
+    <FunctionImportMapping FunctionImportName="Pr_LoteActualizarCompra" FunctionName="MarketWebModel.Store.Pr_LoteActualizarCompra" />
   </EntityContainerMapping>
 </Mapping>

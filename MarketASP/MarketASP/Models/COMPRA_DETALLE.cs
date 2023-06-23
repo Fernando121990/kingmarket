@@ -27,6 +27,7 @@ namespace MarketASP.Models
         public int ncode_alma { get; set; }
         public long ncode_arti { get; set; }
         public Nullable<decimal> nsubt_comdeta { get; set; }
+        public Nullable<decimal> ncantLote_comdeta { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual COMPRAS COMPRAS { get; set; }

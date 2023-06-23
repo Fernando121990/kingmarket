@@ -122,8 +122,8 @@ $(document).ready(function () {
             });
         },
         select: function (event, ui) {
-            $('#COD_PROVE').val(ui.item.id);
-            //$('#ncode_provee').val(ui.item.id);
+            //$('#COD_PROVE').val(ui.item.id);
+            $('#ncode_provee').val(ui.item.id);
             $('#sruc_prove').val(ui.item.ruc);
         }
     });

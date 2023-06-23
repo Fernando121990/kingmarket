@@ -153,6 +153,9 @@
         <AssociationConnector Association="MarketWebModel.R_c680" />
         <AssociationConnector Association="MarketWebModel.R_c620" />
         <AssociationConnector Association="MarketWebModel.R_C38" />
+        <EntityTypeShape EntityType="MarketWebModel.LOTES" Width="1.5" PointX="20.25" PointY="36.875" />
+        <AssociationConnector Association="MarketWebModel.FK_LOTES_COMPRAS" />
+        <AssociationConnector Association="MarketWebModel.FK_LOTES_ARTICULO" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

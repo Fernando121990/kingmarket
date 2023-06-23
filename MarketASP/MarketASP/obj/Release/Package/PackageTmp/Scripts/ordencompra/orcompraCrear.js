@@ -640,15 +640,15 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     $("#ntotal_orco").val(TOTAL.toFixed(2));
 }
 function ComparaPrecio(Precio, PrecioOrigen) {
-    console.log('compra precio');
-    console.log(Precio);
-    console.log(PrecioOrigen);
+    //console.log('compra precio');
+    //console.log(Precio);
+    //console.log(PrecioOrigen);
 
     var xprecio = parseFloat(Precio);
 
-    if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
-        xprecio = parseFloat(PrecioOrigen);
-    }
+   // if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+   //     xprecio = parseFloat(PrecioOrigen);
+   // }
 
     return xprecio.toFixed(conf_decimal);
 

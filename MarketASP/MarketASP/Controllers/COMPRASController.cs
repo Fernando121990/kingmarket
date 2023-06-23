@@ -309,6 +309,111 @@ namespace MarketASP.Controllers
         }
 
 
+        public async Task<ActionResult> CreateLote(long? id)
+        {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "1402", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            COMPRAS cOMPRAS = await db.COMPRAS.FindAsync(id);
+            if (cOMPRAS == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",cOMPRAS.ncode_alma);
+            return View(cOMPRAS);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateLote(string model_json)
+        {
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
+
+            string data = "";
+            string xmensaje = "";
+            int fila = 0;
+            int exito = 0;
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    data = model_json;
+                    var jsonSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    if (data != null)
+                    {
+                        var mofView = JsonConvert.DeserializeObject<loteView>(data, jsonSettings);
+
+                        if (mofView != null)
+                        {
+
+                            if (mofView.loteViewDeta != null)
+                            {
+                                db.Pr_LoteEliminar(mofView.ncode_compra);
+
+                                foreach (loteViewDeta item in mofView.loteViewDeta)
+                                {
+                                    fila++;
+                                    db.Pr_LoteCrear(item.sdesc_lote,item.dfvenci_lote,item.ncode_arti,item.ncode_compra,
+                                        item.ncant_lote,User.Identity.Name,mensaje,sw);
+
+                                    xmensaje += mensaje.Value.ToString();
+
+                                    if (mensaje.Value.ToString() == "NO")
+                                    {
+                                        exito = 0;
+                                        break;
+                                    }
+
+                                    db.Pr_LoteActualizarCompra(item.ncode_compra, item.ncode_arti);
+                                    
+                                    exito = 1;
+                                };
+
+                            }
+
+                            //db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
+
+                            //if (mofView.ncode_orco != null && mofView.ncode_orco > 0)
+                            //{
+                            //    db.Pr_KardexCrea("Compra", 6, "A", code, User.Identity.Name);
+                            //}
+
+
+                            //db.Pr_compraActualizaPedido(0, mofView.ncode_orco, code);
+                        }
+                    }
+                }
+
+                return Json(new { Success = exito });
+
+            }
+            catch (Exception ex)
+            {
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
+                return Json(new { Success = 0 });
+            }
+        }
+
+
+
 
         protected override void Dispose(bool disposing)
         {

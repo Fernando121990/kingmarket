@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Collections;
+using System.Web.WebPages;
 
 namespace MarketASP.Controllers
 {
@@ -142,6 +143,13 @@ namespace MarketASP.Controllers
         public JsonResult getOCompraPrecio(int ncode_arti)
         {
             var resultado = db.Pr_OCompraPrecio(ncode_arti);
+
+            return Json(resultado);
+        }
+
+        public JsonResult getArticulosLotes(int ncode_compra)
+        {
+            var resultado = db.Pr_CompraLotesArticulo(ncode_compra);
 
             return Json(resultado);
         }
@@ -289,7 +297,12 @@ namespace MarketASP.Controllers
         }
         public string fncadenaeditar(string id, string value, int column)
         {
-            value = string.Format("{0:N4}", value);
+
+            if (value.IsFloat())
+            {
+                value = string.Format("{0:N4}", value);
+            }
+
             return value;
         }
         public decimal fnnumeroeditar(string id, decimal value, int column)

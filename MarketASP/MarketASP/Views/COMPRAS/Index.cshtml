@@ -120,6 +120,13 @@
                                             <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            if (item.blote_orco == 0)
+                                            {
+                                                <a href="@Url.Action("CreateLote", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Lotes">
+                                                    <i class="fas fa-satellite"></i>
+                                                </a>
+
+                                            }
 
                                         }
                                     </td>

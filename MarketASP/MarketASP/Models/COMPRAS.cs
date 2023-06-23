@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public COMPRAS()
         {
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
+            this.LOTES = new HashSet<LOTES>();
         }
     
         public long ncode_compra { get; set; }
@@ -56,6 +57,7 @@ namespace MarketASP.Models
         public Nullable<int> ncode_local { get; set; }
         public Nullable<bool> btitgratuito_compra { get; set; }
         public Nullable<long> ncode_orco { get; set; }
+        public Nullable<int> blote_orco { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -64,5 +66,7 @@ namespace MarketASP.Models
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual CONFIGURACION CONFIGURACION1 { get; set; }
         public virtual PROVEEDOR PROVEEDOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOTES> LOTES { get; set; }
     }
 }

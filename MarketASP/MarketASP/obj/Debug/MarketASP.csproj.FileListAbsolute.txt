@@ -224,6 +224,8 @@ D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Razor.dll
 D:\oscarweb\MarketASP\MarketASP\bin\WebGrease.dll
 D:\oscarweb\MarketASP\MarketASP\bin\SunatService.pdb
+D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.xml
+D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.SqlServer.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.AccessControl.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Cryptography.Xml.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Permissions.xml
@@ -242,8 +244,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Deployment.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Razor.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Antlr3.Runtime.pdb
-D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.xml
-D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.SqlServer.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Core.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -256,6 +256,8 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Google.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.OAuth.xml
+D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.resources.dll
+D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Helpers.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Mvc.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Optimization.resources.dll
@@ -263,8 +265,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Razor.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.WebPages.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.WebPages.Deployment.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.WebPages.Razor.resources.dll
-D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.resources.dll
-D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
