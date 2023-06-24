@@ -21,12 +21,34 @@ namespace MarketASP.Controllers
   
         public ActionResult Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0401", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var ORDEN_COMPRAS = db.Pr_OCompraConsulta(1, 0).ToList();
             return View(ORDEN_COMPRAS);
         }
 
         public async Task<ActionResult> Details(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0406", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -57,7 +79,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1302", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0402", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -161,7 +183,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1303", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0403", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -277,7 +299,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1304", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0404", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

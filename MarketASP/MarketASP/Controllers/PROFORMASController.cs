@@ -15,6 +15,7 @@ using MarketASP.Extensiones;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class PROFORMASController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -22,6 +23,17 @@ namespace MarketASP.Controllers
         // GET: PROFORMAS
         public async Task<ActionResult> Index()
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0701", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
             var pROFORMAS = db.PROFORMAS.Include(p => p.ALMACEN).Include(p => p.CLI_DIRE).Include(p => p.CLIENTE).Include(p => p.CONFIGURACION).Include(p => p.CONFIGURACION1).Include(p => p.LOCAL);
             return View(await pROFORMAS.ToListAsync());
         }
@@ -47,7 +59,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1302", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0702", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -146,7 +158,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1303", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0703", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -275,7 +287,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1304", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0704", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

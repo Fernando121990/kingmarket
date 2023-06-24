@@ -8,6 +8,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class CONFIGURACIONsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -18,7 +19,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "1001", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -34,7 +35,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "1002", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -63,7 +64,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "1003", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -102,7 +103,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "1004", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

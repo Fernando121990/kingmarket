@@ -12,6 +12,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Areas.Inventario.Controllers
 {
+    [Authorize]
     public class ALMACENsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -22,7 +23,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue =  0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0101", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0130", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -38,7 +39,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0102", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0131", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -69,7 +70,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0103", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0132", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -107,7 +108,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0104", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0133", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

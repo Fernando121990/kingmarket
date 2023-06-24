@@ -24,7 +24,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0501", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0126", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -34,7 +34,7 @@ namespace MarketASP.Controllers
 
             ViewBag.vercosto = 1;
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0505", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0125", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -64,7 +64,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0502", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0127", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -104,7 +104,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0503", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0128", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -163,7 +163,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0504", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0129", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

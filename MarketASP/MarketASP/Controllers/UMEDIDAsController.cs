@@ -12,6 +12,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class UMEDIDAsController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -22,7 +23,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0901", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0134", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -54,7 +55,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0902", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0135", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -85,7 +86,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0903", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0136", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -123,7 +124,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0904", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0137", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

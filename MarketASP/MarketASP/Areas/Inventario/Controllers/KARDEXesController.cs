@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MarketASP.Areas.Inventario.Controllers
 {
+    [Authorize]
     public class KARDEXesController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -18,7 +19,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0401", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0205", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -34,7 +35,7 @@ namespace MarketASP.Areas.Inventario.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "0401", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0206", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {

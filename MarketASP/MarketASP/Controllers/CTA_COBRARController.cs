@@ -12,6 +12,7 @@ using MarketASP.Clases;
 
 namespace MarketASP.Controllers
 {
+    [Authorize]
     public class CTA_COBRARController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();
@@ -23,7 +24,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1501", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0601", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -55,7 +56,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1502", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0602", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
@@ -140,7 +141,7 @@ namespace MarketASP.Controllers
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
-            db.Pr_PermisoAcceso(User.Identity.Name, "1503", xcode);
+            db.Pr_PermisoAcceso(User.Identity.Name, "0604", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
             if (xvalue == 0)
             {
