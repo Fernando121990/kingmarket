@@ -8,6 +8,7 @@ $(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
 
+    $('#btnpro').hide();
     code = $("#ncode_orco").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
@@ -143,9 +144,10 @@ $(document).ready(function () {
                             { "data": "Cod2" },
                             { "data": "DescArt" },
                             { "data": "Stock" },
+                            { "data": "Disponible" },
                             { "data": "StockTransito" },
                             { "data": "Medida" },
-                            { "data": "Precio" },
+                            { "data": "Costo" },
                             { "data": "ncode_umed" },
                             { "data": "bafecto_arti" },
                             { "data": "bisc_arti" },
@@ -154,7 +156,7 @@ $(document).ready(function () {
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0, 7, 8, 9, 10,11]
+                        "aTargets": [0, 8, 9, 10,11,12]
                     },
                     {
                         "sClass": "my_class",
@@ -197,8 +199,8 @@ $(document).ready(function () {
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio]).draw();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo]).draw();
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
@@ -228,8 +230,8 @@ $(document).ready(function () {
 
         //Validaciones
 
-        if ($("#COD_PROVE").val().length < 1) {
-            alert("Seleccione Cliente");
+        if ($("#ncode_provee").val().length < 1) {
+            alert("Seleccione Proveedor");
             return false;
         };
 
@@ -264,6 +266,9 @@ $(document).ready(function () {
             alert("Seleccione Articulos");
             return false;
         }
+
+        $('#btnorco').hide();
+        $('#btnpro').show();
 
         Sales_save();
     });
@@ -443,7 +448,7 @@ function Sales_save() {
     var ordenpedidoView = {
         "ncode_orco": "", "ncode_alma": "", "ncode_mone": "",
         "ncode_docu": "", "sseri_orco": "", "snume_orco": "",
-        "sfeordencompra_orco": "", "sfevenci_orco": "", "ncode_cliente": "",
+        "sfeordencompra_orco": "", "sfevenci_orco": "", "sfentrega_orco": "", "ncode_cliente": "",
         "ncode_clidire": "", "smone_orco": "", "ntc_orco": "",
         "ncode_fopago": "", "sobse_orco": "", "scode_compra": "",
         "nbrutoex_orco": "", "nbrutoaf_orco": "",
@@ -460,7 +465,8 @@ function Sales_save() {
     ordenpedidoView.snume_orco = $('#snume_orco').val();
     ordenpedidoView.sfeordencompra_orco = $('#dfeorco_orco').val();
     ordenpedidoView.sfevenci_orco = $('#dfevenci_orco').val();
-    ordenpedidoView.ncode_provee = $('#COD_PROVE').val();
+    ordenpedidoView.sfentrega_orco = $('#dfentrega_orco').val();
+    ordenpedidoView.ncode_provee = $('#ncode_provee').val();
     ordenpedidoView.smone_orco = $("#smone_orco option:selected").val(); 
     ordenpedidoView.ntc_orco = $('#ntc_orco').val();
     ordenpedidoView.ncode_fopago = $("#ncode_fopago option:selected").val();
@@ -490,13 +496,13 @@ function Sales_save() {
 
         ordencompraViewDetas.ncode_arti = oTable[i][0];
         ordencompraViewDetas.ncant_orcodeta = oTable[i][3];
-        ordencompraViewDetas.npu_orcodeta = oTable[i][5];
-        ordencompraViewDetas.npuorigen_orcodeta = oTable[i][6];
-        ordencompraViewDetas.ndscto_orcodeta = oTable[i][6] - oTable[i][5];
-        ordencompraViewDetas.nexon_orcodeta = oTable[i][5] * oTable[i][3];
-        ordencompraViewDetas.nafecto_orcodeta = oTable[i][5] * oTable[i][3];
-        ordencompraViewDetas.besafecto_orcodeta = oTable[i][8];
-        ordencompraViewDetas.ndsctoporc_orcodeta = oTable[i][6];
+        ordencompraViewDetas.npu_orcodeta = oTable[i][6];
+        ordencompraViewDetas.npuorigen_orcodeta = oTable[i][7];
+        ordencompraViewDetas.ndscto_orcodeta = oTable[i][7] - oTable[i][6];
+        ordencompraViewDetas.nexon_orcodeta = oTable[i][6] * oTable[i][3];
+        ordencompraViewDetas.nafecto_orcodeta = oTable[i][6] * oTable[i][3];
+        ordencompraViewDetas.besafecto_orcodeta = oTable[i][9];
+        ordencompraViewDetas.ndsctoporc_orcodeta = oTable[i][7];
         ordencompraViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ordenpedidoView.ordencompraViewDetas.push(ordencompraViewDetas);
@@ -529,7 +535,9 @@ function Sales_save() {
             }
         },
         error: function (ex) {
-            alert('No se puede registrar ordenpedido' + ex);
+            $('#btnorco').show();
+            $('#btnpro').hide();
+            alert('No se puede registrar orden de compra' + ex);
         }
     });
 

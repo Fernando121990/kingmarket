@@ -1,0 +1,70 @@
+﻿@model MarketASP.Models.DOCU_SERIE
+
+<div class="row">
+    <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Documento</label>
+                            @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sserie_dose, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sserie_dose, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Numero</label>
+                            @Html.EditorFor(model => model.snumeracion_dose, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.snumeracion_dose, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="ncode_local" class="col-form-label">Local</label>
+                            @Html.DropDownList("ncode_local", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_local, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="mb-3">
+                            <label for="besta_dose" class="col-form-label">Activo</label>
+                            @Html.CheckBox("besta_dose")
+                            @Html.ValidationMessageFor(model => model.besta_dose, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="susuario_dose" class="col-form-label">Valor</label>
+                            @Html.DropDownList("susuario_dose", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.susuario_dose, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+

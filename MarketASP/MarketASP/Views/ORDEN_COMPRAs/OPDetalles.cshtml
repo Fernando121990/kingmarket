@@ -1,9 +1,9 @@
-﻿@model IEnumerable<MarketASP.Models.Pr_PedidoConsultaDetallada_Result>
+﻿@model IEnumerable<MarketASP.Models.Pr_OCompraConsultaDetallada_Result>
 
 @{
     ViewBag.Title = "Consulta Detallada";
     ViewBag.pTitle = "Consulta Detallada";
-    ViewBag.pageTitle = "Orden de Pedido";
+    ViewBag.pageTitle = "Orden de Compra";
 }
 <div class="row">
     <div class="col-lg-12">
@@ -28,9 +28,6 @@
                                 <th>
                                     Precio
                                 </th>
-                                <th>
-                                    Vendedor
-                                </th>
                                 <th>Almacen</th>
                             </tr>
 </thead>
@@ -48,13 +45,10 @@
                                         @Html.DisplayFor(modelItem => item.sdesc1_arti)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ncant_orpedeta)
+                                        @Html.DisplayFor(modelItem => item.ncant_orcodeta)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.npu_orpedeta)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sdesc_vende)
+                                        @Html.DisplayFor(modelItem => item.npu_orcodeta)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.sdesc_alma)

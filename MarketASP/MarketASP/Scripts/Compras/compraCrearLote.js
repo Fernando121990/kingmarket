@@ -10,7 +10,7 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []  //0,1,2,8,9
+            "aTargets": [],  //0,1,2,8,9
         },
         {
             "sClass": "my_class",
@@ -178,7 +178,7 @@ function Sales_save() {
 
     var loteViewDeta = {
         "ncode_arti": "", "ncant_lote": "", "ncode_compra": "", "dfvenci_lote": "",
-        "sdesc_lote": "" 
+        "sdesc_lote": "", "sfechalote":""
     };
 
     var loteView = {
@@ -197,14 +197,14 @@ function Sales_save() {
         loteViewDeta.ncode_arti = oTable[i][0];
         loteViewDeta.ncant_lote = oTable[i][3];
         loteViewDeta.sdesc_lote = oTable[i][5];
-        loteViewDeta.dfvenci_lote = oTable[i][6];
+        loteViewDeta.sfechalote = oTable[i][6];
         loteViewDeta.ncode_compra = loteView.ncode_compra;
 
         loteView.loteViewDeta.push(loteViewDeta);
 
         loteViewDeta = {
             "ncode_arti": "", "ncant_lote": "", "ncode_compra": "", "dfvenci_lote": "",
-            "sdesc_lote": ""
+            "sdesc_lote": "", "sfechalote": ""
         };
 
     }

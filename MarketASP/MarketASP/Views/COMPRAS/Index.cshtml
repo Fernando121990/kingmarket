@@ -33,26 +33,15 @@
                                     F.Vcto
                                 </th>
                                 <th>
-                                    TC
-                                </th>
-                                <th>
-                                    Obs
-                                </th>
-                                <th>
                                     OC
-                                </th>
-                                <th>
-                                    Proforma
-                                </th>
-                                <th>
-                                    M
                                 </th>
                                 <th>
                                     Total
                                 </th>
                                 <th>
-                                    Estado
+                                    Activo
                                 </th>
+                                <th>Lotes</th>
                                 <th>
                                     Almacen
                                 </th>
@@ -82,25 +71,35 @@
                                         @string.Format("{0:d}", item.dfevenci_compra)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ntc_compra)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sobs_compra)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.sguia_compra)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sproforma_compra)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.smone_compra)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.ntotal_compra)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.besta_compra)
+                                        @if (item.besta_compra == false)
+                                        {
+                                            <div class="badge badge-soft-warning font-size-12">No</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-soft-success font-size-12">Si</div>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.blote_orco == 0)
+                                        {
+                                            <div class="badge badge-soft-warning font-size-12">Pendiente</div>
+                                        }
+                                        else if (item.blote_orco == 1)
+                                        {
+                                            <div class="badge badge-soft-primary font-size-12">Parcial</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="badge badge-soft-success font-size-12">Total</div>
+                                        }
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
@@ -120,14 +119,6 @@
                                             <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            if (item.blote_orco == 0)
-                                            {
-                                                <a href="@Url.Action("CreateLote", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Lotes">
-                                                    <i class="fas fa-satellite"></i>
-                                                </a>
-
-                                            }
-
                                         }
                                     </td>
                                 </tr>

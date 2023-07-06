@@ -121,6 +121,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona","");
             ViewBag.dfeorpeo_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfdespacho_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
         [HttpPost]
@@ -151,7 +152,7 @@ namespace MarketASP.Controllers
                         {
 
                             db.Pr_Orden_PedidoCrea(mofView.ncode_docu, mofView.sseri_orpe, mofView.snume_orpe, DateTime.Parse(mofView.sfeordenpedido_orpe),
-                                DateTime.Parse(mofView.sfevenci_orpe), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orpe, mofView.ntc_orpe, mofView.ncode_fopago,
+                                DateTime.Parse(mofView.sfevenci_orpe), DateTime.Parse(mofView.sfedespacho_orpe), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_orpe, mofView.ntc_orpe, mofView.ncode_fopago,
                                 mofView.sobse_orpe, mofView.scode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
@@ -233,6 +234,7 @@ namespace MarketASP.Controllers
             ViewBag.sdni_cliente = oRDEN_PEDIDOS.CLIENTE.sdnice_cliente;
             ViewBag.dfeorpeo_orpe = string.Format("{0:dd/MM/yyyy}", oRDEN_PEDIDOS.dfeorpeo_orpe);
             ViewBag.dfevenci_orpe = string.Format("{0:dd/MM/yyyy}", oRDEN_PEDIDOS.dfevenci_orpe);
+            ViewBag.dfdespacho_orpe = string.Format("{0:dd/MM/yyyy}", oRDEN_PEDIDOS.dfdespacho_orpe);
             ViewBag.tc = oRDEN_PEDIDOS.ntc_orpe;
             //ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == oRDEN_PEDIDOS.ncode_cliente), "ncode_clidire", "sdesc_clidire", oRDEN_PEDIDOS.ncode_clidire);
             

@@ -235,6 +235,7 @@
           <ScalarProperty Name="StockReservado" ColumnName="StockReservado" />
           <ScalarProperty Name="Disponible" ColumnName="Disponible" />
           <ScalarProperty Name="StockTransito" ColumnName="StockTransito" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -714,22 +715,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="DOCU_SERIE">
-      <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE">
-        <MappingFragment StoreEntitySet="DOCU_SERIE">
-          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
-          <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
-          <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
-          <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
-          <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
-          <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
-          <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
-          <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
-          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
-          <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="MarketWebModel.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
@@ -1167,6 +1152,7 @@
     <EntitySetMapping Name="ORDEN_PEDIDOS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
           <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
@@ -1351,6 +1337,7 @@
     <EntitySetMapping Name="ORDEN_COMPRAS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS">
         <MappingFragment StoreEntitySet="ORDEN_COMPRAS">
+          <ScalarProperty Name="dfentrega_orco" ColumnName="dfentrega_orco" />
           <ScalarProperty Name="ncode_provee" ColumnName="ncode_provee" />
           <ScalarProperty Name="bcompra_orco" ColumnName="bcompra_orco" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
@@ -1405,6 +1392,7 @@
     <EntitySetMapping Name="LOTES">
       <EntityTypeMapping TypeName="MarketWebModel.LOTES">
         <MappingFragment StoreEntitySet="LOTES">
+          <ScalarProperty Name="nback_lote" ColumnName="nback_lote" />
           <ScalarProperty Name="susmo_lote" ColumnName="susmo_lote" />
           <ScalarProperty Name="dfemo_lote" ColumnName="dfemo_lote" />
           <ScalarProperty Name="suser_lote" ColumnName="suser_lote" />
@@ -1435,7 +1423,26 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Pr_LoteCrear" FunctionName="MarketWebModel.Store.Pr_LoteCrear" />
-    <FunctionImportMapping FunctionImportName="Pr_LoteEliminar" FunctionName="MarketWebModel.Store.Pr_LoteEliminar" />
-    <FunctionImportMapping FunctionImportName="Pr_LoteActualizarCompra" FunctionName="MarketWebModel.Store.Pr_LoteActualizarCompra" />
+    <FunctionImportMapping FunctionImportName="Pr_LoteDetaEditar" FunctionName="MarketWebModel.Store.Pr_LoteDetaEditar" />
+    <FunctionImportMapping FunctionImportName="Pr_LoteEditar" FunctionName="MarketWebModel.Store.Pr_LoteEditar" />
+    <FunctionImportMapping FunctionImportName="Pr_compraActualizaLote" FunctionName="MarketWebModel.Store.Pr_compraActualizaLote" />
+    <EntitySetMapping Name="DOCU_SERIE">
+      <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE">
+        <MappingFragment StoreEntitySet="DOCU_SERIE">
+          <ScalarProperty Name="besta_dose" ColumnName="besta_dose" />
+          <ScalarProperty Name="sserie_dose" ColumnName="sserie_dose" />
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+          <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+          <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+          <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+          <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+          <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
+          <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+          <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+          <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

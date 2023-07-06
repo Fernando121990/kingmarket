@@ -27,5 +27,6 @@ namespace MarketASP.Models
         public decimal StockReservado { get; set; }
         public decimal Disponible { get; set; }
         public decimal StockTransito { get; set; }
+        public decimal Costo { get; set; }
     }
 }

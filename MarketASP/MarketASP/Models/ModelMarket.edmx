@@ -426,6 +426,8 @@
           <Property Name="susmo_dose" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_dose" Type="datetime" />
           <Property Name="ncode_local" Type="int" Nullable="false" />
+          <Property Name="sserie_dose" Type="varchar" MaxLength="6" />
+          <Property Name="besta_dose" Type="bit" />
         </EntityType>
         <EntityType Name="ESPECIE">
           <Key>
@@ -450,6 +452,42 @@
           <Property Name="dfech_fami" Type="datetime" />
           <Property Name="susmo_fami" Type="varchar" MaxLength="20" />
           <Property Name="dfemo_fami" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GUIA">
+          <Key>
+            <PropertyRef Name="ncode_guia" />
+          </Key>
+          <Property Name="ncode_guia" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dfemov_guia" Type="datetime" Nullable="false" />
+          <Property Name="smone_guia" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ntc_guia" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="sobse_guia" Type="varchar(max)" />
+          <Property Name="besta_guia" Type="bit" Nullable="false" />
+          <Property Name="sserie_guia" Type="varchar" MaxLength="20" />
+          <Property Name="snume_guia" Type="varchar" MaxLength="20" />
+          <Property Name="suser_guia" Type="varchar" MaxLength="200" />
+          <Property Name="dfech_guia" Type="datetime" />
+          <Property Name="susmo_guia" Type="varchar" MaxLength="200" />
+          <Property Name="dfemo_guia" Type="datetime" />
+          <Property Name="ncode_tiguia" Type="int" Nullable="false" />
+          <Property Name="ncode_alma" Type="int" Nullable="false" />
+          <Property Name="ndestino_alma" Type="int" />
+          <Property Name="stipo_guia" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GUIA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_guiadet" />
+          </Key>
+          <Property Name="ncode_guiadet" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+          <Property Name="ncant_guiadet" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="npu_guiadet" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="suser_guiadet" Type="varchar" MaxLength="20" />
+          <Property Name="dfech_guiadet" Type="datetime" />
+          <Property Name="susmo_guiadet" Type="varchar" MaxLength="20" />
+          <Property Name="dfemo_guiadet" Type="datetime" />
+          <Property Name="ncode_guia" Type="bigint" Nullable="false" />
+          <Property Name="ncode_umed" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="KARDEX">
           <Key>
@@ -527,6 +565,7 @@
           <Property Name="suser_lote" Type="varchar" MaxLength="50" />
           <Property Name="dfemo_lote" Type="datetime" />
           <Property Name="susmo_lote" Type="varchar" MaxLength="50" />
+          <Property Name="nback_lote" Type="int" />
         </EntityType>
         <EntityType Name="MARCA">
           <Key>
@@ -615,6 +654,7 @@
           <Property Name="ncode_vende" Type="bigint" />
           <Property Name="bcompra_orco" Type="int" />
           <Property Name="ncode_provee" Type="bigint" />
+          <Property Name="dfentrega_orco" Type="datetime" />
         </EntityType>
         <EntityType Name="ORDEN_COMPRAS_DETALLE">
           <Key>
@@ -680,6 +720,7 @@
           <Property Name="ncode_mone" Type="int" />
           <Property Name="ncode_vende" Type="bigint" />
           <Property Name="bventa_orpe" Type="int" />
+          <Property Name="dfdespacho_orpe" Type="datetime" />
         </EntityType>
         <EntityType Name="ORDEN_PEDIDOS_DETALLE">
           <Key>
@@ -874,6 +915,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfecha_tc" Type="smalldatetime" Nullable="false" />
           <Property Name="ncompra_tc" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="nventa_tc" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TIPO_GUIA">
+          <Key>
+            <PropertyRef Name="ncode_tiguia" />
+          </Key>
+          <Property Name="ncode_tiguia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sdesc_tiguia" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="binout_tiguia" Type="bit" Nullable="false" />
+          <Property Name="btransf_tiguia" Type="bit" Nullable="false" />
+          <Property Name="besta_tiguia" Type="bit" Nullable="false" />
+          <Property Name="stipo_tiguia" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="TIPO_MOVIMIENTO">
           <Key>
@@ -2153,15 +2205,85 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="RG_17">
+          <End Role="TIPO_GUIA" Type="Self.TIPO_GUIA" Multiplicity="1" />
+          <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_GUIA">
+              <PropertyRef Name="ncode_tiguia" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ncode_tiguia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RG_20">
+          <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
+          <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RG_21">
+          <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+          <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ndestino_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_18">
+          <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+          <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_19">
+          <End Role="GUIA" Type="Self.GUIA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUIA">
+              <PropertyRef Name="ncode_guia" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_guia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_25">
+          <End Role="UMEDIDA" Type="Self.UMEDIDA" Multiplicity="1" />
+          <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
           <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
           <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
           <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
           <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
-        </Function>
-        <Function Name="Pr_LoteActualizarCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
-          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
-          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_LoteCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
           <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
@@ -2173,7 +2295,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="Pr_LoteEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+        <Function Name="Pr_LoteDetaEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_LoteEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
           <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_LotesLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen" />
@@ -2194,6 +2319,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <Function Name="Pr_clientefopagoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_clifo" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_compraActualizaLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="int" Mode="In" />
+          <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_compraActualizaPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tipo" Type="int" Mode="In" />
@@ -2404,6 +2534,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="snume_orpe" Type="varchar" Mode="In" />
           <Parameter Name="dfeorpeo_orpe" Type="datetime" Mode="In" />
           <Parameter Name="dfevenci_orpe" Type="datetime" Mode="In" />
+          <Parameter Name="dfdespacho_orpe" Type="datetime" Mode="In" />
           <Parameter Name="ncode_cliente" Type="int" Mode="In" />
           <Parameter Name="ncode_clidire" Type="int" Mode="In" />
           <Parameter Name="smone_orpe" Type="varchar" Mode="In" />
@@ -2707,6 +2838,50 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="Pr_GUIACrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+          <Parameter Name="dfemov_guia" Type="datetime" Mode="In" />
+          <Parameter Name="smone_guia" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_guia" Type="decimal" Mode="In" />
+          <Parameter Name="sobse_guia" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sserie_guia" Type="varchar" Mode="In" />
+          <Parameter Name="snume_guia" Type="varchar" Mode="In" />
+          <Parameter Name="suser_guia" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_tiguia" Type="int" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ndestino_alma" Type="int" Mode="In" />
+          <Parameter Name="stipo_guia" Type="varchar" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_GuiaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+          <Parameter Name="ncant_guiadet" Type="decimal" Mode="In" />
+          <Parameter Name="npu_guiadet" Type="decimal" Mode="In" />
+          <Parameter Name="suser_guiadet" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_guia" Type="int" Mode="In" />
+          <Parameter Name="ncode_umed" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Pr_GuiaDetaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+          <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="Pr_GuiaEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+          <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+          <Parameter Name="dfemov_guia" Type="datetime" Mode="In" />
+          <Parameter Name="smone_guia" Type="varchar" Mode="In" />
+          <Parameter Name="ntc_guia" Type="decimal" Mode="In" />
+          <Parameter Name="sobse_guia" Type="varchar(max)" Mode="In" />
+          <Parameter Name="sserie_guia" Type="varchar" Mode="In" />
+          <Parameter Name="snume_guia" Type="varchar" Mode="In" />
+          <Parameter Name="suser_guia" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_tiguia" Type="int" Mode="In" />
+          <Parameter Name="ncode_alma" Type="int" Mode="In" />
+          <Parameter Name="ndestino_alma" Type="int" Mode="In" />
+          <Parameter Name="stipo_guia" Type="varchar" Mode="In" />
+          <Parameter Name="besta_guia" Type="bit" Mode="In" />
+          <Parameter Name="sw" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_GuiaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+          <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+        </Function>
         <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
         <Function Name="Pr_ClienteDirecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
@@ -2751,6 +2926,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="snume_orco" Type="varchar" Mode="In" />
           <Parameter Name="dfeorco_orco" Type="datetime" Mode="In" />
           <Parameter Name="dfevenci_orco" Type="datetime" Mode="In" />
+          <Parameter Name="dfentrega_orco" Type="datetime" Mode="In" />
           <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
           <Parameter Name="smone_orco" Type="varchar" Mode="In" />
           <Parameter Name="ntc_orco" Type="decimal" Mode="In" />
@@ -2869,6 +3045,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESPECIE" EntityType="Self.ESPECIE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GUIA" EntityType="Self.GUIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GUIA_DETALLE" EntityType="Self.GUIA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LINEA" EntityType="Self.LINEA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LISTA_PRECIO" EntityType="Self.LISTA_PRECIO" Schema="dbo" store:Type="Tables" />
@@ -2890,6 +3068,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="SUBLINEA" EntityType="Self.SUBLINEA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CAMBIO" EntityType="Self.TIPO_CAMBIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_GUIA" EntityType="Self.TIPO_GUIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_MOVIMIENTO" EntityType="Self.TIPO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
@@ -3287,6 +3466,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="R_c690" Association="Self.R_c690">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="RG_17" Association="Self.RG_17">
+            <End Role="TIPO_GUIA" EntitySet="TIPO_GUIA" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RG_20" Association="Self.RG_20">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RG_21" Association="Self.RG_21">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_18" Association="Self.RGD_18">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_19" Association="Self.RGD_19">
+            <End Role="GUIA" EntitySet="GUIA" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_25" Association="Self.RGD_25">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -3900,15 +4103,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="sdesc_alma" Mode="In" Type="String" />
             <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
           </FunctionImport>
-          <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel.DOCU_SERIE" />
-          <AssociationSet Name="R_55" Association="MarketWebModel.R_55">
-            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
-          </AssociationSet>
-          <AssociationSet Name="R_57" Association="MarketWebModel.R_57">
-            <End Role="LOCAL" EntitySet="LOCAL" />
-            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
-          </AssociationSet>
           <EntitySet Name="AspNetUsers" EntityType="MarketWebModel.AspNetUsers" />
           <EntitySet Name="Permiso" EntityType="MarketWebModel.Permiso" />
           <EntitySet Name="Ventana" EntityType="MarketWebModel.Ventana" />
@@ -4018,6 +4212,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="snume_orpe" Mode="In" Type="String" />
             <Parameter Name="dfeorpeo_orpe" Mode="In" Type="DateTime" />
             <Parameter Name="dfevenci_orpe" Mode="In" Type="DateTime" />
+            <Parameter Name="dfdespacho_orpe" Mode="In" Type="DateTime" />
             <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
             <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
             <Parameter Name="smone_orpe" Mode="In" Type="String" />
@@ -4269,6 +4464,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="snume_orco" Mode="In" Type="String" />
             <Parameter Name="dfeorco_orco" Mode="In" Type="DateTime" />
             <Parameter Name="dfevenci_orco" Mode="In" Type="DateTime" />
+            <Parameter Name="dfentrega_orco" Mode="In" Type="DateTime" />
             <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
             <Parameter Name="smone_orco" Mode="In" Type="String" />
             <Parameter Name="ntc_orco" Mode="In" Type="Decimal" />
@@ -4419,6 +4615,97 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
             <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="Pr_LoteDetaEditar">
+          <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_LoteEditar">
+          <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_compraActualizaLote">
+            <Parameter Name="tipo" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel.DOCU_SERIE" />
+          <AssociationSet Name="R_55" Association="MarketWebModel.R_55">
+            <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+          </AssociationSet>
+          <AssociationSet Name="R_57" Association="MarketWebModel.R_57">
+            <End Role="LOCAL" EntitySet="LOCAL" />
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+          </AssociationSet>
+          <EntitySet Name="GUIA" EntityType="MarketWebModel.GUIA" />
+          <EntitySet Name="GUIA_DETALLE" EntityType="MarketWebModel.GUIA_DETALLE" />
+          <EntitySet Name="TIPO_GUIA" EntityType="MarketWebModel.TIPO_GUIA" />
+          <AssociationSet Name="RG_20" Association="MarketWebModel.RG_20">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RG_21" Association="MarketWebModel.RG_21">
+            <End Role="ALMACEN" EntitySet="ALMACEN" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_18" Association="MarketWebModel.RGD_18">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RG_17" Association="MarketWebModel.RG_17">
+            <End Role="TIPO_GUIA" EntitySet="TIPO_GUIA" />
+            <End Role="GUIA" EntitySet="GUIA" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_19" Association="MarketWebModel.RGD_19">
+            <End Role="GUIA" EntitySet="GUIA" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_25" Association="MarketWebModel.RGD_25">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_GUIACrear">
+            <Parameter Name="dfemov_guia" Mode="In" Type="DateTime" />
+            <Parameter Name="smone_guia" Mode="In" Type="String" />
+            <Parameter Name="ntc_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="sobse_guia" Mode="In" Type="String" />
+            <Parameter Name="sserie_guia" Mode="In" Type="String" />
+            <Parameter Name="snume_guia" Mode="In" Type="String" />
+            <Parameter Name="suser_guia" Mode="In" Type="String" />
+            <Parameter Name="ncode_tiguia" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+            <Parameter Name="stipo_guia" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_GuiaDetaCrea">
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+            <Parameter Name="ncant_guiadet" Mode="In" Type="Decimal" />
+            <Parameter Name="npu_guiadet" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_guiadet" Mode="In" Type="String" />
+            <Parameter Name="ncode_guia" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_GuiaDetaElimina">
+            <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_GuiaEditar">
+            <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="dfemov_guia" Mode="In" Type="DateTime" />
+            <Parameter Name="smone_guia" Mode="In" Type="String" />
+            <Parameter Name="ntc_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="sobse_guia" Mode="In" Type="String" />
+            <Parameter Name="sserie_guia" Mode="In" Type="String" />
+            <Parameter Name="snume_guia" Mode="In" Type="String" />
+            <Parameter Name="suser_guia" Mode="In" Type="String" />
+            <Parameter Name="ncode_tiguia" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+            <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+            <Parameter Name="stipo_guia" Mode="In" Type="String" />
+            <Parameter Name="besta_guia" Mode="In" Type="Boolean" />
+            <Parameter Name="sw" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_GuiaElimina">
+            <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -4436,6 +4723,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_67" FromRole="ALMACEN" ToRole="PROFORMAS" />
           <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_670" FromRole="ALMACEN" ToRole="ORDEN_PEDIDOS" />
           <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c670" FromRole="ALMACEN" ToRole="ORDEN_COMPRAS" />
+          <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_20" FromRole="ALMACEN" ToRole="GUIA" />
+          <NavigationProperty Name="GUIA1" Relationship="MarketWebModel.RG_21" FromRole="ALMACEN" ToRole="GUIA" />
         </EntityType>
         <EntityType Name="ART_BARRA">
           <Key>
@@ -4659,6 +4948,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
           <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
+          <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_25" FromRole="UMEDIDA" ToRole="GUIA_DETALLE" />
         </EntityType>
         <Association Name="R_6">
           <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
@@ -4747,6 +5037,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Decimal" Name="StockReservado" Nullable="false" Precision="18" Scale="4" />
           <Property Type="Decimal" Name="Disponible" Nullable="false" Precision="19" Scale="4" />
           <Property Type="Decimal" Name="StockTransito" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="Costo" Nullable="false" Precision="18" Scale="4" />
         </ComplexType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -5180,10 +5471,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
           <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
-          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
           <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_680" FromRole="LOCAL" ToRole="ORDEN_PEDIDOS" />
           <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c680" FromRole="LOCAL" ToRole="ORDEN_COMPRAS" />
+          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
         </EntityType>
         <Association Name="R_59">
           <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -5219,7 +5510,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
           <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_64" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
           <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
-          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" FromRole="CONFIGURACION" ToRole="PROVEEDOR" />
           <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLI_FOPAGO" />
           <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
@@ -5231,6 +5521,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="CLIENTE2" Relationship="MarketWebModel.FK_CLIENTE_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLIENTE" />
           <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c640" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
           <NavigationProperty Name="ORDEN_COMPRAS1" Relationship="MarketWebModel.R_c690" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
+          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
           </EntityType>
         <Association Name="R_40">
           <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -5621,47 +5912,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Decimal" Name="DISPONIBLE" Nullable="true" Precision="38" Scale="4" />
           <Property Type="Decimal" Name="TRANSITO" Nullable="true" Precision="38" Scale="4" />
         </ComplexType>
-        <EntityType Name="DOCU_SERIE">
-          <Key>
-            <PropertyRef Name="ncode_dose" />
-          </Key>
-          <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ncode_docu" Type="Int32" Nullable="false" />
-          <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfech_dose" Type="DateTime" Precision="3" />
-          <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
-          <Property Name="ncode_local" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
-        </EntityType>
-        <Association Name="R_55">
-          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-          <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONFIGURACION">
-              <PropertyRef Name="ncode_confi" />
-            </Principal>
-            <Dependent Role="DOCU_SERIE">
-              <PropertyRef Name="ncode_docu" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_57">
-          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
-          <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LOCAL">
-              <PropertyRef Name="ncode_local" />
-            </Principal>
-            <Dependent Role="DOCU_SERIE">
-              <PropertyRef Name="ncode_local" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -5826,6 +6076,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
           <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
           <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
+          <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_18" FromRole="ARTICULO" ToRole="GUIA_DETALLE" />
         </EntityType>
         <Association Name="R_8">
           <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -6596,6 +6847,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_690" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
           <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
           <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
+          <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="R_670">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -6855,6 +7107,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_c680" FromRole="ORDEN_COMPRAS" ToRole="LOCAL" />
           <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c620" FromRole="ORDEN_COMPRAS" ToRole="ORDEN_COMPRAS_DETALLE" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_C38" FromRole="ORDEN_COMPRAS" ToRole="PROVEEDOR" />
+          <Property Name="dfentrega_orco" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="R_c670">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -6954,6 +7207,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="susmo_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
+          <Property Name="nback_lote" Type="Int32" />
         </EntityType>
         <Association Name="FK_LOTES_COMPRAS">
           <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
@@ -6988,6 +7242,178 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Int64" Name="ncode_umed" Nullable="true" />
           <Property Type="Decimal" Name="CtdadLoteControl" Nullable="false" Precision="18" Scale="4" />
         </ComplexType>
+        <EntityType Name="DOCU_SERIE">
+          <Key>
+            <PropertyRef Name="ncode_dose" />
+          </Key>
+          <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+          <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+          <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+          <Property Name="ncode_local" Type="Int32" Nullable="false" />
+          <Property Name="sserie_dose" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="besta_dose" Type="Boolean" />
+          <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
+          <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+        </EntityType>
+        <Association Name="R_55">
+          <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+          <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONFIGURACION">
+              <PropertyRef Name="ncode_confi" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_docu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_57">
+          <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+          <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOCAL">
+              <PropertyRef Name="ncode_local" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_local" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GUIA">
+          <Key>
+            <PropertyRef Name="ncode_guia" />
+          </Key>
+          <Property Name="ncode_guia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dfemov_guia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="smone_guia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ntc_guia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="sobse_guia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="besta_guia" Type="Boolean" Nullable="false" />
+          <Property Name="sserie_guia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="snume_guia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="suser_guia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_guia" Type="DateTime" Precision="3" />
+          <Property Name="susmo_guia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_guia" Type="DateTime" Precision="3" />
+          <Property Name="ncode_tiguia" Type="Int32" Nullable="false" />
+          <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+          <Property Name="ndestino_alma" Type="Int32" />
+          <Property Name="stipo_guia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RG_20" FromRole="GUIA" ToRole="ALMACEN" />
+          <NavigationProperty Name="ALMACEN1" Relationship="MarketWebModel.RG_21" FromRole="GUIA" ToRole="ALMACEN" />
+          <NavigationProperty Name="TIPO_GUIA" Relationship="MarketWebModel.RG_17" FromRole="GUIA" ToRole="TIPO_GUIA" />
+          <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_19" FromRole="GUIA" ToRole="GUIA_DETALLE" />
+        </EntityType>
+        <EntityType Name="GUIA_DETALLE">
+          <Key>
+            <PropertyRef Name="ncode_guiadet" />
+          </Key>
+          <Property Name="ncode_guiadet" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+          <Property Name="ncant_guiadet" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="npu_guiadet" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="suser_guiadet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_guiadet" Type="DateTime" Precision="3" />
+          <Property Name="susmo_guiadet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_guiadet" Type="DateTime" Precision="3" />
+          <Property Name="ncode_guia" Type="Int64" Nullable="false" />
+          <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RGD_18" FromRole="GUIA_DETALLE" ToRole="ARTICULO" />
+          <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RGD_19" FromRole="GUIA_DETALLE" ToRole="GUIA" />
+          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.RGD_25" FromRole="GUIA_DETALLE" ToRole="UMEDIDA" />
+        </EntityType>
+        <EntityType Name="TIPO_GUIA">
+          <Key>
+            <PropertyRef Name="ncode_tiguia" />
+          </Key>
+          <Property Name="ncode_tiguia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc_tiguia" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="binout_tiguia" Type="Boolean" Nullable="false" />
+          <Property Name="btransf_tiguia" Type="Boolean" Nullable="false" />
+          <Property Name="besta_tiguia" Type="Boolean" Nullable="false" />
+          <Property Name="stipo_tiguia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_17" FromRole="TIPO_GUIA" ToRole="GUIA" />
+        </EntityType>
+        <Association Name="RG_20">
+          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ncode_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RG_21">
+          <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+          <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALMACEN">
+              <PropertyRef Name="ncode_alma" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ndestino_alma" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_18">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RG_17">
+          <End Type="MarketWebModel.TIPO_GUIA" Role="TIPO_GUIA" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPO_GUIA">
+              <PropertyRef Name="ncode_tiguia" />
+            </Principal>
+            <Dependent Role="GUIA">
+              <PropertyRef Name="ncode_tiguia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_19">
+          <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUIA">
+              <PropertyRef Name="ncode_guia" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_guia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_25">
+          <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7228,6 +7654,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="StockReservado" ColumnName="StockReservado" />
                 <ScalarProperty Name="Disponible" ColumnName="Disponible" />
                 <ScalarProperty Name="StockTransito" ColumnName="StockTransito" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -7707,22 +8134,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="DOCU_SERIE">
-            <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE">
-              <MappingFragment StoreEntitySet="DOCU_SERIE">
-                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
-                <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
-                <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
-                <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
-                <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
-                <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
-                <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
-                <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
-                <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
-                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="MarketWebModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
@@ -8160,6 +8571,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="ORDEN_PEDIDOS">
             <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
               <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+                <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
                 <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />
                 <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
                 <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
@@ -8344,6 +8756,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="ORDEN_COMPRAS">
             <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS">
               <MappingFragment StoreEntitySet="ORDEN_COMPRAS">
+                <ScalarProperty Name="dfentrega_orco" ColumnName="dfentrega_orco" />
                 <ScalarProperty Name="ncode_provee" ColumnName="ncode_provee" />
                 <ScalarProperty Name="bcompra_orco" ColumnName="bcompra_orco" />
                 <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
@@ -8398,6 +8811,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="LOTES">
             <EntityTypeMapping TypeName="MarketWebModel.LOTES">
               <MappingFragment StoreEntitySet="LOTES">
+                <ScalarProperty Name="nback_lote" ColumnName="nback_lote" />
                 <ScalarProperty Name="susmo_lote" ColumnName="susmo_lote" />
                 <ScalarProperty Name="dfemo_lote" ColumnName="dfemo_lote" />
                 <ScalarProperty Name="suser_lote" ColumnName="suser_lote" />
@@ -8428,8 +8842,82 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Pr_LoteCrear" FunctionName="MarketWebModel.Store.Pr_LoteCrear" />
-          <FunctionImportMapping FunctionImportName="Pr_LoteEliminar" FunctionName="MarketWebModel.Store.Pr_LoteEliminar" />
-          <FunctionImportMapping FunctionImportName="Pr_LoteActualizarCompra" FunctionName="MarketWebModel.Store.Pr_LoteActualizarCompra" />
+          <FunctionImportMapping FunctionImportName="Pr_LoteDetaEditar" FunctionName="MarketWebModel.Store.Pr_LoteDetaEditar" />
+          <FunctionImportMapping FunctionImportName="Pr_LoteEditar" FunctionName="MarketWebModel.Store.Pr_LoteEditar" />
+          <FunctionImportMapping FunctionImportName="Pr_compraActualizaLote" FunctionName="MarketWebModel.Store.Pr_compraActualizaLote" />
+          <EntitySetMapping Name="DOCU_SERIE">
+            <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE">
+              <MappingFragment StoreEntitySet="DOCU_SERIE">
+                <ScalarProperty Name="besta_dose" ColumnName="besta_dose" />
+                <ScalarProperty Name="sserie_dose" ColumnName="sserie_dose" />
+                <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+                <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+                <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+                <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+                <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+                <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
+                <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+                <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+                <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GUIA">
+            <EntityTypeMapping TypeName="MarketWebModel.GUIA">
+              <MappingFragment StoreEntitySet="GUIA">
+                <ScalarProperty Name="stipo_guia" ColumnName="stipo_guia" />
+                <ScalarProperty Name="ndestino_alma" ColumnName="ndestino_alma" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+                <ScalarProperty Name="ncode_tiguia" ColumnName="ncode_tiguia" />
+                <ScalarProperty Name="dfemo_guia" ColumnName="dfemo_guia" />
+                <ScalarProperty Name="susmo_guia" ColumnName="susmo_guia" />
+                <ScalarProperty Name="dfech_guia" ColumnName="dfech_guia" />
+                <ScalarProperty Name="suser_guia" ColumnName="suser_guia" />
+                <ScalarProperty Name="snume_guia" ColumnName="snume_guia" />
+                <ScalarProperty Name="sserie_guia" ColumnName="sserie_guia" />
+                <ScalarProperty Name="besta_guia" ColumnName="besta_guia" />
+                <ScalarProperty Name="sobse_guia" ColumnName="sobse_guia" />
+                <ScalarProperty Name="ntc_guia" ColumnName="ntc_guia" />
+                <ScalarProperty Name="smone_guia" ColumnName="smone_guia" />
+                <ScalarProperty Name="dfemov_guia" ColumnName="dfemov_guia" />
+                <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GUIA_DETALLE">
+            <EntityTypeMapping TypeName="MarketWebModel.GUIA_DETALLE">
+              <MappingFragment StoreEntitySet="GUIA_DETALLE">
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
+                <ScalarProperty Name="dfemo_guiadet" ColumnName="dfemo_guiadet" />
+                <ScalarProperty Name="susmo_guiadet" ColumnName="susmo_guiadet" />
+                <ScalarProperty Name="dfech_guiadet" ColumnName="dfech_guiadet" />
+                <ScalarProperty Name="suser_guiadet" ColumnName="suser_guiadet" />
+                <ScalarProperty Name="npu_guiadet" ColumnName="npu_guiadet" />
+                <ScalarProperty Name="ncant_guiadet" ColumnName="ncant_guiadet" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="ncode_guiadet" ColumnName="ncode_guiadet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_GUIA">
+            <EntityTypeMapping TypeName="MarketWebModel.TIPO_GUIA">
+              <MappingFragment StoreEntitySet="TIPO_GUIA">
+                <ScalarProperty Name="stipo_tiguia" ColumnName="stipo_tiguia" />
+                <ScalarProperty Name="besta_tiguia" ColumnName="besta_tiguia" />
+                <ScalarProperty Name="btransf_tiguia" ColumnName="btransf_tiguia" />
+                <ScalarProperty Name="binout_tiguia" ColumnName="binout_tiguia" />
+                <ScalarProperty Name="sdesc_tiguia" ColumnName="sdesc_tiguia" />
+                <ScalarProperty Name="ncode_tiguia" ColumnName="ncode_tiguia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_GUIACrear" FunctionName="MarketWebModel.Store.Pr_GUIACrear" />
+          <FunctionImportMapping FunctionImportName="Pr_GuiaDetaCrea" FunctionName="MarketWebModel.Store.Pr_GuiaDetaCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_GuiaDetaElimina" FunctionName="MarketWebModel.Store.Pr_GuiaDetaElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_GuiaEditar" FunctionName="MarketWebModel.Store.Pr_GuiaEditar" />
+          <FunctionImportMapping FunctionImportName="Pr_GuiaElimina" FunctionName="MarketWebModel.Store.Pr_GuiaElimina" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

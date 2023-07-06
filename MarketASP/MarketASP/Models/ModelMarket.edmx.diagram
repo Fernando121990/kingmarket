@@ -79,9 +79,6 @@
         <EntityTypeShape EntityType="MarketWebModel.SUNAT_UnidadMedidas" Width="1.5" PointX="9.375" PointY="3.75" />
         <EntityTypeShape EntityType="MarketWebModel.LINEA" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="MarketWebModel.SUBLINEA" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE" Width="1.5" PointX="19.625" PointY="0.75" />
-        <AssociationConnector Association="MarketWebModel.R_55" />
-        <AssociationConnector Association="MarketWebModel.R_57" />
         <EntityTypeShape EntityType="MarketWebModel.AspNetUsers" Width="1.5" PointX="10.375" PointY="19.75" />
         <EntityTypeShape EntityType="MarketWebModel.Permiso" Width="1.5" PointX="12.375" PointY="19.75" />
         <EntityTypeShape EntityType="MarketWebModel.Ventana" Width="1.5" PointX="22.375" PointY="0.75" />
@@ -156,6 +153,18 @@
         <EntityTypeShape EntityType="MarketWebModel.LOTES" Width="1.5" PointX="20.25" PointY="36.875" />
         <AssociationConnector Association="MarketWebModel.FK_LOTES_COMPRAS" />
         <AssociationConnector Association="MarketWebModel.FK_LOTES_ARTICULO" />
+        <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE" Width="1.5" PointX="19.625" PointY="0.75" />
+        <AssociationConnector Association="MarketWebModel.R_55" />
+        <AssociationConnector Association="MarketWebModel.R_57" />
+        <EntityTypeShape EntityType="MarketWebModel.GUIA" Width="1.5" PointX="12.25" PointY="3.75" />
+        <EntityTypeShape EntityType="MarketWebModel.GUIA_DETALLE" Width="1.5" PointX="29.875" PointY="13" />
+        <EntityTypeShape EntityType="MarketWebModel.TIPO_GUIA" Width="1.5" PointX="10" PointY="25" />
+        <AssociationConnector Association="MarketWebModel.RG_20" />
+        <AssociationConnector Association="MarketWebModel.RG_21" />
+        <AssociationConnector Association="MarketWebModel.RGD_18" />
+        <AssociationConnector Association="MarketWebModel.RG_17" />
+        <AssociationConnector Association="MarketWebModel.RGD_19" />
+        <AssociationConnector Association="MarketWebModel.RGD_25" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

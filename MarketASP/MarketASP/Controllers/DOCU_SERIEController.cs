@@ -58,7 +58,7 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_dose,ncode_local,ncode_docu,snumeracion_dose,susuario_dose,sdocumento_dose")] DOCU_SERIE dOCU_SERIE)
+        public async Task<ActionResult> Create(DOCU_SERIE dOCU_SERIE)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_dose,ncode_local,ncode_docu,snumeracion_dose,susuario_dose,sdocumento_dose")] DOCU_SERIE dOCU_SERIE)
+        public async Task<ActionResult> Edit(DOCU_SERIE dOCU_SERIE)
         {
             if (ModelState.IsValid)
             {
@@ -151,29 +151,6 @@ namespace MarketASP.Controllers
             return RedirectToAction("Index");
         }
 
-        //public async Task<ActionResult> Delete(long? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
-        //    if (dOCU_SERIE == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(dOCU_SERIE);
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(long id)
-        //{
-        //    DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
-        //    db.DOCU_SERIE.Remove(dOCU_SERIE);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -7,6 +7,9 @@ var conf_icbper = 0
 $(document).ready(function () {
 
     var code = 0;
+
+    $('#btnpro').hide();
+
     code = $("#ncode_venta").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
@@ -290,6 +293,8 @@ $(document).ready(function () {
             return false;
         }
 
+        $('#btnventa').hide();
+        $('#btnpro').show();
 
         Sales_save();
     });
@@ -486,6 +491,8 @@ function Sales_save() {
                     break;
                 case 3:
                     alert(result.Mensaje);
+                    $('#btnventa').show();
+                    $('#btnpro').hide();
                     break;
                 default:
                     window.location.href = urlventaLista;

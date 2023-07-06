@@ -3,6 +3,7 @@ var ordentable;
 var conf_igv = 0;
 var conf_decimal = 0;
 var conf_icbper = 0
+var oLotes;
 $(document).ready(function () {
 
 
@@ -79,13 +80,83 @@ $(document).ready(function () {
             }
         }
     });
+    oLotes = $('#tblLote').DataTable({
+        "dom": 'T<"clear">lfrtip',
+        "aoColumnDefs": [{
+            "bVisible": false,
+            "aTargets": [0]  //0,1,2,8,9
+        },
+        {
+            "sClass": "my_class",
+            "aTargets": []
+        }],
+        "drawCallback": function () {
+            this.$('td.my_class').editable(urlEditar, {
+                "callback": function (sValue, y) {
+                    var aPos = ofunciones.row(this).index();
+                    var idx = ofunciones.column(this).index();
+                    switch (idx) {
+                        case 3: //quantity column
+                            //console.log('cantidad');
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            //console.log(xcant);
+                            var xvalue = ofunciones.cell(aPos, 5).data();
+                            //console.log(xvalue);
+                            var subto = xcant * parseFloat(xvalue);
+                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            break;
+                        case 5: //price column
+                            //console.log('subtotal');
+                            var xcant = ofunciones.cell(aPos, 3).data();
+                            var xvalue = ofunciones.cell(aPos, 6).data();
+                            var yValue = ComparaPrecio(sValue, xvalue);
+                            var subto = xcant * yValue
+                            ofunciones.cell(aPos, idx).data(yValue).draw;
+                            ofunciones.cell(aPos, 11).data(subto).draw;
+                            break;
+                        default:
+                            ofunciones.cell(aPos, idx).data(sValue).draw;
+                    }
+
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "column": ofunciones.column(this).index()
+                    };
+
+                },
+                "height": "20px",
+                "width": "100%"
+            });
+            Totales();
+        },
+        select: {
+            style: 'single'
+        },
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No hay datos disponibles",
+            "info": "Mostrando pagina _PAGE_ of _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": " Siguiente",
+                "previous": "Anterior "
+            }
+        }
+    });
 
     $(".delMat").click(function () {
 
         ofunciones.rows('.selected').remove().draw(false);
     });
-
-    
 
     $(".addMat").click(function () {
 
@@ -105,9 +176,9 @@ $(document).ready(function () {
                         [{ "data": "Cod" },
                         { "data": "Cod2" },
                         { "data": "DescArt" },
-                        { "data": "Medida" },
-                        { "data": "Precio" },
                         { "data": "Stock" },
+                        { "data": "Medida" },
+                        { "data": "Costo" },
                         { "data": "ncode_umed" },
                         { "data": "bafecto_arti" },
                         { "data": "bisc_arti" },
@@ -163,8 +234,8 @@ $(document).ready(function () {
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio]).draw();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo]).draw();
         Totales();
     });
 
@@ -256,12 +327,56 @@ $(document).ready(function () {
 
     });
 
-    $("#btnpedidocerrarx").click(function () {
+    $("#btnpedidocerrarx", "#btnpedidocerrar").click(function () {
         ordentable.destroy();
     });
 
-    $("#btnpedidocerrar").click(function () {
-        ordentable.destroy();
+    /*manejo de lotes*/
+
+    $("#btnLote").click(function () {
+
+        var xcod = $('#xcodearti').val();
+        var xcodlocal = $('#xcodelocal').val();
+        var xdesc = $('#xdescarti').val();
+        var xfvenci = $('#dfvenci_lote').val();
+        var xlote = $('#sdesc_lote').val();
+        var xcant = $('#ncant_lote').val();
+        var xund = $("#xund").val();
+        var xcontrol = $("#xcontrol").val();
+
+        if (parseFloat(xcontrol) >= parseFloat(xcant)) {
+
+            oLotes.row.add([xcod, xcodlocal, xdesc, xcant, xund, xlote, xfvenci, 0]).draw();
+        }
+        else {
+            alert("La cantidad es mayor a la solicitada");
+        }
+
+        
+    });
+
+    $(".addLote").click(function () {
+        var data = ofunciones.row('.selected').data();
+        console.log(data);
+        console.log(data[0]);
+        var xcod = data[0];
+        var xcodlocal = data[1];
+        var xdes = data[2];
+        var xund = data[4];
+        var xcontrol = data[3];
+
+        $("#xcodearti").val(xcod);
+        $("#xcodelocal").val(xcodlocal);
+        $("#xdescarti").val(xdes);
+        $("#xund").val(xund);
+        $("#xcontrol").val(xcontrol);
+
+
+    });
+
+    $(".delLote").click(function () {
+
+        oLotes.rows('.selected').remove().draw(false);
     });
 });
 
@@ -270,6 +385,11 @@ $(document).ready(function () {
 function Sales_save() {
 
     console.log('nueva compra');
+
+    var loteViewDeta = {
+        "ncode_arti": "", "ncant_lote": "", "ncode_compra": "", "dfvenci_lote": "",
+        "sdesc_lote": "", "sfechalote": ""
+    };
 
     var compraViewDetas = {
         "ncode_arti": "", "ncant_comdeta": "", "npu_comdeta": "", "ndscto_comdeta": "",
@@ -287,7 +407,7 @@ function Sales_save() {
         "ndsctoex_compra": "", "ndsctoaf_compra": "", "nsubex_compra": "",
         "nsubaf_compra": "", "nigvex_compra": "", "nigvaf_compra": "", "ntotaex_compra": "",
         "ntotaaf_compra": "", "ntotal_compra": "", "ntotalMN_compra": "", "ntotalUs_compra": "",
-        "nvalIGV_compra": "", "ncode_orco": "", "compraViewDetas": []
+        "nvalIGV_compra": "", "ncode_orco": "", "compraViewDetas": [], "loteViewDeta": []
 
     };
 
@@ -346,6 +466,26 @@ function Sales_save() {
 
     }
 
+    var otblx = $('#tblLote').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+    for (var i = 0; i < nrowsx; i++) {
+
+        loteViewDeta.ncode_arti = oTable[i][0];
+        loteViewDeta.ncant_lote = oTable[i][3];
+        loteViewDeta.sdesc_lote = oTable[i][5];
+        loteViewDeta.sfechalote = oTable[i][6];
+        loteViewDeta.ncode_compra = compraView.ncode_compra;
+
+        compraView.loteViewDeta.push(loteViewDeta);
+
+        loteViewDeta = {
+            "ncode_arti": "", "ncant_lote": "", "ncode_compra": "", "dfvenci_lote": "",
+            "sdesc_lote": "", "sfechalote": ""
+        };
+
+    }
     console.log(compraView);
 
     var token = $('[name=__RequestVerificationToken]').val();

@@ -28,6 +28,7 @@ namespace MarketASP.Models
             this.ORDEN_PEDIDOS_DETALLE = new HashSet<ORDEN_PEDIDOS_DETALLE>();
             this.ORDEN_COMPRAS_DETALLE = new HashSet<ORDEN_COMPRAS_DETALLE>();
             this.LOTES = new HashSet<LOTES>();
+            this.GUIA_DETALLE = new HashSet<GUIA_DETALLE>();
         }
     
         public long ncode_arti { get; set; }
@@ -125,5 +126,7 @@ namespace MarketASP.Models
         public virtual ICollection<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LOTES> LOTES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUIA_DETALLE> GUIA_DETALLE { get; set; }
     }
 }

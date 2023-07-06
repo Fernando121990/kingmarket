@@ -24,6 +24,8 @@ namespace MarketASP.Models
         public string susmo_dose { get; set; }
         public Nullable<System.DateTime> dfemo_dose { get; set; }
         public int ncode_local { get; set; }
+        public string sserie_dose { get; set; }
+        public Nullable<bool> besta_dose { get; set; }
     
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual LOCAL LOCAL { get; set; }

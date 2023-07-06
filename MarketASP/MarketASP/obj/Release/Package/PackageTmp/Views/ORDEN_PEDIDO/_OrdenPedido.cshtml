@@ -41,20 +41,22 @@
     <div class="col-xl-6">
         <div class="card">
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="example-text-input" class="col-form-label">Documento</label>
-                    @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-select" })
-                    @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
-                </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Documento</label>
+                            @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sseri_orpe" class="col-form-label">Serie</label>
                             @Html.EditorFor(model => model.sseri_orpe, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.sseri_orpe, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="snume_orpe" class="col-form-label">Número</label>
                             <div>
@@ -65,13 +67,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfeorpeo_orpe" class="col-form-label">F.Emision</label>
                             <input id="dfeorpeo_orpe" name="dfeorpeo_orpe" type="text" value="@ViewBag.dfeorpeo_orpe" class="dfech form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfevenci_orpe" class="col-form-label">F.Venc</label>
                             <div>
@@ -79,33 +81,16 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="dfdespacho_orpe" class="col-form-label">F.Despacho</label>
+                            <div>
+                                <input id="dfdespacho_orpe" name="dfdespacho_orpe" type="text" value="@ViewBag.dfdespacho_orpe" class="dfech form-control" />
+                            </div>
+                        </div>
+                    </div>
 
-<div class="row">
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="ncode_alma" class="col-form-label">Almacen</label>
-                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-select" })
-                    @*@Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })*@
-                    @*@Html.HiddenFor(model => model.ncode_alma)*@
                 </div>
-                <div class="mb-3">
-                    <label for="ncode_compra" class="col-form-label">O.C</label>
-                    @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
@@ -134,7 +119,39 @@
                         </div>
                     </div>
 
-                </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="ncode_alma" class="col-form-label">Almacen</label>
+                            @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-select" })
+                            @*@Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })*@
+                            @*@Html.HiddenFor(model => model.ncode_alma)*@
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="ncode_compra" class="col-form-label">O.C</label>
+                            @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+              </div>
+         </div>
+     </div>
+</div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                
                 <div class="row">
                     <div class="mb-3">
                         <label for="ncode_vende" class="col-form-label">vendedor</label>
@@ -181,6 +198,7 @@
                                     <th>Descripción</th>
                                     <th>Stock</th>
                                     <th>Disponible</th>
+                                    <th>Transito</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
                                     <th>CodUM</th>

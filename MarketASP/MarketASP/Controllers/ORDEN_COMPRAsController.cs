@@ -106,6 +106,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfentrega_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
         [HttpPost]
@@ -136,7 +137,7 @@ namespace MarketASP.Controllers
                         {
 
                             db.Pr_Orden_CompraCrea(mofView.ncode_docu, mofView.sseri_orco, mofView.snume_orco, DateTime.Parse(mofView.sfeordencompra_orco),
-                                DateTime.Parse(mofView.sfevenci_orco),mofView.ncode_provee ,mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
+                                DateTime.Parse(mofView.sfevenci_orco), DateTime.Parse(mofView.sfentrega_orco), mofView.ncode_provee ,mofView.smone_orco, mofView.ntc_orco, mofView.ncode_fopago,
                                 mofView.sobse_orco,"",mofView.nbrutoex_orco, mofView.nbrutoaf_orco,
                                 mofView.ndctoex_orco, mofView.ndsctoaf_orco, mofView.nsubex_orco, mofView.nsubaf_orco, mofView.nigvex_orco,
                                 mofView.nigvaf_orco, mofView.ntotaex_orco, mofView.ntotaaf_orco, mofView.ntotal_orco, mofView.ntotalMN_orco,
@@ -217,6 +218,7 @@ namespace MarketASP.Controllers
             ViewBag.sruc_prove = ORDEN_COMPRAS.PROVEEDOR.sruc_prove;
             ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfeorco_orco);
             ViewBag.dfevenci_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfevenci_orco);
+            ViewBag.dfentrega_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfentrega_orco);
             ViewBag.tc = ORDEN_COMPRAS.ntc_orco;
 
             return View(ORDEN_COMPRAS);

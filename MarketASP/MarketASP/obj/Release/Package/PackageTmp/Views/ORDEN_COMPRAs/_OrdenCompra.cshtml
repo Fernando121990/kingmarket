@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col mb-3">
                         <label for="example-text-input" class="col-form-label">Proveedor</label>
-                        <input id="COD_PROVE" name="COD_PROVE" type="hidden" value="@ViewBag.cod_prove" />
+                        <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.cod_prove" />
                         <input id="sdesc_prove" name="sdesc_prove" type="text" value="@ViewBag.sdesc_prove" class="form-control" placeholder="Ingrese Proveedor" autofocus />
                         @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
                     </div>
@@ -55,17 +55,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfeorco_orco" class="col-form-label">F.Emision</label>
                             <input id="dfeorco_orco" name="dfeorco_orco" type="text" value="@ViewBag.dfeorco_orco" class="dfech form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfevenci_orco" class="col-form-label">F.Venc</label>
                             <div>
                                 <input id="dfevenci_orco" name="dfevenci_orco" type="text" value="@ViewBag.dfevenci_orco" class="dfech form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="dfentrega_orco" class="col-form-label">F.Entrega</label>
+                            <div>
+                                <input id="dfentrega_orco" name="dfentrega_orco" type="text" value="@ViewBag.dfentrega_orco" class="dfech form-control" />
                             </div>
                         </div>
                     </div>
@@ -155,6 +163,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
+                                    <th>Disponible</th>
                                     <th>Transito</th>
                                     <th>U.M</th>
                                     <th>Costo</th>

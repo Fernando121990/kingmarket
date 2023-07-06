@@ -199,6 +199,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Clases\guiaView.cs" />
+    <Compile Include="Clases\guiaViewDeta.cs" />
     <Compile Include="Clases\loteView.cs" />
     <Compile Include="Clases\loteViewDeta.cs" />
     <Compile Include="Clases\ordencompraView.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="Controllers\CLI_FOPAGOController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
     <Compile Include="Controllers\EspecieController.cs" />
+    <Compile Include="Controllers\GUIASController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
     <Compile Include="Controllers\LOTESController.cs" />
@@ -348,6 +351,12 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FAMILIA.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GUIA.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GUIA_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -509,6 +518,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_CAMBIO.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPO_GUIA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_MOVIMIENTO.cs">
@@ -2462,6 +2474,12 @@
     <Content Include="Views\LOTES\_lotes.cshtml" />
     <Content Include="Views\COMPRAS\CreateLote.cshtml" />
     <Content Include="Views\COMPRAS\_CompraLote.cshtml" />
+    <Content Include="Views\DOCU_SERIE\_docuserie.cshtml" />
+    <Content Include="Views\GUIAS\Create.cshtml" />
+    <Content Include="Views\GUIAS\Details.cshtml" />
+    <Content Include="Views\GUIAS\Edit.cshtml" />
+    <Content Include="Views\GUIAS\Index.cshtml" />
+    <Content Include="Views\GUIAS\_Guia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

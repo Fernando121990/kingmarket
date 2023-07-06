@@ -15,6 +15,8 @@ namespace MarketASP.Clases
         public string sfevenci_compra { get; set; }
         [JsonProperty(PropertyName = "compraViewDetas")]
         public IList<compraViewDeta> compraViewDetas { get; set; }
+        [JsonProperty(PropertyName = "loteViewDeta")]
+        public IList<loteViewDeta> loteViewDeta { get; set; }
 
     }
 }

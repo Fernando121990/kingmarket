@@ -11,6 +11,9 @@ namespace MarketASP.Clases
     {
         public string sfeordenpedido_orpe { get; set; }
         public string sfevenci_orpe { get; set; }
+        
+        public string sfedespacho_orpe { get; set; }
+
         [JsonProperty(PropertyName = "ordenpedidoViewDetas")]
         public IList<ordenpedidoViewDeta> ordenpedidoViewDetas { get; set; }
 

@@ -27,6 +27,7 @@ namespace MarketASP.Models
         public string suser_lote { get; set; }
         public Nullable<System.DateTime> dfemo_lote { get; set; }
         public string susmo_lote { get; set; }
+        public Nullable<int> nback_lote { get; set; }
     
         public virtual COMPRAS COMPRAS { get; set; }
         public virtual ARTICULO ARTICULO { get; set; }

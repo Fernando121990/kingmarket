@@ -607,15 +607,6 @@
       <Parameter Name="sdesc_alma" Mode="In" Type="String" />
       <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
     </FunctionImport>
-    <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel.DOCU_SERIE" />
-    <AssociationSet Name="R_55" Association="MarketWebModel.R_55">
-      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
-      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
-    </AssociationSet>
-    <AssociationSet Name="R_57" Association="MarketWebModel.R_57">
-      <End Role="LOCAL" EntitySet="LOCAL" />
-      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
-    </AssociationSet>
     <EntitySet Name="AspNetUsers" EntityType="MarketWebModel.AspNetUsers" />
     <EntitySet Name="Permiso" EntityType="MarketWebModel.Permiso" />
     <EntitySet Name="Ventana" EntityType="MarketWebModel.Ventana" />
@@ -725,6 +716,7 @@
       <Parameter Name="snume_orpe" Mode="In" Type="String" />
       <Parameter Name="dfeorpeo_orpe" Mode="In" Type="DateTime" />
       <Parameter Name="dfevenci_orpe" Mode="In" Type="DateTime" />
+      <Parameter Name="dfdespacho_orpe" Mode="In" Type="DateTime" />
       <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
       <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
       <Parameter Name="smone_orpe" Mode="In" Type="String" />
@@ -976,6 +968,7 @@
       <Parameter Name="snume_orco" Mode="In" Type="String" />
       <Parameter Name="dfeorco_orco" Mode="In" Type="DateTime" />
       <Parameter Name="dfevenci_orco" Mode="In" Type="DateTime" />
+      <Parameter Name="dfentrega_orco" Mode="In" Type="DateTime" />
       <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
       <Parameter Name="smone_orco" Mode="In" Type="String" />
       <Parameter Name="ntc_orco" Mode="In" Type="Decimal" />
@@ -1126,6 +1119,26 @@
       <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="Pr_LoteDetaEditar">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LoteEditar">
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraActualizaLote">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="DOCU_SERIE" EntityType="MarketWebModel.DOCU_SERIE" />
+    <AssociationSet Name="R_55" Association="MarketWebModel.R_55">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+    <AssociationSet Name="R_57" Association="MarketWebModel.R_57">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1454,6 +1467,7 @@
     <Property Type="Decimal" Name="StockReservado" Nullable="false" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="Disponible" Nullable="false" Precision="19" Scale="4" />
     <Property Type="Decimal" Name="StockTransito" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Costo" Nullable="false" Precision="18" Scale="4" />
   </ComplexType>
   <EntityType Name="MOVIMIENTO">
     <Key>
@@ -1887,10 +1901,10 @@
     <NavigationProperty Name="UBIGEO" Relationship="MarketWebModel.FK_LOCAL_UBIGEO" FromRole="LOCAL" ToRole="UBIGEO" />
     <Property Name="sdire_local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="SUCURSAL" Relationship="MarketWebModel.R_56" FromRole="LOCAL" ToRole="SUCURSAL" />
-    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_58" FromRole="LOCAL" ToRole="VENTAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_680" FromRole="LOCAL" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c680" FromRole="LOCAL" ToRole="ORDEN_COMPRAS" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_57" FromRole="LOCAL" ToRole="DOCU_SERIE" />
   </EntityType>
   <Association Name="R_59">
     <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="0..1" />
@@ -1926,7 +1940,6 @@
     <NavigationProperty Name="CTASPA_DETALLE1" Relationship="MarketWebModel.R_53" FromRole="CONFIGURACION" ToRole="CTASPA_DETALLE" />
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_64" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
     <NavigationProperty Name="PROFORMAS1" Relationship="MarketWebModel.R_69" FromRole="CONFIGURACION" ToRole="PROFORMAS" />
-    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" FromRole="CONFIGURACION" ToRole="PROVEEDOR" />
     <NavigationProperty Name="CLI_FOPAGO" Relationship="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLI_FOPAGO" />
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_60" FromRole="CONFIGURACION" ToRole="CLIENTE" />
@@ -1938,6 +1951,7 @@
     <NavigationProperty Name="CLIENTE2" Relationship="MarketWebModel.FK_CLIENTE_CONFIGURACION" FromRole="CONFIGURACION" ToRole="CLIENTE" />
     <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c640" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
     <NavigationProperty Name="ORDEN_COMPRAS1" Relationship="MarketWebModel.R_c690" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -2328,47 +2342,6 @@
     <Property Type="Decimal" Name="DISPONIBLE" Nullable="true" Precision="38" Scale="4" />
     <Property Type="Decimal" Name="TRANSITO" Nullable="true" Precision="38" Scale="4" />
   </ComplexType>
-  <EntityType Name="DOCU_SERIE">
-    <Key>
-      <PropertyRef Name="ncode_dose" />
-    </Key>
-    <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
-    <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="dfech_dose" Type="DateTime" Precision="3" />
-    <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
-    <Property Name="ncode_local" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
-    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
-  </EntityType>
-  <Association Name="R_55">
-    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
-    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONFIGURACION">
-        <PropertyRef Name="ncode_confi" />
-      </Principal>
-      <Dependent Role="DOCU_SERIE">
-        <PropertyRef Name="ncode_docu" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_57">
-    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
-    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LOCAL">
-        <PropertyRef Name="ncode_local" />
-      </Principal>
-      <Dependent Role="DOCU_SERIE">
-        <PropertyRef Name="ncode_local" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="AspNetUsers">
     <Key>
       <PropertyRef Name="Id" />
@@ -3303,6 +3276,7 @@
     <NavigationProperty Name="CONFIGURACION1" Relationship="MarketWebModel.R_690" FromRole="ORDEN_PEDIDOS" ToRole="CONFIGURACION" />
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
+    <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3562,6 +3536,7 @@
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_c680" FromRole="ORDEN_COMPRAS" ToRole="LOCAL" />
     <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c620" FromRole="ORDEN_COMPRAS" ToRole="ORDEN_COMPRAS_DETALLE" />
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_C38" FromRole="ORDEN_COMPRAS" ToRole="PROVEEDOR" />
+    <Property Name="dfentrega_orco" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="R_c670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3661,6 +3636,7 @@
     <Property Name="susmo_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
+    <Property Name="nback_lote" Type="Int32" />
   </EntityType>
   <Association Name="FK_LOTES_COMPRAS">
     <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
@@ -3695,4 +3671,47 @@
     <Property Type="Int64" Name="ncode_umed" Nullable="true" />
     <Property Type="Decimal" Name="CtdadLoteControl" Nullable="false" Precision="18" Scale="4" />
   </ComplexType>
+  <EntityType Name="DOCU_SERIE">
+    <Key>
+      <PropertyRef Name="ncode_dose" />
+    </Key>
+    <Property Name="ncode_dose" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_docu" Type="Int32" Nullable="false" />
+    <Property Name="snumeracion_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="susuario_dose" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="sdocumento_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+    <Property Name="susmo_dose" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+    <Property Name="ncode_local" Type="Int32" Nullable="false" />
+    <Property Name="sserie_dose" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="besta_dose" Type="Boolean" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+  </EntityType>
+  <Association Name="R_55">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
+    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_57">
+    <End Type="MarketWebModel.LOCAL" Role="LOCAL" Multiplicity="1" />
+    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

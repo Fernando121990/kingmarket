@@ -12,6 +12,7 @@ using System.Data.Entity.Core.Objects;
 using Newtonsoft.Json;
 using MarketASP.Clases;
 using MarketASP.Extensiones;
+using System.Security;
 
 namespace MarketASP.Controllers
 {
@@ -86,10 +87,14 @@ namespace MarketASP.Controllers
         public JsonResult Create(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
 
             int code;
             string data = "";
             int fila = 0;
+            string xmensaje = "";
+            int exito = 0;
+
             try
             {
 
@@ -130,6 +135,41 @@ namespace MarketASP.Controllers
 
                             }
 
+
+                            if (mofView.loteViewDeta != null)
+                            {
+
+                                db.Pr_LoteEditar(code);
+
+                                foreach (loteViewDeta item in mofView.loteViewDeta)
+                                {
+                                    fila++;
+
+                                    DateTime xfecha = DateTime.Parse(item.sfechalote);
+
+                                    db.Pr_LoteCrear(item.sdesc_lote, xfecha, item.ncode_arti, code,
+                                        item.ncant_lote, User.Identity.Name, mensaje, sw);
+
+                                    xmensaje += mensaje.Value.ToString();
+
+                                    if (mensaje.Value.ToString() == "NO")
+                                    {
+                                        exito = 0;
+                                        break;
+                                    }
+
+                                    //db.Pr_LoteActualizarCompra(item.ncode_compra, item.ncode_arti);
+
+                                    exito = 1;
+                                };
+
+                                db.Pr_LoteDetaEditar(code);
+
+                                db.Pr_compraActualizaLote(0, 0, code);
+
+                            }
+
+
                             db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
 
                             if (mofView.ncode_orco != null && mofView.ncode_orco > 0)
@@ -148,8 +188,8 @@ namespace MarketASP.Controllers
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
+                string mensajeX = ex.Message;
+                ViewBag.mensaje = mensajeX;
                 return Json(new { Success = 0 });
             }
         }
@@ -192,11 +232,16 @@ namespace MarketASP.Controllers
         public JsonResult Edit(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
 
             int xsw;
             long code;
             string data = "";
             int fila = 0;
+            string xmensaje = "";
+            int exito = 0;
+
+
             try
             {
 
@@ -237,6 +282,42 @@ namespace MarketASP.Controllers
 
                             }
 
+
+                            if (mofView.loteViewDeta != null)
+                            {
+
+                                db.Pr_LoteEditar(code);
+
+                                foreach (loteViewDeta item in mofView.loteViewDeta)
+                                {
+                                    fila++;
+
+                                    DateTime xfecha = DateTime.Parse(item.sfechalote);
+
+                                    db.Pr_LoteCrear(item.sdesc_lote, xfecha, item.ncode_arti, code,
+                                        item.ncant_lote, User.Identity.Name, mensaje, sw);
+
+                                    xmensaje += mensaje.Value.ToString();
+
+                                    if (mensaje.Value.ToString() == "NO")
+                                    {
+                                        exito = 0;
+                                        break;
+                                    }
+
+                                    //db.Pr_LoteActualizarCompra(item.ncode_compra, item.ncode_arti);
+
+                                    exito = 1;
+                                };
+
+                                db.Pr_LoteDetaEditar(code);
+
+                                db.Pr_compraActualizaLote(0, 0, code);
+
+                            }
+
+
+
                             db.Pr_compraDetaEdita(code);
 
                             db.Pr_KardexElimina("compra", code);
@@ -253,8 +334,8 @@ namespace MarketASP.Controllers
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
                 return Json(new { Success = 0 });
             }
         }
@@ -375,14 +456,18 @@ namespace MarketASP.Controllers
                         if (mofView != null)
                         {
 
+                            db.Pr_LoteEditar(mofView.ncode_compra);
+
                             if (mofView.loteViewDeta != null)
                             {
-                                db.Pr_LoteEliminar(mofView.ncode_compra);
 
                                 foreach (loteViewDeta item in mofView.loteViewDeta)
                                 {
                                     fila++;
-                                    db.Pr_LoteCrear(item.sdesc_lote,item.dfvenci_lote,item.ncode_arti,item.ncode_compra,
+
+                                    DateTime xfecha = DateTime.Parse(item.sfechalote);
+
+                                    db.Pr_LoteCrear(item.sdesc_lote,xfecha,item.ncode_arti,item.ncode_compra,
                                         item.ncant_lote,User.Identity.Name,mensaje,sw);
 
                                     xmensaje += mensaje.Value.ToString();
@@ -393,22 +478,16 @@ namespace MarketASP.Controllers
                                         break;
                                     }
 
-                                    db.Pr_LoteActualizarCompra(item.ncode_compra, item.ncode_arti);
+                                    //db.Pr_LoteActualizarCompra(item.ncode_compra, item.ncode_arti);
                                     
                                     exito = 1;
                                 };
 
                             }
 
-                            //db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
+                            db.Pr_LoteDetaEditar(mofView.ncode_compra);
 
-                            //if (mofView.ncode_orco != null && mofView.ncode_orco > 0)
-                            //{
-                            //    db.Pr_KardexCrea("Compra", 6, "A", code, User.Identity.Name);
-                            //}
-
-
-                            //db.Pr_compraActualizaPedido(0, mofView.ncode_orco, code);
+                            db.Pr_compraActualizaLote(0,0, mofView.ncode_compra);
                         }
                     }
                 }

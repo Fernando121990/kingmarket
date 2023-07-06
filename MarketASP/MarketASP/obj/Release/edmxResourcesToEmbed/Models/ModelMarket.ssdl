@@ -421,6 +421,8 @@
     <Property Name="susmo_dose" Type="varchar" MaxLength="20" />
     <Property Name="dfemo_dose" Type="datetime" />
     <Property Name="ncode_local" Type="int" Nullable="false" />
+    <Property Name="sserie_dose" Type="varchar" MaxLength="6" />
+    <Property Name="besta_dose" Type="bit" />
   </EntityType>
   <EntityType Name="ESPECIE">
     <Key>
@@ -522,6 +524,7 @@
     <Property Name="suser_lote" Type="varchar" MaxLength="50" />
     <Property Name="dfemo_lote" Type="datetime" />
     <Property Name="susmo_lote" Type="varchar" MaxLength="50" />
+    <Property Name="nback_lote" Type="int" />
   </EntityType>
   <EntityType Name="MARCA">
     <Key>
@@ -610,6 +613,7 @@
     <Property Name="ncode_vende" Type="bigint" />
     <Property Name="bcompra_orco" Type="int" />
     <Property Name="ncode_provee" Type="bigint" />
+    <Property Name="dfentrega_orco" Type="datetime" />
   </EntityType>
   <EntityType Name="ORDEN_COMPRAS_DETALLE">
     <Key>
@@ -675,6 +679,7 @@
     <Property Name="ncode_mone" Type="int" />
     <Property Name="ncode_vende" Type="bigint" />
     <Property Name="bventa_orpe" Type="int" />
+    <Property Name="dfdespacho_orpe" Type="datetime" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS_DETALLE">
     <Key>
@@ -2154,10 +2159,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
     <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
   </Function>
-  <Function Name="Pr_LoteActualizarCompra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
-    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
-    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
-  </Function>
   <Function Name="Pr_LoteCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
     <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
     <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
@@ -2168,7 +2169,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
-  <Function Name="Pr_LoteEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+  <Function Name="Pr_LoteDetaEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_LoteEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
     <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
   </Function>
   <Function Name="Pr_LotesLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen" />
@@ -2189,6 +2193,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   <Function Name="Pr_clientefopagoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_clifo" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_compraActualizaLote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
   </Function>
   <Function Name="Pr_compraActualizaPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tipo" Type="int" Mode="In" />
@@ -2399,6 +2408,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="snume_orpe" Type="varchar" Mode="In" />
     <Parameter Name="dfeorpeo_orpe" Type="datetime" Mode="In" />
     <Parameter Name="dfevenci_orpe" Type="datetime" Mode="In" />
+    <Parameter Name="dfdespacho_orpe" Type="datetime" Mode="In" />
     <Parameter Name="ncode_cliente" Type="int" Mode="In" />
     <Parameter Name="ncode_clidire" Type="int" Mode="In" />
     <Parameter Name="smone_orpe" Type="varchar" Mode="In" />
@@ -2746,6 +2756,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="snume_orco" Type="varchar" Mode="In" />
     <Parameter Name="dfeorco_orco" Type="datetime" Mode="In" />
     <Parameter Name="dfevenci_orco" Type="datetime" Mode="In" />
+    <Parameter Name="dfentrega_orco" Type="datetime" Mode="In" />
     <Parameter Name="ncode_provee" Type="bigint" Mode="In" />
     <Parameter Name="smone_orco" Type="varchar" Mode="In" />
     <Parameter Name="ntc_orco" Type="decimal" Mode="In" />

@@ -5,6 +5,7 @@
 
 <div class="row">
     <div>
+        <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
         <button type="button" title="Ordenes de Pedido" class="btnpedidos fas fa-archive btn btn-info" data-bs-toggle="modal" data-bs-target="#modalopedido"></button>
         <div id="modalopedido" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -68,7 +69,7 @@
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">DNI</label>
                             <div>
-                                <input id="sdni_cliente" name="sdni_cliente" type="text" value="@ViewBag.sdni_cliente" class="form-control"/>
+                                <input id="sdni_cliente" name="sdni_cliente" type="text" value="@ViewBag.sdni_cliente" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -121,23 +122,23 @@
                             </label>
                         </div>
                     </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="sserie_guia" class="col-form-label">Serie</label>
-                    @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="snumero_guia" class="col-form-label">Número</label>
-                    <div>
-                        @Html.EditorFor(model => model.snumero_guia, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.snumero_guia, "", new { @class = "text-danger" })
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="sserie_guia" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="snumero_guia" class="col-form-label">Número</label>
+                            <div>
+                                @Html.EditorFor(model => model.snumero_guia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.snumero_guia, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -176,8 +177,8 @@
                             @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
 
                             @*<label for="ncode_compra" class="col-form-label">O.C</label>
-                            @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })*@
+                                @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })*@
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -403,5 +404,13 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <button id="btnventa" name="btnventa" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+<div class="row">
+    <div class="text-center">
+        <button id="btnpro" name="btnpro" class="btn btn-block  btn-outline-warning" type="button">PROCESANDO DATOS ...</button>
     </div>
 </div>

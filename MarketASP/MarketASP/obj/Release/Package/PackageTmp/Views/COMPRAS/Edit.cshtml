@@ -13,16 +13,11 @@
                 {
                     @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.ncode_compra)
 
                     @Html.Partial("_Compra")
-                </div>
                 }
-                <div>
-                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Compras" })
-                </div>
             </div>
         </div>
     </div>

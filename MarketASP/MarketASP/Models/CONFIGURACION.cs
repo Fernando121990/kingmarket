@@ -29,7 +29,6 @@ namespace MarketASP.Models
             this.CTASPA_DETALLE1 = new HashSet<CTASPA_DETALLE>();
             this.PROFORMAS = new HashSet<PROFORMAS>();
             this.PROFORMAS1 = new HashSet<PROFORMAS>();
-            this.DOCU_SERIE = new HashSet<DOCU_SERIE>();
             this.PROVEEDOR = new HashSet<PROVEEDOR>();
             this.CLI_FOPAGO = new HashSet<CLI_FOPAGO>();
             this.CLIENTE = new HashSet<CLIENTE>();
@@ -41,6 +40,7 @@ namespace MarketASP.Models
             this.CLIENTE2 = new HashSet<CLIENTE>();
             this.ORDEN_COMPRAS = new HashSet<ORDEN_COMPRAS>();
             this.ORDEN_COMPRAS1 = new HashSet<ORDEN_COMPRAS>();
+            this.DOCU_SERIE = new HashSet<DOCU_SERIE>();
         }
     
         public int ncode_confi { get; set; }
@@ -75,8 +75,6 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROFORMAS> PROFORMAS1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DOCU_SERIE> DOCU_SERIE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PROVEEDOR> PROVEEDOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_FOPAGO> CLI_FOPAGO { get; set; }
@@ -98,5 +96,7 @@ namespace MarketASP.Models
         public virtual ICollection<ORDEN_COMPRAS> ORDEN_COMPRAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_COMPRAS> ORDEN_COMPRAS1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DOCU_SERIE> DOCU_SERIE { get; set; }
     }
 }
