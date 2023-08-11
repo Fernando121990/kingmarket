@@ -1,0 +1,43 @@
+﻿@model MarketASP.Models.GUIA
+
+@{
+    ViewBag.Title = "Registrar Guia";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
+    <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
+    <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
+
+    @Html.Partial("_Guia")
+}
+<div>
+    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Listado" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/guia")
+<script type="text/javascript">
+    var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+
+        var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
+        var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
+        var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
+        var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+    var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
+    var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
+        var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
+    var urlStockValida = '@Url.Action("getStockDisponible", "Funciones",new { area = ""})';
+
+        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+        var urlguiaCrea = '@Url.Action("Create", "guias")';
+    var urlguiaLista = '@Url.Action("Index", "guias")';
+var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
+
+</script>
+}

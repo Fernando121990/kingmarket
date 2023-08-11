@@ -10,7 +10,7 @@ using System;
 
 namespace MarketASP.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class PermisoesController : Controller
     {
         private MarketWebEntities db = new MarketWebEntities();

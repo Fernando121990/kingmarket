@@ -165,6 +165,14 @@
         <AssociationConnector Association="MarketWebModel.RG_17" />
         <AssociationConnector Association="MarketWebModel.RGD_19" />
         <AssociationConnector Association="MarketWebModel.RGD_25" />
+        <EntityTypeShape EntityType="MarketWebModel.VENTA_LOTE" Width="1.5" PointX="32.875" PointY="16.75" />
+        <AssociationConnector Association="MarketWebModel.RL_33" />
+        <AssociationConnector Association="MarketWebModel.RL_32" />
+        <AssociationConnector Association="MarketWebModel.RL_31" />
+        <EntityTypeShape EntityType="MarketWebModel.GUIA_LOTE" Width="1.5" PointX="32.875" PointY="12.25" />
+        <AssociationConnector Association="MarketWebModel.RG_33" />
+        <AssociationConnector Association="MarketWebModel.RG_32" />
+        <AssociationConnector Association="MarketWebModel.RG_31" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

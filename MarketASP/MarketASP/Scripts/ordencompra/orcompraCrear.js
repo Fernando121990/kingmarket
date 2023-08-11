@@ -455,7 +455,7 @@ function Sales_save() {
         "ndctoex_orco": "", "ndsctoaf_orco": "", "nsubex_orco": "",
         "nsubaf_orco": "", "nigvex_orco": "", "nigvaf_orco": "", "ntotaex_orco": "",
         "ntotaaf_orco": "", "ntotal_orco": "", "ntotalMN_orco": "", "ntotalUs_orco": "",
-        "nvalIGV_orco": "", "ncode_provee": "", "ordencompraViewDetas": []
+        "nvalIGV_orco": "", "ncode_provee": "", "stipo_orco": "", "ntipo_orco": "", "ordencompraViewDetas": []
 
     };
 

@@ -8,6 +8,8 @@ $(document).ready(function () {
 //        dateFormat: "dd/mm/yy"
     });
 
+    $('.dtbl').DataTable();
+
     //listado de clientes por autocomplete
     $("#sdesc_cliente").autocomplete({
         source: function (request, response) {

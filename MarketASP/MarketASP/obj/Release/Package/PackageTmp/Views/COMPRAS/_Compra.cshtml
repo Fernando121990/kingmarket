@@ -1,6 +1,7 @@
 ﻿@model MarketASP.Models.COMPRAS
 
 <input id="ncode_orco" name="ncode_orco" type="hidden" />
+<input id="stipo_orco" name="stipo_orco" type="hidden" />
 
 <div class="row">
     <div>
@@ -66,6 +67,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sserie_orco" class="col-form-label">Orden Compra</label>
+                            <div>
+                                @Html.EditorFor(model => model.sserie_orco, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sserie_orco, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">Proforma</label>
                             <div>
@@ -203,8 +211,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
     <div id="modalLote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div Class="modal-content">
@@ -218,22 +224,28 @@
                     <input id="xund" name="xund" type="hidden" class="form-control" />
 
                     <div class=" row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="xcodelocal" class="col-form-label">Codigo</label>
                                 <input id="xcodelocal" name="xcodelocal" type="text" value="0" class="form-control" readonly />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="mb-3">
                                 <label for="xdescarti" class="col-form-label">Articulo</label>
                                 <input id="xdescarti" name="xdescarti" type="text" value="-" class="form-control" readonly />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
-                                <label for="xdescarti" class="col-form-label">Ctdad</label>
+                                <label for="xcontrol" class="col-form-label">Ctdad</label>
                                 <input id="xcontrol" name="xcontrol" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xdescarti" class="col-form-label">Ctdad.Falta</label>
+                                <input id="xctdadfalta" name="xctdadfalta" type="text" class="form-control" readonly />
                             </div>
                         </div>
                     </div>
@@ -308,6 +320,7 @@
                             <th>bisc</th>
                             <th>bdscto</th>
                             <th>Subtotal</th>
+                            <th>ctdadlote</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -329,6 +342,7 @@
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.nsubt_comdeta)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncantLote_comdeta)</td>
                                 </tr>
 
                             }
@@ -439,4 +453,9 @@
 </div>
     <div class="text-center mt-4">
         <button id="btncompra" name="btncompra" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <button id="btnpro" name="btnpro" class="btn btn-block  btn-outline-warning" type="button">PROCESANDO DATOS ...</button>
+        </div>
     </div>

@@ -56,6 +56,8 @@ namespace MarketASP.Models
         public Nullable<int> bcompra_orco { get; set; }
         public Nullable<long> ncode_provee { get; set; }
         public Nullable<System.DateTime> dfentrega_orco { get; set; }
+        public string stipo_orco { get; set; }
+        public Nullable<int> ntipo_orco { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }

@@ -134,6 +134,9 @@ namespace MarketASP
                 bundles.Add(new ScriptBundle("~/bundles/ctacobrar").Include(
                    "~/Scripts/CtaCobrar/ctacobrarCrea.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/guia").Include(
+               "~/Scripts/Guia/guiagral.js"));
+
             #endregion
 
 

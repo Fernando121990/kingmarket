@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Clases\guiaView.cs" />
     <Compile Include="Clases\guiaViewDeta.cs" />
+    <Compile Include="Clases\guiaViewLote.cs" />
     <Compile Include="Clases\loteView.cs" />
     <Compile Include="Clases\loteViewDeta.cs" />
     <Compile Include="Clases\ordencompraView.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Clases\ordenpedidoView.cs" />
     <Compile Include="Clases\ordenpedidoViewDeta.cs" />
     <Compile Include="Clases\ventanaView.cs" />
+    <Compile Include="Clases\ventaViewLote.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CLI_FOPAGOController.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Controllers\SubespecieController.cs" />
     <Compile Include="Controllers\SublineaController.cs" />
     <Compile Include="Controllers\SUCURSALsController.cs" />
+    <Compile Include="Controllers\TIPO_GUIAController.cs" />
     <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="Controllers\VENDEDORController.cs" />
     <Compile Include="Controllers\VentanasController.cs" />
@@ -359,6 +362,9 @@
     <Compile Include="Models\GUIA_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GUIA_LOTE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KARDEX.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
@@ -457,6 +463,9 @@
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_LotesDisponibles_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_OCompraConsultaDetallada_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -548,6 +557,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VENTA_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENTA_LOTE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ZONA.cs">
@@ -848,6 +860,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Scripts\Compras\compraCrearLote.js" />
+    <Content Include="Scripts\Guia\guiagral.js" />
     <Content Include="Scripts\ordencompra\orcompraCrear.js" />
     <Content Include="Scripts\ordenpedido\orpedidoCrear.js" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
@@ -2480,6 +2493,9 @@
     <Content Include="Views\GUIAS\Edit.cshtml" />
     <Content Include="Views\GUIAS\Index.cshtml" />
     <Content Include="Views\GUIAS\_Guia.cshtml" />
+    <Content Include="Views\TIPO_GUIA\Create.cshtml" />
+    <Content Include="Views\TIPO_GUIA\Edit.cshtml" />
+    <Content Include="Views\TIPO_GUIA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

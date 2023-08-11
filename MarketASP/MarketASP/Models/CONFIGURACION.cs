@@ -49,6 +49,7 @@ namespace MarketASP.Models
         public bool besta_confi { get; set; }
         public int ntipo_confi { get; set; }
         public string stipo_confi { get; set; }
+        public string saux1_confi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COMPRAS> COMPRAS { get; set; }

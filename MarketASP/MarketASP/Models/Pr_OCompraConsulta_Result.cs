@@ -21,5 +21,6 @@ namespace MarketASP.Models
         public Nullable<bool> besta_orco { get; set; }
         public string TOTAL { get; set; }
         public string Proveedor { get; set; }
+        public string stipo_orco { get; set; }
     }
 }

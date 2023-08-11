@@ -8,6 +8,7 @@ $(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
 
+    $('#btnpro').hide();
     code = $("#ncode_orco").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
@@ -266,6 +267,9 @@ $(document).ready(function () {
             return false;
         }
 
+        $('#btnorco').hide();
+        $('#btnpro').show();
+
         Sales_save();
     });
 
@@ -451,7 +455,7 @@ function Sales_save() {
         "ndctoex_orco": "", "ndsctoaf_orco": "", "nsubex_orco": "",
         "nsubaf_orco": "", "nigvex_orco": "", "nigvaf_orco": "", "ntotaex_orco": "",
         "ntotaaf_orco": "", "ntotal_orco": "", "ntotalMN_orco": "", "ntotalUs_orco": "",
-        "nvalIGV_orco": "", "ncode_provee": "", "ordencompraViewDetas": []
+        "nvalIGV_orco": "", "ncode_provee": "", "stipo_orco": "", "ntipo_orco": "", "ordencompraViewDetas": []
 
     };
 
@@ -531,7 +535,9 @@ function Sales_save() {
             }
         },
         error: function (ex) {
-            alert('No se puede registrar ordenpedido' + ex);
+            $('#btnorco').show();
+            $('#btnpro').hide();
+            alert('No se puede registrar orden de compra' + ex);
         }
     });
 

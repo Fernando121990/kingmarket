@@ -28,6 +28,8 @@ namespace MarketASP.Models
             this.ORDEN_COMPRAS = new HashSet<ORDEN_COMPRAS>();
             this.GUIA = new HashSet<GUIA>();
             this.GUIA1 = new HashSet<GUIA>();
+            this.VENTA_LOTE = new HashSet<VENTA_LOTE>();
+            this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
         }
     
         public int ncode_alma { get; set; }
@@ -56,5 +58,9 @@ namespace MarketASP.Models
         public virtual ICollection<GUIA> GUIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUIA> GUIA1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTA_LOTE> VENTA_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
     }
 }

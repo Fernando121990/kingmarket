@@ -199,6 +199,7 @@
       <Parameter Name="ndsctomax_vedeta" Mode="In" Type="Decimal" />
       <Parameter Name="ndsctomin_vedeta" Mode="In" Type="Decimal" />
       <Parameter Name="ndsctoporc_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncantlote_vedeta" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="Pr_ventaDetaEdita">
       <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
@@ -302,6 +303,8 @@
       <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
+      <Parameter Name="sserie_orco" Mode="In" Type="String" />
+      <Parameter Name="stipo_orco" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_compraDetaCrea">
@@ -958,6 +961,8 @@
     <FunctionImport Name="Pr_OCompraConsulta" ReturnType="Collection(MarketWebModel.Pr_OCompraConsulta_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Pr_OCompraConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_OCompraConsultaDetallada_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
@@ -1109,11 +1114,16 @@
       <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
       <Parameter Name="ncant_lote" Mode="In" Type="Decimal" />
       <Parameter Name="suser_lote" Mode="In" Type="String" />
+      <Parameter Name="modulo" Mode="In" Type="String" />
+      <Parameter Name="ncode_confi" Mode="In" Type="Int32" />
+      <Parameter Name="tipo" Mode="In" Type="String" />
+      <Parameter Name="codigo" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
+      <Parameter Name="sserie_lote" Mode="In" Type="String" />
+      <Parameter Name="snume_lote" Mode="In" Type="String" />
+      <Parameter Name="ncodeDoc_lote" Mode="In" Type="Int64" />
       <Parameter Name="mensaje" Mode="InOut" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_LoteEliminar">
-      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_LoteActualizarCompra">
       <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
@@ -1139,6 +1149,138 @@
       <End Role="LOCAL" EntitySet="LOCAL" />
       <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
     </AssociationSet>
+    <EntitySet Name="GUIA" EntityType="MarketWebModel.GUIA" />
+    <EntitySet Name="GUIA_DETALLE" EntityType="MarketWebModel.GUIA_DETALLE" />
+    <EntitySet Name="TIPO_GUIA" EntityType="MarketWebModel.TIPO_GUIA" />
+    <AssociationSet Name="RG_20" Association="MarketWebModel.RG_20">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RG_21" Association="MarketWebModel.RG_21">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_18" Association="MarketWebModel.RGD_18">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RG_17" Association="MarketWebModel.RG_17">
+      <End Role="TIPO_GUIA" EntitySet="TIPO_GUIA" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_19" Association="MarketWebModel.RGD_19">
+      <End Role="GUIA" EntitySet="GUIA" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_25" Association="MarketWebModel.RGD_25">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_GUIACrear">
+      <Parameter Name="dfemov_guia" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_guia" Mode="In" Type="String" />
+      <Parameter Name="ntc_guia" Mode="In" Type="Decimal" />
+      <Parameter Name="sobse_guia" Mode="In" Type="String" />
+      <Parameter Name="sserie_guia" Mode="In" Type="String" />
+      <Parameter Name="snume_guia" Mode="In" Type="String" />
+      <Parameter Name="suser_guia" Mode="In" Type="String" />
+      <Parameter Name="ncode_tiguia" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+      <Parameter Name="stipo_guia" Mode="In" Type="String" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaDetaCrea">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_guiadet" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_guiadet" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_guiadet" Mode="In" Type="String" />
+      <Parameter Name="ncode_guia" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaDetaElimina">
+      <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaEditar">
+      <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+      <Parameter Name="dfemov_guia" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_guia" Mode="In" Type="String" />
+      <Parameter Name="ntc_guia" Mode="In" Type="Decimal" />
+      <Parameter Name="sobse_guia" Mode="In" Type="String" />
+      <Parameter Name="sserie_guia" Mode="In" Type="String" />
+      <Parameter Name="snume_guia" Mode="In" Type="String" />
+      <Parameter Name="suser_guia" Mode="In" Type="String" />
+      <Parameter Name="ncode_tiguia" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
+      <Parameter Name="stipo_guia" Mode="In" Type="String" />
+      <Parameter Name="besta_guia" Mode="In" Type="Boolean" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaElimina">
+      <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LotesDisponibles" ReturnType="Collection(MarketWebModel.Pr_LotesDisponibles_Result)">
+      <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="fvenci_lote" Mode="In" Type="String" />
+      <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="VENTA_LOTE" EntityType="MarketWebModel.VENTA_LOTE" />
+    <AssociationSet Name="RL_33" Association="MarketWebModel.RL_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RL_32" Association="MarketWebModel.RL_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RL_31" Association="MarketWebModel.RL_31">
+      <End Role="VENTAS" EntitySet="VENTAS" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_VentaLoteCrea">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_velote" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+      <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_LoteElimina">
+      <Parameter Name="modulo" Mode="In" Type="String" />
+      <Parameter Name="codigo" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="GUIA_LOTE" EntityType="MarketWebModel.GUIA_LOTE" />
+    <AssociationSet Name="RG_33" Association="MarketWebModel.RG_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RG_32" Association="MarketWebModel.RG_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RG_31" Association="MarketWebModel.RG_31">
+      <End Role="GUIA" EntitySet="GUIA" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_GuiaLoteCrea">
+      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_guialote" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+      <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaDetaEdita">
+      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1156,6 +1298,10 @@
     <NavigationProperty Name="PROFORMAS" Relationship="MarketWebModel.R_67" FromRole="ALMACEN" ToRole="PROFORMAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_670" FromRole="ALMACEN" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c670" FromRole="ALMACEN" ToRole="ORDEN_COMPRAS" />
+    <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_20" FromRole="ALMACEN" ToRole="GUIA" />
+    <NavigationProperty Name="GUIA1" Relationship="MarketWebModel.RG_21" FromRole="ALMACEN" ToRole="GUIA" />
+    <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_33" FromRole="ALMACEN" ToRole="VENTA_LOTE" />
+    <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_33" FromRole="ALMACEN" ToRole="GUIA_LOTE" />
   </EntityType>
   <EntityType Name="ART_BARRA">
     <Key>
@@ -1379,6 +1525,7 @@
     <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
     <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
+    <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_25" FromRole="UMEDIDA" ToRole="GUIA_DETALLE" />
   </EntityType>
   <Association Name="R_6">
     <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
@@ -1635,6 +1782,7 @@
     <Property Name="nsubt_vedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
+    <Property Name="ncantLote_vedeta" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <Association Name="R_33">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -1718,6 +1866,9 @@
     <Property Name="ncode_orco" Type="Int64" />
     <Property Name="blote_orco" Type="Int32" />
     <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="COMPRAS" ToRole="LOTES" />
+    <Property Name="sserie_orco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="stipo_orco" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="ntipo_orco" Type="Int32" />
   </EntityType>
   <EntityType Name="CTA_COBRAR">
     <Key>
@@ -1952,6 +2103,7 @@
     <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c640" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
     <NavigationProperty Name="ORDEN_COMPRAS1" Relationship="MarketWebModel.R_c690" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
+    <Property Name="saux1_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -2506,6 +2658,9 @@
     <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
     <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
+    <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_18" FromRole="ARTICULO" ToRole="GUIA_DETALLE" />
+    <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_32" FromRole="ARTICULO" ToRole="VENTA_LOTE" />
+    <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_32" FromRole="ARTICULO" ToRole="GUIA_LOTE" />
   </EntityType>
   <Association Name="R_8">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -3155,6 +3310,7 @@
     <Property Name="ncode_guia" Type="Int64" />
     <Property Name="sserie_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="snumero_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_31" FromRole="VENTAS" ToRole="VENTA_LOTE" />
   </EntityType>
   <Association Name="R_29">
     <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -3475,6 +3631,7 @@
     <Property Type="Boolean" Name="besta_orco" Nullable="true" />
     <Property Type="String" Name="TOTAL" Nullable="false" MaxLength="62" />
     <Property Type="String" Name="Proveedor" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="stipo_orco" Nullable="true" MaxLength="5" />
   </ComplexType>
   <ComplexType Name="Pr_OCompraConsultaDetallada_Result">
     <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
@@ -3537,6 +3694,8 @@
     <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c620" FromRole="ORDEN_COMPRAS" ToRole="ORDEN_COMPRAS_DETALLE" />
     <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_C38" FromRole="ORDEN_COMPRAS" ToRole="PROVEEDOR" />
     <Property Name="dfentrega_orco" Type="DateTime" Precision="3" />
+    <Property Name="stipo_orco" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="ntipo_orco" Type="Int32" />
   </EntityType>
   <Association Name="R_c670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3637,6 +3796,14 @@
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
     <Property Name="nback_lote" Type="Int32" />
+    <Property Name="stipomovi_lote" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="smodulo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_confi" Type="Int32" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="sserie_lote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_lote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ncodeDoc_lote" Type="Int64" />
+    <Property Name="ncode_lotepadre" Type="Int64" />
   </EntityType>
   <Association Name="FK_LOTES_COMPRAS">
     <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
@@ -3711,6 +3878,258 @@
       </Principal>
       <Dependent Role="DOCU_SERIE">
         <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="GUIA">
+    <Key>
+      <PropertyRef Name="ncode_guia" />
+    </Key>
+    <Property Name="ncode_guia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dfemov_guia" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="smone_guia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_guia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="sobse_guia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="besta_guia" Type="Boolean" Nullable="false" />
+    <Property Name="sserie_guia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_guia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_guia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_guia" Type="DateTime" Precision="3" />
+    <Property Name="susmo_guia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_guia" Type="DateTime" Precision="3" />
+    <Property Name="ncode_tiguia" Type="Int32" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ndestino_alma" Type="Int32" />
+    <Property Name="stipo_guia" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RG_20" FromRole="GUIA" ToRole="ALMACEN" />
+    <NavigationProperty Name="ALMACEN1" Relationship="MarketWebModel.RG_21" FromRole="GUIA" ToRole="ALMACEN" />
+    <NavigationProperty Name="TIPO_GUIA" Relationship="MarketWebModel.RG_17" FromRole="GUIA" ToRole="TIPO_GUIA" />
+    <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_19" FromRole="GUIA" ToRole="GUIA_DETALLE" />
+    <Property Name="ncode_cliente" Type="Int32" />
+    <Property Name="ncode_docu" Type="Int32" />
+    <Property Name="ncode_clidire" Type="Int32" />
+    <Property Name="ncode_mone" Type="Int32" />
+    <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_31" FromRole="GUIA" ToRole="GUIA_LOTE" />
+  </EntityType>
+  <EntityType Name="GUIA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_guiadet" />
+    </Key>
+    <Property Name="ncode_guiadet" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_guiadet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_guiadet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_guiadet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_guiadet" Type="DateTime" Precision="3" />
+    <Property Name="susmo_guiadet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_guiadet" Type="DateTime" Precision="3" />
+    <Property Name="ncode_guia" Type="Int64" Nullable="false" />
+    <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RGD_18" FromRole="GUIA_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RGD_19" FromRole="GUIA_DETALLE" ToRole="GUIA" />
+    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.RGD_25" FromRole="GUIA_DETALLE" ToRole="UMEDIDA" />
+    <Property Name="nback_guiadet" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TIPO_GUIA">
+    <Key>
+      <PropertyRef Name="ncode_tiguia" />
+    </Key>
+    <Property Name="ncode_tiguia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sdesc_tiguia" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="binout_tiguia" Type="Boolean" Nullable="false" />
+    <Property Name="btransf_tiguia" Type="Boolean" Nullable="false" />
+    <Property Name="besta_tiguia" Type="Boolean" Nullable="false" />
+    <Property Name="stipo_tiguia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_17" FromRole="TIPO_GUIA" ToRole="GUIA" />
+  </EntityType>
+  <Association Name="RG_20">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_21">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ndestino_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_18">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_17">
+    <End Type="MarketWebModel.TIPO_GUIA" Role="TIPO_GUIA" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_GUIA">
+        <PropertyRef Name="ncode_tiguia" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ncode_tiguia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_19">
+    <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GUIA">
+        <PropertyRef Name="ncode_guia" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_25">
+    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_LotesDisponibles_Result">
+    <Property Type="Int64" Name="ncode_lote" Nullable="false" />
+    <Property Type="String" Name="sdesc_lote" Nullable="true" MaxLength="50" />
+    <Property Type="Int64" Name="ncode_arti" Nullable="true" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="Decimal" Name="ncantrestante_lote" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int64" Name="ncodeDoc_lote" Nullable="true" />
+    <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+    <Property Type="String" Name="fvenci_lote" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+  </ComplexType>
+  <EntityType Name="VENTA_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_velote" />
+    </Key>
+    <Property Name="ncode_velote" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_venta" Type="Int64" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_velote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="nback_velote" Type="Int32" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RL_33" FromRole="VENTA_LOTE" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RL_32" FromRole="VENTA_LOTE" ToRole="ARTICULO" />
+    <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.RL_31" FromRole="VENTA_LOTE" ToRole="VENTAS" />
+    <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
+    <Property Name="ncode_lote" Type="Int64" />
+  </EntityType>
+  <Association Name="RL_33">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.VENTA_LOTE" Role="VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RL_32">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTA_LOTE" Role="VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RL_31">
+    <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="1" />
+    <End Type="MarketWebModel.VENTA_LOTE" Role="VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTAS">
+        <PropertyRef Name="ncode_venta" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="GUIA_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_guialote" />
+    </Key>
+    <Property Name="ncode_guialote" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_guia" Type="Int64" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_guialote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="nback_guialote" Type="Int32" />
+    <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
+    <Property Name="ncode_lote" Type="Int64" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RG_33" FromRole="GUIA_LOTE" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RG_32" FromRole="GUIA_LOTE" ToRole="ARTICULO" />
+    <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_31" FromRole="GUIA_LOTE" ToRole="GUIA" />
+  </EntityType>
+  <Association Name="RG_33">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.GUIA_LOTE" Role="GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_32">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA_LOTE" Role="GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_31">
+    <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="1" />
+    <End Type="MarketWebModel.GUIA_LOTE" Role="GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GUIA">
+        <PropertyRef Name="ncode_guia" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_guia" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -32,7 +32,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            var ORDEN_COMPRAS = db.Pr_OCompraConsulta(1, 0).ToList();
+            var ORDEN_COMPRAS = db.Pr_OCompraConsulta(1, 0,"","").ToList();
             return View(ORDEN_COMPRAS);
         }
 
@@ -101,7 +101,7 @@ namespace MarketASP.Controllers
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1074), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi");
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
@@ -209,7 +209,7 @@ namespace MarketASP.Controllers
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
 
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ORDEN_COMPRAS.smone_orco);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1074), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", ORDEN_COMPRAS.ncode_alma);
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", ORDEN_COMPRAS.ncode_vende);

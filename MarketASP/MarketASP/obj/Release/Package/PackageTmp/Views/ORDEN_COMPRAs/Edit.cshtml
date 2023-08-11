@@ -12,7 +12,6 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.ncode_orco)
                     @*@Html.HiddenFor(model => model.ncode_fopago)*@
@@ -21,16 +20,7 @@
                     <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
 
                     @Html.Partial("_OrdenCompra")
-
-                    <div class="text-center mt-4">
-                        <button id="btnorco" name="btnorco" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
-                    </div>
-                </div>
                 }
-                <div>
-                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Listado" })
-                </div>
-
             </div>
         </div>
     </div>

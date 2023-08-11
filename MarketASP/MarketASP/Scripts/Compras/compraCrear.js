@@ -4,14 +4,18 @@ var conf_igv = 0;
 var conf_decimal = 0;
 var conf_icbper = 0
 var oLotes;
+var ofunciones;
+var idtx;
+
+
 $(document).ready(function () {
 
     $('#btnpro').hide();
-    var ofunciones = $('#tbl').DataTable({
+    ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0, 6, 7, 8, 9, 10]  //0,1,2,8,9
+            "aTargets": [0, 6, 7, 8, 9, 10] 
         },
         {
             "sClass": "my_class",
@@ -84,7 +88,7 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0]  //0,1,2,8,9
+            "aTargets": [0,7]  //0,1,2,8,9
         },
         {
             "sClass": "my_class",
@@ -235,7 +239,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo,xcan]).draw();
         Totales();
     });
 
@@ -345,14 +349,23 @@ $(document).ready(function () {
         var xlote = $('#sdesc_lote').val();
         var xcant = $('#ncant_lote').val();
         var xund = $("#xund").val();
-        var xcontrol = $("#xcontrol").val();
+        var xcontrol = $("#xctdadfalta").val();
 
-        if (parseFloat(xcontrol) >= parseFloat(xcant)) {
+        if (parseFloat(xcontrol) >= parseFloat(xcant) && parseFloat(xcontrol) > 0) {
 
             oLotes.row.add([xcod, xcodlocal, xdesc, xcant, xund, xlote, xfvenci, 0]).draw();
+
+            xcontrol = xcontrol - xcant
+
+            $("#xctdadfalta").val(xcontrol);
+
+            ofunciones.cell({ row: idtx, column: 12 }).data(xcontrol).draw(false);
+
+            console.log('cantidad de lote actualizada')
+
         }
         else {
-            alert("La cantidad es mayor a la solicitada");
+            alert("La cantidad es mayor a la solicitada o se asignaron todos los lotes ");
         }
 
         
@@ -360,26 +373,34 @@ $(document).ready(function () {
 
     $(".addLote").click(function () {
         var data = ofunciones.row('.selected').data();
+        idtx = ofunciones.row('.selected').index();
+
+        console.log('agregar lote')
         console.log(data);
-        console.log(data[0]);
+        console.log(idtx);
+
         var xcod = data[0];
         var xcodlocal = data[1];
         var xdes = data[2];
         var xund = data[4];
-        var xcontrol = data[3];
+        var xcontrol = data[12];
 
         $("#xcodearti").val(xcod);
         $("#xcodelocal").val(xcodlocal);
         $("#xdescarti").val(xdes);
         $("#xund").val(xund);
         $("#xcontrol").val(xcontrol);
-
+        $("#xctdadfalta").val(xcontrol);
 
     });
 
     $(".delLote").click(function () {
 
+        var data = oLotes.row('.selected').data();
         oLotes.rows('.selected').remove().draw(false);
+
+        fnActualizarCtdadLote(data[0], data[3]);
+
     });
 });
 
@@ -410,7 +431,7 @@ function Sales_save() {
         "ndsctoex_compra": "", "ndsctoaf_compra": "", "nsubex_compra": "",
         "nsubaf_compra": "", "nigvex_compra": "", "nigvaf_compra": "", "ntotaex_compra": "",
         "ntotaaf_compra": "", "ntotal_compra": "", "ntotalMN_compra": "", "ntotalUs_compra": "",
-        "nvalIGV_compra": "", "ncode_orco": "", "compraViewDetas": [], "loteViewDeta": []
+        "nvalIGV_compra": "", "ncode_orco": "", "sserie_orco": "", "stipo_orco": "", "compraViewDetas": [], "loteViewDeta": []
 
     };
 
@@ -443,6 +464,8 @@ function Sales_save() {
     compraView.ncode_alma = $("#ncode_alma option:selected").val();
     compraView.sguia_compra = $('#sguia_compra').val();
     compraView.sproforma_compra = $('#sproforma_compra').val();
+    compraView.sserie_orco = $('#sserie_orco').val();
+    compraView.stipo_orco = $('#stipo_orco').val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -638,10 +661,12 @@ function fnCargaOrdenPedido(codigo) {
         dataType: 'json',
         data: { ncode_orco: codigo },
         success: function (compra) {
-            console.log(compra);
+            //console.log(compra);
 
             $('#sdesc_prove').val(compra.sproveedor);
             $('#ncode_provee').val(compra.ncode_provee);
+            $('#stipo_orco').val(compra.stipo_orco);
+            $('#sserie_orco').val(compra.sserie_orco);
             //$('#sruc_provee').val(compra.sruc);
             $('#sobse_compra').val(compra.ncode_cliente);
             $("#ncode_mone").val(compra.ncode_mone);
@@ -663,7 +688,8 @@ function fnCargaOrdenPedido(codigo) {
                     , compra.compraViewDetas[i].besafecto_comdeta
                     , compra.compraViewDetas[i].bisc_comdeta
                     , 0
-                    , compra.compraViewDetas[i].npu_comdeta*compra.compraViewDetas[i].ncant_comdeta]).draw();
+                    , compra.compraViewDetas[i].npu_comdeta * compra.compraViewDetas[i].ncant_comdeta
+                    , compra.compraViewDetas[i].ncant_comdeta]).draw();
             }
         },
         error: function (ex) {
@@ -681,4 +707,25 @@ function fnlimpiar() {
     $('#ncode_provee').val();
     //$('#sobse_venta').val();
     //$('#ncode_compra').val();
+}
+function fnActualizarCtdadLote(codArt,ctdad) {
+    console.log(codArt);
+
+    var otblx = $('#tbl').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+    var codigo = '';
+    var ctdadx = '';
+    for (var i = 0; i < nrowsx; i++) {
+
+        codigo = oTable[i][0];
+        ctdadx = oTable[i][12];
+
+        if (codigo == codArt) {
+            ctdadx = parseFloat(ctdadx) + parseFloat(ctdad);
+            ofunciones.cell({ row: i, column: 12 }).data(ctdadx).draw(false);
+            break;
+        }
+    }
 }

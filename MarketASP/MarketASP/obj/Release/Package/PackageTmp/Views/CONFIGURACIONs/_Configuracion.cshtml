@@ -45,7 +45,11 @@
                             <label for="svalor_confi" class="col-form-label">Valor</label>
                             @Html.EditorFor(model => model.svalor_confi, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.svalor_confi, "", new { @class = "text-danger" })
-
+                        </div>
+                        <div class="mb-3">
+                            <label for="saux1_confi" class="col-form-label">AUX1</label>
+                            @Html.EditorFor(model => model.saux1_confi, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.saux1_confi, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>

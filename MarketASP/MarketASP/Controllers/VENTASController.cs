@@ -98,6 +98,7 @@ namespace MarketASP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(string model_json)
         {
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
             ObjectParameter cc = new ObjectParameter("cc", typeof(int));
             SunatResponse resultado = new SunatResponse();
@@ -178,12 +179,26 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta,item.ncantLote_vedeta);
+                                };
+
+                            }
+
+                            if (mofView.ventaViewLotes != null)
+                            {
+                                foreach (ventaViewLote item in mofView.ventaViewLotes)
+                                {
+                                    fila++;
+                                    db.Pr_VentaLoteCrea(code, item.ncode_arti, item.ncant_velote,item.ncode_alma,
+                                        item.sdesc_lote,DateTime.Parse(item.sfvenci_lote),item.ncode_lote);
                                 };
 
                             }
 
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
+
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "Venta", 5, "S", code, 0, "", "",code, mensaje, sw);
+
 
                             //verificar si la venta esta asociada a una orden de pedido
                              //var sconfi = Helpers.Funciones.ObtenerValorParam("GENERAL", "VENTA X PEDIDO");
@@ -238,9 +253,9 @@ namespace MarketASP.Controllers
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                mensaje = "Venta" + mensaje + xmensaje;
-                return Json(new { Success = 3, Mensaje = mensaje });
+                string mensajex = ex.Message;
+                mensajex = "Venta" + mensajex + xmensaje;
+                return Json(new { Success = 3, Mensaje = mensajex });
             }
         }
 
@@ -296,7 +311,7 @@ namespace MarketASP.Controllers
         public JsonResult Edit(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
-            
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
             string xmensaje = "";
             long code = 0;
             int cccode = 0;
@@ -378,7 +393,18 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta, item.ncantLote_vedeta);
+                                };
+
+                            }
+
+                            if (mofView.ventaViewLotes != null)
+                            {
+                                foreach (ventaViewLote item in mofView.ventaViewLotes)
+                                {
+                                    fila++;
+                                    db.Pr_VentaLoteCrea(code, item.ncode_arti, item.ncant_velote, item.ncode_alma,
+                                        item.sdesc_lote, DateTime.Parse(item.sfvenci_lote), item.ncode_lote);
                                 };
 
                             }
@@ -389,7 +415,9 @@ namespace MarketASP.Controllers
 
                             db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
 
-                            
+                            db.Pr_LoteElimina("venta", code);
+
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "Venta", 5, "S", code, 0, "", "", code, mensaje, sw);
                         }
                     }
                 }
@@ -399,8 +427,8 @@ namespace MarketASP.Controllers
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
                 return Json(new { Success = 0 });
             }
         }

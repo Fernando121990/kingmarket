@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public GUIA()
         {
             this.GUIA_DETALLE = new HashSet<GUIA_DETALLE>();
+            this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
         }
     
         public long ncode_guia { get; set; }
@@ -36,11 +37,17 @@ namespace MarketASP.Models
         public int ncode_alma { get; set; }
         public Nullable<int> ndestino_alma { get; set; }
         public string stipo_guia { get; set; }
+        public Nullable<int> ncode_cliente { get; set; }
+        public Nullable<int> ncode_docu { get; set; }
+        public Nullable<int> ncode_clidire { get; set; }
+        public Nullable<int> ncode_mone { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual ALMACEN ALMACEN1 { get; set; }
         public virtual TIPO_GUIA TIPO_GUIA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUIA_DETALLE> GUIA_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
     }
 }

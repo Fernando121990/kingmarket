@@ -24,6 +24,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_guiadet { get; set; }
         public long ncode_guia { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<bool> nback_guiadet { get; set; }
     
         public virtual ARTICULO ARTICULO { get; set; }
         public virtual GUIA GUIA { get; set; }

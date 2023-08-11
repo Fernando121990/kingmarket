@@ -13,7 +13,6 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.ncode_venta)
                         @Html.HiddenFor(model => model.ncode_clidire)
@@ -22,16 +21,7 @@
                         <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
 
                         @Html.Partial("_Ventas")
-
-
-                        <div class="text-center mt-4">
-                            <button id="btnventa" name="btnventa" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
-                        </div>
-                    </div>
                 }
-                <div>
-                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Ventas" })
-                </div>
             </div>
         </div>
     </div>
@@ -56,6 +46,7 @@
         var urlventaLista = '@Url.Action("index", "ventas")';
 var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
     var urlStockValida = '@Url.Action("getStockDisponible", "Funciones",new { area = ""})';
+var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
 </script>
 
 }

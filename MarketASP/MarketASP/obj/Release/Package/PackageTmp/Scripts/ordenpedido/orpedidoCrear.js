@@ -8,6 +8,8 @@ $(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
 
+    $('#btnpro').hide();
+
     code = $("#ncode_orpe").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
@@ -291,6 +293,9 @@ $(document).ready(function () {
             return false;
         }
 
+        $('#btnorpe').hide();
+        $('#btnpro').show();
+
         Sales_save();
     });
 
@@ -559,7 +564,10 @@ function Sales_save() {
             }
         },
         error: function (ex) {
-            alert('No se puede registrar ordenpedido' + ex);
+            $('#btnorpe').show();
+            $('#btnpro').hide();
+
+            alert('No se puede registrar orden de pedido' + ex);
         }
     });
 

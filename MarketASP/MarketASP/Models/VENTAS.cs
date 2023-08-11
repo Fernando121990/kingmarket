@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public VENTAS()
         {
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
+            this.VENTA_LOTE = new HashSet<VENTA_LOTE>();
         }
     
         public long ncode_venta { get; set; }
@@ -75,5 +76,7 @@ namespace MarketASP.Models
         public virtual LOCAL LOCAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTA_LOTE> VENTA_LOTE { get; set; }
     }
 }

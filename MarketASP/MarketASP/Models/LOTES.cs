@@ -28,6 +28,14 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_lote { get; set; }
         public string susmo_lote { get; set; }
         public Nullable<int> nback_lote { get; set; }
+        public string stipomovi_lote { get; set; }
+        public string smodulo_confi { get; set; }
+        public Nullable<int> ncode_confi { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
+        public string sserie_lote { get; set; }
+        public string snume_lote { get; set; }
+        public Nullable<long> ncodeDoc_lote { get; set; }
+        public Nullable<long> ncode_lotepadre { get; set; }
     
         public virtual COMPRAS COMPRAS { get; set; }
         public virtual ARTICULO ARTICULO { get; set; }

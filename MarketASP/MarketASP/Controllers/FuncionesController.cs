@@ -122,6 +122,11 @@ namespace MarketASP.Controllers
             }
         }
 
+        public JsonResult getLotesDisponible(int ncode_alma,int ncode_arti,string fvenci_lote,string sdesc_lote) {
+            var resultado = db.Pr_LotesDisponibles(ncode_alma,ncode_arti,fvenci_lote,sdesc_lote);
+            return Json(resultado);
+        }
+        
         public JsonResult getPedidoPrecio(int ncode_arti)
         {
             var resultado = db.Pr_PedidoPrecio(ncode_arti);
@@ -290,6 +295,9 @@ namespace MarketASP.Controllers
                 sruc = pROVEEDOR.sruc_prove,
                 ncode_fopago = pedido.ncode_fopago,
                 smone_compra = pedido.smone_orco,
+                ntipo_orco = pedido.ncode_docu,
+                stipo_orco = pedido.stipo_orco,
+                sserie_orco = string.Concat(pedido.sseri_orco,"-",pedido.snume_orco),
                 compraViewDetas = listadeta
             };
 

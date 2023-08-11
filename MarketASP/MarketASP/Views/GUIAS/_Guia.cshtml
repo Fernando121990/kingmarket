@@ -8,21 +8,31 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col mb-3">
-                        <label for="example-text-input" class="col-form-label">Proveedor</label>
-                        <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.cod_prove" />
-                        <input id="sdesc_prove" name="sdesc_prove" type="text" value="@ViewBag.sdesc_prove" class="form-control" placeholder="Ingrese Proveedor" autofocus />
-                        @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Cliente</label>
+                            <input id="COD_CLIENTE" name="COD_CLIENTE" type="hidden" value="@ViewBag.cod_cliente" />
+                            <input id="sdesc_cliente" name="sdesc_cliente" type="text" value="@ViewBag.sdesc_cliente" class="form-control" placeholder="Ingrese Cliente" autofocus />
+                            @Html.ValidationMessageFor(model => model.ncode_cliente, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                     <div class="col-auto mt-4">
-                        <a href="@Url.Action("Create","proveedors")" class="btn btn-success" target="_blank"><i class="fa fa-user"></i></a>
+                        <a href="@Url.Action("Create","Clientes")" class="btn btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="sruc_prove" class="col-form-label">RUC</label>
-                            <input id="sruc_prove" name="sruc_prove" type="text" value="@ViewBag.sruc_prove" class="form-control" />
+                    <div class="mb-3">
+                        <label for="example-text-input" class="col-form-label">Dirección</label>
+                        <select id="NRO_DCLIENTE" name="NRO_DCLIENTE" class="form-control"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sruc_cliente" class="col-form-label">RUC</label>
+                        <input id="sruc_cliente" name="sruc_cliente" type="text" value="@ViewBag.sruc_cliente" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="sdni_cliente" class="col-form-label">DNI</label>
+                        <div>
+                            <input id="sdni_cliente" name="sdni_cliente" type="text" value="@ViewBag.sdni_cliente" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -32,27 +42,32 @@
     <div class="col-xl-6">
         <div class="card">
             <div class="card-body">
+                <div class="mb-3">
+                    <label for="ncode_tiguia" class="col-form-label">Tipo</label>
+                    @Html.DropDownList("ncode_tiguia", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ncode_tiguia, "", new { @class = "text-danger" })
+                </div>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Documento</label>
                             @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-select" })
-                            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.ncode_guia, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="mb-3">
-                            <label for="sseri_orco" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sseri_orco, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.sseri_orco, "", new { @class = "text-danger" })
+                            <label for="sserie_guia" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="snume_orco" class="col-form-label">Número</label>
+                            <label for="snume_guia" class="col-form-label">Número</label>
                             <div>
-                                @Html.EditorFor(model => model.snume_orco, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.snume_orco, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.snume_guia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.snume_guia, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -60,310 +75,347 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="dfeorco_orco" class="col-form-label">F.Emision</label>
-                            <input id="dfeorco_orco" name="dfeorco_orco" type="text" value="@ViewBag.dfeorco_orco" class="dfech form-control" />
+                            <label for="dfemov_guia" class="col-form-label">F.Emision</label>
+                            <input id="dfemov_guia" name="dfemov_guia" type="text" value="@ViewBag.dfemov_guia" class="dfech form-control" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="dfevenci_orco" class="col-form-label">F.Venc</label>
+                            <label for="smone_guia" class="col-form-label">Moneda</label>
                             <div>
-                                <input id="dfevenci_orco" name="dfevenci_orco" type="text" value="@ViewBag.dfevenci_orco" class="dfech form-control" />
+                                @Html.DropDownList("smone_guia", null, htmlAttributes: new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.smone_guia, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="dfentrega_orco" class="col-form-label">F.Entrega</label>
+                            <label for="ntc_guia" class="col-form-label">T.C</label>
                             <div>
-                                <input id="dfentrega_orco" name="dfentrega_orco" type="text" value="@ViewBag.dfentrega_orco" class="dfech form-control" />
+                                <input id="ntc_guia" style="width:10em" name="ntc_guia" class="form-control" type="text" value="@ViewBag.tc" readonly />
+                                @Html.ValidationMessageFor(model => model.ntc_guia, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="ncode_alma" class="col-form-label">Almacen</label>
-                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-select" })
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="ncode_fopago" class="col-form-label">F.Pago</label>
-                            @*<select id="nro_fopago" name="nro_fopago" class="form-control"></select>*@
-                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-select" })
-                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+                            <label for="ncode_alma" class="col-form-label">Almacen</label>
+                            @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-select" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="smone_orco" class="col-form-label">Moneda</label>
+                            <label for="example-text-input" class="col-form-label">Al.Destino</label>
                             <div>
-                                @Html.DropDownList("smone_orco", null, htmlAttributes: new { @class = "form-select" })
-                                @Html.ValidationMessageFor(model => model.smone_orco, "", new { @class = "text-danger" })
+                                @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control destino" })
+                                @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="ntc_orco" class="col-form-label">T.C</label>
-                            <div>
-                                <input id="ntc_orco" style="width:10em" name="ntc_orco" class="form-control" type="text" value="@ViewBag.tc" readonly />
-                                @Html.ValidationMessageFor(model => model.ntc_orco, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
             </div>
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="mb-3">
-        <label for="sobse_venta" class="col-form-label">Observacion</label>
-        @Html.EditorFor(model => model.sobse_orco, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.sobse_orco, "", new { @class = "text-danger" })
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <p>Productos</p>
-    </div>
-    <div class="col-lg-6">
-        <button type="button" title="Agregar Articulo" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
-        <button type="button" title="Eliminar Articulo" class="delMat fas fa-trash-alt btn btn-warning"></button>
-        <button type="button" title="Ver Almacen" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
-        <button type="button" title="Ver Costos" class="btnpedidos fas fa-money-check btn btn-info" data-bs-toggle="modal" data-bs-target="#modalprecio"></button>
-        <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
-                        <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table id="matetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Código</th>
-                                    <th>Descripción</th>
-                                    <th>Stock</th>
-                                    <th>Disponible</th>
-                                    <th>Transito</th>
-                                    <th>U.M</th>
-                                    <th>Costo</th>
-                                    <th>CodUM</th>
-                                    <th>bafecto</th>
-                                    <th>bisc</th>
-                                    <th>bdscto</th>
-                                    <th>bicbper</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div Class="modal-footer">
-                        <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
-                        <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="modalAlma" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAlmalabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 Class="modal-title" id="modalAlmalabel">Almacen - detalle</h5>
-                        <button id="btnalmacerrarx" name="btnalmacerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table id="almatabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Almacen</th>
-                                    <th>Nombre</th>
-                                    <th>Stock</th>
-                                    <th>Transito</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div Class="modal-footer">
-                        <button id="btnalmacencerrar" name="btnalmacencerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="modalprecio" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalpreciolabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 Class="modal-title" id="modalpreciolabel">Ordenes de Pedido</h5>
-                        <button id="btnpreciocerrarx" name="btnpreciocerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <table id="preciotabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Documento</th>
-                                    <th>Cantidad</th>
-                                    <th>Costo</th>
-                                    <th>Proveedor</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div Class="modal-footer">
-                        <button id="btnpreciocerrar" name="btnpreciocerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <label for="sobse_guia" class="col-form-label">Observacion</label>
+        @Html.EditorFor(model => model.sobse_guia, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.sobse_guia, "", new { @class = "text-danger" })
     </div>
 </div>
 
-
 <div class="row">
-    <div class="col-lg-12">
-        <Table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
-            <thead class="thead-dark">
-                <tr>
-                    <th>CodArt</th>
-                    <th>Codigo</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>UM</th>
-                    <th>Precio</th>
-                    <th>Precio</th>
-                    <th>M</th>
-                    <th>bafecto</th>
-                    <th>bisc</th>
-                    <th>bdscto</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    foreach (var item in Model.ORDEN_COMPRAS_DETALLE)
-                    {
-                        var currentItem = item;
+    <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
+                    <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table id="matetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Stock</th>
+                                <th>Disponible</th>
+                                <th>Transito</th>
+                                <th>U.M</th>
+                                <th>Precio</th>
+                                <th>CodUM</th>
+                                <th>bafecto</th>
+                                <th>bisc</th>
+                                <th>bdscto</th>
+                                <th>bicbper</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div Class="modal-footer">
+                    <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalAlma" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAlmalabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 Class="modal-title" id="modalAlmalabel">Almacen - detalle</h5>
+                    <button id="btnalmacerrarx" name="btnalmacerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table id="almatabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Almacen</th>
+                                <th>Nombre</th>
+                                <th>Stock</th>
+                                <th>Transito</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div Class="modal-footer">
+                    <button id="btnalmacencerrar" name="btnalmacencerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div Class="modal-content">
+                <div Class="modal-header">
+                    <h5 Class="modal-title" id="modalLotelabel">Agregar Lote</h5>
+                    <button id="btnlotecerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div Class="modal-body">
+                    <table id="lotetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Lote</th>
+                                <th>Vence</th>
+                                <th>cod.art</th>
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Ctdad</th>
+                                <th>CodDoc</th>
+                                <th>cod.alma</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="btncerrarL" name="btncerrarL" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnLote" name="btnLote" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<ul class="nav nav-pills nav-justified" role="tablist">
+    <li class="nav-item waves-effect waves-light">
+        <a class="nav-link active" data-bs-toggle="tab" href="#articulo-1" role="tab">
+            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+            <span class="d-none d-sm-block">
+                Articulos
+                <button title="Agregar Articulo" type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+                <button title="Eliminar Articulo" type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+                <button type="button" title="Ver Almacen" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
+                <button title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLote"></button>
+            </span>
+        </a>
+    </li>
+    <li class="nav-item waves-effect waves-light">
+        <a class="nav-link" data-bs-toggle="tab" href="#lote-1" role="tab">
+            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+            <span class="d-none d-sm-block">
+                Lotes
+                <button title="Eliminar Lote" type="button" class="delLote fas fa-trash-alt btn btn-warning"></button>
+            </span>
+        </a>
+    </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content p-3 text-muted">
+    <div class="tab-pane active" id="articulo-1" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <Table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ncant_orcodeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npu_orcodeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npuorigen_orcodeta)</td>
-                            <td></td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.nsubt_orcodeta)</td>
+                            <th>CodArt</th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>UM</th>
+                            <th>Precio</th>
+                            <th>PrecioOri</th>
+                            <th>codumed</th>
+                            <th>bafecto</th>
+                            <th>bisc</th>
+                            <th>bdscto</th>
+                            <th>bicbper</th>
+                            <th>subtotal</th>
+                            <th></th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.GUIA_DETALLE)
+                            {
+                                var currentItem = item;
+                                <tr>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_guiadet)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.npu_guiadet)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
 
-                    }
-                }
-            </tbody>
-        </Table>
+                            }
+                        }
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped table-responsive-lg">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>T.Bruto</th>
+                            <th>Dscto</th>
+                            <th>SubTotal</th>
+                            <th>IGV</th>
+                            <th>Total</th>
+                            <th>Total-Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exonerado</td>
+                            <td>
+                                <input id="nbrutoex_guia" name="nbrutoex_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ndctoex_guia" name="ndctoex_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nsubex_guia" name="nsubex_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nigvex_guia" name="nigvex_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ntotaex_guia" name="ntotaex_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td rowspan="2">
+                                <input id="ntotal_guia" name="ntotal_guia" type="text" class="form-control" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Afecto</td>
+                            <td>
+                                <input id="nbrutoaf_guia" name="nbrutoaf_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ndsctoaf_guia" name="ndsctoaf_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nsubaf_guia" name="nsubaf_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nigvaf_guia" name="nigvaf_guia" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ntotaaf_guia" name="ntotaaf_guia" type="text" class="form-control" readonly />
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="lote-1" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <Table id="tblLote" class="table table-striped table-responsive-lg" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>CodArt</th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>UM</th>
+                            <th>Lote</th>
+                            <th>F.vencimiento</th>
+                            <th>cod.lote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.GUIA_LOTE)
+                            {
+                                var currentItem = item;
+                                <tr>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_guialote)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.sdesc_lote)</td>
+                                    <td>@string.Format("{0:d}", currentItem.dfvenci_lote)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncode_lote)</td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </Table>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <table class="table table-striped table-responsive-lg">
-            <thead class="thead-dark">
-                <tr>
-                    <th></th>
-                    <th>T.Bruto</th>
-                    <th>Dscto</th>
-                    <th>SubTotal</th>
-                    <th>IGV</th>
-                    <th>Total</th>
-                    <th>Total-Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Exonerado</td>
-                    <td>
-                        <input id="nbrutoex_orco" name="nbrutoex_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="ndctoex_orco" name="ndctoex_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="nsubex_orco" name="nsubex_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="nigvex_orco" name="nigvex_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="ntotaex_orco" name="ntotaex_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td rowspan="2">
-                        <input id="ntotal_orco" name="ntotal_orco" type="text" class="form-control" readonly />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Afecto</td>
-                    <td>
-                        <input id="nbrutoaf_orco" name="nbrutoaf_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="ndsctoaf_orco" name="ndsctoaf_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="nsubaf_orco" name="nsubaf_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="nigvaf_orco" name="nigvaf_orco" type="text" class="form-control" readonly />
-                    </td>
-                    <td>
-                        <input id="ntotaaf_orco" name="ntotaaf_orco" type="text" class="form-control" readonly />
-                    </td>
 
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 <div class="text-center mt-4">
-    <button id="btnorco" name="btnorco" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+    <button id="btnguia" name="btnguia" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
 </div>
 <div class="row">
     <div class="text-center">

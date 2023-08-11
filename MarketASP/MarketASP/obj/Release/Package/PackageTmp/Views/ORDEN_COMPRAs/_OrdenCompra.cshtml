@@ -1,5 +1,8 @@
 ﻿@model MarketASP.Models.ORDEN_COMPRAS
 
+<div>
+    <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
+</div>
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
@@ -225,7 +228,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 Class="modal-title" id="modalpreciolabel">Ordenes de Pedido</h5>
-                        <button id="btnpreciocerrarx" name="btnpreciocerrarx"  type="button" class="btn-close" data-bs-dismiss="modal"
+                        <button id="btnpreciocerrarx" name="btnpreciocerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -356,5 +359,14 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button id="btnorco" name="btnorco" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+<div class="row">
+    <div class="text-center">
+        <button id="btnpro" name="btnpro" class="btn btn-block  btn-outline-warning" type="button">PROCESANDO DATOS ...</button>
     </div>
 </div>

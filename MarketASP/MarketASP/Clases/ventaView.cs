@@ -13,6 +13,9 @@ namespace MarketASP.Clases
         public string sdni { get; set; }
         [JsonProperty(PropertyName = "ventaViewDetas")]
         public IList<ventaViewDeta> ventaViewDetas { get; set; }
+        
+        [JsonProperty(PropertyName = "ventaViewLotes")]
+        public IList<ventaViewLote> ventaViewLotes { get; set; }
 
     }
 }

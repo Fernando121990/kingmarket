@@ -281,6 +281,9 @@
     <Property Name="btitgratuito_compra" Type="bit" />
     <Property Name="ncode_orco" Type="bigint" />
     <Property Name="blote_orco" Type="int" />
+    <Property Name="sserie_orco" Type="varchar" MaxLength="50" />
+    <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
+    <Property Name="ntipo_orco" Type="int" />
   </EntityType>
   <EntityType Name="CONFIGURACION">
     <Key>
@@ -292,6 +295,7 @@
     <Property Name="besta_confi" Type="bit" Nullable="false" />
     <Property Name="ntipo_confi" Type="int" Nullable="false" />
     <Property Name="stipo_confi" Type="varchar" MaxLength="50" />
+    <Property Name="saux1_confi" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CONTACTO">
     <Key>
@@ -448,6 +452,61 @@
     <Property Name="susmo_fami" Type="varchar" MaxLength="20" />
     <Property Name="dfemo_fami" Type="datetime" />
   </EntityType>
+  <EntityType Name="GUIA">
+    <Key>
+      <PropertyRef Name="ncode_guia" />
+    </Key>
+    <Property Name="ncode_guia" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dfemov_guia" Type="datetime" Nullable="false" />
+    <Property Name="smone_guia" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ntc_guia" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="sobse_guia" Type="varchar(max)" />
+    <Property Name="besta_guia" Type="bit" Nullable="false" />
+    <Property Name="sserie_guia" Type="varchar" MaxLength="20" />
+    <Property Name="snume_guia" Type="varchar" MaxLength="20" />
+    <Property Name="suser_guia" Type="varchar" MaxLength="200" />
+    <Property Name="dfech_guia" Type="datetime" />
+    <Property Name="susmo_guia" Type="varchar" MaxLength="200" />
+    <Property Name="dfemo_guia" Type="datetime" />
+    <Property Name="ncode_tiguia" Type="int" Nullable="false" />
+    <Property Name="ncode_alma" Type="int" Nullable="false" />
+    <Property Name="ndestino_alma" Type="int" />
+    <Property Name="stipo_guia" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ncode_cliente" Type="int" />
+    <Property Name="ncode_docu" Type="int" />
+    <Property Name="ncode_clidire" Type="int" />
+    <Property Name="ncode_mone" Type="int" />
+  </EntityType>
+  <EntityType Name="GUIA_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_guiadet" />
+    </Key>
+    <Property Name="ncode_guiadet" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_guiadet" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="npu_guiadet" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="suser_guiadet" Type="varchar" MaxLength="20" />
+    <Property Name="dfech_guiadet" Type="datetime" />
+    <Property Name="susmo_guiadet" Type="varchar" MaxLength="20" />
+    <Property Name="dfemo_guiadet" Type="datetime" />
+    <Property Name="ncode_guia" Type="bigint" Nullable="false" />
+    <Property Name="ncode_umed" Type="bigint" Nullable="false" />
+    <Property Name="nback_guiadet" Type="bit" />
+  </EntityType>
+  <EntityType Name="GUIA_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_guialote" />
+    </Key>
+    <Property Name="ncode_guialote" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_guia" Type="bigint" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_guialote" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="nback_guialote" Type="int" />
+    <Property Name="sdesc_lote" Type="varchar" MaxLength="50" />
+    <Property Name="dfvenci_lote" Type="datetime" />
+    <Property Name="ncode_lote" Type="bigint" />
+  </EntityType>
   <EntityType Name="KARDEX">
     <Key>
       <PropertyRef Name="ncode_kardex" />
@@ -525,6 +584,14 @@
     <Property Name="dfemo_lote" Type="datetime" />
     <Property Name="susmo_lote" Type="varchar" MaxLength="50" />
     <Property Name="nback_lote" Type="int" />
+    <Property Name="stipomovi_lote" Type="varchar" MaxLength="5" />
+    <Property Name="smodulo_confi" Type="varchar" MaxLength="50" />
+    <Property Name="ncode_confi" Type="int" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="sserie_lote" Type="varchar" MaxLength="20" />
+    <Property Name="snume_lote" Type="varchar" MaxLength="20" />
+    <Property Name="ncodeDoc_lote" Type="bigint" />
+    <Property Name="ncode_lotepadre" Type="bigint" />
   </EntityType>
   <EntityType Name="MARCA">
     <Key>
@@ -614,6 +681,8 @@
     <Property Name="bcompra_orco" Type="int" />
     <Property Name="ncode_provee" Type="bigint" />
     <Property Name="dfentrega_orco" Type="datetime" />
+    <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
+    <Property Name="ntipo_orco" Type="int" />
   </EntityType>
   <EntityType Name="ORDEN_COMPRAS_DETALLE">
     <Key>
@@ -875,6 +944,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ncompra_tc" Type="decimal" Precision="18" Scale="4" Nullable="false" />
     <Property Name="nventa_tc" Type="decimal" Precision="18" Scale="4" Nullable="false" />
   </EntityType>
+  <EntityType Name="TIPO_GUIA">
+    <Key>
+      <PropertyRef Name="ncode_tiguia" />
+    </Key>
+    <Property Name="ncode_tiguia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_tiguia" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="binout_tiguia" Type="bit" Nullable="false" />
+    <Property Name="btransf_tiguia" Type="bit" Nullable="false" />
+    <Property Name="besta_tiguia" Type="bit" Nullable="false" />
+    <Property Name="stipo_tiguia" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
   <EntityType Name="TIPO_MOVIMIENTO">
     <Key>
       <PropertyRef Name="ncode_timovi" />
@@ -974,6 +1054,21 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="ndsctoporc_vedeta" Type="decimal" Precision="18" Scale="4" />
     <Property Name="nback_vedeta" Type="int" />
     <Property Name="nsubt_vedeta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncantLote_vedeta" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="VENTA_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_velote" />
+    </Key>
+    <Property Name="ncode_velote" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_venta" Type="bigint" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_velote" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="nback_velote" Type="int" />
+    <Property Name="sdesc_lote" Type="varchar" MaxLength="50" />
+    <Property Name="dfvenci_lote" Type="datetime" />
+    <Property Name="ncode_lote" Type="bigint" />
   </EntityType>
   <EntityType Name="Ventana">
     <Key>
@@ -2153,6 +2248,152 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="RG_17">
+    <End Role="TIPO_GUIA" Type="Self.TIPO_GUIA" Multiplicity="1" />
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_GUIA">
+        <PropertyRef Name="ncode_tiguia" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ncode_tiguia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_20">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="1" />
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_21">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA">
+        <PropertyRef Name="ndestino_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_31">
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="1" />
+    <End Role="GUIA_LOTE" Type="Self.GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GUIA">
+        <PropertyRef Name="ncode_guia" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_32">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="GUIA_LOTE" Type="Self.GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RG_33">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="GUIA_LOTE" Type="Self.GUIA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="GUIA_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_18">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_19">
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GUIA">
+        <PropertyRef Name="ncode_guia" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RGD_25">
+    <End Role="UMEDIDA" Type="Self.UMEDIDA" Multiplicity="1" />
+    <End Role="GUIA_DETALLE" Type="Self.GUIA_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="GUIA_DETALLE">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RL_31">
+    <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="1" />
+    <End Role="VENTA_LOTE" Type="Self.VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTAS">
+        <PropertyRef Name="ncode_venta" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RL_32">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="VENTA_LOTE" Type="Self.VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RL_33">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="VENTA_LOTE" Type="Self.VENTA_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="VENTA_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
@@ -2166,6 +2407,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_compra" Type="bigint" Mode="In" />
     <Parameter Name="ncant_lote" Type="decimal" Mode="In" />
     <Parameter Name="suser_lote" Type="varchar" Mode="In" />
+    <Parameter Name="modulo" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_confi" Type="int" Mode="In" />
+    <Parameter Name="tipo" Type="varchar" Mode="In" />
+    <Parameter Name="codigo" Type="numeric" Mode="In" />
+    <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
+    <Parameter Name="sserie_lote" Type="varchar" Mode="In" />
+    <Parameter Name="snume_lote" Type="varchar" Mode="In" />
+    <Parameter Name="ncodeDoc_lote" Type="bigint" Mode="In" />
     <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
@@ -2239,6 +2488,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_fopago" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_orco" Type="bigint" Mode="In" />
+    <Parameter Name="sserie_orco" Type="varchar" Mode="In" />
+    <Parameter Name="stipo_orco" Type="varchar" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_compraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2347,6 +2598,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_docu" Type="int" Mode="In" />
   </Function>
+  <Function Name="Pr_GuiaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="modulo" Type="varchar" Mode="In" />
     <Parameter Name="ncode_confi" Type="int" Mode="In" />
@@ -2355,6 +2609,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="usuario" Type="varchar" Mode="In" />
   </Function>
   <Function Name="Pr_KardexElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="modulo" Type="varchar" Mode="In" />
+    <Parameter Name="codigo" Type="numeric" Mode="In" />
+  </Function>
+  <Function Name="Pr_LoteElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="modulo" Type="varchar" Mode="In" />
     <Parameter Name="codigo" Type="numeric" Mode="In" />
   </Function>
@@ -2670,6 +2928,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ndsctomax_vedeta" Type="decimal" Mode="In" />
     <Parameter Name="ndsctomin_vedeta" Type="decimal" Mode="In" />
     <Parameter Name="ndsctoporc_vedeta" Type="decimal" Mode="In" />
+    <Parameter Name="ncantlote_vedeta" Type="decimal" Mode="In" />
   </Function>
   <Function Name="Pr_ventaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
@@ -2712,6 +2971,63 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
+  <Function Name="Pr_GUIACrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="dfemov_guia" Type="datetime" Mode="In" />
+    <Parameter Name="smone_guia" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_guia" Type="decimal" Mode="In" />
+    <Parameter Name="sobse_guia" Type="varchar(max)" Mode="In" />
+    <Parameter Name="sserie_guia" Type="varchar" Mode="In" />
+    <Parameter Name="snume_guia" Type="varchar" Mode="In" />
+    <Parameter Name="suser_guia" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_tiguia" Type="int" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ndestino_alma" Type="int" Mode="In" />
+    <Parameter Name="stipo_guia" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_cliente" Type="int" Mode="In" />
+    <Parameter Name="ncode_clidire" Type="int" Mode="In" />
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+    <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_GuiaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_guiadet" Type="decimal" Mode="In" />
+    <Parameter Name="npu_guiadet" Type="decimal" Mode="In" />
+    <Parameter Name="suser_guiadet" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_guia" Type="int" Mode="In" />
+    <Parameter Name="ncode_umed" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Pr_GuiaDetaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+  </Function>
+  <Function Name="Pr_GuiaEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+    <Parameter Name="dfemov_guia" Type="datetime" Mode="In" />
+    <Parameter Name="smone_guia" Type="varchar" Mode="In" />
+    <Parameter Name="ntc_guia" Type="decimal" Mode="In" />
+    <Parameter Name="sobse_guia" Type="varchar(max)" Mode="In" />
+    <Parameter Name="sserie_guia" Type="varchar" Mode="In" />
+    <Parameter Name="snume_guia" Type="varchar" Mode="In" />
+    <Parameter Name="suser_guia" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_tiguia" Type="int" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ndestino_alma" Type="int" Mode="In" />
+    <Parameter Name="stipo_guia" Type="varchar" Mode="In" />
+    <Parameter Name="besta_guia" Type="bit" Mode="In" />
+    <Parameter Name="sw" Type="bigint" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_GuiaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="ncode_guia" Type="numeric" Mode="In" />
+  </Function>
+  <Function Name="Pr_GuiaLoteCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
+    <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_guialote" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+    <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
   <Function Name="Pr_ClienteDirecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
@@ -2721,6 +3037,12 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   </Function>
   <Function Name="Pr_ClienteListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="tipo" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Pr_LotesDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="fvenci_lote" Type="varchar" Mode="In" />
+    <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
   </Function>
   <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -2740,9 +3062,20 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="fini" Type="varchar" Mode="In" />
     <Parameter Name="ffin" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="Pr_VentaLoteCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_velote" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+    <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_OCompraConsulta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="fini" Type="varchar" Mode="In" />
+    <Parameter Name="ffin" Type="varchar" Mode="In" />
   </Function>
   <Function Name="Pr_OCompraConsultaDetallada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -2875,6 +3208,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ESPECIE" EntityType="Self.ESPECIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GUIA" EntityType="Self.GUIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GUIA_DETALLE" EntityType="Self.GUIA_DETALLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GUIA_LOTE" EntityType="Self.GUIA_LOTE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LINEA" EntityType="Self.LINEA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LISTA_PRECIO" EntityType="Self.LISTA_PRECIO" Schema="dbo" store:Type="Tables" />
@@ -2896,6 +3232,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="SUBLINEA" EntityType="Self.SUBLINEA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_CAMBIO" EntityType="Self.TIPO_CAMBIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_GUIA" EntityType="Self.TIPO_GUIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_MOVIMIENTO" EntityType="Self.TIPO_MOVIMIENTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UBIGEO" EntityType="Self.UBIGEO" Schema="dbo" store:Type="Tables" />
@@ -2903,6 +3240,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="VENDEDOR" EntityType="Self.VENDEDOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENDEDOR_ZONA" EntityType="Self.VENDEDOR_ZONA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VENTA_LOTE" EntityType="Self.VENTA_LOTE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ZONA" EntityType="Self.ZONA" Schema="dbo" store:Type="Tables" />
@@ -3293,6 +3631,54 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="R_c690" Association="Self.R_c690">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="ORDEN_COMPRAS" EntitySet="ORDEN_COMPRAS" />
+    </AssociationSet>
+    <AssociationSet Name="RG_17" Association="Self.RG_17">
+      <End Role="TIPO_GUIA" EntitySet="TIPO_GUIA" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RG_20" Association="Self.RG_20">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RG_21" Association="Self.RG_21">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA" EntitySet="GUIA" />
+    </AssociationSet>
+    <AssociationSet Name="RG_31" Association="Self.RG_31">
+      <End Role="GUIA" EntitySet="GUIA" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RG_32" Association="Self.RG_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RG_33" Association="Self.RG_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_18" Association="Self.RGD_18">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_19" Association="Self.RGD_19">
+      <End Role="GUIA" EntitySet="GUIA" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RGD_25" Association="Self.RGD_25">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RL_31" Association="Self.RL_31">
+      <End Role="VENTAS" EntitySet="VENTAS" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RL_32" Association="Self.RL_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RL_33" Association="Self.RL_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

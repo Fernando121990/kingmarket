@@ -1,0 +1,52 @@
+﻿@model MarketASP.Models.GUIA
+
+@{
+    ViewBag.Title = "Actualizar Guia";
+    ViewBag.pTitle = "Actualizar Guia";
+    ViewBag.pageTitle = "Guia";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ncode_guia)
+                    @Html.HiddenFor(model => model.ncode_clidire)
+                    <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
+                    <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
+                    <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
+
+                    @Html.Partial("_Guia")
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/cliente")
+    @Scripts.Render("~/bundles/guia")
+    <script type="text/javascript">
+       var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+
+        var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
+        var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
+        var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
+        var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+    var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
+    var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
+        var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
+    var urlStockValida = '@Url.Action("getStockDisponible", "Funciones",new { area = ""})';
+
+        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+        var urlguiaCrea = '@Url.Action("Edit", "guias")';
+    var urlguiaLista = '@Url.Action("Index", "guias")';
+var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
+
+    </script>
+}

@@ -19,6 +19,7 @@
                                 <th>
                                     Proveedor
                                 </th>
+                                <th>T</th>
                                 <th>
                                     No Doc.
                                 </th>
@@ -40,6 +41,9 @@
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Proveedor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.stipo_orco)
                                     </td>
                                     <td>
                                         @Html.ActionLink(item.documento, "Details", new { id = item.ncode_orco })

@@ -48,6 +48,7 @@
                                 <th>
                                     F.Pago
                                 </th>
+                                <th>O.Compra</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -106,6 +107,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sserie_orco)
                                     </td>
                                     <td>
                                         @if (item.besta_compra == true)

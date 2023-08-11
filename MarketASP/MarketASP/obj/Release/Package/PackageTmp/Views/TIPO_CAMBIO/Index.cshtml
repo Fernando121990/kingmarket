@@ -20,47 +20,48 @@
                 </div>
 
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>
-                                    Fecha
-                                </th>
-                                <th>
-                                    TC Compra
-                                </th>
-                                <th>
-                                    TC Venta
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.OrderByDescending(t => t.dfecha_tc))
-                            {
+                    @*<table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">*@
+                        <table class="table table-striped" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead class="thead-light">
                                 <tr>
-                                    <td>
-                                        @string.Format("{0:d}", item.dfecha_tc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncompra_tc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.nventa_tc)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="@Url.Action("DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    <th>
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        TC Compra
+                                    </th>
+                                    <th>
+                                        TC Venta
+                                    </th>
+                                    <th></th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderByDescending(t => t.dfecha_tc))
+                                {
+                                    <tr>
+                                        <td>
+                                            @string.Format("{0:d}", item.dfecha_tc)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:N3}", item.ncompra_tc)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:N3}", item.nventa_tc)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+</div>
             </div>
         </div>
     </div>

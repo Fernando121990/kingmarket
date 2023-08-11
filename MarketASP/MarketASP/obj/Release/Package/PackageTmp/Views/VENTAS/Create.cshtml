@@ -19,15 +19,7 @@
                     <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
 
                     @Html.Partial("_Ventas")
-
-                    <div class="text-center mt-4">
-                        <button id="btnventa" name="btnventa" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
-                    </div>
-
                 }
-                <div>
-                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Ventas" })
-                </div>
             </div>
         </div>
     </div>
@@ -57,6 +49,7 @@
     var urlventaCobro = '@Url.Action("CreateCobro", "cta_cobrar", new { id="param-id", xtipo = "venta", mensaje="param-mensaje" })';
     var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
     var urlStockValida = '@Url.Action("getStockDisponible", "Funciones",new { area = ""})';
+    var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
 </script>
 
 }

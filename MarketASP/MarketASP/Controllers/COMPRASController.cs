@@ -118,7 +118,8 @@ namespace MarketASP.Controllers
                                 mofView.ndsctoex_compra, mofView.ndsctoaf_compra, mofView.nsubex_compra, mofView.nsubaf_compra, mofView.nigvex_compra,
                                 mofView.nigvaf_compra, mofView.ntotaex_compra, mofView.ntotaaf_compra, mofView.ntotal_compra, mofView.ntotalMN_compra,
                                 mofView.ntotalUS_compra,mofView.nvalIGV_compra, User.Identity.Name, mofView.ncode_alma,mofView.ncode_provee,
-                                mofView.ncode_docu,mofView.ncode_fopago, int.Parse(User.Identity.GetLocal()),mofView.ncode_orco, sw);
+                                mofView.ncode_docu,mofView.ncode_fopago, int.Parse(User.Identity.GetLocal()),mofView.ncode_orco,
+                                mofView.sserie_orco,mofView.stipo_orco, sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -148,7 +149,8 @@ namespace MarketASP.Controllers
                                     DateTime xfecha = DateTime.Parse(item.sfechalote);
 
                                     db.Pr_LoteCrear(item.sdesc_lote, xfecha, item.ncode_arti, code,
-                                        item.ncant_lote, User.Identity.Name, mensaje, sw);
+                                        item.ncant_lote, User.Identity.Name,"Compra",6,"I",code,mofView.ncode_alma,
+                                        mofView.sseri_compra,mofView.snume_compra,code, mensaje, sw);
 
                                     xmensaje += mensaje.Value.ToString();
 
@@ -169,13 +171,17 @@ namespace MarketASP.Controllers
 
                             }
 
-
-                            db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
-
-                            if (mofView.ncode_orco != null && mofView.ncode_orco > 0)
+                            if (mofView.stipo_orco != "OS")
                             {
-                                db.Pr_KardexCrea("Compra", 6, "A", code, User.Identity.Name);
+                                db.Pr_KardexCrea("Compra", 6, "I", code, User.Identity.Name);
+
+                                if (mofView.ncode_orco != null && mofView.ncode_orco > 0)
+                                {
+                                    db.Pr_KardexCrea("Compra", 6, "A", code, User.Identity.Name);
+                                }
+
                             }
+
 
 
                             db.Pr_compraActualizaPedido(0, mofView.ncode_orco, code);
@@ -295,7 +301,9 @@ namespace MarketASP.Controllers
                                     DateTime xfecha = DateTime.Parse(item.sfechalote);
 
                                     db.Pr_LoteCrear(item.sdesc_lote, xfecha, item.ncode_arti, code,
-                                        item.ncant_lote, User.Identity.Name, mensaje, sw);
+                                        item.ncant_lote, User.Identity.Name, "Compra", 6, "I", code, mofView.ncode_alma,
+                                        mofView.sseri_compra, mofView.snume_compra, code, mensaje, sw);
+
 
                                     xmensaje += mensaje.Value.ToString();
 
@@ -467,8 +475,9 @@ namespace MarketASP.Controllers
 
                                     DateTime xfecha = DateTime.Parse(item.sfechalote);
 
-                                    db.Pr_LoteCrear(item.sdesc_lote,xfecha,item.ncode_arti,item.ncode_compra,
-                                        item.ncant_lote,User.Identity.Name,mensaje,sw);
+                                    db.Pr_LoteCrear(item.sdesc_lote, xfecha, item.ncode_arti, 0,
+                                        item.ncant_lote, User.Identity.Name, "Compra", 6, "I", 0, 0,
+                                        "", "", 0, mensaje, sw);
 
                                     xmensaje += mensaje.Value.ToString();
 
