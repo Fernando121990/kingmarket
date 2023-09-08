@@ -6,9 +6,11 @@
 <div class="row">
     <div>
         <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
-        <button type="button" title="Ordenes de Compra" class="btnpedidos fas fa-archive btn btn-info" data-bs-toggle="modal" data-bs-target="#modalopedido"></button>
-        <div id="modalopedido" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
+        <button type="button" title="Ordenes de Compra"
+                class="btnpedidos btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#modalopedido">
+        <i class="mdi mdi-archive"></i></button>
+        <div id="modalopedido" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 Class="modal-title" id="modalopedidolabel">Ordenes de Compra</h5>
@@ -211,8 +213,8 @@
             </div>
         </div>
     </div>
-    <div id="modalLote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+    <div id="modalLote" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div Class="modal-content">
                 <div Class="modal-header">
                     <h5 Class="modal-title" id="modalLotelabel">Agregar Lote</h5>

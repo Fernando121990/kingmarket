@@ -141,22 +141,22 @@ namespace MarketASP.Controllers
 
                             }
 
-                            db.Pr_KardexCrea("GUIA", 4, "S", code, User.Identity.Name);
+                            db.Pr_KardexCrea("GUIA", 4, mofView.stipo_guia, code, User.Identity.Name);
                             
-                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "GUIA", 4, "S", code, 0, "", "", code, mensaje, sw);
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "GUIA", 4, mofView.stipo_guia , code, 0, "", "", code, mensaje, sw);
 
                         }
                     }
                 }
-
-                return Json(new { Success = 1 });
+                
+                return Json(new { Success = 1, Mensaje = "Guia Registrada" });
 
             }
             catch (Exception ex)
             {
                 string mensajex = ex.Message;
                 ViewBag.mensaje = mensajex;
-                return Json(new { Success = 0 });
+                return Json(new { Success = 0, Mensaje = mensajex });
             }
         }
 
@@ -237,7 +237,7 @@ namespace MarketASP.Controllers
                         {
 
 
-                            db.Pr_GuiaEditar(mofView.ncode_guia, mofView.dfemov_guia, mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
+                            db.Pr_GuiaEditar(mofView.ncode_guia,DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
                                 "", "", User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_guia, false, sw);
 
                             code = (int) mofView.ncode_guia;
@@ -269,11 +269,11 @@ namespace MarketASP.Controllers
 
                             db.Pr_KardexElimina("guia", code);
 
-                            db.Pr_KardexCrea("guia", 4, "S", code, User.Identity.Name);
+                            db.Pr_KardexCrea("guia", 4, mofView.stipo_guia, code, User.Identity.Name);
 
                             db.Pr_LoteElimina("guia", code);
 
-                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "guia", 4, "S", code, 0, "", "", code, mensaje, sw);
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "guia", 4, mofView.stipo_guia, code, 0, "", "", code, mensaje, sw);
 
                         }
                     }

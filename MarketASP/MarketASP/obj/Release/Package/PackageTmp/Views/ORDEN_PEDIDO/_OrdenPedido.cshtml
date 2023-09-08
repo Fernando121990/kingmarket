@@ -56,7 +56,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sseri_orpe" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sseri_orpe, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.sseri_orpe, new { htmlAttributes = new { @class = "form-control",@readonly ="readonly" } })
                             @Html.ValidationMessageFor(model => model.sseri_orpe, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="mb-3">
                             <label for="snume_orpe" class="col-form-label">Número</label>
                             <div>
-                                @Html.EditorFor(model => model.snume_orpe, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.snume_orpe, new { htmlAttributes = new { @class = "form-control", @maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.snume_orpe, "", new { @class = "text-danger" })
                             </div>
                         </div>

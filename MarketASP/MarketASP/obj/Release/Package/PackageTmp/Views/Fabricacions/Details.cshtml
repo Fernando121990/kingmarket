@@ -1,0 +1,146 @@
+﻿@model MarketASP.Models.Fabricacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Fabricacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_NroDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_NroDoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_TipoCambio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_TipoCambio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Glosa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Glosa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Lote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Lote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_TipoProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_TipoProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Fvenc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Fvenc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_CostoUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_CostoUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_CostoTotalMN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_CostoTotalMN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_CostoTotalUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_CostoTotalUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_CostoOperativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_CostoOperativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fab_almacen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fab_almacen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Fab_Codigo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

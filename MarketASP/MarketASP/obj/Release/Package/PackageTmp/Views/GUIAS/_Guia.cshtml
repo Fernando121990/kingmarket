@@ -58,7 +58,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sserie_guia" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         <div class="mb-3">
                             <label for="snume_guia" class="col-form-label">Número</label>
                             <div>
-                                @Html.EditorFor(model => model.snume_guia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.snume_guia, new { htmlAttributes = new { @class = "form-control", @maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.snume_guia, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -129,8 +129,8 @@
 </div>
 
 <div class="row">
-    <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+    <div id="modalMat" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
@@ -199,16 +199,104 @@
             </div>
         </div>
     </div>
-
-    <div id="modalLote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+    <div id="modalLoteI" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalLotelabelI" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div Class="modal-content">
                 <div Class="modal-header">
-                    <h5 Class="modal-title" id="modalLotelabel">Agregar Lote</h5>
+                    <h5 Class="modal-title" id="modalLotelabelI">Agregar Lote</h5>
+                    <button id="btnlotecerrarI" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div Class="modal-body">
+                    <input id="xcodearti" name="xcodearti" type="hidden" class="form-control" />
+                    <input id="xund" name="xund" type="hidden" class="form-control" />
+
+                    <div class=" row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="xcodelocal" class="col-form-label">Codigo</label>
+                                <input id="xcodelocal" name="xcodelocal" type="text" value="0" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label for="xdescarti" class="col-form-label">Articulo</label>
+                                <input id="xdescarti" name="xdescarti" type="text" value="-" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xcontrol" class="col-form-label">Ctdad</label>
+                                <input id="xcontrol" name="xcontrol" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xdescarti" class="col-form-label">Ctdad.Falta</label>
+                                <input id="xctdadfalta" name="xctdadfalta" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="dfvenci_lote" class="col-form-label">Fecha</label>
+                                <input id="dfvenci_lote" name="dfvenci_lote" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Today)" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="sdesc_lote" class="col-form-label">Lote</label>
+                                <input id="sdesc_lote" name="sdesc_lote" type="text" class="form-control" autofocus />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="ncant_lote" class="col-form-label">Ctdad</label>
+                                <input id="ncant_lote" name="ncant_lote" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btncerrarLI" name="btncerrarLI" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnLoteI" name="btnLoteI" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalLoteS" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLotelabelS" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div Class="modal-content">
+                <div Class="modal-header">
+                    <h5 Class="modal-title" id="modalLotelabelS">Agregar Lote</h5>
                     <button id="btnlotecerrar" type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
                 <div Class="modal-body">
+
+                    <div class=" row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdad" class="col-form-label">Ctdad</label>
+                                <input id="xctdad" name="xctdad" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdadfalta" class="col-form-label">Ctdad.Falta</label>
+                                <input id="xctdadfalta" name="xctdadfalta" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdadlote" class="col-form-label">Ctdad.Lote</label>
+                                <input id="xctdadlote" name="xctdadlote" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
                     <table id="lotetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
                         <thead class="thead-dark">
                             <tr>
@@ -231,7 +319,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 <ul class="nav nav-pills nav-justified" role="tablist">
@@ -243,7 +331,8 @@
                 <button title="Agregar Articulo" type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
                 <button title="Eliminar Articulo" type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
                 <button type="button" title="Ver Almacen" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
-                <button title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLote"></button>
+                <button title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLoteS"></button>
+                <button title="Agregar Lote" type="button" class="addLoteI fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLoteI"></button>
             </span>
         </a>
     </li>
@@ -278,7 +367,7 @@
                             <th>bdscto</th>
                             <th>bicbper</th>
                             <th>subtotal</th>
-                            <th></th>
+                            <th>Cant.Control</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -295,7 +384,7 @@
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.npu_guiadet)</td>
                                     <td></td>
-                                    <td></td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.ncode_umed)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
                                     <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>

@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CLI_FOPAGOController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
     <Compile Include="Controllers\EspecieController.cs" />
+    <Compile Include="Controllers\FabricacionsController.cs" />
     <Compile Include="Controllers\GUIASController.cs" />
     <Compile Include="Controllers\LineaController.cs" />
     <Compile Include="Controllers\LOCALsController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Controllers\PermisoesController.cs" />
     <Compile Include="Controllers\ORDEN_PEDIDOController.cs" />
     <Compile Include="Controllers\ORDEN_PEDIDO_DETALLEController.cs" />
+    <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\SubespecieController.cs" />
     <Compile Include="Controllers\SublineaController.cs" />
     <Compile Include="Controllers\SUCURSALsController.cs" />
@@ -353,6 +355,12 @@
     <Compile Include="Models\ESPECIE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Fabricacion.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FabricacionDetalle.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FAMILIA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -404,6 +412,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MOVI_DETALLE.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MOVI_LOTE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ORDEN_COMPRAS.cs">
@@ -506,6 +517,12 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_VentaListado_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Receta.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecetaDetalle.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SUBESPECIE.cs">
@@ -2496,6 +2513,16 @@
     <Content Include="Views\TIPO_GUIA\Create.cshtml" />
     <Content Include="Views\TIPO_GUIA\Edit.cshtml" />
     <Content Include="Views\TIPO_GUIA\Index.cshtml" />
+    <Content Include="Views\Fabricacions\Create.cshtml" />
+    <Content Include="Views\Fabricacions\Delete.cshtml" />
+    <Content Include="Views\Fabricacions\Details.cshtml" />
+    <Content Include="Views\Fabricacions\Edit.cshtml" />
+    <Content Include="Views\Fabricacions\Index.cshtml" />
+    <Content Include="Views\Recetas\Create.cshtml" />
+    <Content Include="Views\Recetas\Delete.cshtml" />
+    <Content Include="Views\Recetas\Details.cshtml" />
+    <Content Include="Views\Recetas\Edit.cshtml" />
+    <Content Include="Views\Recetas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

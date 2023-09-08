@@ -440,6 +440,52 @@
     <Property Name="susmo_espe" Type="varchar" MaxLength="50" />
     <Property Name="dfemo_espe" Type="datetime" />
   </EntityType>
+  <EntityType Name="Fabricacion">
+    <Key>
+      <PropertyRef Name="Fab_Codigo" />
+    </Key>
+    <Property Name="Fab_Tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Fab_NroDoc" Type="varchar" MaxLength="50" />
+    <Property Name="Fab_Fecha" Type="datetime" />
+    <Property Name="Fab_TipoCambio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Glosa" Type="varchar(max)" />
+    <Property Name="Fab_Lote" Type="varchar" MaxLength="50" />
+    <Property Name="Fab_Estado" Type="varchar" MaxLength="50" />
+    <Property Name="Fab_TipoProd" Type="varchar" MaxLength="50" />
+    <Property Name="Fab_Fvenc" Type="datetime" />
+    <Property Name="Fab_Cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rec_Codigo" Type="bigint" />
+    <Property Name="Fab_CostoUnit" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalMN" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalUS" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoOperativo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_almacen" Type="bigint" />
+  </EntityType>
+  <EntityType Name="FabricacionDetalle">
+    <Key>
+      <PropertyRef Name="FabD_Codigo" />
+    </Key>
+    <Property Name="FabD_tipo" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_NroDoc" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodClase" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodProd" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_Cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_D" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_S" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Almacen" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_Mov" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_TipoDetalle" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodClase_Ref" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodProd_Ref" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodProd_Ini" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CodClase_Ini" Type="varchar" MaxLength="50" />
+    <Property Name="FabD_CantUtil" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Adicional" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="bigint" />
+    <Property Name="FabD_Codigo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecD_Cantidad" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
   <EntityType Name="FAMILIA">
     <Key>
       <PropertyRef Name="ncode_fami" />
@@ -617,14 +663,28 @@
     <Property Name="dfech_movidet" Type="datetime" />
     <Property Name="susmo_movidet" Type="varchar" MaxLength="20" />
     <Property Name="dfemo_movidet" Type="datetime" />
-    <Property Name="ncode_movi" Type="int" Nullable="false" />
+    <Property Name="ncode_movi" Type="bigint" Nullable="false" />
     <Property Name="ncode_umed" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MOVI_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_movilote" />
+    </Key>
+    <Property Name="ncode_movilote" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_movi" Type="bigint" Nullable="false" />
+    <Property Name="ncode_arti" Type="bigint" Nullable="false" />
+    <Property Name="ncant_movilote" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="int" />
+    <Property Name="nback_movilote" Type="int" />
+    <Property Name="sdesc_lote" Type="varchar" MaxLength="50" />
+    <Property Name="dfvenci_lote" Type="datetime" />
+    <Property Name="ncode_lote" Type="bigint" />
   </EntityType>
   <EntityType Name="MOVIMIENTO">
     <Key>
       <PropertyRef Name="ncode_movi" />
     </Key>
-    <Property Name="ncode_movi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_movi" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="dfemov_movi" Type="datetime" Nullable="false" />
     <Property Name="smone_movi" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="ntc_movi" Type="decimal" Precision="18" Scale="4" Nullable="false" />
@@ -873,6 +933,34 @@
     <Property Name="susmo_prove" Type="varchar" MaxLength="20" />
     <Property Name="dfemo_prove" Type="datetime" />
     <Property Name="ncode_fopago" Type="int" />
+  </EntityType>
+  <EntityType Name="Receta">
+    <Key>
+      <PropertyRef Name="Rec_codigo" />
+    </Key>
+    <Property Name="Rec_codigo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rec_descripcion" Type="varchar(max)" />
+    <Property Name="Rec_codclase" Type="varchar" MaxLength="50" />
+    <Property Name="Rec_codProd" Type="varchar" MaxLength="50" />
+    <Property Name="Rec_cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Rec_almacen" Type="varchar" MaxLength="50" />
+    <Property Name="Rec_tipo" Type="varchar" MaxLength="50" />
+    <Property Name="Rec_costoOperativo" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="RecetaDetalle">
+    <Key>
+      <PropertyRef Name="RecD_codigo" />
+    </Key>
+    <Property Name="RecD_codigo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecD_Codclase" Type="varchar" MaxLength="50" />
+    <Property Name="RecD_CodProd" Type="varchar" MaxLength="50" />
+    <Property Name="RecD_Cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="RecD_Almacen" Type="varchar" MaxLength="50" />
+    <Property Name="RecD_CodProdPadre" Type="varchar" MaxLength="50" />
+    <Property Name="RecD_tipo" Type="int" />
+    <Property Name="RecD_coidgoPadre" Type="bigint" />
+    <Property Name="Rec_codigo" Type="bigint" />
+    <Property Name="RecD_precio" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="SUBESPECIE">
     <Key>
@@ -2394,6 +2482,42 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="RMO_31">
+    <End Role="MOVIMIENTO" Type="Self.MOVIMIENTO" Multiplicity="1" />
+    <End Role="MOVI_LOTE" Type="Self.MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_movi" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_movi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RMO_32">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="1" />
+    <End Role="MOVI_LOTE" Type="Self.MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RMO_33">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="MOVI_LOTE" Type="Self.MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="Pr_KardexArticulos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
@@ -3207,6 +3331,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="CTASPA_DETALLE" EntityType="Self.CTASPA_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ESPECIE" EntityType="Self.ESPECIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fabricacion" EntityType="Self.Fabricacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FabricacionDetalle" EntityType="Self.FabricacionDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GUIA" EntityType="Self.GUIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GUIA_DETALLE" EntityType="Self.GUIA_DETALLE" Schema="dbo" store:Type="Tables" />
@@ -3218,6 +3344,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="LOTES" EntityType="Self.LOTES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVI_DETALLE" EntityType="Self.MOVI_DETALLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MOVI_LOTE" EntityType="Self.MOVI_LOTE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MOVIMIENTO" EntityType="Self.MOVIMIENTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_COMPRAS" EntityType="Self.ORDEN_COMPRAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_COMPRAS_DETALLE" EntityType="Self.ORDEN_COMPRAS_DETALLE" Schema="dbo" store:Type="Tables" />
@@ -3228,6 +3355,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="PROFORMAS" EntityType="Self.PROFORMAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROV_CONTACTO" EntityType="Self.PROV_CONTACTO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Receta" EntityType="Self.Receta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RecetaDetalle" EntityType="Self.RecetaDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUBESPECIE" EntityType="Self.SUBESPECIE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUBLINEA" EntityType="Self.SUBLINEA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUCURSAL" EntityType="Self.SUCURSAL" Schema="dbo" store:Type="Tables" />
@@ -3679,6 +3808,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="RL_33" Association="Self.RL_33">
       <End Role="ALMACEN" EntitySet="ALMACEN" />
       <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_31" Association="Self.RMO_31">
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_32" Association="Self.RMO_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_33" Association="Self.RMO_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

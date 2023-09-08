@@ -20,7 +20,6 @@ namespace MarketASP.Models
             this.ART_BARRA = new HashSet<ART_BARRA>();
             this.ART_PRECIO = new HashSet<ART_PRECIO>();
             this.ART_PROVE = new HashSet<ART_PROVE>();
-            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
             this.KARDEX = new HashSet<KARDEX>();
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
@@ -31,6 +30,8 @@ namespace MarketASP.Models
             this.GUIA_DETALLE = new HashSet<GUIA_DETALLE>();
             this.VENTA_LOTE = new HashSet<VENTA_LOTE>();
             this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
+            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
+            this.MOVI_LOTE = new HashSet<MOVI_LOTE>();
         }
     
         public long ncode_arti { get; set; }
@@ -107,8 +108,6 @@ namespace MarketASP.Models
         public virtual ESPECIE ESPECIE { get; set; }
         public virtual SUBESPECIE SUBESPECIE { get; set; }
         public virtual FAMILIA FAMILIA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual CLASE CLASE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }
@@ -134,5 +133,9 @@ namespace MarketASP.Models
         public virtual ICollection<VENTA_LOTE> VENTA_LOTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_LOTE> MOVI_LOTE { get; set; }
     }
 }

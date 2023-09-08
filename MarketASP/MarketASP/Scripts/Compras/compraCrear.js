@@ -158,8 +158,21 @@ $(document).ready(function () {
     });
 
     $(".delMat").click(function () {
-
+        var data = ofunciones.row('.selected').data();
+        var xcodart = data[0];
         ofunciones.rows('.selected').remove().draw(false);
+
+
+        ///console.log(xcodart);
+
+        var indexes = oLotes
+            .rows()
+            .indexes()
+            .filter(function (value, index) {
+                return xcodart === oLotes.row(value).data()[0];
+            });
+
+        oLotes.rows(indexes).remove().draw();
     });
 
     $(".addMat").click(function () {
@@ -328,7 +341,7 @@ $(document).ready(function () {
     $("#btnorden").click(function () {
         var data = ordentable.row('.selected').data();
 
-        console.log(data.ncode_orco);
+        //console.log(data.ncode_orco);
 
         fnCargaOrdenPedido(data.ncode_orco);
 
@@ -669,7 +682,7 @@ function fnCargaOrdenPedido(codigo) {
             $('#sserie_orco').val(compra.sserie_orco);
             //$('#sruc_provee').val(compra.sruc);
             $('#sobse_compra').val(compra.ncode_cliente);
-            $("#ncode_mone").val(compra.ncode_mone);
+            $("#smone_compra").val(compra.smone_compra);
             $("#ncode_orco").val(codigo);
             //$("#ncode_fopago").val(compra.ncode_fopago);
             var num = parseInt(compra.compraViewDetas.length);

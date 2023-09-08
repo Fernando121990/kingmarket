@@ -91,7 +91,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sseri_venta" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sseri_venta, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.sseri_venta, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly"}})
                             @Html.ValidationMessageFor(model => model.sseri_venta, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">Número</label>
                             <div>
-                                @Html.EditorFor(model => model.snume_venta, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.snume_venta, new { htmlAttributes = new { @class = "form-control" ,@maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.snume_venta, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sserie_guia" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.sserie_guia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             @Html.ValidationMessageFor(model => model.sserie_guia, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <div class="mb-3">
                             <label for="snumero_guia" class="col-form-label">Número</label>
                             <div>
-                                @Html.EditorFor(model => model.snumero_guia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.snumero_guia, new { htmlAttributes = new { @class = "form-control", @maxlength = "8" } })
                                 @Html.ValidationMessageFor(model => model.snumero_guia, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -258,6 +258,28 @@
                             aria-label="Close"></button>
                 </div>
                 <div Class="modal-body">
+                    <div class=" row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdad" class="col-form-label">Ctdad</label>
+                                <input id="xctdad" name="xctdad" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdadfalta" class="col-form-label">Ctdad.Falta</label>
+                                <input id="xctdadfalta" name="xctdadfalta" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xctdadlote" class="col-form-label">Ctdad.Lote</label>
+                                <input id="xctdadlote" name="xctdadlote" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+
                     <table id="lotetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
                         <thead class="thead-dark">
                             <tr>
@@ -360,7 +382,7 @@
                             <th>bdscto</th>
                             <th>bicbper</th>
                             <th>Subtotal</th>
-                            <th>Cantcontrol</th>
+                            <th>CantLote</th>
                         </tr>
                     </thead>
                     <tbody>

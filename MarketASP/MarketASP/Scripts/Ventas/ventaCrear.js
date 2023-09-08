@@ -1,4 +1,6 @@
-﻿var mattable;
+﻿var ofunciones;
+var olotes;
+var mattable;
 var lotetable;
 var ordentable;
 var conf_igv = 0;
@@ -16,13 +18,13 @@ $(document).ready(function () {
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
 
-    console.log(conf_igv);
-    console.log(conf_decimal);
-    console.log(conf_icbper);
+    //console.log(conf_igv);
+    //console.log(conf_decimal);
+    //console.log(conf_icbper);
 
     if (typeof code === 'undefined') {
       //  console.log('series');
-        fnDocumentoSerieNumero($("#ncode_docu").val());
+        fnDocumentoSerieNumero($("#ncode_docu").val(),"V");
     }
 
     if (code > 0) {
@@ -36,14 +38,32 @@ $(document).ready(function () {
     }
 
     $("#ncode_docu").change(function () {
-        fnDocumentoSerieNumero(this.val());
+
+        var cod = $("#ncode_docu option:selected").val();
+        //console.log('docuyuki');
+        //console.log(cod);
+        fnDocumentoSerieNumero(cod,"V");
     });
+
+    $("#bitguia_venta").click(function () {
+
+        if ($("#bitguia_venta").is(':checked')) {
+            //console.log('checkedyuki');
+            fnDocumentoSerieNumero(1076, "G");
+        }
+        else {
+           // console.log('uncheckedyuki');
+            $("#sserie_guia").val('');  // unchecked
+            $("#snumero_guia").val('');  // unchecked
+        }
+    });
+
 
     $("#ncode_fopago").change(function () {
         fnFormaPagoDiasFecha()
     });
 
-    var olotes = $('#tblLote').DataTable({
+    olotes = $('#tblLote').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
@@ -51,7 +71,7 @@ $(document).ready(function () {
         },
         {
             "sClass": "my_class",
-            "aTargets": [3]
+            "aTargets": []
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -60,27 +80,8 @@ $(document).ready(function () {
                     var idx = olotes.column(this).index();
                     switch (idx) {
                         case 3: //quantity column
-                        //    //console.log('cantidad');
-                        //    var almacen = $("#ncode_alma option:selected").val();
-                        //    var codarticulo = olotes.cell(aPos, 0).data();
-                        //    var cantorigen = olotes.cell(aPos, 13).data();
-                        //    var cantvalida = ComparaCantidad(sValue, cantorigen)
-                        //    fnStockValida(codarticulo, cantvalida, almacen);
-                        //    olotes.cell(aPos, idx).data(cantvalida).draw;
-                        //    var xvalue = olotes.cell(aPos, 5).data();
-                        //    var subto = cantvalida * parseFloat(xvalue);
-                        //    olotes.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             olotes.cell(aPos, idx).data(sValue).draw;
                             break;
-                        //case 5: //price column
-                        //    //console.log('subtotal');
-                        //    var xcant = olotes.cell(aPos, 3).data();
-                        //    var xvalue = olotes.cell(aPos, 6).data();
-                        //    var yValue = ComparaPrecio(sValue, xvalue);
-                        //    var subto = xcant * yValue
-                        //    olotes.cell(aPos, idx).data(yValue).draw;
-                        //    olotes.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
-                        //    break;
                         default:
                             olotes.cell(aPos, idx).data(sValue).draw;
 
@@ -121,7 +122,7 @@ $(document).ready(function () {
     });
 
 
-    var ofunciones = $('#tbl').DataTable({
+    ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
@@ -222,13 +223,25 @@ $(document).ready(function () {
     });
         
     $(".delMat").click(function () {
-
+        var data = ofunciones.row('.selected').data();
+        var xcodart = data[0];
         ofunciones.rows('.selected').remove().draw(false);
+
+
+        ///console.log(xcodart);
+
+        var indexes = olotes
+            .rows()
+            .indexes()
+            .filter(function (value, index) {
+                return xcodart === olotes.row(value).data()[0];
+            });
+
+        olotes.rows(indexes).remove().draw();
+
     });
 
-    
-
-    $(".addMat").click(function () {
+     $(".addMat").click(function () {
 
 
         $.ajax({
@@ -465,8 +478,17 @@ $(document).ready(function () {
 
     $(".addLote").click(function () {
 
-        var data = ofunciones.rows('.selected').data();
+        var data = ofunciones.row('.selected').data();
+        var xctdad = data[13];
+
+        //console.log(xctdad);
+
+        $("#xctdad").val(xctdad);
+        $("#xctdadfalta").val(xctdad);
+        $("#xctdadlote").val(xctdad);
+
         var ncodealma = $("#ncode_alma option:selected").val();
+        
 
         $.ajax({
             type: "Post",
@@ -532,10 +554,35 @@ $(document).ready(function () {
 
     $("#btnLote").click(function () {
         var data = lotetable.row('.selected').data();
-        var xcan = 1;
-        var xesta = 0;
+        var idtx = lotetable.row('.selected').index();
+        var idt = ofunciones.row('.selected').index();
 
-        olotes.row.add([data.ncode_arti, data.scode_arti, data.sdesc1_arti, xcan, '-', data.sdesc_lote, data.fvenci_lote,data.ncode_lote]).draw();
+        //console.log(data);
+        var xcan = $("#xctdadlote").val(); //1;
+        var xcanlote = data.ncantrestante_lote;
+        var xesta = 0;
+        var xcontrol = $("#xctdadfalta").val();
+
+        //console.log(xcan);
+        //console.log(xcanlote);
+
+        if (parseFloat(xcanlote) >= parseFloat(xcan)) {
+
+            olotes.row.add([data.ncode_arti, data.scode_arti, data.sdesc1_arti, xcan, '-', data.sdesc_lote, data.fvenci_lote, data.ncode_lote]).draw();
+
+            xcontrol = xcontrol - xcan;
+            xcanlote = xcanlote - xcan;
+
+            $("#xctdadfalta").val(xcontrol);
+            $("#xctdadlote").val(xcontrol);
+
+            lotetable.cell({ row: idtx, column: 6 }).data(xcanlote).draw(false);
+            ofunciones.cell({ row: idt, column: 13 }).data(xcontrol).draw(false);
+        }
+        else {
+            alert("La cantidad es mayor a la cantidad disponible del lote");
+        }
+        
 
     });
 
@@ -893,7 +940,7 @@ function fnFormaPagoDiasFecha() {
     return false;
 
 }
-function fnDocumentoSerieNumero(docu) {
+function fnDocumentoSerieNumero(docu,tipo) {
     //console.log($("#ncode_docu").val());
 
     $.ajax({
@@ -904,8 +951,17 @@ function fnDocumentoSerieNumero(docu) {
         success: function (docu) {
             //console.log(docu.length);
             $.each(docu, function (i, doc) {
-                $('#sseri_venta').val(doc.serie);
-                $('#snume_venta').val(doc.numero);
+                
+                switch (tipo) {
+                    case "V":
+                        $('#sseri_venta').val(doc.serie);
+                        $('#snume_venta').val(doc.numero);
+                        break
+                    case "G":
+                        $('#sserie_guia').val(doc.serie);
+                        $('#snumero_guia').val(doc.numero);
+                        break
+                }
                 //console.log(doc.serie);
             });
 

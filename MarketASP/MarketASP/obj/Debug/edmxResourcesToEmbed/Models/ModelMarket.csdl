@@ -12,7 +12,6 @@
     <EntitySet Name="FAMILIA" EntityType="MarketWebModel.FAMILIA" />
     <EntitySet Name="LISTA_PRECIO" EntityType="MarketWebModel.LISTA_PRECIO" />
     <EntitySet Name="MARCA" EntityType="MarketWebModel.MARCA" />
-    <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
     <EntitySet Name="PROV_CONTACTO" EntityType="MarketWebModel.PROV_CONTACTO" />
     <EntitySet Name="TIPO_CAMBIO" EntityType="MarketWebModel.TIPO_CAMBIO" />
     <EntitySet Name="TIPO_MOVIMIENTO" EntityType="MarketWebModel.TIPO_MOVIMIENTO" />
@@ -69,23 +68,6 @@
       <Parameter Name="ncode_movi" Mode="In" Type="Int32" />
       <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="MOVIMIENTO" EntityType="MarketWebModel.MOVIMIENTO" />
-    <AssociationSet Name="R_20" Association="MarketWebModel.R_20">
-      <End Role="ALMACEN" EntitySet="ALMACEN" />
-      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
-    </AssociationSet>
-    <AssociationSet Name="R_21" Association="MarketWebModel.R_21">
-      <End Role="ALMACEN" EntitySet="ALMACEN" />
-      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
-    </AssociationSet>
-    <AssociationSet Name="R_19" Association="MarketWebModel.R_19">
-      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
-      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
-    </AssociationSet>
-    <AssociationSet Name="R_17" Association="MarketWebModel.R_17">
-      <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
-      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
-    </AssociationSet>
     <FunctionImport Name="Pr_KardexCrea">
       <Parameter Name="modulo" Mode="In" Type="String" />
       <Parameter Name="ncode_confi" Mode="In" Type="Int32" />
@@ -104,10 +86,6 @@
     <AssociationSet Name="R_22" Association="MarketWebModel.R_22">
       <End Role="ALMACEN" EntitySet="ALMACEN" />
       <End Role="KARDEX" EntitySet="KARDEX" />
-    </AssociationSet>
-    <AssociationSet Name="R_25" Association="MarketWebModel.R_25">
-      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
-      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
     </AssociationSet>
     <AssociationSet Name="R_26" Association="MarketWebModel.R_26">
       <End Role="UMEDIDA" EntitySet="UMEDIDA" />
@@ -650,10 +628,6 @@
     <AssociationSet Name="R_1" Association="MarketWebModel.R_1">
       <End Role="FAMILIA" EntitySet="FAMILIA" />
       <End Role="ARTICULO" EntitySet="ARTICULO" />
-    </AssociationSet>
-    <AssociationSet Name="R_18" Association="MarketWebModel.R_18">
-      <End Role="ARTICULO" EntitySet="ARTICULO" />
-      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
     </AssociationSet>
     <AssociationSet Name="R_2" Association="MarketWebModel.R_2">
       <End Role="CLASE" EntitySet="CLASE" />
@@ -1281,6 +1255,49 @@
     <FunctionImport Name="Pr_GuiaDetaEdita">
       <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
     </FunctionImport>
+    <EntitySet Name="Fabricacion" EntityType="MarketWebModel.Fabricacion" />
+    <EntitySet Name="FabricacionDetalle" EntityType="MarketWebModel.FabricacionDetalle" />
+    <EntitySet Name="Receta" EntityType="MarketWebModel.Receta" />
+    <EntitySet Name="RecetaDetalle" EntityType="MarketWebModel.RecetaDetalle" />
+    <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
+    <EntitySet Name="MOVI_LOTE" EntityType="MarketWebModel.MOVI_LOTE" />
+    <EntitySet Name="MOVIMIENTO" EntityType="MarketWebModel.MOVIMIENTO" />
+    <AssociationSet Name="R_20" Association="MarketWebModel.R_20">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="R_21" Association="MarketWebModel.R_21">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_33" Association="MarketWebModel.RMO_33">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_18" Association="MarketWebModel.R_18">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_32" Association="MarketWebModel.RMO_32">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_19" Association="MarketWebModel.R_19">
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="R_25" Association="MarketWebModel.R_25">
+      <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+      <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+    </AssociationSet>
+    <AssociationSet Name="RMO_31" Association="MarketWebModel.RMO_31">
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+      <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+    </AssociationSet>
+    <AssociationSet Name="R_17" Association="MarketWebModel.R_17">
+      <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
+      <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1289,8 +1306,6 @@
     <Property Name="ncode_alma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="sdesc_alma" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
     <Property Name="besta_alma" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_20" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
-    <NavigationProperty Name="MOVIMIENTO1" Relationship="MarketWebModel.R_21" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
     <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_22" FromRole="ALMACEN" ToRole="KARDEX" />
     <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_33" FromRole="ALMACEN" ToRole="VENTA_DETALLE" />
     <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_36" FromRole="ALMACEN" ToRole="COMPRAS" />
@@ -1302,6 +1317,9 @@
     <NavigationProperty Name="GUIA1" Relationship="MarketWebModel.RG_21" FromRole="ALMACEN" ToRole="GUIA" />
     <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_33" FromRole="ALMACEN" ToRole="VENTA_LOTE" />
     <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_33" FromRole="ALMACEN" ToRole="GUIA_LOTE" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_20" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
+    <NavigationProperty Name="MOVIMIENTO1" Relationship="MarketWebModel.R_21" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
+    <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_33" FromRole="ALMACEN" ToRole="MOVI_LOTE" />
   </EntityType>
   <EntityType Name="ART_BARRA">
     <Key>
@@ -1449,24 +1467,6 @@
     <Property Name="dfemo_marca" Type="DateTime" Precision="3" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_3" FromRole="MARCA" ToRole="ARTICULO" />
   </EntityType>
-  <EntityType Name="MOVI_DETALLE">
-    <Key>
-      <PropertyRef Name="ncode_movidet" />
-    </Key>
-    <Property Name="ncode_movidet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
-    <Property Name="ncant_movidet" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="npu_movidet" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="suser_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="dfech_movidet" Type="DateTime" Precision="3" />
-    <Property Name="susmo_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="dfemo_movidet" Type="DateTime" Precision="3" />
-    <Property Name="ncode_movi" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
-    <Property Name="ncode_umed" Type="Int64" Nullable="false" />
-    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
-    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
-  </EntityType>
   <EntityType Name="PROV_CONTACTO">
     <Key>
       <PropertyRef Name="ncode_provcontac" />
@@ -1495,8 +1495,8 @@
     <Property Name="binout_tipomovi" Type="Boolean" Nullable="false" />
     <Property Name="btransf_tipomovi" Type="Boolean" Nullable="false" />
     <Property Name="besta_tipomovi" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="TIPO_MOVIMIENTO" ToRole="MOVIMIENTO" />
     <Property Name="stipo_timovi" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="TIPO_MOVIMIENTO" ToRole="MOVIMIENTO" />
   </EntityType>
   <EntityType Name="UBIGEO">
     <Key>
@@ -1522,10 +1522,10 @@
     <Property Name="dfech_umed" Type="DateTime" Precision="3" />
     <Property Name="susmo_umed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="dfemo_umed" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
     <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
     <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_25" FromRole="UMEDIDA" ToRole="GUIA_DETALLE" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
   </EntityType>
   <Association Name="R_6">
     <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
@@ -1616,81 +1616,6 @@
     <Property Type="Decimal" Name="StockTransito" Nullable="false" Precision="18" Scale="4" />
     <Property Type="Decimal" Name="Costo" Nullable="false" Precision="18" Scale="4" />
   </ComplexType>
-  <EntityType Name="MOVIMIENTO">
-    <Key>
-      <PropertyRef Name="ncode_movi" />
-    </Key>
-    <Property Name="ncode_movi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="dfemov_movi" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="smone_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ntc_movi" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-    <Property Name="sobse_movi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="besta_movi" Type="Boolean" Nullable="false" />
-    <Property Name="sserie_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="snume_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="suser_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="dfech_movi" Type="DateTime" Precision="3" />
-    <Property Name="susmo_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="dfemo_movi" Type="DateTime" Precision="3" />
-    <Property Name="ncode_timovi" Type="Int32" Nullable="false" />
-    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
-    <Property Name="ndestino_alma" Type="Int32" />
-    <Property Name="stipo_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_20" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
-    <NavigationProperty Name="ALMACEN1" Relationship="MarketWebModel.R_21" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
-    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_19" FromRole="MOVIMIENTO" ToRole="MOVI_DETALLE" />
-    <NavigationProperty Name="TIPO_MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="MOVIMIENTO" ToRole="TIPO_MOVIMIENTO" />
-  </EntityType>
-  <Association Name="R_20">
-    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
-    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ALMACEN">
-        <PropertyRef Name="ncode_alma" />
-      </Principal>
-      <Dependent Role="MOVIMIENTO">
-        <PropertyRef Name="ncode_alma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_21">
-    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
-    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ALMACEN">
-        <PropertyRef Name="ncode_alma" />
-      </Principal>
-      <Dependent Role="MOVIMIENTO">
-        <PropertyRef Name="ndestino_alma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_19">
-    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MOVIMIENTO">
-        <PropertyRef Name="ncode_movi" />
-      </Principal>
-      <Dependent Role="MOVI_DETALLE">
-        <PropertyRef Name="ncode_movi" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_17">
-    <End Type="MarketWebModel.TIPO_MOVIMIENTO" Role="TIPO_MOVIMIENTO" Multiplicity="1" />
-    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TIPO_MOVIMIENTO">
-        <PropertyRef Name="ncode_timovi" />
-      </Principal>
-      <Dependent Role="MOVIMIENTO">
-        <PropertyRef Name="ncode_timovi" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="KARDEX">
     <Key>
       <PropertyRef Name="ncode_kardex" />
@@ -1732,18 +1657,6 @@
       </Principal>
       <Dependent Role="KARDEX">
         <PropertyRef Name="ncode_alma" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_25">
-    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
-    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="UMEDIDA">
-        <PropertyRef Name="ncode_umed" />
-      </Principal>
-      <Dependent Role="MOVI_DETALLE">
-        <PropertyRef Name="ncode_umed" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2639,7 +2552,6 @@
     <NavigationProperty Name="ESPECIE" Relationship="MarketWebModel.FK_ARTICULO_ESPECIE" FromRole="ARTICULO" ToRole="ESPECIE" />
     <NavigationProperty Name="SUBESPECIE" Relationship="MarketWebModel.FK_ARTICULO_SUBESPECIE" FromRole="ARTICULO" ToRole="SUBESPECIE" />
     <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
-    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
     <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
     <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
     <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
@@ -2661,6 +2573,8 @@
     <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_18" FromRole="ARTICULO" ToRole="GUIA_DETALLE" />
     <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_32" FromRole="ARTICULO" ToRole="VENTA_LOTE" />
     <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_32" FromRole="ARTICULO" ToRole="GUIA_LOTE" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
+    <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_32" FromRole="ARTICULO" ToRole="MOVI_LOTE" />
   </EntityType>
   <Association Name="R_8">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -2731,18 +2645,6 @@
       </Principal>
       <Dependent Role="ARTICULO">
         <PropertyRef Name="ncode_fami" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="R_18">
-    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ARTICULO">
-        <PropertyRef Name="ncode_arti" />
-      </Principal>
-      <Dependent Role="MOVI_DETALLE">
-        <PropertyRef Name="ncode_arti" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -4130,6 +4032,251 @@
       </Principal>
       <Dependent Role="GUIA_LOTE">
         <PropertyRef Name="ncode_guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Fabricacion">
+    <Key>
+      <PropertyRef Name="Fab_Codigo" />
+    </Key>
+    <Property Name="Fab_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Fecha" Type="DateTime" Precision="3" />
+    <Property Name="Fab_TipoCambio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Glosa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_TipoProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Fvenc" Type="DateTime" Precision="3" />
+    <Property Name="Fab_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rec_Codigo" Type="Int64" />
+    <Property Name="Fab_CostoUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalMN" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalUS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoOperativo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_almacen" Type="Int64" />
+  </EntityType>
+  <EntityType Name="FabricacionDetalle">
+    <Key>
+      <PropertyRef Name="FabD_Codigo" />
+    </Key>
+    <Property Name="FabD_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_D" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_S" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_Mov" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_TipoDetalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CantUtil" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Adicional" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="Int64" />
+    <Property Name="FabD_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Receta">
+    <Key>
+      <PropertyRef Name="Rec_codigo" />
+    </Key>
+    <Property Name="Rec_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rec_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_codProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Rec_almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_costoOperativo" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="RecetaDetalle">
+    <Key>
+      <PropertyRef Name="RecD_codigo" />
+    </Key>
+    <Property Name="RecD_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecD_Codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RecD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_CodProdPadre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_tipo" Type="Int32" />
+    <Property Name="RecD_coidgoPadre" Type="Int64" />
+    <Property Name="Rec_codigo" Type="Int64" />
+    <Property Name="RecD_precio" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="MOVI_DETALLE">
+    <Key>
+      <PropertyRef Name="ncode_movidet" />
+    </Key>
+    <Property Name="ncode_movidet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_movidet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="npu_movidet" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="suser_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_movidet" Type="DateTime" Precision="3" />
+    <Property Name="susmo_movidet" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_movidet" Type="DateTime" Precision="3" />
+    <Property Name="ncode_movi" Type="Int64" Nullable="false" />
+    <Property Name="ncode_umed" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
+    <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
+  </EntityType>
+  <EntityType Name="MOVI_LOTE">
+    <Key>
+      <PropertyRef Name="ncode_movilote" />
+    </Key>
+    <Property Name="ncode_movilote" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ncode_movi" Type="Int64" Nullable="false" />
+    <Property Name="ncode_arti" Type="Int64" Nullable="false" />
+    <Property Name="ncant_movilote" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <Property Name="nback_movilote" Type="Int32" />
+    <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
+    <Property Name="ncode_lote" Type="Int64" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RMO_33" FromRole="MOVI_LOTE" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RMO_32" FromRole="MOVI_LOTE" ToRole="ARTICULO" />
+    <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.RMO_31" FromRole="MOVI_LOTE" ToRole="MOVIMIENTO" />
+  </EntityType>
+  <EntityType Name="MOVIMIENTO">
+    <Key>
+      <PropertyRef Name="ncode_movi" />
+    </Key>
+    <Property Name="ncode_movi" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dfemov_movi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="smone_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ntc_movi" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="sobse_movi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="besta_movi" Type="Boolean" Nullable="false" />
+    <Property Name="sserie_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="snume_movi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="suser_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_movi" Type="DateTime" Precision="3" />
+    <Property Name="susmo_movi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_movi" Type="DateTime" Precision="3" />
+    <Property Name="ncode_timovi" Type="Int32" Nullable="false" />
+    <Property Name="ncode_alma" Type="Int32" Nullable="false" />
+    <Property Name="ndestino_alma" Type="Int32" />
+    <Property Name="stipo_movi" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_20" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
+    <NavigationProperty Name="ALMACEN1" Relationship="MarketWebModel.R_21" FromRole="MOVIMIENTO" ToRole="ALMACEN" />
+    <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_19" FromRole="MOVIMIENTO" ToRole="MOVI_DETALLE" />
+    <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_31" FromRole="MOVIMIENTO" ToRole="MOVI_LOTE" />
+    <NavigationProperty Name="TIPO_MOVIMIENTO" Relationship="MarketWebModel.R_17" FromRole="MOVIMIENTO" ToRole="TIPO_MOVIMIENTO" />
+  </EntityType>
+  <Association Name="R_20">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_21">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ndestino_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RMO_33">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.MOVI_LOTE" Role="MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_18">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RMO_32">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_LOTE" Role="MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_19">
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_movi" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_movi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_25">
+    <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UMEDIDA">
+        <PropertyRef Name="ncode_umed" />
+      </Principal>
+      <Dependent Role="MOVI_DETALLE">
+        <PropertyRef Name="ncode_umed" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RMO_31">
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVI_LOTE" Role="MOVI_LOTE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_movi" />
+      </Principal>
+      <Dependent Role="MOVI_LOTE">
+        <PropertyRef Name="ncode_movi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_17">
+    <End Type="MarketWebModel.TIPO_MOVIMIENTO" Role="TIPO_MOVIMIENTO" Multiplicity="1" />
+    <End Type="MarketWebModel.MOVIMIENTO" Role="MOVIMIENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_MOVIMIENTO">
+        <PropertyRef Name="ncode_timovi" />
+      </Principal>
+      <Dependent Role="MOVIMIENTO">
+        <PropertyRef Name="ncode_timovi" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

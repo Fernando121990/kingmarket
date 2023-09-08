@@ -18,9 +18,10 @@ namespace MarketASP.Models
         public MOVIMIENTO()
         {
             this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
+            this.MOVI_LOTE = new HashSet<MOVI_LOTE>();
         }
     
-        public int ncode_movi { get; set; }
+        public long ncode_movi { get; set; }
         public System.DateTime dfemov_movi { get; set; }
         public string smone_movi { get; set; }
         public decimal ntc_movi { get; set; }
@@ -41,6 +42,8 @@ namespace MarketASP.Models
         public virtual ALMACEN ALMACEN1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_LOTE> MOVI_LOTE { get; set; }
         public virtual TIPO_MOVIMIENTO TIPO_MOVIMIENTO { get; set; }
     }
 }

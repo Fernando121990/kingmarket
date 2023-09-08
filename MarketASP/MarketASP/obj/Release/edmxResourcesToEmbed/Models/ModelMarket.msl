@@ -145,22 +145,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MOVI_DETALLE">
-      <EntityTypeMapping TypeName="MarketWebModel.MOVI_DETALLE">
-        <MappingFragment StoreEntitySet="MOVI_DETALLE">
-          <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
-          <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
-          <ScalarProperty Name="dfemo_movidet" ColumnName="dfemo_movidet" />
-          <ScalarProperty Name="susmo_movidet" ColumnName="susmo_movidet" />
-          <ScalarProperty Name="dfech_movidet" ColumnName="dfech_movidet" />
-          <ScalarProperty Name="suser_movidet" ColumnName="suser_movidet" />
-          <ScalarProperty Name="npu_movidet" ColumnName="npu_movidet" />
-          <ScalarProperty Name="ncant_movidet" ColumnName="ncant_movidet" />
-          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
-          <ScalarProperty Name="ncode_movidet" ColumnName="ncode_movidet" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PROV_CONTACTO">
       <EntityTypeMapping TypeName="MarketWebModel.PROV_CONTACTO">
         <MappingFragment StoreEntitySet="PROV_CONTACTO">
@@ -241,28 +225,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Pr_movimientoCrear" FunctionName="MarketWebModel.Store.Pr_movimientoCrear" />
     <FunctionImportMapping FunctionImportName="Pr_movimientoDetaCrea" FunctionName="MarketWebModel.Store.Pr_movimientoDetaCrea" />
-    <EntitySetMapping Name="MOVIMIENTO">
-      <EntityTypeMapping TypeName="MarketWebModel.MOVIMIENTO">
-        <MappingFragment StoreEntitySet="MOVIMIENTO">
-          <ScalarProperty Name="stipo_movi" ColumnName="stipo_movi" />
-          <ScalarProperty Name="ndestino_alma" ColumnName="ndestino_alma" />
-          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
-          <ScalarProperty Name="ncode_timovi" ColumnName="ncode_timovi" />
-          <ScalarProperty Name="dfemo_movi" ColumnName="dfemo_movi" />
-          <ScalarProperty Name="susmo_movi" ColumnName="susmo_movi" />
-          <ScalarProperty Name="dfech_movi" ColumnName="dfech_movi" />
-          <ScalarProperty Name="suser_movi" ColumnName="suser_movi" />
-          <ScalarProperty Name="snume_movi" ColumnName="snume_movi" />
-          <ScalarProperty Name="sserie_movi" ColumnName="sserie_movi" />
-          <ScalarProperty Name="besta_movi" ColumnName="besta_movi" />
-          <ScalarProperty Name="sobse_movi" ColumnName="sobse_movi" />
-          <ScalarProperty Name="ntc_movi" ColumnName="ntc_movi" />
-          <ScalarProperty Name="smone_movi" ColumnName="smone_movi" />
-          <ScalarProperty Name="dfemov_movi" ColumnName="dfemov_movi" />
-          <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Pr_KardexCrea" FunctionName="MarketWebModel.Store.Pr_KardexCrea" />
     <FunctionImportMapping FunctionImportName="Pr_KardexElimina" FunctionName="MarketWebModel.Store.Pr_KardexElimina" />
     <FunctionImportMapping FunctionImportName="Pr_movimientoElimina" FunctionName="MarketWebModel.Store.Pr_movimientoElimina" />
@@ -1569,5 +1531,136 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Pr_GuiaLoteCrea" FunctionName="MarketWebModel.Store.Pr_GuiaLoteCrea" />
     <FunctionImportMapping FunctionImportName="Pr_GuiaDetaEdita" FunctionName="MarketWebModel.Store.Pr_GuiaDetaEdita" />
+    <EntitySetMapping Name="Fabricacion">
+      <EntityTypeMapping TypeName="MarketWebModel.Fabricacion">
+        <MappingFragment StoreEntitySet="Fabricacion">
+          <ScalarProperty Name="Fab_almacen" ColumnName="Fab_almacen" />
+          <ScalarProperty Name="Fab_CostoOperativo" ColumnName="Fab_CostoOperativo" />
+          <ScalarProperty Name="Fab_CostoTotalUS" ColumnName="Fab_CostoTotalUS" />
+          <ScalarProperty Name="Fab_CostoTotalMN" ColumnName="Fab_CostoTotalMN" />
+          <ScalarProperty Name="Fab_CostoUnit" ColumnName="Fab_CostoUnit" />
+          <ScalarProperty Name="Rec_Codigo" ColumnName="Rec_Codigo" />
+          <ScalarProperty Name="Fab_Codigo" ColumnName="Fab_Codigo" />
+          <ScalarProperty Name="Fab_Cantidad" ColumnName="Fab_Cantidad" />
+          <ScalarProperty Name="Fab_Fvenc" ColumnName="Fab_Fvenc" />
+          <ScalarProperty Name="Fab_TipoProd" ColumnName="Fab_TipoProd" />
+          <ScalarProperty Name="Fab_Estado" ColumnName="Fab_Estado" />
+          <ScalarProperty Name="Fab_Lote" ColumnName="Fab_Lote" />
+          <ScalarProperty Name="Fab_Glosa" ColumnName="Fab_Glosa" />
+          <ScalarProperty Name="Fab_TipoCambio" ColumnName="Fab_TipoCambio" />
+          <ScalarProperty Name="Fab_Fecha" ColumnName="Fab_Fecha" />
+          <ScalarProperty Name="Fab_NroDoc" ColumnName="Fab_NroDoc" />
+          <ScalarProperty Name="Fab_Tipo" ColumnName="Fab_Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FabricacionDetalle">
+      <EntityTypeMapping TypeName="MarketWebModel.FabricacionDetalle">
+        <MappingFragment StoreEntitySet="FabricacionDetalle">
+          <ScalarProperty Name="RecD_Cantidad" ColumnName="RecD_Cantidad" />
+          <ScalarProperty Name="FabD_Codigo" ColumnName="FabD_Codigo" />
+          <ScalarProperty Name="Fab_Codigo" ColumnName="Fab_Codigo" />
+          <ScalarProperty Name="FabD_Adicional" ColumnName="FabD_Adicional" />
+          <ScalarProperty Name="FabD_CantUtil" ColumnName="FabD_CantUtil" />
+          <ScalarProperty Name="FabD_CodClase_Ini" ColumnName="FabD_CodClase_Ini" />
+          <ScalarProperty Name="FabD_CodProd_Ini" ColumnName="FabD_CodProd_Ini" />
+          <ScalarProperty Name="FabD_CodProd_Ref" ColumnName="FabD_CodProd_Ref" />
+          <ScalarProperty Name="FabD_CodClase_Ref" ColumnName="FabD_CodClase_Ref" />
+          <ScalarProperty Name="FabD_TipoDetalle" ColumnName="FabD_TipoDetalle" />
+          <ScalarProperty Name="FabD_Mov" ColumnName="FabD_Mov" />
+          <ScalarProperty Name="FabD_Almacen" ColumnName="FabD_Almacen" />
+          <ScalarProperty Name="FabD_Costo_S" ColumnName="FabD_Costo_S" />
+          <ScalarProperty Name="FabD_Costo_D" ColumnName="FabD_Costo_D" />
+          <ScalarProperty Name="FabD_Cantidad" ColumnName="FabD_Cantidad" />
+          <ScalarProperty Name="FabD_CodProd" ColumnName="FabD_CodProd" />
+          <ScalarProperty Name="FabD_CodClase" ColumnName="FabD_CodClase" />
+          <ScalarProperty Name="FabD_NroDoc" ColumnName="FabD_NroDoc" />
+          <ScalarProperty Name="FabD_tipo" ColumnName="FabD_tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Receta">
+      <EntityTypeMapping TypeName="MarketWebModel.Receta">
+        <MappingFragment StoreEntitySet="Receta">
+          <ScalarProperty Name="Rec_costoOperativo" ColumnName="Rec_costoOperativo" />
+          <ScalarProperty Name="Rec_tipo" ColumnName="Rec_tipo" />
+          <ScalarProperty Name="Rec_almacen" ColumnName="Rec_almacen" />
+          <ScalarProperty Name="Rec_cantidad" ColumnName="Rec_cantidad" />
+          <ScalarProperty Name="Rec_codProd" ColumnName="Rec_codProd" />
+          <ScalarProperty Name="Rec_codclase" ColumnName="Rec_codclase" />
+          <ScalarProperty Name="Rec_descripcion" ColumnName="Rec_descripcion" />
+          <ScalarProperty Name="Rec_codigo" ColumnName="Rec_codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecetaDetalle">
+      <EntityTypeMapping TypeName="MarketWebModel.RecetaDetalle">
+        <MappingFragment StoreEntitySet="RecetaDetalle">
+          <ScalarProperty Name="RecD_precio" ColumnName="RecD_precio" />
+          <ScalarProperty Name="Rec_codigo" ColumnName="Rec_codigo" />
+          <ScalarProperty Name="RecD_coidgoPadre" ColumnName="RecD_coidgoPadre" />
+          <ScalarProperty Name="RecD_tipo" ColumnName="RecD_tipo" />
+          <ScalarProperty Name="RecD_CodProdPadre" ColumnName="RecD_CodProdPadre" />
+          <ScalarProperty Name="RecD_Almacen" ColumnName="RecD_Almacen" />
+          <ScalarProperty Name="RecD_Cantidad" ColumnName="RecD_Cantidad" />
+          <ScalarProperty Name="RecD_CodProd" ColumnName="RecD_CodProd" />
+          <ScalarProperty Name="RecD_Codclase" ColumnName="RecD_Codclase" />
+          <ScalarProperty Name="RecD_codigo" ColumnName="RecD_codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOVI_DETALLE">
+      <EntityTypeMapping TypeName="MarketWebModel.MOVI_DETALLE">
+        <MappingFragment StoreEntitySet="MOVI_DETALLE">
+          <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+          <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
+          <ScalarProperty Name="dfemo_movidet" ColumnName="dfemo_movidet" />
+          <ScalarProperty Name="susmo_movidet" ColumnName="susmo_movidet" />
+          <ScalarProperty Name="dfech_movidet" ColumnName="dfech_movidet" />
+          <ScalarProperty Name="suser_movidet" ColumnName="suser_movidet" />
+          <ScalarProperty Name="npu_movidet" ColumnName="npu_movidet" />
+          <ScalarProperty Name="ncant_movidet" ColumnName="ncant_movidet" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="ncode_movidet" ColumnName="ncode_movidet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOVI_LOTE">
+      <EntityTypeMapping TypeName="MarketWebModel.MOVI_LOTE">
+        <MappingFragment StoreEntitySet="MOVI_LOTE">
+          <ScalarProperty Name="ncode_lote" ColumnName="ncode_lote" />
+          <ScalarProperty Name="dfvenci_lote" ColumnName="dfvenci_lote" />
+          <ScalarProperty Name="sdesc_lote" ColumnName="sdesc_lote" />
+          <ScalarProperty Name="nback_movilote" ColumnName="nback_movilote" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="ncant_movilote" ColumnName="ncant_movilote" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
+          <ScalarProperty Name="ncode_movilote" ColumnName="ncode_movilote" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MOVIMIENTO">
+      <EntityTypeMapping TypeName="MarketWebModel.MOVIMIENTO">
+        <MappingFragment StoreEntitySet="MOVIMIENTO">
+          <ScalarProperty Name="stipo_movi" ColumnName="stipo_movi" />
+          <ScalarProperty Name="ndestino_alma" ColumnName="ndestino_alma" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="ncode_timovi" ColumnName="ncode_timovi" />
+          <ScalarProperty Name="dfemo_movi" ColumnName="dfemo_movi" />
+          <ScalarProperty Name="susmo_movi" ColumnName="susmo_movi" />
+          <ScalarProperty Name="dfech_movi" ColumnName="dfech_movi" />
+          <ScalarProperty Name="suser_movi" ColumnName="suser_movi" />
+          <ScalarProperty Name="snume_movi" ColumnName="snume_movi" />
+          <ScalarProperty Name="sserie_movi" ColumnName="sserie_movi" />
+          <ScalarProperty Name="besta_movi" ColumnName="besta_movi" />
+          <ScalarProperty Name="sobse_movi" ColumnName="sobse_movi" />
+          <ScalarProperty Name="ntc_movi" ColumnName="ntc_movi" />
+          <ScalarProperty Name="smone_movi" ColumnName="smone_movi" />
+          <ScalarProperty Name="dfemov_movi" ColumnName="dfemov_movi" />
+          <ScalarProperty Name="ncode_movi" ColumnName="ncode_movi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

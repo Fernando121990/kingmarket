@@ -38,13 +38,11 @@ namespace MarketASP.Models
         public virtual DbSet<FAMILIA> FAMILIA { get; set; }
         public virtual DbSet<LISTA_PRECIO> LISTA_PRECIO { get; set; }
         public virtual DbSet<MARCA> MARCA { get; set; }
-        public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual DbSet<PROV_CONTACTO> PROV_CONTACTO { get; set; }
         public virtual DbSet<TIPO_CAMBIO> TIPO_CAMBIO { get; set; }
         public virtual DbSet<TIPO_MOVIMIENTO> TIPO_MOVIMIENTO { get; set; }
         public virtual DbSet<UBIGEO> UBIGEO { get; set; }
         public virtual DbSet<UMEDIDA> UMEDIDA { get; set; }
-        public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
         public virtual DbSet<KARDEX> KARDEX { get; set; }
         public virtual DbSet<VENTA_DETALLE> VENTA_DETALLE { get; set; }
         public virtual DbSet<COMPRA_DETALLE> COMPRA_DETALLE { get; set; }
@@ -89,6 +87,13 @@ namespace MarketASP.Models
         public virtual DbSet<TIPO_GUIA> TIPO_GUIA { get; set; }
         public virtual DbSet<VENTA_LOTE> VENTA_LOTE { get; set; }
         public virtual DbSet<GUIA_LOTE> GUIA_LOTE { get; set; }
+        public virtual DbSet<Fabricacion> Fabricacion { get; set; }
+        public virtual DbSet<FabricacionDetalle> FabricacionDetalle { get; set; }
+        public virtual DbSet<Receta> Receta { get; set; }
+        public virtual DbSet<RecetaDetalle> RecetaDetalle { get; set; }
+        public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
+        public virtual DbSet<MOVI_LOTE> MOVI_LOTE { get; set; }
+        public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {

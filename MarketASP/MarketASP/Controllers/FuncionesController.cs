@@ -238,6 +238,7 @@ namespace MarketASP.Controllers
                     npu_vedeta = item.npu_orpedeta,
                     ndscto_vedeta = item.ndscto_orpedeta,
                     nexon_vedeta = item.nexon_orpedeta
+                    
                 };
                 listadeta.Add(deta);
             }

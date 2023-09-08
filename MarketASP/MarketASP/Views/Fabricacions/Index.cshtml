@@ -1,0 +1,123 @@
+﻿@model IEnumerable<MarketASP.Models.Fabricacion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_NroDoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_TipoCambio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Glosa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Lote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_TipoProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Fvenc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_Cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rec_Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_CostoUnit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_CostoTotalMN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_CostoTotalUS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_CostoOperativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fab_almacen)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_NroDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_TipoCambio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Glosa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Lote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_TipoProd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Fvenc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_Cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rec_Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_CostoUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_CostoTotalMN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_CostoTotalUS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_CostoOperativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fab_almacen)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Fab_Codigo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Fab_Codigo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Fab_Codigo })
+        </td>
+    </tr>
+}
+
+</table>
