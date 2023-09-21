@@ -14,6 +14,12 @@ namespace MarketASP.Models
     
     public partial class Receta
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Receta()
+        {
+            this.RecetaDetalle = new HashSet<RecetaDetalle>();
+        }
+    
         public long Rec_codigo { get; set; }
         public string Rec_descripcion { get; set; }
         public string Rec_codclase { get; set; }
@@ -22,5 +28,10 @@ namespace MarketASP.Models
         public string Rec_almacen { get; set; }
         public string Rec_tipo { get; set; }
         public Nullable<decimal> Rec_costoOperativo { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
+    
+        public virtual ALMACEN ALMACEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }
     }
 }

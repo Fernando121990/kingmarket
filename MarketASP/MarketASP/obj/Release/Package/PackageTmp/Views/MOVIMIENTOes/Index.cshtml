@@ -26,25 +26,13 @@
                                     <label>Fecha</label>
                                 </th>
                                 <th>
-                                    <label>Moneda</label>
-                                </th>
-                                <th>
-                                    <label>TC</label>
-                                </th>
-                                <th>
-                                    <label>Activo</label>
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.stipo_movi)
-                                </th>
-                                <th>
                                     <label>Almacen</label>
                                 </th>
                                 <th>
                                     <label>Destino</label>
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
+                                    Tipo
                                 </th>
                                 <th></th>
                             </tr>
@@ -61,18 +49,6 @@
                                     </td>
                                     <td>
                                         @string.Format("{0:d}", item.dfemov_movi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.smone_movi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ntc_movi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.besta_movi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.stipo_movi)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)

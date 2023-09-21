@@ -15,8 +15,13 @@ namespace MarketASP.Areas.Inventario.Clases
         public int ncode_alma { get; set; }
         public int? ndestino_alma { get; set; }
         public string stipo_movi { get; set; }
+
         [JsonProperty(PropertyName = "moviViewDetas")]
         public IList<moviViewDeta> moviViewDetas { get; set; }
+
+        [JsonProperty(PropertyName = "moviViewLotes")]
+        public IList<moviViewLote> moviViewLotes { get; set; }
+
     }
 
 }

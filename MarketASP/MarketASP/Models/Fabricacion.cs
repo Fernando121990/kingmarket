@@ -14,6 +14,12 @@ namespace MarketASP.Models
     
     public partial class Fabricacion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Fabricacion()
+        {
+            this.FabricacionDetalle = new HashSet<FabricacionDetalle>();
+        }
+    
         public string Fab_Tipo { get; set; }
         public string Fab_NroDoc { get; set; }
         public Nullable<System.DateTime> Fab_Fecha { get; set; }
@@ -31,5 +37,10 @@ namespace MarketASP.Models
         public Nullable<decimal> Fab_CostoTotalUS { get; set; }
         public Nullable<decimal> Fab_CostoOperativo { get; set; }
         public Nullable<long> Fab_almacen { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
+    
+        public virtual ALMACEN ALMACEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FabricacionDetalle> FabricacionDetalle { get; set; }
     }
 }

@@ -33,5 +33,11 @@ namespace MarketASP.Models
         public Nullable<long> Fab_Codigo { get; set; }
         public long FabD_Codigo { get; set; }
         public Nullable<decimal> RecD_Cantidad { get; set; }
+        public Nullable<long> ncode_arti { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
+    
+        public virtual ALMACEN ALMACEN { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
+        public virtual Fabricacion Fabricacion { get; set; }
     }
 }

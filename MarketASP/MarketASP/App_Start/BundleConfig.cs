@@ -137,6 +137,12 @@ namespace MarketASP
             bundles.Add(new ScriptBundle("~/bundles/guia").Include(
                "~/Scripts/Guia/guiagral.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/receta").Include(
+               "~/Scripts/Receta/recetagral.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fabricacion").Include(
+               "~/Scripts/fabricacion/fabricaciongral.js"));
+
             #endregion
 
 

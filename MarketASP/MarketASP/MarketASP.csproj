@@ -199,6 +199,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Inventario\Clases\moviViewLote.cs" />
+    <Compile Include="Clases\fabricacionView.cs" />
+    <Compile Include="Clases\fabricacionViewDeta.cs" />
     <Compile Include="Clases\guiaView.cs" />
     <Compile Include="Clases\guiaViewDeta.cs" />
     <Compile Include="Clases\guiaViewLote.cs" />
@@ -209,6 +212,8 @@
     <Compile Include="Clases\permisoView.cs" />
     <Compile Include="Clases\ordenpedidoView.cs" />
     <Compile Include="Clases\ordenpedidoViewDeta.cs" />
+    <Compile Include="Clases\recetaView.cs" />
+    <Compile Include="Clases\recetaViewDeta.cs" />
     <Compile Include="Clases\ventanaView.cs" />
     <Compile Include="Clases\ventaViewLote.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
@@ -877,9 +882,11 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <Content Include="Scripts\Compras\compraCrearLote.js" />
+    <Content Include="Scripts\fabricacion\fabricaciongral.js" />
     <Content Include="Scripts\Guia\guiagral.js" />
     <Content Include="Scripts\ordencompra\orcompraCrear.js" />
     <Content Include="Scripts\ordenpedido\orpedidoCrear.js" />
+    <Content Include="Scripts\Receta\recetagral.js" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />
     <Content Include="Views\AspNetUsers\Edit.cshtml" />
@@ -2523,6 +2530,8 @@
     <Content Include="Views\Recetas\Details.cshtml" />
     <Content Include="Views\Recetas\Edit.cshtml" />
     <Content Include="Views\Recetas\Index.cshtml" />
+    <Content Include="Views\Recetas\_receta.cshtml" />
+    <Content Include="Views\Fabricacions\_fabricacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

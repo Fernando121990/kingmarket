@@ -87,13 +87,13 @@ namespace MarketASP.Models
         public virtual DbSet<TIPO_GUIA> TIPO_GUIA { get; set; }
         public virtual DbSet<VENTA_LOTE> VENTA_LOTE { get; set; }
         public virtual DbSet<GUIA_LOTE> GUIA_LOTE { get; set; }
-        public virtual DbSet<Fabricacion> Fabricacion { get; set; }
-        public virtual DbSet<FabricacionDetalle> FabricacionDetalle { get; set; }
-        public virtual DbSet<Receta> Receta { get; set; }
-        public virtual DbSet<RecetaDetalle> RecetaDetalle { get; set; }
         public virtual DbSet<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual DbSet<MOVI_LOTE> MOVI_LOTE { get; set; }
         public virtual DbSet<MOVIMIENTO> MOVIMIENTO { get; set; }
+        public virtual DbSet<Receta> Receta { get; set; }
+        public virtual DbSet<RecetaDetalle> RecetaDetalle { get; set; }
+        public virtual DbSet<Fabricacion> Fabricacion { get; set; }
+        public virtual DbSet<FabricacionDetalle> FabricacionDetalle { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -2906,6 +2906,134 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_guia", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaDetaEdita", ncode_guiaParameter);
+        }
+    
+        public virtual int Pr_MoviLoteCrea(Nullable<long> ncode_movi, Nullable<long> ncode_arti, Nullable<decimal> ncant_movilote, Nullable<int> ncode_alma, string sdesc_lote, Nullable<System.DateTime> dfvenci_lote, Nullable<long> ncode_lote)
+        {
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(long));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var ncant_moviloteParameter = ncant_movilote.HasValue ?
+                new ObjectParameter("ncant_movilote", ncant_movilote) :
+                new ObjectParameter("ncant_movilote", typeof(decimal));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            var sdesc_loteParameter = sdesc_lote != null ?
+                new ObjectParameter("sdesc_lote", sdesc_lote) :
+                new ObjectParameter("sdesc_lote", typeof(string));
+    
+            var dfvenci_loteParameter = dfvenci_lote.HasValue ?
+                new ObjectParameter("dfvenci_lote", dfvenci_lote) :
+                new ObjectParameter("dfvenci_lote", typeof(System.DateTime));
+    
+            var ncode_loteParameter = ncode_lote.HasValue ?
+                new ObjectParameter("ncode_lote", ncode_lote) :
+                new ObjectParameter("ncode_lote", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_MoviLoteCrea", ncode_moviParameter, ncode_artiParameter, ncant_moviloteParameter, ncode_almaParameter, sdesc_loteParameter, dfvenci_loteParameter, ncode_loteParameter);
+        }
+    
+        public virtual int Pr_MoviDetaEdita(Nullable<long> ncode_movi)
+        {
+            var ncode_moviParameter = ncode_movi.HasValue ?
+                new ObjectParameter("ncode_movi", ncode_movi) :
+                new ObjectParameter("ncode_movi", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_MoviDetaEdita", ncode_moviParameter);
+        }
+    
+        public virtual int Pr_RecetaCrear(string tipo, Nullable<long> rec_codigo, string rec_descripcion, string rec_codclase, string rec_codProd, Nullable<decimal> rec_cantidad, string rec_almacen, string rec_tipo, Nullable<decimal> rec_costoOperativo, Nullable<int> ncode_alma, ObjectParameter iD, ObjectParameter ingproc_001)
+        {
+            var tipoParameter = tipo != null ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(string));
+    
+            var rec_codigoParameter = rec_codigo.HasValue ?
+                new ObjectParameter("Rec_codigo", rec_codigo) :
+                new ObjectParameter("Rec_codigo", typeof(long));
+    
+            var rec_descripcionParameter = rec_descripcion != null ?
+                new ObjectParameter("Rec_descripcion", rec_descripcion) :
+                new ObjectParameter("Rec_descripcion", typeof(string));
+    
+            var rec_codclaseParameter = rec_codclase != null ?
+                new ObjectParameter("Rec_codclase", rec_codclase) :
+                new ObjectParameter("Rec_codclase", typeof(string));
+    
+            var rec_codProdParameter = rec_codProd != null ?
+                new ObjectParameter("Rec_codProd", rec_codProd) :
+                new ObjectParameter("Rec_codProd", typeof(string));
+    
+            var rec_cantidadParameter = rec_cantidad.HasValue ?
+                new ObjectParameter("Rec_cantidad", rec_cantidad) :
+                new ObjectParameter("Rec_cantidad", typeof(decimal));
+    
+            var rec_almacenParameter = rec_almacen != null ?
+                new ObjectParameter("Rec_almacen", rec_almacen) :
+                new ObjectParameter("Rec_almacen", typeof(string));
+    
+            var rec_tipoParameter = rec_tipo != null ?
+                new ObjectParameter("Rec_tipo", rec_tipo) :
+                new ObjectParameter("Rec_tipo", typeof(string));
+    
+            var rec_costoOperativoParameter = rec_costoOperativo.HasValue ?
+                new ObjectParameter("Rec_costoOperativo", rec_costoOperativo) :
+                new ObjectParameter("Rec_costoOperativo", typeof(decimal));
+    
+            var ncode_almaParameter = ncode_alma.HasValue ?
+                new ObjectParameter("ncode_alma", ncode_alma) :
+                new ObjectParameter("ncode_alma", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_RecetaCrear", tipoParameter, rec_codigoParameter, rec_descripcionParameter, rec_codclaseParameter, rec_codProdParameter, rec_cantidadParameter, rec_almacenParameter, rec_tipoParameter, rec_costoOperativoParameter, ncode_almaParameter, iD, ingproc_001);
+        }
+    
+        public virtual int Pr_RecetaDetalle(Nullable<long> rec_codigo, string recD_Codclase, string recD_CodProd, Nullable<decimal> recD_Cantidad, string recD_Almacen, string recD_CodProdPadre, Nullable<int> recD_tipo, Nullable<long> recD_coidgoPadre, Nullable<decimal> recD_precio)
+        {
+            var rec_codigoParameter = rec_codigo.HasValue ?
+                new ObjectParameter("Rec_codigo", rec_codigo) :
+                new ObjectParameter("Rec_codigo", typeof(long));
+    
+            var recD_CodclaseParameter = recD_Codclase != null ?
+                new ObjectParameter("RecD_Codclase", recD_Codclase) :
+                new ObjectParameter("RecD_Codclase", typeof(string));
+    
+            var recD_CodProdParameter = recD_CodProd != null ?
+                new ObjectParameter("RecD_CodProd", recD_CodProd) :
+                new ObjectParameter("RecD_CodProd", typeof(string));
+    
+            var recD_CantidadParameter = recD_Cantidad.HasValue ?
+                new ObjectParameter("RecD_Cantidad", recD_Cantidad) :
+                new ObjectParameter("RecD_Cantidad", typeof(decimal));
+    
+            var recD_AlmacenParameter = recD_Almacen != null ?
+                new ObjectParameter("RecD_Almacen", recD_Almacen) :
+                new ObjectParameter("RecD_Almacen", typeof(string));
+    
+            var recD_CodProdPadreParameter = recD_CodProdPadre != null ?
+                new ObjectParameter("RecD_CodProdPadre", recD_CodProdPadre) :
+                new ObjectParameter("RecD_CodProdPadre", typeof(string));
+    
+            var recD_tipoParameter = recD_tipo.HasValue ?
+                new ObjectParameter("RecD_tipo", recD_tipo) :
+                new ObjectParameter("RecD_tipo", typeof(int));
+    
+            var recD_coidgoPadreParameter = recD_coidgoPadre.HasValue ?
+                new ObjectParameter("RecD_coidgoPadre", recD_coidgoPadre) :
+                new ObjectParameter("RecD_coidgoPadre", typeof(long));
+    
+            var recD_precioParameter = recD_precio.HasValue ?
+                new ObjectParameter("RecD_precio", recD_precio) :
+                new ObjectParameter("RecD_precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_RecetaDetalle", rec_codigoParameter, recD_CodclaseParameter, recD_CodProdParameter, recD_CantidadParameter, recD_AlmacenParameter, recD_CodProdPadreParameter, recD_tipoParameter, recD_coidgoPadreParameter, recD_precioParameter);
         }
     }
 }

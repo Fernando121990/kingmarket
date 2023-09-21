@@ -149,7 +149,7 @@ $(document).ready(function () {
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             var subto = cantvalida * parseFloat(xvalue);
                             ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
-                            
+                            ofunciones.cell(aPos, 13).data(cantvalida).draw;
                             break;
                         case 5: //price column
                             //console.log('subtotal');
@@ -311,11 +311,11 @@ $(document).ready(function () {
 
     $("#btnmate").click(function () {
         var data = mattable.row('.selected').data();
-        var xcan = 1;
+        var xcan = 0;
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,0]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,xcan]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });

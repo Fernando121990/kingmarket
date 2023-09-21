@@ -32,6 +32,8 @@ namespace MarketASP.Models
             this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
             this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
             this.MOVI_LOTE = new HashSet<MOVI_LOTE>();
+            this.RecetaDetalle = new HashSet<RecetaDetalle>();
+            this.FabricacionDetalle = new HashSet<FabricacionDetalle>();
         }
     
         public long ncode_arti { get; set; }
@@ -137,5 +139,9 @@ namespace MarketASP.Models
         public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVI_LOTE> MOVI_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FabricacionDetalle> FabricacionDetalle { get; set; }
     }
 }

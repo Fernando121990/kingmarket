@@ -1,123 +1,144 @@
 ﻿@model IEnumerable<MarketASP.Models.Fabricacion>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Fabricación";
+    ViewBag.pTitle = "Fabricación";
+    ViewBag.pageTitle = "Produccion";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Fabricación</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Tipo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_NroDoc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Fecha)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_TipoCambio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Glosa)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Lote)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Estado)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_TipoProd)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Fvenc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_Cantidad)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Rec_Codigo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_CostoUnit)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_CostoTotalMN)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_CostoTotalUS)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_CostoOperativo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fab_almacen)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Tipo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_NroDoc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Fecha)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_TipoCambio)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Glosa)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Lote)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Estado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_TipoProd)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Fvenc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_Cantidad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_Codigo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_CostoUnit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_CostoTotalMN)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_CostoTotalUS)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_CostoOperativo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fab_almacen)
+                                    </td>
+                                    <td id="tooltip-container3">
+                                        <a href="@Url.Action("Edit", new { id = item.Fab_Codigo })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                        <a href="@Url.Action("Delete", new { id = item.Fab_Codigo })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_NroDoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_TipoCambio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Glosa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Lote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_TipoProd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Fvenc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_Cantidad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rec_Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_CostoUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_CostoTotalMN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_CostoTotalUS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_CostoOperativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fab_almacen)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_NroDoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_TipoCambio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Glosa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Lote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_TipoProd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Fvenc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_Cantidad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rec_Codigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_CostoUnit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_CostoTotalMN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_CostoTotalUS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_CostoOperativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fab_almacen)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Fab_Codigo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Fab_Codigo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Fab_Codigo })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+
+
+

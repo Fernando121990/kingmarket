@@ -76,6 +76,7 @@ namespace MarketASP.Controllers
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia");
             ViewBag.smone_guia = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
+
             var yfecha = DateTime.Now.Date;
             ViewBag.dfemov_guia = string.Format("{0:dd/MM/yyyy}", yfecha);
             var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc == yfecha);

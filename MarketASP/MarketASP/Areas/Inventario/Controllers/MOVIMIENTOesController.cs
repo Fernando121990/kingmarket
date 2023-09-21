@@ -11,6 +11,7 @@ using MarketASP.Models;
 using System.Data.Entity.Core.Objects;
 using Newtonsoft.Json;
 using MarketASP.Areas.Inventario.Clases;
+using MarketASP.Clases;
 
 namespace MarketASP.Areas.Inventario.Controllers
 {
@@ -63,6 +64,12 @@ namespace MarketASP.Areas.Inventario.Controllers
                 return View("_Mensaje");
             }
 
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+
+
             var rtimovi = from s in db.TIPO_MOVIMIENTO
                          where (s.besta_tipomovi == true)
                          select new { s.ncode_timovi, sdesc_timovi = s.stipo_timovi + " " + s.sdesc_timovi };
@@ -70,7 +77,8 @@ namespace MarketASP.Areas.Inventario.Controllers
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma==true), "ncode_alma", "sdesc_alma");
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_timovi = new SelectList(rtimovi, "ncode_timovi", "sdesc_timovi");
-            ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c=>c.besta_confi== true ).Where(c=>c.ntipo_confi==2), "svalor_confi", "sdesc_confi");
+            ViewBag.smone_movi = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
+
             var yfecha = DateTime.Now.Date;
             var result = db.TIPO_CAMBIO.SingleOrDefault(x => x.dfecha_tc ==  yfecha);
             if (result == null)
@@ -86,6 +94,7 @@ namespace MarketASP.Areas.Inventario.Controllers
         public JsonResult Create(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
 
             int code;
             string data = "";
@@ -122,19 +131,34 @@ namespace MarketASP.Areas.Inventario.Controllers
 
                             }
 
-                            db.Pr_KardexCrea("Movimiento",4,mofView.stipo_movi, code, User.Identity.Name);
+                            if (mofView.moviViewLotes != null)
+                            {
+                                foreach (moviViewLote item in mofView.moviViewLotes)
+                                {
+                                    fila++;
+                                    db.Pr_MoviLoteCrea(code, item.ncode_arti, item.ncant_movilote, item.ncode_alma,
+                                        item.sdesc_lote, DateTime.Parse(item.sfvenci_lote), item.ncode_lote);
+                                };
+
+                            }
+
+                            db.Pr_KardexCrea("Movimiento", 4, mofView.stipo_movi, code, User.Identity.Name);
+
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "MOVIMIENTO", 4, mofView.stipo_movi, code, 0, "", "", code, mensaje, sw);
+
+
+                            
                         }
                     }
                 }
-
-                return Json(new { Success = 1 });
+                return Json(new { Success = 1, Mensaje = "Movimiento Registrado" });
 
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
-                return Json(new { Success = 0 });
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
+                return Json(new { Success = 0, Mensaje = mensajex });
             }
         }
 
@@ -161,6 +185,13 @@ namespace MarketASP.Areas.Inventario.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+
+
             var rtimovi = from s in db.TIPO_MOVIMIENTO
                           where (s.besta_tipomovi == true)
                           select new { s.ncode_timovi, sdesc_timovi = s.stipo_timovi + " " + s.sdesc_timovi };
@@ -178,9 +209,11 @@ namespace MarketASP.Areas.Inventario.Controllers
         public JsonResult Edit(string model_json)
         {
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
 
             string data = "";
             int fila = 0;
+            int code = 0;
             try
             {
 
@@ -200,8 +233,10 @@ namespace MarketASP.Areas.Inventario.Controllers
 
                             db.Pr_movimientoEditar(mofView.ncode_movi, DateTime.Parse(mofView.dfemov_movi), mofView.smone_movi, mofView.ntc_movi, mofView.sobse_movi,
                                 "", "", User.Identity.Name, mofView.ncode_timovi, mofView.ncode_alma, mofView.ndestino_alma,mofView.stipo_movi, false,sw);
+                            
+                            code = (int)mofView.ncode_movi;
 
-                            db.Pr_movimientoDetaElimina(mofView.ncode_movi);
+                            //db.Pr_movimientoDetaElimina(mofView.ncode_movi);
 
                             if (mofView.moviViewDetas != null)
                             {
@@ -213,19 +248,38 @@ namespace MarketASP.Areas.Inventario.Controllers
 
                             }
 
-                            db.Pr_KardexCrea("Movimiento", 4, mofView.stipo_movi, mofView.ncode_movi, User.Identity.Name);
+                            if (mofView.moviViewLotes != null)
+                            {
+                                foreach (moviViewLote item in mofView.moviViewLotes)
+                                {
+                                    fila++;
+                                    db.Pr_MoviLoteCrea(code, item.ncode_arti, item.ncant_movilote, item.ncode_alma,
+                                        item.sdesc_lote, DateTime.Parse(item.sfvenci_lote), item.ncode_lote);
+                                };
+
+                            }
+
+                            db.Pr_MoviDetaEdita(code);
+
+                            db.Pr_KardexElimina("movimiento", code);
+
+                            db.Pr_KardexCrea("movimiento", 4, mofView.stipo_movi, code, User.Identity.Name);
+
+                            db.Pr_LoteElimina("movimiento", code);
+
+                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "movimiento", 4, mofView.stipo_movi, code, 0, "", "", code, mensaje, sw);
                         }
                     }
                 }
 
-                return Json(new { Success = 1 });
+                return Json(new { Success = 1, Mensaje = "Movimiento Registrado" });
 
             }
             catch (Exception ex)
             {
-                string mensaje = ex.Message;
-                ViewBag.mensaje = mensaje;
-                return Json(new { Success = 0 });
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
+                return Json(new { Success = 0, Mensaje = mensajex });
             }
         }
         public ActionResult DeleteMovi(int? id)

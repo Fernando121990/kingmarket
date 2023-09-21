@@ -24,6 +24,7 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfemo_movidet { get; set; }
         public long ncode_movi { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<int> nback_movidet { get; set; }
     
         public virtual ARTICULO ARTICULO { get; set; }
         public virtual MOVIMIENTO MOVIMIENTO { get; set; }

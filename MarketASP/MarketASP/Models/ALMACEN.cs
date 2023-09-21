@@ -31,6 +31,9 @@ namespace MarketASP.Models
             this.MOVIMIENTO = new HashSet<MOVIMIENTO>();
             this.MOVIMIENTO1 = new HashSet<MOVIMIENTO>();
             this.MOVI_LOTE = new HashSet<MOVI_LOTE>();
+            this.Receta = new HashSet<Receta>();
+            this.Fabricacion = new HashSet<Fabricacion>();
+            this.FabricacionDetalle = new HashSet<FabricacionDetalle>();
         }
     
         public int ncode_alma { get; set; }
@@ -65,5 +68,11 @@ namespace MarketASP.Models
         public virtual ICollection<MOVIMIENTO> MOVIMIENTO1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVI_LOTE> MOVI_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Receta> Receta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Fabricacion> Fabricacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FabricacionDetalle> FabricacionDetalle { get; set; }
     }
 }

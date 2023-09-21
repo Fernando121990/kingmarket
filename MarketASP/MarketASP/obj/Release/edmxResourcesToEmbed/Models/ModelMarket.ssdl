@@ -461,6 +461,7 @@
     <Property Name="Fab_CostoTotalUS" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Fab_CostoOperativo" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Fab_almacen" Type="bigint" />
+    <Property Name="ncode_alma" Type="int" />
   </EntityType>
   <EntityType Name="FabricacionDetalle">
     <Key>
@@ -485,6 +486,8 @@
     <Property Name="Fab_Codigo" Type="bigint" />
     <Property Name="FabD_Codigo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RecD_Cantidad" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_arti" Type="bigint" />
+    <Property Name="ncode_alma" Type="int" />
   </EntityType>
   <EntityType Name="FAMILIA">
     <Key>
@@ -665,6 +668,7 @@
     <Property Name="dfemo_movidet" Type="datetime" />
     <Property Name="ncode_movi" Type="bigint" Nullable="false" />
     <Property Name="ncode_umed" Type="bigint" Nullable="false" />
+    <Property Name="nback_movidet" Type="int" />
   </EntityType>
   <EntityType Name="MOVI_LOTE">
     <Key>
@@ -946,6 +950,7 @@
     <Property Name="Rec_almacen" Type="varchar" MaxLength="50" />
     <Property Name="Rec_tipo" Type="varchar" MaxLength="50" />
     <Property Name="Rec_costoOperativo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_alma" Type="int" />
   </EntityType>
   <EntityType Name="RecetaDetalle">
     <Key>
@@ -961,6 +966,8 @@
     <Property Name="RecD_coidgoPadre" Type="bigint" />
     <Property Name="Rec_codigo" Type="bigint" />
     <Property Name="RecD_precio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_arti" Type="bigint" />
+    <Property Name="ncode_alma" Type="int" />
   </EntityType>
   <EntityType Name="SUBESPECIE">
     <Key>
@@ -1314,6 +1321,54 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Fabricacion_ALMACEN">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="Fabricacion" Type="Self.Fabricacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="Fabricacion">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_ALMACEN">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="FabricacionDetalle" Type="Self.FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_ARTICULO">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
+    <End Role="FabricacionDetalle" Type="Self.FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_Fabricacion">
+    <End Role="Fabricacion" Type="Self.Fabricacion" Multiplicity="0..1" />
+    <End Role="FabricacionDetalle" Type="Self.FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricacion">
+        <PropertyRef Name="Fab_Codigo" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="Fab_Codigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_LOTES_ARTICULO">
     <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
     <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
@@ -1347,6 +1402,54 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="PROVEEDOR">
         <PropertyRef Name="ncode_fopago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receta_ALMACEN">
+    <End Role="ALMACEN" Type="Self.ALMACEN" Multiplicity="0..1" />
+    <End Role="Receta" Type="Self.Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_ARTICULO">
+    <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
+    <End Role="RecetaDetalle" Type="Self.RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_CONFIGURACION">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="0..1" />
+    <End Role="RecetaDetalle" Type="Self.RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="RecD_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_Receta">
+    <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
+    <End Role="RecetaDetalle" Type="Self.RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Receta">
+        <PropertyRef Name="Rec_codigo" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="Rec_codigo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2740,6 +2843,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="modulo" Type="varchar" Mode="In" />
     <Parameter Name="codigo" Type="numeric" Mode="In" />
   </Function>
+  <Function Name="Pr_MoviDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_movi" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_MoviLoteCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_movi" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="ncant_movilote" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+    <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
+    <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="Pr_movimientoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="dfemov_movi" Type="datetime" Mode="In" />
     <Parameter Name="smone_movi" Type="varchar" Mode="In" />
@@ -2989,6 +3104,31 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   <Function Name="Pr_ProformaLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="documento" Type="varchar" Mode="In" />
     <Parameter Name="cliente" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_RecetaCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tipo" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_codigo" Type="bigint" Mode="In" />
+    <Parameter Name="Rec_descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_codclase" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_codProd" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="Rec_almacen" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_tipo" Type="varchar" Mode="In" />
+    <Parameter Name="Rec_costoOperativo" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_alma" Type="int" Mode="In" />
+    <Parameter Name="ID" Type="bigint" Mode="InOut" />
+    <Parameter Name="ingproc_001" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_RecetaDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Rec_codigo" Type="bigint" Mode="In" />
+    <Parameter Name="RecD_Codclase" Type="varchar" Mode="In" />
+    <Parameter Name="RecD_CodProd" Type="varchar" Mode="In" />
+    <Parameter Name="RecD_Cantidad" Type="decimal" Mode="In" />
+    <Parameter Name="RecD_Almacen" Type="varchar" Mode="In" />
+    <Parameter Name="RecD_CodProdPadre" Type="varchar" Mode="In" />
+    <Parameter Name="RecD_tipo" Type="int" Mode="In" />
+    <Parameter Name="RecD_coidgoPadre" Type="bigint" Mode="In" />
+    <Parameter Name="RecD_precio" Type="decimal" Mode="In" />
   </Function>
   <Function Name="Pr_tipoCambioExiste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="dfecha_tc" Type="varchar" Mode="In" />
@@ -3421,6 +3561,22 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="CLIENTE" EntitySet="CLIENTE" />
     </AssociationSet>
+    <AssociationSet Name="FK_Fabricacion_ALMACEN" Association="Self.FK_Fabricacion_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="Fabricacion" EntitySet="Fabricacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_ALMACEN" Association="Self.FK_FabricacionDetalle_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_ARTICULO" Association="Self.FK_FabricacionDetalle_ARTICULO">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_Fabricacion" Association="Self.FK_FabricacionDetalle_Fabricacion">
+      <End Role="Fabricacion" EntitySet="Fabricacion" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
     <AssociationSet Name="FK_LOTES_ARTICULO" Association="Self.FK_LOTES_ARTICULO">
       <End Role="ARTICULO" EntitySet="ARTICULO" />
       <End Role="LOTES" EntitySet="LOTES" />
@@ -3432,6 +3588,22 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
       <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receta_ALMACEN" Association="Self.FK_Receta_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_ARTICULO" Association="Self.FK_RecetaDetalle_ARTICULO">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_CONFIGURACION" Association="Self.FK_RecetaDetalle_CONFIGURACION">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_Receta" Association="Self.FK_RecetaDetalle_Receta">
+      <End Role="Receta" EntitySet="Receta" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
     </AssociationSet>
     <AssociationSet Name="FK_VENDEDOR_ZONA_VENDEDOR" Association="Self.FK_VENDEDOR_ZONA_VENDEDOR">
       <End Role="VENDEDOR" EntitySet="VENDEDOR" />

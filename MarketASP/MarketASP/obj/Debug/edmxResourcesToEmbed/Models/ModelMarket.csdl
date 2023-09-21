@@ -1255,10 +1255,6 @@
     <FunctionImport Name="Pr_GuiaDetaEdita">
       <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
     </FunctionImport>
-    <EntitySet Name="Fabricacion" EntityType="MarketWebModel.Fabricacion" />
-    <EntitySet Name="FabricacionDetalle" EntityType="MarketWebModel.FabricacionDetalle" />
-    <EntitySet Name="Receta" EntityType="MarketWebModel.Receta" />
-    <EntitySet Name="RecetaDetalle" EntityType="MarketWebModel.RecetaDetalle" />
     <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
     <EntitySet Name="MOVI_LOTE" EntityType="MarketWebModel.MOVI_LOTE" />
     <EntitySet Name="MOVIMIENTO" EntityType="MarketWebModel.MOVIMIENTO" />
@@ -1298,6 +1294,79 @@
       <End Role="TIPO_MOVIMIENTO" EntitySet="TIPO_MOVIMIENTO" />
       <End Role="MOVIMIENTO" EntitySet="MOVIMIENTO" />
     </AssociationSet>
+    <FunctionImport Name="Pr_MoviLoteCrea">
+      <Parameter Name="ncode_movi" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_movilote" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="sdesc_lote" Mode="In" Type="String" />
+      <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_MoviDetaEdita">
+      <Parameter Name="ncode_movi" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="Receta" EntityType="MarketWebModel.Receta" />
+    <EntitySet Name="RecetaDetalle" EntityType="MarketWebModel.RecetaDetalle" />
+    <AssociationSet Name="FK_Receta_ALMACEN" Association="MarketWebModel.FK_Receta_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="Receta" EntitySet="Receta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_ARTICULO" Association="MarketWebModel.FK_RecetaDetalle_ARTICULO">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_CONFIGURACION" Association="MarketWebModel.FK_RecetaDetalle_CONFIGURACION">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecetaDetalle_Receta" Association="MarketWebModel.FK_RecetaDetalle_Receta">
+      <End Role="Receta" EntitySet="Receta" />
+      <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_RecetaCrear">
+      <Parameter Name="tipo" Mode="In" Type="String" />
+      <Parameter Name="Rec_codigo" Mode="In" Type="Int64" />
+      <Parameter Name="Rec_descripcion" Mode="In" Type="String" />
+      <Parameter Name="Rec_codclase" Mode="In" Type="String" />
+      <Parameter Name="Rec_codProd" Mode="In" Type="String" />
+      <Parameter Name="Rec_cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="Rec_almacen" Mode="In" Type="String" />
+      <Parameter Name="Rec_tipo" Mode="In" Type="String" />
+      <Parameter Name="Rec_costoOperativo" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ID" Mode="InOut" Type="Int64" />
+      <Parameter Name="ingproc_001" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_RecetaDetalle">
+      <Parameter Name="Rec_codigo" Mode="In" Type="Int64" />
+      <Parameter Name="RecD_Codclase" Mode="In" Type="String" />
+      <Parameter Name="RecD_CodProd" Mode="In" Type="String" />
+      <Parameter Name="RecD_Cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="RecD_Almacen" Mode="In" Type="String" />
+      <Parameter Name="RecD_CodProdPadre" Mode="In" Type="String" />
+      <Parameter Name="RecD_tipo" Mode="In" Type="Int32" />
+      <Parameter Name="RecD_coidgoPadre" Mode="In" Type="Int64" />
+      <Parameter Name="RecD_precio" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="Fabricacion" EntityType="MarketWebModel.Fabricacion" />
+    <EntitySet Name="FabricacionDetalle" EntityType="MarketWebModel.FabricacionDetalle" />
+    <AssociationSet Name="FK_Fabricacion_ALMACEN" Association="MarketWebModel.FK_Fabricacion_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="Fabricacion" EntitySet="Fabricacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_ALMACEN" Association="MarketWebModel.FK_FabricacionDetalle_ALMACEN">
+      <End Role="ALMACEN" EntitySet="ALMACEN" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_ARTICULO" Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO">
+      <End Role="ARTICULO" EntitySet="ARTICULO" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FabricacionDetalle_Fabricacion" Association="MarketWebModel.FK_FabricacionDetalle_Fabricacion">
+      <End Role="Fabricacion" EntitySet="Fabricacion" />
+      <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1320,6 +1389,9 @@
     <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_20" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
     <NavigationProperty Name="MOVIMIENTO1" Relationship="MarketWebModel.R_21" FromRole="ALMACEN" ToRole="MOVIMIENTO" />
     <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_33" FromRole="ALMACEN" ToRole="MOVI_LOTE" />
+    <NavigationProperty Name="Receta" Relationship="MarketWebModel.FK_Receta_ALMACEN" FromRole="ALMACEN" ToRole="Receta" />
+    <NavigationProperty Name="Fabricacion" Relationship="MarketWebModel.FK_Fabricacion_ALMACEN" FromRole="ALMACEN" ToRole="Fabricacion" />
+    <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_ALMACEN" FromRole="ALMACEN" ToRole="FabricacionDetalle" />
   </EntityType>
   <EntityType Name="ART_BARRA">
     <Key>
@@ -2017,6 +2089,7 @@
     <NavigationProperty Name="ORDEN_COMPRAS1" Relationship="MarketWebModel.R_c690" FromRole="CONFIGURACION" ToRole="ORDEN_COMPRAS" />
     <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.R_55" FromRole="CONFIGURACION" ToRole="DOCU_SERIE" />
     <Property Name="saux1_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="RecetaDetalle" Relationship="MarketWebModel.FK_RecetaDetalle_CONFIGURACION" FromRole="CONFIGURACION" ToRole="RecetaDetalle" />
   </EntityType>
   <Association Name="R_40">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -2575,6 +2648,8 @@
     <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_32" FromRole="ARTICULO" ToRole="GUIA_LOTE" />
     <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
     <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_32" FromRole="ARTICULO" ToRole="MOVI_LOTE" />
+    <NavigationProperty Name="RecetaDetalle" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="ARTICULO" ToRole="RecetaDetalle" />
+    <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="ARTICULO" ToRole="FabricacionDetalle" />
   </EntityType>
   <Association Name="R_8">
     <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
@@ -4035,80 +4110,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="Fabricacion">
-    <Key>
-      <PropertyRef Name="Fab_Codigo" />
-    </Key>
-    <Property Name="Fab_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_Fecha" Type="DateTime" Precision="3" />
-    <Property Name="Fab_TipoCambio" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_Glosa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_TipoProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Fab_Fvenc" Type="DateTime" Precision="3" />
-    <Property Name="Fab_Cantidad" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Rec_Codigo" Type="Int64" />
-    <Property Name="Fab_CostoUnit" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_CostoTotalMN" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_CostoTotalUS" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_CostoOperativo" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_almacen" Type="Int64" />
-  </EntityType>
-  <EntityType Name="FabricacionDetalle">
-    <Key>
-      <PropertyRef Name="FabD_Codigo" />
-    </Key>
-    <Property Name="FabD_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodClase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="FabD_Costo_D" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="FabD_Costo_S" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="FabD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_Mov" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_TipoDetalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodClase_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodProd_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodProd_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CodClase_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="FabD_CantUtil" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="FabD_Adicional" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Fab_Codigo" Type="Int64" />
-    <Property Name="FabD_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
-  <EntityType Name="Receta">
-    <Key>
-      <PropertyRef Name="Rec_codigo" />
-    </Key>
-    <Property Name="Rec_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Rec_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Rec_codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Rec_codProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Rec_cantidad" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="Rec_almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Rec_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Rec_costoOperativo" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
-  <EntityType Name="RecetaDetalle">
-    <Key>
-      <PropertyRef Name="RecD_codigo" />
-    </Key>
-    <Property Name="RecD_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RecD_Codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RecD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="RecD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RecD_CodProdPadre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="RecD_tipo" Type="Int32" />
-    <Property Name="RecD_coidgoPadre" Type="Int64" />
-    <Property Name="Rec_codigo" Type="Int64" />
-    <Property Name="RecD_precio" Type="Decimal" Precision="18" Scale="2" />
-  </EntityType>
   <EntityType Name="MOVI_DETALLE">
     <Key>
       <PropertyRef Name="ncode_movidet" />
@@ -4126,6 +4127,7 @@
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
     <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
     <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
+    <Property Name="nback_movidet" Type="Int32" />
   </EntityType>
   <EntityType Name="MOVI_LOTE">
     <Key>
@@ -4277,6 +4279,192 @@
       </Principal>
       <Dependent Role="MOVIMIENTO">
         <PropertyRef Name="ncode_timovi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Receta">
+    <Key>
+      <PropertyRef Name="Rec_codigo" />
+    </Key>
+    <Property Name="Rec_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rec_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_codProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Rec_almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rec_costoOperativo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.FK_Receta_ALMACEN" FromRole="Receta" ToRole="ALMACEN" />
+    <NavigationProperty Name="RecetaDetalle" Relationship="MarketWebModel.FK_RecetaDetalle_Receta" FromRole="Receta" ToRole="RecetaDetalle" />
+  </EntityType>
+  <EntityType Name="RecetaDetalle">
+    <Key>
+      <PropertyRef Name="RecD_codigo" />
+    </Key>
+    <Property Name="RecD_codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecD_Codclase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RecD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_CodProdPadre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RecD_tipo" Type="Int32" />
+    <Property Name="RecD_coidgoPadre" Type="Int64" />
+    <Property Name="Rec_codigo" Type="Int64" />
+    <Property Name="RecD_precio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_arti" Type="Int64" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="RecetaDetalle" ToRole="ARTICULO" />
+    <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.FK_RecetaDetalle_CONFIGURACION" FromRole="RecetaDetalle" ToRole="CONFIGURACION" />
+    <NavigationProperty Name="Receta" Relationship="MarketWebModel.FK_RecetaDetalle_Receta" FromRole="RecetaDetalle" ToRole="Receta" />
+  </EntityType>
+  <Association Name="FK_Receta_ALMACEN">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.Receta" Role="Receta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="Receta">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_ARTICULO">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+    <End Type="MarketWebModel.RecetaDetalle" Role="RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_CONFIGURACION">
+    <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="0..1" />
+    <End Type="MarketWebModel.RecetaDetalle" Role="RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="RecD_tipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecetaDetalle_Receta">
+    <End Type="MarketWebModel.Receta" Role="Receta" Multiplicity="0..1" />
+    <End Type="MarketWebModel.RecetaDetalle" Role="RecetaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Receta">
+        <PropertyRef Name="Rec_codigo" />
+      </Principal>
+      <Dependent Role="RecetaDetalle">
+        <PropertyRef Name="Rec_codigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Fabricacion">
+    <Key>
+      <PropertyRef Name="Fab_Codigo" />
+    </Key>
+    <Property Name="Fab_Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Fecha" Type="DateTime" Precision="3" />
+    <Property Name="Fab_TipoCambio" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Glosa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_TipoProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fab_Fvenc" Type="DateTime" Precision="3" />
+    <Property Name="Fab_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rec_Codigo" Type="Int64" />
+    <Property Name="Fab_CostoUnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalMN" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoTotalUS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_CostoOperativo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_almacen" Type="Int64" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.FK_Fabricacion_ALMACEN" FromRole="Fabricacion" ToRole="ALMACEN" />
+    <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_Fabricacion" FromRole="Fabricacion" ToRole="FabricacionDetalle" />
+  </EntityType>
+  <EntityType Name="FabricacionDetalle">
+    <Key>
+      <PropertyRef Name="FabD_Codigo" />
+    </Key>
+    <Property Name="FabD_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_NroDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_D" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Costo_S" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Almacen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_Mov" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_TipoDetalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd_Ref" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodProd_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CodClase_Ini" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabD_CantUtil" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabD_Adicional" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Fab_Codigo" Type="Int64" />
+    <Property Name="FabD_Codigo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecD_Cantidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ncode_arti" Type="Int64" />
+    <Property Name="ncode_alma" Type="Int32" />
+    <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.FK_FabricacionDetalle_ALMACEN" FromRole="FabricacionDetalle" ToRole="ALMACEN" />
+    <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="FabricacionDetalle" ToRole="ARTICULO" />
+    <NavigationProperty Name="Fabricacion" Relationship="MarketWebModel.FK_FabricacionDetalle_Fabricacion" FromRole="FabricacionDetalle" ToRole="Fabricacion" />
+  </EntityType>
+  <Association Name="FK_Fabricacion_ALMACEN">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.Fabricacion" Role="Fabricacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="Fabricacion">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_ALMACEN">
+    <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
+    <End Type="MarketWebModel.FabricacionDetalle" Role="FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALMACEN">
+        <PropertyRef Name="ncode_alma" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="ncode_alma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_ARTICULO">
+    <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+    <End Type="MarketWebModel.FabricacionDetalle" Role="FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ARTICULO">
+        <PropertyRef Name="ncode_arti" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="ncode_arti" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FabricacionDetalle_Fabricacion">
+    <End Type="MarketWebModel.Fabricacion" Role="Fabricacion" Multiplicity="0..1" />
+    <End Type="MarketWebModel.FabricacionDetalle" Role="FabricacionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fabricacion">
+        <PropertyRef Name="Fab_Codigo" />
+      </Principal>
+      <Dependent Role="FabricacionDetalle">
+        <PropertyRef Name="Fab_Codigo" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

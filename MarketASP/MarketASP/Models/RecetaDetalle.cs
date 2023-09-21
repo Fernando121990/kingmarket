@@ -24,5 +24,11 @@ namespace MarketASP.Models
         public Nullable<long> RecD_coidgoPadre { get; set; }
         public Nullable<long> Rec_codigo { get; set; }
         public Nullable<decimal> RecD_precio { get; set; }
+        public Nullable<long> ncode_arti { get; set; }
+        public Nullable<int> ncode_alma { get; set; }
+    
+        public virtual ARTICULO ARTICULO { get; set; }
+        public virtual CONFIGURACION CONFIGURACION { get; set; }
+        public virtual Receta Receta { get; set; }
     }
 }

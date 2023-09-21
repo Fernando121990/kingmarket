@@ -165,10 +165,6 @@
         <AssociationConnector Association="MarketWebModel.RG_33" />
         <AssociationConnector Association="MarketWebModel.RG_32" />
         <AssociationConnector Association="MarketWebModel.RG_31" />
-        <EntityTypeShape EntityType="MarketWebModel.Fabricacion" Width="1.5" PointX="16.375" PointY="26.75" />
-        <EntityTypeShape EntityType="MarketWebModel.FabricacionDetalle" Width="1.5" PointX="27.375" PointY="0.75" />
-        <EntityTypeShape EntityType="MarketWebModel.Receta" Width="1.5" PointX="27.375" PointY="6.75" />
-        <EntityTypeShape EntityType="MarketWebModel.RecetaDetalle" Width="1.5" PointX="5.375" PointY="28.75" />
         <EntityTypeShape EntityType="MarketWebModel.MOVI_DETALLE" Width="1.5" PointX="26.875" PointY="25.75" />
         <EntityTypeShape EntityType="MarketWebModel.MOVI_LOTE" Width="1.5" PointX="32.875" PointY="21.75" />
         <EntityTypeShape EntityType="MarketWebModel.MOVIMIENTO" Width="1.5" PointX="5.25" PointY="6.5" />
@@ -181,6 +177,18 @@
         <AssociationConnector Association="MarketWebModel.R_25" />
         <AssociationConnector Association="MarketWebModel.RMO_31" />
         <AssociationConnector Association="MarketWebModel.R_17" />
+        <EntityTypeShape EntityType="MarketWebModel.Receta" Width="1.5" PointX="27.625" PointY="8.5" />
+        <EntityTypeShape EntityType="MarketWebModel.RecetaDetalle" Width="1.5" PointX="29.875" PointY="8.125" />
+        <AssociationConnector Association="MarketWebModel.FK_Receta_ALMACEN" />
+        <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_ARTICULO" />
+        <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_CONFIGURACION" />
+        <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_Receta" />
+        <EntityTypeShape EntityType="MarketWebModel.Fabricacion" Width="1.5" PointX="5.25" PointY="23.375" />
+        <EntityTypeShape EntityType="MarketWebModel.FabricacionDetalle" Width="1.5" PointX="35.875" PointY="16.75" />
+        <AssociationConnector Association="MarketWebModel.FK_Fabricacion_ALMACEN" />
+        <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ALMACEN" />
+        <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO" />
+        <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_Fabricacion" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
