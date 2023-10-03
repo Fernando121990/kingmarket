@@ -202,6 +202,8 @@
     <Compile Include="Areas\Inventario\Clases\moviViewLote.cs" />
     <Compile Include="Clases\fabricacionView.cs" />
     <Compile Include="Clases\fabricacionViewDeta.cs" />
+    <Compile Include="Clases\genericoCabecera.cs" />
+    <Compile Include="Clases\genericoDetalle.cs" />
     <Compile Include="Clases\guiaView.cs" />
     <Compile Include="Clases\guiaViewDeta.cs" />
     <Compile Include="Clases\guiaViewLote.cs" />
@@ -214,12 +216,15 @@
     <Compile Include="Clases\ordenpedidoViewDeta.cs" />
     <Compile Include="Clases\recetaView.cs" />
     <Compile Include="Clases\recetaViewDeta.cs" />
+    <Compile Include="Clases\serieView.cs" />
+    <Compile Include="Clases\serieViewDeta.cs" />
     <Compile Include="Clases\ventanaView.cs" />
     <Compile Include="Clases\ventaViewLote.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CLI_FOPAGOController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
+    <Compile Include="Controllers\DOCU_SERIE_USUARIOController.cs" />
     <Compile Include="Controllers\EspecieController.cs" />
     <Compile Include="Controllers\FabricacionsController.cs" />
     <Compile Include="Controllers\GUIASController.cs" />
@@ -357,6 +362,9 @@
     <Compile Include="Models\DOCU_SERIE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DOCU_SERIE_USUARIO.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ESPECIE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -476,6 +484,9 @@
     <Compile Include="Models\Pr_DocNumeracion_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_DocuSerieLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -519,6 +530,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_VendedoresLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_VendedorZonaLista_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_VentaListado_Result.cs">
@@ -855,6 +869,7 @@
     <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
     <Content Include="Content\jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
     <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
+    <Content Include="Content\select2\css\select2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -2532,6 +2547,12 @@
     <Content Include="Views\Recetas\Index.cshtml" />
     <Content Include="Views\Recetas\_receta.cshtml" />
     <Content Include="Views\Fabricacions\_fabricacion.cshtml" />
+    <Content Include="Views\DOCU_SERIE_USUARIO\Create.cshtml" />
+    <Content Include="Views\DOCU_SERIE_USUARIO\Delete.cshtml" />
+    <Content Include="Views\DOCU_SERIE_USUARIO\Details.cshtml" />
+    <Content Include="Views\DOCU_SERIE_USUARIO\Edit.cshtml" />
+    <Content Include="Views\DOCU_SERIE_USUARIO\Index.cshtml" />
+    <Content Include="Views\DOCU_SERIE\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2556,12 +2577,6 @@
     <EmbeddedResource Include="Migrations\202009041514296_UpdateTable.resx">
       <DependentUpon>202009041514296_UpdateTable.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SunatService\SunatService.csproj">
-      <Project>{72d52343-02d6-4a38-910b-ff2ee5827d58}</Project>
-      <Name>SunatService</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

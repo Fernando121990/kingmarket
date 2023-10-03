@@ -17,7 +17,12 @@
                     <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
                     <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
 
-                    @Html.Partial("_fabricacion")
+                    <div class="form-horizontal">
+
+
+                        @Html.Partial("_fabricacion")
+
+                    </div>
                 }
             </div>
         </div>
@@ -27,12 +32,14 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/fabricacion")
-    <script type="text/javascript">
+<script type="text/javascript">
     var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
     var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
     var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
     var urlfabricacionCrea = '@Url.Action("Edit", "fabricacions")';
     var urlfabricacionLista = '@Url.Action("Index", "fabricacions")';
-    </script>
+    var urlGetreceta = '@Url.Action("getReceta", "Funciones",new { area = ""})';
+
+</script>
 }
 }

@@ -1,0 +1,129 @@
+﻿@model IEnumerable<MarketASP.Models.DOCU_SERIE>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sdocumento_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sserie_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.snumeracion_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.besta_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOCAL.sdesc_local)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sdocumento_dose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sserie_dose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.snumeracion_dose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.susuario_dose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.besta_dose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LOCAL.sdesc_local)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ncode_dose })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="card shadow mb-2">
+    <div class="card-header">
+        <div class="row">
+            <div class="col"><h5>Usuarios</h5></div>
+            <div class="col">
+                <a href="@Url.Action("CreateSesion",new { id = Model.ncode_cuca })" class="btn btn-primary btn-circle btn-sm" title="Añadir">
+                    <i class="fas fa-file"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @if (Model.Capacitacion_Horarios.Count == 0)
+        {
+            <h5 class="text-center">No se han registrado Sesiones</h5>
+        }
+        else
+        {
+            <table class="table table-responsive-md">
+                <tr>
+                    <th>Sesion</th>
+                    <th>Fecha</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Capacitacion_Horarios.OrderBy(a => a.dfclase_hora))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sdesc_hora)
+                        </td>
+                        <td>
+                            @string.Format("{0:d}", item.dfclase_hora)
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="@Url.Action("EditSesion", new { id = item.ncode_hora })" class="btn btn-success btn-circle btn-sm" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteSesion", new { id = item.ncode_hora })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("CreateXcel", "Programa_Capacitacion", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                            {
+                                <input id="ncode_cuca" type="hidden" name="ncode_cuca" value="@item.ncode_cuca" />
+                                <input id="ncode_hora" type="hidden" name="ncode_hora" value="@item.ncode_hora" />
+                                <div class="row">
+                                    <div class="col">
+                                        <input id="File1" type="file" name="fichero" />
+                                    </div>
+                                    <div class="col">
+                                        <button id="btncrear" class="btn btn-info fas fa-upload" type="submit"></button>
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+
+    </div>
+</div>

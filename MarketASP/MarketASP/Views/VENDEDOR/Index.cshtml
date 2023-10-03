@@ -41,7 +41,7 @@
                                     <input type="checkbox" checked="@item.nesta_vende" readonly />
                                 </td>
                                 <td id="tooltip-container3">
-                                    <a href="@Url.Action("Edit", new { id = item.ncode_vende, idzona = item.ncode_zona })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                    <a href="@Url.Action("Edit", new { id = item.ncode_vende})" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
                                     <a href="@Url.Action("DeleteVendedor", new { id = item.ncode_vende })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
                                 </td>
                             </tr>

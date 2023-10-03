@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.IO;
-using SunatService.Modelos;
+//using SunatService.Modelos;
 
 namespace MarketASP.Controllers
 {
@@ -88,7 +88,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", "");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", "");
             ViewBag.dfeventa_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
@@ -101,7 +101,8 @@ namespace MarketASP.Controllers
             ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
             ObjectParameter sw = new ObjectParameter("sw", typeof(int));
             ObjectParameter cc = new ObjectParameter("cc", typeof(int));
-            SunatResponse resultado = new SunatResponse();
+            //SunatResponse resultado = new SunatResponse();
+            bool resultado = false;
             string xmensaje = "";
             int code = 0;
             int cccode = 0;
@@ -211,7 +212,7 @@ namespace MarketASP.Controllers
 
                             db.Pr_ventaActualizaPedido(0,mofView.ncode_orpe, code);
 
-                            resultado.Success = true;
+                            resultado = true;
 
                             //inicio el proceso de envio a sunat
                             //try
@@ -228,13 +229,13 @@ namespace MarketASP.Controllers
                     }
                 }
 
-                if (resultado.Success)
+                if (resultado)
                 {
-                    xmensaje = "Registro exitoso en Sunat y Local - " + resultado.info;
+                    xmensaje = "Registro exitoso en Sunat y Local - "; //+ resultado.info;
                 }
                 else
                 {
-                    xmensaje = "Error Sunat - " + resultado.Error.Description;
+                    xmensaje = "Error Sunat - "; // + resultado.Error.Description;
                 }
 
                 if (ConfiguracionSingleton.Instance.glbContado != xcontado)
@@ -300,8 +301,7 @@ namespace MarketASP.Controllers
             ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", vENTAS.dfevenci_venta);
 
 
-
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", vENTAS.ncode_vende);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", vENTAS.ncode_vende);
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
@@ -495,116 +495,116 @@ namespace MarketASP.Controllers
             return RedirectToAction("Index");
         }
 
-        public SunatResponse EnviarComprobante(ventaView venta)
-        {
+        //public SunatResponse EnviarComprobante(ventaView venta)
+        //{
 
-            //Crear una clase cabecera de la capa SUNAT SERVICES
-            SunatService.ViewModels.Cabecera comprobante = new SunatService.ViewModels.Cabecera();
-            //Cargamos las propiedades de la clase cabecera de la capa sunat services
-            comprobante.Idcabecera = 0; // venta.ncode_venta; 
-            comprobante.Fechaemision = DateTime.Parse(venta.sfeventa_venta);
-            comprobante.Fechavencimiento = DateTime.Parse(venta.sfevenci_venta);
-            comprobante.Idtipocomp = db.CONFIGURACION.Where(C => C.ncode_confi == venta.ncode_docu).SingleOrDefault().svalor_confi; // venta.CONFIGURACION.svalor_confi; // .Idtipocomp.ToString().PadLeft(2, '0'); 
-            comprobante.Serie = venta.sseri_venta;
-            comprobante.Numero = venta.snume_venta;
-            comprobante.Idcliente = venta.ncode_cliente;
-            //Obtener datos del cliente mediante una consulta
-            var cliente = db.CLIENTE.Where(p => p.ncode_cliente == comprobante.Idcliente).SingleOrDefault();
-            var clidire = db.CLI_DIRE.Where(p => p.ncode_clidire == venta.ncode_clidire).SingleOrDefault();
-            comprobante.ClienteRazonSocial = cliente.srazon_cliente;
-            comprobante.ClienteDireccion = clidire.sdesc_clidire;
-            comprobante.ClienteUbigeo = clidire.UBIGEO.scode_ubigeo;
-            comprobante.ClienteTipodocumento = "6"; // cliente.IdTipoDoc; 
-            comprobante.ClienteNumeroDocumento = cliente.sruc_cliente;
-            //Cargamos los totales del comprobante
-            comprobante.Igv = decimal.Parse(Helpers.Funciones.ObtenerValorParam("GENERAL","IGV"))/100;
-            comprobante.TotSubtotal = (decimal) (venta.nsubaf_venta + venta.nsubex_venta); /// .TotSubtotal);
-            comprobante.TotDsctos = venta.ndsctoaf_venta + venta.ndctoex_venta; // .TotDsctos;
-            comprobante.TotIcbper = 0; // venta.TotIcbper; 
-            comprobante.TotIgv = venta.nigvaf_venta + venta.nigvex_venta; //.TotIgv;
-            comprobante.TotISC = 0; // venta.TotIsc;
-            comprobante.TotOtros = 0; // venta.TotOtros;
-            comprobante.TotTotal = comprobante.TotSubtotal - comprobante.TotDsctos;
-            //comprobante.TotTributos = venta.TotIgv + venta.TotIsc + venta.TotOtros + venta.TotIcbper;
-            comprobante.TotTributos = comprobante.TotIgv + comprobante.TotISC + comprobante.TotOtros;
-            comprobante.TotNeto = venta.ntotal_venta + comprobante.TotTributos;
-            comprobante.Total = venta.ntotal_venta + comprobante.TotTributos;
-            comprobante.Idmoneda = "PEN"; // venta.ncode_mone; // .Idmoneda;
+        //    //Crear una clase cabecera de la capa SUNAT SERVICES
+        //    SunatService.ViewModels.Cabecera comprobante = new SunatService.ViewModels.Cabecera();
+        //    //Cargamos las propiedades de la clase cabecera de la capa sunat services
+        //    comprobante.Idcabecera = 0; // venta.ncode_venta; 
+        //    comprobante.Fechaemision = DateTime.Parse(venta.sfeventa_venta);
+        //    comprobante.Fechavencimiento = DateTime.Parse(venta.sfevenci_venta);
+        //    comprobante.Idtipocomp = db.CONFIGURACION.Where(C => C.ncode_confi == venta.ncode_docu).SingleOrDefault().svalor_confi; // venta.CONFIGURACION.svalor_confi; // .Idtipocomp.ToString().PadLeft(2, '0'); 
+        //    comprobante.Serie = venta.sseri_venta;
+        //    comprobante.Numero = venta.snume_venta;
+        //    comprobante.Idcliente = venta.ncode_cliente;
+        //    //Obtener datos del cliente mediante una consulta
+        //    var cliente = db.CLIENTE.Where(p => p.ncode_cliente == comprobante.Idcliente).SingleOrDefault();
+        //    var clidire = db.CLI_DIRE.Where(p => p.ncode_clidire == venta.ncode_clidire).SingleOrDefault();
+        //    comprobante.ClienteRazonSocial = cliente.srazon_cliente;
+        //    comprobante.ClienteDireccion = clidire.sdesc_clidire;
+        //    comprobante.ClienteUbigeo = clidire.UBIGEO.scode_ubigeo;
+        //    comprobante.ClienteTipodocumento = "6"; // cliente.IdTipoDoc; 
+        //    comprobante.ClienteNumeroDocumento = cliente.sruc_cliente;
+        //    //Cargamos los totales del comprobante
+        //    comprobante.Igv = decimal.Parse(Helpers.Funciones.ObtenerValorParam("GENERAL","IGV"))/100;
+        //    comprobante.TotSubtotal = (decimal) (venta.nsubaf_venta + venta.nsubex_venta); /// .TotSubtotal);
+        //    comprobante.TotDsctos = venta.ndsctoaf_venta + venta.ndctoex_venta; // .TotDsctos;
+        //    comprobante.TotIcbper = 0; // venta.TotIcbper; 
+        //    comprobante.TotIgv = venta.nigvaf_venta + venta.nigvex_venta; //.TotIgv;
+        //    comprobante.TotISC = 0; // venta.TotIsc;
+        //    comprobante.TotOtros = 0; // venta.TotOtros;
+        //    comprobante.TotTotal = comprobante.TotSubtotal - comprobante.TotDsctos;
+        //    //comprobante.TotTributos = venta.TotIgv + venta.TotIsc + venta.TotOtros + venta.TotIcbper;
+        //    comprobante.TotTributos = comprobante.TotIgv + comprobante.TotISC + comprobante.TotOtros;
+        //    comprobante.TotNeto = venta.ntotal_venta + comprobante.TotTributos;
+        //    comprobante.Total = venta.ntotal_venta + comprobante.TotTributos;
+        //    comprobante.Idmoneda = "PEN"; // venta.ncode_mone; // .Idmoneda;
 
-            //Capturar los datos de la empresa emisora
-            //Captiurar datos del ubigeo de la empresa remitente
-            var xlocal = User.Identity.GetLocal();
-            int ylocal = int.Parse(xlocal);
+        //    //Capturar los datos de la empresa emisora
+        //    //Captiurar datos del ubigeo de la empresa remitente
+        //    var xlocal = User.Identity.GetLocal();
+        //    int ylocal = int.Parse(xlocal);
 
-            var empresa = db.LOCAL.Where(l => l.ncode_local == ylocal).SingleOrDefault();
-            string ubigeo = empresa.scode_ubigeo;   //Util.Utiles.ObtenerValorParam("EMPRESA", "UBIGEO");
-            comprobante.EmpresaDepartamento = ubigeo.Substring(0, 2);
-            comprobante.EmpresaProvincia = ubigeo.Substring(2, 2);
-            comprobante.EmpresaDistrito = ubigeo.Substring(4, 2);
-            comprobante.EmpresaDepartamento = empresa.UBIGEO.sdepa_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "DEPARTAMENTO_NOMBRE");
-            comprobante.ID_EmpresaDepartamento = ubigeo.Substring(0, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "DEPARTAMENTO");
-            comprobante.EmpresaProvincia = empresa.UBIGEO.sprovi_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "PROVINCIA_NOMBRE");
-            comprobante.ID_EmpresaProvincia = ubigeo.Substring(2, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "PROVINCIA");
-            comprobante.EmpresaDistrito = empresa.UBIGEO.sdistri_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "DISTRITO_NOMBRE");
-            comprobante.ID_EmpresaDistrito = ubigeo.Substring(4, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "DISTRITO");
-            //Capturar datos de empresa
-            comprobante.EmpresaRazonSocial = empresa.SUCURSAL.sdesc_sucu; // Util.Utiles.ObtenerValorParam("EMPRESA", "NOMBRECOMERCIAL");
-            comprobante.EmpresaDireccion = empresa.sdire_local; // Util.Utiles.ObtenerValorParam("EMPRESA", "DIRECCION");
-            comprobante.EmpresaRUC = empresa.SUCURSAL.sruc_sucu; // Util.Utiles.ObtenerValorParam("EMPRESA", "RUC");
+        //    var empresa = db.LOCAL.Where(l => l.ncode_local == ylocal).SingleOrDefault();
+        //    string ubigeo = empresa.scode_ubigeo;   //Util.Utiles.ObtenerValorParam("EMPRESA", "UBIGEO");
+        //    comprobante.EmpresaDepartamento = ubigeo.Substring(0, 2);
+        //    comprobante.EmpresaProvincia = ubigeo.Substring(2, 2);
+        //    comprobante.EmpresaDistrito = ubigeo.Substring(4, 2);
+        //    comprobante.EmpresaDepartamento = empresa.UBIGEO.sdepa_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "DEPARTAMENTO_NOMBRE");
+        //    comprobante.ID_EmpresaDepartamento = ubigeo.Substring(0, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "DEPARTAMENTO");
+        //    comprobante.EmpresaProvincia = empresa.UBIGEO.sprovi_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "PROVINCIA_NOMBRE");
+        //    comprobante.ID_EmpresaProvincia = ubigeo.Substring(2, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "PROVINCIA");
+        //    comprobante.EmpresaDistrito = empresa.UBIGEO.sdistri_ubigeo; // Util.Utiles.ObtenerValorParam("EMPRESA", "DISTRITO_NOMBRE");
+        //    comprobante.ID_EmpresaDistrito = ubigeo.Substring(4, 2); // Util.Utiles.ObtenerValorParam("EMPRESA", "DISTRITO");
+        //    //Capturar datos de empresa
+        //    comprobante.EmpresaRazonSocial = empresa.SUCURSAL.sdesc_sucu; // Util.Utiles.ObtenerValorParam("EMPRESA", "NOMBRECOMERCIAL");
+        //    comprobante.EmpresaDireccion = empresa.sdire_local; // Util.Utiles.ObtenerValorParam("EMPRESA", "DIRECCION");
+        //    comprobante.EmpresaRUC = empresa.SUCURSAL.sruc_sucu; // Util.Utiles.ObtenerValorParam("EMPRESA", "RUC");
 
-            //Grabar los detalles 
-            List<SunatService.ViewModels.Detalles> details = new List<SunatService.ViewModels.Detalles>();
-            foreach (var item in venta.ventaViewDetas)
-            {
-                SunatService.ViewModels.Detalles det = new SunatService.ViewModels.Detalles();
-                var articulo = db.ARTICULO.Where(a => a.ncode_arti == item.ncode_arti).SingleOrDefault();
-                det.Cantidad = (decimal) item.ncant_vedeta;
-                det.Codcom = articulo.scode_arti;
-                det.DescripcionProducto = articulo.sdesc1_arti;
-                det.Precio = (decimal) item.npu_vedeta;
-                det.Total = (decimal) item.nafecto_vedeta;
-                det.UnidadMedida = "NIU";
-                det.porIgvItem = Convert.ToDecimal(comprobante.Igv);
-                det.mtoValorVentaItem = det.Total;
-                details.Add(det);
-            }
-            comprobante.Detalles = details;
+        //    //Grabar los detalles 
+        //    List<SunatService.ViewModels.Detalles> details = new List<SunatService.ViewModels.Detalles>();
+        //    foreach (var item in venta.ventaViewDetas)
+        //    {
+        //        SunatService.ViewModels.Detalles det = new SunatService.ViewModels.Detalles();
+        //        var articulo = db.ARTICULO.Where(a => a.ncode_arti == item.ncode_arti).SingleOrDefault();
+        //        det.Cantidad = (decimal) item.ncant_vedeta;
+        //        det.Codcom = articulo.scode_arti;
+        //        det.DescripcionProducto = articulo.sdesc1_arti;
+        //        det.Precio = (decimal) item.npu_vedeta;
+        //        det.Total = (decimal) item.nafecto_vedeta;
+        //        det.UnidadMedida = "NIU";
+        //        det.porIgvItem = Convert.ToDecimal(comprobante.Igv);
+        //        det.mtoValorVentaItem = det.Total;
+        //        details.Add(det);
+        //    }
+        //    comprobante.Detalles = details;
 
-            //Enviar a SUNAT
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            SunatService.Servicios.SUNAT_UTIL servicioSUNAT = new SunatService.Servicios.SUNAT_UTIL();
+        //    //Enviar a SUNAT
+        //    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //    SunatService.Servicios.SUNAT_UTIL servicioSUNAT = new SunatService.Servicios.SUNAT_UTIL();
 
-            //Obtner la ruta de la aplicacion
-            string RutaAplicacion = ControllerContext.HttpContext.Server.MapPath("/"); // _hostingEnvironment.WebRootPath;
+        //    //Obtner la ruta de la aplicacion
+        //    string RutaAplicacion = ControllerContext.HttpContext.Server.MapPath("/"); // _hostingEnvironment.WebRootPath;
 
-            string pathsunat = ControllerContext.HttpContext.Server.MapPath("/");
+        //    string pathsunat = ControllerContext.HttpContext.Server.MapPath("/");
 
-            string RutaCertificado = Helpers.Funciones.ObtenerValorParam("RUTA","CERTIFICADO");
-            string RutaXML = Helpers.Funciones.ObtenerValorParam("RUTA", "XML");
-            string RutaCDR = Helpers.Funciones.ObtenerValorParam("RUTA", "CDR");
-            string RutaEnvio = Helpers.Funciones.ObtenerValorParam("RUTA", "ENVIO");
-            string RutaQR = Helpers.Funciones.ObtenerValorParam("RUTA", "QR");
-            //Enviar las credenciales
-            servicioSUNAT.Ruta_Certificado = Path.Combine(RutaAplicacion, RutaCertificado);
-            servicioSUNAT.Password_Certificado = "123456";
+        //    string RutaCertificado = Helpers.Funciones.ObtenerValorParam("RUTA","CERTIFICADO");
+        //    string RutaXML = Helpers.Funciones.ObtenerValorParam("RUTA", "XML");
+        //    string RutaCDR = Helpers.Funciones.ObtenerValorParam("RUTA", "CDR");
+        //    string RutaEnvio = Helpers.Funciones.ObtenerValorParam("RUTA", "ENVIO");
+        //    string RutaQR = Helpers.Funciones.ObtenerValorParam("RUTA", "QR");
+        //    //Enviar las credenciales
+        //    servicioSUNAT.Ruta_Certificado = Path.Combine(RutaAplicacion, RutaCertificado);
+        //    servicioSUNAT.Password_Certificado = "123456";
 
-            servicioSUNAT.Ruta_XML = Path.Combine(RutaAplicacion, RutaXML);
-            servicioSUNAT.Ruta_ENVIOS = Path.Combine(RutaAplicacion, RutaEnvio);
-            servicioSUNAT.Ruta_CDRS = Path.Combine(RutaAplicacion, RutaCDR);
-            //servicioSUNAT.Ruta_QR = Path.Combine(RutaAplicacion, RutaQR);
+        //    servicioSUNAT.Ruta_XML = Path.Combine(RutaAplicacion, RutaXML);
+        //    servicioSUNAT.Ruta_ENVIOS = Path.Combine(RutaAplicacion, RutaEnvio);
+        //    servicioSUNAT.Ruta_CDRS = Path.Combine(RutaAplicacion, RutaCDR);
+        //    //servicioSUNAT.Ruta_QR = Path.Combine(RutaAplicacion, RutaQR);
 
-            SunatResponse resultado = new SunatResponse();
-            try
-            {
-                resultado = servicioSUNAT.GenerarComprobanteFB_XML(comprobante);
-            }
-            catch (Exception ex)
-            {
-                resultado.Error.Description = "GenCom " + ex.InnerException.Message;
-                throw new Exception("EVCom " + ex.Message);
-            }
-            return resultado;
-        }
+        //    SunatResponse resultado = new SunatResponse();
+        //    try
+        //    {
+        //        resultado = servicioSUNAT.GenerarComprobanteFB_XML(comprobante);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        resultado.Error.Description = "GenCom " + ex.InnerException.Message;
+        //        throw new Exception("EVCom " + ex.Message);
+        //    }
+        //    return resultado;
+        //}
 
         protected override void Dispose(bool disposing)
         {

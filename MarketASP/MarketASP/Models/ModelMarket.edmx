@@ -433,6 +433,18 @@
           <Property Name="sserie_dose" Type="varchar" MaxLength="6" />
           <Property Name="besta_dose" Type="bit" />
         </EntityType>
+        <EntityType Name="DOCU_SERIE_USUARIO">
+          <Key>
+            <PropertyRef Name="ncode_docuus" />
+          </Key>
+          <Property Name="ncode_dose" Type="bigint" />
+          <Property Name="susuario_dose" Type="varchar" MaxLength="50" />
+          <Property Name="suser_dose" Type="varchar" MaxLength="50" />
+          <Property Name="dfech_dose" Type="datetime" />
+          <Property Name="susmo_dose" Type="varchar" MaxLength="50" />
+          <Property Name="dfemo_dose" Type="datetime" />
+          <Property Name="ncode_docuus" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="ESPECIE">
           <Key>
             <PropertyRef Name="ncode_espe" />
@@ -1005,8 +1017,8 @@
           <Property Name="bacti_sucu" Type="bit" Nullable="false" />
           <Property Name="sruc_sucu" Type="varchar" MaxLength="20" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_CodProductos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MarketWeb.dbo.SUNAT_CodProductos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SUNAT_CodProductos">
           <Key>
             <PropertyRef Name="codsunat" />
@@ -1014,8 +1026,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_CodProductos' no tiene d
           <Property Name="codsunat" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="detalle" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_TipoMercaderias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MarketWeb.dbo.SUNAT_TipoMercaderias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SUNAT_TipoMercaderias">
           <Key>
             <PropertyRef Name="CODIGO" />
@@ -1025,8 +1037,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_TipoMercaderias' no tien
           <Property Name="DESCRIPCION" Type="nvarchar(max)" />
           <Property Name="ACTIVADO" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MarketWeb.dbo.SUNAT_UnidadMedidas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SUNAT_UnidadMedidas">
           <Key>
             <PropertyRef Name="CODIGO" />
@@ -1323,6 +1335,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="CLIENTE">
               <PropertyRef Name="nidtipodoc_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+          <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="0..1" />
+          <End Role="DOCU_SERIE_USUARIO" Type="Self.DOCU_SERIE_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_dose" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE_USUARIO">
+              <PropertyRef Name="ncode_dose" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2830,6 +2854,54 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="ncode_docu" Type="int" Mode="In" />
         </Function>
+        <Function Name="Pr_Fabricacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="Rec_Codigo" Type="bigint" Mode="In" />
+          <Parameter Name="Fab_Codigo" Type="bigint" Mode="In" />
+          <Parameter Name="Fab_Tipo" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_NroDoc" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="Fab_TipoCambio" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_Glosa" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Fab_Lote" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_Estado" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_TipoProd" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_Fvenc" Type="datetime" Mode="In" />
+          <Parameter Name="Fab_Cantidad" Type="decimal" Mode="In" />
+          <Parameter Name="codterm" Type="varchar" Mode="In" />
+          <Parameter Name="cod_doc" Type="varchar" Mode="In" />
+          <Parameter Name="Fab_CostoUnit" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_CostoTotalMN" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_CostoTotalUS" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_CostoOperativo" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_almacen" Type="bigint" Mode="In" />
+          <Parameter Name="ID" Type="bigint" Mode="InOut" />
+          <Parameter Name="ingproc_001" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_Fabricacion_eliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fab_Codigo" Type="bigint" Mode="In" />
+          <Parameter Name="SW" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_FabricacionDetalleCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FabD_tipo" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_NroDoc" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodClase" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodProd" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_Cantidad" Type="decimal" Mode="In" />
+          <Parameter Name="FabD_Costo_D" Type="decimal" Mode="In" />
+          <Parameter Name="FabD_Costo_S" Type="decimal" Mode="In" />
+          <Parameter Name="FabD_Almacen" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_Mov" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_TipoDetalle" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodClase_Ref" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodProd_Ref" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodProd_Ini" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CodClase_Ini" Type="varchar" Mode="In" />
+          <Parameter Name="FabD_CantUtil" Type="decimal" Mode="In" />
+          <Parameter Name="FabD_Adicional" Type="decimal" Mode="In" />
+          <Parameter Name="Fab_Codigo" Type="bigint" Mode="In" />
+          <Parameter Name="RecD_Cantidad" Type="decimal" Mode="In" />
+        </Function>
         <Function Name="Pr_GuiaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
         </Function>
@@ -3307,6 +3379,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <Function Name="Pr_ClienteListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="tipo" Type="int" Mode="In" />
         </Function>
+        <Function Name="Pr_DocuSerieCrearUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+          <Parameter Name="susuario_dose" Type="varchar" Mode="In" />
+          <Parameter Name="suser_dose" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Pr_DocuSerieEliminarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_DocuSerieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="Pr_LotesDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
           <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -3318,7 +3401,23 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         </Function>
         <Function Name="Pr_SubespecieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
         <Function Name="Pr_Sublinealista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+        <Function Name="Pr_VendedorEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
+          <Parameter Name="resultado" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="Pr_VendedoresLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_VendedorZonaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_zona" Type="bigint" Mode="In" />
+          <Parameter Name="suser" Type="varchar" Mode="In" />
+          <Parameter Name="resultado" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="Pr_VendedorZonaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_VendedorZonaLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_ventaActualizaPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
@@ -3475,6 +3574,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="CTASCO_DETALLE" EntityType="Self.CTASCO_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CTASPA_DETALLE" EntityType="Self.CTASPA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCU_SERIE_USUARIO" EntityType="Self.DOCU_SERIE_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESPECIE" EntityType="Self.ESPECIE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fabricacion" EntityType="Self.Fabricacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FabricacionDetalle" EntityType="Self.FabricacionDetalle" Schema="dbo" store:Type="Tables" />
@@ -3565,6 +3665,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_CLIENTE_CONFIGURACION" Association="Self.FK_CLIENTE_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE" Association="Self.FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+            <End Role="DOCU_SERIE_USUARIO" EntitySet="DOCU_SERIE_USUARIO" />
           </AssociationSet>
           <AssociationSet Name="FK_Fabricacion_ALMACEN" Association="Self.FK_Fabricacion_ALMACEN">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
@@ -4806,9 +4910,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="ZONA" EntitySet="ZONA" />
             <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
           </AssociationSet>
-          <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)" >
-          <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
-          </FunctionImport>
           <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
           <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -5370,6 +5471,89 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="Fabricacion" EntitySet="Fabricacion" />
             <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
           </AssociationSet>
+          <FunctionImport Name="Pr_Fabricacion">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="Rec_Codigo" Mode="In" Type="Int64" />
+            <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+            <Parameter Name="Fab_Tipo" Mode="In" Type="String" />
+            <Parameter Name="Fab_NroDoc" Mode="In" Type="String" />
+            <Parameter Name="Fab_Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="Fab_TipoCambio" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_Glosa" Mode="In" Type="String" />
+            <Parameter Name="Fab_Lote" Mode="In" Type="String" />
+            <Parameter Name="Fab_Estado" Mode="In" Type="String" />
+            <Parameter Name="Fab_TipoProd" Mode="In" Type="String" />
+            <Parameter Name="Fab_Fvenc" Mode="In" Type="DateTime" />
+            <Parameter Name="Fab_Cantidad" Mode="In" Type="Decimal" />
+            <Parameter Name="codterm" Mode="In" Type="String" />
+            <Parameter Name="cod_doc" Mode="In" Type="String" />
+            <Parameter Name="Fab_CostoUnit" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_CostoTotalMN" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_CostoTotalUS" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_CostoOperativo" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_almacen" Mode="In" Type="Int64" />
+            <Parameter Name="ID" Mode="InOut" Type="Int64" />
+            <Parameter Name="ingproc_001" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_Fabricacion_eliminar">
+            <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+            <Parameter Name="SW" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_FabricacionDetalleCrea">
+            <Parameter Name="FabD_tipo" Mode="In" Type="String" />
+            <Parameter Name="FabD_NroDoc" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodClase" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodProd" Mode="In" Type="String" />
+            <Parameter Name="FabD_Cantidad" Mode="In" Type="Decimal" />
+            <Parameter Name="FabD_Costo_D" Mode="In" Type="Decimal" />
+            <Parameter Name="FabD_Costo_S" Mode="In" Type="Decimal" />
+            <Parameter Name="FabD_Almacen" Mode="In" Type="String" />
+            <Parameter Name="FabD_Mov" Mode="In" Type="String" />
+            <Parameter Name="FabD_TipoDetalle" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodClase_Ref" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodProd_Ref" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodProd_Ini" Mode="In" Type="String" />
+            <Parameter Name="FabD_CodClase_Ini" Mode="In" Type="String" />
+            <Parameter Name="FabD_CantUtil" Mode="In" Type="Decimal" />
+            <Parameter Name="FabD_Adicional" Mode="In" Type="Decimal" />
+            <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+            <Parameter Name="RecD_Cantidad" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="DOCU_SERIE_USUARIO" EntityType="MarketWebModel.DOCU_SERIE_USUARIO" />
+          <AssociationSet Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE" Association="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+            <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+            <End Role="DOCU_SERIE_USUARIO" EntitySet="DOCU_SERIE_USUARIO" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_DocuSerieCrearUsuarios">
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+            <Parameter Name="susuario_dose" Mode="In" Type="String" />
+            <Parameter Name="suser_dose" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_DocuSerieEliminarUsuarios">
+          <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_VendedorEliminar">
+            <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+            <Parameter Name="resultado" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_VendedorZonaCrea">
+            <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_zona" Mode="In" Type="Int64" />
+            <Parameter Name="suser" Mode="In" Type="String" />
+            <Parameter Name="resultado" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)">
+          <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_VendedorZonaElimina">
+          <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_DocuSerieLista" ReturnType="Collection(MarketWebModel.Pr_DocuSerieLista_Result)">
+          <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_VendedorZonaLista" ReturnType="Collection(MarketWebModel.Pr_VendedorZonaLista_Result)">
+            <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -7084,16 +7268,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="Pr_VendedoresLista_Result">
-          <Property Type="Int64" Name="ncode_vende" Nullable="false" />
-          <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
-          <Property Type="Int64" Name="ncode_zona" Nullable="true" />
-          <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="500" />
-          <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
-          <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
-          <Property Type="Int32" Name="ncode_alma" Nullable="true" />
-          <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
-        </ComplexType>
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ncode_cliente" />
@@ -7836,6 +8010,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="besta_dose" Type="Boolean" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
           <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+          <NavigationProperty Name="DOCU_SERIE_USUARIO" Relationship="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" FromRole="DOCU_SERIE" ToRole="DOCU_SERIE_USUARIO" />
         </EntityType>
         <Association Name="R_55">
           <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -8471,6 +8646,53 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DOCU_SERIE_USUARIO">
+          <Key>
+            <PropertyRef Name="ncode_docuus" />
+          </Key>
+          <Property Name="ncode_dose" Type="Int64" />
+          <Property Name="susuario_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="suser_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+          <Property Name="susmo_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+          <Property Name="ncode_docuus" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" FromRole="DOCU_SERIE_USUARIO" ToRole="DOCU_SERIE" />
+        </EntityType>
+        <Association Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+          <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.DOCU_SERIE_USUARIO" Role="DOCU_SERIE_USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCU_SERIE">
+              <PropertyRef Name="ncode_dose" />
+            </Principal>
+            <Dependent Role="DOCU_SERIE_USUARIO">
+              <PropertyRef Name="ncode_dose" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Pr_VendedoresLista_Result">
+          <Property Type="Int64" Name="ncode_vende" Nullable="false" />
+          <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
+          <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="5000" />
+          <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
+          <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
+          <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Pr_DocuSerieLista_Result">
+          <Property Type="Int64" Name="ncode_dose" Nullable="false" />
+          <Property Type="String" Name="sdesc_confi" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="svalor_confi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="saux1_confi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sserie_dose" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="snumeracion_dose" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="usuarios" Nullable="true" MaxLength="5000" />
+          <Property Type="Boolean" Name="besta_dose" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Pr_VendedorZonaLista_Result">
+          <Property Type="Int64" Name="ncode_vende" Nullable="false" />
+          <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9462,20 +9684,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Pr_VendedoresLista" FunctionName="MarketWebModel.Store.Pr_VendedoresLista">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedoresLista_Result">
-                <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
-                <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
-                <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
-                <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
-                <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
-                <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
-                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
-                <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="CLIENTE">
             <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
               <MappingFragment StoreEntitySet="CLIENTE">
@@ -10149,6 +10357,61 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_Fabricacion" FunctionName="MarketWebModel.Store.Pr_Fabricacion" />
+          <FunctionImportMapping FunctionImportName="Pr_Fabricacion_eliminar" FunctionName="MarketWebModel.Store.Pr_Fabricacion_eliminar" />
+          <FunctionImportMapping FunctionImportName="Pr_FabricacionDetalleCrea" FunctionName="MarketWebModel.Store.Pr_FabricacionDetalleCrea" />
+          <EntitySetMapping Name="DOCU_SERIE_USUARIO">
+            <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE_USUARIO">
+              <MappingFragment StoreEntitySet="DOCU_SERIE_USUARIO">
+                <ScalarProperty Name="ncode_docuus" ColumnName="ncode_docuus" />
+                <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+                <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+                <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+                <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+                <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_DocuSerieCrearUsuarios" FunctionName="MarketWebModel.Store.Pr_DocuSerieCrearUsuarios" />
+          <FunctionImportMapping FunctionImportName="Pr_DocuSerieEliminarUsuarios" FunctionName="MarketWebModel.Store.Pr_DocuSerieEliminarUsuarios" />
+          <FunctionImportMapping FunctionImportName="Pr_VendedorEliminar" FunctionName="MarketWebModel.Store.Pr_VendedorEliminar" />
+          <FunctionImportMapping FunctionImportName="Pr_VendedorZonaCrea" FunctionName="MarketWebModel.Store.Pr_VendedorZonaCrea" />
+          <FunctionImportMapping FunctionImportName="Pr_VendedoresLista" FunctionName="MarketWebModel.Store.Pr_VendedoresLista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedoresLista_Result">
+                <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+                <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+                <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
+                <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+                <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+                <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_VendedorZonaElimina" FunctionName="MarketWebModel.Store.Pr_VendedorZonaElimina" />
+          <FunctionImportMapping FunctionImportName="Pr_DocuSerieLista" FunctionName="MarketWebModel.Store.Pr_DocuSerieLista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_DocuSerieLista_Result">
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+                <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
+                <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
+                <ScalarProperty Name="saux1_confi" ColumnName="saux1_confi" />
+                <ScalarProperty Name="sserie_dose" ColumnName="sserie_dose" />
+                <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+                <ScalarProperty Name="usuarios" ColumnName="usuarios" />
+                <ScalarProperty Name="besta_dose" ColumnName="besta_dose" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_VendedorZonaLista" FunctionName="MarketWebModel.Store.Pr_VendedorZonaLista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedorZonaLista_Result">
+                <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+                <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

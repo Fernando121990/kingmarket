@@ -10,6 +10,10 @@ namespace MarketASP.Clases
 {
     public class fabricacionView:Fabricacion
     {
+
+        public string sfab_fecha { get; set; }
+        public string sfab_fvenc { get; set; } 
+
         [JsonProperty(PropertyName = "fabricacionViewDetas")]
         public IList<fabricacionViewDeta> fabricacionViewDetas { get; set; }
     }

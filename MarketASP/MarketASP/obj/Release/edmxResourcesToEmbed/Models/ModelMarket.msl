@@ -986,20 +986,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Pr_VendedoresLista" FunctionName="MarketWebModel.Store.Pr_VendedoresLista">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedoresLista_Result">
-          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
-          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
-          <ScalarProperty Name="ncode_zona" ColumnName="ncode_zona" />
-          <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
-          <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
-          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
-          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
-          <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <EntitySetMapping Name="CLIENTE">
       <EntityTypeMapping TypeName="MarketWebModel.CLIENTE">
         <MappingFragment StoreEntitySet="CLIENTE">
@@ -1673,5 +1659,60 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_Fabricacion" FunctionName="MarketWebModel.Store.Pr_Fabricacion" />
+    <FunctionImportMapping FunctionImportName="Pr_Fabricacion_eliminar" FunctionName="MarketWebModel.Store.Pr_Fabricacion_eliminar" />
+    <FunctionImportMapping FunctionImportName="Pr_FabricacionDetalleCrea" FunctionName="MarketWebModel.Store.Pr_FabricacionDetalleCrea" />
+    <EntitySetMapping Name="DOCU_SERIE_USUARIO">
+      <EntityTypeMapping TypeName="MarketWebModel.DOCU_SERIE_USUARIO">
+        <MappingFragment StoreEntitySet="DOCU_SERIE_USUARIO">
+          <ScalarProperty Name="ncode_docuus" ColumnName="ncode_docuus" />
+          <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+          <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+          <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+          <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+          <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+          <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_DocuSerieCrearUsuarios" FunctionName="MarketWebModel.Store.Pr_DocuSerieCrearUsuarios" />
+    <FunctionImportMapping FunctionImportName="Pr_DocuSerieEliminarUsuarios" FunctionName="MarketWebModel.Store.Pr_DocuSerieEliminarUsuarios" />
+    <FunctionImportMapping FunctionImportName="Pr_VendedorEliminar" FunctionName="MarketWebModel.Store.Pr_VendedorEliminar" />
+    <FunctionImportMapping FunctionImportName="Pr_VendedorZonaCrea" FunctionName="MarketWebModel.Store.Pr_VendedorZonaCrea" />
+    <FunctionImportMapping FunctionImportName="Pr_VendedoresLista" FunctionName="MarketWebModel.Store.Pr_VendedoresLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedoresLista_Result">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="sdesc_vende" ColumnName="sdesc_vende" />
+          <ScalarProperty Name="sdesc_zona" ColumnName="sdesc_zona" />
+          <ScalarProperty Name="nesta_vende" ColumnName="nesta_vende" />
+          <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+          <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_VendedorZonaElimina" FunctionName="MarketWebModel.Store.Pr_VendedorZonaElimina" />
+    <FunctionImportMapping FunctionImportName="Pr_DocuSerieLista" FunctionName="MarketWebModel.Store.Pr_DocuSerieLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_DocuSerieLista_Result">
+          <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+          <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
+          <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
+          <ScalarProperty Name="saux1_confi" ColumnName="saux1_confi" />
+          <ScalarProperty Name="sserie_dose" ColumnName="sserie_dose" />
+          <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+          <ScalarProperty Name="usuarios" ColumnName="usuarios" />
+          <ScalarProperty Name="besta_dose" ColumnName="besta_dose" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_VendedorZonaLista" FunctionName="MarketWebModel.Store.Pr_VendedorZonaLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedorZonaLista_Result">
+          <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
+          <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

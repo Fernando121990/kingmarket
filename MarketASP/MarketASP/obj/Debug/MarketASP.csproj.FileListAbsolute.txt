@@ -205,7 +205,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Web.Infrastructure.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Owin.dll
-D:\oscarweb\MarketASP\MarketASP\bin\SunatService.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.AccessControl.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Cryptography.Xml.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Permissions.dll
@@ -223,7 +222,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Deployment.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Razor.dll
 D:\oscarweb\MarketASP\MarketASP\bin\WebGrease.dll
-D:\oscarweb\MarketASP\MarketASP\bin\SunatService.pdb
 D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.xml
 D:\oscarweb\MarketASP\MarketASP\bin\EntityFramework.SqlServer.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.AccessControl.xml

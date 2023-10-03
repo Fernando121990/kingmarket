@@ -304,6 +304,43 @@ namespace MarketASP.Controllers
 
             return Json(_compraView);
         }
+        public JsonResult getReceta(Int32 ncode_receta)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            
+            Receta receta = db.Receta.Find(ncode_receta);
+            List<RecetaDetalle> lista = db.RecetaDetalle.Include("ARTICULO")
+                .Where(p => p.Rec_codigo == ncode_receta).ToList();
+
+           List<genericoDetalle> listadeta = new List<genericoDetalle>();
+
+            foreach (var item in lista)
+            {
+                var medida = db.UMEDIDA.SingleOrDefault(x => x.ncode_umed == item.ARTICULO.ncode_umed);
+                genericoDetalle deta = new genericoDetalle();
+                {
+                    deta.sdescripcion = item.ARTICULO.sdesc1_arti;
+                    deta.ncodigo = item.ARTICULO.ncode_arti;
+                    deta.scodigo = item.ARTICULO.scode_arti;
+                    deta.ncantidad = item.RecD_Cantidad;
+                    deta.sumedida = medida.sdesc_umed;
+                    deta.numedida = item.ARTICULO.ncode_umed;
+                    deta.nalmacen = item.ncode_alma;
+                    deta.nprecio = item.RecD_precio;
+
+                };
+                listadeta.Add(deta);
+            }
+
+            genericoCabecera cabecera = new genericoCabecera { 
+                codigo = receta.Rec_codigo,
+                cantidad = receta.Rec_cantidad,
+                costoOperativo = receta.Rec_costoOperativo,
+                detalle = listadeta,
+            };
+
+            return Json(cabecera);
+        }
         public string fncadenaeditar(string id, string value, int column)
         {
 

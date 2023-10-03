@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.DOCU_SERIE>
+﻿@model IEnumerable<MarketASP.Models.Pr_DocuSerieLista_Result>
 
 @{
     ViewBag.Title = "Serie";
@@ -18,38 +18,28 @@
                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
-                                <th>
-                                    Local
-                                </th>
-                                <th>Usuario</th>
-                                <th>
-                                    Documento
-                                </th>
+                                <th>Documento</th>
                                 <th>Serie</th>
-                                <th>
-                                    Numeración
-                                </th>
+                                <th>Numeración</th>
+                                <th>Usuario</th>
                                 <th></th>
                             </tr>
                             </thead>
                         <tbody>
-                            @foreach (var item in Model.OrderBy(l => l.ncode_local))
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LOCAL.sdesc_local)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.susuario_dose)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+                                        @Html.DisplayFor(modelItem => item.sdesc_confi)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.sserie_dose)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.snumeracion_dose)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.usuarios)
                                     </td>
                                     <td>
                                         <a href="@Url.Action("Edit", new { id = item.ncode_dose })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>

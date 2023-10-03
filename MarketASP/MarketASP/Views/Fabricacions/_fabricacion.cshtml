@@ -111,8 +111,7 @@
                     <th>P.U</th>
                     <th>Almacen</th>
                     <th>CodUM</th>
-                    <th>Cant.Control</th>
-                </tr>
+                 </tr>
             </thead>
             <tbody>
                 @if (Model != null)
@@ -126,9 +125,8 @@
                             <td>@Html.DisplayFor(modelItem => item.FabD_Cantidad)</td>
                             <td>@Html.DisplayTextFor(x => item.ARTICULO.UMEDIDA.sdesc_umed)</td>
                             <td>@Html.DisplayFor(modelItem => item.FabD_Costo_D)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ncode_alma)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FabD_Almacen)</td>
                             <td>@Html.DisplayTextFor(x => item.ARTICULO.UMEDIDA.ncode_umed)</td>
-                            <td></td>
                         </tr>
                     }
 

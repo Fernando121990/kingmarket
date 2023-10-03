@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1" ZoomLevel="40">
+      <Diagram DiagramId="b1a4bcc24b5747cabd57afe6c5f68a2d" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="MarketWebModel.ALMACEN" Width="1.5" PointX="3" PointY="4.375" />
         <EntityTypeShape EntityType="MarketWebModel.ART_BARRA" Width="1.5" PointX="7.5" PointY="24.875" />
         <EntityTypeShape EntityType="MarketWebModel.ART_PRECIO" Width="1.5" PointX="10.5" PointY="13.375" />
@@ -189,6 +189,8 @@
         <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ALMACEN" />
         <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO" />
         <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_Fabricacion" />
+        <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE_USUARIO" Width="1.5" PointX="21.875" PointY="21.375" />
+        <AssociationConnector Association="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

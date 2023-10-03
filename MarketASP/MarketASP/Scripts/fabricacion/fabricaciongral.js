@@ -18,12 +18,17 @@ $(document).ready(function () {
     console.log(conf_igv);
     console.log(conf_decimal);
 
+    $("#Rec_codigo").change(function () {
+
+        var cod = $("#Rec_codigo option:selected").val();
+        fnCargarReceta(cod);
+    });
 
     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0,6,7] 
+            "aTargets": []//067 
         },
         {
             "sClass": "my_class",
@@ -53,7 +58,7 @@ $(document).ready(function () {
 
                     }
 
-                    Totales(conf_igv, conf_decimal, conf_icbper);
+                   // Totales(conf_igv, conf_decimal, conf_icbper);
                 },
                 "submitdata": function (value, settings) {
                     return {
@@ -64,7 +69,7 @@ $(document).ready(function () {
                 "height": "20px",
                 "width": "100%"
             });
-            //Totales();
+            Totales();
         },
         select: {
             style: 'single'
@@ -89,114 +94,108 @@ $(document).ready(function () {
         }
     });
 
-    $(".delMat").click(function () {
-        ofunciones.rows('.selected').remove().draw(false);
-    });
+    //$(".delMat").click(function () {
+    //    ofunciones.rows('.selected').remove().draw(false);
+    //});
 
 
-    $(".addMat").click(function () {
+    //$(".addMat").click(function () {
 
 
-        $.ajax({
-            type: "Post",
-            url: urlArticulos,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (resultado) {
-                //console.log(resultado);
-                //alert('exito');
+    //    $.ajax({
+    //        type: "Post",
+    //        url: urlArticulos,
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (resultado) {
+    //            //console.log(resultado);
+    //            //alert('exito');
 
-                mattable = $('#matetabla').DataTable({
-                    data: resultado, ///JSON.parse(data.d),
-                    "columns":
-                        [{ "data": "Cod" },
-                        { "data": "Cod2" },
-                        { "data": "DescArt" },
-                        { "data": "Stock" },
-                        { "data": "Disponible" },
-                        { "data": "StockTransito" },
-                        { "data": "Medida" },
-                        { "data": "Precio" },
-                        { "data": "ncode_umed" },
-                        { "data": "bafecto_arti" },
-                        { "data": "bisc_arti" },
-                        { "data": "bdscto_arti" },
-                        { "data": "bicbper_arti" }
-                        ],
-                    "aoColumnDefs": [{
-                        "bVisible": false,
-                        "aTargets": [0, 7, 8, 9, 10, 11, 12]
-                    },
-                    {
-                        "sClass": "my_class",
-                        "aTargets": []
-                    }],
-                    select: {
-                        style: 'single'
-                    },
-                    "scrollY": "300px",
-                    "scrollCollapse": true,
-                    "paging": false,
-                    "info": false,
-                    "language": {
-                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
-                        "zeroRecords": "No hay datos disponibles",
-                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
-                        "infoEmpty": "No hay registros disponibles",
-                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                        "search": "Buscar:",
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Ultimo",
-                            "next": ">>",
-                            "previous": "<<"
-                        }
-                    }
-                });
+    //            mattable = $('#matetabla').DataTable({
+    //                data: resultado, ///JSON.parse(data.d),
+    //                "columns":
+    //                    [{ "data": "Cod" },
+    //                    { "data": "Cod2" },
+    //                    { "data": "DescArt" },
+    //                    { "data": "Stock" },
+    //                    { "data": "Disponible" },
+    //                    { "data": "StockTransito" },
+    //                    { "data": "Medida" },
+    //                    { "data": "Precio" },
+    //                    { "data": "ncode_umed" },
+    //                    { "data": "bafecto_arti" },
+    //                    { "data": "bisc_arti" },
+    //                    { "data": "bdscto_arti" },
+    //                    { "data": "bicbper_arti" }
+    //                    ],
+    //                "aoColumnDefs": [{
+    //                    "bVisible": false,
+    //                    "aTargets": [0, 7, 8, 9, 10, 11, 12]
+    //                },
+    //                {
+    //                    "sClass": "my_class",
+    //                    "aTargets": []
+    //                }],
+    //                select: {
+    //                    style: 'single'
+    //                },
+    //                "scrollY": "300px",
+    //                "scrollCollapse": true,
+    //                "paging": false,
+    //                "info": false,
+    //                "language": {
+    //                    "lengthMenu": "Mostrar _MENU_ registros por pagina",
+    //                    "zeroRecords": "No hay datos disponibles",
+    //                    "info": "Mostrando pagina _PAGE_ of _PAGES_",
+    //                    "infoEmpty": "No hay registros disponibles",
+    //                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+    //                    "search": "Buscar:",
+    //                    "paginate": {
+    //                        "first": "Primero",
+    //                        "last": "Ultimo",
+    //                        "next": ">>",
+    //                        "previous": "<<"
+    //                    }
+    //                }
+    //            });
 
-            },
-            error: function (err) {
-                alert(err);
-            }
-        });
+    //        },
+    //        error: function (err) {
+    //            alert(err);
+    //        }
+    //    });
 
-    });
+    //});
 
-    $("#btnmate").click(function () {
-        var data = mattable.row('.selected').data();
-        var xcan = 0;
-        var xesta = 0;
+    //$("#btnmate").click(function () {
+    //    var data = mattable.row('.selected').data();
+    //    var xcan = 0;
+    //    var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,xcan]).draw();
+    //    ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,xcan]).draw();
 
-        Totales(conf_igv, conf_decimal, conf_icbper);
-    });
+    //   // Totales(conf_igv, conf_decimal, conf_icbper);
+    //});
 
-    $("#btnmatcerrar").click(function () {
-        mattable.destroy();
-    });
+    //$("#btnmatcerrar").click(function () {
+    //    mattable.destroy();
+    //});
 
-    $("#btncerrar").click(function () {
-        mattable.destroy();
-    });
+    //$("#btncerrar").click(function () {
+    //    mattable.destroy();
+    //});
+    $("#btnmovi").on("click", function () {
 
-
-    $("#btnmovi").click(function () {
-
-        if ($("#Rec_tipo option:selected").text().length < 1) {
+        if ($("#Rec_codigo option:selected").text().length < 1) {
             alert("Seleccione tipo de receta");
             return false;
         };
 
-        if ($("#Rec_almacen option:selected").text().length < 1) {
+        if ($("#Fab_almacen option:selected").text().length < 1) {
             alert("Seleccione Almacen");
             return false;
         };
 
-        if ($("#Rec_codProd option:selected").text().length < 1) {
-            alert("Seleccione Articulo a producir");
-            return false;
-        };
 
         var otbly = $('#tbl').dataTable();
         var nrowsy = otbly.fnGetData().length;
@@ -207,7 +206,9 @@ $(document).ready(function () {
         }
 
         Sales_save();
+
     });
+
 
 });
 
@@ -217,31 +218,31 @@ function Sales_save() {
 
 
     var fabricacionViewDetas = {
-        "FabD_tipo": "", "FabD_NroDoc": "", "FabD_CodClase": "", "FabD_CodProd": "", "FabD_Cantidad": "", "FabD_Costo_D": "",
-        "FabD_Costo_S": "", "FabD_Almacen": "", "FabD_Mov": "", "FabD_TipoDetalle": "", "FabD_CodClase_Ref": "", "FabD_CodProd_Ref": "",
-        "FabD_CodProd_Ini": "", "FabD_CodClase_Ini": "", "FabD_CantUtil": "", "FabD_Adicional": "", "Fab_Codigo": "",
-        "FabD_Codigo":"","RecD_Cantidad":""
+        "FabD_CodProd": "", "FabD_Cantidad": "", "FabD_Costo_D": "",
+        "FabD_Almacen": "", "FabD_TipoDetalle": "", "FabD_CodProd_Ref": "",
+        "FabD_CodProd_Ini": "",  "FabD_CantUtil": "", "RecD_Cantidad":""
     };
 
     var fabricacionView = {
-        "Fab_Tipo": "", "Fab_NroDoc": "", "Fab_Fecha": "", "Fab_TipoCambio": "", "Fab_Glosa": "", "Fab_Lote": "", "Fab_Estado": "",
-        "Fab_TipoProd": "", "Fab_Fvenc": "", "Fab_Cantidad": "", "Fab_Codigo": "", "Rec_Codigo": "", "Fab_CostoUnit": "", "Fab_CostoTotalMN": "",
-        "Fab_CostoTotalUS":"","Fab_CostoOperativo":"","Fab_almacen":"", "fabricacionViewDetas": []
+        "Fab_Tipo": "", "Fab_NroDoc": "", "sfab_fecha": "", "Fab_TipoCambio": "", "Fab_Glosa": "", "Fab_Lote": "", 
+        "Fab_TipoProd": "", "sfab_fvenc": "", "Fab_Cantidad": "", "Rec_Codigo": "", "Fab_CostoUnit": "", 
+        "Fab_CostoTotalUS": "", "Fab_CostoOperativo": "", "Fab_almacen": "", "Fab_Codigo": "", "fabricacionViewDetas": []
     };
 
-    fabricacionView.Fab_Tipo = $("#Fab_Tipo option:selected").val();
+    fabricacionView.Fab_Codigo = $('#Fab_Codigo').val();
+    fabricacionView.Fab_Tipo = $("#Fab_tipo option:selected").val();
     fabricacionView.Fab_Lote = $('#Fab_Lote').val();
-    fabricacionView.Fab_Fvenc = $('#Fab_Fvenc').val();
+    fabricacionView.sfab_fvenc = $('#Fab_Fvenc').val();
     fabricacionView.Fab_Glosa = $('#Fab_Glosa').val();
     fabricacionView.Fab_CostoUnit = $('#Fab_CostoUnit').val();
     fabricacionView.Fab_NroDoc = $('#Fab_NroDoc').val();
-    fabricacionView.Fab_Fecha = $('#Fab_Fecha').val();
+    fabricacionView.sfab_fecha = $('#Fab_Fecha').val();
     fabricacionView.Fab_TipoCambio = $('#Fab_TipoCambio').val();
     fabricacionView.Fab_CostoOperativo = $('#Fab_CostoOperativo').val();
     fabricacionView.Fab_CostoTotalUS = $('#Fab_CostoTotalUS').val();
     fabricacionView.Fab_Cantidad = $('#Fab_Cantidad').val();
     fabricacionView.Fab_TipoProd = $("#Fab_TipoProd option:selected").val();
-    fabricacionView.Rec_codigo = $("#Rec_codigo option:selected").val();
+    fabricacionView.Rec_Codigo = $("#Rec_codigo option:selected").val();
     fabricacionView.Fab_almacen = $("#Fab_almacen option:selected").val();
 
     var otblx = $('#tbl').dataTable();
@@ -251,22 +252,24 @@ function Sales_save() {
     for (var i = 0; i < nrowsx; i++) {
 
         fabricacionViewDetas.FabD_CodProd = oTable[i][0];
+        fabricacionViewDetas.FabD_CodProd_Ini = oTable[i][0];
         fabricacionViewDetas.FabD_Cantidad = oTable[i][3];
+        fabricacionViewDetas.RecD_Cantidad = oTable[i][3];
+        fabricacionViewDetas.FabD_CantUtil = oTable[i][3];
         fabricacionViewDetas.FabD_Costo_D = oTable[i][5];
         fabricacionViewDetas.FabD_Almacen = oTable[i][6];
 
         fabricacionView.fabricacionViewDetas.push(fabricacionViewDetas);
 
         fabricacionViewDetas = {
-            "FabD_tipo": "", "FabD_NroDoc": "", "FabD_CodClase": "", "FabD_CodProd": "", "FabD_Cantidad": "", "FabD_Costo_D": "",
-            "FabD_Costo_S": "", "FabD_Almacen": "", "FabD_Mov": "", "FabD_TipoDetalle": "", "FabD_CodClase_Ref": "", "FabD_CodProd_Ref": "",
-            "FabD_CodProd_Ini": "", "FabD_CodClase_Ini": "", "FabD_CantUtil": "", "FabD_Adicional": "", "Fab_Codigo": "",
-            "FabD_Codigo": "", "RecD_Cantidad": ""
+            "FabD_CodProd": "", "FabD_Cantidad": "", "FabD_Costo_D": "",
+            "FabD_Almacen": "", "FabD_TipoDetalle": "", "FabD_CodProd_Ref": "",
+            "FabD_CodProd_Ini": "", "FabD_CantUtil": "", "RecD_Cantidad": ""
         };
     }
 
 
-    console.log(recetaView);
+    console.log(fabricacionView);
 
     var token = $('[name=__RequestVerificationToken]').val();
 
@@ -274,7 +277,7 @@ function Sales_save() {
         url: urlfabricacionCrea, // '/MOFs/Create',
         type: 'POST',
         dataType: 'json',
-        data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(recetaView) },
+        data: { '__RequestVerificationToken': token, 'model_json': JSON.stringify(fabricacionView) },
         success: function (result) {
             console.log(result.Mensaje)
             switch (result.Success) {
@@ -312,9 +315,9 @@ function ComparaCantidad(Cantidad, CantidadOrigen) {
 
 function Totales(conf_igv, conf_decimal, conf_icbper) {
     console.log('calculo de totales');
-    console.log(conf_igv);
-    console.log(conf_decimal);
-    console.log(conf_icbper);
+    console.log(cnfigv);
+    console.log(cnfdeci);
+    console.log(cnficbper);
 
     var TOT_AFECTO = 0;
     var TOT_EXON = 0;
@@ -422,8 +425,53 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     //$("#nigvex_guia").val(0);
 
     var TOTAL = TOT_AFECTO; //+ SUBT_EX;
+    
+    var cantidad = $("#Fab_Cantidad").val();
+    var costototal = TOTAL *cantidad
+    var costounit = TOTAL / cantidad
 
-    $("#Rec_costoOperativo").val(TOTAL.toFixed(conf_decimal));
+    $("#Fab_CostoOperativo").val(TOTAL.toFixed(conf_decimal));
+    $("#Fab_CostoUnit").val(costounit.toFixed(conf_decimal));
+    $("#Fab_CostoTotalUS").val(costototal.toFixed(conf_decimal));
+    return false;
+}
+
+function fnCargarReceta(codigo) {
+
+    //fnlimpiar();
+    console.log(codigo);
+    $.ajax({
+        type: 'POST',
+        url: urlGetreceta,
+        dataType: 'json',
+        data: { ncode_receta: codigo },
+        success: function (fabricacion) {
+            console.log(fabricacion);
+
+            $("#Fab_CostoOperativo").val(fabricacion.costoOperativo.toFixed(conf_decimal));
+            $('#Fab_Cantidad').val(fabricacion.cantidad.toFixed(conf_decimal))
+
+            var num = parseInt(fabricacion.detalle.length);
+            var oprof = $('#tbl').DataTable();
+            oprof.clear();
+            for (var i = 0; i < num; i++) {
+
+                oprof.row.add([fabricacion.detalle[i].ncodigo
+                    , fabricacion.detalle[i].scodigo
+                    , fabricacion.detalle[i].sdescripcion
+                    , fabricacion.detalle[i].ncantidad
+                    , fabricacion.detalle[i].sumedida
+                    , fabricacion.detalle[i].nprecio
+                    , fabricacion.detalle[i].nalmacen
+                    , fabricacion.detalle[i].numedida]).draw();
+            }
+        },
+        error: function (ex) {
+            alert('No se puede recuperar datos de la receta' + ex);
+        }
+    });
+
+    Totales();
 
     return false;
 }

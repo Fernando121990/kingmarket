@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MarketASP.Models.DOCU_SERIE_USUARIO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.susuario_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_dose)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOCU_SERIE.snumeracion_dose)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.susuario_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_dose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOCU_SERIE.snumeracion_dose)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_docuus }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_docuus }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_docuus })
+        </td>
+    </tr>
+}
+
+</table>

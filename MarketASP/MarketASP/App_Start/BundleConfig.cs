@@ -34,10 +34,12 @@ namespace MarketASP
                     "~/Scripts/assets/libs/metismenu/metisMenu.min.js",
                     "~/Scripts/assets/libs/simplebar/simplebar.min.js",
                     "~/Scripts/assets/libs/node-waves/waves.min.js",
+                    "~/Scripts/assets/libs/select2/js/select2.min.js",
                     "~/Scripts/assets/js/pages/datatables.init.js",
+                    "~/Scripts/assets/js/pages/form-advanced.init.js",
                     "~/Scripts/assets/js/app.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/tablas").Include(
+               bundles.Add(new ScriptBundle("~/bundles/tablas").Include(
                             "~/Scripts/librerias/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
                             "~/Scripts/librerias/jquery-ui-1.12.1.custom/jquery-ui.js",
                             "~/Scripts/librerias/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
@@ -52,24 +54,6 @@ namespace MarketASP
                             "~/Scripts/Datatables/dataTables.responsive.min.js",
                             "~/Scripts/Datatables/responsive.bootstrap4.min.js"
                             ));
-
-
-
-            //bundles.Add(new ScriptBundle("~/bundles/estructura").Include(
-            //                "~/Scripts/jquery-ui-1.12.1.custom/external/jquery/jquery.js",
-            //                "~/Scripts/jquery-ui-1.12.1.custom/jquery-ui.js",
-            //                "~/Scripts/jquery-ui-1.12.1.custom/jquery.ui.datepicker-es.js",
-            //                "~/Scripts/jquery.jeditable.js",
-            //                "~/Scripts/DataTables/jquery.dataTables.js",
-            //                "~/Scripts/DataTables/dataTables.bootstrap4.js",
-            //                "~/Scripts/DataTables/dataTables.buttons.js",
-            //                "~/Scripts/DataTables/buttons.flash.js",
-            //                "~/Scripts/DataTables/buttons.html5.js",
-            //                "~/Scripts/DataTables/buttons.print.js",
-            //                "~/Scripts/DataTables/dataTables.select.min.js"
-            //                ));
-
-
 
             #endregion
 
@@ -96,14 +80,15 @@ namespace MarketASP
                       "~/Content/DataTables/css/responsive.bootstrap4.min.css",
                       "~/Content/DataTables/css/dataTables.jqueryui.css"));
 
-
+            bundles.Add(new StyleBundle("~/Content/select2/css/css").Include(
+                      "~/Content/select2/css/select2.min.css"));
 
 
             #endregion
 
             #region Personalizado
 
-                bundles.Add(new ScriptBundle("~/bundles/desarrollo").Include(
+                     bundles.Add(new ScriptBundle("~/bundles/desarrollo").Include(
                    "~/Scripts/Generica/General.js"));
 
                 bundles.Add(new ScriptBundle("~/bundles/movimiento").Include(

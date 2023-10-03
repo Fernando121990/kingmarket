@@ -94,19 +94,24 @@ namespace MarketASP.Controllers
                         if (mofView != null)
                         {
 
-                            db.Pr_RecetaCrear("N", 0, mofView.Rec_descripcion, mofView.Rec_codclase, mofView.Rec_codProd,
-                                mofView.Rec_cantidad, mofView.Rec_almacen, mofView.Rec_tipo, mofView.Rec_costoOperativo,
-                                int.Parse(mofView.Rec_almacen), ID, ingproc_001);
+                            db.Pr_Fabricacion("N",mofView.Rec_Codigo,0, mofView.Fab_Tipo, mofView.Fab_NroDoc,
+                                DateTime.Parse(mofView.sfab_fecha), mofView.Fab_TipoCambio, mofView.Fab_Glosa, mofView.Fab_Lote,
+                                mofView.Fab_Estado,mofView.Fab_TipoProd,DateTime.Parse(mofView.sfab_fvenc),mofView.Fab_Cantidad,
+                                "","",mofView.Fab_CostoUnit,mofView.Fab_CostoTotalMN,mofView.Fab_CostoTotalUS,
+                                mofView.Fab_CostoOperativo,mofView.Fab_almacen,ID,ingproc_001);
 
                             code = int.Parse(ID.Value.ToString());
 
-                            if (mofView.recetaViewDetas != null)
+                            if (mofView.fabricacionViewDetas != null)
                             {
-                                foreach (recetaViewDeta item in mofView.recetaViewDetas)
+                                foreach (fabricacionViewDeta item in mofView.fabricacionViewDetas)
                                 {
                                     fila++;
-                                    db.Pr_RecetaDetalle(code, "", item.RecD_CodProd, item.RecD_Cantidad, mofView.Rec_almacen, item.RecD_CodProdPadre,
-                                        item.RecD_tipo, item.RecD_coidgoPadre, item.RecD_precio);
+                                    db.Pr_FabricacionDetalleCrea(item.FabD_tipo,item.FabD_NroDoc,item.FabD_CodClase,
+                                        item.FabD_CodProd, item.FabD_Cantidad, item.FabD_Costo_D,item.FabD_Costo_S,
+                                        item.FabD_Almacen, item.FabD_Mov,item.FabD_TipoDetalle,item.FabD_CodClase_Ref,
+                                        item.FabD_CodProd_Ref,item.FabD_CodProd_Ini,item.FabD_CodClase_Ini,item.FabD_CantUtil,
+                                        item.FabD_Adicional,code,item.RecD_Cantidad);
                                 };
 
                             }
@@ -115,7 +120,7 @@ namespace MarketASP.Controllers
                     }
                 }
 
-                return Json(new { Success = 1, Mensaje = "Receta Registrada" });
+                return Json(new { Success = 1, Mensaje = "Fabricacion Registrada" });
 
             }
             catch (Exception ex)
@@ -130,29 +135,105 @@ namespace MarketASP.Controllers
         // GET: Fabricacions/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0802", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+
+            ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
             Fabricacion fabricacion = await db.Fabricacion.FindAsync(id);
             if (fabricacion == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Fab_almacen = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",fabricacion.Fab_almacen);
+            ViewBag.Rec_codigo = new SelectList(db.Receta.OrderByDescending(c => c.Rec_descripcion), "Rec_codigo", "Rec_descripcion",fabricacion.Rec_Codigo);
+            ViewBag.Fab_tipo = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 13), "svalor_confi", "sdesc_confi",fabricacion.Fab_Tipo);
+            ViewBag.Fab_TipoProd = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 13), "svalor_confi", "sdesc_confi",fabricacion.Fab_TipoProd);
+
             return View(fabricacion);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Fab_Tipo,Fab_NroDoc,Fab_Fecha,Fab_TipoCambio,Fab_Glosa,Fab_Lote,Fab_Estado,Fab_TipoProd,Fab_Fvenc,Fab_Cantidad,Fab_Codigo,Rec_Codigo,Fab_CostoUnit,Fab_CostoTotalMN,Fab_CostoTotalUS,Fab_CostoOperativo,Fab_almacen")] Fabricacion fabricacion)
+        public JsonResult Edit(string model_json)
         {
-            if (ModelState.IsValid)
+            ObjectParameter ID = new ObjectParameter("ID", typeof(int));
+            ObjectParameter ingproc_001 = new ObjectParameter("ingproc_001", typeof(int));
+            ObjectParameter mensaje = new ObjectParameter("mensaje", typeof(string));
+
+            int code;
+            string data = "";
+            int fila = 0;
+            try
             {
-                db.Entry(fabricacion).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    data = model_json;
+                    var jsonSettings = new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    };
+                    if (data != null)
+                    {
+                        var mofView = JsonConvert.DeserializeObject<fabricacionView>(data, jsonSettings);
+
+                        if (mofView != null)
+                        {
+
+                            db.Pr_Fabricacion("M", mofView.Rec_Codigo,mofView.Fab_Codigo, mofView.Fab_Tipo, mofView.Fab_NroDoc,
+                                DateTime.Parse(mofView.sfab_fecha), mofView.Fab_TipoCambio, mofView.Fab_Glosa, mofView.Fab_Lote,
+                                mofView.Fab_Estado, mofView.Fab_TipoProd, DateTime.Parse(mofView.sfab_fvenc), mofView.Fab_Cantidad,
+                                "", "", mofView.Fab_CostoUnit, mofView.Fab_CostoTotalMN, mofView.Fab_CostoTotalUS,
+                                mofView.Fab_CostoOperativo, mofView.Fab_almacen, ID, ingproc_001);
+
+                            code = int.Parse(ID.Value.ToString());
+
+                            if (mofView.fabricacionViewDetas != null)
+                            {
+                                foreach (fabricacionViewDeta item in mofView.fabricacionViewDetas)
+                                {
+                                    fila++;
+                                    db.Pr_FabricacionDetalleCrea(item.FabD_tipo, item.FabD_NroDoc, item.FabD_CodClase,
+                                        item.FabD_CodProd, item.FabD_Cantidad, item.FabD_Costo_D, item.FabD_Costo_S,
+                                        item.FabD_Almacen, item.FabD_Mov, item.FabD_TipoDetalle, item.FabD_CodClase_Ref,
+                                        item.FabD_CodProd_Ref, item.FabD_CodProd_Ini, item.FabD_CodClase_Ini, item.FabD_CantUtil,
+                                        item.FabD_Adicional, code, item.RecD_Cantidad);
+                                };
+
+                            }
+
+                        }
+                    }
+                }
+
+                return Json(new { Success = 1, Mensaje = "Fabricacion Registrada" });
+
             }
-            return View(fabricacion);
+            catch (Exception ex)
+            {
+                string mensajex = ex.Message;
+                ViewBag.mensaje = mensajex;
+                return Json(new { Success = 0, Mensaje = mensajex });
+            }
+
         }
 
         // GET: Fabricacions/Delete/5

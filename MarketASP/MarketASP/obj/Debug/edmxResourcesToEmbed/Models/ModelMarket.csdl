@@ -803,9 +803,6 @@
       <End Role="ZONA" EntitySet="ZONA" />
       <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
     </AssociationSet>
-    <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)">
-      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
-    </FunctionImport>
     <EntitySet Name="CLIENTE" EntityType="MarketWebModel.CLIENTE" />
     <AssociationSet Name="R_11" Association="MarketWebModel.R_11">
       <End Role="CLIENTE" EntitySet="CLIENTE" />
@@ -1367,6 +1364,89 @@
       <End Role="Fabricacion" EntitySet="Fabricacion" />
       <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
     </AssociationSet>
+    <FunctionImport Name="Pr_Fabricacion">
+      <Parameter Name="tipo" Mode="In" Type="String" />
+      <Parameter Name="Rec_Codigo" Mode="In" Type="Int64" />
+      <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+      <Parameter Name="Fab_Tipo" Mode="In" Type="String" />
+      <Parameter Name="Fab_NroDoc" Mode="In" Type="String" />
+      <Parameter Name="Fab_Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="Fab_TipoCambio" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_Glosa" Mode="In" Type="String" />
+      <Parameter Name="Fab_Lote" Mode="In" Type="String" />
+      <Parameter Name="Fab_Estado" Mode="In" Type="String" />
+      <Parameter Name="Fab_TipoProd" Mode="In" Type="String" />
+      <Parameter Name="Fab_Fvenc" Mode="In" Type="DateTime" />
+      <Parameter Name="Fab_Cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="codterm" Mode="In" Type="String" />
+      <Parameter Name="cod_doc" Mode="In" Type="String" />
+      <Parameter Name="Fab_CostoUnit" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_CostoTotalMN" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_CostoTotalUS" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_CostoOperativo" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_almacen" Mode="In" Type="Int64" />
+      <Parameter Name="ID" Mode="InOut" Type="Int64" />
+      <Parameter Name="ingproc_001" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Fabricacion_eliminar">
+      <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+      <Parameter Name="SW" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_FabricacionDetalleCrea">
+      <Parameter Name="FabD_tipo" Mode="In" Type="String" />
+      <Parameter Name="FabD_NroDoc" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodClase" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodProd" Mode="In" Type="String" />
+      <Parameter Name="FabD_Cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="FabD_Costo_D" Mode="In" Type="Decimal" />
+      <Parameter Name="FabD_Costo_S" Mode="In" Type="Decimal" />
+      <Parameter Name="FabD_Almacen" Mode="In" Type="String" />
+      <Parameter Name="FabD_Mov" Mode="In" Type="String" />
+      <Parameter Name="FabD_TipoDetalle" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodClase_Ref" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodProd_Ref" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodProd_Ini" Mode="In" Type="String" />
+      <Parameter Name="FabD_CodClase_Ini" Mode="In" Type="String" />
+      <Parameter Name="FabD_CantUtil" Mode="In" Type="Decimal" />
+      <Parameter Name="FabD_Adicional" Mode="In" Type="Decimal" />
+      <Parameter Name="Fab_Codigo" Mode="In" Type="Int64" />
+      <Parameter Name="RecD_Cantidad" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="DOCU_SERIE_USUARIO" EntityType="MarketWebModel.DOCU_SERIE_USUARIO" />
+    <AssociationSet Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE" Association="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+      <End Role="DOCU_SERIE_USUARIO" EntitySet="DOCU_SERIE_USUARIO" />
+    </AssociationSet>
+    <FunctionImport Name="Pr_DocuSerieCrearUsuarios">
+      <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+      <Parameter Name="susuario_dose" Mode="In" Type="String" />
+      <Parameter Name="suser_dose" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_DocuSerieEliminarUsuarios">
+      <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VendedorEliminar">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="resultado" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VendedorZonaCrea">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_zona" Mode="In" Type="Int64" />
+      <Parameter Name="suser" Mode="In" Type="String" />
+      <Parameter Name="resultado" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VendedoresLista" ReturnType="Collection(MarketWebModel.Pr_VendedoresLista_Result)">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VendedorZonaElimina">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_DocuSerieLista" ReturnType="Collection(MarketWebModel.Pr_DocuSerieLista_Result)">
+      <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VendedorZonaLista" ReturnType="Collection(MarketWebModel.Pr_VendedorZonaLista_Result)">
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -3081,16 +3161,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <ComplexType Name="Pr_VendedoresLista_Result">
-    <Property Type="Int64" Name="ncode_vende" Nullable="false" />
-    <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
-    <Property Type="Int64" Name="ncode_zona" Nullable="true" />
-    <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="500" />
-    <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
-    <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
-    <Property Type="Int32" Name="ncode_alma" Nullable="true" />
-    <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
-  </ComplexType>
   <EntityType Name="CLIENTE">
     <Key>
       <PropertyRef Name="ncode_cliente" />
@@ -3833,6 +3903,7 @@
     <Property Name="besta_dose" Type="Boolean" />
     <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_55" FromRole="DOCU_SERIE" ToRole="CONFIGURACION" />
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_57" FromRole="DOCU_SERIE" ToRole="LOCAL" />
+    <NavigationProperty Name="DOCU_SERIE_USUARIO" Relationship="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" FromRole="DOCU_SERIE" ToRole="DOCU_SERIE_USUARIO" />
   </EntityType>
   <Association Name="R_55">
     <End Type="MarketWebModel.CONFIGURACION" Role="CONFIGURACION" Multiplicity="1" />
@@ -4468,4 +4539,51 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="DOCU_SERIE_USUARIO">
+    <Key>
+      <PropertyRef Name="ncode_docuus" />
+    </Key>
+    <Property Name="ncode_dose" Type="Int64" />
+    <Property Name="susuario_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="suser_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfech_dose" Type="DateTime" Precision="3" />
+    <Property Name="susmo_dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dfemo_dose" Type="DateTime" Precision="3" />
+    <Property Name="ncode_docuus" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="DOCU_SERIE" Relationship="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" FromRole="DOCU_SERIE_USUARIO" ToRole="DOCU_SERIE" />
+  </EntityType>
+  <Association Name="FK_DOCU_SERIE_USUARIO_DOCU_SERIE">
+    <End Type="MarketWebModel.DOCU_SERIE" Role="DOCU_SERIE" Multiplicity="0..1" />
+    <End Type="MarketWebModel.DOCU_SERIE_USUARIO" Role="DOCU_SERIE_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_dose" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE_USUARIO">
+        <PropertyRef Name="ncode_dose" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Pr_VendedoresLista_Result">
+    <Property Type="Int64" Name="ncode_vende" Nullable="false" />
+    <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="5000" />
+    <Property Type="Boolean" Name="nesta_vende" Nullable="true" />
+    <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
+    <Property Type="Int32" Name="ncode_alma" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Pr_DocuSerieLista_Result">
+    <Property Type="Int64" Name="ncode_dose" Nullable="false" />
+    <Property Type="String" Name="sdesc_confi" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="svalor_confi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="saux1_confi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="sserie_dose" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="snumeracion_dose" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="usuarios" Nullable="true" MaxLength="5000" />
+    <Property Type="Boolean" Name="besta_dose" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Pr_VendedorZonaLista_Result">
+    <Property Type="Int64" Name="ncode_vende" Nullable="false" />
+    <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
+  </ComplexType>
 </Schema>

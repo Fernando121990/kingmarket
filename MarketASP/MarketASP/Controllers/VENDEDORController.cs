@@ -51,8 +51,11 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(VENDEDOR vENDEDOR)
+        public async Task<ActionResult> Create(VENDEDOR vENDEDOR, long?[] zonas)
         {
+            string respuesta = "";
+            ObjectParameter resultado = new ObjectParameter("resultado", typeof(string));
+
             if (ModelState.IsValid)
             {
                 vENDEDOR.nesta_vende = true;
@@ -61,12 +64,11 @@ namespace MarketASP.Controllers
                 db.VENDEDOR.Add(vENDEDOR);
                 await db.SaveChangesAsync();
 
-                //agregar vendedor zona
-                VENDEDOR_ZONA vENDEDOR_ZONA = new VENDEDOR_ZONA();
-                vENDEDOR_ZONA.ncode_vende = vENDEDOR.ncode_vende;
-                vENDEDOR_ZONA.ncode_zona = vENDEDOR.ncode_zona;
-                db.VENDEDOR_ZONA.Add(vENDEDOR_ZONA);
-                await db.SaveChangesAsync();
+                foreach (var item in zonas)
+                {
+                    db.Pr_VendedorZonaCrea(vENDEDOR.ncode_vende, item, User.Identity.Name, resultado);
+                    respuesta = resultado.Value.ToString();
+                }
 
                 return RedirectToAction("Index");
             }
@@ -75,7 +77,7 @@ namespace MarketASP.Controllers
             return View(vENDEDOR);
         }
 
-        public async Task<ActionResult> Edit(int? id,int? idzona)
+        public async Task<ActionResult> Edit(int? id)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -97,15 +99,25 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona",idzona);
+
+            long?[] _zonasSel = (from s in db.VENDEDOR_ZONA
+                                     where s.ncode_vende == id
+                                     select s.ncode_zona).ToArray();
+
+            ViewBag.ncode_zona = new MultiSelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona",_zonasSel);
+
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENDEDOR.ncode_alma);
+
             return View(vENDEDOR);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(VENDEDOR vENDEDOR)
+        public async Task<ActionResult> Edit(VENDEDOR vENDEDOR, long?[] zonas)
         {
+            string respuesta = "";
+            ObjectParameter resultado = new ObjectParameter("resultado", typeof(string));
+
             if (ModelState.IsValid)
             {
                 vENDEDOR.susmo_vende = User.Identity.Name;
@@ -113,6 +125,15 @@ namespace MarketASP.Controllers
 
                 db.Entry(vENDEDOR).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+
+                db.Pr_VendedorZonaElimina(vENDEDOR.ncode_vende);
+
+                foreach (var item in zonas)
+                {
+                    db.Pr_VendedorZonaCrea(vENDEDOR.ncode_vende, item, User.Identity.Name, resultado);
+                    respuesta = resultado.Value.ToString();
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.ncode_zona = new SelectList(db.ZONA.Where(c => c.nesta_zona == true), "ncode_zona", "sdesc_zona", vENDEDOR.ncode_zona);
@@ -120,10 +141,11 @@ namespace MarketASP.Controllers
             return View(vENDEDOR);
         }
 
-        public async Task<ActionResult> Deletevendedor(int? id)
+        public ActionResult Deletevendedor(int? id)
         {
-            int xvalue = 0;
+            int xvalue = 0;string respuesta = "";
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+            ObjectParameter resultado = new ObjectParameter("resultado", typeof(string));
 
             db.Pr_PermisoAcceso(User.Identity.Name, "0165", xcode);
             xvalue = int.Parse(xcode.Value.ToString());
@@ -138,9 +160,9 @@ namespace MarketASP.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            VENDEDOR vENDEDOR = await db.VENDEDOR.FindAsync(id);
-            db.VENDEDOR.Remove(vENDEDOR);
-            await db.SaveChangesAsync();
+            db.Pr_VendedorEliminar(id, resultado);
+            respuesta = resultado.Value.ToString();
+
             return RedirectToAction("Index");
         }
 

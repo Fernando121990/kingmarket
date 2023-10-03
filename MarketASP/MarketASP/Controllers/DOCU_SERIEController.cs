@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using MarketASP.Models;
 using System.Data.Entity.Core.Objects;
+using MarketASP.Clases;
 
 namespace MarketASP.Controllers
 {
@@ -18,7 +19,7 @@ namespace MarketASP.Controllers
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: Administracion/DOCU_SERIE
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -31,9 +32,8 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            //var dOCU_SERIE = db.DOCU_SERIE.Include(d => d.CONFIGURACION).Include(d => d.CONFIGURACION1);
-            var dOCU_SERIE = db.DOCU_SERIE.Include(d => d.CONFIGURACION).Include(d => d.LOCAL);
-            return View(await dOCU_SERIE.ToListAsync());
+            var resultado = db.Pr_DocuSerieLista(0).ToList();
+            return View(resultado);
         }
 
 
@@ -58,7 +58,7 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DOCU_SERIE dOCU_SERIE)
+        public async Task<ActionResult> Create(DOCU_SERIE dOCU_SERIE,string[] usuarios)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +66,23 @@ namespace MarketASP.Controllers
                 dOCU_SERIE.dfech_dose = DateTime.Now;
                 db.DOCU_SERIE.Add(dOCU_SERIE);
                 await db.SaveChangesAsync();
+                var id = dOCU_SERIE.ncode_dose;
+
+
+                foreach (var item in usuarios)
+                {
+                    DOCU_SERIE_USUARIO _docserus = new DOCU_SERIE_USUARIO
+                    {
+                        ncode_dose = id,
+                        susuario_dose = item,
+                        suser_dose = User.Identity.Name,
+                        dfech_dose = DateTime.Now,
+                    };
+                    db.DOCU_SERIE_USUARIO.Add(_docserus);
+                    await db.SaveChangesAsync();
+
+                }
+
                 return RedirectToAction("Index");
             }
 
@@ -98,21 +115,45 @@ namespace MarketASP.Controllers
                 return HttpNotFound();
             }
 
+            serieView serie = new serieView
+            {
+                ncode_local = dOCU_SERIE.ncode_local,
+                besta_dose = dOCU_SERIE.besta_dose,
+                ncode_docu = dOCU_SERIE.ncode_docu,
+                sserie_dose = dOCU_SERIE.sserie_dose,
+                snumeracion_dose = dOCU_SERIE.snumeracion_dose,
+                ncode_dose = dOCU_SERIE.ncode_dose
+            };
+
+
+            string[] _usuariosSel = (from s in db.DOCU_SERIE_USUARIO
+                                     where s.ncode_dose == id
+                                     select s.susuario_dose).ToArray();
+
+
             ViewBag.ncode_local = new SelectList(db.LOCAL.Where(L => L.bacti_local == true), "ncode_local", "sdesc_local",dOCU_SERIE.ncode_local);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(D => D.ntipo_confi == 5), "ncode_confi", "sdesc_confi",dOCU_SERIE.ncode_docu);
-            ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName",dOCU_SERIE.susuario_dose);
+            //ViewBag.susuario_dose = new SelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName",result);
+            ViewBag.susuario_dose = new MultiSelectList(db.AspNetUsers.OrderByDescending(L => L.UserName), "UserName", "UserName", _usuariosSel);
 
-            return View(dOCU_SERIE);
+            return View(serie);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(DOCU_SERIE dOCU_SERIE)
+        public async Task<ActionResult> Edit(DOCU_SERIE dOCU_SERIE, string[] usuarios)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(dOCU_SERIE).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+
+                db.Pr_DocuSerieEliminarUsuarios(dOCU_SERIE.ncode_dose);
+
+                foreach (var item in usuarios)
+                {
+                    db.Pr_DocuSerieCrearUsuarios(dOCU_SERIE.ncode_dose, item, User.Identity.Name);
+                }
                 return RedirectToAction("Index");
             }
 
@@ -122,6 +163,23 @@ namespace MarketASP.Controllers
 
             return View(dOCU_SERIE);
         }
+
+
+        public async Task<ActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DOCU_SERIE dOCU_SERIE = await db.DOCU_SERIE.FindAsync(id);
+            if (dOCU_SERIE == null)
+            {
+                return HttpNotFound();
+            }
+            return View(dOCU_SERIE);
+        }
+
+
 
         public async Task<ActionResult> DeleteDocSerie(long? id)
         {
@@ -150,6 +208,25 @@ namespace MarketASP.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        public ActionResult CreateUsuario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateUsuario(DOCU_SERIE_USUARIO dOCU_SERIE_USUARIO)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DOCU_SERIE_USUARIO.Add(dOCU_SERIE_USUARIO);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(dOCU_SERIE_USUARIO);
+        }
+
 
 
         protected override void Dispose(bool disposing)
