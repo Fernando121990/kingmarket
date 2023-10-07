@@ -58,10 +58,18 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-check mb-3">
+                        <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
+                        <label class="form-check-label" for="bprecioconigv">
+                            Precio con IGV
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfeorco_orco" class="col-form-label">F.Emision</label>
-                            <input id="dfeorco_orco" name="dfeorco_orco" type="text" value="@ViewBag.dfeorco_orco" class="dfech form-control"  />
+                            <input id="dfeorco_orco" name="dfeorco_orco" type="text" value="@ViewBag.dfeorco_orco" class="dfech form-control" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -166,7 +174,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
-                                    <th>Disponible</th>
+                                    <th>Reservado</th>
                                     <th>Transito</th>
                                     <th>U.M</th>
                                     <th>Costo</th>

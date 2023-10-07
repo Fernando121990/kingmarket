@@ -124,6 +124,13 @@
                 @Html.ValidationMessageFor(model => model.bprocedencia_cliente, "", new { @class = "text-danger" })
             </div>
         </div>
+        @Html.LabelFor(model => model.bretencion_cliente, "Es AG.Retencion", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            <div class="checkbox">
+                @Html.CheckBox("bretencion_cliente")
+                @Html.ValidationMessageFor(model => model.bretencion_cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
         @Html.LabelFor(model => model.ncode_afepercepcion, "Percepción", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
             @Html.DropDownList("ncode_afepercepcion", null, htmlAttributes: new { @class = "form-control" })

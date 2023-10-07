@@ -313,6 +313,7 @@
     <EntitySetMapping Name="COMPRAS">
       <EntityTypeMapping TypeName="MarketWebModel.COMPRAS">
         <MappingFragment StoreEntitySet="COMPRAS">
+          <ScalarProperty Name="bprecioconigv_compra" ColumnName="bprecioconigv_compra" />
           <ScalarProperty Name="ntipo_orco" ColumnName="ntipo_orco" />
           <ScalarProperty Name="stipo_orco" ColumnName="stipo_orco" />
           <ScalarProperty Name="sserie_orco" ColumnName="sserie_orco" />
@@ -1052,6 +1053,7 @@
     <EntitySetMapping Name="VENTAS">
       <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
         <MappingFragment StoreEntitySet="VENTAS">
+          <ScalarProperty Name="bprecioconigv_venta" ColumnName="bprecioconigv_venta" />
           <ScalarProperty Name="snumero_guia" ColumnName="snumero_guia" />
           <ScalarProperty Name="sserie_guia" ColumnName="sserie_guia" />
           <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
@@ -1105,6 +1107,7 @@
     <EntitySetMapping Name="ORDEN_PEDIDOS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="bprecioconigv_orpe" ColumnName="bprecioconigv_orpe" />
           <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
           <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
@@ -1291,6 +1294,7 @@
     <EntitySetMapping Name="ORDEN_COMPRAS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS">
         <MappingFragment StoreEntitySet="ORDEN_COMPRAS">
+          <ScalarProperty Name="bprecioconigv_orco" ColumnName="bprecioconigv_orco" />
           <ScalarProperty Name="ntipo_orco" ColumnName="ntipo_orco" />
           <ScalarProperty Name="stipo_orco" ColumnName="stipo_orco" />
           <ScalarProperty Name="dfentrega_orco" ColumnName="dfentrega_orco" />
@@ -1711,6 +1715,27 @@
         <ComplexTypeMapping TypeName="MarketWebModel.Pr_VendedorZonaLista_Result">
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="VendeZona" ColumnName="VendeZona" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_KardexMatTabla" FunctionName="MarketWebModel.Store.Pr_KardexMatTabla">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_KardexMatTabla_Result">
+          <ScalarProperty Name="Cod" ColumnName="Cod" />
+          <ScalarProperty Name="Cod2" ColumnName="Cod2" />
+          <ScalarProperty Name="DescArt" ColumnName="DescArt" />
+          <ScalarProperty Name="Medida" ColumnName="Medida" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="StockReservado" ColumnName="StockReservado" />
+          <ScalarProperty Name="StockTransito" ColumnName="StockTransito" />
+          <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+          <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
+          <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+          <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
+          <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
+          <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

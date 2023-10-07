@@ -284,6 +284,7 @@
     <Property Name="sserie_orco" Type="varchar" MaxLength="50" />
     <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
     <Property Name="ntipo_orco" Type="int" />
+    <Property Name="bprecioconigv_compra" Type="bit" />
   </EntityType>
   <EntityType Name="CONFIGURACION">
     <Key>
@@ -759,6 +760,7 @@
     <Property Name="dfentrega_orco" Type="datetime" />
     <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
     <Property Name="ntipo_orco" Type="int" />
+    <Property Name="bprecioconigv_orco" Type="bit" />
   </EntityType>
   <EntityType Name="ORDEN_COMPRAS_DETALLE">
     <Key>
@@ -825,6 +827,7 @@
     <Property Name="ncode_vende" Type="bigint" />
     <Property Name="bventa_orpe" Type="int" />
     <Property Name="dfdespacho_orpe" Type="datetime" />
+    <Property Name="bprecioconigv_orpe" Type="bit" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS_DETALLE">
     <Key>
@@ -1012,8 +1015,8 @@
     <Property Name="bacti_sucu" Type="bit" Nullable="false" />
     <Property Name="sruc_sucu" Type="varchar" MaxLength="20" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'MarketWeb.dbo.SUNAT_CodProductos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_CodProductos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="SUNAT_CodProductos">
     <Key>
       <PropertyRef Name="codsunat" />
@@ -1021,8 +1024,8 @@ warning 6002: The table/view 'MarketWeb.dbo.SUNAT_CodProductos' does not have a 
     <Property Name="codsunat" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="detalle" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'MarketWeb.dbo.SUNAT_TipoMercaderias' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_TipoMercaderias' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="SUNAT_TipoMercaderias">
     <Key>
       <PropertyRef Name="CODIGO" />
@@ -1032,8 +1035,8 @@ warning 6002: The table/view 'MarketWeb.dbo.SUNAT_TipoMercaderias' does not have
     <Property Name="DESCRIPCION" Type="nvarchar(max)" />
     <Property Name="ACTIVADO" Type="bit" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'MarketWeb.dbo.SUNAT_UnidadMedidas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="SUNAT_UnidadMedidas">
     <Key>
       <PropertyRef Name="CODIGO" />
@@ -1236,6 +1239,7 @@ warning 6002: The table/view 'MarketWeb.dbo.SUNAT_UnidadMedidas' does not have a
     <Property Name="ncode_guia" Type="bigint" />
     <Property Name="sserie_guia" Type="varchar" MaxLength="50" />
     <Property Name="snumero_guia" Type="varchar" MaxLength="50" />
+    <Property Name="bprecioconigv_venta" Type="bit" />
   </EntityType>
   <EntityType Name="ZONA">
     <Key>
@@ -2649,6 +2653,10 @@ warning 6002: The table/view 'MarketWeb.dbo.SUNAT_UnidadMedidas' does not have a
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
     <Parameter Name="sdesc_alma" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_KardexMatTabla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
   </Function>
   <Function Name="Pr_LoteCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">

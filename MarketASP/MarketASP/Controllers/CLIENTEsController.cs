@@ -44,11 +44,18 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
-            
-            var resultado = db.Pr_VendedoresLista(cLIENTE.ncode_vende).ToList();
-            var encargadoarray = resultado.ToArray();
-            ViewBag.encargado = encargadoarray[0].sdesc_vende;
-            ViewBag.zona = encargadoarray[0].sdesc_zona;
+            ViewBag.encargado = "";
+            ViewBag.zona = "";
+
+            var xcode = cLIENTE.ncode_vende != null ? cLIENTE.ncode_vende : 0;
+            var resultado = db.Pr_VendedoresLista(xcode).ToList();
+            if (resultado.Count > 0)
+            {
+                var encargadoarray = resultado.ToArray();
+                ViewBag.encargado = encargadoarray[0].sdesc_vende;
+                ViewBag.zona = encargadoarray[0].sdesc_zona;
+
+            }
             return View(cLIENTE);
         }
 
@@ -67,7 +74,7 @@ namespace MarketASP.Controllers
 
             ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona");
             return View();
         }
 
@@ -207,7 +214,7 @@ namespace MarketASP.Controllers
 
             ViewBag.nidtipodoc_cliente = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5), "ncode_confi", "sdesc_confi",cLIENTE.nidtipodoc_cliente);
             ViewBag.ncode_afepercepcion = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 11), "ncode_confi", "sdesc_confi",cLIENTE.ncode_afepercepcion);
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedoresLista(0).Where(c => c.nesta_vende == true), "ncode_vende", "VendeZona", cLIENTE.ncode_vende);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", cLIENTE.ncode_vende);
             return View(cLIENTE);
         }
 

@@ -12,8 +12,12 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.Partial("_Compra")
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
+                    <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
+                    <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
+
+                    @Html.Partial("_Compra")
                 }
             </div>
         </div>
@@ -25,7 +29,7 @@
     @Scripts.Render("~/bundles/compra")
     <script type="text/javascript">
         var urlGetProveedor = '@Url.Action("getProveedor", "Funciones",new { area = ""})';
-        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlArticulos = '@Url.Action("getMatTabla", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlcompraCrea = '@Url.Action("Create", "compras")';
         var urlcompraLista = '@Url.Action("Index", "compras")';

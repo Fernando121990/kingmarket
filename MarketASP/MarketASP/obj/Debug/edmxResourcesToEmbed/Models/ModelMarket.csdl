@@ -1447,6 +1447,10 @@
     <FunctionImport Name="Pr_VendedorZonaLista" ReturnType="Collection(MarketWebModel.Pr_VendedorZonaLista_Result)">
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="Pr_KardexMatTabla" ReturnType="Collection(MarketWebModel.Pr_KardexMatTabla_Result)">
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
     <Key>
@@ -1934,6 +1938,7 @@
     <Property Name="sserie_orco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="stipo_orco" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="ntipo_orco" Type="Int32" />
+    <Property Name="bprecioconigv_compra" Type="Boolean" />
   </EntityType>
   <EntityType Name="CTA_COBRAR">
     <Key>
@@ -3358,6 +3363,7 @@
     <Property Name="sserie_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="snumero_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_31" FromRole="VENTAS" ToRole="VENTA_LOTE" />
+    <Property Name="bprecioconigv_venta" Type="Boolean" />
   </EntityType>
   <Association Name="R_29">
     <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -3480,6 +3486,7 @@
     <NavigationProperty Name="LOCAL" Relationship="MarketWebModel.R_680" FromRole="ORDEN_PEDIDOS" ToRole="LOCAL" />
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
     <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
+    <Property Name="bprecioconigv_orpe" Type="Boolean" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3743,6 +3750,7 @@
     <Property Name="dfentrega_orco" Type="DateTime" Precision="3" />
     <Property Name="stipo_orco" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="ntipo_orco" Type="Int32" />
+    <Property Name="bprecioconigv_orco" Type="Boolean" />
   </EntityType>
   <Association Name="R_c670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -4585,5 +4593,22 @@
   <ComplexType Name="Pr_VendedorZonaLista_Result">
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
     <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
+  </ComplexType>
+  <ComplexType Name="Pr_KardexMatTabla_Result">
+    <Property Type="Int64" Name="Cod" Nullable="false" />
+    <Property Type="String" Name="Cod2" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="DescArt" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="Medida" Nullable="false" MaxLength="200" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Costo" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Stock" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="StockReservado" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="StockTransito" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="true" />
+    <Property Type="Boolean" Name="bafecto_arti" Nullable="false" />
+    <Property Type="Boolean" Name="bisc_arti" Nullable="false" />
+    <Property Type="Boolean" Name="bdscto_arti" Nullable="false" />
+    <Property Type="Boolean" Name="bicbper_arti" Nullable="false" />
+    <Property Type="Boolean" Name="bpercepcion_arti" Nullable="false" />
   </ComplexType>
 </Schema>

@@ -165,6 +165,13 @@ namespace MarketASP.Controllers
 
             return Json(result); 
         }
+        public JsonResult getMatTabla(int ncode_alma)
+        {
+            var result = db.Pr_KardexMatTabla(0, ncode_alma);
+
+            return Json(result);
+        }
+
 
         public JsonResult getProforma(string snume)
         {
@@ -253,6 +260,7 @@ namespace MarketASP.Controllers
                 sdni = cLIENTE.sdnice_cliente,
                 ncode_fopago = pedido.ncode_fopago,
                 ncode_mone = pedido.ncode_mone,
+                ncode_alma = pedido.ncode_alma,
                 ventaViewDetas = listadeta
             };
 
@@ -299,6 +307,7 @@ namespace MarketASP.Controllers
                 ntipo_orco = pedido.ncode_docu,
                 stipo_orco = pedido.stipo_orco,
                 sserie_orco = string.Concat(pedido.sseri_orco,"-",pedido.snume_orco),
+                ncode_alma = pedido.ncode_alma,
                 compraViewDetas = listadeta
             };
 

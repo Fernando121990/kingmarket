@@ -6,6 +6,9 @@ var ordentable;
 var conf_igv = 0;
 var conf_decimal = 0;
 var conf_icbper = 0
+var conf_moneda = 0;
+var CONFIG_dscto = 'NO';
+var conf_PrecioIGV;
 
 $(document).ready(function () {
 
@@ -17,7 +20,7 @@ $(document).ready(function () {
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
-
+    conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
     //console.log(conf_igv);
     //console.log(conf_decimal);
     //console.log(conf_icbper);
@@ -242,13 +245,15 @@ $(document).ready(function () {
     });
 
      $(".addMat").click(function () {
-
+         var codalmacen = $("#ncode_alma option:selected").val();
+         console.log(codalmacen);
 
         $.ajax({
             type: "Post",
             url: urlArticulos,
-            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
             dataType: "json",
+            data: { ncode_alma: codalmacen },
             success: function (resultado) {
                 //console.log(resultado);
                 //alert('exito');
@@ -259,20 +264,21 @@ $(document).ready(function () {
                         [{ "data": "Cod" },
                         { "data": "Cod2" },
                         { "data": "DescArt" },
-                            { "data": "Stock" },
-                            { "data": "Disponible" },
+                        { "data": "Stock" },
+                        { "data": "StockReservado" },
+                        { "data": "StockTransito" },
                         { "data": "Medida" },
                         { "data": "Precio" },
                         { "data": "ncode_umed" },
                         { "data": "bafecto_arti" },
                         { "data": "bisc_arti" },
                         { "data": "bdscto_arti" },
-                            { "data": "bicbper_arti" }
+                        { "data": "bicbper_arti" }
                             
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": [0,7,8,9,10,11]
+                        "aTargets": [0,8,9,10,11,12]
                     },
                     {
                         "sClass": "my_class",
@@ -758,122 +764,271 @@ function Sales_save() {
     });
 
 }
+
 function Totales(conf_igv, conf_decimal, conf_icbper) {
     console.log('calculo de totales');
     console.log(conf_igv);
     console.log(conf_decimal);
     console.log(conf_icbper);
 
-    var TOT_AFECTO = 0;
-    var TOT_EXON = 0;
-    var TOT = 0;
-    var SUBT = 0;
-    var SUBT_AFECTO = 0;
-    var SUBT_EXON = 0;
-    var DSCTO = 0;
-    var DSCTO_AFECTO = 0;
-    var DSCTO_EXON = 0;
-    var TOT_ISC = 0;
-    var CONFIG_IGV = 0;
-    var TOT_ICBPER = 0;
+    var TOT_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var TOT_EXON = parseFloat(0).toFixed(conf_decimal);
+    var TOT = parseFloat(0).toFixed(conf_decimal);
+    var SUBT = parseFloat(0).toFixed(conf_decimal);
+    var SUBT_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var SUBT_EXON = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO_EXON = parseFloat(0).toFixed(conf_decimal);
+    var TOT_ISC = parseFloat(0).toFixed(conf_decimal);
+    var IGVTOTAL = parseFloat(0).toFixed(conf_decimal);
+
+    CONFIG_IGV = parseInt(conf_igv);
+    var monedaVenta = $('#smone_venta').val();
+    var TCambio = parseFloat($('#ntc_venta').val());
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
     var oTable = otblx.fnGetData();
 
-    CONFIG_IGV = conf_igv;
-
-    console.log(oTable);
-
     for (var i = 0; i < nrowsx; i++) {
 
-        
-        console.log(nrowsx);
+        TOT = 0; CANT = 0; PU = 0; CDSCTO = 0; CDSCTO2 = 0; PUADESCONTAR = 0; PUSINIGV = 0; IGVDELPRECIO = 0; IGVPORDETALLE = 0; TCambio = 0
 
+        CANT = parseFloat(oTable[i][3]).toFixed(conf_decimal);
+        PU = parseFloat(oTable[i][5]).toFixed(conf_decimal);
+        CDSCTO = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
+        CDSCTO2 = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO2)), CONFIG_GE_NRODECIMALES)
         var AFECTO_ART = oTable[i][8].toString();
         var COL_TISC = oTable[i][9];
-        var COL_ICBPER = oTable[i][11].toString();
-        var CANT_DV = oTable[i][3];
-        var PU_DV = oTable[i][5];
-        var DSCTO_DV = 0;
 
-        TOT = 0;
-        TOT_AFECTO = 0;
-        TOT_EXON = 0;
-        TOT = CANT_DV * PU_DV;
-        TOT = TOT - (TOT * DSCTO_DV / 100);
+        //validar venta en soles o dolares
+        if (monedaVenta == "D") {
+            PU = (PU / TCambio).toFixed(conf_decimal);
+        }
 
-        console.log(COL_ICBPER);
+
+        if (CONFIG_dscto = "SI") {
+            PUADESCONTAR = (PU * (DSCTO / 100)).toFixed(conf_decimal);
+            TOT = (CANT * (PU - PUADESCONTAR)).toFixed(conf_decimal);
+        }
+        else {
+            PUADESCONTAR = CDSCTO
+            TOT = (CANT * (PU - PUADESCONTAR)).toFixed(conf_decimal);
+        }
+
+        TOT = (TOT - (TOT * (CDSCTO2 / 100))).toFixed(conf_decimal);
 
         if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
-            //  console.log('afecto');
+            TOT_AFECTO = parseFloat(TOT_AFECTO) + Math.round(TOT, conf_decimal);
         }
 
         if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
-
-            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
-            //console.log('exone');
+            TOT_EXON = parsefloat(TOT_EXON) + Math.round(TOT, conf_decimal);
         }
 
-        if (COL_ICBPER.toUpperCase() == 'TRUE') {
-            TOT_ICBPER = TOT_ICBPER + conf_icbper * CANT_DV;
+        SUBT = ((PU - PUADESCONTAR) * CANT).toFixed(conf_decimal);
+        PUSINIGV = ((PU - PUADESCONTAR) / (1 + (CONFIG_IGV / 100))).toFixed(conf_decimal);
+        IGVDELPRECIO = ((PU - PUADESCONTAR) - PUSINIGV).toFixed(conf_decimal);
+
+        //DSCTO
+        if (parseFloat(TOT_AFECTO) > 0) {
+            SUBT_AFECTO = parseFloat(SUBT_AFECTO) + parseFloat(SUBT);
+
+            if (CONFIG_dscto == "SI") {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            else {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+
+            DSCTO_AFECTO = parseFloat(DSCTO_AFECTO) + parseFloat(DSCTO);
         }
 
-        SUBT = CANT_DV * PU_DV;
-        //console.log('totafecto');
-        //console.log(TOT_AFECTO);
-        //console.log('totexone');
-        //console.log(TOT_EXON);
-
-        if (TOT_AFECTO !== 0) {
-            SUBT_AFECTO = SUBT_AFECTO + SUBT;
-            DSCTO = (SUBT * (DSCTO_DV / 100));
-            DSCTO_AFECTO = DSCTO_AFECTO + DSCTO;
-            //      console.log('subafecto');
-            //    console.log(SUBT_AFECTO);
-        }
-
-        if (TOT_EXON !== 0) {
-            SUBT_EXON = SUBT_EXON + SUBT;
-            DSCTO = (SUBT * (DSCTO_DV / 100));
-            DSCTO_EXON = DSCTO_EXON + DSCTO;
-            //  console.log(TOT_EXON);
-            //console.log('subtexon');
-            //console.log(SUBT_EXON);
+        if (parseFloat(TOT_EXON) > 0) {
+            SUBT_EXON = parseFloat(SUBT_EXON) + parseFloat(SUBT);
+            if (CONFIG_dscto == "SI") {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            else {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            DSCTO_EXON = parseFloat(DSCTO_EXON) + parseFloat(DSCTO);
         }
 
         if (COL_TISC == true) {
             TOT_ISC = TOT_ISC + (TOT_AFECTO / (1 + COL_TISC / 100));
             TOT_ISC = TOT_ISC + (TOT_EXON / (1 + COL_TISC / 100));
         }
+
+        IGVPORDETALLE = (IGVDELPRECIO * CANT).toFixed(2);
+
+        IGVTOTAL = IGVTOTAL + IGVPORDETALLE
+
     }
 
-    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(conf_decimal));
-    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(conf_decimal));
-    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(conf_decimal));
-    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(conf_decimal));
-    $("#ntotaex_venta").val(SUBT_EXON.toFixed(conf_decimal));
-    $("#nicbper_venta").val(TOT_ICBPER.toFixed(conf_decimal));
+    console.log('valores totales');
+    console.log(DSCTO_AFECTO);
+    console.log(DSCTO_EXON);
+    console.log(SUBT_AFECTO);
+    console.log(SUBT_EXON);
 
+
+    $("#ndsctoaf_venta").val(DSCTO_AFECTO);
+    $("#ndctoex_venta").val(DSCTO_EXON);
+    $("#nbrutoaf_venta").val(SUBT_AFECTO);
+    $("#nbrutoex_venta").val(SUBT_EXON);
+
+    $("#nsubaf_venta").val(SUBT_AFECTO);
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
-    var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
-    var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
+    $("#nsubex_venta").val(SUBT_EX);
+    $("#ntotaex_venta").val(SUBT_EXON);
 
-    $("#nsubex_venta").val(SUBT_EX.toFixed(conf_decimal));
-    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
-    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(conf_decimal));
+    var TOTAL_AFEC = 0, SUBT_AFEC = 0, IGV_AF = 0;
 
-    var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
-    $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
-    $("#nigvex_venta").val(0);
 
-    var TOTAL = TOTAL_AFEC + SUBT_EX;
+    if (conf_PrecioIGV == "on") {
+        TOTAL_AFEC = parseFloat(SUBT_AFECTO);
+        SUBT_AFEC = parseFloat(TOTAL_AFEC) / (1 + (parseInt(CONFIG_IGV) / 100));
+        IGV_AF = parseFloat(TOTAL_AFEC) - parseFloat(SUBT_AFEC);
+
+        $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
+        $("#nsubaf_venta").val(SUBT_AFEC.toFixed(conf_decimal));
+        $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
+
+    }
+    else {
+        IGV_AF = (parseFloat(SUBT_AFECTO) * (parseFloat(CONFIG_IGV) / parseInt(100)));
+        TOTAL_AFEC = (parseFloat(SUBT_AFECTO) + parseFloat(SUBT_AFECTO) * (parseFloat(CONFIG_IGV) / parseInt(100)));
+
+        $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
+        $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
+
+    }
+
+    var TOTAL = parseFloat(TOTAL_AFEC) + parseFloat(SUBT_EX);
 
     $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
-
-    return false;
 }
+
+
+//function Totales(conf_igv, conf_decimal, conf_icbper) {
+//    console.log('calculo de totales');
+//    console.log(conf_igv);
+//    console.log(conf_decimal);
+//    console.log(conf_icbper);
+
+//    var TOT_AFECTO = 0;
+//    var TOT_EXON = 0;
+//    var TOT = 0;
+//    var SUBT = 0;
+//    var SUBT_AFECTO = 0;
+//    var SUBT_EXON = 0;
+//    var DSCTO = 0;
+//    var DSCTO_AFECTO = 0;
+//    var DSCTO_EXON = 0;
+//    var TOT_ISC = 0;
+//    var CONFIG_IGV = 0;
+//    var TOT_ICBPER = 0;
+
+//    var otblx = $('#tbl').dataTable();
+//    var nrowsx = otblx.fnGetData().length;
+//    var oTable = otblx.fnGetData();
+
+//    CONFIG_IGV = conf_igv;
+
+//    console.log(oTable);
+
+//    for (var i = 0; i < nrowsx; i++) {
+
+        
+//        console.log(nrowsx);
+
+//        var AFECTO_ART = oTable[i][8].toString();
+//        var COL_TISC = oTable[i][9];
+//        var COL_ICBPER = oTable[i][11].toString();
+//        var CANT_DV = oTable[i][3];
+//        var PU_DV = oTable[i][5];
+//        var DSCTO_DV = 0;
+
+//        TOT = 0;
+//        TOT_AFECTO = 0;
+//        TOT_EXON = 0;
+//        TOT = CANT_DV * PU_DV;
+//        TOT = TOT - (TOT * DSCTO_DV / 100);
+
+//        console.log(COL_ICBPER);
+
+//        if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
+//            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
+//            //  console.log('afecto');
+//        }
+
+//        if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
+
+//            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
+//            //console.log('exone');
+//        }
+
+//        if (COL_ICBPER.toUpperCase() == 'TRUE') {
+//            TOT_ICBPER = TOT_ICBPER + conf_icbper * CANT_DV;
+//        }
+
+//        SUBT = CANT_DV * PU_DV;
+//        //console.log('totafecto');
+//        //console.log(TOT_AFECTO);
+//        //console.log('totexone');
+//        //console.log(TOT_EXON);
+
+//        if (TOT_AFECTO !== 0) {
+//            SUBT_AFECTO = SUBT_AFECTO + SUBT;
+//            DSCTO = (SUBT * (DSCTO_DV / 100));
+//            DSCTO_AFECTO = DSCTO_AFECTO + DSCTO;
+//            //      console.log('subafecto');
+//            //    console.log(SUBT_AFECTO);
+//        }
+
+//        if (TOT_EXON !== 0) {
+//            SUBT_EXON = SUBT_EXON + SUBT;
+//            DSCTO = (SUBT * (DSCTO_DV / 100));
+//            DSCTO_EXON = DSCTO_EXON + DSCTO;
+//            //  console.log(TOT_EXON);
+//            //console.log('subtexon');
+//            //console.log(SUBT_EXON);
+//        }
+
+//        if (COL_TISC == true) {
+//            TOT_ISC = TOT_ISC + (TOT_AFECTO / (1 + COL_TISC / 100));
+//            TOT_ISC = TOT_ISC + (TOT_EXON / (1 + COL_TISC / 100));
+//        }
+//    }
+
+//    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(conf_decimal));
+//    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(conf_decimal));
+//    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(conf_decimal));
+//    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(conf_decimal));
+//    $("#ntotaex_venta").val(SUBT_EXON.toFixed(conf_decimal));
+//    $("#nicbper_venta").val(TOT_ICBPER.toFixed(conf_decimal));
+
+//    var SUBT_EX = SUBT_EXON - DSCTO_EXON;
+//    var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
+//    var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
+
+//    $("#nsubex_venta").val(SUBT_EX.toFixed(conf_decimal));
+//    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
+//    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(conf_decimal));
+
+//    var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
+//    $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
+//    $("#nigvex_venta").val(0);
+
+//    var TOTAL = TOTAL_AFEC + SUBT_EX;
+
+//    $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
+
+//    return false;
+//}
+
 function ComparaPrecio(Precio, PrecioOrigen) {
 
     var xprecio = parseFloat(Precio);
@@ -1050,6 +1205,9 @@ function fnCargaOrdenPedido(codigo) {
             $('#sobse_venta').val(venta.ncode_cliente);
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_orpe").val(codigo);
+            $("#ncode_alma").val(venta.ncode_alma);
+
+
             var num = parseInt(venta.ventaViewDetas.length);
             var oprof = $('#tbl').DataTable();
             oprof.clear();

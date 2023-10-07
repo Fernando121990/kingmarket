@@ -184,6 +184,9 @@ D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CoreCompileInpu
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CopyComplete
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.dll
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.pdb
+D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.dll
+D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.xml
+D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.dll.config
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.dll
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.pdb
@@ -203,7 +206,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.OAuth.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Web.Infrastructure.dll
-D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Owin.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.AccessControl.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Cryptography.Xml.dll
@@ -240,7 +242,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\System.Web.Razor.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Deployment.xml
 D:\oscarweb\MarketASP\MarketASP\bin\System.Web.WebPages.Razor.xml
-D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Antlr3.Runtime.pdb
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Core.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Owin.xml
@@ -255,7 +256,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.OAuth.xml
 D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.resources.dll
-D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Helpers.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Mvc.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Optimization.resources.dll
@@ -266,7 +266,6 @@ D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.WebPages.Razor.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
-D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.AssemblyReference.cache
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.Migrations.InitialCreate.resources
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.Migrations.UpdateTable.resources
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.GenerateResource.cache
@@ -274,3 +273,4 @@ D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CoreCompileInputs.cac
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CopyComplete
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.dll
 D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.pdb
+D:\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.AssemblyReference.cache

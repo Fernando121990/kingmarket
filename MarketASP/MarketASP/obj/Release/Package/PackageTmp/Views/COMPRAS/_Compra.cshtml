@@ -130,6 +130,12 @@
                                 Titulo Gratuito
                             </label>
                         </div>
+                        <div class="form-check mb-3">
+                            <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
+                            <label class="form-check-label" for="bprecioconigv">
+                                Precio con IGV
+                            </label>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
@@ -196,12 +202,15 @@
                                 <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Stock</th>
+                                <th>Reservado</th>
+                                <th>Transito</th>
                                 <th>U.M</th>
                                 <th>Costo</th>
                                 <th>CodUM</th>
                                 <th>bafecto</th>
                                 <th>bisc</th>
                                 <th>bdscto</th>
+                                <th>bicbper</th>
                             </tr>
                         </thead>
                     </table>

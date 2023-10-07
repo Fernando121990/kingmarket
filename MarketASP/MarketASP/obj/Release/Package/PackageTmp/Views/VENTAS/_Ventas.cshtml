@@ -108,12 +108,25 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-check mb-3">
+                            <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
+                            <label class="form-check-label" for="bprecioconigv">
+                                Precio con IGV
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check mb-3">
                             @Html.CheckBox("btitgratuito_venta")
                             @Html.ValidationMessageFor(model => model.btitgratuito_venta, "", new { @class = "text-danger" })
                             <label class="form-check-label" for="btitgratuito_venta">
                                 Titulo Gratuito
                             </label>
                         </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bitguia_venta")
                             @Html.ValidationMessageFor(model => model.bitguia_venta, "", new { @class = "text-danger" })
@@ -319,7 +332,8 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
-                                    <th>Disponible</th>
+                                    <th>Reservado</th>
+                                    <th>Transito</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
                                     <th>CodUM</th>

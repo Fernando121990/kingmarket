@@ -35,6 +35,7 @@ namespace MarketASP
                     "~/Scripts/assets/libs/simplebar/simplebar.min.js",
                     "~/Scripts/assets/libs/node-waves/waves.min.js",
                     "~/Scripts/assets/libs/select2/js/select2.min.js",
+                    "~/Scripts/assets/libs/spectrum-colorpicker2/spectrum.min.js",
                     "~/Scripts/assets/js/pages/datatables.init.js",
                     "~/Scripts/assets/js/pages/form-advanced.init.js",
                     "~/Scripts/assets/js/app.js"));

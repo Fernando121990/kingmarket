@@ -2,6 +2,7 @@
 
 <div>
     <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
+    Precio de venta incluido IGV <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
 </div>
 
 <div class="row">
@@ -201,7 +202,7 @@
                                     <th>Código</th>
                                     <th>Descripción</th>
                                     <th>Stock</th>
-                                    <th>Disponible</th>
+                                    <th>Reservado</th>
                                     <th>Transito</th>
                                     <th>U.M</th>
                                     <th>Precio</th>
