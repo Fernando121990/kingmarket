@@ -168,7 +168,8 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta,mofView.nicbper_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
-                                ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.ncode_orpe, sw,cc);
+                                ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.ncode_orpe,mofView.bclienteagretencion,
+                                mofView.sserienume_orpe, sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -381,7 +382,7 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, 
-                                int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende, sw);
+                                int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

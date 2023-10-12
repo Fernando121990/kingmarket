@@ -22,7 +22,7 @@ $(document).ready(function () {
                         return {
                             label: item.srazon_cliente, value: item.srazon_cliente, id: item.ncode_cliente,
                             rucid: item.sruc_cliente, dnid: item.sdnice_cliente, fopagoid: item.ncode_fopago,
-                            vendeid : item.ncode_vende, almaid : item.ncode_alma
+                            vendeid: item.ncode_vende, almaid: item.ncode_alma, agretencion: item.bretencion_cliente
                         };
                     }));
                 }
@@ -40,6 +40,13 @@ $(document).ready(function () {
             //$('#ncode_fopago').val(ui.item.fopagoid);
             $('#ncode_vende').val(ui.item.vendeid);
             $('#ncode_alma').val(ui.item.almaid);
+
+            $('#bclienteagretencion').prop('checked', false);
+            if (ui.item.agretencion) {
+                $('#bclienteagretencion').prop('checked', true);
+            }
+
+            
             fnclienteDire();
             fnclienteFPago();
             fnFormaPagoDiasFecha(ui.item.fopagoid);

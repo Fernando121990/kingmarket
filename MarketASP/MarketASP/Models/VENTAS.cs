@@ -69,6 +69,8 @@ namespace MarketASP.Models
         public string sserie_guia { get; set; }
         public string snumero_guia { get; set; }
         public Nullable<bool> bprecioconigv_venta { get; set; }
+        public Nullable<bool> bclienteagretencion { get; set; }
+        public string sserienume_orpe { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }

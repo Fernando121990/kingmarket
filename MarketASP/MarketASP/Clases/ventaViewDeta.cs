@@ -11,5 +11,8 @@ namespace MarketASP.Clases
         public bool? bisc_vedeta { get; set; }
         public string scod2 { get; set; }
         public string sdesc { get; set; }
+        
+        public string sumed { get; set; }
+        public long? ncode_umed { get; set; }
     }
 }

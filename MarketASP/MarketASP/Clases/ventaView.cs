@@ -6,6 +6,7 @@ namespace MarketASP.Clases
 {
     public class ventaView : VENTAS
     {
+        public string sserienumero { get; set; }
         public string sfeventa_venta { get; set; }
         public string sfevenci_venta { get; set; }
         public string scliente { get; set; }

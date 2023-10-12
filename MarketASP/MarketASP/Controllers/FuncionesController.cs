@@ -133,6 +133,12 @@ namespace MarketASP.Controllers
 
             return Json(resultado);
         }
+        public JsonResult getGuiaVenta()
+        {
+            var resultado = db.Pr_GuiaVentaLista(2, "", "");
+            return Json(resultado);
+        }
+
 
         public JsonResult getPedidoVenta()
         {
@@ -227,8 +233,10 @@ namespace MarketASP.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             ORDEN_PEDIDOS pedido = db.ORDEN_PEDIDOS.Find(ncode_orpe);
             CLIENTE cLIENTE = db.CLIENTE.Find(pedido.ncode_cliente);
-            List<ORDEN_PEDIDOS_DETALLE> lista = db.ORDEN_PEDIDOS_DETALLE.Include("ARTICULO")
-                .Where(p => p.ncode_orpe == ncode_orpe).Where(p=> p.ncantventa_orpedeta > 0).ToList();
+            var lista = db.Pr_Orden_PedidoDetVentaGuia(ncode_orpe).ToList();
+
+            //List<ORDEN_PEDIDOS_DETALLE> lista = db.ORDEN_PEDIDOS_DETALLE.Include("ARTICULO").Include("UMEDIDA")
+            //    .Where(p => p.ncode_orpe == ncode_orpe).Where(p=> p.ncantventa_orpedeta > 0).ToList();
             List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
 
             foreach (var item in lista)
@@ -236,16 +244,18 @@ namespace MarketASP.Controllers
                 ventaViewDeta deta = new ventaViewDeta
                 {
                     besafecto_vedeta = item.besafecto_orpedeta,
-                    bisc_vedeta = item.ARTICULO.bisc_arti,
-                    scod2 = item.ARTICULO.scode_arti,
-                    sdesc = item.ARTICULO.sdesc1_arti,
+                    bisc_vedeta = item.bisc_arti,
+                    scod2 = item.scode_arti,
+                    sdesc = item.sdesc1_arti,
                     nafecto_vedeta = item.nafecto_orpedeta,
                     ncant_vedeta = item.ncantventa_orpedeta,
                     ncode_arti = item.ncode_arti,
                     npu_vedeta = item.npu_orpedeta,
                     ndscto_vedeta = item.ndscto_orpedeta,
-                    nexon_vedeta = item.nexon_orpedeta
-                    
+                    nexon_vedeta = item.nexon_orpedeta,
+                    sumed = item.ssunat_umed,
+                    ncode_umed = item.ncode_umed,
+                   
                 };
                 listadeta.Add(deta);
             }
@@ -261,6 +271,8 @@ namespace MarketASP.Controllers
                 ncode_fopago = pedido.ncode_fopago,
                 ncode_mone = pedido.ncode_mone,
                 ncode_alma = pedido.ncode_alma,
+                bclienteagretencion = pedido.bclienteagretencion,
+                sserienumero = string.Concat(pedido.sseri_orpe,"-",pedido.snume_orpe),
                 ventaViewDetas = listadeta
             };
 

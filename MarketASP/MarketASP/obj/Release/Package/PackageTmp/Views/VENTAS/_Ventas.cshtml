@@ -53,6 +53,13 @@
                         <a href="@Url.Action("Create","Clientes")" class="btn btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
                     </div>
                 </div>
+                @Html.LabelFor(model => model.bclienteagretencion, "Es AG.Retencion", htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.CheckBox("bclienteagretencion", htmlAttributes: new { @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.bclienteagretencion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="mb-3">
                     <label for="example-text-input" class="col-form-label">Dirección</label>
                     <select id="NRO_DCLIENTE" name="NRO_DCLIENTE" class="form-control"></select>
@@ -291,7 +298,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <label>Seleccionar lote de donde se descargara la venta</label>
 
                     <table id="lotetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
                         <thead class="thead-dark">

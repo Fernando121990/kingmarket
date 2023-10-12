@@ -501,6 +501,7 @@
           <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1053,6 +1054,7 @@
     <EntitySetMapping Name="VENTAS">
       <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
         <MappingFragment StoreEntitySet="VENTAS">
+          <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
           <ScalarProperty Name="bprecioconigv_venta" ColumnName="bprecioconigv_venta" />
           <ScalarProperty Name="snumero_guia" ColumnName="snumero_guia" />
           <ScalarProperty Name="sserie_guia" ColumnName="sserie_guia" />
@@ -1107,6 +1109,7 @@
     <EntitySetMapping Name="ORDEN_PEDIDOS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
           <ScalarProperty Name="bprecioconigv_orpe" ColumnName="bprecioconigv_orpe" />
           <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
           <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />

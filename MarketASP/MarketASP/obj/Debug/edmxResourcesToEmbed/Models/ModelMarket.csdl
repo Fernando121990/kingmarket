@@ -160,6 +160,8 @@
       <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+      <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
       <Parameter Name="cc" Mode="InOut" Type="Int64" />
     </FunctionImport>
@@ -214,6 +216,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_ventaAnula">
@@ -721,6 +724,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_Orden_PedidoDetaCrea">
@@ -774,6 +778,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_OrdenPedidoElimina">
@@ -1163,6 +1168,9 @@
       <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
       <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaDetaCrea">
@@ -1190,6 +1198,9 @@
       <Parameter Name="ndestino_alma" Mode="In" Type="Int32" />
       <Parameter Name="stipo_guia" Mode="In" Type="String" />
       <Parameter Name="besta_guia" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaElimina">
@@ -1450,6 +1461,9 @@
     <FunctionImport Name="Pr_KardexMatTabla" ReturnType="Collection(MarketWebModel.Pr_KardexMatTabla_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
       <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_PedidoDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_Orden_PedidoDetVentaGuia_Result)">
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
@@ -2304,6 +2318,7 @@
     <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
     <Property Type="Int64" Name="ncode_alma" Nullable="false" />
+    <Property Type="Boolean" Name="bretencion_cliente" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_DocNumeracion_Result">
     <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
@@ -3364,6 +3379,8 @@
     <Property Name="snumero_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_31" FromRole="VENTAS" ToRole="VENTA_LOTE" />
     <Property Name="bprecioconigv_venta" Type="Boolean" />
+    <Property Name="bclienteagretencion" Type="Boolean" />
+    <Property Name="sserienume_orpe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="R_29">
     <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -3487,6 +3504,7 @@
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
     <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
     <Property Name="bprecioconigv_orpe" Type="Boolean" />
+    <Property Name="bclienteagretencion" Type="Boolean" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3966,6 +3984,9 @@
     <Property Name="ncode_clidire" Type="Int32" />
     <Property Name="ncode_mone" Type="Int32" />
     <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_31" FromRole="GUIA" ToRole="GUIA_LOTE" />
+    <Property Name="ncode_orpe" Type="Int64" />
+    <Property Name="ncode_tran" Type="Int64" />
+    <Property Name="sserienume_orpe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="GUIA_DETALLE">
     <Key>
@@ -4610,5 +4631,19 @@
     <Property Type="Boolean" Name="bdscto_arti" Nullable="false" />
     <Property Type="Boolean" Name="bicbper_arti" Nullable="false" />
     <Property Type="Boolean" Name="bpercepcion_arti" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Pr_Orden_PedidoDetVentaGuia_Result">
+    <Property Type="Boolean" Name="besafecto_orpedeta" Nullable="false" />
+    <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
+    <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="Decimal" Name="nafecto_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="ncantventa_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int64" Name="ncode_arti" Nullable="false" />
+    <Property Type="Decimal" Name="npu_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="ndscto_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="nexon_orpedeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="false" />
   </ComplexType>
 </Schema>

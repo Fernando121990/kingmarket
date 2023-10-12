@@ -24,6 +24,13 @@
                     <label for="example-text-input" class="col-form-label">Dirección</label>
                     <select id="NRO_DCLIENTE" name="NRO_DCLIENTE" class="form-control"></select>
                 </div>
+                @Html.LabelFor(model => model.bclienteagretencion, "Es AG.Retencion", htmlAttributes: new { @class = "control-label"})
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        @Html.CheckBox("bclienteagretencion",htmlAttributes:new { @disabled = "disabled"})
+                        @Html.ValidationMessageFor(model => model.bclienteagretencion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">

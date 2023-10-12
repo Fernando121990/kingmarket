@@ -184,9 +184,9 @@ D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CoreCompileInpu
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.csproj.CopyComplete
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.dll
 D:\Repos\oscarweb\MarketASP\MarketASP\obj\Debug\MarketASP.pdb
-D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.dll
+D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Google.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.xml
-D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.dll.config
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.dll
 D:\oscarweb\MarketASP\MarketASP\bin\MarketASP.pdb
@@ -197,15 +197,14 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Core.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.AspNet.Identity.Owin.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.dll
-D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Host.SystemWeb.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Cookies.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Facebook.dll
-D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Google.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.OAuth.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Web.Infrastructure.dll
+D:\oscarweb\MarketASP\MarketASP\bin\Newtonsoft.Json.dll
 D:\oscarweb\MarketASP\MarketASP\bin\Owin.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.AccessControl.dll
 D:\oscarweb\MarketASP\MarketASP\bin\System.Security.Cryptography.Xml.dll
@@ -256,6 +255,7 @@ D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.Twitter.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\oscarweb\MarketASP\MarketASP\bin\Microsoft.Owin.Security.OAuth.xml
 D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.resources.dll
+D:\oscarweb\MarketASP\MarketASP\bin\es\EntityFramework.SqlServer.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Helpers.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Mvc.resources.dll
 D:\oscarweb\MarketASP\MarketASP\bin\es\System.Web.Optimization.resources.dll

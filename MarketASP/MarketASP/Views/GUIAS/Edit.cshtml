@@ -30,7 +30,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/guia")
-    <script type="text/javascript">
+<script type="text/javascript">
        var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
 
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
@@ -42,11 +42,12 @@
         var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
     var urlStockValida = '@Url.Action("getStockDisponible", "Funciones",new { area = ""})';
 
-        var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
+        var urlArticulos = '@Url.Action("getMatTabla", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
         var urlguiaCrea = '@Url.Action("Edit", "guias")';
     var urlguiaLista = '@Url.Action("Index", "guias")';
 var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
-
-    </script>
+    var urlPedidoVenta = '@Url.Action("getPedidoVenta", "Funciones")';
+var urlGetOrdenPedidoVenta = '@Url.Action("getOrdenPedidoVenta", "Funciones",new { area = ""})';
+</script>
 }

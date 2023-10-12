@@ -501,6 +501,7 @@
           <ScalarProperty Name="ncode_fopago" ColumnName="ncode_fopago" />
           <ScalarProperty Name="ncode_vende" ColumnName="ncode_vende" />
           <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
+          <ScalarProperty Name="bretencion_cliente" ColumnName="bretencion_cliente" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -1053,6 +1054,8 @@
     <EntitySetMapping Name="VENTAS">
       <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
         <MappingFragment StoreEntitySet="VENTAS">
+          <ScalarProperty Name="sserienume_orpe" ColumnName="sserienume_orpe" />
+          <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
           <ScalarProperty Name="bprecioconigv_venta" ColumnName="bprecioconigv_venta" />
           <ScalarProperty Name="snumero_guia" ColumnName="snumero_guia" />
           <ScalarProperty Name="sserie_guia" ColumnName="sserie_guia" />
@@ -1107,6 +1110,7 @@
     <EntitySetMapping Name="ORDEN_PEDIDOS">
       <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
         <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+          <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
           <ScalarProperty Name="bprecioconigv_orpe" ColumnName="bprecioconigv_orpe" />
           <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
           <ScalarProperty Name="bventa_orpe" ColumnName="bventa_orpe" />
@@ -1415,6 +1419,9 @@
     <EntitySetMapping Name="GUIA">
       <EntityTypeMapping TypeName="MarketWebModel.GUIA">
         <MappingFragment StoreEntitySet="GUIA">
+          <ScalarProperty Name="sserienume_orpe" ColumnName="sserienume_orpe" />
+          <ScalarProperty Name="ncode_tran" ColumnName="ncode_tran" />
+          <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
           <ScalarProperty Name="ncode_mone" ColumnName="ncode_mone" />
           <ScalarProperty Name="ncode_clidire" ColumnName="ncode_clidire" />
           <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
@@ -1736,6 +1743,24 @@
           <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
           <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
           <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoDetVentaGuia" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoDetVentaGuia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel.Pr_Orden_PedidoDetVentaGuia_Result">
+          <ScalarProperty Name="besafecto_orpedeta" ColumnName="besafecto_orpedeta" />
+          <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+          <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
+          <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+          <ScalarProperty Name="nafecto_orpedeta" ColumnName="nafecto_orpedeta" />
+          <ScalarProperty Name="ncantventa_orpedeta" ColumnName="ncantventa_orpedeta" />
+          <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+          <ScalarProperty Name="npu_orpedeta" ColumnName="npu_orpedeta" />
+          <ScalarProperty Name="ndscto_orpedeta" ColumnName="ndscto_orpedeta" />
+          <ScalarProperty Name="nexon_orpedeta" ColumnName="nexon_orpedeta" />
+          <ScalarProperty Name="ssunat_umed" ColumnName="ssunat_umed" />
+          <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

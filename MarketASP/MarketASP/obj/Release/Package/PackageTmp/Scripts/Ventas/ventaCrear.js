@@ -477,7 +477,11 @@ $(document).ready(function () {
 
     $(".delLote").click(function () {
 
+        var data = olotes.row('.selected').data();
         olotes.rows('.selected').remove().draw(false);
+
+        fnActualizarCtdadLote(data[0], data[3]);
+
     });
 
 
@@ -503,8 +507,12 @@ $(document).ready(function () {
             dataType: "json",
             data: {ncode_alma: ncodealma,ncode_arti: data[0],fvenci_lote: '',sdesc_lote:''},
             success: function (resultado) {
-                //console.log(resultado);
-                //alert('exito');
+                console.log(resultado);
+
+                if (resultado.length == 0) {
+                    alert("No hay lotes disponibles para venta")
+                    return;
+                }
 
                 lotetable = $('#lotetabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
@@ -559,6 +567,7 @@ $(document).ready(function () {
     });
 
     $("#btnLote").click(function () {
+
         var data = lotetable.row('.selected').data();
         var idtx = lotetable.row('.selected').index();
         var idt = ofunciones.row('.selected').index();
@@ -631,7 +640,7 @@ function Sales_save() {
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
         "ntotaaf_venta": "", "ntotal_venta": "", "ntotalMN_venta": "", "ntotalUs_venta": "",
         "ncode_vende": "", "ncode_orpe": "",
-        "nvalIGV_venta": "", "nicbper_venta": "", "ventaViewDetas": [], "ventaViewLotes": []
+        "nvalIGV_venta": "", "nicbper_venta": "", "bclienteagretencion": "", "ventaViewDetas": [], "ventaViewLotes": []
     };
 
     ventaView.ncode_venta = $('#ncode_venta').val();
@@ -667,6 +676,7 @@ function Sales_save() {
     ventaView.ncode_mone = $("#ncode_mone option:selected").val();
     ventaView.ncode_vende = $("#ncode_vende option:selected").val();
     ventaView.ncode_orpe = $("#ncode_orpe").val();
+    ventaView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -1206,7 +1216,10 @@ function fnCargaOrdenPedido(codigo) {
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_orpe").val(codigo);
             $("#ncode_alma").val(venta.ncode_alma);
-
+            $('#bclienteagretencion').prop('checked', false);
+            if (venta.bclienteagretencion) {
+                $('#bclienteagretencion').prop('checked', true);
+            }
 
             var num = parseInt(venta.ventaViewDetas.length);
             var oprof = $('#tbl').DataTable();
@@ -1274,3 +1287,24 @@ function fnmensaje(rpta) {
     }
 }
 
+function fnActualizarCtdadLote(codArt, ctdad) {
+    console.log(codArt);
+
+    var otblx = $('#tbl').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+    var codigo = '';
+    var ctdadx = '';
+    for (var i = 0; i < nrowsx; i++) {
+
+        codigo = oTable[i][0];
+        ctdadx = oTable[i][13];
+
+        if (codigo == codArt) {
+            ctdadx = parseFloat(ctdadx) + parseFloat(ctdad);
+            ofunciones.cell({ row: i, column: 13 }).data(ctdadx).draw(false);
+            break;
+        }
+    }
+}

@@ -36,6 +36,8 @@ namespace MarketASP
                     "~/Scripts/assets/libs/node-waves/waves.min.js",
                     "~/Scripts/assets/libs/select2/js/select2.min.js",
                     "~/Scripts/assets/libs/spectrum-colorpicker2/spectrum.min.js",
+                    "~/Scripts/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js",
+                    "~/Scripts/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js",
                     "~/Scripts/assets/js/pages/datatables.init.js",
                     "~/Scripts/assets/js/pages/form-advanced.init.js",
                     "~/Scripts/assets/js/app.js"));
@@ -81,8 +83,16 @@ namespace MarketASP
                       "~/Content/DataTables/css/responsive.bootstrap4.min.css",
                       "~/Content/DataTables/css/dataTables.jqueryui.css"));
 
-            bundles.Add(new StyleBundle("~/Content/select2/css/css").Include(
-                      "~/Content/select2/css/select2.min.css"));
+
+            bundles.Add(new StyleBundle("~/assets/libs/css").Include(
+                "~/assets/libs/select2/css/select2.min.css",
+                "~/assets/libs/spectrum-colorpicker2/spectrum.min.css",
+                "~/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css",
+                "~/assets/libs/twitter-bootstrap-wizard/prettify.css"
+                      ));
+
+            //bundles.Add(new StyleBundle("~/Content/select2/css/css").Include(
+            //          "~/Content/select2/css/select2.min.css"));
 
 
             #endregion

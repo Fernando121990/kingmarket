@@ -488,7 +488,7 @@ function Sales_save() {
         "ndctoex_orpe": "", "ndsctoaf_orpe": "", "nsubex_orpe": "",
         "nsubaf_orpe": "", "nigvex_orpe": "", "nigvaf_orpe": "", "ntotaex_orpe": "",
         "ntotaaf_orpe": "", "ntotal_orpe": "", "ntotalMN_orpe": "", "ntotalUs_orpe": "",
-        "nvalIGV_orpe": "", "ncode_vende": "", "ordenpedidoViewDetas": []
+        "nvalIGV_orpe": "", "ncode_vende": "","bclienteagretencion":"", "ordenpedidoViewDetas": []
 
     };
 
@@ -523,6 +523,7 @@ function Sales_save() {
     ordenpedidoView.ncode_alma = $("#ncode_alma option:selected").val();
     ordenpedidoView.ncode_mone = $("#ncode_mone option:selected").val();
     ordenpedidoView.ncode_vende = $("#ncode_vende option:selected").val();
+    ordenpedidoView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val(); 
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;

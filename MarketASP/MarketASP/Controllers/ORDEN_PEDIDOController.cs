@@ -158,7 +158,7 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
                                 mofView.ntotalUs_orpe, true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), 
-                                mofView.ncode_mone,mofView.ncode_vende ,sw);
+                                mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion ,sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -273,7 +273,8 @@ namespace MarketASP.Controllers
                                 mofView.sobse_orpe, mofView.scode_compra, mofView.nbrutoex_orpe, mofView.nbrutoaf_orpe,
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
-                                mofView.ntotalUs_orpe,true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_vende, sw);
+                                mofView.ntotalUs_orpe,true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, 
+                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion , sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

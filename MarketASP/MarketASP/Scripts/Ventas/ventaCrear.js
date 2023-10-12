@@ -477,7 +477,11 @@ $(document).ready(function () {
 
     $(".delLote").click(function () {
 
+        var data = olotes.row('.selected').data();
         olotes.rows('.selected').remove().draw(false);
+
+        fnActualizarCtdadLote(data[0], data[3]);
+
     });
 
 
@@ -503,8 +507,12 @@ $(document).ready(function () {
             dataType: "json",
             data: {ncode_alma: ncodealma,ncode_arti: data[0],fvenci_lote: '',sdesc_lote:''},
             success: function (resultado) {
-                //console.log(resultado);
-                //alert('exito');
+                console.log(resultado);
+
+                if (resultado.length == 0) {
+                    alert("No hay lotes disponibles para venta")
+                    return;
+                }
 
                 lotetable = $('#lotetabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
@@ -559,15 +567,24 @@ $(document).ready(function () {
     });
 
     $("#btnLote").click(function () {
+
+        var xcan = $("#xctdadlote").val(); //1;
+        var xesta = 0;
+        var xcontrol = $("#xctdadfalta").val();
+
+
+        if (xcan == 0) {
+            alert("La cantidad ha agregar es cero, no se asignaran lotes");
+            return;
+        }
+
         var data = lotetable.row('.selected').data();
         var idtx = lotetable.row('.selected').index();
         var idt = ofunciones.row('.selected').index();
 
         //console.log(data);
-        var xcan = $("#xctdadlote").val(); //1;
+        
         var xcanlote = data.ncantrestante_lote;
-        var xesta = 0;
-        var xcontrol = $("#xctdadfalta").val();
 
         //console.log(xcan);
         //console.log(xcanlote);
@@ -630,8 +647,8 @@ function Sales_save() {
         "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
         "ntotaaf_venta": "", "ntotal_venta": "", "ntotalMN_venta": "", "ntotalUs_venta": "",
-        "ncode_vende": "", "ncode_orpe": "",
-        "nvalIGV_venta": "", "nicbper_venta": "", "ventaViewDetas": [], "ventaViewLotes": []
+        "ncode_vende": "", "ncode_orpe": "","sserienume_orpe":"",
+        "nvalIGV_venta": "", "nicbper_venta": "", "bclienteagretencion": "", "ventaViewDetas": [], "ventaViewLotes": []
     };
 
     ventaView.ncode_venta = $('#ncode_venta').val();
@@ -667,6 +684,9 @@ function Sales_save() {
     ventaView.ncode_mone = $("#ncode_mone option:selected").val();
     ventaView.ncode_vende = $("#ncode_vende option:selected").val();
     ventaView.ncode_orpe = $("#ncode_orpe").val();
+    ventaView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val();
+    ventaView.sserienume_orpe = $('#sserienume_orpe').val();
+    
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -912,122 +932,6 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 }
 
 
-//function Totales(conf_igv, conf_decimal, conf_icbper) {
-//    console.log('calculo de totales');
-//    console.log(conf_igv);
-//    console.log(conf_decimal);
-//    console.log(conf_icbper);
-
-//    var TOT_AFECTO = 0;
-//    var TOT_EXON = 0;
-//    var TOT = 0;
-//    var SUBT = 0;
-//    var SUBT_AFECTO = 0;
-//    var SUBT_EXON = 0;
-//    var DSCTO = 0;
-//    var DSCTO_AFECTO = 0;
-//    var DSCTO_EXON = 0;
-//    var TOT_ISC = 0;
-//    var CONFIG_IGV = 0;
-//    var TOT_ICBPER = 0;
-
-//    var otblx = $('#tbl').dataTable();
-//    var nrowsx = otblx.fnGetData().length;
-//    var oTable = otblx.fnGetData();
-
-//    CONFIG_IGV = conf_igv;
-
-//    console.log(oTable);
-
-//    for (var i = 0; i < nrowsx; i++) {
-
-        
-//        console.log(nrowsx);
-
-//        var AFECTO_ART = oTable[i][8].toString();
-//        var COL_TISC = oTable[i][9];
-//        var COL_ICBPER = oTable[i][11].toString();
-//        var CANT_DV = oTable[i][3];
-//        var PU_DV = oTable[i][5];
-//        var DSCTO_DV = 0;
-
-//        TOT = 0;
-//        TOT_AFECTO = 0;
-//        TOT_EXON = 0;
-//        TOT = CANT_DV * PU_DV;
-//        TOT = TOT - (TOT * DSCTO_DV / 100);
-
-//        console.log(COL_ICBPER);
-
-//        if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-//            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
-//            //  console.log('afecto');
-//        }
-
-//        if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
-
-//            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
-//            //console.log('exone');
-//        }
-
-//        if (COL_ICBPER.toUpperCase() == 'TRUE') {
-//            TOT_ICBPER = TOT_ICBPER + conf_icbper * CANT_DV;
-//        }
-
-//        SUBT = CANT_DV * PU_DV;
-//        //console.log('totafecto');
-//        //console.log(TOT_AFECTO);
-//        //console.log('totexone');
-//        //console.log(TOT_EXON);
-
-//        if (TOT_AFECTO !== 0) {
-//            SUBT_AFECTO = SUBT_AFECTO + SUBT;
-//            DSCTO = (SUBT * (DSCTO_DV / 100));
-//            DSCTO_AFECTO = DSCTO_AFECTO + DSCTO;
-//            //      console.log('subafecto');
-//            //    console.log(SUBT_AFECTO);
-//        }
-
-//        if (TOT_EXON !== 0) {
-//            SUBT_EXON = SUBT_EXON + SUBT;
-//            DSCTO = (SUBT * (DSCTO_DV / 100));
-//            DSCTO_EXON = DSCTO_EXON + DSCTO;
-//            //  console.log(TOT_EXON);
-//            //console.log('subtexon');
-//            //console.log(SUBT_EXON);
-//        }
-
-//        if (COL_TISC == true) {
-//            TOT_ISC = TOT_ISC + (TOT_AFECTO / (1 + COL_TISC / 100));
-//            TOT_ISC = TOT_ISC + (TOT_EXON / (1 + COL_TISC / 100));
-//        }
-//    }
-
-//    $("#ndsctoaf_venta").val(DSCTO_AFECTO.toFixed(conf_decimal));
-//    $("#ndctoex_venta").val(DSCTO_EXON.toFixed(conf_decimal));
-//    $("#nbrutoaf_venta").val(SUBT_AFECTO.toFixed(conf_decimal));
-//    $("#nbrutoex_venta").val(SUBT_EXON.toFixed(conf_decimal));
-//    $("#ntotaex_venta").val(SUBT_EXON.toFixed(conf_decimal));
-//    $("#nicbper_venta").val(TOT_ICBPER.toFixed(conf_decimal));
-
-//    var SUBT_EX = SUBT_EXON - DSCTO_EXON;
-//    var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
-//    var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
-
-//    $("#nsubex_venta").val(SUBT_EX.toFixed(conf_decimal));
-//    $("#ntotaaf_venta").val(TOTAL_AFEC.toFixed(conf_decimal));
-//    $("#nsubaf_venta").val(SUBT_AFEC.toFixed(conf_decimal));
-
-//    var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
-//    $("#nigvaf_venta").val(IGV_AF.toFixed(conf_decimal));
-//    $("#nigvex_venta").val(0);
-
-//    var TOTAL = TOTAL_AFEC + SUBT_EX;
-
-//    $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
-
-//    return false;
-//}
 
 function ComparaPrecio(Precio, PrecioOrigen) {
 
@@ -1206,7 +1110,11 @@ function fnCargaOrdenPedido(codigo) {
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_orpe").val(codigo);
             $("#ncode_alma").val(venta.ncode_alma);
-
+            $("#sserienume_orpe").val(venta.sserienumero);
+            $('#bclienteagretencion').prop('checked', false);
+            if (venta.bclienteagretencion) {
+                $('#bclienteagretencion').prop('checked', true);
+            }
 
             var num = parseInt(venta.ventaViewDetas.length);
             var oprof = $('#tbl').DataTable();
@@ -1216,10 +1124,10 @@ function fnCargaOrdenPedido(codigo) {
                 ,venta.ventaViewDetas[i].scod2
                 ,venta.ventaViewDetas[i].sdesc
                 ,venta.ventaViewDetas[i].ncant_vedeta
-                ,1
+                , venta.ventaViewDetas[i].sumed
                 ,venta.ventaViewDetas[i].npu_vedeta
                 ,venta.ventaViewDetas[i].npu_vedeta
-                ,1
+                , venta.ventaViewDetas[i].ncode_umed
                 ,venta.ventaViewDetas[i].besafecto_vedeta
                 ,venta.ventaViewDetas[i].bisc_vedeta
                     ,venta.ventaViewDetas[i].npu_vedeta
@@ -1274,3 +1182,24 @@ function fnmensaje(rpta) {
     }
 }
 
+function fnActualizarCtdadLote(codArt, ctdad) {
+    console.log(codArt);
+
+    var otblx = $('#tbl').dataTable();
+    var nrowsx = otblx.fnGetData().length;
+    var oTable = otblx.fnGetData();
+
+    var codigo = '';
+    var ctdadx = '';
+    for (var i = 0; i < nrowsx; i++) {
+
+        codigo = oTable[i][0];
+        ctdadx = oTable[i][13];
+
+        if (codigo == codArt) {
+            ctdadx = parseFloat(ctdadx) + parseFloat(ctdad);
+            ofunciones.cell({ row: i, column: 13 }).data(ctdadx).draw(false);
+            break;
+        }
+    }
+}

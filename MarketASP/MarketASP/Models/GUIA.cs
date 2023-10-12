@@ -41,6 +41,13 @@ namespace MarketASP.Models
         public Nullable<int> ncode_docu { get; set; }
         public Nullable<int> ncode_clidire { get; set; }
         public Nullable<int> ncode_mone { get; set; }
+        public Nullable<long> ncode_orpe { get; set; }
+        public Nullable<long> ncode_tran { get; set; }
+        public string sserienume_orpe { get; set; }
+        public Nullable<bool> bdespacho_guia { get; set; }
+        public Nullable<bool> bventaasociada_guia { get; set; }
+        public Nullable<long> ncode_venta { get; set; }
+        public string sserienume_venta { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual ALMACEN ALMACEN1 { get; set; }

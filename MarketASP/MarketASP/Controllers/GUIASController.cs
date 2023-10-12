@@ -75,6 +75,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia");
+            ViewBag.ncode_tran = new SelectList(db.TRANSPORTISTA.Where(t=>t.nesta_tran == true), "ncode_tran", "snomb_tran");
             ViewBag.smone_guia = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
 
             var yfecha = DateTime.Now.Date;
@@ -117,7 +118,8 @@ namespace MarketASP.Controllers
 
                             db.Pr_GUIACrear(DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
                                 mofView.sserie_guia,mofView.snume_guia, User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, 
-                                mofView.stipo_guia,mofView.ncode_cliente,mofView.ncode_clidire,mofView.ncode_docu,mofView.ncode_mone, sw);
+                                mofView.stipo_guia,mofView.ncode_cliente,mofView.ncode_clidire,mofView.ncode_docu,mofView.ncode_mone,
+                                mofView.ncode_tran, mofView.ncode_orpe, mofView.sserienume_orpe, sw);
 
                             code = int.Parse(sw.Value.ToString());
 
@@ -199,6 +201,7 @@ namespace MarketASP.Controllers
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma", gUIA.ndestino_alma);
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia", gUIA.ncode_tiguia);
             ViewBag.smone_guia = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", gUIA.smone_guia);
+            ViewBag.ncode_tran = new SelectList(db.TRANSPORTISTA.Where(t => t.nesta_tran == true), "ncode_tran", "snomb_tran",gUIA.ncode_tran);
             ViewBag.tc = gUIA.ntc_guia;
             ViewBag.dfemov_guia = string.Format("{0:dd/MM/yyyy}", gUIA.dfemov_guia);
             CLIENTE cLIENTE = db.CLIENTE.FirstOrDefault(x => x.ncode_cliente == gUIA.ncode_cliente);
@@ -239,7 +242,8 @@ namespace MarketASP.Controllers
 
 
                             db.Pr_GuiaEditar(mofView.ncode_guia,DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
-                                "", "", User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_guia, false, sw);
+                                "", "", User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_guia, false,
+                                mofView.ncode_tran,mofView.ncode_orpe,mofView.sserienume_orpe, sw);
 
                             code = (int) mofView.ncode_guia;
 

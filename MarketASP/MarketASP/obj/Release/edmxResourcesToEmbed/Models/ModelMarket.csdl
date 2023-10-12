@@ -160,6 +160,7 @@
       <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
       <Parameter Name="cc" Mode="InOut" Type="Int64" />
     </FunctionImport>
@@ -214,6 +215,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Pr_ventaAnula">
@@ -721,6 +723,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_Orden_PedidoDetaCrea">
@@ -774,6 +777,7 @@
       <Parameter Name="ncode_local" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_OrdenPedidoElimina">
@@ -2304,6 +2308,7 @@
     <Property Type="Int32" Name="ncode_fopago" Nullable="false" />
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
     <Property Type="Int64" Name="ncode_alma" Nullable="false" />
+    <Property Type="Boolean" Name="bretencion_cliente" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_DocNumeracion_Result">
     <Property Type="String" Name="serie" Nullable="true" MaxLength="1" />
@@ -3364,6 +3369,7 @@
     <Property Name="snumero_guia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_31" FromRole="VENTAS" ToRole="VENTA_LOTE" />
     <Property Name="bprecioconigv_venta" Type="Boolean" />
+    <Property Name="bclienteagretencion" Type="Boolean" />
   </EntityType>
   <Association Name="R_29">
     <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -3487,6 +3493,7 @@
     <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_DETALLE" />
     <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
     <Property Name="bprecioconigv_orpe" Type="Boolean" />
+    <Property Name="bclienteagretencion" Type="Boolean" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />

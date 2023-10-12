@@ -59,6 +59,7 @@ namespace MarketASP.Models
         public Nullable<int> bventa_orpe { get; set; }
         public Nullable<System.DateTime> dfdespacho_orpe { get; set; }
         public Nullable<bool> bprecioconigv_orpe { get; set; }
+        public Nullable<bool> bclienteagretencion { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CLI_DIRE CLI_DIRE { get; set; }
