@@ -16,6 +16,10 @@
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.ncode_arti)
+                    @Html.HiddenFor(model => model.nprecio_arti)
+                    @Html.HiddenFor(model => model.ncosto_arti)
+                    @Html.HiddenFor(model => model.nultcosto_arti)
+
 
                     @Html.Partial("_Articulo")
 

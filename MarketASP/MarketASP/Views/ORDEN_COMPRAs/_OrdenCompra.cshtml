@@ -43,7 +43,7 @@
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sseri_orco" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sseri_orco, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.DropDownList("sseri_orco", null, htmlAttributes: new { @class = "form-select" })
                             @Html.ValidationMessageFor(model => model.sseri_orco, "", new { @class = "text-danger" })
                         </div>
                     </div>

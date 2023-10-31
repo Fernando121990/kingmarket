@@ -33,7 +33,7 @@ namespace MarketASP.Models
         public Nullable<decimal> npuorigen_orpedeta { get; set; }
         public Nullable<decimal> ncantventa_orpedeta { get; set; }
     
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual ORDEN_PEDIDOS ORDEN_PEDIDOS { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

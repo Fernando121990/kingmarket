@@ -205,12 +205,14 @@
     <Compile Include="Clases\genericoCabecera.cs" />
     <Compile Include="Clases\genericoDetalle.cs" />
     <Compile Include="Clases\guiaView.cs" />
+    <Compile Include="Clases\guiaViewCuota.cs" />
     <Compile Include="Clases\guiaViewDeta.cs" />
     <Compile Include="Clases\guiaViewLote.cs" />
     <Compile Include="Clases\loteView.cs" />
     <Compile Include="Clases\loteViewDeta.cs" />
     <Compile Include="Clases\ordencompraView.cs" />
     <Compile Include="Clases\ordencompraViewDeta.cs" />
+    <Compile Include="Clases\ordenpedidoViewCuota.cs" />
     <Compile Include="Clases\permisoView.cs" />
     <Compile Include="Clases\ordenpedidoView.cs" />
     <Compile Include="Clases\ordenpedidoViewDeta.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Clases\serieView.cs" />
     <Compile Include="Clases\serieViewDeta.cs" />
     <Compile Include="Clases\ventanaView.cs" />
+    <Compile Include="Clases\ventaViewCuota.cs" />
     <Compile Include="Clases\ventaViewLote.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
@@ -380,6 +383,9 @@
     <Compile Include="Models\GUIA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GUIA_CUOTAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GUIA_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -439,6 +445,9 @@
     <Compile Include="Models\ORDEN_PEDIDOS.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ORDEN_PEDIDOS_CUOTAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ORDEN_PEDIDOS_DETALLE.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -484,7 +493,13 @@
     <Compile Include="Models\Pr_DocNumeracion_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_DocSerie_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_DocuSerieLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_GuiaVentaDetVentaGuia_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_GuiaVentaLista_Result.cs">
@@ -494,6 +509,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_KardexMatTabla_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_KardexMovimientos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_LotesDisponibles_Result.cs">
@@ -599,6 +617,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VENTAS.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VENTA_CUOTA.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VENTA_DETALLE.cs">
@@ -3760,6 +3781,7 @@
     <Content Include="Views\DOCU_SERIE_USUARIO\Edit.cshtml" />
     <Content Include="Views\DOCU_SERIE_USUARIO\Index.cshtml" />
     <Content Include="Views\DOCU_SERIE\Details.cshtml" />
+    <Content Include="Views\ALMACENs\_Almacen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,7 +37,7 @@ namespace MarketASP.Models
         public Nullable<int> ncode_alma { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual Fabricacion Fabricacion { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

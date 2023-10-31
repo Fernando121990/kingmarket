@@ -103,7 +103,9 @@ namespace MarketASP.Controllers
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
             
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
+                Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi",1074);
+            ViewBag.sseri_orco = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1074), "ncode_dose", "serie");
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", yfecha);
@@ -144,7 +146,7 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_orco, mofView.ndsctoaf_orco, mofView.nsubex_orco, mofView.nsubaf_orco, mofView.nigvex_orco,
                                 mofView.nigvaf_orco, mofView.ntotaex_orco, mofView.ntotaaf_orco, mofView.ntotal_orco, mofView.ntotalMN_orco,
                                 mofView.ntotalUs_orco, true, mofView.nvalIGV_orco, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()),
-                                mofView.ncode_mone,sw);
+                                mofView.ncode_mone,mofView.ncode_dose,sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -212,7 +214,9 @@ namespace MarketASP.Controllers
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
 
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ORDEN_COMPRAS.smone_orco);
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
+                Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_docu);
+            ViewBag.sseri_orco = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, ORDEN_COMPRAS.ncode_docu), "ncode_dose", "serie",ORDEN_COMPRAS.ncode_dose);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi", ORDEN_COMPRAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", ORDEN_COMPRAS.ncode_alma);
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", ORDEN_COMPRAS.ncode_vende);
@@ -260,7 +264,7 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_orco, mofView.ndsctoaf_orco, mofView.nsubex_orco, mofView.nsubaf_orco, mofView.nigvex_orco,
                                 mofView.nigvaf_orco, mofView.ntotaex_orco, mofView.ntotaaf_orco, mofView.ntotal_orco, mofView.ntotalMN_orco,
                                 mofView.ntotalUs_orco, true, mofView.nvalIGV_orco, User.Identity.Name, mofView.ncode_alma,
-                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone, sw);
+                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_dose, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());

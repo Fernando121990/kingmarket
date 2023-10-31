@@ -59,6 +59,7 @@ namespace MarketASP.Models
         public string stipo_orco { get; set; }
         public Nullable<int> ntipo_orco { get; set; }
         public Nullable<bool> bprecioconigv_orco { get; set; }
+        public Nullable<long> ncode_dose { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }

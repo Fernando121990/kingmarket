@@ -12,6 +12,7 @@
           <Property Name="ncode_alma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sdesc_alma" Type="varchar" MaxLength="2000" Nullable="false" />
           <Property Name="besta_alma" Type="bit" Nullable="false" />
+          <Property Name="sabr_alma" Type="varchar" MaxLength="3" />
         </EntityType>
         <EntityType Name="ART_BARRA">
           <Key>
@@ -120,6 +121,7 @@
           <Property Name="nultcosto_arti" Type="decimal" Precision="18" Scale="4" />
           <Property Name="blote_arti" Type="bit" />
           <Property Name="nstocktransito_arti" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="bdescarga_arti" Type="bit" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -550,6 +552,40 @@
           <Property Name="bventaasociada_guia" Type="bit" />
           <Property Name="ncode_venta" Type="bigint" />
           <Property Name="sserienume_venta" Type="varchar" MaxLength="50" />
+          <Property Name="ncode_dose" Type="bigint" />
+          <Property Name="sglosadespacho_guia" Type="varchar(max)" />
+          <Property Name="bflete_guia" Type="bit" />
+          <Property Name="nbrutoex_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoex_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUS_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotas_guia" Type="bigint" />
+          <Property Name="ncuotavalor_guia" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_guia" Type="bigint" />
+          <Property Name="bclienteagretencion" Type="bit" />
+          <Property Name="nvalIGV_guia" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="GUIA_CUOTAS">
+          <Key>
+            <PropertyRef Name="ncode_guiacu" />
+          </Key>
+          <Property Name="ncode_guiacu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_guia" Type="bigint" />
+          <Property Name="dfreg_guiacu" Type="datetime" />
+          <Property Name="nvalor_guiacu" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_guiacu" Type="datetime" />
+          <Property Name="dfemo_guiacu" Type="datetime" />
+          <Property Name="suser_guiacu" Type="varchar" MaxLength="50" />
+          <Property Name="susmo_guiacu" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="GUIA_DETALLE">
           <Key>
@@ -773,6 +809,7 @@
           <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
           <Property Name="ntipo_orco" Type="int" />
           <Property Name="bprecioconigv_orco" Type="bit" />
+          <Property Name="ncode_dose" Type="bigint" />
         </EntityType>
         <EntityType Name="ORDEN_COMPRAS_DETALLE">
           <Key>
@@ -841,6 +878,26 @@
           <Property Name="dfdespacho_orpe" Type="datetime" />
           <Property Name="bprecioconigv_orpe" Type="bit" />
           <Property Name="bclienteagretencion" Type="bit" />
+          <Property Name="ncode_guia" Type="bigint" />
+          <Property Name="ncode_dose" Type="bigint" />
+          <Property Name="ncuotas_orpe" Type="bigint" />
+          <Property Name="ncuotavalor_orpe" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_orpe" Type="bigint" />
+          <Property Name="sglosadespacho_orpe" Type="varchar(max)" />
+          <Property Name="bflete_orpe" Type="bit" />
+        </EntityType>
+        <EntityType Name="ORDEN_PEDIDOS_CUOTAS">
+          <Key>
+            <PropertyRef Name="ncode_orpecu" />
+          </Key>
+          <Property Name="ncode_orpecu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_orpe" Type="bigint" />
+          <Property Name="dfreg_orpecu" Type="datetime" />
+          <Property Name="nvalor_orpecu" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_orpecu" Type="datetime" />
+          <Property Name="dfemo_orpecu" Type="datetime" />
+          <Property Name="suser_orpecu" Type="varchar" MaxLength="50" />
+          <Property Name="susmo_orpecu" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ORDEN_PEDIDOS_DETALLE">
           <Key>
@@ -1157,6 +1214,19 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfemo_venzo" Type="datetime" />
           <Property Name="susmo_venzo" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="VENTA_CUOTA">
+          <Key>
+            <PropertyRef Name="ncode_vedecu" />
+          </Key>
+          <Property Name="ncode_vedecu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncode_venta" Type="bigint" />
+          <Property Name="dfreg_vedecu" Type="datetime" />
+          <Property Name="nvalor_vedecu" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_vedecu" Type="datetime" />
+          <Property Name="dfemo_vedecu" Type="datetime" />
+          <Property Name="suser_vedecu" Type="varchar" MaxLength="50" />
+          <Property Name="susmo_vedecu" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="VENTA_DETALLE">
           <Key>
             <PropertyRef Name="ncode_vedeta" />
@@ -1255,6 +1325,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="bprecioconigv_venta" Type="bit" />
           <Property Name="bclienteagretencion" Type="bit" />
           <Property Name="sserienume_orpe" Type="varchar" MaxLength="50" />
+          <Property Name="ncode_guiaAsociadas_venta" Type="varchar" MaxLength="50" />
+          <Property Name="ncode_dose" Type="bigint" />
+          <Property Name="ncuotas_venta" Type="bigint" />
+          <Property Name="ncuotavalor_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="nretencionvalor_venta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_venta" Type="bigint" />
+          <Property Name="sglosadespacho_venta" Type="varchar(max)" />
+          <Property Name="bflete_venta" Type="bit" />
         </EntityType>
         <EntityType Name="ZONA">
           <Key>
@@ -1412,6 +1490,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GUIA_CUOTAS_GUIA">
+          <End Role="GUIA" Type="Self.GUIA" Multiplicity="0..1" />
+          <End Role="GUIA_CUOTAS" Type="Self.GUIA_CUOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUIA">
+              <PropertyRef Name="ncode_guia" />
+            </Principal>
+            <Dependent Role="GUIA_CUOTAS">
+              <PropertyRef Name="ncode_guia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LOTES_ARTICULO">
           <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
           <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
@@ -1433,6 +1523,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="LOTES">
               <PropertyRef Name="ncode_compra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+          <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="0..1" />
+          <End Role="ORDEN_PEDIDOS_CUOTAS" Type="Self.ORDEN_PEDIDOS_CUOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN_PEDIDOS">
+              <PropertyRef Name="ncode_orpe" />
+            </Principal>
+            <Dependent Role="ORDEN_PEDIDOS_CUOTAS">
+              <PropertyRef Name="ncode_orpe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1517,6 +1619,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="VENDEDOR_ZONA">
               <PropertyRef Name="ncode_zona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_CUOTA_VENTAS">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1" />
+          <End Role="VENTA_CUOTA" Type="Self.VENTA_CUOTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="ncode_venta" />
+            </Principal>
+            <Dependent Role="VENTA_CUOTA">
+              <PropertyRef Name="ncode_venta" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2674,6 +2788,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
           <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="Pr_KardexMovimientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
+          <Parameter Name="fini" Type="varchar" Mode="In" />
+          <Parameter Name="ffin" Type="varchar" Mode="In" />
+          <Parameter Name="sdesc_arti" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="Pr_LoteCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Almacen">
           <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
           <Parameter Name="dfvenci_lote" Type="datetime" Mode="In" />
@@ -2872,6 +2991,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="ncode_docu" Type="int" Mode="In" />
         </Function>
+        <Function Name="Pr_DocSerie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="int" Mode="In" />
+          <Parameter Name="susario_dose" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_local" Type="int" Mode="In" />
+          <Parameter Name="ncode_docu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Pr_DocSerieNumero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_dose" Type="int" Mode="In" />
+        </Function>
         <Function Name="Pr_Fabricacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tipo" Type="varchar" Mode="In" />
           <Parameter Name="Rec_Codigo" Type="bigint" Mode="In" />
@@ -2921,6 +3049,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="RecD_Cantidad" Type="decimal" Mode="In" />
         </Function>
         <Function Name="Pr_GuiaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_GuiaVentaDetVentaGuia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_GuiaVentaLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3034,6 +3165,12 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_mone" Type="int" Mode="In" />
           <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
           <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotas_orpe" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_orpe" Type="decimal" Mode="In" />
+          <Parameter Name="ncuotadias_orpe" Type="decimal" Mode="In" />
+          <Parameter Name="sglosadespacho_orpe" Type="varchar(max)" Mode="In" />
+          <Parameter Name="bflete_orpe" Type="bit" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_Orden_PedidoDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3088,6 +3225,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_mone" Type="int" Mode="In" />
           <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
           <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+          <Parameter Name="ncuotas_orpe" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_orpe" Type="decimal" Mode="In" />
+          <Parameter Name="ncuotadias_orpe" Type="decimal" Mode="In" />
+          <Parameter Name="sglosadespacho_orpe" Type="varchar(max)" Mode="In" />
+          <Parameter Name="bflete_orpe" Type="bit" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_OrdenPedidoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3279,6 +3421,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
           <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
           <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+          <Parameter Name="sguiaasociada" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotas_venta" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_venta" Type="decimal" Mode="In" />
+          <Parameter Name="nretencionvalor_venta" Type="decimal" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
           <Parameter Name="cc" Type="bigint" Mode="InOut" />
         </Function>
@@ -3334,6 +3481,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_mone" Type="int" Mode="In" />
           <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
           <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+          <Parameter Name="ncuotas_venta" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_venta" Type="decimal" Mode="In" />
+          <Parameter Name="nretencionvalor_venta" Type="decimal" Mode="In" />
           <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_ventaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3359,6 +3509,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_tran" Type="bigint" Mode="In" />
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
           <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+          <Parameter Name="nbrutoex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nbrutoaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ndctoex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctoaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nsubex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nsubaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nigvex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nigvaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotal_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalMN_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalUs_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nvalIGV_guia" Type="decimal" Mode="In" />
+          <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+          <Parameter Name="ncuotas_guia" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ncuotadias_guia" Type="decimal" Mode="In" />
+          <Parameter Name="sglosadespacho_guia" Type="varchar(max)" Mode="In" />
+          <Parameter Name="bflete_guia" Type="bit" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_GuiaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
@@ -3389,6 +3560,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_tran" Type="bigint" Mode="In" />
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
           <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+          <Parameter Name="nbrutoex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nbrutoaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ndctoex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ndsctoaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nsubex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nsubaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nigvex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nigvaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaex_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotaaf_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotal_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalMN_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ntotalUs_guia" Type="decimal" Mode="In" />
+          <Parameter Name="nvalIGV_guia" Type="decimal" Mode="In" />
+          <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+          <Parameter Name="ncuotas_guia" Type="bigint" Mode="In" />
+          <Parameter Name="ncuotavalor_guia" Type="decimal" Mode="In" />
+          <Parameter Name="ncuotadias_guia" Type="decimal" Mode="In" />
+          <Parameter Name="sglosadespacho_guia" Type="varchar(max)" Mode="In" />
+          <Parameter Name="bflete_guia" Type="bit" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_GuiaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
@@ -3404,6 +3596,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
         </Function>
         <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+        <Function Name="Pr_ArticuloPrecioCRUD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="accion" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_artpre" Type="bigint" Mode="In" />
+          <Parameter Name="nprecio_artpre" Type="decimal" Mode="In" />
+          <Parameter Name="ncode_lipre" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+          <Parameter Name="suser_artpre" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="Pr_ClienteDirecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
         </Function>
@@ -3424,11 +3624,29 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
         <Function Name="Pr_DocuSerieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="Pr_GuiaCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="accion" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_guiacu" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+          <Parameter Name="dfreg_guiacu" Type="datetime" Mode="In" />
+          <Parameter Name="nvalor_guiacu" Type="decimal" Mode="In" />
+          <Parameter Name="suser_guiacu" Type="varchar" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Pr_LotesDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
           <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
           <Parameter Name="fvenci_lote" Type="varchar" Mode="In" />
           <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Pr_Orden_PedidoCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="accion" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_orpecu" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+          <Parameter Name="dfreg_orpecu" Type="datetime" Mode="In" />
+          <Parameter Name="nvalor_orpecu" Type="decimal" Mode="In" />
+          <Parameter Name="suser_orpecu" Type="varchar" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_Orden_PedidoDetVentaGuia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
@@ -3461,6 +3679,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="tipo" Type="int" Mode="In" />
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
           <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Pr_VentaCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+          <Parameter Name="accion" Type="varchar" Mode="In" />
+          <Parameter Name="ncode_vedecu" Type="bigint" Mode="In" />
+          <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+          <Parameter Name="dfreg_vedecu" Type="datetime" Mode="In" />
+          <Parameter Name="nvalor_vedecu" Type="decimal" Mode="In" />
+          <Parameter Name="suser_vedecu" Type="varchar" Mode="In" />
+          <Parameter Name="sw" Type="int" Mode="InOut" />
         </Function>
         <Function Name="Pr_VentaListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
           <Parameter Name="tipo" Type="int" Mode="In" />
@@ -3520,6 +3747,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
           <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="ncode_mone" Type="int" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_Orden_CompraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
@@ -3571,6 +3799,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_alma" Type="int" Mode="In" />
           <Parameter Name="ncode_local" Type="int" Mode="In" />
           <Parameter Name="ncode_mone" Type="int" Mode="In" />
+          <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
           <Parameter Name="sw" Type="bigint" Mode="InOut" />
         </Function>
         <Function Name="Pr_OrdenCompraElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
@@ -3617,6 +3846,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="FabricacionDetalle" EntityType="Self.FabricacionDetalle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GUIA" EntityType="Self.GUIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GUIA_CUOTAS" EntityType="Self.GUIA_CUOTAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GUIA_DETALLE" EntityType="Self.GUIA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GUIA_LOTE" EntityType="Self.GUIA_LOTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
@@ -3631,6 +3861,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="ORDEN_COMPRAS" EntityType="Self.ORDEN_COMPRAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDEN_COMPRAS_DETALLE" EntityType="Self.ORDEN_COMPRAS_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDEN_PEDIDOS" EntityType="Self.ORDEN_PEDIDOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ORDEN_PEDIDOS_CUOTAS" EntityType="Self.ORDEN_PEDIDOS_CUOTAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="Self.ORDEN_PEDIDOS_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PROFORMA_DETALLE" EntityType="Self.PROFORMA_DETALLE" Schema="dbo" store:Type="Tables" />
@@ -3650,6 +3881,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENDEDOR" EntityType="Self.VENDEDOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENDEDOR_ZONA" EntityType="Self.VENDEDOR_ZONA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTA_CUOTA" EntityType="Self.VENTA_CUOTA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VENTA_LOTE" EntityType="Self.VENTA_LOTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
@@ -3723,6 +3955,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="Fabricacion" EntitySet="Fabricacion" />
             <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
           </AssociationSet>
+          <AssociationSet Name="FK_GUIA_CUOTAS_GUIA" Association="Self.FK_GUIA_CUOTAS_GUIA">
+            <End Role="GUIA" EntitySet="GUIA" />
+            <End Role="GUIA_CUOTAS" EntitySet="GUIA_CUOTAS" />
+          </AssociationSet>
           <AssociationSet Name="FK_LOTES_ARTICULO" Association="Self.FK_LOTES_ARTICULO">
             <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="LOTES" EntitySet="LOTES" />
@@ -3730,6 +3966,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_LOTES_COMPRAS" Association="Self.FK_LOTES_COMPRAS">
             <End Role="COMPRAS" EntitySet="COMPRAS" />
             <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" Association="Self.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+            <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+            <End Role="ORDEN_PEDIDOS_CUOTAS" EntitySet="ORDEN_PEDIDOS_CUOTAS" />
           </AssociationSet>
           <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -3758,6 +3998,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_VENDEDOR_ZONA_ZONA" Association="Self.FK_VENDEDOR_ZONA_ZONA">
             <End Role="ZONA" EntitySet="ZONA" />
             <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_CUOTA_VENTAS" Association="Self.FK_VENTA_CUOTA_VENTAS">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="VENTA_CUOTA" EntitySet="VENTA_CUOTA" />
           </AssociationSet>
           <AssociationSet Name="R_1" Association="Self.R_1">
             <End Role="FAMILIA" EntitySet="FAMILIA" />
@@ -4306,6 +4550,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
             <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
             <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
+            <Parameter Name="sguiaasociada" Mode="In" Type="String" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
+            <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
             <Parameter Name="cc" Mode="InOut" Type="Int64" />
           </FunctionImport>
@@ -4361,6 +4610,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
             <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
             <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+            <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
+            <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Pr_ventaAnula">
@@ -4751,59 +5003,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="AspNetRoles" EntityType="MarketWebModel.AspNetRoles" />
           <EntitySet Name="ESPECIE" EntityType="MarketWebModel.ESPECIE" />
           <EntitySet Name="SUBESPECIE" EntityType="MarketWebModel.SUBESPECIE" />
-          <EntitySet Name="ARTICULO" EntityType="MarketWebModel.ARTICULO" />
-          <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ART_BARRA" EntitySet="ART_BARRA" />
-          </AssociationSet>
-          <AssociationSet Name="R_7" Association="MarketWebModel.R_7">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
-          </AssociationSet>
-          <AssociationSet Name="R_10" Association="MarketWebModel.R_10">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ART_PROVE" EntitySet="ART_PROVE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ARTICULO_ESPECIE" Association="MarketWebModel.FK_ARTICULO_ESPECIE">
-            <End Role="ESPECIE" EntitySet="ESPECIE" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ARTICULO_SUBESPECIE" Association="MarketWebModel.FK_ARTICULO_SUBESPECIE">
-            <End Role="SUBESPECIE" EntitySet="SUBESPECIE" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_1" Association="MarketWebModel.R_1">
-            <End Role="FAMILIA" EntitySet="FAMILIA" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_2" Association="MarketWebModel.R_2">
-            <End Role="CLASE" EntitySet="CLASE" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_23" Association="MarketWebModel.R_23">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="KARDEX" EntitySet="KARDEX" />
-          </AssociationSet>
-          <AssociationSet Name="R_3" Association="MarketWebModel.R_3">
-            <End Role="MARCA" EntitySet="MARCA" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_32" Association="MarketWebModel.R_32">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="R_39" Association="MarketWebModel.R_39">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="COMPRA_DETALLE" EntitySet="COMPRA_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="R_4" Association="MarketWebModel.R_4">
-            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="R_63" Association="MarketWebModel.R_63">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
-          </AssociationSet>
           <EntitySet Name="ZONA" EntityType="MarketWebModel.ZONA" />
           <EntitySet Name="TRANSPORTISTA" EntityType="MarketWebModel.TRANSPORTISTA" />
           <EntitySet Name="PROVEEDOR" EntityType="MarketWebModel.PROVEEDOR" />
@@ -4830,10 +5029,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <FunctionImport Name="Pr_Sublinealista" ReturnType="Collection(MarketWebModel.Pr_Sublinealista_Result)" />
           <FunctionImport Name="Pr_SubespecieLista" ReturnType="Collection(MarketWebModel.Pr_SubespecieLista_Result)" />
           <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="MarketWebModel.ORDEN_PEDIDOS_DETALLE" />
-          <AssociationSet Name="R_630" Association="MarketWebModel.R_630">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
-          </AssociationSet>
           <FunctionImport Name="Pr_Orden_PedidoCrea">
             <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
             <Parameter Name="sseri_orpe" Mode="In" Type="String" />
@@ -4869,6 +5064,12 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
             <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
             <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotas_orpe" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_orpe" Mode="In" Type="Decimal" />
+            <Parameter Name="ncuotadias_orpe" Mode="In" Type="Decimal" />
+            <Parameter Name="sglosadespacho_orpe" Mode="In" Type="String" />
+            <Parameter Name="bflete_orpe" Mode="In" Type="Boolean" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_Orden_PedidoDetaCrea">
@@ -4923,20 +5124,17 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
             <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
             <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+            <Parameter Name="ncuotas_orpe" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_orpe" Mode="In" Type="Decimal" />
+            <Parameter Name="ncuotadias_orpe" Mode="In" Type="Decimal" />
+            <Parameter Name="sglosadespacho_orpe" Mode="In" Type="String" />
+            <Parameter Name="bflete_orpe" Mode="In" Type="Boolean" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_OrdenPedidoElimina">
             <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="FK_ARTICULO_LINEA" Association="MarketWebModel.FK_ARTICULO_LINEA">
-            <End Role="LINEA" EntitySet="LINEA" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ARTICULO_SUBLINEA" Association="MarketWebModel.FK_ARTICULO_SUBLINEA">
-            <End Role="SUBLINEA" EntitySet="SUBLINEA" />
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-          </AssociationSet>
           <EntitySet Name="CLI_FOPAGO" EntityType="MarketWebModel.CLI_FOPAGO" />
           <AssociationSet Name="FK_CLI_FOPAGO_CONFIGURACION" Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -5074,10 +5272,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="CLIENTE" EntitySet="CLIENTE" />
           </AssociationSet>
           <EntitySet Name="ORDEN_COMPRAS_DETALLE" EntityType="MarketWebModel.ORDEN_COMPRAS_DETALLE" />
-          <AssociationSet Name="R_c630" Association="MarketWebModel.R_c630">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="ORDEN_COMPRAS_DETALLE" EntitySet="ORDEN_COMPRAS_DETALLE" />
-          </AssociationSet>
           <FunctionImport Name="Pr_OCompraConsulta" ReturnType="Collection(MarketWebModel.Pr_OCompraConsulta_Result)">
             <Parameter Name="tipo" Mode="In" Type="Int32" />
             <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
@@ -5119,6 +5313,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
             <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_Orden_CompraDetaCrea">
@@ -5170,6 +5365,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
             <Parameter Name="ncode_local" Mode="In" Type="Int32" />
             <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_OrdenCompraElimina">
@@ -5218,10 +5414,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="LOTES" EntityType="MarketWebModel.LOTES" />
           <AssociationSet Name="FK_LOTES_COMPRAS" Association="MarketWebModel.FK_LOTES_COMPRAS">
             <End Role="COMPRAS" EntitySet="COMPRAS" />
-            <End Role="LOTES" EntitySet="LOTES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LOTES_ARTICULO" Association="MarketWebModel.FK_LOTES_ARTICULO">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="LOTES" EntitySet="LOTES" />
           </AssociationSet>
           <FunctionImport Name="Pr_CompraLotesArticulo" ReturnType="Collection(MarketWebModel.Pr_CompraLotesArticulo_Result)">
@@ -5280,10 +5472,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <End Role="ALMACEN" EntitySet="ALMACEN" />
             <End Role="GUIA" EntitySet="GUIA" />
           </AssociationSet>
-          <AssociationSet Name="RGD_18" Association="MarketWebModel.RGD_18">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
-          </AssociationSet>
           <AssociationSet Name="RG_17" Association="MarketWebModel.RG_17">
             <End Role="TIPO_GUIA" EntitySet="TIPO_GUIA" />
             <End Role="GUIA" EntitySet="GUIA" />
@@ -5315,6 +5503,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
             <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
             <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+            <Parameter Name="nbrutoex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nbrutoaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ndctoex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctoaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotal_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalMN_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalUs_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nvalIGV_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+            <Parameter Name="ncuotas_guia" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ncuotadias_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="sglosadespacho_guia" Mode="In" Type="String" />
+            <Parameter Name="bflete_guia" Mode="In" Type="Boolean" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_GuiaDetaCrea">
@@ -5345,6 +5554,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
             <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
             <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
+            <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+            <Parameter Name="nbrutoex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nbrutoaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ndctoex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ndsctoaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nsubaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nigvaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaex_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotaaf_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotal_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalMN_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ntotalUs_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="nvalIGV_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+            <Parameter Name="ncuotas_guia" Mode="In" Type="Int64" />
+            <Parameter Name="ncuotavalor_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="ncuotadias_guia" Mode="In" Type="Decimal" />
+            <Parameter Name="sglosadespacho_guia" Mode="In" Type="String" />
+            <Parameter Name="bflete_guia" Mode="In" Type="Boolean" />
             <Parameter Name="sw" Mode="InOut" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="Pr_GuiaElimina">
@@ -5359,10 +5589,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="VENTA_LOTE" EntityType="MarketWebModel.VENTA_LOTE" />
           <AssociationSet Name="RL_33" Association="MarketWebModel.RL_33">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
-            <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
-          </AssociationSet>
-          <AssociationSet Name="RL_32" Association="MarketWebModel.RL_32">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
           </AssociationSet>
           <AssociationSet Name="RL_31" Association="MarketWebModel.RL_31">
@@ -5385,10 +5611,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySet Name="GUIA_LOTE" EntityType="MarketWebModel.GUIA_LOTE" />
           <AssociationSet Name="RG_33" Association="MarketWebModel.RG_33">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
-            <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
-          </AssociationSet>
-          <AssociationSet Name="RG_32" Association="MarketWebModel.RG_32">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
           </AssociationSet>
           <AssociationSet Name="RG_31" Association="MarketWebModel.RG_31">
@@ -5420,14 +5642,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           </AssociationSet>
           <AssociationSet Name="RMO_33" Association="MarketWebModel.RMO_33">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
-            <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
-          </AssociationSet>
-          <AssociationSet Name="R_18" Association="MarketWebModel.R_18">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="RMO_32" Association="MarketWebModel.RMO_32">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
           </AssociationSet>
           <AssociationSet Name="R_19" Association="MarketWebModel.R_19">
@@ -5463,10 +5677,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <AssociationSet Name="FK_Receta_ALMACEN" Association="MarketWebModel.FK_Receta_ALMACEN">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
             <End Role="Receta" EntitySet="Receta" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RecetaDetalle_ARTICULO" Association="MarketWebModel.FK_RecetaDetalle_ARTICULO">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
-            <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_RecetaDetalle_CONFIGURACION" Association="MarketWebModel.FK_RecetaDetalle_CONFIGURACION">
             <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -5509,10 +5719,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           </AssociationSet>
           <AssociationSet Name="FK_FabricacionDetalle_ALMACEN" Association="MarketWebModel.FK_FabricacionDetalle_ALMACEN">
             <End Role="ALMACEN" EntitySet="ALMACEN" />
-            <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FabricacionDetalle_ARTICULO" Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO">
-            <End Role="ARTICULO" EntitySet="ARTICULO" />
             <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_FabricacionDetalle_Fabricacion" Association="MarketWebModel.FK_FabricacionDetalle_Fabricacion">
@@ -5614,6 +5820,174 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="documento" Mode="In" Type="String" />
             <Parameter Name="cliente" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Pr_GuiaVentaDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_GuiaVentaDetVentaGuia_Result)">
+          <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_DocSerie" ReturnType="Collection(MarketWebModel.Pr_DocSerie_Result)">
+            <Parameter Name="tipo" Mode="In" Type="Int32" />
+            <Parameter Name="susario_dose" Mode="In" Type="String" />
+            <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+            <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_DocSerieNumero" ReturnType="Collection(String)">
+          <Parameter Name="ncode_dose" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_ArticuloPrecioCRUD">
+            <Parameter Name="accion" Mode="In" Type="String" />
+            <Parameter Name="ncode_artpre" Mode="In" Type="Int64" />
+            <Parameter Name="nprecio_artpre" Mode="In" Type="Decimal" />
+            <Parameter Name="ncode_lipre" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+            <Parameter Name="suser_artpre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Pr_Orden_PedidoCuotaCrud">
+            <Parameter Name="accion" Mode="In" Type="String" />
+            <Parameter Name="ncode_orpecu" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+            <Parameter Name="dfreg_orpecu" Mode="In" Type="DateTime" />
+            <Parameter Name="nvalor_orpecu" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_orpecu" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ORDEN_PEDIDOS_CUOTAS" EntityType="MarketWebModel.ORDEN_PEDIDOS_CUOTAS" />
+          <EntitySet Name="VENTA_CUOTA" EntityType="MarketWebModel.VENTA_CUOTA" />
+          <AssociationSet Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" Association="MarketWebModel.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+            <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+            <End Role="ORDEN_PEDIDOS_CUOTAS" EntitySet="ORDEN_PEDIDOS_CUOTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENTA_CUOTA_VENTAS" Association="MarketWebModel.FK_VENTA_CUOTA_VENTAS">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="VENTA_CUOTA" EntitySet="VENTA_CUOTA" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_VentaCuotaCrud">
+            <Parameter Name="accion" Mode="In" Type="String" />
+            <Parameter Name="ncode_vedecu" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+            <Parameter Name="dfreg_vedecu" Mode="In" Type="DateTime" />
+            <Parameter Name="nvalor_vedecu" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_vedecu" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="GUIA_CUOTAS" EntityType="MarketWebModel.GUIA_CUOTAS" />
+          <AssociationSet Name="FK_GUIA_CUOTAS_GUIA" Association="MarketWebModel.FK_GUIA_CUOTAS_GUIA">
+            <End Role="GUIA" EntitySet="GUIA" />
+            <End Role="GUIA_CUOTAS" EntitySet="GUIA_CUOTAS" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_GuiaCuotaCrud">
+            <Parameter Name="accion" Mode="In" Type="String" />
+            <Parameter Name="ncode_guiacu" Mode="In" Type="Int64" />
+            <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+            <Parameter Name="dfreg_guiacu" Mode="In" Type="DateTime" />
+            <Parameter Name="nvalor_guiacu" Mode="In" Type="Decimal" />
+            <Parameter Name="suser_guiacu" Mode="In" Type="String" />
+            <Parameter Name="sw" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="ARTICULO" EntityType="MarketWebModel.ARTICULO" />
+          <AssociationSet Name="R_8" Association="MarketWebModel.R_8">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ART_BARRA" EntitySet="ART_BARRA" />
+          </AssociationSet>
+          <AssociationSet Name="R_7" Association="MarketWebModel.R_7">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ART_PRECIO" EntitySet="ART_PRECIO" />
+          </AssociationSet>
+          <AssociationSet Name="R_10" Association="MarketWebModel.R_10">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ART_PROVE" EntitySet="ART_PROVE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ARTICULO_ESPECIE" Association="MarketWebModel.FK_ARTICULO_ESPECIE">
+            <End Role="ESPECIE" EntitySet="ESPECIE" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ARTICULO_LINEA" Association="MarketWebModel.FK_ARTICULO_LINEA">
+            <End Role="LINEA" EntitySet="LINEA" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ARTICULO_SUBESPECIE" Association="MarketWebModel.FK_ARTICULO_SUBESPECIE">
+            <End Role="SUBESPECIE" EntitySet="SUBESPECIE" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ARTICULO_SUBLINEA" Association="MarketWebModel.FK_ARTICULO_SUBLINEA">
+            <End Role="SUBLINEA" EntitySet="SUBLINEA" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FabricacionDetalle_ARTICULO" Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOTES_ARTICULO" Association="MarketWebModel.FK_LOTES_ARTICULO">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecetaDetalle_ARTICULO" Association="MarketWebModel.FK_RecetaDetalle_ARTICULO">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="RecetaDetalle" EntitySet="RecetaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="R_1" Association="MarketWebModel.R_1">
+            <End Role="FAMILIA" EntitySet="FAMILIA" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="R_18" Association="MarketWebModel.R_18">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="MOVI_DETALLE" EntitySet="MOVI_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_2" Association="MarketWebModel.R_2">
+            <End Role="CLASE" EntitySet="CLASE" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="R_23" Association="MarketWebModel.R_23">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="KARDEX" EntitySet="KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="R_3" Association="MarketWebModel.R_3">
+            <End Role="MARCA" EntitySet="MARCA" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="R_32" Association="MarketWebModel.R_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="VENTA_DETALLE" EntitySet="VENTA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_39" Association="MarketWebModel.R_39">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="COMPRA_DETALLE" EntitySet="COMPRA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_4" Association="MarketWebModel.R_4">
+            <End Role="UMEDIDA" EntitySet="UMEDIDA" />
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+          </AssociationSet>
+          <AssociationSet Name="R_63" Association="MarketWebModel.R_63">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="PROFORMA_DETALLE" EntitySet="PROFORMA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_630" Association="MarketWebModel.R_630">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ORDEN_PEDIDOS_DETALLE" EntitySet="ORDEN_PEDIDOS_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="R_c630" Association="MarketWebModel.R_c630">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="ORDEN_COMPRAS_DETALLE" EntitySet="ORDEN_COMPRAS_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RG_32" Association="MarketWebModel.RG_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="GUIA_LOTE" EntitySet="GUIA_LOTE" />
+          </AssociationSet>
+          <AssociationSet Name="RGD_18" Association="MarketWebModel.RGD_18">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="GUIA_DETALLE" EntitySet="GUIA_DETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="RL_32" Association="MarketWebModel.RL_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="VENTA_LOTE" EntitySet="VENTA_LOTE" />
+          </AssociationSet>
+          <AssociationSet Name="RMO_32" Association="MarketWebModel.RMO_32">
+            <End Role="ARTICULO" EntitySet="ARTICULO" />
+            <End Role="MOVI_LOTE" EntitySet="MOVI_LOTE" />
+          </AssociationSet>
+          <FunctionImport Name="Pr_KardexMovimientos" ReturnType="Collection(MarketWebModel.Pr_KardexMovimientos_Result)">
+            <Parameter Name="fini" Mode="In" Type="String" />
+            <Parameter Name="ffin" Mode="In" Type="String" />
+            <Parameter Name="sdesc_arti" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="ALMACEN">
           <Key>
@@ -5639,6 +6013,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="Receta" Relationship="MarketWebModel.FK_Receta_ALMACEN" FromRole="ALMACEN" ToRole="Receta" />
           <NavigationProperty Name="Fabricacion" Relationship="MarketWebModel.FK_Fabricacion_ALMACEN" FromRole="ALMACEN" ToRole="Fabricacion" />
           <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_ALMACEN" FromRole="ALMACEN" ToRole="FabricacionDetalle" />
+          <Property Name="sabr_alma" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ART_BARRA">
           <Key>
@@ -5681,8 +6056,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfech_arprove" Type="DateTime" Precision="3" />
           <Property Name="susmo_arprove" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_arprove" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_10" FromRole="ART_PROVE" ToRole="ARTICULO" />
           <NavigationProperty Name="PROVEEDOR" Relationship="MarketWebModel.R_9" FromRole="ART_PROVE" ToRole="PROVEEDOR" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_10" FromRole="ART_PROVE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="CLASE">
           <Key>
@@ -5842,9 +6217,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="susmo_umed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_umed" Type="DateTime" Precision="3" />
           <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_26" FromRole="UMEDIDA" ToRole="KARDEX" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
           <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_25" FromRole="UMEDIDA" ToRole="GUIA_DETALLE" />
           <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_25" FromRole="UMEDIDA" ToRole="MOVI_DETALLE" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_4" FromRole="UMEDIDA" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="R_6">
           <End Type="MarketWebModel.LISTA_PRECIO" Role="LISTA_PRECIO" Multiplicity="1" />
@@ -5964,8 +6339,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="ncode_umed" Type="Int64" Nullable="false" />
           <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_26" FromRole="KARDEX" ToRole="UMEDIDA" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.R_24" FromRole="KARDEX" ToRole="CONFIGURACION" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
           <Property Name="borpe_kardex" Type="Boolean" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_23" FromRole="KARDEX" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="R_22">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -6012,9 +6387,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_33" FromRole="VENTA_DETALLE" ToRole="ALMACEN" />
           <Property Name="nback_vedeta" Type="Int32" />
           <Property Name="nsubt_vedeta" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
           <Property Name="ncantLote_vedeta" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="R_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -6047,8 +6422,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.R_37" FromRole="COMPRA_DETALLE" ToRole="ALMACEN" />
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.R_35" FromRole="COMPRA_DETALLE" ToRole="COMPRAS" />
           <Property Name="nsubt_comdeta" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_39" FromRole="COMPRA_DETALLE" ToRole="ARTICULO" />
           <Property Name="ncantLote_comdeta" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_39" FromRole="COMPRA_DETALLE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="COMPRAS">
           <Key>
@@ -6717,6 +7092,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="Decimal" Name="nultcosto_arti" Nullable="true" Precision="18" Scale="4" />
           <Property Type="Decimal" Name="Disponible" Nullable="false" Precision="19" Scale="4" />
           <Property Type="Decimal" Name="nstocktransito_arti" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="npreciotope_arti" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="nmargen_arti" Nullable="false" Precision="18" Scale="4" />
         </ComplexType>
         <ComplexType Name="Pr_KardexArticulos_Result">
           <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
@@ -6803,259 +7180,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfech_subesp" Type="DateTime" Precision="3" />
           <Property Name="susmo_subesp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dfemo_subesp" Type="DateTime" Precision="3" />
+          <Property Name="ncode_espe" Type="Int64" />
           <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_ARTICULO_SUBESPECIE" FromRole="SUBESPECIE" ToRole="ARTICULO" />
-          <Property Name="ncode_espe" Type="Int64" />
         </EntityType>
-        <EntityType Name="ARTICULO">
-          <Key>
-            <PropertyRef Name="ncode_arti" />
-          </Key>
-          <Property Name="ncode_arti" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sdesc1_arti" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="sdesc2_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="sdescweb_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="scode_arti" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ncode_fami" Type="Int64" />
-          <Property Name="ncode_clase" Type="Int64" />
-          <Property Name="ncode_marca" Type="Int64" />
-          <Property Name="ncode_umed" Type="Int64" />
-          <Property Name="bisc_arti" Type="Boolean" />
-          <Property Name="bafecto_arti" Type="Boolean" />
-          <Property Name="bivap_arti" Type="Boolean" />
-          <Property Name="bpercepcion_arti" Type="Boolean" />
-          <Property Name="nporpercepcion_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="bvenc_arti" Type="Boolean" />
-          <Property Name="sserie_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="sobse_arti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="nesta_arti" Type="Boolean" Nullable="false" />
-          <Property Name="nstockmin_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="nstockmax_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="sabrev_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="bdscto_arti" Type="Boolean" />
-          <Property Name="spaisOrigen_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="bprocedencia_arti" Type="Boolean" />
-          <Property Name="suser_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="dfech_arti" Type="DateTime" Precision="3" />
-          <Property Name="susmo_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="dfemo_arti" Type="DateTime" Precision="3" />
-          <Property Name="bicbper_arti" Type="Boolean" />
-          <Property Name="scodsunat_arti" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="stipomerca_arti" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="scodectadebe_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ctadebe_ventas" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="scodectahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ctahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="scodectadebe_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ctadebe_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="scodectahaber_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ctahaber_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="scodigo_sap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sorigen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="snombre_equivalencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sequivalenciaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sequivalenciaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="smoneda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nstockactual" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="bdetraccion" Type="Boolean" />
-          <Property Name="porcdetraccion" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="codigodetraccion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="snombrepalletcaja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="spallet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="sbandeja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ncode_linea" Type="Int64" />
-          <Property Name="ncode_sublinea" Type="Int64" />
-          <Property Name="nprecio_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="nstockreservado_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="ncode_espe" Type="Int64" />
-          <Property Name="ncode_subesp" Type="Int64" />
-          <NavigationProperty Name="ART_BARRA" Relationship="MarketWebModel.R_8" FromRole="ARTICULO" ToRole="ART_BARRA" />
-          <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_7" FromRole="ARTICULO" ToRole="ART_PRECIO" />
-          <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_10" FromRole="ARTICULO" ToRole="ART_PROVE" />
-          <NavigationProperty Name="ESPECIE" Relationship="MarketWebModel.FK_ARTICULO_ESPECIE" FromRole="ARTICULO" ToRole="ESPECIE" />
-          <NavigationProperty Name="SUBESPECIE" Relationship="MarketWebModel.FK_ARTICULO_SUBESPECIE" FromRole="ARTICULO" ToRole="SUBESPECIE" />
-          <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
-          <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
-          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
-          <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
-          <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
-          <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_39" FromRole="ARTICULO" ToRole="COMPRA_DETALLE" />
-          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
-          <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_63" FromRole="ARTICULO" ToRole="PROFORMA_DETALLE" />
-          <Property Name="npreciotope_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="nmargen_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="ncosto_arti" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="nultcosto_arti" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_630" FromRole="ARTICULO" ToRole="ORDEN_PEDIDOS_DETALLE" />
-          <NavigationProperty Name="LINEA" Relationship="MarketWebModel.FK_ARTICULO_LINEA" FromRole="ARTICULO" ToRole="LINEA" />
-          <NavigationProperty Name="SUBLINEA" Relationship="MarketWebModel.FK_ARTICULO_SUBLINEA" FromRole="ARTICULO" ToRole="SUBLINEA" />
-          <Property Name="blote_arti" Type="Boolean" />
-          <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
-          <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
-          <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_18" FromRole="ARTICULO" ToRole="GUIA_DETALLE" />
-          <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_32" FromRole="ARTICULO" ToRole="VENTA_LOTE" />
-          <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_32" FromRole="ARTICULO" ToRole="GUIA_LOTE" />
-          <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
-          <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_32" FromRole="ARTICULO" ToRole="MOVI_LOTE" />
-          <NavigationProperty Name="RecetaDetalle" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="ARTICULO" ToRole="RecetaDetalle" />
-          <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="ARTICULO" ToRole="FabricacionDetalle" />
-        </EntityType>
-        <Association Name="R_8">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ART_BARRA">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_7">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ART_PRECIO" Role="ART_PRECIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ART_PRECIO">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_10">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ART_PROVE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ARTICULO_ESPECIE">
-          <End Type="MarketWebModel.ESPECIE" Role="ESPECIE" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ESPECIE">
-              <PropertyRef Name="ncode_espe" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_espe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ARTICULO_SUBESPECIE">
-          <End Type="MarketWebModel.SUBESPECIE" Role="SUBESPECIE" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SUBESPECIE">
-              <PropertyRef Name="ncode_subesp" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_subesp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_1">
-          <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FAMILIA">
-              <PropertyRef Name="ncode_fami" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_fami" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_2">
-          <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CLASE">
-              <PropertyRef Name="ncode_clase" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_clase" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_23">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="KARDEX">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_3">
-          <End Type="MarketWebModel.MARCA" Role="MARCA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MARCA">
-              <PropertyRef Name="ncode_marca" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_marca" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_32">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="VENTA_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_39">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.COMPRA_DETALLE" Role="COMPRA_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="COMPRA_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_4">
-          <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UMEDIDA">
-              <PropertyRef Name="ncode_umed" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_umed" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_63">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="PROFORMA_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ZONA">
           <Key>
             <PropertyRef Name="ncode_zona" />
@@ -7208,47 +7335,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="nback_orpedeta" Type="Int32" />
           <Property Name="ncode_orpe" Type="Int64" />
           <Property Name="nsubt_orpedeta" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_630" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ARTICULO" />
           <Property Name="npuorigen_orpedeta" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="ncantventa_orpedeta" Type="Decimal" Precision="18" Scale="4" />
           <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ORDEN_PEDIDOS" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_630" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ARTICULO" />
         </EntityType>
-        <Association Name="R_630">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Role="ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ORDEN_PEDIDOS_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ARTICULO_LINEA">
-          <End Type="MarketWebModel.LINEA" Role="LINEA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LINEA">
-              <PropertyRef Name="ncode_linea" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_linea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ARTICULO_SUBLINEA">
-          <End Type="MarketWebModel.SUBLINEA" Role="SUBLINEA" Multiplicity="0..1" />
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SUBLINEA">
-              <PropertyRef Name="ncode_sublinea" />
-            </Principal>
-            <Dependent Role="ARTICULO">
-              <PropertyRef Name="ncode_sublinea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="CLI_FOPAGO">
           <Key>
             <PropertyRef Name="ncode_clifo" />
@@ -7530,6 +7621,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="bprecioconigv_venta" Type="Boolean" />
           <Property Name="bclienteagretencion" Type="Boolean" />
           <Property Name="sserienume_orpe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_guiaAsociadas_venta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_dose" Type="Int64" />
+          <Property Name="ncuotas_venta" Type="Int64" />
+          <Property Name="ncuotavalor_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nretencionvalor_venta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_venta" Type="Int64" />
+          <Property Name="sglosadespacho_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bflete_venta" Type="Boolean" />
+          <NavigationProperty Name="VENTA_CUOTA" Relationship="MarketWebModel.FK_VENTA_CUOTA_VENTAS" FromRole="VENTAS" ToRole="VENTA_CUOTA" />
         </EntityType>
         <Association Name="R_29">
           <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -7654,6 +7754,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfdespacho_orpe" Type="DateTime" Precision="3" />
           <Property Name="bprecioconigv_orpe" Type="Boolean" />
           <Property Name="bclienteagretencion" Type="Boolean" />
+          <Property Name="ncode_guia" Type="Int64" />
+          <Property Name="ncode_dose" Type="Int64" />
+          <Property Name="ncuotas_orpe" Type="Int64" />
+          <Property Name="ncuotavalor_orpe" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_orpe" Type="Int64" />
+          <Property Name="sglosadespacho_orpe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bflete_orpe" Type="Boolean" />
+          <NavigationProperty Name="ORDEN_PEDIDOS_CUOTAS" Relationship="MarketWebModel.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_CUOTAS" />
         </EntityType>
         <Association Name="R_670">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -7828,21 +7936,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="nsubt_orcodeta" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="npuorigen_orcodeta" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="ncantventa_orcodeta" Type="Decimal" Precision="18" Scale="4" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_c630" FromRole="ORDEN_COMPRAS_DETALLE" ToRole="ARTICULO" />
           <NavigationProperty Name="ORDEN_COMPRAS" Relationship="MarketWebModel.R_c620" FromRole="ORDEN_COMPRAS_DETALLE" ToRole="ORDEN_COMPRAS" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_c630" FromRole="ORDEN_COMPRAS_DETALLE" ToRole="ARTICULO" />
         </EntityType>
-        <Association Name="R_c630">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.ORDEN_COMPRAS_DETALLE" Role="ORDEN_COMPRAS_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="ORDEN_COMPRAS_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="Pr_OCompraConsulta_Result">
           <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
@@ -7918,6 +8014,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="stipo_orco" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="ntipo_orco" Type="Int32" />
           <Property Name="bprecioconigv_orco" Type="Boolean" />
+          <Property Name="ncode_dose" Type="Int64" />
         </EntityType>
         <Association Name="R_c670">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -8016,7 +8113,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfemo_lote" Type="DateTime" Precision="3" />
           <Property Name="susmo_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COMPRAS" Relationship="MarketWebModel.FK_LOTES_COMPRAS" FromRole="LOTES" ToRole="COMPRAS" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
           <Property Name="nback_lote" Type="Int32" />
           <Property Name="stipomovi_lote" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="smodulo_confi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -8026,6 +8122,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="snume_lote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ncodeDoc_lote" Type="Int64" />
           <Property Name="ncode_lotepadre" Type="Int64" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="LOTES" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="FK_LOTES_COMPRAS">
           <End Type="MarketWebModel.COMPRAS" Role="COMPRAS" Multiplicity="0..1" />
@@ -8036,18 +8133,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="LOTES">
               <PropertyRef Name="ncode_compra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LOTES_ARTICULO">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
-          <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="LOTES">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8140,6 +8225,28 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="bventaasociada_guia" Type="Boolean" />
           <Property Name="ncode_venta" Type="Int64" />
           <Property Name="sserienume_venta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_dose" Type="Int64" />
+          <Property Name="sglosadespacho_guia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bflete_guia" Type="Boolean" />
+          <Property Name="nbrutoex_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nbrutoaf_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoex_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ndsctoaf_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubex_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nsubaf_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvex_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nigvaf_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaex_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotaaf_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotal_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalMN_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ntotalUS_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotas_guia" Type="Int64" />
+          <Property Name="ncuotavalor_guia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncuotadias_guia" Type="Int64" />
+          <Property Name="bclienteagretencion" Type="Boolean" />
+          <NavigationProperty Name="GUIA_CUOTAS" Relationship="MarketWebModel.FK_GUIA_CUOTAS_GUIA" FromRole="GUIA" ToRole="GUIA_CUOTAS" />
+          <Property Name="nvalIGV_guia" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="GUIA_DETALLE">
           <Key>
@@ -8155,10 +8262,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfemo_guiadet" Type="DateTime" Precision="3" />
           <Property Name="ncode_guia" Type="Int64" Nullable="false" />
           <Property Name="ncode_umed" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RGD_18" FromRole="GUIA_DETALLE" ToRole="ARTICULO" />
           <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RGD_19" FromRole="GUIA_DETALLE" ToRole="GUIA" />
           <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.RGD_25" FromRole="GUIA_DETALLE" ToRole="UMEDIDA" />
           <Property Name="nback_guiadet" Type="Boolean" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RGD_18" FromRole="GUIA_DETALLE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="TIPO_GUIA">
           <Key>
@@ -8193,18 +8300,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="GUIA">
               <PropertyRef Name="ndestino_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RGD_18">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="GUIA_DETALLE">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8268,11 +8363,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="ncode_alma" Type="Int32" />
           <Property Name="nback_velote" Type="Int32" />
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RL_33" FromRole="VENTA_LOTE" ToRole="ALMACEN" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RL_32" FromRole="VENTA_LOTE" ToRole="ARTICULO" />
           <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.RL_31" FromRole="VENTA_LOTE" ToRole="VENTAS" />
           <Property Name="sdesc_lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
           <Property Name="ncode_lote" Type="Int64" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RL_32" FromRole="VENTA_LOTE" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="RL_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -8283,18 +8378,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="VENTA_LOTE">
               <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RL_32">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.VENTA_LOTE" Role="VENTA_LOTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="VENTA_LOTE">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8324,8 +8407,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
           <Property Name="ncode_lote" Type="Int64" />
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RG_33" FromRole="GUIA_LOTE" ToRole="ALMACEN" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RG_32" FromRole="GUIA_LOTE" ToRole="ARTICULO" />
           <NavigationProperty Name="GUIA" Relationship="MarketWebModel.RG_31" FromRole="GUIA_LOTE" ToRole="GUIA" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RG_32" FromRole="GUIA_LOTE" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="RG_33">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -8336,18 +8419,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="GUIA_LOTE">
               <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RG_32">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.GUIA_LOTE" Role="GUIA_LOTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="GUIA_LOTE">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8377,10 +8448,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfemo_movidet" Type="DateTime" Precision="3" />
           <Property Name="ncode_movi" Type="Int64" Nullable="false" />
           <Property Name="ncode_umed" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.R_19" FromRole="MOVI_DETALLE" ToRole="MOVIMIENTO" />
           <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_25" FromRole="MOVI_DETALLE" ToRole="UMEDIDA" />
           <Property Name="nback_movidet" Type="Int32" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_18" FromRole="MOVI_DETALLE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="MOVI_LOTE">
           <Key>
@@ -8396,8 +8467,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="dfvenci_lote" Type="DateTime" Precision="3" />
           <Property Name="ncode_lote" Type="Int64" />
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.RMO_33" FromRole="MOVI_LOTE" ToRole="ALMACEN" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RMO_32" FromRole="MOVI_LOTE" ToRole="ARTICULO" />
           <NavigationProperty Name="MOVIMIENTO" Relationship="MarketWebModel.RMO_31" FromRole="MOVI_LOTE" ToRole="MOVIMIENTO" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RMO_32" FromRole="MOVI_LOTE" ToRole="ARTICULO" />
         </EntityType>
         <EntityType Name="MOVIMIENTO">
           <Key>
@@ -8458,30 +8529,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="MOVI_LOTE">
               <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="R_18">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="MOVI_DETALLE">
-              <PropertyRef Name="ncode_arti" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="RMO_32">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
-          <End Type="MarketWebModel.MOVI_LOTE" Role="MOVI_LOTE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="MOVI_LOTE">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8567,9 +8614,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="RecD_precio" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="ncode_arti" Type="Int64" />
           <Property Name="ncode_alma" Type="Int32" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="RecetaDetalle" ToRole="ARTICULO" />
           <NavigationProperty Name="CONFIGURACION" Relationship="MarketWebModel.FK_RecetaDetalle_CONFIGURACION" FromRole="RecetaDetalle" ToRole="CONFIGURACION" />
           <NavigationProperty Name="Receta" Relationship="MarketWebModel.FK_RecetaDetalle_Receta" FromRole="RecetaDetalle" ToRole="Receta" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="RecetaDetalle" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="FK_Receta_ALMACEN">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -8580,18 +8627,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="Receta">
               <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RecetaDetalle_ARTICULO">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
-          <End Type="MarketWebModel.RecetaDetalle" Role="RecetaDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="RecetaDetalle">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8670,8 +8705,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Name="ncode_arti" Type="Int64" />
           <Property Name="ncode_alma" Type="Int32" />
           <NavigationProperty Name="ALMACEN" Relationship="MarketWebModel.FK_FabricacionDetalle_ALMACEN" FromRole="FabricacionDetalle" ToRole="ALMACEN" />
-          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="FabricacionDetalle" ToRole="ARTICULO" />
           <NavigationProperty Name="Fabricacion" Relationship="MarketWebModel.FK_FabricacionDetalle_Fabricacion" FromRole="FabricacionDetalle" ToRole="Fabricacion" />
+          <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="FabricacionDetalle" ToRole="ARTICULO" />
         </EntityType>
         <Association Name="FK_Fabricacion_ALMACEN">
           <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -8694,18 +8729,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             </Principal>
             <Dependent Role="FabricacionDetalle">
               <PropertyRef Name="ncode_alma" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FabricacionDetalle_ARTICULO">
-          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
-          <End Type="MarketWebModel.FabricacionDetalle" Role="FabricacionDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ARTICULO">
-              <PropertyRef Name="ncode_arti" />
-            </Principal>
-            <Dependent Role="FabricacionDetalle">
-              <PropertyRef Name="ncode_arti" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8805,6 +8828,515 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
           <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
         </ComplexType>
+        <ComplexType Name="Pr_GuiaVentaDetVentaGuia_Result">
+          <Property Type="Boolean" Name="bafecto_arti" Nullable="true" />
+          <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
+          <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+          <Property Type="Int32" Name="nafecto_guiadet" Nullable="false" />
+          <Property Type="Decimal" Name="ncant_guiadet" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Int64" Name="ncode_arti" Nullable="false" />
+          <Property Type="Decimal" Name="npu_guiadet" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Int32" Name="ndscto_guiadet" Nullable="false" />
+          <Property Type="Int32" Name="nexon_guiadet" Nullable="false" />
+          <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
+          <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Pr_DocSerie_Result">
+          <Property Type="Int64" Name="ncode_dose" Nullable="false" />
+          <Property Type="String" Name="serie" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="numero" Nullable="true" MaxLength="8000" />
+        </ComplexType>
+        <EntityType Name="ORDEN_PEDIDOS_CUOTAS">
+          <Key>
+            <PropertyRef Name="ncode_orpecu" />
+          </Key>
+          <Property Name="ncode_orpecu" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_orpe" Type="Int64" />
+          <Property Name="dfreg_orpecu" Type="DateTime" Precision="3" />
+          <Property Name="nvalor_orpecu" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_orpecu" Type="DateTime" Precision="3" />
+          <Property Name="dfemo_orpecu" Type="DateTime" Precision="3" />
+          <Property Name="suser_orpecu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_orpecu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" FromRole="ORDEN_PEDIDOS_CUOTAS" ToRole="ORDEN_PEDIDOS" />
+        </EntityType>
+        <EntityType Name="VENTA_CUOTA">
+          <Key>
+            <PropertyRef Name="ncode_vedecu" />
+          </Key>
+          <Property Name="ncode_vedecu" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_venta" Type="Int64" />
+          <Property Name="dfreg_vedecu" Type="DateTime" Precision="3" />
+          <Property Name="nvalor_vedecu" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_vedecu" Type="DateTime" Precision="3" />
+          <Property Name="dfemo_vedecu" Type="DateTime" Precision="3" />
+          <Property Name="suser_vedecu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_vedecu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.FK_VENTA_CUOTA_VENTAS" FromRole="VENTA_CUOTA" ToRole="VENTAS" />
+        </EntityType>
+        <Association Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+          <End Type="MarketWebModel.ORDEN_PEDIDOS" Role="ORDEN_PEDIDOS" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ORDEN_PEDIDOS_CUOTAS" Role="ORDEN_PEDIDOS_CUOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN_PEDIDOS">
+              <PropertyRef Name="ncode_orpe" />
+            </Principal>
+            <Dependent Role="ORDEN_PEDIDOS_CUOTAS">
+              <PropertyRef Name="ncode_orpe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENTA_CUOTA_VENTAS">
+          <End Type="MarketWebModel.VENTAS" Role="VENTAS" Multiplicity="0..1" />
+          <End Type="MarketWebModel.VENTA_CUOTA" Role="VENTA_CUOTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="ncode_venta" />
+            </Principal>
+            <Dependent Role="VENTA_CUOTA">
+              <PropertyRef Name="ncode_venta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GUIA_CUOTAS">
+          <Key>
+            <PropertyRef Name="ncode_guiacu" />
+          </Key>
+          <Property Name="ncode_guiacu" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncode_guia" Type="Int64" />
+          <Property Name="dfreg_guiacu" Type="DateTime" Precision="3" />
+          <Property Name="nvalor_guiacu" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="dfech_guiacu" Type="DateTime" Precision="3" />
+          <Property Name="dfemo_guiacu" Type="DateTime" Precision="3" />
+          <Property Name="suser_guiacu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="susmo_guiacu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GUIA" Relationship="MarketWebModel.FK_GUIA_CUOTAS_GUIA" FromRole="GUIA_CUOTAS" ToRole="GUIA" />
+        </EntityType>
+        <Association Name="FK_GUIA_CUOTAS_GUIA">
+          <End Type="MarketWebModel.GUIA" Role="GUIA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.GUIA_CUOTAS" Role="GUIA_CUOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GUIA">
+              <PropertyRef Name="ncode_guia" />
+            </Principal>
+            <Dependent Role="GUIA_CUOTAS">
+              <PropertyRef Name="ncode_guia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ARTICULO">
+          <Key>
+            <PropertyRef Name="ncode_arti" />
+          </Key>
+          <Property Name="ncode_arti" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sdesc1_arti" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="sdesc2_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="sdescweb_arti" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="scode_arti" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_fami" Type="Int64" />
+          <Property Name="ncode_clase" Type="Int64" />
+          <Property Name="ncode_marca" Type="Int64" />
+          <Property Name="ncode_umed" Type="Int64" />
+          <Property Name="bisc_arti" Type="Boolean" />
+          <Property Name="bafecto_arti" Type="Boolean" />
+          <Property Name="bivap_arti" Type="Boolean" />
+          <Property Name="bpercepcion_arti" Type="Boolean" />
+          <Property Name="nporpercepcion_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="bvenc_arti" Type="Boolean" />
+          <Property Name="sserie_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sobse_arti" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nesta_arti" Type="Boolean" Nullable="false" />
+          <Property Name="nstockmin_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nstockmax_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="sabrev_arti" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bdscto_arti" Type="Boolean" />
+          <Property Name="spaisOrigen_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="bprocedencia_arti" Type="Boolean" />
+          <Property Name="suser_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dfech_arti" Type="DateTime" Precision="3" />
+          <Property Name="susmo_arti" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dfemo_arti" Type="DateTime" Precision="3" />
+          <Property Name="bicbper_arti" Type="Boolean" />
+          <Property Name="scodsunat_arti" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="stipomerca_arti" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="scodectadebe_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ctadebe_ventas" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="scodectahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ctahaber_ventas" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="scodectadebe_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ctadebe_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="scodectahaber_compras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ctahaber_compras" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="scodigo_sap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sorigen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="snombre_equivalencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sequivalenciaA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sequivalenciaB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="smoneda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nstockactual" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="bdetraccion" Type="Boolean" />
+          <Property Name="porcdetraccion" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="codigodetraccion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="snombrepalletcaja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="spallet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sbandeja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ncode_linea" Type="Int64" />
+          <Property Name="ncode_sublinea" Type="Int64" />
+          <Property Name="nprecio_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nstockreservado_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncode_espe" Type="Int64" />
+          <Property Name="ncode_subesp" Type="Int64" />
+          <Property Name="npreciotope_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nmargen_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ncosto_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="nultcosto_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="blote_arti" Type="Boolean" />
+          <Property Name="nstocktransito_arti" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="bdescarga_arti" Type="Boolean" />
+          <NavigationProperty Name="ART_BARRA" Relationship="MarketWebModel.R_8" FromRole="ARTICULO" ToRole="ART_BARRA" />
+          <NavigationProperty Name="ART_PRECIO" Relationship="MarketWebModel.R_7" FromRole="ARTICULO" ToRole="ART_PRECIO" />
+          <NavigationProperty Name="ART_PROVE" Relationship="MarketWebModel.R_10" FromRole="ARTICULO" ToRole="ART_PROVE" />
+          <NavigationProperty Name="ESPECIE" Relationship="MarketWebModel.FK_ARTICULO_ESPECIE" FromRole="ARTICULO" ToRole="ESPECIE" />
+          <NavigationProperty Name="LINEA" Relationship="MarketWebModel.FK_ARTICULO_LINEA" FromRole="ARTICULO" ToRole="LINEA" />
+          <NavigationProperty Name="SUBESPECIE" Relationship="MarketWebModel.FK_ARTICULO_SUBESPECIE" FromRole="ARTICULO" ToRole="SUBESPECIE" />
+          <NavigationProperty Name="SUBLINEA" Relationship="MarketWebModel.FK_ARTICULO_SUBLINEA" FromRole="ARTICULO" ToRole="SUBLINEA" />
+          <NavigationProperty Name="FabricacionDetalle" Relationship="MarketWebModel.FK_FabricacionDetalle_ARTICULO" FromRole="ARTICULO" ToRole="FabricacionDetalle" />
+          <NavigationProperty Name="LOTES" Relationship="MarketWebModel.FK_LOTES_ARTICULO" FromRole="ARTICULO" ToRole="LOTES" />
+          <NavigationProperty Name="RecetaDetalle" Relationship="MarketWebModel.FK_RecetaDetalle_ARTICULO" FromRole="ARTICULO" ToRole="RecetaDetalle" />
+          <NavigationProperty Name="FAMILIA" Relationship="MarketWebModel.R_1" FromRole="ARTICULO" ToRole="FAMILIA" />
+          <NavigationProperty Name="MOVI_DETALLE" Relationship="MarketWebModel.R_18" FromRole="ARTICULO" ToRole="MOVI_DETALLE" />
+          <NavigationProperty Name="CLASE" Relationship="MarketWebModel.R_2" FromRole="ARTICULO" ToRole="CLASE" />
+          <NavigationProperty Name="KARDEX" Relationship="MarketWebModel.R_23" FromRole="ARTICULO" ToRole="KARDEX" />
+          <NavigationProperty Name="MARCA" Relationship="MarketWebModel.R_3" FromRole="ARTICULO" ToRole="MARCA" />
+          <NavigationProperty Name="VENTA_DETALLE" Relationship="MarketWebModel.R_32" FromRole="ARTICULO" ToRole="VENTA_DETALLE" />
+          <NavigationProperty Name="COMPRA_DETALLE" Relationship="MarketWebModel.R_39" FromRole="ARTICULO" ToRole="COMPRA_DETALLE" />
+          <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.R_4" FromRole="ARTICULO" ToRole="UMEDIDA" />
+          <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_63" FromRole="ARTICULO" ToRole="PROFORMA_DETALLE" />
+          <NavigationProperty Name="ORDEN_PEDIDOS_DETALLE" Relationship="MarketWebModel.R_630" FromRole="ARTICULO" ToRole="ORDEN_PEDIDOS_DETALLE" />
+          <NavigationProperty Name="ORDEN_COMPRAS_DETALLE" Relationship="MarketWebModel.R_c630" FromRole="ARTICULO" ToRole="ORDEN_COMPRAS_DETALLE" />
+          <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_32" FromRole="ARTICULO" ToRole="GUIA_LOTE" />
+          <NavigationProperty Name="GUIA_DETALLE" Relationship="MarketWebModel.RGD_18" FromRole="ARTICULO" ToRole="GUIA_DETALLE" />
+          <NavigationProperty Name="VENTA_LOTE" Relationship="MarketWebModel.RL_32" FromRole="ARTICULO" ToRole="VENTA_LOTE" />
+          <NavigationProperty Name="MOVI_LOTE" Relationship="MarketWebModel.RMO_32" FromRole="ARTICULO" ToRole="MOVI_LOTE" />
+        </EntityType>
+        <Association Name="R_8">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ART_BARRA" Role="ART_BARRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ART_BARRA">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_7">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ART_PRECIO" Role="ART_PRECIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ART_PRECIO">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_10">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ART_PROVE" Role="ART_PROVE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ART_PROVE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ARTICULO_ESPECIE">
+          <End Type="MarketWebModel.ESPECIE" Role="ESPECIE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESPECIE">
+              <PropertyRef Name="ncode_espe" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_espe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ARTICULO_LINEA">
+          <End Type="MarketWebModel.LINEA" Role="LINEA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LINEA">
+              <PropertyRef Name="ncode_linea" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_linea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ARTICULO_SUBESPECIE">
+          <End Type="MarketWebModel.SUBESPECIE" Role="SUBESPECIE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBESPECIE">
+              <PropertyRef Name="ncode_subesp" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_subesp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ARTICULO_SUBLINEA">
+          <End Type="MarketWebModel.SUBLINEA" Role="SUBLINEA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBLINEA">
+              <PropertyRef Name="ncode_sublinea" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_sublinea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FabricacionDetalle_ARTICULO">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+          <End Type="MarketWebModel.FabricacionDetalle" Role="FabricacionDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="FabricacionDetalle">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOTES_ARTICULO">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+          <End Type="MarketWebModel.LOTES" Role="LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecetaDetalle_ARTICULO">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="0..1" />
+          <End Type="MarketWebModel.RecetaDetalle" Role="RecetaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="RecetaDetalle">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_1">
+          <End Type="MarketWebModel.FAMILIA" Role="FAMILIA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILIA">
+              <PropertyRef Name="ncode_fami" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_fami" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_18">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.MOVI_DETALLE" Role="MOVI_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="MOVI_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_2">
+          <End Type="MarketWebModel.CLASE" Role="CLASE" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASE">
+              <PropertyRef Name="ncode_clase" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_clase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_23">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.KARDEX" Role="KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="KARDEX">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_3">
+          <End Type="MarketWebModel.MARCA" Role="MARCA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARCA">
+              <PropertyRef Name="ncode_marca" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_32">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTA_DETALLE" Role="VENTA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="VENTA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_39">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.COMPRA_DETALLE" Role="COMPRA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="COMPRA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_4">
+          <End Type="MarketWebModel.UMEDIDA" Role="UMEDIDA" Multiplicity="0..1" />
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UMEDIDA">
+              <PropertyRef Name="ncode_umed" />
+            </Principal>
+            <Dependent Role="ARTICULO">
+              <PropertyRef Name="ncode_umed" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_63">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.PROFORMA_DETALLE" Role="PROFORMA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="PROFORMA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_630">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Role="ORDEN_PEDIDOS_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ORDEN_PEDIDOS_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R_c630">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.ORDEN_COMPRAS_DETALLE" Role="ORDEN_COMPRAS_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="ORDEN_COMPRAS_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RG_32">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA_LOTE" Role="GUIA_LOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="GUIA_LOTE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RGD_18">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.GUIA_DETALLE" Role="GUIA_DETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="GUIA_DETALLE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RL_32">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.VENTA_LOTE" Role="VENTA_LOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="VENTA_LOTE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RMO_32">
+          <End Type="MarketWebModel.ARTICULO" Role="ARTICULO" Multiplicity="1" />
+          <End Type="MarketWebModel.MOVI_LOTE" Role="MOVI_LOTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ARTICULO">
+              <PropertyRef Name="ncode_arti" />
+            </Principal>
+            <Dependent Role="MOVI_LOTE">
+              <PropertyRef Name="ncode_arti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Pr_KardexMovimientos_Result">
+          <Property Type="String" Name="Fecha" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Fvence" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+          <Property Type="String" Name="stipomovi_kardex" Nullable="false" MaxLength="1" />
+          <Property Type="Decimal" Name="ncant_kardex" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="npuco_kardex" Nullable="false" Precision="18" Scale="4" />
+          <Property Type="String" Name="smodulo_confi" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="sserie_kardex" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="snume_kardex" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="ncodeDoc_kardex" Nullable="false" />
+          <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+          <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="solicitante" Nullable="true" MaxLength="5000" />
+          <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
+          <Property Type="Decimal" Name="ntc_kardex" Nullable="false" Precision="18" Scale="4" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8814,6 +9346,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="ALMACEN">
             <EntityTypeMapping TypeName="MarketWebModel.ALMACEN">
               <MappingFragment StoreEntitySet="ALMACEN">
+                <ScalarProperty Name="sabr_alma" ColumnName="sabr_alma" />
                 <ScalarProperty Name="besta_alma" ColumnName="besta_alma" />
                 <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
                 <ScalarProperty Name="ncode_alma" ColumnName="ncode_alma" />
@@ -9476,6 +10009,8 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
                 <ScalarProperty Name="Disponible" ColumnName="Disponible" />
                 <ScalarProperty Name="nstocktransito_arti" ColumnName="nstocktransito_arti" />
+                <ScalarProperty Name="npreciotope_arti" ColumnName="npreciotope_arti" />
+                <ScalarProperty Name="nmargen_arti" ColumnName="nmargen_arti" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9577,76 +10112,6 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="nesta_subesp" ColumnName="nesta_subesp" />
                 <ScalarProperty Name="sdesc_subesp" ColumnName="sdesc_subesp" />
                 <ScalarProperty Name="ncode_subesp" ColumnName="ncode_subesp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ARTICULO">
-            <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
-              <MappingFragment StoreEntitySet="ARTICULO">
-                <ScalarProperty Name="nstocktransito_arti" ColumnName="nstocktransito_arti" />
-                <ScalarProperty Name="blote_arti" ColumnName="blote_arti" />
-                <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
-                <ScalarProperty Name="ncosto_arti" ColumnName="ncosto_arti" />
-                <ScalarProperty Name="nmargen_arti" ColumnName="nmargen_arti" />
-                <ScalarProperty Name="npreciotope_arti" ColumnName="npreciotope_arti" />
-                <ScalarProperty Name="ncode_subesp" ColumnName="ncode_subesp" />
-                <ScalarProperty Name="ncode_espe" ColumnName="ncode_espe" />
-                <ScalarProperty Name="nstockreservado_arti" ColumnName="nstockreservado_arti" />
-                <ScalarProperty Name="nprecio_arti" ColumnName="nprecio_arti" />
-                <ScalarProperty Name="ncode_sublinea" ColumnName="ncode_sublinea" />
-                <ScalarProperty Name="ncode_linea" ColumnName="ncode_linea" />
-                <ScalarProperty Name="sbandeja" ColumnName="sbandeja" />
-                <ScalarProperty Name="spallet" ColumnName="spallet" />
-                <ScalarProperty Name="snombrepalletcaja" ColumnName="snombrepalletcaja" />
-                <ScalarProperty Name="codigodetraccion" ColumnName="codigodetraccion" />
-                <ScalarProperty Name="porcdetraccion" ColumnName="porcdetraccion" />
-                <ScalarProperty Name="bdetraccion" ColumnName="bdetraccion" />
-                <ScalarProperty Name="nstockactual" ColumnName="nstockactual" />
-                <ScalarProperty Name="smoneda" ColumnName="smoneda" />
-                <ScalarProperty Name="sequivalenciaB" ColumnName="sequivalenciaB" />
-                <ScalarProperty Name="sequivalenciaA" ColumnName="sequivalenciaA" />
-                <ScalarProperty Name="snombre_equivalencia" ColumnName="snombre_equivalencia" />
-                <ScalarProperty Name="sorigen" ColumnName="sorigen" />
-                <ScalarProperty Name="scodigo_sap" ColumnName="scodigo_sap" />
-                <ScalarProperty Name="ctahaber_compras" ColumnName="ctahaber_compras" />
-                <ScalarProperty Name="scodectahaber_compras" ColumnName="scodectahaber_compras" />
-                <ScalarProperty Name="ctadebe_compras" ColumnName="ctadebe_compras" />
-                <ScalarProperty Name="scodectadebe_compras" ColumnName="scodectadebe_compras" />
-                <ScalarProperty Name="ctahaber_ventas" ColumnName="ctahaber_ventas" />
-                <ScalarProperty Name="scodectahaber_ventas" ColumnName="scodectahaber_ventas" />
-                <ScalarProperty Name="ctadebe_ventas" ColumnName="ctadebe_ventas" />
-                <ScalarProperty Name="scodectadebe_ventas" ColumnName="scodectadebe_ventas" />
-                <ScalarProperty Name="stipomerca_arti" ColumnName="stipomerca_arti" />
-                <ScalarProperty Name="scodsunat_arti" ColumnName="scodsunat_arti" />
-                <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
-                <ScalarProperty Name="dfemo_arti" ColumnName="dfemo_arti" />
-                <ScalarProperty Name="susmo_arti" ColumnName="susmo_arti" />
-                <ScalarProperty Name="dfech_arti" ColumnName="dfech_arti" />
-                <ScalarProperty Name="suser_arti" ColumnName="suser_arti" />
-                <ScalarProperty Name="bprocedencia_arti" ColumnName="bprocedencia_arti" />
-                <ScalarProperty Name="spaisOrigen_arti" ColumnName="spaisOrigen_arti" />
-                <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
-                <ScalarProperty Name="sabrev_arti" ColumnName="sabrev_arti" />
-                <ScalarProperty Name="nstockmax_arti" ColumnName="nstockmax_arti" />
-                <ScalarProperty Name="nstockmin_arti" ColumnName="nstockmin_arti" />
-                <ScalarProperty Name="nesta_arti" ColumnName="nesta_arti" />
-                <ScalarProperty Name="sobse_arti" ColumnName="sobse_arti" />
-                <ScalarProperty Name="sserie_arti" ColumnName="sserie_arti" />
-                <ScalarProperty Name="bvenc_arti" ColumnName="bvenc_arti" />
-                <ScalarProperty Name="nporpercepcion_arti" ColumnName="nporpercepcion_arti" />
-                <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
-                <ScalarProperty Name="bivap_arti" ColumnName="bivap_arti" />
-                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
-                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
-                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
-                <ScalarProperty Name="ncode_marca" ColumnName="ncode_marca" />
-                <ScalarProperty Name="ncode_clase" ColumnName="ncode_clase" />
-                <ScalarProperty Name="ncode_fami" ColumnName="ncode_fami" />
-                <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
-                <ScalarProperty Name="sdescweb_arti" ColumnName="sdescweb_arti" />
-                <ScalarProperty Name="sdesc2_arti" ColumnName="sdesc2_arti" />
-                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
-                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9864,6 +10329,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="VENTAS">
             <EntityTypeMapping TypeName="MarketWebModel.VENTAS">
               <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="bflete_venta" ColumnName="bflete_venta" />
+                <ScalarProperty Name="sglosadespacho_venta" ColumnName="sglosadespacho_venta" />
+                <ScalarProperty Name="ncuotadias_venta" ColumnName="ncuotadias_venta" />
+                <ScalarProperty Name="nretencionvalor_venta" ColumnName="nretencionvalor_venta" />
+                <ScalarProperty Name="ncuotavalor_venta" ColumnName="ncuotavalor_venta" />
+                <ScalarProperty Name="ncuotas_venta" ColumnName="ncuotas_venta" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+                <ScalarProperty Name="ncode_guiaAsociadas_venta" ColumnName="ncode_guiaAsociadas_venta" />
                 <ScalarProperty Name="sserienume_orpe" ColumnName="sserienume_orpe" />
                 <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
                 <ScalarProperty Name="bprecioconigv_venta" ColumnName="bprecioconigv_venta" />
@@ -9920,6 +10393,13 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="ORDEN_PEDIDOS">
             <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS">
               <MappingFragment StoreEntitySet="ORDEN_PEDIDOS">
+                <ScalarProperty Name="bflete_orpe" ColumnName="bflete_orpe" />
+                <ScalarProperty Name="sglosadespacho_orpe" ColumnName="sglosadespacho_orpe" />
+                <ScalarProperty Name="ncuotadias_orpe" ColumnName="ncuotadias_orpe" />
+                <ScalarProperty Name="ncuotavalor_orpe" ColumnName="ncuotavalor_orpe" />
+                <ScalarProperty Name="ncuotas_orpe" ColumnName="ncuotas_orpe" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+                <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
                 <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
                 <ScalarProperty Name="bprecioconigv_orpe" ColumnName="bprecioconigv_orpe" />
                 <ScalarProperty Name="dfdespacho_orpe" ColumnName="dfdespacho_orpe" />
@@ -10108,6 +10588,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="ORDEN_COMPRAS">
             <EntityTypeMapping TypeName="MarketWebModel.ORDEN_COMPRAS">
               <MappingFragment StoreEntitySet="ORDEN_COMPRAS">
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
                 <ScalarProperty Name="bprecioconigv_orco" ColumnName="bprecioconigv_orco" />
                 <ScalarProperty Name="ntipo_orco" ColumnName="ntipo_orco" />
                 <ScalarProperty Name="stipo_orco" ColumnName="stipo_orco" />
@@ -10229,6 +10710,27 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <EntitySetMapping Name="GUIA">
             <EntityTypeMapping TypeName="MarketWebModel.GUIA">
               <MappingFragment StoreEntitySet="GUIA">
+                <ScalarProperty Name="nvalIGV_guia" ColumnName="nvalIGV_guia" />
+                <ScalarProperty Name="bclienteagretencion" ColumnName="bclienteagretencion" />
+                <ScalarProperty Name="ncuotadias_guia" ColumnName="ncuotadias_guia" />
+                <ScalarProperty Name="ncuotavalor_guia" ColumnName="ncuotavalor_guia" />
+                <ScalarProperty Name="ncuotas_guia" ColumnName="ncuotas_guia" />
+                <ScalarProperty Name="ntotalUS_guia" ColumnName="ntotalUS_guia" />
+                <ScalarProperty Name="ntotalMN_guia" ColumnName="ntotalMN_guia" />
+                <ScalarProperty Name="ntotal_guia" ColumnName="ntotal_guia" />
+                <ScalarProperty Name="ntotaaf_guia" ColumnName="ntotaaf_guia" />
+                <ScalarProperty Name="ntotaex_guia" ColumnName="ntotaex_guia" />
+                <ScalarProperty Name="nigvaf_guia" ColumnName="nigvaf_guia" />
+                <ScalarProperty Name="nigvex_guia" ColumnName="nigvex_guia" />
+                <ScalarProperty Name="nsubaf_guia" ColumnName="nsubaf_guia" />
+                <ScalarProperty Name="nsubex_guia" ColumnName="nsubex_guia" />
+                <ScalarProperty Name="ndsctoaf_guia" ColumnName="ndsctoaf_guia" />
+                <ScalarProperty Name="ndsctoex_guia" ColumnName="ndsctoex_guia" />
+                <ScalarProperty Name="nbrutoaf_guia" ColumnName="nbrutoaf_guia" />
+                <ScalarProperty Name="nbrutoex_guia" ColumnName="nbrutoex_guia" />
+                <ScalarProperty Name="bflete_guia" ColumnName="bflete_guia" />
+                <ScalarProperty Name="sglosadespacho_guia" ColumnName="sglosadespacho_guia" />
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
                 <ScalarProperty Name="sserienume_venta" ColumnName="sserienume_venta" />
                 <ScalarProperty Name="ncode_venta" ColumnName="ncode_venta" />
                 <ScalarProperty Name="bventaasociada_guia" ColumnName="bventaasociada_guia" />
@@ -10585,6 +11087,172 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="numeracion" ColumnName="numeracion" />
                 <ScalarProperty Name="srazon_cliente" ColumnName="srazon_cliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_GuiaVentaDetVentaGuia" FunctionName="MarketWebModel.Store.Pr_GuiaVentaDetVentaGuia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_GuiaVentaDetVentaGuia_Result">
+                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
+                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+                <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
+                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+                <ScalarProperty Name="nafecto_guiadet" ColumnName="nafecto_guiadet" />
+                <ScalarProperty Name="ncant_guiadet" ColumnName="ncant_guiadet" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+                <ScalarProperty Name="npu_guiadet" ColumnName="npu_guiadet" />
+                <ScalarProperty Name="ndscto_guiadet" ColumnName="ndscto_guiadet" />
+                <ScalarProperty Name="nexon_guiadet" ColumnName="nexon_guiadet" />
+                <ScalarProperty Name="ssunat_umed" ColumnName="ssunat_umed" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_DocSerie" FunctionName="MarketWebModel.Store.Pr_DocSerie">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_DocSerie_Result">
+                <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+                <ScalarProperty Name="serie" ColumnName="serie" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Pr_DocSerieNumero" FunctionName="MarketWebModel.Store.Pr_DocSerieNumero" />
+          <FunctionImportMapping FunctionImportName="Pr_ArticuloPrecioCRUD" FunctionName="MarketWebModel.Store.Pr_ArticuloPrecioCRUD" />
+          <FunctionImportMapping FunctionImportName="Pr_Orden_PedidoCuotaCrud" FunctionName="MarketWebModel.Store.Pr_Orden_PedidoCuotaCrud" />
+          <EntitySetMapping Name="ORDEN_PEDIDOS_CUOTAS">
+            <EntityTypeMapping TypeName="MarketWebModel.ORDEN_PEDIDOS_CUOTAS">
+              <MappingFragment StoreEntitySet="ORDEN_PEDIDOS_CUOTAS">
+                <ScalarProperty Name="susmo_orpecu" ColumnName="susmo_orpecu" />
+                <ScalarProperty Name="suser_orpecu" ColumnName="suser_orpecu" />
+                <ScalarProperty Name="dfemo_orpecu" ColumnName="dfemo_orpecu" />
+                <ScalarProperty Name="dfech_orpecu" ColumnName="dfech_orpecu" />
+                <ScalarProperty Name="nvalor_orpecu" ColumnName="nvalor_orpecu" />
+                <ScalarProperty Name="dfreg_orpecu" ColumnName="dfreg_orpecu" />
+                <ScalarProperty Name="ncode_orpe" ColumnName="ncode_orpe" />
+                <ScalarProperty Name="ncode_orpecu" ColumnName="ncode_orpecu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTA_CUOTA">
+            <EntityTypeMapping TypeName="MarketWebModel.VENTA_CUOTA">
+              <MappingFragment StoreEntitySet="VENTA_CUOTA">
+                <ScalarProperty Name="susmo_vedecu" ColumnName="susmo_vedecu" />
+                <ScalarProperty Name="suser_vedecu" ColumnName="suser_vedecu" />
+                <ScalarProperty Name="dfemo_vedecu" ColumnName="dfemo_vedecu" />
+                <ScalarProperty Name="dfech_vedecu" ColumnName="dfech_vedecu" />
+                <ScalarProperty Name="nvalor_vedecu" ColumnName="nvalor_vedecu" />
+                <ScalarProperty Name="dfreg_vedecu" ColumnName="dfreg_vedecu" />
+                <ScalarProperty Name="ncode_venta" ColumnName="ncode_venta" />
+                <ScalarProperty Name="ncode_vedecu" ColumnName="ncode_vedecu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_VentaCuotaCrud" FunctionName="MarketWebModel.Store.Pr_VentaCuotaCrud" />
+          <EntitySetMapping Name="GUIA_CUOTAS">
+            <EntityTypeMapping TypeName="MarketWebModel.GUIA_CUOTAS">
+              <MappingFragment StoreEntitySet="GUIA_CUOTAS">
+                <ScalarProperty Name="susmo_guiacu" ColumnName="susmo_guiacu" />
+                <ScalarProperty Name="suser_guiacu" ColumnName="suser_guiacu" />
+                <ScalarProperty Name="dfemo_guiacu" ColumnName="dfemo_guiacu" />
+                <ScalarProperty Name="dfech_guiacu" ColumnName="dfech_guiacu" />
+                <ScalarProperty Name="nvalor_guiacu" ColumnName="nvalor_guiacu" />
+                <ScalarProperty Name="dfreg_guiacu" ColumnName="dfreg_guiacu" />
+                <ScalarProperty Name="ncode_guia" ColumnName="ncode_guia" />
+                <ScalarProperty Name="ncode_guiacu" ColumnName="ncode_guiacu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_GuiaCuotaCrud" FunctionName="MarketWebModel.Store.Pr_GuiaCuotaCrud" />
+          <EntitySetMapping Name="ARTICULO">
+            <EntityTypeMapping TypeName="MarketWebModel.ARTICULO">
+              <MappingFragment StoreEntitySet="ARTICULO">
+                <ScalarProperty Name="bdescarga_arti" ColumnName="bdescarga_arti" />
+                <ScalarProperty Name="nstocktransito_arti" ColumnName="nstocktransito_arti" />
+                <ScalarProperty Name="blote_arti" ColumnName="blote_arti" />
+                <ScalarProperty Name="nultcosto_arti" ColumnName="nultcosto_arti" />
+                <ScalarProperty Name="ncosto_arti" ColumnName="ncosto_arti" />
+                <ScalarProperty Name="nmargen_arti" ColumnName="nmargen_arti" />
+                <ScalarProperty Name="npreciotope_arti" ColumnName="npreciotope_arti" />
+                <ScalarProperty Name="ncode_subesp" ColumnName="ncode_subesp" />
+                <ScalarProperty Name="ncode_espe" ColumnName="ncode_espe" />
+                <ScalarProperty Name="nstockreservado_arti" ColumnName="nstockreservado_arti" />
+                <ScalarProperty Name="nprecio_arti" ColumnName="nprecio_arti" />
+                <ScalarProperty Name="ncode_sublinea" ColumnName="ncode_sublinea" />
+                <ScalarProperty Name="ncode_linea" ColumnName="ncode_linea" />
+                <ScalarProperty Name="sbandeja" ColumnName="sbandeja" />
+                <ScalarProperty Name="spallet" ColumnName="spallet" />
+                <ScalarProperty Name="snombrepalletcaja" ColumnName="snombrepalletcaja" />
+                <ScalarProperty Name="codigodetraccion" ColumnName="codigodetraccion" />
+                <ScalarProperty Name="porcdetraccion" ColumnName="porcdetraccion" />
+                <ScalarProperty Name="bdetraccion" ColumnName="bdetraccion" />
+                <ScalarProperty Name="nstockactual" ColumnName="nstockactual" />
+                <ScalarProperty Name="smoneda" ColumnName="smoneda" />
+                <ScalarProperty Name="sequivalenciaB" ColumnName="sequivalenciaB" />
+                <ScalarProperty Name="sequivalenciaA" ColumnName="sequivalenciaA" />
+                <ScalarProperty Name="snombre_equivalencia" ColumnName="snombre_equivalencia" />
+                <ScalarProperty Name="sorigen" ColumnName="sorigen" />
+                <ScalarProperty Name="scodigo_sap" ColumnName="scodigo_sap" />
+                <ScalarProperty Name="ctahaber_compras" ColumnName="ctahaber_compras" />
+                <ScalarProperty Name="scodectahaber_compras" ColumnName="scodectahaber_compras" />
+                <ScalarProperty Name="ctadebe_compras" ColumnName="ctadebe_compras" />
+                <ScalarProperty Name="scodectadebe_compras" ColumnName="scodectadebe_compras" />
+                <ScalarProperty Name="ctahaber_ventas" ColumnName="ctahaber_ventas" />
+                <ScalarProperty Name="scodectahaber_ventas" ColumnName="scodectahaber_ventas" />
+                <ScalarProperty Name="ctadebe_ventas" ColumnName="ctadebe_ventas" />
+                <ScalarProperty Name="scodectadebe_ventas" ColumnName="scodectadebe_ventas" />
+                <ScalarProperty Name="stipomerca_arti" ColumnName="stipomerca_arti" />
+                <ScalarProperty Name="scodsunat_arti" ColumnName="scodsunat_arti" />
+                <ScalarProperty Name="bicbper_arti" ColumnName="bicbper_arti" />
+                <ScalarProperty Name="dfemo_arti" ColumnName="dfemo_arti" />
+                <ScalarProperty Name="susmo_arti" ColumnName="susmo_arti" />
+                <ScalarProperty Name="dfech_arti" ColumnName="dfech_arti" />
+                <ScalarProperty Name="suser_arti" ColumnName="suser_arti" />
+                <ScalarProperty Name="bprocedencia_arti" ColumnName="bprocedencia_arti" />
+                <ScalarProperty Name="spaisOrigen_arti" ColumnName="spaisOrigen_arti" />
+                <ScalarProperty Name="bdscto_arti" ColumnName="bdscto_arti" />
+                <ScalarProperty Name="sabrev_arti" ColumnName="sabrev_arti" />
+                <ScalarProperty Name="nstockmax_arti" ColumnName="nstockmax_arti" />
+                <ScalarProperty Name="nstockmin_arti" ColumnName="nstockmin_arti" />
+                <ScalarProperty Name="nesta_arti" ColumnName="nesta_arti" />
+                <ScalarProperty Name="sobse_arti" ColumnName="sobse_arti" />
+                <ScalarProperty Name="sserie_arti" ColumnName="sserie_arti" />
+                <ScalarProperty Name="bvenc_arti" ColumnName="bvenc_arti" />
+                <ScalarProperty Name="nporpercepcion_arti" ColumnName="nporpercepcion_arti" />
+                <ScalarProperty Name="bpercepcion_arti" ColumnName="bpercepcion_arti" />
+                <ScalarProperty Name="bivap_arti" ColumnName="bivap_arti" />
+                <ScalarProperty Name="bafecto_arti" ColumnName="bafecto_arti" />
+                <ScalarProperty Name="bisc_arti" ColumnName="bisc_arti" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="ncode_marca" ColumnName="ncode_marca" />
+                <ScalarProperty Name="ncode_clase" ColumnName="ncode_clase" />
+                <ScalarProperty Name="ncode_fami" ColumnName="ncode_fami" />
+                <ScalarProperty Name="scode_arti" ColumnName="scode_arti" />
+                <ScalarProperty Name="sdescweb_arti" ColumnName="sdescweb_arti" />
+                <ScalarProperty Name="sdesc2_arti" ColumnName="sdesc2_arti" />
+                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+                <ScalarProperty Name="ncode_arti" ColumnName="ncode_arti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Pr_KardexMovimientos" FunctionName="MarketWebModel.Store.Pr_KardexMovimientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MarketWebModel.Pr_KardexMovimientos_Result">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Fvence" ColumnName="Fvence" />
+                <ScalarProperty Name="sdesc1_arti" ColumnName="sdesc1_arti" />
+                <ScalarProperty Name="stipomovi_kardex" ColumnName="stipomovi_kardex" />
+                <ScalarProperty Name="ncant_kardex" ColumnName="ncant_kardex" />
+                <ScalarProperty Name="npuco_kardex" ColumnName="npuco_kardex" />
+                <ScalarProperty Name="smodulo_confi" ColumnName="smodulo_confi" />
+                <ScalarProperty Name="sserie_kardex" ColumnName="sserie_kardex" />
+                <ScalarProperty Name="snume_kardex" ColumnName="snume_kardex" />
+                <ScalarProperty Name="ncodeDoc_kardex" ColumnName="ncodeDoc_kardex" />
+                <ScalarProperty Name="ncode_umed" ColumnName="ncode_umed" />
+                <ScalarProperty Name="ssunat_umed" ColumnName="ssunat_umed" />
+                <ScalarProperty Name="solicitante" ColumnName="solicitante" />
+                <ScalarProperty Name="sdesc_alma" ColumnName="sdesc_alma" />
+                <ScalarProperty Name="ntc_kardex" ColumnName="ntc_kardex" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

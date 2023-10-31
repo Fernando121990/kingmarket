@@ -27,8 +27,8 @@ namespace MarketASP.Models
         public Nullable<long> ncode_arti { get; set; }
         public Nullable<int> ncode_alma { get; set; }
     
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual CONFIGURACION CONFIGURACION { get; set; }
         public virtual Receta Receta { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

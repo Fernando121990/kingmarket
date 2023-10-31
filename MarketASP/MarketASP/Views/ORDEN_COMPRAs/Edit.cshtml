@@ -30,7 +30,9 @@
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/ordencompra")
 <script type="text/javascript">
-        var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+    var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+    var urlGetDocuSerie = '@Url.Action("getDocuSerie", "Funciones",new { area = ""})';
+
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';

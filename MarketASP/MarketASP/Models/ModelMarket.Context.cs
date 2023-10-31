@@ -67,7 +67,6 @@ namespace MarketASP.Models
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<ESPECIE> ESPECIE { get; set; }
         public virtual DbSet<SUBESPECIE> SUBESPECIE { get; set; }
-        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
         public virtual DbSet<ZONA> ZONA { get; set; }
         public virtual DbSet<TRANSPORTISTA> TRANSPORTISTA { get; set; }
         public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
@@ -95,6 +94,10 @@ namespace MarketASP.Models
         public virtual DbSet<Fabricacion> Fabricacion { get; set; }
         public virtual DbSet<FabricacionDetalle> FabricacionDetalle { get; set; }
         public virtual DbSet<DOCU_SERIE_USUARIO> DOCU_SERIE_USUARIO { get; set; }
+        public virtual DbSet<ORDEN_PEDIDOS_CUOTAS> ORDEN_PEDIDOS_CUOTAS { get; set; }
+        public virtual DbSet<VENTA_CUOTA> VENTA_CUOTA { get; set; }
+        public virtual DbSet<GUIA_CUOTAS> GUIA_CUOTAS { get; set; }
+        public virtual DbSet<ARTICULO> ARTICULO { get; set; }
     
         public virtual int Pr_tipoCambioExiste(string dfecha_tc, ObjectParameter valor)
         {
@@ -319,7 +322,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_clienteDireElimina", ncode_clidireParameter, sw);
         }
     
-        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nicbper_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, string ctacobraAuto, Nullable<long> ncode_vende, Nullable<long> ncode_orpe, Nullable<bool> bclienteagretencion, string sserienume_orpe, ObjectParameter sw, ObjectParameter cc)
+        public virtual int Pr_ventaCrea(Nullable<int> ncode_docu, string sseri_venta, string snume_venta, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nicbper_venta, Nullable<bool> besta_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, string ctacobraAuto, Nullable<long> ncode_vende, Nullable<long> ncode_orpe, Nullable<bool> bclienteagretencion, string sserienume_orpe, string sguiaasociada, Nullable<long> ncode_dose, Nullable<long> ncuotas_venta, Nullable<decimal> ncuotavalor_venta, Nullable<decimal> nretencionvalor_venta, ObjectParameter sw, ObjectParameter cc)
         {
             var ncode_docuParameter = ncode_docu.HasValue ?
                 new ObjectParameter("ncode_docu", ncode_docu) :
@@ -473,7 +476,27 @@ namespace MarketASP.Models
                 new ObjectParameter("sserienume_orpe", sserienume_orpe) :
                 new ObjectParameter("sserienume_orpe", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nicbper_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ctacobraAutoParameter, ncode_vendeParameter, ncode_orpeParameter, bclienteagretencionParameter, sserienume_orpeParameter, sw, cc);
+            var sguiaasociadaParameter = sguiaasociada != null ?
+                new ObjectParameter("sguiaasociada", sguiaasociada) :
+                new ObjectParameter("sguiaasociada", typeof(string));
+    
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            var ncuotas_ventaParameter = ncuotas_venta.HasValue ?
+                new ObjectParameter("ncuotas_venta", ncuotas_venta) :
+                new ObjectParameter("ncuotas_venta", typeof(long));
+    
+            var ncuotavalor_ventaParameter = ncuotavalor_venta.HasValue ?
+                new ObjectParameter("ncuotavalor_venta", ncuotavalor_venta) :
+                new ObjectParameter("ncuotavalor_venta", typeof(decimal));
+    
+            var nretencionvalor_ventaParameter = nretencionvalor_venta.HasValue ?
+                new ObjectParameter("nretencionvalor_venta", nretencionvalor_venta) :
+                new ObjectParameter("nretencionvalor_venta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaCrea", ncode_docuParameter, sseri_ventaParameter, snume_ventaParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nicbper_ventaParameter, besta_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ctacobraAutoParameter, ncode_vendeParameter, ncode_orpeParameter, bclienteagretencionParameter, sserienume_orpeParameter, sguiaasociadaParameter, ncode_doseParameter, ncuotas_ventaParameter, ncuotavalor_ventaParameter, nretencionvalor_ventaParameter, sw, cc);
         }
     
         public virtual int Pr_ventaDetaCrea(Nullable<long> ncode_venta, Nullable<long> ncode_arti, Nullable<decimal> ncant_vedeta, Nullable<decimal> npu_vedeta, Nullable<decimal> ndscto_vedeta, Nullable<decimal> ndscto2_vedeta, Nullable<decimal> nexon_vedeta, Nullable<decimal> nafecto_vedeta, Nullable<bool> besafecto_vedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_vedeta, Nullable<decimal> ndsctomin_vedeta, Nullable<decimal> ndsctoporc_vedeta, Nullable<decimal> ncantlote_vedeta)
@@ -546,7 +569,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaDetaEdita", ncode_ventaParameter);
         }
     
-        public virtual int Pr_ventaEdita(Nullable<long> ncode_venta, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, ObjectParameter sw)
+        public virtual int Pr_ventaEdita(Nullable<long> ncode_venta, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeventa_venta, Nullable<System.DateTime> dfevenci_venta, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_venta, Nullable<decimal> ntc_venta, Nullable<int> ncode_fopago, string sobse_venta, string scode_compra, Nullable<long> ncode_profo, Nullable<decimal> nbrutoex_venta, Nullable<decimal> nbrutoaf_venta, Nullable<decimal> ndctoex_venta, Nullable<decimal> ndsctoaf_venta, Nullable<decimal> nsubex_venta, Nullable<decimal> nsubaf_venta, Nullable<decimal> nigvex_venta, Nullable<decimal> nigvaf_venta, Nullable<decimal> ntotaex_venta, Nullable<decimal> ntotaaf_venta, Nullable<decimal> ntotal_venta, Nullable<decimal> ntotalMN_venta, Nullable<decimal> ntotalUs_venta, Nullable<decimal> nvalIGV_venta, string suser_venta, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, Nullable<long> ncuotas_venta, Nullable<decimal> ncuotavalor_venta, Nullable<decimal> nretencionvalor_venta, ObjectParameter sw)
         {
             var ncode_ventaParameter = ncode_venta.HasValue ?
                 new ObjectParameter("ncode_venta", ncode_venta) :
@@ -676,7 +699,19 @@ namespace MarketASP.Models
                 new ObjectParameter("bclienteagretencion", bclienteagretencion) :
                 new ObjectParameter("bclienteagretencion", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaEdita", ncode_ventaParameter, ncode_docuParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, sw);
+            var ncuotas_ventaParameter = ncuotas_venta.HasValue ?
+                new ObjectParameter("ncuotas_venta", ncuotas_venta) :
+                new ObjectParameter("ncuotas_venta", typeof(long));
+    
+            var ncuotavalor_ventaParameter = ncuotavalor_venta.HasValue ?
+                new ObjectParameter("ncuotavalor_venta", ncuotavalor_venta) :
+                new ObjectParameter("ncuotavalor_venta", typeof(decimal));
+    
+            var nretencionvalor_ventaParameter = nretencionvalor_venta.HasValue ?
+                new ObjectParameter("nretencionvalor_venta", nretencionvalor_venta) :
+                new ObjectParameter("nretencionvalor_venta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ventaEdita", ncode_ventaParameter, ncode_docuParameter, dfeventa_ventaParameter, dfevenci_ventaParameter, ncode_clienteParameter, ncode_clidireParameter, smone_ventaParameter, ntc_ventaParameter, ncode_fopagoParameter, sobse_ventaParameter, scode_compraParameter, ncode_profoParameter, nbrutoex_ventaParameter, nbrutoaf_ventaParameter, ndctoex_ventaParameter, ndsctoaf_ventaParameter, nsubex_ventaParameter, nsubaf_ventaParameter, nigvex_ventaParameter, nigvaf_ventaParameter, ntotaex_ventaParameter, ntotaaf_ventaParameter, ntotal_ventaParameter, ntotalMN_ventaParameter, ntotalUs_ventaParameter, nvalIGV_ventaParameter, suser_ventaParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, ncuotas_ventaParameter, ncuotavalor_ventaParameter, nretencionvalor_ventaParameter, sw);
         }
     
         public virtual int Pr_ventaAnula(Nullable<long> ncode_venta, ObjectParameter sw)
@@ -1646,7 +1681,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_SubespecieLista_Result>("Pr_SubespecieLista");
         }
     
-        public virtual int Pr_Orden_PedidoCrea(Nullable<int> ncode_docu, string sseri_orpe, string snume_orpe, Nullable<System.DateTime> dfeorpeo_orpe, Nullable<System.DateTime> dfevenci_orpe, Nullable<System.DateTime> dfdespacho_orpe, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orpe, Nullable<decimal> ntc_orpe, Nullable<int> ncode_fopago, string sobse_orpe, string scode_compra, Nullable<decimal> nbrutoex_orpe, Nullable<decimal> nbrutoaf_orpe, Nullable<decimal> ndctoex_orpe, Nullable<decimal> ndsctoaf_orpe, Nullable<decimal> nsubex_orpe, Nullable<decimal> nsubaf_orpe, Nullable<decimal> nigvex_orpe, Nullable<decimal> nigvaf_orpe, Nullable<decimal> ntotaex_orpe, Nullable<decimal> ntotaaf_orpe, Nullable<decimal> ntotal_orpe, Nullable<decimal> ntotalMN_orpe, Nullable<decimal> ntotalUs_orpe, Nullable<bool> besta_orpe, Nullable<decimal> nvalIGV_orpe, string suser_orpe, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, ObjectParameter sw)
+        public virtual int Pr_Orden_PedidoCrea(Nullable<int> ncode_docu, string sseri_orpe, string snume_orpe, Nullable<System.DateTime> dfeorpeo_orpe, Nullable<System.DateTime> dfevenci_orpe, Nullable<System.DateTime> dfdespacho_orpe, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orpe, Nullable<decimal> ntc_orpe, Nullable<int> ncode_fopago, string sobse_orpe, string scode_compra, Nullable<decimal> nbrutoex_orpe, Nullable<decimal> nbrutoaf_orpe, Nullable<decimal> ndctoex_orpe, Nullable<decimal> ndsctoaf_orpe, Nullable<decimal> nsubex_orpe, Nullable<decimal> nsubaf_orpe, Nullable<decimal> nigvex_orpe, Nullable<decimal> nigvaf_orpe, Nullable<decimal> ntotaex_orpe, Nullable<decimal> ntotaaf_orpe, Nullable<decimal> ntotal_orpe, Nullable<decimal> ntotalMN_orpe, Nullable<decimal> ntotalUs_orpe, Nullable<bool> besta_orpe, Nullable<decimal> nvalIGV_orpe, string suser_orpe, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, Nullable<long> ncode_dose, Nullable<long> ncuotas_orpe, Nullable<decimal> ncuotavalor_orpe, Nullable<decimal> ncuotadias_orpe, string sglosadespacho_orpe, Nullable<bool> bflete_orpe, ObjectParameter sw)
         {
             var ncode_docuParameter = ncode_docu.HasValue ?
                 new ObjectParameter("ncode_docu", ncode_docu) :
@@ -1784,7 +1819,31 @@ namespace MarketASP.Models
                 new ObjectParameter("bclienteagretencion", bclienteagretencion) :
                 new ObjectParameter("bclienteagretencion", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoCrea", ncode_docuParameter, sseri_orpeParameter, snume_orpeParameter, dfeorpeo_orpeParameter, dfevenci_orpeParameter, dfdespacho_orpeParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orpeParameter, ntc_orpeParameter, ncode_fopagoParameter, sobse_orpeParameter, scode_compraParameter, nbrutoex_orpeParameter, nbrutoaf_orpeParameter, ndctoex_orpeParameter, ndsctoaf_orpeParameter, nsubex_orpeParameter, nsubaf_orpeParameter, nigvex_orpeParameter, nigvaf_orpeParameter, ntotaex_orpeParameter, ntotaaf_orpeParameter, ntotal_orpeParameter, ntotalMN_orpeParameter, ntotalUs_orpeParameter, besta_orpeParameter, nvalIGV_orpeParameter, suser_orpeParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, sw);
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            var ncuotas_orpeParameter = ncuotas_orpe.HasValue ?
+                new ObjectParameter("ncuotas_orpe", ncuotas_orpe) :
+                new ObjectParameter("ncuotas_orpe", typeof(long));
+    
+            var ncuotavalor_orpeParameter = ncuotavalor_orpe.HasValue ?
+                new ObjectParameter("ncuotavalor_orpe", ncuotavalor_orpe) :
+                new ObjectParameter("ncuotavalor_orpe", typeof(decimal));
+    
+            var ncuotadias_orpeParameter = ncuotadias_orpe.HasValue ?
+                new ObjectParameter("ncuotadias_orpe", ncuotadias_orpe) :
+                new ObjectParameter("ncuotadias_orpe", typeof(decimal));
+    
+            var sglosadespacho_orpeParameter = sglosadespacho_orpe != null ?
+                new ObjectParameter("sglosadespacho_orpe", sglosadespacho_orpe) :
+                new ObjectParameter("sglosadespacho_orpe", typeof(string));
+    
+            var bflete_orpeParameter = bflete_orpe.HasValue ?
+                new ObjectParameter("bflete_orpe", bflete_orpe) :
+                new ObjectParameter("bflete_orpe", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoCrea", ncode_docuParameter, sseri_orpeParameter, snume_orpeParameter, dfeorpeo_orpeParameter, dfevenci_orpeParameter, dfdespacho_orpeParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orpeParameter, ntc_orpeParameter, ncode_fopagoParameter, sobse_orpeParameter, scode_compraParameter, nbrutoex_orpeParameter, nbrutoaf_orpeParameter, ndctoex_orpeParameter, ndsctoaf_orpeParameter, nsubex_orpeParameter, nsubaf_orpeParameter, nigvex_orpeParameter, nigvaf_orpeParameter, ntotaex_orpeParameter, ntotaaf_orpeParameter, ntotal_orpeParameter, ntotalMN_orpeParameter, ntotalUs_orpeParameter, besta_orpeParameter, nvalIGV_orpeParameter, suser_orpeParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, ncode_doseParameter, ncuotas_orpeParameter, ncuotavalor_orpeParameter, ncuotadias_orpeParameter, sglosadespacho_orpeParameter, bflete_orpeParameter, sw);
         }
     
         public virtual int Pr_Orden_PedidoDetaCrea(Nullable<long> ncode_orpe, Nullable<long> ncode_arti, Nullable<decimal> ncant_orpedeta, Nullable<decimal> npu_orpedeta, Nullable<decimal> ndscto_orpedeta, Nullable<decimal> ndscto2_orpedeta, Nullable<decimal> nexon_orpedeta, Nullable<decimal> nafecto_orpedeta, Nullable<bool> besafecto_orpedeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_orpedeta, Nullable<decimal> ndsctomin_orpedeta, Nullable<decimal> ndsctoporc_orpedeta, Nullable<decimal> npuorigen_orpedeta)
@@ -1857,7 +1916,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoDetaEdita", ncode_orpeParameter);
         }
     
-        public virtual int Pr_Orden_PedidoEdita(Nullable<long> ncode_orpe, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeorpeo_orpe, Nullable<System.DateTime> dfevenci_orpe, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orpe, Nullable<decimal> ntc_orpe, Nullable<int> ncode_fopago, string sobse_orpe, string scode_compra, Nullable<decimal> nbrutoex_orpe, Nullable<decimal> nbrutoaf_orpe, Nullable<decimal> ndctoex_orpe, Nullable<decimal> ndsctoaf_orpe, Nullable<decimal> nsubex_orpe, Nullable<decimal> nsubaf_orpe, Nullable<decimal> nigvex_orpe, Nullable<decimal> nigvaf_orpe, Nullable<decimal> ntotaex_orpe, Nullable<decimal> ntotaaf_orpe, Nullable<decimal> ntotal_orpe, Nullable<decimal> ntotalMN_orpe, Nullable<decimal> ntotalUs_orpe, Nullable<bool> besta_orpe, Nullable<decimal> nvalIGV_orpe, string suser_orpe, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, ObjectParameter sw)
+        public virtual int Pr_Orden_PedidoEdita(Nullable<long> ncode_orpe, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeorpeo_orpe, Nullable<System.DateTime> dfevenci_orpe, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, string smone_orpe, Nullable<decimal> ntc_orpe, Nullable<int> ncode_fopago, string sobse_orpe, string scode_compra, Nullable<decimal> nbrutoex_orpe, Nullable<decimal> nbrutoaf_orpe, Nullable<decimal> ndctoex_orpe, Nullable<decimal> ndsctoaf_orpe, Nullable<decimal> nsubex_orpe, Nullable<decimal> nsubaf_orpe, Nullable<decimal> nigvex_orpe, Nullable<decimal> nigvaf_orpe, Nullable<decimal> ntotaex_orpe, Nullable<decimal> ntotaaf_orpe, Nullable<decimal> ntotal_orpe, Nullable<decimal> ntotalMN_orpe, Nullable<decimal> ntotalUs_orpe, Nullable<bool> besta_orpe, Nullable<decimal> nvalIGV_orpe, string suser_orpe, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_vende, Nullable<bool> bclienteagretencion, Nullable<long> ncuotas_orpe, Nullable<decimal> ncuotavalor_orpe, Nullable<decimal> ncuotadias_orpe, string sglosadespacho_orpe, Nullable<bool> bflete_orpe, ObjectParameter sw)
         {
             var ncode_orpeParameter = ncode_orpe.HasValue ?
                 new ObjectParameter("ncode_orpe", ncode_orpe) :
@@ -1987,7 +2046,27 @@ namespace MarketASP.Models
                 new ObjectParameter("bclienteagretencion", bclienteagretencion) :
                 new ObjectParameter("bclienteagretencion", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoEdita", ncode_orpeParameter, ncode_docuParameter, dfeorpeo_orpeParameter, dfevenci_orpeParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orpeParameter, ntc_orpeParameter, ncode_fopagoParameter, sobse_orpeParameter, scode_compraParameter, nbrutoex_orpeParameter, nbrutoaf_orpeParameter, ndctoex_orpeParameter, ndsctoaf_orpeParameter, nsubex_orpeParameter, nsubaf_orpeParameter, nigvex_orpeParameter, nigvaf_orpeParameter, ntotaex_orpeParameter, ntotaaf_orpeParameter, ntotal_orpeParameter, ntotalMN_orpeParameter, ntotalUs_orpeParameter, besta_orpeParameter, nvalIGV_orpeParameter, suser_orpeParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, sw);
+            var ncuotas_orpeParameter = ncuotas_orpe.HasValue ?
+                new ObjectParameter("ncuotas_orpe", ncuotas_orpe) :
+                new ObjectParameter("ncuotas_orpe", typeof(long));
+    
+            var ncuotavalor_orpeParameter = ncuotavalor_orpe.HasValue ?
+                new ObjectParameter("ncuotavalor_orpe", ncuotavalor_orpe) :
+                new ObjectParameter("ncuotavalor_orpe", typeof(decimal));
+    
+            var ncuotadias_orpeParameter = ncuotadias_orpe.HasValue ?
+                new ObjectParameter("ncuotadias_orpe", ncuotadias_orpe) :
+                new ObjectParameter("ncuotadias_orpe", typeof(decimal));
+    
+            var sglosadespacho_orpeParameter = sglosadespacho_orpe != null ?
+                new ObjectParameter("sglosadespacho_orpe", sglosadespacho_orpe) :
+                new ObjectParameter("sglosadespacho_orpe", typeof(string));
+    
+            var bflete_orpeParameter = bflete_orpe.HasValue ?
+                new ObjectParameter("bflete_orpe", bflete_orpe) :
+                new ObjectParameter("bflete_orpe", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoEdita", ncode_orpeParameter, ncode_docuParameter, dfeorpeo_orpeParameter, dfevenci_orpeParameter, ncode_clienteParameter, ncode_clidireParameter, smone_orpeParameter, ntc_orpeParameter, ncode_fopagoParameter, sobse_orpeParameter, scode_compraParameter, nbrutoex_orpeParameter, nbrutoaf_orpeParameter, ndctoex_orpeParameter, ndsctoaf_orpeParameter, nsubex_orpeParameter, nsubaf_orpeParameter, nigvex_orpeParameter, nigvaf_orpeParameter, ntotaex_orpeParameter, ntotaaf_orpeParameter, ntotal_orpeParameter, ntotalMN_orpeParameter, ntotalUs_orpeParameter, besta_orpeParameter, nvalIGV_orpeParameter, suser_orpeParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_vendeParameter, bclienteagretencionParameter, ncuotas_orpeParameter, ncuotavalor_orpeParameter, ncuotadias_orpeParameter, sglosadespacho_orpeParameter, bflete_orpeParameter, sw);
         }
     
         public virtual int Pr_OrdenPedidoElimina(Nullable<long> ncode_orpe, ObjectParameter sw)
@@ -2147,7 +2226,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_OCompraConsultaDetallada_Result>("Pr_OCompraConsultaDetallada", ncode_artiParameter);
         }
     
-        public virtual int Pr_Orden_CompraCrea(Nullable<int> ncode_docu, string sseri_orco, string snume_orco, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<System.DateTime> dfentrega_orco, Nullable<long> ncode_provee, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, ObjectParameter sw)
+        public virtual int Pr_Orden_CompraCrea(Nullable<int> ncode_docu, string sseri_orco, string snume_orco, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<System.DateTime> dfentrega_orco, Nullable<long> ncode_provee, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_dose, ObjectParameter sw)
         {
             var ncode_docuParameter = ncode_docu.HasValue ?
                 new ObjectParameter("ncode_docu", ncode_docu) :
@@ -2273,7 +2352,11 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_mone", ncode_mone) :
                 new ObjectParameter("ncode_mone", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraCrea", ncode_docuParameter, sseri_orcoParameter, snume_orcoParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, dfentrega_orcoParameter, ncode_proveeParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, sw);
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraCrea", ncode_docuParameter, sseri_orcoParameter, snume_orcoParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, dfentrega_orcoParameter, ncode_proveeParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_doseParameter, sw);
         }
     
         public virtual int Pr_Orden_CompraDetaCrea(Nullable<long> ncode_orco, Nullable<long> ncode_arti, Nullable<decimal> ncant_orcodeta, Nullable<decimal> npu_orcodeta, Nullable<decimal> ndscto_orcodeta, Nullable<decimal> ndscto2_orcodeta, Nullable<decimal> nexon_orcodeta, Nullable<decimal> nafecto_orcodeta, Nullable<bool> besafecto_orcodeta, Nullable<int> ncode_alma, Nullable<decimal> ndsctomax_orcodeta, Nullable<decimal> ndsctomin_orcodeta, Nullable<decimal> ndsctoporc_orcodeta, Nullable<decimal> npuorigen_orcodeta)
@@ -2346,7 +2429,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraDetaEdita", ncode_orcoParameter);
         }
     
-        public virtual int Pr_Orden_CompraEdita(Nullable<long> ncode_orco, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<long> ncode_provee, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, ObjectParameter sw)
+        public virtual int Pr_Orden_CompraEdita(Nullable<long> ncode_orco, Nullable<int> ncode_docu, Nullable<System.DateTime> dfeorco_orco, Nullable<System.DateTime> dfevenci_orco, Nullable<long> ncode_provee, string smone_orco, Nullable<decimal> ntc_orco, Nullable<int> ncode_fopago, string sobse_orco, string scode_compra, Nullable<decimal> nbrutoex_orco, Nullable<decimal> nbrutoaf_orco, Nullable<decimal> ndctoex_orco, Nullable<decimal> ndsctoaf_orco, Nullable<decimal> nsubex_orco, Nullable<decimal> nsubaf_orco, Nullable<decimal> nigvex_orco, Nullable<decimal> nigvaf_orco, Nullable<decimal> ntotaex_orco, Nullable<decimal> ntotaaf_orco, Nullable<decimal> ntotal_orco, Nullable<decimal> ntotalMN_orco, Nullable<decimal> ntotalUs_orco, Nullable<bool> besta_orco, Nullable<decimal> nvalIGV_orco, string suser_orco, Nullable<int> ncode_alma, Nullable<int> ncode_local, Nullable<int> ncode_mone, Nullable<long> ncode_dose, ObjectParameter sw)
         {
             var ncode_orcoParameter = ncode_orco.HasValue ?
                 new ObjectParameter("ncode_orco", ncode_orco) :
@@ -2464,7 +2547,11 @@ namespace MarketASP.Models
                 new ObjectParameter("ncode_mone", ncode_mone) :
                 new ObjectParameter("ncode_mone", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraEdita", ncode_orcoParameter, ncode_docuParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, ncode_proveeParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, sw);
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_CompraEdita", ncode_orcoParameter, ncode_docuParameter, dfeorco_orcoParameter, dfevenci_orcoParameter, ncode_proveeParameter, smone_orcoParameter, ntc_orcoParameter, ncode_fopagoParameter, sobse_orcoParameter, scode_compraParameter, nbrutoex_orcoParameter, nbrutoaf_orcoParameter, ndctoex_orcoParameter, ndsctoaf_orcoParameter, nsubex_orcoParameter, nsubaf_orcoParameter, nigvex_orcoParameter, nigvaf_orcoParameter, ntotaex_orcoParameter, ntotaaf_orcoParameter, ntotal_orcoParameter, ntotalMN_orcoParameter, ntotalUs_orcoParameter, besta_orcoParameter, nvalIGV_orcoParameter, suser_orcoParameter, ncode_almaParameter, ncode_localParameter, ncode_moneParameter, ncode_doseParameter, sw);
         }
     
         public virtual int Pr_OrdenCompraElimina(Nullable<long> ncode_orco, ObjectParameter sw)
@@ -2642,7 +2729,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_compraActualizaLote", tipoParameter, ncode_loteParameter, ncode_compraParameter);
         }
     
-        public virtual int Pr_GUIACrear(Nullable<System.DateTime> dfemov_guia, string smone_guia, Nullable<decimal> ntc_guia, string sobse_guia, string sserie_guia, string snume_guia, string suser_guia, Nullable<int> ncode_tiguia, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_guia, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, Nullable<int> ncode_docu, Nullable<int> ncode_mone, Nullable<long> ncode_tran, Nullable<long> ncode_orpe, string sserienume_orpe, ObjectParameter sw)
+        public virtual int Pr_GUIACrear(Nullable<System.DateTime> dfemov_guia, string smone_guia, Nullable<decimal> ntc_guia, string sobse_guia, string sserie_guia, string snume_guia, string suser_guia, Nullable<int> ncode_tiguia, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_guia, Nullable<int> ncode_cliente, Nullable<int> ncode_clidire, Nullable<int> ncode_docu, Nullable<int> ncode_mone, Nullable<long> ncode_tran, Nullable<long> ncode_orpe, string sserienume_orpe, Nullable<long> ncode_dose, Nullable<decimal> nbrutoex_guia, Nullable<decimal> nbrutoaf_guia, Nullable<decimal> ndctoex_guia, Nullable<decimal> ndsctoaf_guia, Nullable<decimal> nsubex_guia, Nullable<decimal> nsubaf_guia, Nullable<decimal> nigvex_guia, Nullable<decimal> nigvaf_guia, Nullable<decimal> ntotaex_guia, Nullable<decimal> ntotaaf_guia, Nullable<decimal> ntotal_guia, Nullable<decimal> ntotalMN_guia, Nullable<decimal> ntotalUs_guia, Nullable<decimal> nvalIGV_guia, Nullable<bool> bclienteagretencion, Nullable<long> ncuotas_guia, Nullable<decimal> ncuotavalor_guia, Nullable<decimal> ncuotadias_guia, string sglosadespacho_guia, Nullable<bool> bflete_guia, ObjectParameter sw)
         {
             var dfemov_guiaParameter = dfemov_guia.HasValue ?
                 new ObjectParameter("dfemov_guia", dfemov_guia) :
@@ -2716,7 +2803,91 @@ namespace MarketASP.Models
                 new ObjectParameter("sserienume_orpe", sserienume_orpe) :
                 new ObjectParameter("sserienume_orpe", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GUIACrear", dfemov_guiaParameter, smone_guiaParameter, ntc_guiaParameter, sobse_guiaParameter, sserie_guiaParameter, snume_guiaParameter, suser_guiaParameter, ncode_tiguiaParameter, ncode_almaParameter, ndestino_almaParameter, stipo_guiaParameter, ncode_clienteParameter, ncode_clidireParameter, ncode_docuParameter, ncode_moneParameter, ncode_tranParameter, ncode_orpeParameter, sserienume_orpeParameter, sw);
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            var nbrutoex_guiaParameter = nbrutoex_guia.HasValue ?
+                new ObjectParameter("nbrutoex_guia", nbrutoex_guia) :
+                new ObjectParameter("nbrutoex_guia", typeof(decimal));
+    
+            var nbrutoaf_guiaParameter = nbrutoaf_guia.HasValue ?
+                new ObjectParameter("nbrutoaf_guia", nbrutoaf_guia) :
+                new ObjectParameter("nbrutoaf_guia", typeof(decimal));
+    
+            var ndctoex_guiaParameter = ndctoex_guia.HasValue ?
+                new ObjectParameter("ndctoex_guia", ndctoex_guia) :
+                new ObjectParameter("ndctoex_guia", typeof(decimal));
+    
+            var ndsctoaf_guiaParameter = ndsctoaf_guia.HasValue ?
+                new ObjectParameter("ndsctoaf_guia", ndsctoaf_guia) :
+                new ObjectParameter("ndsctoaf_guia", typeof(decimal));
+    
+            var nsubex_guiaParameter = nsubex_guia.HasValue ?
+                new ObjectParameter("nsubex_guia", nsubex_guia) :
+                new ObjectParameter("nsubex_guia", typeof(decimal));
+    
+            var nsubaf_guiaParameter = nsubaf_guia.HasValue ?
+                new ObjectParameter("nsubaf_guia", nsubaf_guia) :
+                new ObjectParameter("nsubaf_guia", typeof(decimal));
+    
+            var nigvex_guiaParameter = nigvex_guia.HasValue ?
+                new ObjectParameter("nigvex_guia", nigvex_guia) :
+                new ObjectParameter("nigvex_guia", typeof(decimal));
+    
+            var nigvaf_guiaParameter = nigvaf_guia.HasValue ?
+                new ObjectParameter("nigvaf_guia", nigvaf_guia) :
+                new ObjectParameter("nigvaf_guia", typeof(decimal));
+    
+            var ntotaex_guiaParameter = ntotaex_guia.HasValue ?
+                new ObjectParameter("ntotaex_guia", ntotaex_guia) :
+                new ObjectParameter("ntotaex_guia", typeof(decimal));
+    
+            var ntotaaf_guiaParameter = ntotaaf_guia.HasValue ?
+                new ObjectParameter("ntotaaf_guia", ntotaaf_guia) :
+                new ObjectParameter("ntotaaf_guia", typeof(decimal));
+    
+            var ntotal_guiaParameter = ntotal_guia.HasValue ?
+                new ObjectParameter("ntotal_guia", ntotal_guia) :
+                new ObjectParameter("ntotal_guia", typeof(decimal));
+    
+            var ntotalMN_guiaParameter = ntotalMN_guia.HasValue ?
+                new ObjectParameter("ntotalMN_guia", ntotalMN_guia) :
+                new ObjectParameter("ntotalMN_guia", typeof(decimal));
+    
+            var ntotalUs_guiaParameter = ntotalUs_guia.HasValue ?
+                new ObjectParameter("ntotalUs_guia", ntotalUs_guia) :
+                new ObjectParameter("ntotalUs_guia", typeof(decimal));
+    
+            var nvalIGV_guiaParameter = nvalIGV_guia.HasValue ?
+                new ObjectParameter("nvalIGV_guia", nvalIGV_guia) :
+                new ObjectParameter("nvalIGV_guia", typeof(decimal));
+    
+            var bclienteagretencionParameter = bclienteagretencion.HasValue ?
+                new ObjectParameter("bclienteagretencion", bclienteagretencion) :
+                new ObjectParameter("bclienteagretencion", typeof(bool));
+    
+            var ncuotas_guiaParameter = ncuotas_guia.HasValue ?
+                new ObjectParameter("ncuotas_guia", ncuotas_guia) :
+                new ObjectParameter("ncuotas_guia", typeof(long));
+    
+            var ncuotavalor_guiaParameter = ncuotavalor_guia.HasValue ?
+                new ObjectParameter("ncuotavalor_guia", ncuotavalor_guia) :
+                new ObjectParameter("ncuotavalor_guia", typeof(decimal));
+    
+            var ncuotadias_guiaParameter = ncuotadias_guia.HasValue ?
+                new ObjectParameter("ncuotadias_guia", ncuotadias_guia) :
+                new ObjectParameter("ncuotadias_guia", typeof(decimal));
+    
+            var sglosadespacho_guiaParameter = sglosadespacho_guia != null ?
+                new ObjectParameter("sglosadespacho_guia", sglosadespacho_guia) :
+                new ObjectParameter("sglosadespacho_guia", typeof(string));
+    
+            var bflete_guiaParameter = bflete_guia.HasValue ?
+                new ObjectParameter("bflete_guia", bflete_guia) :
+                new ObjectParameter("bflete_guia", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GUIACrear", dfemov_guiaParameter, smone_guiaParameter, ntc_guiaParameter, sobse_guiaParameter, sserie_guiaParameter, snume_guiaParameter, suser_guiaParameter, ncode_tiguiaParameter, ncode_almaParameter, ndestino_almaParameter, stipo_guiaParameter, ncode_clienteParameter, ncode_clidireParameter, ncode_docuParameter, ncode_moneParameter, ncode_tranParameter, ncode_orpeParameter, sserienume_orpeParameter, ncode_doseParameter, nbrutoex_guiaParameter, nbrutoaf_guiaParameter, ndctoex_guiaParameter, ndsctoaf_guiaParameter, nsubex_guiaParameter, nsubaf_guiaParameter, nigvex_guiaParameter, nigvaf_guiaParameter, ntotaex_guiaParameter, ntotaaf_guiaParameter, ntotal_guiaParameter, ntotalMN_guiaParameter, ntotalUs_guiaParameter, nvalIGV_guiaParameter, bclienteagretencionParameter, ncuotas_guiaParameter, ncuotavalor_guiaParameter, ncuotadias_guiaParameter, sglosadespacho_guiaParameter, bflete_guiaParameter, sw);
         }
     
         public virtual int Pr_GuiaDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_guiadet, Nullable<decimal> npu_guiadet, string suser_guiadet, Nullable<int> ncode_guia, Nullable<int> ncode_umed)
@@ -2757,7 +2928,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaDetaElimina", ncode_guiaParameter);
         }
     
-        public virtual int Pr_GuiaEditar(Nullable<decimal> ncode_guia, Nullable<System.DateTime> dfemov_guia, string smone_guia, Nullable<decimal> ntc_guia, string sobse_guia, string sserie_guia, string snume_guia, string suser_guia, Nullable<int> ncode_tiguia, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_guia, Nullable<bool> besta_guia, Nullable<long> ncode_tran, Nullable<long> ncode_orpe, string sserienume_orpe, ObjectParameter sw)
+        public virtual int Pr_GuiaEditar(Nullable<decimal> ncode_guia, Nullable<System.DateTime> dfemov_guia, string smone_guia, Nullable<decimal> ntc_guia, string sobse_guia, string sserie_guia, string snume_guia, string suser_guia, Nullable<int> ncode_tiguia, Nullable<int> ncode_alma, Nullable<int> ndestino_alma, string stipo_guia, Nullable<bool> besta_guia, Nullable<long> ncode_tran, Nullable<long> ncode_orpe, string sserienume_orpe, Nullable<long> ncode_dose, Nullable<decimal> nbrutoex_guia, Nullable<decimal> nbrutoaf_guia, Nullable<decimal> ndctoex_guia, Nullable<decimal> ndsctoaf_guia, Nullable<decimal> nsubex_guia, Nullable<decimal> nsubaf_guia, Nullable<decimal> nigvex_guia, Nullable<decimal> nigvaf_guia, Nullable<decimal> ntotaex_guia, Nullable<decimal> ntotaaf_guia, Nullable<decimal> ntotal_guia, Nullable<decimal> ntotalMN_guia, Nullable<decimal> ntotalUs_guia, Nullable<decimal> nvalIGV_guia, Nullable<bool> bclienteagretencion, Nullable<long> ncuotas_guia, Nullable<decimal> ncuotavalor_guia, Nullable<decimal> ncuotadias_guia, string sglosadespacho_guia, Nullable<bool> bflete_guia, ObjectParameter sw)
         {
             var ncode_guiaParameter = ncode_guia.HasValue ?
                 new ObjectParameter("ncode_guia", ncode_guia) :
@@ -2823,7 +2994,91 @@ namespace MarketASP.Models
                 new ObjectParameter("sserienume_orpe", sserienume_orpe) :
                 new ObjectParameter("sserienume_orpe", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaEditar", ncode_guiaParameter, dfemov_guiaParameter, smone_guiaParameter, ntc_guiaParameter, sobse_guiaParameter, sserie_guiaParameter, snume_guiaParameter, suser_guiaParameter, ncode_tiguiaParameter, ncode_almaParameter, ndestino_almaParameter, stipo_guiaParameter, besta_guiaParameter, ncode_tranParameter, ncode_orpeParameter, sserienume_orpeParameter, sw);
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(long));
+    
+            var nbrutoex_guiaParameter = nbrutoex_guia.HasValue ?
+                new ObjectParameter("nbrutoex_guia", nbrutoex_guia) :
+                new ObjectParameter("nbrutoex_guia", typeof(decimal));
+    
+            var nbrutoaf_guiaParameter = nbrutoaf_guia.HasValue ?
+                new ObjectParameter("nbrutoaf_guia", nbrutoaf_guia) :
+                new ObjectParameter("nbrutoaf_guia", typeof(decimal));
+    
+            var ndctoex_guiaParameter = ndctoex_guia.HasValue ?
+                new ObjectParameter("ndctoex_guia", ndctoex_guia) :
+                new ObjectParameter("ndctoex_guia", typeof(decimal));
+    
+            var ndsctoaf_guiaParameter = ndsctoaf_guia.HasValue ?
+                new ObjectParameter("ndsctoaf_guia", ndsctoaf_guia) :
+                new ObjectParameter("ndsctoaf_guia", typeof(decimal));
+    
+            var nsubex_guiaParameter = nsubex_guia.HasValue ?
+                new ObjectParameter("nsubex_guia", nsubex_guia) :
+                new ObjectParameter("nsubex_guia", typeof(decimal));
+    
+            var nsubaf_guiaParameter = nsubaf_guia.HasValue ?
+                new ObjectParameter("nsubaf_guia", nsubaf_guia) :
+                new ObjectParameter("nsubaf_guia", typeof(decimal));
+    
+            var nigvex_guiaParameter = nigvex_guia.HasValue ?
+                new ObjectParameter("nigvex_guia", nigvex_guia) :
+                new ObjectParameter("nigvex_guia", typeof(decimal));
+    
+            var nigvaf_guiaParameter = nigvaf_guia.HasValue ?
+                new ObjectParameter("nigvaf_guia", nigvaf_guia) :
+                new ObjectParameter("nigvaf_guia", typeof(decimal));
+    
+            var ntotaex_guiaParameter = ntotaex_guia.HasValue ?
+                new ObjectParameter("ntotaex_guia", ntotaex_guia) :
+                new ObjectParameter("ntotaex_guia", typeof(decimal));
+    
+            var ntotaaf_guiaParameter = ntotaaf_guia.HasValue ?
+                new ObjectParameter("ntotaaf_guia", ntotaaf_guia) :
+                new ObjectParameter("ntotaaf_guia", typeof(decimal));
+    
+            var ntotal_guiaParameter = ntotal_guia.HasValue ?
+                new ObjectParameter("ntotal_guia", ntotal_guia) :
+                new ObjectParameter("ntotal_guia", typeof(decimal));
+    
+            var ntotalMN_guiaParameter = ntotalMN_guia.HasValue ?
+                new ObjectParameter("ntotalMN_guia", ntotalMN_guia) :
+                new ObjectParameter("ntotalMN_guia", typeof(decimal));
+    
+            var ntotalUs_guiaParameter = ntotalUs_guia.HasValue ?
+                new ObjectParameter("ntotalUs_guia", ntotalUs_guia) :
+                new ObjectParameter("ntotalUs_guia", typeof(decimal));
+    
+            var nvalIGV_guiaParameter = nvalIGV_guia.HasValue ?
+                new ObjectParameter("nvalIGV_guia", nvalIGV_guia) :
+                new ObjectParameter("nvalIGV_guia", typeof(decimal));
+    
+            var bclienteagretencionParameter = bclienteagretencion.HasValue ?
+                new ObjectParameter("bclienteagretencion", bclienteagretencion) :
+                new ObjectParameter("bclienteagretencion", typeof(bool));
+    
+            var ncuotas_guiaParameter = ncuotas_guia.HasValue ?
+                new ObjectParameter("ncuotas_guia", ncuotas_guia) :
+                new ObjectParameter("ncuotas_guia", typeof(long));
+    
+            var ncuotavalor_guiaParameter = ncuotavalor_guia.HasValue ?
+                new ObjectParameter("ncuotavalor_guia", ncuotavalor_guia) :
+                new ObjectParameter("ncuotavalor_guia", typeof(decimal));
+    
+            var ncuotadias_guiaParameter = ncuotadias_guia.HasValue ?
+                new ObjectParameter("ncuotadias_guia", ncuotadias_guia) :
+                new ObjectParameter("ncuotadias_guia", typeof(decimal));
+    
+            var sglosadespacho_guiaParameter = sglosadespacho_guia != null ?
+                new ObjectParameter("sglosadespacho_guia", sglosadespacho_guia) :
+                new ObjectParameter("sglosadespacho_guia", typeof(string));
+    
+            var bflete_guiaParameter = bflete_guia.HasValue ?
+                new ObjectParameter("bflete_guia", bflete_guia) :
+                new ObjectParameter("bflete_guia", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaEditar", ncode_guiaParameter, dfemov_guiaParameter, smone_guiaParameter, ntc_guiaParameter, sobse_guiaParameter, sserie_guiaParameter, snume_guiaParameter, suser_guiaParameter, ncode_tiguiaParameter, ncode_almaParameter, ndestino_almaParameter, stipo_guiaParameter, besta_guiaParameter, ncode_tranParameter, ncode_orpeParameter, sserienume_orpeParameter, ncode_doseParameter, nbrutoex_guiaParameter, nbrutoaf_guiaParameter, ndctoex_guiaParameter, ndsctoaf_guiaParameter, nsubex_guiaParameter, nsubaf_guiaParameter, nigvex_guiaParameter, nigvaf_guiaParameter, ntotaex_guiaParameter, ntotaaf_guiaParameter, ntotal_guiaParameter, ntotalMN_guiaParameter, ntotalUs_guiaParameter, nvalIGV_guiaParameter, bclienteagretencionParameter, ncuotas_guiaParameter, ncuotavalor_guiaParameter, ncuotadias_guiaParameter, sglosadespacho_guiaParameter, bflete_guiaParameter, sw);
         }
     
         public virtual int Pr_GuiaElimina(Nullable<decimal> ncode_guia)
@@ -3368,6 +3623,178 @@ namespace MarketASP.Models
                 new ObjectParameter("cliente", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_GuiaVentaLista_Result>("Pr_GuiaVentaLista", tipoParameter, documentoParameter, clienteParameter);
+        }
+    
+        public virtual ObjectResult<Pr_GuiaVentaDetVentaGuia_Result> Pr_GuiaVentaDetVentaGuia(Nullable<long> ncode_guia)
+        {
+            var ncode_guiaParameter = ncode_guia.HasValue ?
+                new ObjectParameter("ncode_guia", ncode_guia) :
+                new ObjectParameter("ncode_guia", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_GuiaVentaDetVentaGuia_Result>("Pr_GuiaVentaDetVentaGuia", ncode_guiaParameter);
+        }
+    
+        public virtual ObjectResult<Pr_DocSerie_Result> Pr_DocSerie(Nullable<int> tipo, string susario_dose, Nullable<int> ncode_local, Nullable<int> ncode_docu)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("tipo", tipo) :
+                new ObjectParameter("tipo", typeof(int));
+    
+            var susario_doseParameter = susario_dose != null ?
+                new ObjectParameter("susario_dose", susario_dose) :
+                new ObjectParameter("susario_dose", typeof(string));
+    
+            var ncode_localParameter = ncode_local.HasValue ?
+                new ObjectParameter("ncode_local", ncode_local) :
+                new ObjectParameter("ncode_local", typeof(int));
+    
+            var ncode_docuParameter = ncode_docu.HasValue ?
+                new ObjectParameter("ncode_docu", ncode_docu) :
+                new ObjectParameter("ncode_docu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_DocSerie_Result>("Pr_DocSerie", tipoParameter, susario_doseParameter, ncode_localParameter, ncode_docuParameter);
+        }
+    
+        public virtual ObjectResult<string> Pr_DocSerieNumero(Nullable<int> ncode_dose)
+        {
+            var ncode_doseParameter = ncode_dose.HasValue ?
+                new ObjectParameter("ncode_dose", ncode_dose) :
+                new ObjectParameter("ncode_dose", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Pr_DocSerieNumero", ncode_doseParameter);
+        }
+    
+        public virtual int Pr_ArticuloPrecioCRUD(string accion, Nullable<long> ncode_artpre, Nullable<decimal> nprecio_artpre, Nullable<long> ncode_lipre, Nullable<long> ncode_arti, string suser_artpre)
+        {
+            var accionParameter = accion != null ?
+                new ObjectParameter("accion", accion) :
+                new ObjectParameter("accion", typeof(string));
+    
+            var ncode_artpreParameter = ncode_artpre.HasValue ?
+                new ObjectParameter("ncode_artpre", ncode_artpre) :
+                new ObjectParameter("ncode_artpre", typeof(long));
+    
+            var nprecio_artpreParameter = nprecio_artpre.HasValue ?
+                new ObjectParameter("nprecio_artpre", nprecio_artpre) :
+                new ObjectParameter("nprecio_artpre", typeof(decimal));
+    
+            var ncode_lipreParameter = ncode_lipre.HasValue ?
+                new ObjectParameter("ncode_lipre", ncode_lipre) :
+                new ObjectParameter("ncode_lipre", typeof(long));
+    
+            var ncode_artiParameter = ncode_arti.HasValue ?
+                new ObjectParameter("ncode_arti", ncode_arti) :
+                new ObjectParameter("ncode_arti", typeof(long));
+    
+            var suser_artpreParameter = suser_artpre != null ?
+                new ObjectParameter("suser_artpre", suser_artpre) :
+                new ObjectParameter("suser_artpre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_ArticuloPrecioCRUD", accionParameter, ncode_artpreParameter, nprecio_artpreParameter, ncode_lipreParameter, ncode_artiParameter, suser_artpreParameter);
+        }
+    
+        public virtual int Pr_Orden_PedidoCuotaCrud(string accion, Nullable<long> ncode_orpecu, Nullable<long> ncode_orpe, Nullable<System.DateTime> dfreg_orpecu, Nullable<decimal> nvalor_orpecu, string suser_orpecu, ObjectParameter sw)
+        {
+            var accionParameter = accion != null ?
+                new ObjectParameter("accion", accion) :
+                new ObjectParameter("accion", typeof(string));
+    
+            var ncode_orpecuParameter = ncode_orpecu.HasValue ?
+                new ObjectParameter("ncode_orpecu", ncode_orpecu) :
+                new ObjectParameter("ncode_orpecu", typeof(long));
+    
+            var ncode_orpeParameter = ncode_orpe.HasValue ?
+                new ObjectParameter("ncode_orpe", ncode_orpe) :
+                new ObjectParameter("ncode_orpe", typeof(long));
+    
+            var dfreg_orpecuParameter = dfreg_orpecu.HasValue ?
+                new ObjectParameter("dfreg_orpecu", dfreg_orpecu) :
+                new ObjectParameter("dfreg_orpecu", typeof(System.DateTime));
+    
+            var nvalor_orpecuParameter = nvalor_orpecu.HasValue ?
+                new ObjectParameter("nvalor_orpecu", nvalor_orpecu) :
+                new ObjectParameter("nvalor_orpecu", typeof(decimal));
+    
+            var suser_orpecuParameter = suser_orpecu != null ?
+                new ObjectParameter("suser_orpecu", suser_orpecu) :
+                new ObjectParameter("suser_orpecu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_Orden_PedidoCuotaCrud", accionParameter, ncode_orpecuParameter, ncode_orpeParameter, dfreg_orpecuParameter, nvalor_orpecuParameter, suser_orpecuParameter, sw);
+        }
+    
+        public virtual int Pr_VentaCuotaCrud(string accion, Nullable<long> ncode_vedecu, Nullable<long> ncode_venta, Nullable<System.DateTime> dfreg_vedecu, Nullable<decimal> nvalor_vedecu, string suser_vedecu, ObjectParameter sw)
+        {
+            var accionParameter = accion != null ?
+                new ObjectParameter("accion", accion) :
+                new ObjectParameter("accion", typeof(string));
+    
+            var ncode_vedecuParameter = ncode_vedecu.HasValue ?
+                new ObjectParameter("ncode_vedecu", ncode_vedecu) :
+                new ObjectParameter("ncode_vedecu", typeof(long));
+    
+            var ncode_ventaParameter = ncode_venta.HasValue ?
+                new ObjectParameter("ncode_venta", ncode_venta) :
+                new ObjectParameter("ncode_venta", typeof(long));
+    
+            var dfreg_vedecuParameter = dfreg_vedecu.HasValue ?
+                new ObjectParameter("dfreg_vedecu", dfreg_vedecu) :
+                new ObjectParameter("dfreg_vedecu", typeof(System.DateTime));
+    
+            var nvalor_vedecuParameter = nvalor_vedecu.HasValue ?
+                new ObjectParameter("nvalor_vedecu", nvalor_vedecu) :
+                new ObjectParameter("nvalor_vedecu", typeof(decimal));
+    
+            var suser_vedecuParameter = suser_vedecu != null ?
+                new ObjectParameter("suser_vedecu", suser_vedecu) :
+                new ObjectParameter("suser_vedecu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_VentaCuotaCrud", accionParameter, ncode_vedecuParameter, ncode_ventaParameter, dfreg_vedecuParameter, nvalor_vedecuParameter, suser_vedecuParameter, sw);
+        }
+    
+        public virtual int Pr_GuiaCuotaCrud(string accion, Nullable<long> ncode_guiacu, Nullable<long> ncode_guia, Nullable<System.DateTime> dfreg_guiacu, Nullable<decimal> nvalor_guiacu, string suser_guiacu, ObjectParameter sw)
+        {
+            var accionParameter = accion != null ?
+                new ObjectParameter("accion", accion) :
+                new ObjectParameter("accion", typeof(string));
+    
+            var ncode_guiacuParameter = ncode_guiacu.HasValue ?
+                new ObjectParameter("ncode_guiacu", ncode_guiacu) :
+                new ObjectParameter("ncode_guiacu", typeof(long));
+    
+            var ncode_guiaParameter = ncode_guia.HasValue ?
+                new ObjectParameter("ncode_guia", ncode_guia) :
+                new ObjectParameter("ncode_guia", typeof(long));
+    
+            var dfreg_guiacuParameter = dfreg_guiacu.HasValue ?
+                new ObjectParameter("dfreg_guiacu", dfreg_guiacu) :
+                new ObjectParameter("dfreg_guiacu", typeof(System.DateTime));
+    
+            var nvalor_guiacuParameter = nvalor_guiacu.HasValue ?
+                new ObjectParameter("nvalor_guiacu", nvalor_guiacu) :
+                new ObjectParameter("nvalor_guiacu", typeof(decimal));
+    
+            var suser_guiacuParameter = suser_guiacu != null ?
+                new ObjectParameter("suser_guiacu", suser_guiacu) :
+                new ObjectParameter("suser_guiacu", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaCuotaCrud", accionParameter, ncode_guiacuParameter, ncode_guiaParameter, dfreg_guiacuParameter, nvalor_guiacuParameter, suser_guiacuParameter, sw);
+        }
+    
+        public virtual ObjectResult<Pr_KardexMovimientos_Result> Pr_KardexMovimientos(string fini, string ffin, string sdesc_arti)
+        {
+            var finiParameter = fini != null ?
+                new ObjectParameter("fini", fini) :
+                new ObjectParameter("fini", typeof(string));
+    
+            var ffinParameter = ffin != null ?
+                new ObjectParameter("ffin", ffin) :
+                new ObjectParameter("ffin", typeof(string));
+    
+            var sdesc_artiParameter = sdesc_arti != null ?
+                new ObjectParameter("sdesc_arti", sdesc_arti) :
+                new ObjectParameter("sdesc_arti", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pr_KardexMovimientos_Result>("Pr_KardexMovimientos", finiParameter, ffinParameter, sdesc_artiParameter);
         }
     }
 }

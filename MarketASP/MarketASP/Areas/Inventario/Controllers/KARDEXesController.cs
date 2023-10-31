@@ -27,8 +27,9 @@ namespace MarketASP.Areas.Inventario.Controllers
                 return View("_Mensaje");
             }
 
-            var kARDEX = db.KARDEX.Include(k => k.ALMACEN);
-            return View(await kARDEX.ToListAsync());
+            var resultado = db.Pr_KardexMovimientos("","","").ToList();
+
+            return View(resultado);
         }
         public async Task<ActionResult> Resumen(string sdesc_arti,string sdesc_alma)
         {

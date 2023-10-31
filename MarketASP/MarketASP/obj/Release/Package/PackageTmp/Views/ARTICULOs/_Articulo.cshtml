@@ -33,25 +33,32 @@
                     @Html.ValidationMessageFor(model => model.scode_arti, "", new { @class = "text-danger" })
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Abreviatura</label>
                             @Html.EditorFor(model => model.sabrev_arti, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.sabrev_arti, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Medida</label>
                             @Html.DropDownList("ncode_umed", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.ncode_umed, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Moneda</label>
                             @Html.EditorFor(model => model.smoneda, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.smoneda, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Margen</label>
+                            @Html.EditorFor(model => model.nmargen_arti, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nmargen_arti, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -137,7 +144,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bafecto_arti")
                             @Html.ValidationMessageFor(model => model.bafecto_arti, "", new { @class = "text-danger" })
@@ -146,7 +153,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bisc_arti")
                             @Html.ValidationMessageFor(model => model.bisc_arti, "", new { @class = "text-danger" })
@@ -155,12 +162,21 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bvenc_arti")
                             @Html.ValidationMessageFor(model => model.bvenc_arti, "", new { @class = "text-danger" })
                             <label class="form-check-label" for="bvenc_arti">
                                 Vencimiento
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check mb-3">
+                            @Html.CheckBox("bdescarga_arti")
+                            @Html.ValidationMessageFor(model => model.bdescarga_arti, "", new { @class = "text-danger" })
+                            <label class="form-check-label" for="bdescarga_arti">
+                                Descarga Stock
                             </label>
                         </div>
                     </div>

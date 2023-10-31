@@ -31,5 +31,7 @@ namespace MarketASP.Models
         public Nullable<decimal> nultcosto_arti { get; set; }
         public decimal Disponible { get; set; }
         public decimal nstocktransito_arti { get; set; }
+        public Nullable<decimal> npreciotope_arti { get; set; }
+        public decimal nmargen_arti { get; set; }
     }
 }

@@ -1,11 +1,15 @@
-﻿var ofunciones=null;
+﻿
+var ofunciones=null;
 var mattable;
 var preciotable;
 var almatable;
+var cuotastable = null;
 var conf_decimal = 2;
 var conf_moneda = 0;
 var CONFIG_dscto = 'NO';
 var conf_PrecioIGV;
+var conf_poretencion;
+var beditar = false;
 
 $(document).ready(function () {
     var code = 0;
@@ -18,17 +22,60 @@ $(document).ready(function () {
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
+    conf_poretencion = $("#poretencion").val();
 
-    console.log('CONFIGURACIONES');
-    console.log($("input[type=checkbox][name=bprecioconigv]:checked").val());
-    console.log(conf_PrecioIGV);
-    //console.log(conf_icbper);
+    /*DATATABLES*/
+    cuotastable = $('#tblcuota').DataTable({
+        "dom": 'T<"clear">rtip',
+        "aoColumnDefs": [{
+            "bVisible": false,
+            "aTargets": []
+        },
+        {
+            "sClass": "my_class",
+            "aTargets": [1,2]
+        }],
+        "drawCallback": function () {
+            this.$('td.my_class').editable(urlcuotaEditar, {
+                "callback": function (sValue, y) {
+                    var aPos = cuotastable.row(this).index();
+                    var idx = cuotastable.column(this).index();
+                    cuotastable.cell(aPos, idx).data(sValue).draw;
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "column": cuotastable.column(this).index()
+                    };
 
-    //console.log(code);
-    //console.log('xx')
+                },
+                "height": "20px",
+                "width": "100%"
+            });
+        },
+        select: {
+            style: 'single'
+        },
+        "paging": false,
+        "keys": true,
+        "info": false,
+        "searching": false,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No hay datos disponibles",
+            "info": "Mostrando pagina _PAGE_ of _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": " Siguiente",
+                "previous": "Anterior "
+            }
+        }
+    });
 
     if (typeof code === 'undefined') {
-        //  console.log('series');
         fnDocumentoSerieNumero();
     }
 
@@ -40,15 +87,54 @@ $(document).ready(function () {
         fnclienteFPago();
 
         $("#nro_fopago").val($('#ncode_fopago').val());
+
+        beditar = true;
     }
 
-    $("#ncode_docu").change(function () {
+    $("#btndireccion").on("click", function () {
+
+        var codcliente = $('#COD_CLIENTE').val();
+
+        if (codcliente == '') {
+
+            return
+        }
+
+        var ruta = urlclientedireccion;
+
+         // urlclientedireccion.replace("param-id", JSON.stringify(codcliente));
+        urlclientedireccion = urlclientedireccion.replace("param-id", codcliente);
+
+        ///window.location.href = urlclientedireccion;
+        window.open(urlclientedireccion, "_blank");
+        urlclientedireccion = ruta;
+    })
+
+    $("#sseri_orpe").change(function () {
+        
         fnDocumentoSerieNumero();
     });
 
-    //$("#ncode_fopago").change(function () {
-    //    fnFormaPagoDiasFecha()
-    //});
+    /*CUOTAS*/
+    $("#ncuotas_orpe").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+    $("#ncuotadias_orpe").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+    /*formas de pago*/
+    $('#ncode_fopago').change(function () {
+
+        var snpago = $("#ncode_fopago").val();
+
+
+
+    })
+
 
      ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -471,6 +557,11 @@ function Sales_save() {
 
     //console.log('nueva venta');
 
+    var ordenpedidoViewCuotas = {
+        "ncode_orpecu": "", "sfecharegistro": "", "nvalor_orpecu": ""
+    };
+
+
     var ordenpedidoViewDetas = {
         "ncode_arti": "", "ncant_orpedeta": "", "npu_orpedeta": "", "ndscto_orpedeta": "",
         "ndscto2_orpedeta": "", "nexon_orpedeta": "", "nafecto_orpedeta": "", "besafecto_orpedeta": "",
@@ -479,7 +570,7 @@ function Sales_save() {
     };
 
     var ordenpedidoView = {
-        "ncode_orpe": "", "ncode_alma": "", "ncode_mone": "",
+        "ncode_orpe": "", "ncode_alma": "", "ncode_mone": "","ncode_dose":"",
         "ncode_docu": "", "sseri_orpe": "", "snume_orpe": "",
         "sfeordenpedido_orpe": "", "sfevenci_orpe": "", "sfedespacho_orpe": "", "ncode_cliente": "",
         "ncode_clidire": "", "smone_orpe": "", "ntc_orpe": "",
@@ -488,13 +579,17 @@ function Sales_save() {
         "ndctoex_orpe": "", "ndsctoaf_orpe": "", "nsubex_orpe": "",
         "nsubaf_orpe": "", "nigvex_orpe": "", "nigvaf_orpe": "", "ntotaex_orpe": "",
         "ntotaaf_orpe": "", "ntotal_orpe": "", "ntotalMN_orpe": "", "ntotalUs_orpe": "",
-        "nvalIGV_orpe": "", "ncode_vende": "","bclienteagretencion":"", "ordenpedidoViewDetas": []
+        "ncuotas_orpe": "", "ncuotavalor_orpe": "", "ncuotadias_orpe": "", "sglosadespacho_orpe": "",
+        "bflete_orpe":"",
+        "nvalIGV_orpe": "", "ncode_vende": "", "bclienteagretencion": "", "ordenpedidoViewDetas": [],
+        "ordenpedidoViewCuotas": []
 
     };
 
     ordenpedidoView.ncode_orpe = $('#ncode_orpe').val();
     ordenpedidoView.ncode_docu = $("#ncode_docu option:selected").val();
-    ordenpedidoView.sseri_orpe = $('#sseri_orpe').val();
+    ordenpedidoView.ncode_dose = $("#sseri_orpe option:selected").val();
+    ordenpedidoView.sseri_orpe = $("#sseri_orpe option:selected").text();
     ordenpedidoView.snume_orpe = $('#snume_orpe').val();
     ordenpedidoView.sfeordenpedido_orpe = $('#dfeorpeo_orpe').val();
     ordenpedidoView.sfevenci_orpe = $('#dfevenci_orpe').val();
@@ -524,6 +619,12 @@ function Sales_save() {
     ordenpedidoView.ncode_mone = $("#ncode_mone option:selected").val();
     ordenpedidoView.ncode_vende = $("#ncode_vende option:selected").val();
     ordenpedidoView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val(); 
+    ordenpedidoView.ncuotas_orpe = $('#ncuotas_orpe').val();
+    ordenpedidoView.ncuotavalor_orpe = $('#ncuotavalor_orpe').val();
+    ordenpedidoView.ncuotadias_orpe = $('#ncuotadias_orpe').val();
+    ordenpedidoView.sglosadespacho_orpe = $('#sglosadespacho_orpe').val();
+    ordenpedidoView.bflete_orpe = $('input:checkbox[name=bflete_orpe]:checked').val();
+
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -544,7 +645,7 @@ function Sales_save() {
 
         ordenpedidoView.ordenpedidoViewDetas.push(ordenpedidoViewDetas);
 
-        var ordenpedidoViewDetas = {
+        ordenpedidoViewDetas = {
             "ncode_arti": "", "ncant_orpedeta": "", "npu_orpedeta": "", "ndscto_orpedeta": "",
             "ndscto2_orpedeta": "", "nexon_orpedeta": "", "nafecto_orpedeta": "", "besafecto_orpedeta": "",
             "ncode_alma": "", "ndsctomax_orpedeta": "", "ndsctomin_orpedeta": "", "ndsctoporc_orpedeta": ""
@@ -552,7 +653,25 @@ function Sales_save() {
 
     }
 
-    // console.log(ordenpedidoView);
+    var otblc = $('#tblcuota').dataTable();
+    var nrowsc = otblc.fnGetData().length;
+    var oTablec = otblc.fnGetData();
+
+    for (var i = 0; i < nrowsc; i++) {
+
+        ordenpedidoViewCuotas.ncode_orpecu = oTablec[i][0];
+        ordenpedidoViewCuotas.sfecharegistro = oTablec[i][1];
+        ordenpedidoViewCuotas.nvalor_orpecu = oTablec[i][2];
+        ordenpedidoView.ordenpedidoViewCuotas.push(ordenpedidoViewCuotas);
+
+        ordenpedidoViewCuotas = {
+            "ncode_orpecu": "", "sfecharegistro": "", "nvalor_orpecu": ""
+        };
+    }
+
+
+
+    console.log(ordenpedidoView);
 
     var token = $('[name=__RequestVerificationToken]').val();
 
@@ -724,6 +843,54 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     var TOTAL = parseFloat(TOTAL_AFEC) + parseFloat(SUBT_EX);
 
     $("#ntotal_orpe").val(TOTAL.toFixed(conf_decimal));
+
+    //valor de retencion
+    var retencion = 1;
+    $("#ntotaretencion_orpe").val(0);
+    if ($('input:checkbox[name=bclienteagretencion]:checked').val()) {
+        retencion = conf_poretencion;
+        TOTAL = TOTAL * (1 - retencion);
+        $("#ntotaretencion_orpe").val(TOTAL.toFixed(conf_decimal));
+    }
+
+    //numero de cuotas - valor de cuota
+    var xncuotas_orpe = $('#ncuotas_orpe').val();
+    $('#ncuotavalor_orpe').val(0);
+    if (xncuotas_orpe != '' && xncuotas_orpe != '0') {
+        var xncuotavalor_orpe = TOTAL / xncuotas_orpe;
+        $('#ncuotavalor_orpe').val(xncuotavalor_orpe.toFixed(conf_decimal));
+    }
+    CuotasLista(xncuotas_orpe, xncuotavalor_orpe);
+
+}
+
+function CuotasLista(nrocuotas,valorcuota) {
+
+    
+
+    if (nrocuotas == '' || nrocuotas == '0' || beditar == true) {
+        return;
+    }
+
+    cuotastable.rows().remove().draw(false);
+
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+
+    var sfecha = $("#dfeorpeo_orpe").val(); 
+    var dias = $('#ncuotadias_orpe').val();
+    var valorcuota = $('#ncuotavalor_orpe').val();
+    var nrocuotas = $('#ncuotas_orpe').val();
+
+    for (var i = 0; i < nrocuotas; i++) {
+        cuotastable.row.add([i, sfecha, valorcuota]).draw();
+        var parts = sfecha.split("/");
+        var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+        fecha.setDate(fecha.getDate() + parseInt(dias));
+        sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+    }
+        
+
 }
 
 function ComparaPrecio(Precio, PrecioOrigen) {
@@ -757,19 +924,9 @@ function fnFormaPagoDiasFecha(codfopago) {
                 var m = $("#dfeorpeo_orpe").val();
                 var parts = m.split("/");
                 var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
-                //var fecha = new Date($('#dfeventa_venta').val());
-                //console.log(fecha);
-                //console.log(fecha.getDate());
-                //console.log(fecha.getFullYear());
-                //console.log(fecha.getMonth());
-                //console.log(dias.dias);
-                //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
-                //console.log(xdias);
                 fecha.setDate(fecha.getDate() + parseInt(dias.dias));
                 var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
                 $('#dfevenci_orpe').val(xfecha);
-                //console.log(fecha);
-                console.log(xfecha);
             });
 
         },
@@ -783,17 +940,18 @@ function fnFormaPagoDiasFecha(codfopago) {
 
 function fnDocumentoSerieNumero() {
     //console.log($("#ncode_docu").val());
+    var ncode = $("#sseri_orpe option:selected").val();
 
     $.ajax({
         type: 'POST',
         url: urlGetDocuNumero,
         dataType: 'json',
-        data: { ndocu: $("#ncode_docu").val() },
+        data: { ncode_dose: ncode },
         success: function (docu) {
-            //console.log(docu.length);
+            console.log(docu);
             $.each(docu, function (i, doc) {
-                $('#sseri_orpe').val(doc.serie);
-                $('#snume_orpe').val(doc.numero);
+                ///$('#sseri_orpe').val(doc.serie);
+                $('#snume_orpe').val(doc);
                 //console.log(doc.serie);
             });
 
@@ -806,3 +964,7 @@ function fnDocumentoSerieNumero() {
 }
 
 
+function fnAgenteRetencion() {
+    console.log('retencion agente')
+    Totales(conf_igv, conf_decimal, conf_icbper);
+}

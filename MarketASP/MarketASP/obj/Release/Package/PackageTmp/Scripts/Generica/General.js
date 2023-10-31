@@ -44,6 +44,7 @@ $(document).ready(function () {
             $('#bclienteagretencion').prop('checked', false);
             if (ui.item.agretencion) {
                 $('#bclienteagretencion').prop('checked', true);
+                //fnAgenteRetencion()
             }
 
             

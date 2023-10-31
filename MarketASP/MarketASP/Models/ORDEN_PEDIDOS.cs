@@ -18,6 +18,7 @@ namespace MarketASP.Models
         public ORDEN_PEDIDOS()
         {
             this.ORDEN_PEDIDOS_DETALLE = new HashSet<ORDEN_PEDIDOS_DETALLE>();
+            this.ORDEN_PEDIDOS_CUOTAS = new HashSet<ORDEN_PEDIDOS_CUOTAS>();
         }
     
         public long ncode_orpe { get; set; }
@@ -60,6 +61,13 @@ namespace MarketASP.Models
         public Nullable<System.DateTime> dfdespacho_orpe { get; set; }
         public Nullable<bool> bprecioconigv_orpe { get; set; }
         public Nullable<bool> bclienteagretencion { get; set; }
+        public Nullable<long> ncode_guia { get; set; }
+        public Nullable<long> ncode_dose { get; set; }
+        public Nullable<long> ncuotas_orpe { get; set; }
+        public Nullable<decimal> ncuotavalor_orpe { get; set; }
+        public Nullable<long> ncuotadias_orpe { get; set; }
+        public string sglosadespacho_orpe { get; set; }
+        public Nullable<bool> bflete_orpe { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CLI_DIRE CLI_DIRE { get; set; }
@@ -69,5 +77,7 @@ namespace MarketASP.Models
         public virtual LOCAL LOCAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS_DETALLE> ORDEN_PEDIDOS_DETALLE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ORDEN_PEDIDOS_CUOTAS> ORDEN_PEDIDOS_CUOTAS { get; set; }
     }
 }

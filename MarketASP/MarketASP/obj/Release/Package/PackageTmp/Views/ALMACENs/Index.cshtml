@@ -17,6 +17,7 @@
                     <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
+                                <th>Cod</th>
                                 <th>
                                     <label>Descripción</label>
                                 </th>
@@ -29,22 +30,25 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sdesc_alma)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.besta_alma)
-                                    </td>
-                                    <td>
-                                        <a href="@Url.Action("Edit", new { id = item.ncode_alma })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="@Url.Action("DeleteAlma", new { id = item.ncode_alma })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sabr_alma)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_alma)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.besta_alma)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", new { id = item.ncode_alma })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("DeleteAlma", new { id = item.ncode_alma })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

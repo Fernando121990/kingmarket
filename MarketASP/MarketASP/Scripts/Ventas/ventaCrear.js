@@ -9,6 +9,8 @@ var conf_icbper = 0
 var conf_moneda = 0;
 var CONFIG_dscto = 'NO';
 var conf_PrecioIGV;
+var conf_poretencion;
+var beditar = false;
 
 $(document).ready(function () {
 
@@ -21,18 +23,72 @@ $(document).ready(function () {
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
-    //console.log(conf_igv);
-    //console.log(conf_decimal);
-    //console.log(conf_icbper);
+    conf_poretencion = $("#poretencion").val();
+
+    /*DATATABLES*/
+    cuotastable = $('#tblcuota').DataTable({
+        "dom": 'T<"clear">rtip',
+        "aoColumnDefs": [{
+            "bVisible": false,
+            "aTargets": []
+        },
+        {
+            "sClass": "my_class",
+            "aTargets": [1,2]
+        }],
+        "drawCallback": function () {
+            this.$('td.my_class').editable(urlcuotaEditar, {
+                "callback": function (sValue, y) {
+                    var aPos = cuotastable.row(this).index();
+                    var idx = cuotastable.column(this).index();
+                    cuotastable.cell(aPos, idx).data(sValue).draw;
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "column": cuotastable.column(this).index()
+                    };
+
+                },
+                "height": "20px",
+                "width": "100%"
+            });
+        },
+        select: {
+            style: 'single'
+        },
+        "paging": false,
+        "keys": true,
+        "info": false,
+        "searching": false,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No hay datos disponibles",
+            "info": "Mostrando pagina _PAGE_ of _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primero",
+                "last": "Ultimo",
+                "next": " Siguiente",
+                "previous": "Anterior "
+            }
+        }
+    });
 
     if (typeof code === 'undefined') {
       //  console.log('series');
-        fnDocumentoSerieNumero($("#ncode_docu").val(),"V");
+
+        var cod = $("#sseri_venta option:selected").val();
+
+        fnDocumentoSerieNumero(cod,'V');
+
     }
 
     if (code > 0) {
+        beditar = true;
+
         fnclienteDire();
-        //console.log($('#ncode_clidire').val());
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
         fnclienteFPago();
@@ -42,17 +98,63 @@ $(document).ready(function () {
 
     $("#ncode_docu").change(function () {
 
+        $("#snume_venta").val('');
+
         var cod = $("#ncode_docu option:selected").val();
-        //console.log('docuyuki');
-        //console.log(cod);
-        fnDocumentoSerieNumero(cod,"V");
+
+        fnDocumentoSerie(cod,'V');
+
     });
+
+    $("#sseri_venta").change(function () {
+        var cod = $("#sseri_venta option:selected").val();
+        fnDocumentoSerieNumero(cod,'V');
+    });
+
+    /*CLIENTE DIRECCION*/
+    $("#btndireccion").on("click", function () {
+
+        var codcliente = $('#COD_CLIENTE').val();
+
+        if (codcliente == '') {
+
+            return
+        }
+
+        var ruta = urlclientedireccion;
+
+        // urlclientedireccion.replace("param-id", JSON.stringify(codcliente));
+        urlclientedireccion = urlclientedireccion.replace("param-id", codcliente);
+
+        ///window.location.href = urlclientedireccion;
+        window.open(urlclientedireccion, "_blank");
+        urlclientedireccion = ruta;
+    })
+
+    /*CUOTAS*/
+    $("#ncuotas_venta").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+    $("#ncuotadias_venta").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+    $("#bclienteagretencion").change(function () {
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+
+    /* Guias numeracion*/
 
     $("#bitguia_venta").click(function () {
 
         if ($("#bitguia_venta").is(':checked')) {
             //console.log('checkedyuki');
-            fnDocumentoSerieNumero(1076, "G");
+            fnDocumentoSerie(1076,'G');
+            
         }
         else {
            // console.log('uncheckedyuki');
@@ -61,9 +163,30 @@ $(document).ready(function () {
         }
     });
 
+    $("#sserie_guia").change(function () {
+        var cod = $("#sserie_guia option:selected").val();
+        fnDocumentoSerieNumero(cod,'G');
+    });
+
+    /*forma de pago*/
 
     $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
+
+        var sfpago = $("#ncode_fopago option:selected").text();
+
+        $("#ncuotas_venta").prop("disabled", true);
+        $("#ncuotadias_venta").prop("disabled", true);
+        $("#ncuotas_venta").val(1);
+        $("#ncuotadias_venta").val('');
+
+        if (sfpago.indexOf("FNEG") != -1 || sfpago.indexOf("LETRA") != -1) {
+            $("#ncuotas_venta").prop("disabled", false);
+            $("#ncuotadias_venta").prop("disabled", false);
+        }
+
+
+        fnFormaPagoDiasFecha();
+
     });
 
     olotes = $('#tblLote').DataTable({
@@ -347,6 +470,12 @@ $(document).ready(function () {
             alert("Seleccione Ubicacion");
             return false;
         };
+
+        if ($("#ncode_fopago option:selected").text().length < 1) {
+            alert("Seleccione forma de pago");
+            return false;
+        };
+
         ////*******
 
         if ($("#ntc_venta").val().length < 1) {
@@ -397,6 +526,7 @@ $(document).ready(function () {
         Sales_save();
     });
 
+    /* ordendes de pedido **/
     $(".btnpedidos").click(function () {
 
         $.ajax({
@@ -471,9 +601,84 @@ $(document).ready(function () {
         ordentable.destroy();
     });
 
+    /* guia de venta **/
+    $(".btnguiaventa").click(function () {
+
+        $.ajax({
+            type: 'POST',
+            url: urlGuiaVenta,
+            dataType: 'json',
+            data: {},
+            success: function (resultado) {
+
+                guiatable = $('#guiaventatabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "ncode_guia" },
+                        { "data": "fecha" },
+                        { "data": "numeracion" },
+                        { "data": "srazon_cliente" }
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": []
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "bDestroy": true,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+
+    $("#btnguia").click(function () {
+
+        var data = guiatable.row('.selected').data();
+
+        console.log(data.ncode_guia);
+
+        fnCargaGuiaVenta(data.ncode_guia);
+
+    });
+
+    $("#btnguiaventacerrarx").click(function () {
+        guiatable.destroy();
+    });
+
+    $("#btnguiaventacerrar").click(function () {
+        guiatable.destroy();
+    });
 
 
-    /** */
+    /**lotes */
 
     $(".delLote").click(function () {
 
@@ -625,6 +830,10 @@ function Sales_save() {
 
     //console.log('nueva venta');
 
+    var ventaViewCuotas = {
+        "ncode_vedecu": "", "sfecharegistro": "", "nvalor_vedecu": ""
+    };
+
     var ventaViewLotes = {
         "ncode_arti": "", "ncant_velote": "", "ncode_alma": "", "sdesc_lote": "", "sfvenci_lote": "", "ncode_lote": ""
     };
@@ -647,13 +856,17 @@ function Sales_save() {
         "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
         "ntotaaf_venta": "", "ntotal_venta": "", "ntotalMN_venta": "", "ntotalUs_venta": "",
-        "ncode_vende": "", "ncode_orpe": "","sserienume_orpe":"",
-        "nvalIGV_venta": "", "nicbper_venta": "", "bclienteagretencion": "", "ventaViewDetas": [], "ventaViewLotes": []
+        "ncode_vende": "", "ncode_orpe": "", "sserienume_orpe": "", "ncode_guiaAsociadas_venta": "", "ncode_dose": "",
+        "ncuotas_venta": "", "ncuotavalor_venta": "", "nretencionvalor_venta": "", "ncuotadias_venta": "", "sglosadespacho_venta": "",
+        "bflete_venta": "",
+        "nvalIGV_venta": "", "nicbper_venta": "", "bclienteagretencion": "", "ventaViewDetas": [], "ventaViewLotes": [],
+        "ventaViewCuotas": []
     };
 
     ventaView.ncode_venta = $('#ncode_venta').val();
     ventaView.ncode_docu = $("#ncode_docu option:selected").val();
-    ventaView.sseri_venta = $('#sseri_venta').val();
+    ventaView.ncode_dose = $("#sseri_venta option:selected").val();
+    ventaView.sseri_venta = $("#sseri_venta option:selected").text();
     ventaView.snume_venta = $('#snume_venta').val();
     ventaView.sfeventa_venta = $('#dfeventa_venta').val();
     ventaView.sfevenci_venta = $('#dfevenci_venta').val();
@@ -686,7 +899,14 @@ function Sales_save() {
     ventaView.ncode_orpe = $("#ncode_orpe").val();
     ventaView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val();
     ventaView.sserienume_orpe = $('#sserienume_orpe').val();
-    
+    ventaView.ncode_guiaAsociadas_venta = $("#ncode_guiaAsociadas_venta").val();
+    ventaView.ncuotas_venta = $('#ncuotas_venta').val();
+    ventaView.ncuotavalor_venta = $('#ncuotavalor_venta').val();
+    ventaView.nretencionvalor_venta = $('#nretencionvalor_venta').val();
+    ventaView.ncuotadias_venta = $('#ncuotadias_venta').val();
+    ventaView.sglosadespacho_venta = $('#sglosadespacho_venta').val();
+    ventaView.bflete_venta = $('input:checkbox[name=bflete_venta]:checked').val();
+
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -704,7 +924,7 @@ function Sales_save() {
         ventaViewDetas.besafecto_vedeta = oTable[i][8];
         ventaViewDetas.ndsctoporc_vedeta = oTable[i][6];
         ventaViewDetas.bicbper_vedeta = oTable[i][11];
-        ventaViewDetas.ncantLote_vedeta = oTable[i][12];
+        ventaViewDetas.ncantLote_vedeta = oTable[i][13];
         ventaViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ventaView.ventaViewDetas.push(ventaViewDetas);
@@ -743,7 +963,21 @@ function Sales_save() {
 
     }
 
+    var otblc = $('#tblcuota').dataTable();
+    var nrowsc = otblc.fnGetData().length;
+    var oTablec = otblc.fnGetData();
 
+    for (var i = 0; i < nrowsc; i++) {
+
+        ventaViewCuotas.ncode_vedecu = oTablec[i][0];
+        ventaViewCuotas.sfecharegistro = oTablec[i][1];
+        ventaViewCuotas.nvalor_orpecu = oTablec[i][2];
+        ventaView.ventaViewCuotas.push(ventaViewCuotas);
+
+        ventaViewCuotas = {
+            "ncode_vedecu": "", "sfecharegistro": "", "nvalor_vedecu": ""
+        };
+    }
 
     //console.log(ventaView);
 
@@ -928,9 +1162,55 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
     var TOTAL = parseFloat(TOTAL_AFEC) + parseFloat(SUBT_EX);
 
-    $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
+
+    //valor de retencion
+    var retencion = 1;
+    $("#ntotaretencion_venta").val(0);
+    if ($('input:checkbox[name=bclienteagretencion]:checked').val()) {
+        retencion = conf_poretencion;
+        TOTAL = TOTAL * (1 - retencion);
+        $("#ntotaretencion_venta").val(TOTAL.toFixed(conf_decimal));
+    }
+
+    //numero de cuotas - valor de cuota
+    var xncuotas_venta = $('#ncuotas_venta').val();
+    $('#ncuotavalor_venta').val(0);
+    if (xncuotas_venta != '' && xncuotas_venta != '0') {
+        var xncuotavalor_venta = TOTAL / xncuotas_venta;
+        $('#ncuotavalor_venta').val(xncuotavalor_venta.toFixed(conf_decimal));
+    }
+    CuotasLista(xncuotas_venta, xncuotavalor_venta);
+
 }
 
+function CuotasLista(nrocuotas, valorcuota) {
+
+    
+
+    if (nrocuotas == '' || nrocuotas == '0' || beditar == true) {
+        return;
+    }
+
+    cuotastable.rows().remove().draw(false);
+
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+
+    var sfecha = $("#dfeventa_venta").val();
+    var dias = $('#ncuotadias_venta').val();
+    var valorcuota = $('#ncuotavalor_venta').val();
+    var nrocuotas = $('#ncuotas_venta').val();
+
+    for (var i = 0; i < nrocuotas; i++) {
+        cuotastable.row.add([i, sfecha, valorcuota]).draw();
+        var parts = sfecha.split("/");
+        var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+        fecha.setDate(fecha.getDate() + parseInt(dias));
+        sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+    }
+
+
+}
 
 
 function ComparaPrecio(Precio, PrecioOrigen) {
@@ -969,7 +1249,7 @@ function fnFormaPagoDiasFecha() {
         dataType: 'json',
         data: { ncode_fopago: $("#ncode_fopago").val() },
         success: function (fopago) {
-            console.log(fopago);
+            //console.log(fopago);
             $.each(fopago, function (i, dias) {
 
                 var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -999,38 +1279,7 @@ function fnFormaPagoDiasFecha() {
     return false;
 
 }
-function fnDocumentoSerieNumero(docu,tipo) {
-    //console.log($("#ncode_docu").val());
 
-    $.ajax({
-        type: 'POST',
-        url: urlGetDocuNumero,
-        dataType: 'json',
-        data: { ndocu: docu },
-        success: function (docu) {
-            //console.log(docu.length);
-            $.each(docu, function (i, doc) {
-                
-                switch (tipo) {
-                    case "V":
-                        $('#sseri_venta').val(doc.serie);
-                        $('#snume_venta').val(doc.numero);
-                        break
-                    case "G":
-                        $('#sserie_guia').val(doc.serie);
-                        $('#snumero_guia').val(doc.numero);
-                        break
-                }
-                //console.log(doc.serie);
-            });
-
-        },
-        error: function (ex) {
-            alert('No se puede recuperar el número y serie' + ex);
-        }
-    });
-    return false;
-}
 function fnCargaProforma() {
 
     //console.log($("#ncode_profo").val());
@@ -1091,7 +1340,7 @@ function fnlimpiar() {
     $('#ncode_compra').val();
 }
 function fnCargaOrdenPedido(codigo) {
-
+    beditar = true
     fnlimpiar();
     console.log(codigo);
     $.ajax({
@@ -1115,6 +1364,17 @@ function fnCargaOrdenPedido(codigo) {
             if (venta.bclienteagretencion) {
                 $('#bclienteagretencion').prop('checked', true);
             }
+            $('#ncuotas_venta').val(venta.ncuotas_venta);
+            $('#ncuotavalor_venta').val(venta.ncuotavalor_venta);
+            $('#nretencionvalor_venta').val(venta.nretencionvalor_venta);
+
+            $('#bflete_venta').prop('checked', false);
+            if (venta.bflete_venta) {
+                $('#bflete_venta').prop('checked', true);
+            }
+
+            $('#ncuotadias_venta').val(venta.ncuotadias_venta);
+            $('#sglosadespacho_venta').val(venta.sglosadespacho_venta);
 
             var num = parseInt(venta.ventaViewDetas.length);
             var oprof = $('#tbl').DataTable();
@@ -1136,6 +1396,16 @@ function fnCargaOrdenPedido(codigo) {
                     ,venta.ventaViewDetas[i].ncant_vedeta]).draw();
             }
 
+            var numc = parseInt(venta.ventaViewCuotas.length);
+            var oprofc = $('#tblcuota').DataTable();
+            oprofc.clear();
+            for (var i = 0; i < numc; i++) {
+                oprofc.row.add([venta.ventaViewCuotas[i].ncode_vedecu
+                    , venta.ventaViewCuotas[i].sfecharegistro
+                    , venta.ventaViewCuotas[i].nvalor_vedecu]).draw();
+            }
+
+
             fnclienteDire();
             $("#NRO_DCLIENTE").val(venta.ncode_clidire);
             $("#ncode_fopago").val(venta.ncode_fopago);
@@ -1145,7 +1415,7 @@ function fnCargaOrdenPedido(codigo) {
         }
     });
 
-    Totales();
+    Totales(conf_igv, conf_decimal, conf_icbper);
 
    return false;
 
@@ -1202,4 +1472,158 @@ function fnActualizarCtdadLote(codArt, ctdad) {
             break;
         }
     }
+}
+
+function fnCargaGuiaVenta(codigo) {
+
+    fnlimpiar();
+    console.log(codigo);
+    $.ajax({
+        type: 'POST',
+        url: urlGuiaVentaAsociar,
+        dataType: 'json',
+        data: { ncode_guia: codigo },
+        success: function (venta) {
+            console.log(venta);
+
+            $('#sdesc_cliente').val(venta.scliente);
+            $('#COD_CLIENTE').val(venta.ncode_cliente);
+            $('#sruc_cliente').val(venta.sruc);
+            $('#sdni_cliente').val(venta.sdni);
+            $('#sobse_venta').val(venta.ncode_cliente);
+            $("#ncode_mone").val(venta.ncode_mone);
+            $("#ncode_guiaAsociadas_venta").val(codigo);
+            $("#ncode_alma").val(venta.ncode_alma);
+            $("#sserienume_orpe").val(venta.sserienumero);
+            $('#bclienteagretencion').prop('checked', false);
+            if (venta.bclienteagretencion) {
+                $('#bclienteagretencion').prop('checked', true);
+            }
+            $('#ncuotas_venta').val(venta.ncuotas_venta);
+            $('#ncuotavalor_venta').val(venta.ncuotavalor_venta);
+            $('#nretencionvalor_venta').val(venta.nretencionvalor_venta);
+
+            $('#bflete_venta').prop('checked', false);
+            if (venta.bflete_venta) {
+                $('#bflete_venta').prop('checked', true);
+            }
+
+            $('#ncuotadias_venta').val(venta.ncuotadias_venta);
+            $('#sglosadespacho_venta').val(venta.sglosadespacho_venta);
+
+
+
+            var num = parseInt(venta.ventaViewDetas.length);
+            var oprof = $('#tbl').DataTable();
+            oprof.clear();
+            for (var i = 0; i < num; i++) {
+                oprof.row.add([venta.ventaViewDetas[i].ncode_arti
+                    , venta.ventaViewDetas[i].scod2
+                    , venta.ventaViewDetas[i].sdesc
+                    , venta.ventaViewDetas[i].ncant_vedeta
+                    , venta.ventaViewDetas[i].sumed
+                    , venta.ventaViewDetas[i].npu_vedeta
+                    , venta.ventaViewDetas[i].npu_vedeta
+                    , venta.ventaViewDetas[i].ncode_umed
+                    , venta.ventaViewDetas[i].besafecto_vedeta
+                    , venta.ventaViewDetas[i].bisc_vedeta
+                    , venta.ventaViewDetas[i].npu_vedeta
+                    , false
+                    , venta.ventaViewDetas[i].nafecto_vedeta
+                    , venta.ventaViewDetas[i].ncant_vedeta]).draw();
+            }
+
+            fnclienteDire();
+            $("#NRO_DCLIENTE").val(venta.ncode_clidire);
+            $("#ncode_fopago").val(venta.ncode_fopago);
+        },
+        error: function (ex) {
+            alert('No se puede recuperar datos de la orden de pedido' + ex);
+        }
+    });
+
+    Totales();
+
+    return false;
+
+
+}
+
+function fnDocumentoSerie(ncode,tipo) {
+    //console.log($("#ncode_docu").val());
+    //var ncode = $("#ncode_docu option:selected").val();
+    var xcode = 0;
+    
+    $.ajax({
+        type: 'POST',
+        url: urlGetDocuSerie,
+        dataType: 'json',
+        data: { ncode_docu: ncode },
+        success: function (areas) {
+
+            var code = areas[0].ncode_dose;
+            var des = areas[0].serie;
+
+            if (tipo == 'G') {
+                $("#sseri_guia").empty();
+                $.each(areas, function (i, area) {
+                    $("#sseri_guia").append('<option value="'
+                        + area.ncode_dose + '">'
+                        + area.serie + '</option>');
+                });
+
+                $("#sseri_guia").val(code);
+
+            }
+            else {
+                $("#sseri_venta").empty();
+                $.each(areas, function (i, area) {
+                    $("#sseri_venta").append('<option value="'
+                        + area.ncode_dose + '">'
+                        + area.serie + '</option>');
+                });
+
+                $("#sseri_venta").val(code);
+            }
+            fnDocumentoSerieNumero(code,tipo);
+            
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las series del documento.' + ex);
+        }
+    });
+    return false;
+
+}
+
+function fnDocumentoSerieNumero(ncode,tipo) {
+    console.log(ncode);
+    ///var ncode = $("#sseri_venta option:selected").val();
+
+    $.ajax({
+        type: 'POST',
+        url: urlGetDocuNumero,
+        dataType: 'json',
+        data: { ncode_dose: ncode },
+        success: function (docu) {
+            console.log(docu);
+            $.each(docu, function (i, doc) {
+
+                if (tipo == 'G') {
+                    $('#snumero_guia').val(doc);
+                }
+                else {
+                    $('#snume_venta').val(doc);
+                }
+
+                
+                //console.log(doc.serie);
+            });
+
+        },
+        error: function (ex) {
+            alert('No se puede recuperar el número y serie' + ex);
+        }
+    });
+    return false;
 }

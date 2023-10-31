@@ -16,6 +16,7 @@
                     <input id="cnfdeci" name="cnfdeci" type="hidden" value="@ViewBag.deci" />
                     <input id="cnfigv" name="cnfigv" type="hidden" value="@ViewBag.igv" />
                     <input id="cnficbper" name="cnficbper" type="hidden" value="@ViewBag.icbper" />
+                    <input id="poretencion" name="poretencion" type="hidden" value="@ViewBag.poretencion" />
 
                     @Html.Partial("_OrdenPedido")
 
@@ -30,7 +31,8 @@
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/ordenpedido")
 <script type="text/javascript">
-        var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+    var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+    var urlGetDocuSerie = '@Url.Action("getDocuSerie", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
@@ -42,9 +44,12 @@
         var urlArticulos = '@Url.Action("getMatTabla", "Funciones",new { area = ""})';
         var urlKardex = '@Url.Action("getKardex", "Funciones",new { area = ""})';
         var urlPedidoPrecio = '@Url.Action("getPedidoPrecio", "Funciones",new { area = ""})';
-        var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
+    var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
+    var urlcuotaEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
+    
         var urlorpeCrea = '@Url.Action("Create", "orden_pedido")';
-        var urlorpeLista = '@Url.Action("index", "orden_pedido")';
+    var urlorpeLista = '@Url.Action("index", "orden_pedido")';
+    var urlclientedireccion = '@Url.Action("CreateDireccion", "Clientes", new { id = "param-id"})';
 </script>
 
 }

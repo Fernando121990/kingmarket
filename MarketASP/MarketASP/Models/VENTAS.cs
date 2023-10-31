@@ -19,6 +19,7 @@ namespace MarketASP.Models
         {
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
             this.VENTA_LOTE = new HashSet<VENTA_LOTE>();
+            this.VENTA_CUOTA = new HashSet<VENTA_CUOTA>();
         }
     
         public long ncode_venta { get; set; }
@@ -71,6 +72,14 @@ namespace MarketASP.Models
         public Nullable<bool> bprecioconigv_venta { get; set; }
         public Nullable<bool> bclienteagretencion { get; set; }
         public string sserienume_orpe { get; set; }
+        public string ncode_guiaAsociadas_venta { get; set; }
+        public Nullable<long> ncode_dose { get; set; }
+        public Nullable<long> ncuotas_venta { get; set; }
+        public Nullable<decimal> ncuotavalor_venta { get; set; }
+        public Nullable<decimal> nretencionvalor_venta { get; set; }
+        public Nullable<long> ncuotadias_venta { get; set; }
+        public string sglosadespacho_venta { get; set; }
+        public Nullable<bool> bflete_venta { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }
@@ -81,5 +90,7 @@ namespace MarketASP.Models
         public virtual ICollection<VENTA_DETALLE> VENTA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_LOTE> VENTA_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VENTA_CUOTA> VENTA_CUOTA { get; set; }
     }
 }

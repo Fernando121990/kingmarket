@@ -66,12 +66,15 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
-
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
+            ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
 
             var rtiguia = from s in db.TIPO_GUIA
                           where (s.besta_tiguia == true)
                           select new { s.ncode_tiguia, sdesc_tiguia = s.stipo_tiguia + " " + s.sdesc_tiguia };
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "G"), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
+                Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "G"), "ncode_confi", "sdesc_confi",1070);
+            ViewBag.sserie_guia = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1070), "ncode_dose", "serie");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia");
@@ -119,7 +122,12 @@ namespace MarketASP.Controllers
                             db.Pr_GUIACrear(DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
                                 mofView.sserie_guia,mofView.snume_guia, User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, 
                                 mofView.stipo_guia,mofView.ncode_cliente,mofView.ncode_clidire,mofView.ncode_docu,mofView.ncode_mone,
-                                mofView.ncode_tran, mofView.ncode_orpe, mofView.sserienume_orpe, sw);
+                                mofView.ncode_tran, mofView.ncode_orpe, mofView.sserienume_orpe,mofView.ncode_dose,
+                                mofView.nbrutoex_guia,mofView.nbrutoaf_guia,mofView.ndsctoex_guia,mofView.ndsctoaf_guia,
+                                mofView.nsubex_guia,mofView.nsubaf_guia,mofView.nigvex_guia,mofView.nigvaf_guia,
+                                mofView.ntotaex_guia,mofView.ntotaaf_guia,mofView.ntotal_guia,mofView.ntotalMN_guia,
+                                mofView.ntotalUS_guia,mofView.nvalIGV_guia,mofView.bclienteagretencion,mofView.ncuotas_guia,
+                                mofView.ncuotavalor_guia,mofView.ncuotadias_guia,mofView.sglosadespacho_guia,mofView.bflete_guia, sw);
 
                             code = int.Parse(sw.Value.ToString());
 
@@ -143,6 +151,17 @@ namespace MarketASP.Controllers
                                 };
 
                             }
+
+                            if (mofView.guiaViewCuotas != null)
+                            {
+                                foreach (guiaViewCuota item in mofView.guiaViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_GuiaCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_guiacu, User.Identity.Name, sw);
+                                };
+
+                            }
+
 
                             db.Pr_KardexCrea("GUIA", 4, mofView.stipo_guia, code, User.Identity.Name);
                             
@@ -191,12 +210,16 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
+            ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
 
             var rtiguia = from s in db.TIPO_GUIA
                           where (s.besta_tiguia == true)
                           select new { s.ncode_tiguia, sdesc_tiguia = s.stipo_tiguia + " " + s.sdesc_tiguia };
 
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "G"), "ncode_confi", "sdesc_confi",gUIA.ncode_docu);
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
+                Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "G"), "ncode_confi", "sdesc_confi",gUIA.ncode_docu);
+            ViewBag.sserie_guia = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, gUIA.ncode_docu), "ncode_dose", "serie",gUIA.ncode_dose);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma",gUIA.ncode_alma);
             ViewBag.ndestino_alma = new SelectList(db.ALMACEN.Where(a => a.besta_alma == true), "ncode_alma", "sdesc_alma", gUIA.ndestino_alma);
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia", gUIA.ncode_tiguia);
@@ -243,7 +266,13 @@ namespace MarketASP.Controllers
 
                             db.Pr_GuiaEditar(mofView.ncode_guia,DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
                                 "", "", User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, mofView.stipo_guia, false,
-                                mofView.ncode_tran,mofView.ncode_orpe,mofView.sserienume_orpe, sw);
+                                mofView.ncode_tran,mofView.ncode_orpe,mofView.sserienume_orpe,mofView.ncode_dose,
+                                                                mofView.nbrutoex_guia, mofView.nbrutoaf_guia, mofView.ndsctoex_guia, mofView.ndsctoaf_guia,
+                                mofView.nsubex_guia, mofView.nsubaf_guia, mofView.nigvex_guia, mofView.nigvaf_guia,
+                                mofView.ntotaex_guia, mofView.ntotaaf_guia, mofView.ntotal_guia, mofView.ntotalMN_guia,
+                                mofView.ntotalUS_guia, mofView.nvalIGV_guia, mofView.bclienteagretencion, mofView.ncuotas_guia,
+                                mofView.ncuotavalor_guia, mofView.ncuotadias_guia, mofView.sglosadespacho_guia, mofView.bflete_guia, sw);
+
 
                             code = (int) mofView.ncode_guia;
 
@@ -269,6 +298,21 @@ namespace MarketASP.Controllers
                                 };
 
                             }
+
+                            if (mofView.guiaViewCuotas != null)
+                            {
+                                db.Pr_GuiaCuotaCrud("D", 0, code, DateTime.Parse(mofView.sfemov_guia), 0, "", sw);
+
+                                foreach (guiaViewCuota item in mofView.guiaViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_GuiaCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_guiacu, User.Identity.Name, sw);
+
+                                };
+
+                            }
+
+
 
                             db.Pr_GuiaDetaEdita(code);
 

@@ -114,9 +114,11 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked":"Unchecked";
 
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi");
+            ViewBag.sseri_orpe = new SelectList(db.Pr_DocSerie(1,User.Identity.Name,0,1066), "ncode_dose", "serie");
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona","");
@@ -158,7 +160,8 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
                                 mofView.ntotalUs_orpe, true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, int.Parse(User.Identity.GetLocal()), 
-                                mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion ,sw);
+                                mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion,mofView.ncode_dose,mofView.ncuotas_orpe,
+                                mofView.ncuotavalor_orpe,mofView.ncuotadias_orpe,mofView.sglosadespacho_orpe,mofView.bflete_orpe,sw);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -176,6 +179,18 @@ namespace MarketASP.Controllers
                                 };
 
                             }
+
+                            if (mofView.ordenpedidoViewCuotas != null)
+                            {
+                                foreach (ordenpedidoViewCuota item in mofView.ordenpedidoViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_Orden_PedidoCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_orpecu, User.Identity.Name, sw);
+                                        
+                                };
+
+                            }
+
 
                             db.Pr_KardexElimina("pedido", code);
 
@@ -223,10 +238,12 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
 
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", oRDEN_PEDIDOS.smone_orpe);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_docu);
+            ViewBag.sseri_orpe = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1066), "ncode_dose", "serie",oRDEN_PEDIDOS.ncode_dose);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", oRDEN_PEDIDOS.ncode_alma);
             ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", oRDEN_PEDIDOS.ncode_vende);
             ViewBag.cod_cliente = oRDEN_PEDIDOS.ncode_cliente;
@@ -274,7 +291,8 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_orpe, mofView.ndsctoaf_orpe, mofView.nsubex_orpe, mofView.nsubaf_orpe, mofView.nigvex_orpe,
                                 mofView.nigvaf_orpe, mofView.ntotaex_orpe, mofView.ntotaaf_orpe, mofView.ntotal_orpe, mofView.ntotalMN_orpe,
                                 mofView.ntotalUs_orpe,true, mofView.nvalIGV_orpe, User.Identity.Name, mofView.ncode_alma, 
-                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion , sw);
+                                int.Parse(User.Identity.GetLocal()), mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion,
+                                mofView.ncuotas_orpe,mofView.ncuotavalor_orpe, mofView.ncuotadias_orpe, mofView.sglosadespacho_orpe, mofView.bflete_orpe, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());
@@ -289,6 +307,19 @@ namespace MarketASP.Controllers
                                         item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta,
                                         item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
                                         item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta);
+                                };
+
+                            }
+
+                            if (mofView.ordenpedidoViewCuotas != null)
+                            {
+                                db.Pr_Orden_PedidoCuotaCrud("D", 0, code, DateTime.Parse(mofView.sfeordenpedido_orpe), 0, "", sw);
+
+                                foreach (ordenpedidoViewCuota item in mofView.ordenpedidoViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_Orden_PedidoCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_orpecu, User.Identity.Name, sw);
+
                                 };
 
                             }

@@ -83,9 +83,13 @@ namespace MarketASP.Controllers
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
 
-            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).Where(c =>c.svalor_confi == "V"), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).
+                Where(c =>c.svalor_confi == "V"), "ncode_confi", "sdesc_confi",10);
+            ViewBag.sseri_venta = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 10), "ncode_dose", "serie");
+            ViewBag.sserie_guia = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1076), "ncode_dose", "serie");
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
@@ -130,37 +134,41 @@ namespace MarketASP.Controllers
                             //verificar stock
                             var bstock = true;
 
-                            if (mofView.ventaViewDetas != null)
+                            if (String.IsNullOrWhiteSpace(mofView.snumero_guia))
                             {
-                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+
+                                if (mofView.ventaViewDetas != null)
                                 {
-                                    fila++;
-
-                                    var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
-                                    
-                                    decimal cantdisponible = 0 ;
-
-                                    if (rstock != null && rstock.Count > 0)
+                                    foreach (ventaViewDeta item in mofView.ventaViewDetas)
                                     {
-                                        var xstock = rstock.ToArray();
-                                        cantdisponible = (decimal) xstock[0].STOCK;
-                                    }
+                                        fila++;
+
+                                        var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+
+                                        decimal cantdisponible = 0;
+
+                                        if (rstock != null && rstock.Count > 0)
+                                        {
+                                            var xstock = rstock.ToArray();
+                                            cantdisponible = (decimal)xstock[0].STOCK;
+                                        }
 
 
-                                    if (cantdisponible < item.ncant_vedeta) {
-                                        xmensaje += string.Format("{0}{1}",item.sdesc," - ");
-                                        bstock = false;
-                                    }
-                                };
+                                        if (cantdisponible < item.ncant_vedeta)
+                                        {
+                                            xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
+                                            bstock = false;
+                                        }
+                                    };
 
+                                }
+
+                                if (!bstock)
+                                {
+                                    xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
+                                    return Json(new { Success = 3, Mensaje = xmensaje });
+                                }
                             }
-
-                            if (!bstock)
-                            {
-                                xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
-                                return Json(new { Success = 3, Mensaje = xmensaje });
-                            }
-
 
                             db.Pr_ventaCrea(mofView.ncode_docu, mofView.sseri_venta, mofView.snume_venta, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
@@ -169,7 +177,8 @@ namespace MarketASP.Controllers
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta,mofView.nicbper_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
                                 ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.ncode_orpe,mofView.bclienteagretencion,
-                                mofView.sserienume_orpe, sw,cc);
+                                mofView.sserienume_orpe,mofView.ncode_guiaAsociadas_venta,mofView.ncode_dose,
+                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -198,11 +207,28 @@ namespace MarketASP.Controllers
 
                             }
 
-                            db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
+                            if (mofView.ventaViewCuotas != null)
+                            {
 
-                            db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "Venta", 5, "S", code, 0, "", "",code, mensaje, sw);
+                               
+                                foreach (ventaViewCuota item in mofView.ventaViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_VentaCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_vedecu, User.Identity.Name, sw);
+
+                                };
+
+                            }
 
 
+                            if (String.IsNullOrWhiteSpace(mofView.snumero_guia))
+                            {
+
+                                db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
+
+                                db.Pr_LoteCrear("", null, 0, 0, 0, User.Identity.Name, "Venta", 5, "S", code, 0, "", "", code, mensaje, sw);
+
+                            }
                             //verificar si la venta esta asociada a una orden de pedido
                              //var sconfi = Helpers.Funciones.ObtenerValorParam("GENERAL", "VENTA X PEDIDO");
                             //if (sconfi == "SI")
@@ -288,12 +314,19 @@ namespace MarketASP.Controllers
                 return HttpNotFound();
             }
 
-            
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
+            ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
+
+
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",vENTAS.smone_venta);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "V"), "ncode_confi", "sdesc_confi",vENTAS.ncode_docu);
+            ViewBag.sseri_venta = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0,vENTAS.ncode_docu ), "ncode_dose", "serie",vENTAS.ncode_dose);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
-            ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
             ViewBag.cod_cliente = vENTAS.ncode_cliente;
             ViewBag.sdesc_cliente = vENTAS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = vENTAS.CLIENTE.sruc_cliente;
@@ -382,7 +415,8 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, 
-                                int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion, sw);
+                                int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion,
+                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());
@@ -410,6 +444,20 @@ namespace MarketASP.Controllers
                                 };
 
                             }
+
+                            if (mofView.ventaViewCuotas != null)
+                            {
+                                db.Pr_VentaCuotaCrud("D", 0, code, DateTime.Parse(mofView.sfeventa_venta), 0, "", sw);
+
+                                foreach (ventaViewCuota item in mofView.ventaViewCuotas)
+                                {
+                                    fila++;
+                                    db.Pr_VentaCuotaCrud("C", 0, code, DateTime.Parse(item.sfecharegistro), item.nvalor_vedecu, User.Identity.Name, sw);
+
+                                };
+
+                            }
+
 
                             db.Pr_ventaDetaEdita(code);
 

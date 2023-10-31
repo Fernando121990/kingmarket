@@ -20,20 +20,20 @@ namespace MarketASP.Models
             this.ART_BARRA = new HashSet<ART_BARRA>();
             this.ART_PRECIO = new HashSet<ART_PRECIO>();
             this.ART_PROVE = new HashSet<ART_PROVE>();
+            this.FabricacionDetalle = new HashSet<FabricacionDetalle>();
+            this.LOTES = new HashSet<LOTES>();
+            this.RecetaDetalle = new HashSet<RecetaDetalle>();
+            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
             this.KARDEX = new HashSet<KARDEX>();
             this.VENTA_DETALLE = new HashSet<VENTA_DETALLE>();
             this.COMPRA_DETALLE = new HashSet<COMPRA_DETALLE>();
             this.PROFORMA_DETALLE = new HashSet<PROFORMA_DETALLE>();
             this.ORDEN_PEDIDOS_DETALLE = new HashSet<ORDEN_PEDIDOS_DETALLE>();
             this.ORDEN_COMPRAS_DETALLE = new HashSet<ORDEN_COMPRAS_DETALLE>();
-            this.LOTES = new HashSet<LOTES>();
+            this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
             this.GUIA_DETALLE = new HashSet<GUIA_DETALLE>();
             this.VENTA_LOTE = new HashSet<VENTA_LOTE>();
-            this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
-            this.MOVI_DETALLE = new HashSet<MOVI_DETALLE>();
             this.MOVI_LOTE = new HashSet<MOVI_LOTE>();
-            this.RecetaDetalle = new HashSet<RecetaDetalle>();
-            this.FabricacionDetalle = new HashSet<FabricacionDetalle>();
         }
     
         public long ncode_arti { get; set; }
@@ -100,6 +100,7 @@ namespace MarketASP.Models
         public Nullable<decimal> nultcosto_arti { get; set; }
         public Nullable<bool> blote_arti { get; set; }
         public Nullable<decimal> nstocktransito_arti { get; set; }
+        public Nullable<bool> bdescarga_arti { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_BARRA> ART_BARRA { get; set; }
@@ -108,8 +109,18 @@ namespace MarketASP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ART_PROVE> ART_PROVE { get; set; }
         public virtual ESPECIE ESPECIE { get; set; }
+        public virtual LINEA LINEA { get; set; }
         public virtual SUBESPECIE SUBESPECIE { get; set; }
+        public virtual SUBLINEA SUBLINEA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FabricacionDetalle> FabricacionDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LOTES> LOTES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }
         public virtual FAMILIA FAMILIA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
         public virtual CLASE CLASE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }
@@ -123,25 +134,15 @@ namespace MarketASP.Models
         public virtual ICollection<PROFORMA_DETALLE> PROFORMA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_PEDIDOS_DETALLE> ORDEN_PEDIDOS_DETALLE { get; set; }
-        public virtual LINEA LINEA { get; set; }
-        public virtual SUBLINEA SUBLINEA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDEN_COMPRAS_DETALLE> ORDEN_COMPRAS_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LOTES> LOTES { get; set; }
+        public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUIA_DETALLE> GUIA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VENTA_LOTE> VENTA_LOTE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MOVI_DETALLE> MOVI_DETALLE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MOVI_LOTE> MOVI_LOTE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecetaDetalle> RecetaDetalle { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FabricacionDetalle> FabricacionDetalle { get; set; }
     }
 }

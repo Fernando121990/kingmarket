@@ -24,6 +24,7 @@
                                 <th>Disponible</th>
                                 <th>Transito</th>
                                 <th>Precio</th>
+                                <th>Precio Dscto</th>
                                 @{
                                     if (ViewBag.vercosto == 1)
                                     {
@@ -58,6 +59,10 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.nprecio_arti)
                                 </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.npreciotope_arti)
+                                </td>
+
                                 @{
                                     if (ViewBag.vercosto == 1)
                                     {

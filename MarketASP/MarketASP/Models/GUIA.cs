@@ -19,6 +19,7 @@ namespace MarketASP.Models
         {
             this.GUIA_DETALLE = new HashSet<GUIA_DETALLE>();
             this.GUIA_LOTE = new HashSet<GUIA_LOTE>();
+            this.GUIA_CUOTAS = new HashSet<GUIA_CUOTAS>();
         }
     
         public long ncode_guia { get; set; }
@@ -48,6 +49,27 @@ namespace MarketASP.Models
         public Nullable<bool> bventaasociada_guia { get; set; }
         public Nullable<long> ncode_venta { get; set; }
         public string sserienume_venta { get; set; }
+        public Nullable<long> ncode_dose { get; set; }
+        public string sglosadespacho_guia { get; set; }
+        public Nullable<bool> bflete_guia { get; set; }
+        public Nullable<decimal> nbrutoex_guia { get; set; }
+        public Nullable<decimal> nbrutoaf_guia { get; set; }
+        public Nullable<decimal> ndsctoex_guia { get; set; }
+        public Nullable<decimal> ndsctoaf_guia { get; set; }
+        public Nullable<decimal> nsubex_guia { get; set; }
+        public Nullable<decimal> nsubaf_guia { get; set; }
+        public Nullable<decimal> nigvex_guia { get; set; }
+        public Nullable<decimal> nigvaf_guia { get; set; }
+        public Nullable<decimal> ntotaex_guia { get; set; }
+        public Nullable<decimal> ntotaaf_guia { get; set; }
+        public Nullable<decimal> ntotal_guia { get; set; }
+        public Nullable<decimal> ntotalMN_guia { get; set; }
+        public Nullable<decimal> ntotalUS_guia { get; set; }
+        public Nullable<long> ncuotas_guia { get; set; }
+        public Nullable<decimal> ncuotavalor_guia { get; set; }
+        public Nullable<long> ncuotadias_guia { get; set; }
+        public Nullable<bool> bclienteagretencion { get; set; }
+        public Nullable<decimal> nvalIGV_guia { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual ALMACEN ALMACEN1 { get; set; }
@@ -56,5 +78,7 @@ namespace MarketASP.Models
         public virtual ICollection<GUIA_DETALLE> GUIA_DETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GUIA_LOTE> GUIA_LOTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GUIA_CUOTAS> GUIA_CUOTAS { get; set; }
     }
 }

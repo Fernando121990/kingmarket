@@ -1,0 +1,37 @@
+﻿@model MarketASP.Models.ALMACEN
+
+<div class="row">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.sabr_alma, "Cod", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.sabr_alma, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @required = "required", @maxlength = 3 } })
+                        @Html.ValidationMessageFor(model => model.sabr_alma, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.sdesc_alma, "Descripción", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.sdesc_alma, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.sdesc_alma, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.besta_alma, "Activo", htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.besta_alma)
+                            @Html.ValidationMessageFor(model => model.besta_alma, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+

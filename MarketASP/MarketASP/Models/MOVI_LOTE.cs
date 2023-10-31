@@ -25,7 +25,7 @@ namespace MarketASP.Models
         public Nullable<long> ncode_lote { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual MOVIMIENTO MOVIMIENTO { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

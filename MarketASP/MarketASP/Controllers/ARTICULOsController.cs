@@ -141,6 +141,11 @@ namespace MarketASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (aRTICULO.nmargen_arti != 0 &&  aRTICULO.nmargen_arti > 0)
+                {
+                    aRTICULO.npreciotope_arti = aRTICULO.nprecio_arti * (1 - aRTICULO.nmargen_arti);
+                }
+
                 db.Entry(aRTICULO).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -208,16 +213,13 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePrecio(ART_PRECIO aRT_PRECIO)
+        public ActionResult CreatePrecio(ART_PRECIO aRT_PRECIO)
         {
             if (ModelState.IsValid)
             {
-                aRT_PRECIO.suser_artpre = User.Identity.Name;
-                aRT_PRECIO.nesta_artpre = true;
-                aRT_PRECIO.dfech_artpre = DateTime.Today;
 
-                db.ART_PRECIO.Add(aRT_PRECIO);
-                await db.SaveChangesAsync();
+                db.Pr_ArticuloPrecioCRUD("C", 0, aRT_PRECIO.nprecio_artpre, aRT_PRECIO.ncode_lipre, aRT_PRECIO.ncode_arti, User.Identity.Name);
+
                 return RedirectToAction("Details", "Articulos", new { id = aRT_PRECIO.ncode_arti });
             }
 
@@ -289,12 +291,13 @@ namespace MarketASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPrecio(ART_PRECIO aRT_PRECIO)
+        public ActionResult EditPrecio(ART_PRECIO aRT_PRECIO)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(aRT_PRECIO).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+
+                db.Pr_ArticuloPrecioCRUD("U",aRT_PRECIO.ncode_artpre , aRT_PRECIO.nprecio_artpre, aRT_PRECIO.ncode_lipre, aRT_PRECIO.ncode_arti, User.Identity.Name);
+
                 return RedirectToAction("Details", "Articulos", new { id = aRT_PRECIO.ncode_arti });
             }
             ViewBag.ncode_lipre = new SelectList(db.LISTA_PRECIO, "ncode_lipre", "sdesc_lipre", aRT_PRECIO.ncode_lipre);

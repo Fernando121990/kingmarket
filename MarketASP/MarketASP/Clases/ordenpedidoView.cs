@@ -17,5 +17,8 @@ namespace MarketASP.Clases
         [JsonProperty(PropertyName = "ordenpedidoViewDetas")]
         public IList<ordenpedidoViewDeta> ordenpedidoViewDetas { get; set; }
 
+        [JsonProperty(PropertyName = "ordenpedidoViewCuotas")]
+        public IList<ordenpedidoViewCuota> ordenpedidoViewCuotas { get; set; }
+
     }
 }

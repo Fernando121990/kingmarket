@@ -7,6 +7,7 @@
     <Property Name="ncode_alma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="sdesc_alma" Type="varchar" MaxLength="2000" Nullable="false" />
     <Property Name="besta_alma" Type="bit" Nullable="false" />
+    <Property Name="sabr_alma" Type="varchar" MaxLength="3" />
   </EntityType>
   <EntityType Name="ART_BARRA">
     <Key>
@@ -115,6 +116,7 @@
     <Property Name="nultcosto_arti" Type="decimal" Precision="18" Scale="4" />
     <Property Name="blote_arti" Type="bit" />
     <Property Name="nstocktransito_arti" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="bdescarga_arti" Type="bit" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
@@ -538,6 +540,47 @@
     <Property Name="ncode_docu" Type="int" />
     <Property Name="ncode_clidire" Type="int" />
     <Property Name="ncode_mone" Type="int" />
+    <Property Name="ncode_orpe" Type="bigint" />
+    <Property Name="ncode_tran" Type="bigint" />
+    <Property Name="sserienume_orpe" Type="varchar" MaxLength="50" />
+    <Property Name="bdespacho_guia" Type="bit" />
+    <Property Name="bventaasociada_guia" Type="bit" />
+    <Property Name="ncode_venta" Type="bigint" />
+    <Property Name="sserienume_venta" Type="varchar" MaxLength="50" />
+    <Property Name="ncode_dose" Type="bigint" />
+    <Property Name="sglosadespacho_guia" Type="varchar(max)" />
+    <Property Name="bflete_guia" Type="bit" />
+    <Property Name="nbrutoex_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nbrutoaf_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoex_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ndsctoaf_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubex_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nsubaf_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvex_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigvaf_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaex_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotaaf_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotal_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalMN_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ntotalUS_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncuotas_guia" Type="bigint" />
+    <Property Name="ncuotavalor_guia" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncuotadias_guia" Type="bigint" />
+    <Property Name="bclienteagretencion" Type="bit" />
+    <Property Name="nvalIGV_guia" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="GUIA_CUOTAS">
+    <Key>
+      <PropertyRef Name="ncode_guiacu" />
+    </Key>
+    <Property Name="ncode_guiacu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_guia" Type="bigint" />
+    <Property Name="dfreg_guiacu" Type="datetime" />
+    <Property Name="nvalor_guiacu" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="dfech_guiacu" Type="datetime" />
+    <Property Name="dfemo_guiacu" Type="datetime" />
+    <Property Name="suser_guiacu" Type="varchar" MaxLength="50" />
+    <Property Name="susmo_guiacu" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="GUIA_DETALLE">
     <Key>
@@ -761,6 +804,7 @@
     <Property Name="stipo_orco" Type="varchar" MaxLength="5" />
     <Property Name="ntipo_orco" Type="int" />
     <Property Name="bprecioconigv_orco" Type="bit" />
+    <Property Name="ncode_dose" Type="bigint" />
   </EntityType>
   <EntityType Name="ORDEN_COMPRAS_DETALLE">
     <Key>
@@ -829,6 +873,26 @@
     <Property Name="dfdespacho_orpe" Type="datetime" />
     <Property Name="bprecioconigv_orpe" Type="bit" />
     <Property Name="bclienteagretencion" Type="bit" />
+    <Property Name="ncode_guia" Type="bigint" />
+    <Property Name="ncode_dose" Type="bigint" />
+    <Property Name="ncuotas_orpe" Type="bigint" />
+    <Property Name="ncuotavalor_orpe" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncuotadias_orpe" Type="bigint" />
+    <Property Name="sglosadespacho_orpe" Type="varchar(max)" />
+    <Property Name="bflete_orpe" Type="bit" />
+  </EntityType>
+  <EntityType Name="ORDEN_PEDIDOS_CUOTAS">
+    <Key>
+      <PropertyRef Name="ncode_orpecu" />
+    </Key>
+    <Property Name="ncode_orpecu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_orpe" Type="bigint" />
+    <Property Name="dfreg_orpecu" Type="datetime" />
+    <Property Name="nvalor_orpecu" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="dfech_orpecu" Type="datetime" />
+    <Property Name="dfemo_orpecu" Type="datetime" />
+    <Property Name="suser_orpecu" Type="varchar" MaxLength="50" />
+    <Property Name="susmo_orpecu" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ORDEN_PEDIDOS_DETALLE">
     <Key>
@@ -1145,6 +1209,19 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="dfemo_venzo" Type="datetime" />
     <Property Name="susmo_venzo" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="VENTA_CUOTA">
+    <Key>
+      <PropertyRef Name="ncode_vedecu" />
+    </Key>
+    <Property Name="ncode_vedecu" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_venta" Type="bigint" />
+    <Property Name="dfreg_vedecu" Type="datetime" />
+    <Property Name="nvalor_vedecu" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="dfech_vedecu" Type="datetime" />
+    <Property Name="dfemo_vedecu" Type="datetime" />
+    <Property Name="suser_vedecu" Type="varchar" MaxLength="50" />
+    <Property Name="susmo_vedecu" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="VENTA_DETALLE">
     <Key>
       <PropertyRef Name="ncode_vedeta" />
@@ -1242,6 +1319,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Property Name="snumero_guia" Type="varchar" MaxLength="50" />
     <Property Name="bprecioconigv_venta" Type="bit" />
     <Property Name="bclienteagretencion" Type="bit" />
+    <Property Name="sserienume_orpe" Type="varchar" MaxLength="50" />
+    <Property Name="ncode_guiaAsociadas_venta" Type="varchar" MaxLength="50" />
+    <Property Name="ncode_dose" Type="bigint" />
+    <Property Name="ncuotas_venta" Type="bigint" />
+    <Property Name="ncuotavalor_venta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nretencionvalor_venta" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ncuotadias_venta" Type="bigint" />
+    <Property Name="sglosadespacho_venta" Type="varchar(max)" />
+    <Property Name="bflete_venta" Type="bit" />
   </EntityType>
   <EntityType Name="ZONA">
     <Key>
@@ -1399,6 +1485,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GUIA_CUOTAS_GUIA">
+    <End Role="GUIA" Type="Self.GUIA" Multiplicity="0..1" />
+    <End Role="GUIA_CUOTAS" Type="Self.GUIA_CUOTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GUIA">
+        <PropertyRef Name="ncode_guia" />
+      </Principal>
+      <Dependent Role="GUIA_CUOTAS">
+        <PropertyRef Name="ncode_guia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_LOTES_ARTICULO">
     <End Role="ARTICULO" Type="Self.ARTICULO" Multiplicity="0..1" />
     <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
@@ -1420,6 +1518,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="LOTES">
         <PropertyRef Name="ncode_compra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+    <End Role="ORDEN_PEDIDOS" Type="Self.ORDEN_PEDIDOS" Multiplicity="0..1" />
+    <End Role="ORDEN_PEDIDOS_CUOTAS" Type="Self.ORDEN_PEDIDOS_CUOTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDEN_PEDIDOS">
+        <PropertyRef Name="ncode_orpe" />
+      </Principal>
+      <Dependent Role="ORDEN_PEDIDOS_CUOTAS">
+        <PropertyRef Name="ncode_orpe" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1504,6 +1614,18 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       </Principal>
       <Dependent Role="VENDEDOR_ZONA">
         <PropertyRef Name="ncode_zona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VENTA_CUOTA_VENTAS">
+    <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1" />
+    <End Role="VENTA_CUOTA" Type="Self.VENTA_CUOTA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VENTAS">
+        <PropertyRef Name="ncode_venta" />
+      </Principal>
+      <Dependent Role="VENTA_CUOTA">
+        <PropertyRef Name="ncode_venta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2859,6 +2981,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_docu" Type="int" Mode="In" />
   </Function>
+  <Function Name="Pr_DocSerie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="susario_dose" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_local" Type="int" Mode="In" />
+    <Parameter Name="ncode_docu" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Pr_DocSerieNumero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_dose" Type="int" Mode="In" />
+  </Function>
   <Function Name="Pr_Fabricacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tipo" Type="varchar" Mode="In" />
     <Parameter Name="Rec_Codigo" Type="bigint" Mode="In" />
@@ -2909,6 +3040,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   </Function>
   <Function Name="Pr_GuiaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_GuiaVentaDetVentaGuia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_GuiaVentaLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tipo" Type="int" Mode="In" />
+    <Parameter Name="documento" Type="varchar" Mode="In" />
+    <Parameter Name="cliente" Type="varchar" Mode="In" />
   </Function>
   <Function Name="Pr_KardexCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="modulo" Type="varchar" Mode="In" />
@@ -3016,6 +3155,12 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
     <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotas_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ncuotadias_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="sglosadespacho_orpe" Type="varchar(max)" Mode="In" />
+    <Parameter Name="bflete_orpe" Type="bit" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_Orden_PedidoDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3070,6 +3215,11 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
     <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="ncuotas_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="ncuotadias_orpe" Type="decimal" Mode="In" />
+    <Parameter Name="sglosadespacho_orpe" Type="varchar(max)" Mode="In" />
+    <Parameter Name="bflete_orpe" Type="bit" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_OrdenPedidoElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3260,6 +3410,12 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
     <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="sguiaasociada" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotas_venta" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_venta" Type="decimal" Mode="In" />
+    <Parameter Name="nretencionvalor_venta" Type="decimal" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
     <Parameter Name="cc" Type="bigint" Mode="InOut" />
   </Function>
@@ -3315,6 +3471,9 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
     <Parameter Name="ncode_vende" Type="bigint" Mode="In" />
     <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="ncuotas_venta" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_venta" Type="decimal" Mode="In" />
+    <Parameter Name="nretencionvalor_venta" Type="decimal" Mode="In" />
     <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_ventaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -3337,6 +3496,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_clidire" Type="int" Mode="In" />
     <Parameter Name="ncode_docu" Type="int" Mode="In" />
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="ncode_tran" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+    <Parameter Name="nbrutoex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nvalIGV_guia" Type="decimal" Mode="In" />
+    <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="ncuotas_guia" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ncuotadias_guia" Type="decimal" Mode="In" />
+    <Parameter Name="sglosadespacho_guia" Type="varchar(max)" Mode="In" />
+    <Parameter Name="bflete_guia" Type="bit" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_GuiaDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
@@ -3364,6 +3547,30 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ndestino_alma" Type="int" Mode="In" />
     <Parameter Name="stipo_guia" Type="varchar" Mode="In" />
     <Parameter Name="besta_guia" Type="bit" Mode="In" />
+    <Parameter Name="ncode_tran" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="sserienume_orpe" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
+    <Parameter Name="nbrutoex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nbrutoaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ndctoex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ndsctoaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nsubex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nsubaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nigvex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nigvaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaex_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotaaf_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotal_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalMN_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ntotalUs_guia" Type="decimal" Mode="In" />
+    <Parameter Name="nvalIGV_guia" Type="decimal" Mode="In" />
+    <Parameter Name="bclienteagretencion" Type="bit" Mode="In" />
+    <Parameter Name="ncuotas_guia" Type="bigint" Mode="In" />
+    <Parameter Name="ncuotavalor_guia" Type="decimal" Mode="In" />
+    <Parameter Name="ncuotadias_guia" Type="decimal" Mode="In" />
+    <Parameter Name="sglosadespacho_guia" Type="varchar(max)" Mode="In" />
+    <Parameter Name="bflete_guia" Type="bit" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_GuiaElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
@@ -3379,6 +3586,14 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_lote" Type="bigint" Mode="In" />
   </Function>
   <Function Name="Pr_ArticuloListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022" />
+  <Function Name="Pr_ArticuloPrecioCRUD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="accion" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_artpre" Type="bigint" Mode="In" />
+    <Parameter Name="nprecio_artpre" Type="decimal" Mode="In" />
+    <Parameter Name="ncode_lipre" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
+    <Parameter Name="suser_artpre" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Pr_ClienteDirecciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_cliente" Type="bigint" Mode="In" />
   </Function>
@@ -3399,11 +3614,32 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
   <Function Name="Pr_DocuSerieLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="Pr_GuiaCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="accion" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_guiacu" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
+    <Parameter Name="dfreg_guiacu" Type="datetime" Mode="In" />
+    <Parameter Name="nvalor_guiacu" Type="decimal" Mode="In" />
+    <Parameter Name="suser_guiacu" Type="varchar" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="Pr_LotesDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_alma" Type="bigint" Mode="In" />
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
     <Parameter Name="fvenci_lote" Type="varchar" Mode="In" />
     <Parameter Name="sdesc_lote" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_Orden_PedidoCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="accion" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_orpecu" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
+    <Parameter Name="dfreg_orpecu" Type="datetime" Mode="In" />
+    <Parameter Name="nvalor_orpecu" Type="decimal" Mode="In" />
+    <Parameter Name="suser_orpecu" Type="varchar" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="Pr_Orden_PedidoDetVentaGuia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
   </Function>
   <Function Name="Pr_PedidoPrecio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="ncode_arti" Type="bigint" Mode="In" />
@@ -3433,6 +3669,15 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="tipo" Type="int" Mode="In" />
     <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
     <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="Pr_VentaCuotaCrud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
+    <Parameter Name="accion" Type="varchar" Mode="In" />
+    <Parameter Name="ncode_vedecu" Type="bigint" Mode="In" />
+    <Parameter Name="ncode_venta" Type="bigint" Mode="In" />
+    <Parameter Name="dfreg_vedecu" Type="datetime" Mode="In" />
+    <Parameter Name="nvalor_vedecu" Type="decimal" Mode="In" />
+    <Parameter Name="suser_vedecu" Type="varchar" Mode="In" />
+    <Parameter Name="sw" Type="int" Mode="InOut" />
   </Function>
   <Function Name="Pr_VentaListado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="KMPERU2022">
     <Parameter Name="tipo" Type="int" Mode="In" />
@@ -3492,6 +3737,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_alma" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_Orden_CompraDetaCrea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
@@ -3543,6 +3789,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <Parameter Name="ncode_alma" Type="int" Mode="In" />
     <Parameter Name="ncode_local" Type="int" Mode="In" />
     <Parameter Name="ncode_mone" Type="int" Mode="In" />
+    <Parameter Name="ncode_dose" Type="bigint" Mode="In" />
     <Parameter Name="sw" Type="bigint" Mode="InOut" />
   </Function>
   <Function Name="Pr_OrdenCompraElimina" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="OCompra">
@@ -3589,6 +3836,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="FabricacionDetalle" EntityType="Self.FabricacionDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FAMILIA" EntityType="Self.FAMILIA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GUIA" EntityType="Self.GUIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GUIA_CUOTAS" EntityType="Self.GUIA_CUOTAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GUIA_DETALLE" EntityType="Self.GUIA_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GUIA_LOTE" EntityType="Self.GUIA_LOTE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KARDEX" EntityType="Self.KARDEX" Schema="dbo" store:Type="Tables" />
@@ -3603,6 +3851,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="ORDEN_COMPRAS" EntityType="Self.ORDEN_COMPRAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_COMPRAS_DETALLE" EntityType="Self.ORDEN_COMPRAS_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_PEDIDOS" EntityType="Self.ORDEN_PEDIDOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDEN_PEDIDOS_CUOTAS" EntityType="Self.ORDEN_PEDIDOS_CUOTAS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ORDEN_PEDIDOS_DETALLE" EntityType="Self.ORDEN_PEDIDOS_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PROFORMA_DETALLE" EntityType="Self.PROFORMA_DETALLE" Schema="dbo" store:Type="Tables" />
@@ -3622,6 +3871,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <EntitySet Name="UMEDIDA" EntityType="Self.UMEDIDA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENDEDOR" EntityType="Self.VENDEDOR" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENDEDOR_ZONA" EntityType="Self.VENDEDOR_ZONA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VENTA_CUOTA" EntityType="Self.VENTA_CUOTA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTA_DETALLE" EntityType="Self.VENTA_DETALLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VENTA_LOTE" EntityType="Self.VENTA_LOTE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
@@ -3695,6 +3945,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
       <End Role="Fabricacion" EntitySet="Fabricacion" />
       <End Role="FabricacionDetalle" EntitySet="FabricacionDetalle" />
     </AssociationSet>
+    <AssociationSet Name="FK_GUIA_CUOTAS_GUIA" Association="Self.FK_GUIA_CUOTAS_GUIA">
+      <End Role="GUIA" EntitySet="GUIA" />
+      <End Role="GUIA_CUOTAS" EntitySet="GUIA_CUOTAS" />
+    </AssociationSet>
     <AssociationSet Name="FK_LOTES_ARTICULO" Association="Self.FK_LOTES_ARTICULO">
       <End Role="ARTICULO" EntitySet="ARTICULO" />
       <End Role="LOTES" EntitySet="LOTES" />
@@ -3702,6 +3956,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="FK_LOTES_COMPRAS" Association="Self.FK_LOTES_COMPRAS">
       <End Role="COMPRAS" EntitySet="COMPRAS" />
       <End Role="LOTES" EntitySet="LOTES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" Association="Self.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS">
+      <End Role="ORDEN_PEDIDOS" EntitySet="ORDEN_PEDIDOS" />
+      <End Role="ORDEN_PEDIDOS_CUOTAS" EntitySet="ORDEN_PEDIDOS_CUOTAS" />
     </AssociationSet>
     <AssociationSet Name="FK_PROVEEDOR_CONFIGURACION" Association="Self.FK_PROVEEDOR_CONFIGURACION">
       <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
@@ -3730,6 +3988,10 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
     <AssociationSet Name="FK_VENDEDOR_ZONA_ZONA" Association="Self.FK_VENDEDOR_ZONA_ZONA">
       <End Role="ZONA" EntitySet="ZONA" />
       <End Role="VENDEDOR_ZONA" EntitySet="VENDEDOR_ZONA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VENTA_CUOTA_VENTAS" Association="Self.FK_VENTA_CUOTA_VENTAS">
+      <End Role="VENTAS" EntitySet="VENTAS" />
+      <End Role="VENTA_CUOTA" EntitySet="VENTA_CUOTA" />
     </AssociationSet>
     <AssociationSet Name="R_1" Association="Self.R_1">
       <End Role="FAMILIA" EntitySet="FAMILIA" />

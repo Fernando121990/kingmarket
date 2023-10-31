@@ -52,7 +52,7 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ncode_alma,sdesc_alma,besta_alma")] ALMACEN aLMACEN)
+        public async Task<ActionResult> Create(ALMACEN aLMACEN)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace MarketASP.Areas.Inventario.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ncode_alma,sdesc_alma,besta_alma")] ALMACEN aLMACEN)
+        public async Task<ActionResult> Edit(ALMACEN aLMACEN)
         {
             if (ModelState.IsValid)
             {

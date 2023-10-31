@@ -33,7 +33,7 @@ namespace MarketASP.Models
         public Nullable<decimal> ncantLote_vedeta { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual VENTAS VENTAS { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

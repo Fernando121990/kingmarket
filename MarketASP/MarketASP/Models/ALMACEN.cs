@@ -39,6 +39,7 @@ namespace MarketASP.Models
         public int ncode_alma { get; set; }
         public string sdesc_alma { get; set; }
         public bool besta_alma { get; set; }
+        public string sabr_alma { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KARDEX> KARDEX { get; set; }

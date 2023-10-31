@@ -18,5 +18,8 @@ namespace MarketASP.Clases
         [JsonProperty(PropertyName = "guiaViewLotes")]
         public IList<guiaViewLote> guiaViewLotes { get; set; }
 
+        [JsonProperty(PropertyName = "guiaViewCuotas")]
+        public IList<guiaViewCuota> guiaViewCuotas { get; set; }
+
     }
 }

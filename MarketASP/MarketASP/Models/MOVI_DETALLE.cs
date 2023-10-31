@@ -26,8 +26,8 @@ namespace MarketASP.Models
         public long ncode_umed { get; set; }
         public Nullable<int> nback_movidet { get; set; }
     
-        public virtual ARTICULO ARTICULO { get; set; }
         public virtual MOVIMIENTO MOVIMIENTO { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }
+        public virtual ARTICULO ARTICULO { get; set; }
     }
 }

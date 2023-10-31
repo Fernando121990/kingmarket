@@ -170,6 +170,12 @@ $(document).ready(function () {
         }
     });
 
+    $("#bprecioconigv").click(function () {
+
+        conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
+        Totales();
+    });
+
     $(".delMat").click(function () {
         var data = ofunciones.row('.selected').data();
         var xcodart = data[0];
@@ -395,10 +401,14 @@ $(document).ready(function () {
 
             ofunciones.cell({ row: idtx, column: 12 }).data(xcontrol).draw(false);
 
-            console.log('cantidad de lote actualizada')
+            //console.log('cantidad de lote actualizada')
+            $("#sdesc_lote").val('');
+            $("#ncant_lote").val('');
 
         }
         else {
+            $("#sdesc_lote").val('');
+            $("#ncant_lote").val('');
             alert("La cantidad es mayor a la solicitada o se asignaron todos los lotes ");
         }
 
@@ -425,6 +435,10 @@ $(document).ready(function () {
         $("#xund").val(xund);
         $("#xcontrol").val(xcontrol);
         $("#xctdadfalta").val(xcontrol);
+
+        $("#sdesc_lote").val();
+        $("#ncant_lote").val();
+        
 
     });
 

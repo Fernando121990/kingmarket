@@ -27,16 +27,32 @@ $(document).ready(function () {
 
     if (typeof code === 'undefined') {
         //  console.log('series');
-        fnDocumentoSerieNumero();
+        var cod = $("#sseri_orco option:selected").val();
+
+        fnDocumentoSerieNumero(cod);
+
     }
 
   //  if (code > 0) {
 //        $("#nro_fopago").val($('#ncode_fopago').val());
 //    }
 
+
     $("#ncode_docu").change(function () {
-        fnDocumentoSerieNumero();
+
+        $("#snume_orco").val('');
+
+        var cod = $("#ncode_docu option:selected").val();
+
+        fnDocumentoSerie(cod);
+
     });
+
+    $("#sseri_orco").change(function () {
+        var cod = $("#sseri_orco option:selected").val();
+        fnDocumentoSerieNumero(cod);
+    });
+
 
     $("#ncode_fopago").change(function () {
         fnFormaPagoDiasFecha($('#ncode_fopago').val());
@@ -452,7 +468,7 @@ function Sales_save() {
     };
 
     var ordenpedidoView = {
-        "ncode_orco": "", "ncode_alma": "", "ncode_mone": "",
+        "ncode_orco": "", "ncode_alma": "", "ncode_mone": "","ncode_dose":"",
         "ncode_docu": "", "sseri_orco": "", "snume_orco": "",
         "sfeordencompra_orco": "", "sfevenci_orco": "", "sfentrega_orco": "", "ncode_cliente": "",
         "ncode_clidire": "", "smone_orco": "", "ntc_orco": "",
@@ -467,7 +483,8 @@ function Sales_save() {
 
     ordenpedidoView.ncode_orco = $('#ncode_orco').val();
     ordenpedidoView.ncode_docu = $("#ncode_docu option:selected").val();
-    ordenpedidoView.sseri_orco = $('#sseri_orco').val();
+    ordenpedidoView.ncode_dose = $("#sseri_orco option:selected").val();
+    ordenpedidoView.sseri_orco = $("#sseri_orco option:selected").text();
     ordenpedidoView.snume_orco = $('#snume_orco').val();
     ordenpedidoView.sfeordencompra_orco = $('#dfeorco_orco').val();
     ordenpedidoView.sfevenci_orco = $('#dfevenci_orco').val();
@@ -749,19 +766,62 @@ function fnFormaPagoDiasFecha(codfopago) {
 
 }
 
-function fnDocumentoSerieNumero() {
+
+function fnDocumentoSerie(ncode) {
     //console.log($("#ncode_docu").val());
+    //var ncode = $("#ncode_docu option:selected").val();
+    var xcode = 0;
+    $("#sseri_orco").empty();
+    $.ajax({
+        type: 'POST',
+        url: urlGetDocuSerie,
+        dataType: 'json',
+        data: { ncode_docu: ncode },
+        success: function (areas) {
+
+            console.log(areas);
+
+            if (areas.length == 0) {
+
+                return;
+            }
+
+            var code = areas[0].ncode_dose;
+            var des = areas[0].serie;
+
+            $.each(areas, function (i, area) {
+                $("#sseri_orco").append('<option value="'
+                    + area.ncode_dose + '">'
+                    + area.serie + '</option>');
+            });
+
+            $("#sseri_venta").val(code);
+
+            fnDocumentoSerieNumero(code);
+
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las series del documento.' + ex);
+        }
+    });
+    return false;
+
+}
+
+function fnDocumentoSerieNumero(ncode) {
+    console.log(ncode);
+    ///var ncode = $("#sseri_venta option:selected").val();
 
     $.ajax({
         type: 'POST',
         url: urlGetDocuNumero,
         dataType: 'json',
-        data: { ndocu: $("#ncode_docu").val() },
+        data: { ncode_dose: ncode },
         success: function (docu) {
-            //console.log(docu.length);
+            console.log(docu);
             $.each(docu, function (i, doc) {
-                $('#sseri_orco').val(doc.serie);
-                $('#snume_orco').val(doc.numero);
+                ///$('#sseri_orpe').val(doc.serie);
+                $('#snume_orco').val(doc);
                 //console.log(doc.serie);
             });
 
@@ -772,5 +832,26 @@ function fnDocumentoSerieNumero() {
     });
     return false;
 }
+//function fnDocumentoSerieNumero() {
+//    //console.log($("#ncode_docu").val());
 
+//    $.ajax({
+//        type: 'POST',
+//        url: urlGetDocuNumero,
+//        dataType: 'json',
+//        data: { ndocu: $("#ncode_docu").val() },
+//        success: function (docu) {
+//            //console.log(docu.length);
+//            $.each(docu, function (i, doc) {
+//                $('#sseri_orco').val(doc.serie);
+//                $('#snume_orco').val(doc.numero);
+//                //console.log(doc.serie);
+//            });
 
+//        },
+//        error: function (ex) {
+//            alert('No se puede recuperar el número y serie' + ex);
+//        }
+//    });
+//    return false;
+//}

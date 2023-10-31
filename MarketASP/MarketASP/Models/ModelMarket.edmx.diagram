@@ -78,20 +78,6 @@
         <EntityTypeShape EntityType="MarketWebModel.AspNetRoles" Width="1.5" PointX="22.375" PointY="3.75" />
         <EntityTypeShape EntityType="MarketWebModel.ESPECIE" Width="1.5" PointX="3" PointY="38.625" />
         <EntityTypeShape EntityType="MarketWebModel.SUBESPECIE" Width="1.5" PointX="22.375" PointY="6.875" />
-        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="24.625" PointY="16.625" />
-        <AssociationConnector Association="MarketWebModel.R_8" />
-        <AssociationConnector Association="MarketWebModel.R_7" />
-        <AssociationConnector Association="MarketWebModel.R_10" />
-        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_ESPECIE" />
-        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBESPECIE" />
-        <AssociationConnector Association="MarketWebModel.R_1" />
-        <AssociationConnector Association="MarketWebModel.R_2" />
-        <AssociationConnector Association="MarketWebModel.R_23" />
-        <AssociationConnector Association="MarketWebModel.R_3" />
-        <AssociationConnector Association="MarketWebModel.R_32" />
-        <AssociationConnector Association="MarketWebModel.R_39" />
-        <AssociationConnector Association="MarketWebModel.R_4" />
-        <AssociationConnector Association="MarketWebModel.R_63" />
         <EntityTypeShape EntityType="MarketWebModel.ZONA" Width="1.5" PointX="14.375" PointY="22.75" />
         <EntityTypeShape EntityType="MarketWebModel.TRANSPORTISTA" Width="1.5" PointX="24.375" PointY="0.75" />
         <EntityTypeShape EntityType="MarketWebModel.PROVEEDOR" Width="1.5" PointX="5.25" PointY="12.375" />
@@ -101,9 +87,6 @@
         <AssociationConnector Association="MarketWebModel.R_15" />
         <AssociationConnector Association="MarketWebModel.FK_PROVEEDOR_CONFIGURACION" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_PEDIDOS_DETALLE" Width="1.5" PointX="29.875" PointY="18.125" />
-        <AssociationConnector Association="MarketWebModel.R_630" />
-        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_LINEA" />
-        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBLINEA" />
         <EntityTypeShape EntityType="MarketWebModel.CLI_FOPAGO" Width="1.5" PointX="5.25" PointY="19.875" />
         <AssociationConnector Association="MarketWebModel.FK_CLI_FOPAGO_CONFIGURACION" />
         <EntityTypeShape EntityType="MarketWebModel.VENDEDOR" Width="1.5" PointX="14.375" PointY="26.875" />
@@ -134,7 +117,6 @@
         <AssociationConnector Association="MarketWebModel.R_620" />
         <AssociationConnector Association="MarketWebModel.FK_CLIENTE_CONFIGURACION" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_COMPRAS_DETALLE" Width="1.5" PointX="29.875" PointY="24.25" />
-        <AssociationConnector Association="MarketWebModel.R_c630" />
         <EntityTypeShape EntityType="MarketWebModel.ORDEN_COMPRAS" Width="1.5" PointX="24.625" PointY="5.25" />
         <AssociationConnector Association="MarketWebModel.R_c670" />
         <AssociationConnector Association="MarketWebModel.R_c640" />
@@ -144,7 +126,6 @@
         <AssociationConnector Association="MarketWebModel.R_C38" />
         <EntityTypeShape EntityType="MarketWebModel.LOTES" Width="1.5" PointX="20.25" PointY="36.875" />
         <AssociationConnector Association="MarketWebModel.FK_LOTES_COMPRAS" />
-        <AssociationConnector Association="MarketWebModel.FK_LOTES_ARTICULO" />
         <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE" Width="1.5" PointX="19.625" PointY="0.75" />
         <AssociationConnector Association="MarketWebModel.R_55" />
         <AssociationConnector Association="MarketWebModel.R_57" />
@@ -153,17 +134,14 @@
         <EntityTypeShape EntityType="MarketWebModel.TIPO_GUIA" Width="1.5" PointX="10" PointY="25" />
         <AssociationConnector Association="MarketWebModel.RG_20" />
         <AssociationConnector Association="MarketWebModel.RG_21" />
-        <AssociationConnector Association="MarketWebModel.RGD_18" />
         <AssociationConnector Association="MarketWebModel.RG_17" />
         <AssociationConnector Association="MarketWebModel.RGD_19" />
         <AssociationConnector Association="MarketWebModel.RGD_25" />
         <EntityTypeShape EntityType="MarketWebModel.VENTA_LOTE" Width="1.5" PointX="32.875" PointY="16.75" />
         <AssociationConnector Association="MarketWebModel.RL_33" />
-        <AssociationConnector Association="MarketWebModel.RL_32" />
         <AssociationConnector Association="MarketWebModel.RL_31" />
         <EntityTypeShape EntityType="MarketWebModel.GUIA_LOTE" Width="1.5" PointX="32.875" PointY="12.25" />
         <AssociationConnector Association="MarketWebModel.RG_33" />
-        <AssociationConnector Association="MarketWebModel.RG_32" />
         <AssociationConnector Association="MarketWebModel.RG_31" />
         <EntityTypeShape EntityType="MarketWebModel.MOVI_DETALLE" Width="1.5" PointX="26.875" PointY="25.75" />
         <EntityTypeShape EntityType="MarketWebModel.MOVI_LOTE" Width="1.5" PointX="32.875" PointY="21.75" />
@@ -171,8 +149,6 @@
         <AssociationConnector Association="MarketWebModel.R_20" />
         <AssociationConnector Association="MarketWebModel.R_21" />
         <AssociationConnector Association="MarketWebModel.RMO_33" />
-        <AssociationConnector Association="MarketWebModel.R_18" />
-        <AssociationConnector Association="MarketWebModel.RMO_32" />
         <AssociationConnector Association="MarketWebModel.R_19" />
         <AssociationConnector Association="MarketWebModel.R_25" />
         <AssociationConnector Association="MarketWebModel.RMO_31" />
@@ -180,17 +156,47 @@
         <EntityTypeShape EntityType="MarketWebModel.Receta" Width="1.5" PointX="27.625" PointY="8.5" />
         <EntityTypeShape EntityType="MarketWebModel.RecetaDetalle" Width="1.5" PointX="29.875" PointY="8.125" />
         <AssociationConnector Association="MarketWebModel.FK_Receta_ALMACEN" />
-        <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_ARTICULO" />
         <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_CONFIGURACION" />
         <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_Receta" />
         <EntityTypeShape EntityType="MarketWebModel.Fabricacion" Width="1.5" PointX="5.25" PointY="23.375" />
         <EntityTypeShape EntityType="MarketWebModel.FabricacionDetalle" Width="1.5" PointX="35.875" PointY="16.75" />
         <AssociationConnector Association="MarketWebModel.FK_Fabricacion_ALMACEN" />
         <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ALMACEN" />
-        <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO" />
         <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_Fabricacion" />
         <EntityTypeShape EntityType="MarketWebModel.DOCU_SERIE_USUARIO" Width="1.5" PointX="21.875" PointY="21.375" />
         <AssociationConnector Association="MarketWebModel.FK_DOCU_SERIE_USUARIO_DOCU_SERIE" />
+        <EntityTypeShape EntityType="MarketWebModel.ORDEN_PEDIDOS_CUOTAS" Width="1.5" PointX="21.875" PointY="30.5" />
+        <EntityTypeShape EntityType="MarketWebModel.VENTA_CUOTA" Width="1.5" PointX="29.875" PointY="30.25" />
+        <AssociationConnector Association="MarketWebModel.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" />
+        <AssociationConnector Association="MarketWebModel.FK_VENTA_CUOTA_VENTAS" />
+        <EntityTypeShape EntityType="MarketWebModel.GUIA_CUOTAS" Width="1.5" PointX="14.5" PointY="31" />
+        <AssociationConnector Association="MarketWebModel.FK_GUIA_CUOTAS_GUIA" />
+        <EntityTypeShape EntityType="MarketWebModel.ARTICULO" Width="1.5" PointX="24.625" PointY="16.75" />
+        <AssociationConnector Association="MarketWebModel.R_8" />
+        <AssociationConnector Association="MarketWebModel.R_7" />
+        <AssociationConnector Association="MarketWebModel.R_10" />
+        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_ESPECIE" />
+        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_LINEA" />
+        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBESPECIE" />
+        <AssociationConnector Association="MarketWebModel.FK_ARTICULO_SUBLINEA" />
+        <AssociationConnector Association="MarketWebModel.FK_FabricacionDetalle_ARTICULO" />
+        <AssociationConnector Association="MarketWebModel.FK_LOTES_ARTICULO" />
+        <AssociationConnector Association="MarketWebModel.FK_RecetaDetalle_ARTICULO" />
+        <AssociationConnector Association="MarketWebModel.R_1" />
+        <AssociationConnector Association="MarketWebModel.R_18" />
+        <AssociationConnector Association="MarketWebModel.R_2" />
+        <AssociationConnector Association="MarketWebModel.R_23" />
+        <AssociationConnector Association="MarketWebModel.R_3" />
+        <AssociationConnector Association="MarketWebModel.R_32" />
+        <AssociationConnector Association="MarketWebModel.R_39" />
+        <AssociationConnector Association="MarketWebModel.R_4" />
+        <AssociationConnector Association="MarketWebModel.R_63" />
+        <AssociationConnector Association="MarketWebModel.R_630" />
+        <AssociationConnector Association="MarketWebModel.R_c630" />
+        <AssociationConnector Association="MarketWebModel.RG_32" />
+        <AssociationConnector Association="MarketWebModel.RGD_18" />
+        <AssociationConnector Association="MarketWebModel.RL_32" />
+        <AssociationConnector Association="MarketWebModel.RMO_32" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
