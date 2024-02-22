@@ -148,10 +148,10 @@
             @Html.EditorFor(model => model.slineacred_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
             @Html.ValidationMessageFor(model => model.slineacred_cliente, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.ncode_vende, "Vendedor", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ncode_venzo, "Vendedor", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-4">
-            @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
+            @Html.DropDownList("ncode_venzo", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_venzo, "", new { @class = "text-danger" })
         </div>
 
     </div>

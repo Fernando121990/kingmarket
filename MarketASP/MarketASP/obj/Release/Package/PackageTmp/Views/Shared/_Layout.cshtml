@@ -7,6 +7,9 @@
     <title>@ViewBag.Title - Market</title>
     <!-- App favicon -->
     <link rel="shortcut icon" href="~/Content/images/favicon.ico">
+    <link href="~/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
     @RenderSection("styles", false)
     @Styles.Render("~/Content/css/css")
     @Styles.Render("~/Content/librerias/css")
@@ -14,7 +17,7 @@
     @Styles.Render("~/assets/libs/css")
 
 </head>
-<body data-sidebar="dark">
+<body data-sidebar="dark" data-sidebar-size="small">
     <!-- Begin page -->
     <div id="layout-wrapper">
         @Html.Partial("~/Views/Shared/_topbar.cshtml")
@@ -29,7 +32,7 @@
                 <div class="container-fluid">
 
                     @Html.Partial("~/Views/Shared/_page_title.cshtml")
-
+                    @Html.Partial("_NotificationPanel")
                     @RenderBody()
 
                 </div> <!-- container-fluid -->

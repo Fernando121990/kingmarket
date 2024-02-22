@@ -49,7 +49,7 @@ $(document).ready(function () {
 
             
             fnclienteDire();
-            fnclienteFPago();
+            fnclienteFPago(ui.item.id, ui.item.fopagoid);
             fnFormaPagoDiasFecha(ui.item.fopagoid);
         }
     });
@@ -222,25 +222,38 @@ function fnclienteDire() {
 
 }
 
-function fnclienteFPago() {
+function fnclienteFPago(cod_cliente,cod_fpago) {
+
     $("#nro_fopago").empty();
     $.ajax({
         type: 'POST',
         url: urlgetClienteFoPago,
         dataType: 'json',
-        data: { scodCliente: $("#COD_CLIENTE").val() },
+        data: { scodCliente: cod_cliente },
         success: function (areas) {
             $.each(areas, function (i, area) {
-                $("#nro_fopago").append('<option value="'
-                    + area.ncode_fopago + '">'
-                    + area.sdesc_fopago + '</option>');
+
+                if (area.ncode_fopago == cod_fpago) {
+
+                    $("#nro_fopago").append('<option value="'
+                        + area.ncode_fopago + '" selected = "selected">'
+                        + area.sdesc_fopago + '</option>');
+
+                }
+                else {
+
+                    $("#nro_fopago").append('<option value="'
+                        + area.ncode_fopago + '">'
+                        + area.sdesc_fopago + '</option>');
+                }
             });
         },
         error: function (ex) {
             alert('No se pueden recuperar las formas de pago del cliente.' + ex);
         }
     });
-    //$("#ncode_fopago").val(codfpago);
+
+    //$("#nro_fopago").val(parseInt(cod_fpago));
     return false;
 
 }
@@ -340,3 +353,40 @@ function fnclienteNuevo() {
 
 }
 
+function fnTipoCambioFecha(smodulo,saccion, sfecha) {
+    console.log('tipo cambio');
+    console.log(sfecha);
+    $.ajax({
+        type: 'POST',
+        url: urlGetTipoCambioFecha,
+        dataType: 'json',
+        data: { accion: saccion, sFecha: sfecha },
+        success: function (foTipoCambio) {
+
+            console.log(foTipoCambio);
+
+
+            if (smodulo = 'OP') {
+
+                $('#ntc_orpe').val(foTipoCambio[0]);
+            }
+            
+            if (smodulo = 'VE') {
+
+                $('#ntc_venta').val(foTipoCambio[0]);
+            }
+
+            if (smodulo = 'GU') {
+
+                $('#ntc_guia').val(foTipoCambio[0]);
+            }
+
+
+        },
+        error: function (ex) {
+            alert('No se puede obtener la fecha de pago .' + ex);
+        }
+    });
+    return false;
+
+}

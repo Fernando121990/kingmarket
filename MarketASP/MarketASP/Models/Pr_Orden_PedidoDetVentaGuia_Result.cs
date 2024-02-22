@@ -25,5 +25,7 @@ namespace MarketASP.Models
         public Nullable<decimal> nexon_orpedeta { get; set; }
         public string ssunat_umed { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<bool> blote_arti { get; set; }
+        public Nullable<long> ncode_orpe { get; set; }
     }
 }

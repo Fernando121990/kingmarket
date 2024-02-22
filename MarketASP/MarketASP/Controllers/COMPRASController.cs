@@ -35,8 +35,9 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            var cOMPRAS = db.COMPRAS.Include(c => c.ALMACEN).Include(c => c.PROVEEDOR).Include(c => c.CONFIGURACION).Include(c => c.CONFIGURACION1);
-            return View(await cOMPRAS.ToListAsync());
+            //var cOMPRAS = db.COMPRAS.Include(c => c.ALMACEN).Include(c => c.PROVEEDOR).Include(c => c.CONFIGURACION).Include(c => c.CONFIGURACION1);
+            var resultado = db.Pr_CompraLista("", "", "", "").ToList();
+            return View(resultado);
         }
 
         // GET: COMPRAS/Details/5
@@ -86,6 +87,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_compra = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
+            ViewBag.dfecompra_compra = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.dfevenci_compra = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
         }
 
@@ -138,7 +141,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_compraDetaCrea(item.ncant_comdeta, item.npu_comdeta,
                                         item.ndscto_comdeta, item.ndscto2_comdeta, item.nexon_comdeta, item.nafecto_comdeta, item.besafecto_comdeta,
-                                        code, item.ncode_alma, item.ncode_arti);
+                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta);
                                 };
 
                             }
@@ -243,6 +246,8 @@ namespace MarketASP.Controllers
             ViewBag.sdesc_prove = cOMPRAS.PROVEEDOR.sdesc_prove;
             ViewBag.ncode_provee = cOMPRAS.ncode_provee ;
             ViewBag.tc = cOMPRAS.ntc_compra;
+            ViewBag.dfecompra_compra = string.Format("{0:dd/MM/yyyy}", cOMPRAS.dfecompra_compra);
+            ViewBag.dfevenci_compra = string.Format("{0:dd/MM/yyyy}", cOMPRAS.dfevenci_compra);
             return View(cOMPRAS);
         }
 
@@ -296,7 +301,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_compraDetaCrea(item.ncant_comdeta, item.npu_comdeta,
                                         item.ndscto_comdeta, item.ndscto2_comdeta, item.nexon_comdeta, item.nafecto_comdeta, item.besafecto_comdeta,
-                                        code, item.ncode_alma, item.ncode_arti);
+                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta);
                                 };
 
                             }

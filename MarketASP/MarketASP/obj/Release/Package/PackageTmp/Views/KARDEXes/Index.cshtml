@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.KARDEX>
+﻿@model IEnumerable<MarketASP.Models.Pr_KardexMovimientosArticulo_Result>
 
 @{
     ViewBag.Title = "Kardex";
@@ -6,108 +6,117 @@
     ViewBag.pageTitle = "Inventario";
 }
 
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                @using (Html.BeginForm())
+                {
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="example-text-input" class="col-form-label">Inicio</label>
+                        <input id="fini" name="fini" class="dfech form-control" type="text" value="@ViewBag.fini" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="example-text-input" class="col-form-label">Fin</label>
+                        <input id="ffin" name="ffin" class="dfech form-control" type="text" value="@ViewBag.ffin" />
+                    </div>
+                    <div class="col-md-2">
+                        <label for="example-text-input" class="col-form-label">Almacen</label>
+                        @Html.DropDownList("salmacen", null, htmlAttributes: new { @class = "form-select select2" })
+                    </div>
+                    <div class="col-md-4">
+                        <label for="example-text-input" class="col-form-label">Articulo</label>
+                        @Html.DropDownList("sarticulo", null, htmlAttributes: new { @class = "form-select select2" })
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <button class="btn btn-sm btn-info" type="submit" title="Buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+
+
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-bordered nowrap compact" style="border-width:1px; border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
-                                <th>
-                                    <label>Fecha</label>
-                                </th>
-                                <th>
-                                    <label>Articulo</label>
-                                </th>
-                                <th>
-                                    <label>I/S</label>
-                                </th>
-                                <th>
-                                    <label>Cant</label>
-                                </th>
-                                <th>
-                                    <label>P.U</label>
-                                </th>
-                                <th>
-                                    <label>T.C</label>
-                                </th>
-                                <th>
-                                    <label>Moneda</label>
-                                </th>
-                                <th>
-                                    <label>PUMN</label>
-                                </th>
-                                <th>
-                                    <label>PUUSD</label>
-                                </th>
-                                <th>Modulo</th>
-                                <th>
-                                    <label>Cod.Doc</label>
-                                </th>
-                                <th>
-                                    <label>Serie</label>
-                                </th>
-                                <th>
-                                    <label>Numero</label>
-                                </th>
-                                <th>
-                                    <label>F.Venc</label>
-                                </th>
-                                <th>
-                                    <label>Almacen</label>
-                                </th>
+                                <th colspan="4"></th>
+                                <th colspan="3">Cantidad</th>
+                                <th colspan="2">Costo</th>
+                                <th colspan="3">Importe</th>
+                                <th colspan="2"></th>
+                            </tr>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Mov</th>
+                                <th>No Doc</th>
+                                <th>Almacen</th>
+                                <th>Ingreso</th>
+                                <th>Salida</th>
+                                <th>Saldo</th>
+                                <th>Unitario</th>
+                                <th>Promedio</th>
+                                <th>Ingreso</th>
+                                <th>Salida</th>
+                                <th>Saldo</th>
+                                <th>Cliente</th>
+                                <th>Proveedor</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model.OrderByDescending(X => X.dfekard_kardex))
+                            @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>
-                                        @string.Format("{0:d}", item.dfekard_kardex)
+                                        @string.Format("{0:d}", item.Fecha)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                                        @Html.DisplayFor(modelItem => item.Movi)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.stipomovi_kardex)
+                                        @Html.DisplayFor(modelItem => item.Doc)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ncant_kardex)
+                                        @Html.DisplayFor(modelItem => item.Almacen)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.npuco_kardex)
+                                        @Html.DisplayFor(modelItem => item.Ingreso)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ntc_kardex)
+                                        @Html.DisplayFor(modelItem => item.Salida)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.smone_kardex)
+                                        @Html.DisplayFor(modelItem => item.Acumulado)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.npucoMN_kardex)
+                                        @Html.DisplayFor(modelItem => item.Costo)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.npucoUS_kardex)
+                                        @Html.DisplayFor(modelItem => item.CPromedio)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.smodulo_confi)
+                                        @Html.DisplayFor(modelItem => item.IIngreso)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ncodeDoc_kardex)
+                                        @Html.DisplayFor(modelItem => item.ISalida)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.sserie_kardex)
+                                        @Html.DisplayFor(modelItem => item.ISalida)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.snume_kardex)
+                                        @Html.DisplayFor(modelItem => item.Cliente)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.dfvence_kardex)
+                                        @Html.DisplayFor(modelItem => item.Proveedor)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
-                                    </td>
+
                                 </tr>
                             }
                         </tbody>

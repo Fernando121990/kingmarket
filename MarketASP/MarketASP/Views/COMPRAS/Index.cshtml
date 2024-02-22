@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.COMPRAS>
+﻿@model IEnumerable<MarketASP.Models.Pr_CompraLista_Result>
 
 @{
     ViewBag.Title = "Compras";
@@ -14,122 +14,68 @@
                     <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Compra</a>
                 </div>
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>
-                                    Doc.
-                                </th>
-                                <th>
-                                    Proveedor
-                                </th>
-                                <th>
-                                    No Doc.
-                                </th>
-                                <th>
-                                    F.Compra
-                                </th>
-                                <th>
-                                    F.Vcto
-                                </th>
-                                <th>
-                                    OC
-                                </th>
-                                <th>
-                                    Total
-                                </th>
-                                <th>
-                                    Activo
-                                </th>
-                                <th>Lotes</th>
-                                <th>
-                                    Almacen
-                                </th>
-                                <th>
-                                    F.Pago
-                                </th>
-                                <th>O.Compra</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                    @*<table id="datatable" class="table table-centered datatable nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px">*@
+                        <table id="datatable" class="table dataTable nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px">
+                            <thead class="thead-light">
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sseri_compra) - @Html.DisplayFor(modelItem => item.snume_compra)
-                                    </td>
-                                    <td>
-                                        @string.Format("{0:d}", item.dfecompra_compra)
-                                    </td>
-                                    <td>
-                                        @string.Format("{0:d}", item.dfevenci_compra)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sguia_compra)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.smone_compra)
-                                        @Html.DisplayFor(modelItem => item.ntotal_compra)
-                                    </td>
-                                    <td>
-                                        @if (item.besta_compra == false)
-                                        {
-                                            <div class="badge badge-soft-warning font-size-12">No</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-soft-success font-size-12">Si</div>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (item.blote_orco == 0)
-                                        {
-                                            <div class="badge badge-soft-warning font-size-12">Pendiente</div>
-                                        }
-                                        else if (item.blote_orco == 1)
-                                        {
-                                            <div class="badge badge-soft-primary font-size-12">Parcial</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-soft-success font-size-12">Total</div>
-                                        }
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sserie_orco)
-                                    </td>
-                                    <td>
-                                        @if (item.besta_compra == true)
-                                        {
-                                            <a href="@Url.Action("Edit", new { id = item.ncode_compra })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a href="@Url.Action("anulaCompra", new { id = item.ncode_compra })" class="btn btn-primary btn-circle btn-sm" title="Anular">
-                                                <i class="fas fa-circle-notch"></i>
-                                            </a>
-                                            <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        }
-                                    </td>
+                                    <th>Proveedor</th>
+                                    <th>No Doc.</th>
+                                    <th>F.Compra</th>
+                                    <th>Guia</th>
+                                    <th>OC</th>
+                                    <th>Total</th>
+                                    <th>Situac</th>
+                                    <th>Alm</th>
+                                    <th></th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.proveedor)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.documento)
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:d}", item.fecha)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GuiaDoc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OCDoc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.total)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.situacion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.almacen)
+                                        </td>
+                                        <td>
+                                            @if (item.besta_compra == true)
+                                            {
+                                                <a href="@Url.Action("Edit", new { id = item.ncode_compra })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="@Url.Action("anulaCompra", new { id = item.ncode_compra })" class="btn btn-primary btn-circle btn-sm" title="Anular">
+                                                    <i class="fas fa-circle-notch"></i>
+                                                </a>
+                                                <a href="@Url.Action("DeleteCompra", new { id = item.ncode_compra })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+</div>
             </div>
         </div>
     </div>

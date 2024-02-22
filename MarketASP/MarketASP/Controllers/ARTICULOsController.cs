@@ -72,6 +72,8 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
             CargaCombos();
+            ViewBag.afectob = true;
+            ViewBag.descargab = true;
             return View();
         }
 
@@ -131,6 +133,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_umed = new SelectList(db.UMEDIDA.Where(F => F.nesta_umed == true), "ncode_umed", "sdesc_umed", aRTICULO.ncode_umed);
             ViewBag.scodsunat_arti = new SelectList(db.SUNAT_CodProductos, "codsunat", "detalle", aRTICULO.scodsunat_arti);
             ViewBag.stipomerca_arti = new SelectList(db.SUNAT_TipoMercaderias.Where(F => F.ACTIVADO == true), "codigo", "descripcion", aRTICULO.stipomerca_arti);
+            ViewBag.afectob = aRTICULO.bafecto_arti;
+            ViewBag.descargab = aRTICULO.bdescarga_arti;
 
             return View(aRTICULO);
         }

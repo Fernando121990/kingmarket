@@ -84,12 +84,15 @@
                                         @Html.DisplayFor(modelItem => item.TIPO_GUIA.sdesc_tiguia)
                                     </td>
                                     <td>
-                                        <a href="@Url.Action("Edit", new { id = item.ncode_guia })" class="btn btn-success btn-circle btn-sm" title="Edita">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="@Url.Action("Deleteguia", new { id = item.ncode_guia })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        @if (item.bventaasociada_guia != true || item.besta_guia != false)
+                                        {
+                                            <a href="@Url.Action("Edit", new { id = item.ncode_guia })" class="btn btn-success btn-circle btn-sm" title="Edita">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Deleteguia", new { id = item.ncode_guia })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿ Seguro de eliminar registro ?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                             }

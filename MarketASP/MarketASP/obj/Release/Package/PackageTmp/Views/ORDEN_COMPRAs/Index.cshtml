@@ -13,7 +13,7 @@
                     <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Orden Compra</a>
                 </div>
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;font-size:12px">
                         <thead class="thead-light">
                             <tr>
                                 <th>
@@ -30,8 +30,7 @@
                                     Total
                                 </th>
                                 <th>Almacen</th>
-                                <th>Activa</th>
-                                <th>Compra</th>
+                                <th>Situacion</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -57,7 +56,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.almacen)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @if (item.besta_orco == false)
                                         {
                                             <div class="badge badge-soft-warning font-size-12">No</div>
@@ -66,7 +65,7 @@
                                         {
                                             <div class="badge badge-soft-success font-size-12">Si</div>
                                         }
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @if (item.bcompra_orco == 0)
                                         {

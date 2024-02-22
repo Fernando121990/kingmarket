@@ -9,6 +9,7 @@ namespace MarketASP.Clases
     public class ventaViewDeta : VENTA_DETALLE
     {
         public bool? bisc_vedeta { get; set; }
+        public bool? blote_vedeta { get; set; }
         public string scod2 { get; set; }
         public string sdesc { get; set; }
         

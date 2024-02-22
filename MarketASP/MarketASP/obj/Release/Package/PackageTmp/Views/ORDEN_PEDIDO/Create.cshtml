@@ -31,6 +31,8 @@
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/ordenpedido")
 <script type="text/javascript">
+
+    var urlGetTipoCambioFecha = '@Url.Action("getTipoCambio", "Funciones",new { area = ""})';
     var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
     var urlGetDocuSerie = '@Url.Action("getDocuSerie", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
@@ -46,7 +48,7 @@
         var urlPedidoPrecio = '@Url.Action("getPedidoPrecio", "Funciones",new { area = ""})';
     var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
     var urlcuotaEditar = '@Url.Action("fncadenaeditar", "Funciones", new { area = "" })';
-    
+    var urlGetLoteDisponible = '@Url.Action("getLotesDisponible", "Funciones",new { area = ""})';
         var urlorpeCrea = '@Url.Action("Create", "orden_pedido")';
     var urlorpeLista = '@Url.Action("index", "orden_pedido")';
     var urlclientedireccion = '@Url.Action("CreateDireccion", "Clientes", new { id = "param-id"})';

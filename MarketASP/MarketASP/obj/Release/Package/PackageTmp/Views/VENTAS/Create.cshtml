@@ -31,6 +31,7 @@
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/venta")
 <script type="text/javascript">
+        var urlGetTipoCambioFecha = '@Url.Action("getTipoCambio", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';

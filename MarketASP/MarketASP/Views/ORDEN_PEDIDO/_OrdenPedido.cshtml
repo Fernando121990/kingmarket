@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="sorpeorma_compra" class="col-form-label">DNI</label>
+                            <label for="sdni_cliente" class="col-form-label">DNI</label>
                             <div>
                                 <input id="sdni_cliente" name="sdni_cliente" type="text" value="@ViewBag.sdni_cliente" class="form-control" placeholder="DNI" />
                             </div>
@@ -58,7 +58,7 @@
                 <div class="row">
 
                     <div class="col-md-4">
-                        @Html.LabelFor(model => model.bflete_orpe, "Flete", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.bflete_orpe, "A.P.Flete", htmlAttributes: new { @class = "control-label" })
                         <div class="checkbox">
                             @Html.CheckBox("bflete_orpe")
                             @Html.ValidationMessageFor(model => model.bflete_orpe, "", new { @class = "text-danger" })
@@ -140,10 +140,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="ncode_fopago" class="col-form-label">F.Pago</label>
+                            <label for="nro_fopago" class="col-form-label">F.Pago</label>
                             <select id="nro_fopago" name="nro_fopago" class="form-control"></select>
-                            @*@Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-select" })*@
-                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -222,10 +220,13 @@
         <p>Productos</p>
     </div>
     <div class="col-lg-6">
-        <button type="button" title="Agregar Articulo" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
-        <button type="button" title="Elimnar Articulo" class="delMat fas fa-trash-alt btn btn-warning"></button>
-        <button type="button" title="Ver Almacenes" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
-        <button type="button" title="Ver Precios" class="btnpedidos fas fa-money-check btn btn-info" data-bs-toggle="modal" data-bs-target="#modalprecio"></button>
+        <div class="btn-group" role="group">
+            <button type="button" title="Agregar Articulo" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+            <button type="button" title="Elimnar Articulo" class="delMat fas fa-trash-alt btn btn-warning"></button>
+            <button type="button" title="Ver Almacenes" class="btnalma fas fa-home btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalAlma"></button>
+            <button type="button" title="Ver Precios" class="btnpedidos fas fa-money-check btn btn-info" data-bs-toggle="modal" data-bs-target="#modalprecio"></button>
+            <button type="button" title="Ver Lotes" class="btnverlotes fas fa-money-check btn btn-info" data-bs-toggle="modal" data-bs-target="#modalverlote"></button>
+        </div>
         <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -251,6 +252,7 @@
                                     <th>bisc</th>
                                     <th>bdscto</th>
                                     <th>bicbper</th>
+                                    <th>PTope</th>
                                 </tr>
                             </thead>
                         </table>
@@ -303,7 +305,7 @@
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 Class="modal-title" id="modalpreciolabel">Ordenes de Pedido</h5>
+                        <h5 Class="modal-title" id="modalpreciolabel">Lotes Disponibles</h5>
                         <button id="btnpreciocerrarx" name="btnpreciocerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
@@ -327,6 +329,42 @@
             </div>
         </div>
 
+
+
+
+        <div id="modalverlote" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalverlotelabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 Class="modal-title" id="modalverlotelabel">Lotes</h5>
+                        <button id="btnverlotecerrarx" name="btnverlotecerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="lotetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Lote</th>
+                                    <th>Vence</th>
+                                    <th>cod.art</th>
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    <th>Ctdad</th>
+                                    <th>CodDoc</th>
+                                    <th>cod.alma</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btnverlotecerrar" name="btnverlotecerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -347,6 +385,7 @@
                     <th>bisc</th>
                     <th>bdscto</th>
                     <th>Subtotal</th>
+                    <th>Ptope</th>
                 </tr>
             </thead>
             <tbody>
@@ -355,20 +394,21 @@
                     foreach (var item in Model.ORDEN_PEDIDOS_DETALLE)
                     {
                         var currentItem = item;
-                        <tr>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ncant_orpedeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npu_orpedeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npuorigen_orpedeta)</td>
-                            <td></td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.nsubt_orpedeta)</td>
-                        </tr>
+                <tr>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ncant_orpedeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.npu_orpedeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.npuorigen_orpedeta)</td>
+                    <td></td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.nsubt_orpedeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.npreciotope_orpedeta)</td>
+                </tr>
 
                     }
                 }

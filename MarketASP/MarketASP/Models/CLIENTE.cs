@@ -54,6 +54,7 @@ namespace MarketASP.Models
         public Nullable<bool> bretencion_cliente { get; set; }
         public string smail2_cliente { get; set; }
         public Nullable<long> ncode_vende { get; set; }
+        public Nullable<long> ncode_venzo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CLI_DIRE> CLI_DIRE { get; set; }

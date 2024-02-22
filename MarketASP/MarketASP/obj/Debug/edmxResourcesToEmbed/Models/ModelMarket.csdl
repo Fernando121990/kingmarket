@@ -123,118 +123,6 @@
       <Parameter Name="ncode_clidire" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Pr_ventaCrea">
-      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
-      <Parameter Name="sseri_venta" Mode="In" Type="String" />
-      <Parameter Name="snume_venta" Mode="In" Type="String" />
-      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
-      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
-      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
-      <Parameter Name="smone_venta" Mode="In" Type="String" />
-      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
-      <Parameter Name="sobse_venta" Mode="In" Type="String" />
-      <Parameter Name="scode_compra" Mode="In" Type="String" />
-      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
-      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nicbper_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="besta_venta" Mode="In" Type="Boolean" />
-      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="suser_venta" Mode="In" Type="String" />
-      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
-      <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
-      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
-      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
-      <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
-      <Parameter Name="sguiaasociada" Mode="In" Type="String" />
-      <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
-      <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
-      <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="sw" Mode="InOut" Type="Int64" />
-      <Parameter Name="cc" Mode="InOut" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_ventaDetaCrea">
-      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
-      <Parameter Name="ncant_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="npu_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndscto_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndscto2_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="nexon_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="nafecto_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="besafecto_vedeta" Mode="In" Type="Boolean" />
-      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-      <Parameter Name="ndsctomax_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctomin_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctoporc_vedeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ncantlote_vedeta" Mode="In" Type="Decimal" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_ventaDetaEdita">
-      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_ventaEdita">
-      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
-      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
-      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
-      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
-      <Parameter Name="smone_venta" Mode="In" Type="String" />
-      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
-      <Parameter Name="sobse_venta" Mode="In" Type="String" />
-      <Parameter Name="scode_compra" Mode="In" Type="String" />
-      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
-      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="suser_venta" Mode="In" Type="String" />
-      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
-      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
-      <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
-      <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
-      <Parameter Name="sw" Mode="InOut" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_ventaAnula">
-      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
-      <Parameter Name="sw" Mode="InOut" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_ventaElimina">
-      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
-      <Parameter Name="sw" Mode="InOut" Type="Int32" />
-    </FunctionImport>
     <EntitySet Name="COMPRA_DETALLE" EntityType="MarketWebModel.COMPRA_DETALLE" />
     <EntitySet Name="COMPRAS" EntityType="MarketWebModel.COMPRAS" />
     <EntitySet Name="CTA_COBRAR" EntityType="MarketWebModel.CTA_COBRAR" />
@@ -261,53 +149,6 @@
       <End Role="CTAS_PAGAR" EntitySet="CTAS_PAGAR" />
       <End Role="CTASPA_DETALLE" EntitySet="CTASPA_DETALLE" />
     </AssociationSet>
-    <FunctionImport Name="Pr_compraCrea">
-      <Parameter Name="sseri_compra" Mode="In" Type="String" />
-      <Parameter Name="snume_compra" Mode="In" Type="String" />
-      <Parameter Name="dfecompra_compra" Mode="In" Type="DateTime" />
-      <Parameter Name="dfevenci_compra" Mode="In" Type="DateTime" />
-      <Parameter Name="smone_compra" Mode="In" Type="String" />
-      <Parameter Name="ntc_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="sobs_compra" Mode="In" Type="String" />
-      <Parameter Name="sguia_compra" Mode="In" Type="String" />
-      <Parameter Name="sproforma_compra" Mode="In" Type="String" />
-      <Parameter Name="nbrutoex_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nbrutoaf_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctoex_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ndsctoaf_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubex_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nsubaf_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvex_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nigvaf_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaex_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotaaf_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotal_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalMN_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="ntotalUS_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="nvalIGV_compra" Mode="In" Type="Decimal" />
-      <Parameter Name="suser_compra" Mode="In" Type="String" />
-      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
-      <Parameter Name="sserie_orco" Mode="In" Type="String" />
-      <Parameter Name="stipo_orco" Mode="In" Type="String" />
-      <Parameter Name="sw" Mode="InOut" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_compraDetaCrea">
-      <Parameter Name="ncant_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="npu_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndscto_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="ndscto2_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="nexon_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="nafecto_comdeta" Mode="In" Type="Decimal" />
-      <Parameter Name="besafecto_comdeta" Mode="In" Type="Boolean" />
-      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
-    </FunctionImport>
     <FunctionImport Name="Pr_compraAnula">
       <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
       <Parameter Name="sw" Mode="InOut" Type="Int32" />
@@ -699,6 +540,7 @@
       <Parameter Name="ndsctomin_orpedeta" Mode="In" Type="Decimal" />
       <Parameter Name="ndsctoporc_orpedeta" Mode="In" Type="Decimal" />
       <Parameter Name="npuorigen_orpedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npreciotope_orpedeta" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="Pr_Orden_PedidoDetaEdita">
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
@@ -856,16 +698,11 @@
     </AssociationSet>
     <FunctionImport Name="Pr_ventaActualizaPedido">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
-      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="scode_orpe" Mode="In" Type="String" />
       <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_ClienteListado" ReturnType="Collection(MarketWebModel.Pr_ClienteListado_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_VentaListado" ReturnType="Collection(MarketWebModel.Pr_VentaListado_Result)">
-      <Parameter Name="tipo" Mode="In" Type="Int32" />
-      <Parameter Name="fini" Mode="In" Type="String" />
-      <Parameter Name="ffin" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Pr_OrdenPedidoLista" ReturnType="Collection(MarketWebModel.Pr_OrdenPedidoLista_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
@@ -875,6 +712,8 @@
     <FunctionImport Name="Pr_PedidoConsulta" ReturnType="Collection(MarketWebModel.Pr_PedidoConsulta_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="Pr_PedidoConsultaDetallada" ReturnType="Collection(MarketWebModel.Pr_PedidoConsultaDetallada_Result)">
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
@@ -1113,7 +952,7 @@
       <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
       <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
       <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
-      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+      <Parameter Name="scode_orpe" Mode="In" Type="String" />
       <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
       <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
       <Parameter Name="nbrutoex_guia" Mode="In" Type="Decimal" />
@@ -1136,6 +975,10 @@
       <Parameter Name="ncuotadias_guia" Mode="In" Type="Decimal" />
       <Parameter Name="sglosadespacho_guia" Mode="In" Type="String" />
       <Parameter Name="bflete_guia" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_venzo" Mode="In" Type="Int64" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaDetaCrea">
@@ -1145,6 +988,7 @@
       <Parameter Name="suser_guiadet" Mode="In" Type="String" />
       <Parameter Name="ncode_guia" Mode="In" Type="Int32" />
       <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaDetaElimina">
       <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />
@@ -1187,6 +1031,10 @@
       <Parameter Name="ncuotadias_guia" Mode="In" Type="Decimal" />
       <Parameter Name="sglosadespacho_guia" Mode="In" Type="String" />
       <Parameter Name="bflete_guia" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_venzo" Mode="In" Type="Int64" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
       <Parameter Name="sw" Mode="InOut" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaElimina">
@@ -1237,9 +1085,6 @@
       <Parameter Name="sdesc_lote" Mode="In" Type="String" />
       <Parameter Name="dfvenci_lote" Mode="In" Type="DateTime" />
       <Parameter Name="ncode_lote" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_GuiaDetaEdita">
-      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
     </FunctionImport>
     <EntitySet Name="MOVI_DETALLE" EntityType="MarketWebModel.MOVI_DETALLE" />
     <EntitySet Name="MOVI_LOTE" EntityType="MarketWebModel.MOVI_LOTE" />
@@ -1424,17 +1269,6 @@
       <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
       <Parameter Name="ncode_alma" Mode="In" Type="Int64" />
     </FunctionImport>
-    <FunctionImport Name="Pr_Orden_PedidoDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_Orden_PedidoDetVentaGuia_Result)">
-      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_GuiaVentaLista" ReturnType="Collection(MarketWebModel.Pr_GuiaVentaLista_Result)">
-      <Parameter Name="tipo" Mode="In" Type="Int32" />
-      <Parameter Name="documento" Mode="In" Type="String" />
-      <Parameter Name="cliente" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Pr_GuiaVentaDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_GuiaVentaDetVentaGuia_Result)">
-      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
-    </FunctionImport>
     <FunctionImport Name="Pr_DocSerie" ReturnType="Collection(MarketWebModel.Pr_DocSerie_Result)">
       <Parameter Name="tipo" Mode="In" Type="Int32" />
       <Parameter Name="susario_dose" Mode="In" Type="String" />
@@ -1599,6 +1433,231 @@
       <Parameter Name="fini" Mode="In" Type="String" />
       <Parameter Name="ffin" Mode="In" Type="String" />
       <Parameter Name="sdesc_arti" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_KardexLotesMovimientos" ReturnType="Collection(MarketWebModel.Pr_KardexLotesMovimientos_Result)">
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
+      <Parameter Name="sdesc_arti" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_KardexMovimientosArticulo" ReturnType="Collection(MarketWebModel.Pr_KardexMovimientosArticulo_Result)">
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
+      <Parameter Name="sdesc_arti" Mode="In" Type="String" />
+      <Parameter Name="ncode_Arti" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraCrea">
+      <Parameter Name="sseri_compra" Mode="In" Type="String" />
+      <Parameter Name="snume_compra" Mode="In" Type="String" />
+      <Parameter Name="dfecompra_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_compra" Mode="In" Type="DateTime" />
+      <Parameter Name="smone_compra" Mode="In" Type="String" />
+      <Parameter Name="ntc_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="sobs_compra" Mode="In" Type="String" />
+      <Parameter Name="sguia_compra" Mode="In" Type="String" />
+      <Parameter Name="sproforma_compra" Mode="In" Type="String" />
+      <Parameter Name="nbrutoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUS_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="nvalIGV_compra" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_compra" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_provee" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
+      <Parameter Name="sserie_orco" Mode="In" Type="String" />
+      <Parameter Name="stipo_orco" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_compraDetaCrea">
+      <Parameter Name="ncant_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_comdeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_comdeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_compra" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncantLote_comdeta" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_CompraLista" ReturnType="Collection(MarketWebModel.Pr_CompraLista_Result)">
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
+      <Parameter Name="proveedor" Mode="In" Type="String" />
+      <Parameter Name="documento" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_CompraDetCompra" ReturnType="Collection(MarketWebModel.Pr_Orden_CompraDetCompra_Result)">
+      <Parameter Name="ncode_orco" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaCrea">
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="sseri_venta" Mode="In" Type="String" />
+      <Parameter Name="snume_venta" Mode="In" Type="String" />
+      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_venta" Mode="In" Type="String" />
+      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_venta" Mode="In" Type="String" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
+      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nicbper_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="besta_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ctacobraAuto" Mode="In" Type="String" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="scode_orpe" Mode="In" Type="String" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+      <Parameter Name="sserienume_orpe" Mode="In" Type="String" />
+      <Parameter Name="sguiaasociada" Mode="In" Type="String" />
+      <Parameter Name="ncode_dose" Mode="In" Type="Int64" />
+      <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_venzo" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
+      <Parameter Name="sserienume_guiaventa" Mode="In" Type="String" />
+      <Parameter Name="bitguia_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="sserie_guia" Mode="In" Type="String" />
+      <Parameter Name="snumero_guia" Mode="In" Type="String" />
+      <Parameter Name="btitgratuito_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="sglosadespacho_venta" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int64" />
+      <Parameter Name="cc" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaEdita">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_docu" Mode="In" Type="Int32" />
+      <Parameter Name="dfeventa_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="dfevenci_venta" Mode="In" Type="DateTime" />
+      <Parameter Name="ncode_cliente" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_clidire" Mode="In" Type="Int32" />
+      <Parameter Name="smone_venta" Mode="In" Type="String" />
+      <Parameter Name="ntc_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_fopago" Mode="In" Type="Int32" />
+      <Parameter Name="sobse_venta" Mode="In" Type="String" />
+      <Parameter Name="scode_compra" Mode="In" Type="String" />
+      <Parameter Name="ncode_profo" Mode="In" Type="Int64" />
+      <Parameter Name="nbrutoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nbrutoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndctoex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nsubaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nigvaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaex_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotaaf_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotal_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalMN_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ntotalUs_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nvalIGV_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="suser_venta" Mode="In" Type="String" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_local" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_mone" Mode="In" Type="Int32" />
+      <Parameter Name="ncode_vende" Mode="In" Type="Int64" />
+      <Parameter Name="bclienteagretencion" Mode="In" Type="Boolean" />
+      <Parameter Name="ncuotas_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncuotavalor_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="nretencionvalor_venta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_tran" Mode="In" Type="Int64" />
+      <Parameter Name="sserienume_guiaventa" Mode="In" Type="String" />
+      <Parameter Name="bitguia_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="sserie_guia" Mode="In" Type="String" />
+      <Parameter Name="snumero_guia" Mode="In" Type="String" />
+      <Parameter Name="btitgratuito_venta" Mode="In" Type="Boolean" />
+      <Parameter Name="sglosadespacho_venta" Mode="In" Type="String" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaElimina">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_VentaListado" ReturnType="Collection(MarketWebModel.Pr_VentaListado_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="fini" Mode="In" Type="String" />
+      <Parameter Name="ffin" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_Orden_PedidoDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_Orden_PedidoDetVentaGuia_Result)">
+      <Parameter Name="scode_orpe" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaVentaDetVentaGuia" ReturnType="Collection(MarketWebModel.Pr_GuiaVentaDetVentaGuia_Result)">
+      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaDetaEdita">
+      <Parameter Name="ncode_guia" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_GuiaVentaLista" ReturnType="Collection(MarketWebModel.Pr_GuiaVentaLista_Result)">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="documento" Mode="In" Type="String" />
+      <Parameter Name="cliente" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaActualizaPedido1">
+      <Parameter Name="tipo" Mode="In" Type="Int32" />
+      <Parameter Name="scode_orpe" Mode="In" Type="String" />
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaAnula">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="sw" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaDetaCrea">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+      <Parameter Name="ncode_arti" Mode="In" Type="Int64" />
+      <Parameter Name="ncant_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="npu_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndscto2_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nexon_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="nafecto_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="besafecto_vedeta" Mode="In" Type="Boolean" />
+      <Parameter Name="ncode_alma" Mode="In" Type="Int32" />
+      <Parameter Name="ndsctomax_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctomin_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ndsctoporc_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncantlote_vedeta" Mode="In" Type="Decimal" />
+      <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_ventaDetaEdita">
+      <Parameter Name="ncode_venta" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="Pr_tipoCambioFecha" ReturnType="Collection(Decimal)">
+      <Parameter Name="accion" Mode="In" Type="String" />
+      <Parameter Name="dfecha_tc" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="ALMACEN">
@@ -2002,6 +2061,8 @@
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_31" FromRole="VENTA_DETALLE" ToRole="VENTAS" />
     <Property Name="ncantLote_vedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_32" FromRole="VENTA_DETALLE" ToRole="ARTICULO" />
+    <Property Name="ncode_orpe" Type="Int64" />
+    <Property Name="ncode_guia" Type="Int64" />
   </EntityType>
   <Association Name="R_33">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="0..1" />
@@ -2506,6 +2567,19 @@
     <NavigationProperty Name="PROFORMA_DETALLE" Relationship="MarketWebModel.R_62" FromRole="PROFORMAS" ToRole="PROFORMA_DETALLE" />
     <Property Name="ncode_mone" Type="Int32" />
     <NavigationProperty Name="CLIENTE" Relationship="MarketWebModel.R_65" FromRole="PROFORMAS" ToRole="CLIENTE" />
+    <Property Name="ncode_vende" Type="Int64" />
+    <Property Name="bventa_prof" Type="Int32" />
+    <Property Name="dfdespacho_prof" Type="DateTime" Precision="3" />
+    <Property Name="bprecioconigv_prof" Type="Boolean" />
+    <Property Name="bclienteagretencion" Type="Boolean" />
+    <Property Name="ncode_guia" Type="Int64" />
+    <Property Name="ncode_dose" Type="Int64" />
+    <Property Name="ncuotas_prof" Type="Int64" />
+    <Property Name="ncuotavalor_prof" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncuotadias_prof" Type="Int64" />
+    <Property Name="sglosadespacho_prof" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bflete_prof" Type="Boolean" />
+    <Property Name="ncode_venzo" Type="Int64" />
   </EntityType>
   <Association Name="R_67">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -2951,6 +3025,10 @@
     <Property Name="ncantventa_orpedeta" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_620" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.R_630" FromRole="ORDEN_PEDIDOS_DETALLE" ToRole="ARTICULO" />
+    <Property Name="npreciotope_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="nesta_orpedeta" Type="Boolean" />
+    <Property Name="ncantPendiente_orpedeta" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ncantEntregada_orpedeta" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="CLI_FOPAGO">
     <Key>
@@ -3075,6 +3153,7 @@
     <NavigationProperty Name="VENTAS" Relationship="MarketWebModel.R_28" FromRole="CLIENTE" ToRole="VENTAS" />
     <NavigationProperty Name="ORDEN_PEDIDOS" Relationship="MarketWebModel.R_650" FromRole="CLIENTE" ToRole="ORDEN_PEDIDOS" />
     <NavigationProperty Name="CONFIGURACION2" Relationship="MarketWebModel.FK_CLIENTE_CONFIGURACION" FromRole="CLIENTE" ToRole="CONFIGURACION" />
+    <Property Name="ncode_venzo" Type="Int64" />
   </EntityType>
   <Association Name="R_11">
     <End Type="MarketWebModel.CLIENTE" Role="CLIENTE" Multiplicity="1" />
@@ -3242,6 +3321,9 @@
     <Property Name="sglosadespacho_venta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="bflete_venta" Type="Boolean" />
     <NavigationProperty Name="VENTA_CUOTA" Relationship="MarketWebModel.FK_VENTA_CUOTA_VENTAS" FromRole="VENTAS" ToRole="VENTA_CUOTA" />
+    <Property Name="ncode_venzo" Type="Int64" />
+    <Property Name="ncode_tran" Type="Int64" />
+    <Property Name="sserienume_guiaventa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="R_29">
     <End Type="MarketWebModel.CLI_DIRE" Role="CLI_DIRE" Multiplicity="0..1" />
@@ -3374,6 +3456,7 @@
     <Property Name="sglosadespacho_orpe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="bflete_orpe" Type="Boolean" />
     <NavigationProperty Name="ORDEN_PEDIDOS_CUOTAS" Relationship="MarketWebModel.FK_ORDEN_PEDIDOS_CUOTAS_ORDEN_PEDIDOS" FromRole="ORDEN_PEDIDOS" ToRole="ORDEN_PEDIDOS_CUOTAS" />
+    <Property Name="ncode_venzo" Type="Int64" />
   </EntityType>
   <Association Name="R_670">
     <End Type="MarketWebModel.ALMACEN" Role="ALMACEN" Multiplicity="1" />
@@ -3487,10 +3570,10 @@
     <Property Type="String" Name="total" Nullable="false" MaxLength="62" />
     <Property Type="String" Name="sdesc_vende" Nullable="true" MaxLength="5000" />
     <Property Type="String" Name="sdesc_zona" Nullable="true" MaxLength="500" />
-    <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="2000" />
+    <Property Type="String" Name="sdesc_alma" Nullable="true" MaxLength="3" />
     <Property Type="Boolean" Name="besta_venta" Nullable="true" />
     <Property Type="Boolean" Name="bmontocancelado_venta" Nullable="true" />
-    <Property Type="String" Name="sdesc_confi" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="sdesc_confi" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
     <Property Type="Int64" Name="ncode_venta" Nullable="false" />
     <Property Type="String" Name="OrdenPedido" Nullable="false" MaxLength="41" />
@@ -3501,6 +3584,7 @@
     <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
     <Property Type="String" Name="numeracion" Nullable="true" MaxLength="41" />
     <Property Type="String" Name="srazon_cliente" Nullable="true" MaxLength="2000" />
+    <Property Type="Int32" Name="ncode_alma" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_PedidoConsulta_Result">
     <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
@@ -3832,7 +3916,7 @@
     <NavigationProperty Name="GUIA_LOTE" Relationship="MarketWebModel.RG_31" FromRole="GUIA" ToRole="GUIA_LOTE" />
     <Property Name="ncode_orpe" Type="Int64" />
     <Property Name="ncode_tran" Type="Int64" />
-    <Property Name="sserienume_orpe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sserienume_orpe" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="bdespacho_guia" Type="Boolean" />
     <Property Name="bventaasociada_guia" Type="Boolean" />
     <Property Name="ncode_venta" Type="Int64" />
@@ -3859,6 +3943,11 @@
     <Property Name="bclienteagretencion" Type="Boolean" />
     <NavigationProperty Name="GUIA_CUOTAS" Relationship="MarketWebModel.FK_GUIA_CUOTAS_GUIA" FromRole="GUIA" ToRole="GUIA_CUOTAS" />
     <Property Name="nvalIGV_guia" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="scode_orpe" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ncode_fopago" Type="Int64" />
+    <Property Name="ncode_vende" Type="Int64" />
+    <Property Name="ncode_venzo" Type="Int64" />
+    <Property Name="scode_compra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="GUIA_DETALLE">
     <Key>
@@ -3878,6 +3967,7 @@
     <NavigationProperty Name="UMEDIDA" Relationship="MarketWebModel.RGD_25" FromRole="GUIA_DETALLE" ToRole="UMEDIDA" />
     <Property Name="nback_guiadet" Type="Boolean" />
     <NavigationProperty Name="ARTICULO" Relationship="MarketWebModel.RGD_18" FromRole="GUIA_DETALLE" ToRole="ARTICULO" />
+    <Property Name="ncode_orpe" Type="Int64" />
   </EntityType>
   <EntityType Name="TIPO_GUIA">
     <Key>
@@ -4402,6 +4492,7 @@
   <ComplexType Name="Pr_VendedorZonaLista_Result">
     <Property Type="Int64" Name="ncode_vende" Nullable="false" />
     <Property Type="String" Name="VendeZona" Nullable="false" MaxLength="5503" />
+    <Property Type="Int64" Name="ncode_venzo" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_KardexMatTabla_Result">
     <Property Type="Int64" Name="Cod" Nullable="false" />
@@ -4419,6 +4510,8 @@
     <Property Type="Boolean" Name="bdscto_arti" Nullable="false" />
     <Property Type="Boolean" Name="bicbper_arti" Nullable="false" />
     <Property Type="Boolean" Name="bpercepcion_arti" Nullable="false" />
+    <Property Type="Decimal" Name="npreciotope_arti" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Boolean" Name="blote_arti" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pr_Orden_PedidoDetVentaGuia_Result">
     <Property Type="Boolean" Name="besafecto_orpedeta" Nullable="false" />
@@ -4433,6 +4526,8 @@
     <Property Type="Decimal" Name="nexon_orpedeta" Nullable="true" Precision="18" Scale="4" />
     <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
     <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+    <Property Type="Boolean" Name="blote_arti" Nullable="true" />
+    <Property Type="Int64" Name="ncode_orpe" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Pr_GuiaVentaLista_Result">
     <Property Type="Int64" Name="ncode_guia" Nullable="false" />
@@ -4453,6 +4548,7 @@
     <Property Type="Int32" Name="nexon_guiadet" Nullable="false" />
     <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
     <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+    <Property Type="Boolean" Name="blote_arti" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Pr_DocSerie_Result">
     <Property Type="Int64" Name="ncode_dose" Nullable="false" />
@@ -4948,5 +5044,73 @@
     <Property Type="String" Name="solicitante" Nullable="true" MaxLength="5000" />
     <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
     <Property Type="Decimal" Name="ntc_kardex" Nullable="false" Precision="18" Scale="4" />
+  </ComplexType>
+  <ComplexType Name="Pr_KardexLotesMovimientos_Result">
+    <Property Type="Int64" Name="ncode_lote" Nullable="false" />
+    <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="sdesc_lote" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="fvence" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="stipomovi_lote" Nullable="true" MaxLength="5" />
+    <Property Type="Decimal" Name="ncant_lote" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="ncantrestante_lote" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Boolean" Name="besta_lote" Nullable="true" />
+    <Property Type="String" Name="smodulo_confi" Nullable="true" MaxLength="50" />
+    <Property Type="Int64" Name="ncodeDoc_lote" Nullable="true" />
+    <Property Type="String" Name="sdesc_alma" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="solicitante" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="sserie_lote" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="snume_lote" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Pr_KardexMovimientosArticulo_Result">
+    <Property Type="String" Name="Fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Fvence" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="Movi" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Doc" Nullable="false" MaxLength="41" />
+    <Property Type="String" Name="Almacen" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="CodArti" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Arti" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="stipomovi_kardex" Nullable="false" MaxLength="1" />
+    <Property Type="Decimal" Name="Ingreso" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Salida" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Acumulado" Nullable="false" Precision="1" Scale="1" />
+    <Property Type="Decimal" Name="IIngreso" Nullable="true" Precision="37" Scale="8" />
+    <Property Type="Decimal" Name="ISalida" Nullable="true" Precision="37" Scale="8" />
+    <Property Type="Decimal" Name="Costo" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int32" Name="CPromedio" Nullable="false" />
+    <Property Type="Int64" Name="ncodeDoc_kardex" Nullable="false" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="false" />
+    <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Proveedor" Nullable="true" MaxLength="5000" />
+    <Property Type="String" Name="Cliente" Nullable="true" MaxLength="5000" />
+    <Property Type="Decimal" Name="ntc_kardex" Nullable="false" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="Stock" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="Pr_CompraLista_Result">
+    <Property Type="Int64" Name="ncode_compra" Nullable="false" />
+    <Property Type="String" Name="documento" Nullable="false" MaxLength="41" />
+    <Property Type="String" Name="fecha" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="total" Nullable="false" MaxLength="62" />
+    <Property Type="String" Name="GuiaDoc" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="OCDoc" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="almacen" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="proveedor" Nullable="false" MaxLength="2000" />
+    <Property Type="String" Name="situacion" Nullable="true" MaxLength="9" />
+    <Property Type="Boolean" Name="besta_compra" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Pr_Orden_CompraDetCompra_Result">
+    <Property Type="Boolean" Name="besafecto_orcodeta" Nullable="false" />
+    <Property Type="Boolean" Name="bisc_arti" Nullable="true" />
+    <Property Type="String" Name="scode_arti" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="sdesc1_arti" Nullable="false" MaxLength="2000" />
+    <Property Type="Decimal" Name="nafecto_orcodeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="ncant_orcodeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Int64" Name="ncode_arti" Nullable="false" />
+    <Property Type="Decimal" Name="npu_orcodeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="ndscto_orcodeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="Decimal" Name="nexon_orcodeta" Nullable="true" Precision="18" Scale="4" />
+    <Property Type="String" Name="ssunat_umed" Nullable="false" MaxLength="200" />
+    <Property Type="Int64" Name="ncode_umed" Nullable="false" />
   </ComplexType>
 </Schema>

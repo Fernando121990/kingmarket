@@ -170,6 +170,20 @@ $(document).ready(function () {
         }
     });
 
+
+    /*forma de pago*/
+
+    $("#ncode_fopago").change(function () {
+
+
+        var codpago = $("#ncode_fopago option:selected").val();
+        var sfpago = $("#ncode_fopago option:selected").text();
+
+        fnFormaPagoDiasFecha(codpago);
+
+    });
+
+
     $("#bprecioconigv").click(function () {
 
         conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
@@ -466,7 +480,7 @@ function Sales_save() {
     var compraViewDetas = {
         "ncode_arti": "", "ncant_comdeta": "", "npu_comdeta": "", "ndscto_comdeta": "",
         "ndscto2_comdeta": "", "nexon_comdeta": "", "nafecto_comdeta": "", "besafecto_comdeta": "",
-        "ncode_alma": "" 
+        "ncode_alma": "", "ncantLote_comdeta":""
     };
 
     var compraView = {
@@ -528,6 +542,7 @@ function Sales_save() {
         compraViewDetas.nexon_comdeta = oTable[i][5] * oTable[i][3];
         compraViewDetas.nafecto_comdeta = oTable[i][5] * oTable[i][3];
         compraViewDetas.besafecto_comdeta = oTable[i][8];
+        compraViewDetas.ncantLote_comdeta = oTable[i][12];
         compraViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         compraView.compraViewDetas.push(compraViewDetas);
@@ -759,6 +774,8 @@ function fnCargaOrdenPedido(codigo) {
             console.log('cargando orden de compra')
             console.log(compra);
 
+            $('#dfecompra_compra').val(compra.sfecompra_compra);
+            $('#dfevenci_compra').val(compra.sfevenci_compra);
             $('#sdesc_prove').val(compra.sproveedor);
             $('#ncode_provee').val(compra.ncode_provee);
             $('#stipo_orco').val(compra.stipo_orco);
@@ -768,12 +785,8 @@ function fnCargaOrdenPedido(codigo) {
             $("#smone_compra").val(compra.smone_compra);
             $("#ncode_orco").val(codigo);
             $("#ncode_alma").val(compra.ncode_alma);
-
+            $("#ncode_fopago").val(compra.ncode_fopago);
             
-           // $("#ncode_alma option[value = compra.ncode_alma ]").attr("selected", true);
-
-
-            //$("#ncode_fopago").val(compra.ncode_fopago);
             var num = parseInt(compra.compraViewDetas.length);
             var oprof = $('#tbl').DataTable();
             oprof.clear();
@@ -795,7 +808,7 @@ function fnCargaOrdenPedido(codigo) {
             }
         },
         error: function (ex) {
-            alert('No se puede recuperar datos de la orden de pedido' + ex);
+            alert('No se puede recuperar datos de la orden de compra' + ex);
         }
     });
 
@@ -830,4 +843,36 @@ function fnActualizarCtdadLote(codArt,ctdad) {
             break;
         }
     }
+}
+
+function fnFormaPagoDiasFecha(cod_pago) {
+
+    $.ajax({
+        type: 'POST',
+        url: urlGetDiasFormaPago,
+        dataType: 'json',
+        data: { ncode_fopago: cod_pago },
+        success: function (fopago) {
+            //console.log(fopago);
+            $.each(fopago, function (i, dias) {
+
+                var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                var m = $("#dfecompra_compra").val();
+                var parts = m.split("/");
+                var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+
+                fecha.setDate(fecha.getDate() + parseInt(dias.dias));
+                var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+                $('#dfevenci_compra').val(xfecha);
+                //console.log(fecha);
+                //console.log(xfecha);
+            });
+
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las areas.' + ex);
+        }
+    });
+    return false;
+
 }

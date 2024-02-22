@@ -70,6 +70,11 @@ namespace MarketASP.Models
         public Nullable<long> ncuotadias_guia { get; set; }
         public Nullable<bool> bclienteagretencion { get; set; }
         public Nullable<decimal> nvalIGV_guia { get; set; }
+        public string scode_orpe { get; set; }
+        public Nullable<long> ncode_fopago { get; set; }
+        public Nullable<long> ncode_vende { get; set; }
+        public Nullable<long> ncode_venzo { get; set; }
+        public string scode_compra { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual ALMACEN ALMACEN1 { get; set; }

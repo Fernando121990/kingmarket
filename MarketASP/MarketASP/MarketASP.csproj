@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Inventario\Clases\moviViewLote.cs" />
+    <Compile Include="Clases\Enum.cs" />
     <Compile Include="Clases\fabricacionView.cs" />
     <Compile Include="Clases\fabricacionViewDeta.cs" />
     <Compile Include="Clases\genericoCabecera.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Clases\ventaViewLote.cs" />
     <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CLI_FOPAGOController.cs" />
     <Compile Include="Controllers\DOCU_SERIEController.cs" />
     <Compile Include="Controllers\DOCU_SERIE_USUARIOController.cs" />
@@ -271,7 +273,7 @@
     <Compile Include="Controllers\FAMILIAsController.cs" />
     <Compile Include="Controllers\FuncionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Areas\Inventario\Controllers\KARDEXesController.cs" />
+    <Compile Include="Controllers\KARDEXesController.cs" />
     <Compile Include="Controllers\LISTA_PRECIOController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MARCAsController.cs" />
@@ -484,6 +486,9 @@
     <Compile Include="Models\Pr_ClienteListado_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_CompraLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_CompraLotesArticulo_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
@@ -508,7 +513,13 @@
     <Compile Include="Models\Pr_KardexArticulos_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pr_KardexLotesMovimientos_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pr_KardexMatTabla_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_KardexMovimientosArticulo_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_KardexMovimientos_Result.cs">
@@ -530,6 +541,9 @@
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_OrdenPedidoLista_Result.cs">
+      <DependentUpon>ModelMarket.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pr_Orden_CompraDetCompra_Result.cs">
       <DependentUpon>ModelMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pr_Orden_PedidoDetVentaGuia_Result.cs">
@@ -1976,7 +1990,6 @@
     </Content>
     <EntityDeploy Include="Models\ModelMarket.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMarket.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\ModelMarket.edmx.diagram">
       <DependentUpon>ModelMarket.edmx</DependentUpon>
@@ -3602,7 +3615,6 @@
     <Content Include="Views\CONFIGURACIONs\Create.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Edit.cshtml" />
     <Content Include="Views\CONFIGURACIONs\Index.cshtml" />
-    <Content Include="Areas\Inventario\Views\KARDEXes\Index.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Create.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Details.cshtml" />
     <Content Include="Areas\Inventario\Views\MOVIMIENTOes\Edit.cshtml" />
@@ -3782,6 +3794,7 @@
     <Content Include="Views\DOCU_SERIE_USUARIO\Index.cshtml" />
     <Content Include="Views\DOCU_SERIE\Details.cshtml" />
     <Content Include="Views\ALMACENs\_Almacen.cshtml" />
+    <Content Include="Views\Shared\_NotificationPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3789,6 +3802,7 @@
     <Folder Include="CDR\" />
     <Folder Include="ENVIO\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\CLI_FOPAGO\" />
     <Folder Include="Views\Funciones\" />
     <Folder Include="XML\" />

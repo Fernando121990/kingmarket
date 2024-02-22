@@ -10,7 +10,8 @@ namespace MarketASP.Clases
     public class guiaView :GUIA
     {
 
-        public string sfemov_guia { get; set; }            
+        public string sfemov_guia { get; set; }
+        public string scode_orpe { get; set; }
 
         [JsonProperty(PropertyName = "guiaViewDetas")]
         public IList<guiaViewDeta> guiaViewDetas { get; set; }

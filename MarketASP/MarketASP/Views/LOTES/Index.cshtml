@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarketASP.Models.LOTES>
+﻿@model IEnumerable<MarketASP.Models.Pr_KardexLotesMovimientos_Result>
 
 @{
     ViewBag.Title = "Lotes";
@@ -15,9 +15,6 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>
-                                    Compra
-                                </th>
-                                <th>
                                     Lote
                                 </th>
                                 <th>
@@ -29,58 +26,68 @@
                                 <th>
                                     Ctdad
                                 </th>
-                                <th>
+                                @*<th>
                                     Ctdad Desp
-                                </th>
+                                </th>*@
                                 <th>
                                     Ctdad Dispo
                                 </th>
                                 <th>
                                     Activo
                                 </th>
+                                <th>Modulo</th>
+                                <th>Documento</th>
+                                <th>Proveedor</th>
 
                             </tr>
                             </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @*@string.Concat(item.COMPRAS.sseri_compra, "-", item.COMPRAS.snume_compra)*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.sdesc_lote)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.dfvenci_lote)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncant_lote)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncantdespachada_lote)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ncantrestante_lote)
-                                    </td>
-                                    <td>
-                                        @if (item.besta_lote == false)
-                                        {
-                                            <div class="badge badge-soft-warning font-size-12">No</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="badge badge-soft-success font-size-12">Si</div>
-                                        }
-                                    </td>
-                                    @*<td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ncode_lote }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ncode_lote })
-                                    </td>*@
-                                </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_lote)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fvence)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc1_arti)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ncant_lote)
+                                </td>
+                                @*<td>
+            @Html.DisplayFor(modelItem => item.ncantdespachada_lote)
+        </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ncantrestante_lote)
+                                </td>
+                                <td>
+                                    @if (item.besta_lote == false)
+                                    {
+                                        <div class="badge badge-soft-warning font-size-12">No</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-soft-success font-size-12">Si</div>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.smodulo_confi)
+                                </td>
+                                <td>
+                                    @string.Concat(item.sserie_lote, "-", item.snume_lote)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.solicitante)
+                                </td>
+
+                                @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ncode_lote }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ncode_lote })
+        </td>*@
+                            </tr>
                             }
                         </tbody>
                     </table>

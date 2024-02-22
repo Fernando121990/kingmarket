@@ -19,6 +19,15 @@ namespace MarketASP.Controllers
     {
         private MarketWebEntities db = new MarketWebEntities();
 
+        public JsonResult getTipoCambio(string accion,string sFecha)
+        {
+            //string accion = "venta";
+
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.Pr_tipoCambioFecha(accion, sFecha).ToList();
+            return Json(result);
+        }
+
         public JsonResult getUbigeo(string sdescUbigeo)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -234,12 +243,16 @@ namespace MarketASP.Controllers
             return Json(ventaView);
         }
 
-        public JsonResult getOrdenPedidoVenta(Int32 ncode_orpe)
+        //public JsonResult getOrdenPedidoVenta(Int32 ncode_orpe)
+        public JsonResult getOrdenPedidoVenta(string scode_orpe,string documentos)
         {
             db.Configuration.ProxyCreationEnabled = false;
+
+            var orpe = scode_orpe.Split('|');
+            long ncode_orpe = long.Parse(orpe[0]);
             ORDEN_PEDIDOS pedido = db.ORDEN_PEDIDOS.Find(ncode_orpe);
             CLIENTE cLIENTE = db.CLIENTE.Find(pedido.ncode_cliente);
-            var lista = db.Pr_Orden_PedidoDetVentaGuia(ncode_orpe).ToList();
+            var lista = db.Pr_Orden_PedidoDetVentaGuia(scode_orpe).ToList();
 
             List<ORDEN_PEDIDOS_CUOTAS> listacuotaop = db.ORDEN_PEDIDOS_CUOTAS.Where(p => p.ncode_orpe == ncode_orpe).ToList();
             List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
@@ -263,6 +276,7 @@ namespace MarketASP.Controllers
             {
                 ventaViewDeta deta = new ventaViewDeta
                 {
+                    
                     besafecto_vedeta = item.besafecto_orpedeta,
                     bisc_vedeta = item.bisc_arti,
                     scod2 = item.scode_arti,
@@ -275,7 +289,8 @@ namespace MarketASP.Controllers
                     nexon_vedeta = item.nexon_orpedeta,
                     sumed = item.ssunat_umed,
                     ncode_umed = item.ncode_umed,
-                   
+                    blote_vedeta = item.blote_arti,
+                    ncode_orpe =  item.ncode_orpe
                 };
                 listadeta.Add(deta);
             }
@@ -296,10 +311,14 @@ namespace MarketASP.Controllers
                 ncuotadias_venta = pedido.ncuotadias_orpe,
                 ncuotavalor_venta = pedido.ncuotavalor_orpe,
                 sglosadespacho_venta = pedido.sglosadespacho_orpe,
+                sobse_venta = pedido.sobse_orpe,
+                scode_compra = pedido.scode_compra,
+                sfeventa_venta = string.Format("{0:d}", pedido.dfeorpeo_orpe),
+                sfevenci_venta = string.Format("{0:d}", pedido.dfevenci_orpe),
                 bflete_venta = pedido.bflete_orpe,
                 nretencionvalor_venta = 0,
-
-                sserienumero = string.Concat(pedido.sseri_orpe,"-",pedido.snume_orpe),
+                ncode_venzo = pedido.ncode_venzo,
+                sserienumero = documentos, ///string.Concat(pedido.sseri_orpe,"-",pedido.snume_orpe),
                 ventaViewDetas = listadeta,
                 ventaViewCuotas = listacuota
             };
@@ -331,6 +350,7 @@ namespace MarketASP.Controllers
                     nexon_vedeta = item.nexon_guiadet,
                     sumed = item.ssunat_umed,
                     ncode_umed = item.ncode_umed,
+                    blote_vedeta = item.blote_arti,
 
                 };
                 listadeta.Add(deta);
@@ -344,9 +364,10 @@ namespace MarketASP.Controllers
                 scliente = cLIENTE.srazon_cliente,
                 sruc = cLIENTE.sruc_cliente,
                 sdni = cLIENTE.sdnice_cliente,
-                //ncode_fopago = pedido.ncode_fopago,
+                ncode_fopago =  (int) pedido.ncode_fopago,
                 ncode_mone = pedido.ncode_mone,
                 ncode_alma = pedido.ncode_alma,
+                ncode_venzo = pedido.ncode_venzo,
                 bclienteagretencion = pedido.bclienteagretencion,
                 ncuotas_venta = pedido.ncuotas_guia,
                 ncuotadias_venta = pedido.ncuotadias_guia,
@@ -366,8 +387,7 @@ namespace MarketASP.Controllers
             db.Configuration.ProxyCreationEnabled = false;
             ORDEN_COMPRAS pedido = db.ORDEN_COMPRAS.Find(ncode_orco);
             PROVEEDOR pROVEEDOR = db.PROVEEDOR.Find(pedido.ncode_provee);
-            List<ORDEN_COMPRAS_DETALLE> lista = db.ORDEN_COMPRAS_DETALLE.Include("ARTICULO")
-                .Where(p => p.ncode_orco == ncode_orco).Where(p => p.ncantventa_orcodeta > 0).ToList();
+            var lista = db.Pr_Orden_CompraDetCompra(ncode_orco).ToList();
             List<compraViewDeta> listadeta = new List<compraViewDeta>();
 
             foreach (var item in lista)
@@ -377,15 +397,15 @@ namespace MarketASP.Controllers
 
                     besafecto_comdeta = item.besafecto_orcodeta,
                     bisc_comdeta = false,
-                    scod2 = item.ARTICULO.scode_arti,
-                    sdesc = item.ARTICULO.sdesc1_arti,
-                    //sund = item.ARTICULO.UMEDIDA.ssunat_umed,
+                    scod2 = item.scode_arti,
+                    sdesc = item.sdesc1_arti,
+                    sund = item.ssunat_umed,
                     nafecto_comdeta = item.nafecto_orcodeta,
-                    ncant_comdeta = item.ncantventa_orcodeta,
+                    ncant_comdeta = item.ncant_orcodeta,
                     ncode_arti = item.ncode_arti,
                     npu_comdeta = item.npu_orcodeta,
                     ndscto_comdeta = item.ndscto_orcodeta,
-                    nexon_comdeta = item.nexon_orcodeta
+                    nexon_comdeta = item.nexon_orcodeta,
                 };
                 listadeta.Add(deta);
             }
@@ -402,6 +422,8 @@ namespace MarketASP.Controllers
                 stipo_orco = pedido.stipo_orco,
                 sserie_orco = string.Concat(pedido.sseri_orco,"-",pedido.snume_orco),
                 ncode_alma = pedido.ncode_alma,
+                sfecompra_compra = string.Format("{0:d}", pedido.dfeorco_orco),
+                sfevenci_compra = string.Format("{0:d}", pedido.dfevenci_orco),
                 compraViewDetas = listadeta
             };
 

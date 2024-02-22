@@ -25,6 +25,7 @@ namespace MarketASP.Models
         public long ncode_guia { get; set; }
         public long ncode_umed { get; set; }
         public Nullable<bool> nback_guiadet { get; set; }
+        public Nullable<long> ncode_orpe { get; set; }
     
         public virtual GUIA GUIA { get; set; }
         public virtual UMEDIDA UMEDIDA { get; set; }

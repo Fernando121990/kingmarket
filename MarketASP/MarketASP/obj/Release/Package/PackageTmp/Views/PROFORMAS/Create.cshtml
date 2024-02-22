@@ -37,19 +37,22 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/proforma")
-    <script type="text/javascript">
-        var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+<script type="text/javascript">
+    var urlGetDocuNumero = '@Url.Action("getDocuNumero", "Funciones",new { area = ""})';
+    var urlGetDocuSerie = '@Url.Action("getDocuSerie", "Funciones",new { area = ""})';
         var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
         var urlGetCliente = '@Url.Action("getCliente", "Funciones",new { area = ""})';
         var urlGetRucCliente = '@Url.Action("getRucCliente", "Funciones",new { area = ""})';
         var urlGetDniCliente = '@Url.Action("getDniCliente", "Funciones",new { area = ""})';
-        var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+    var urlGetClienteDire = '@Url.Action("getClienteDire", "Funciones",new { area = ""})';
+    var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
         var urlClienteNuevo = '@Url.Action("CreateCliente", "Funciones",new { area = ""})';
+
         var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
         var urlArticulos = '@Url.Action("getArticulos", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlprofCrea = '@Url.Action("Create", "proformas")';
         var urlprofLista = '@Url.Action("index", "proformas")';
-    </script>
+</script>
 
 }

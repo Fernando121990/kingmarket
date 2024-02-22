@@ -77,13 +77,24 @@ namespace MarketASP.Controllers
                 //                return RedirectToAction("Create", "Tipo_Cambio", new { area = "" });
             }
             ViewBag.tc = result.nventa_tc;
+            ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
+            ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
+            ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
+            ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
+            ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
+            ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
+
 
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1032), "ncode_confi", "sdesc_confi");
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_prof = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi");
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", "");
             ViewBag.dfeprofo_prof = string.Format("{0:d}", yfecha);
             ViewBag.dfevenci_prof = string.Format("{0:d}", yfecha);
+            ViewBag.dfdespacho_prof = string.Format("{0:dd/MM/yyyy}", yfecha);
+            ViewBag.sseri_prof = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1032), "ncode_dose", "serie");
+
             return View();
         }
         [HttpPost]

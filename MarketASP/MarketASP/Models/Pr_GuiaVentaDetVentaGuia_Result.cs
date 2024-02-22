@@ -25,5 +25,6 @@ namespace MarketASP.Models
         public int nexon_guiadet { get; set; }
         public string ssunat_umed { get; set; }
         public long ncode_umed { get; set; }
+        public Nullable<bool> blote_arti { get; set; }
     }
 }

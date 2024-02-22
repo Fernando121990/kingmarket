@@ -13,7 +13,7 @@
                     <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Venta</a>
                 </div>
                 <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap" data-bs-page-length="5" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap compact" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead class="thead-light">
                             <tr>
                                 <th>
@@ -36,9 +36,6 @@
                                 </th>
                                 <th>
                                     O.Pedido
-                                </th>
-                                <th>
-                                    Activo
                                 </th>
                                 <th>
                                     Pago
@@ -74,7 +71,7 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.OrdenPedido)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @if (item.besta_venta == false)
                                         {
                                             <div class="badge badge-soft-warning font-size-12">No</div>
@@ -83,7 +80,7 @@
                                         {
                                             <div class="badge badge-soft-success font-size-12">Si</div>
                                         }
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @if (item.bmontocancelado_venta == false)
                                         {

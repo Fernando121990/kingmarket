@@ -1,5 +1,10 @@
 ﻿@model MarketASP.Models.ARTICULO
 
+@{ 
+    bool bafecto = ViewBag.afectob;
+    bool bdescarga = ViewBag.descargab;
+}
+
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
@@ -8,13 +13,13 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="example-text-input" class="col-form-label">Codigo</label>
-                            @Html.EditorFor(model => model.scode_arti, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.scode_arti, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                             @Html.ValidationMessageFor(model => model.scode_arti, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="example-text-input" class="col-form-label">Cod.SAP</label>
+                            <label for="example-text-input" class="col-form-label" >Cod.SAP</label>
                             <div>
                                 @Html.EditorFor(model => model.scodigo_sap, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.scodigo_sap, "", new { @class = "text-danger" })
@@ -24,7 +29,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="example-text-input" class="col-form-label">Descripción</label>
-                    @Html.EditorFor(model => model.sdesc1_arti, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.sdesc1_arti, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                     @Html.ValidationMessageFor(model => model.sdesc1_arti, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">
@@ -144,21 +149,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-check mb-3">
-                            @Html.CheckBox("bafecto_arti")
+                            @Html.CheckBox("bafecto_arti", bafecto)
                             @Html.ValidationMessageFor(model => model.bafecto_arti, "", new { @class = "text-danger" })
                             <label class="form-check-label" for="bafecto_arti">
                                 Afecto
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bisc_arti")
                             @Html.ValidationMessageFor(model => model.bisc_arti, "", new { @class = "text-danger" })
                             <label class="form-check-label" for="bisc_arti">
                                 ISC
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check mb-3">
+                            @Html.CheckBox("blote_arti")
+                            @Html.ValidationMessageFor(model => model.blote_arti, "", new { @class = "text-danger" })
+                            <label class="form-check-label" for="blote_arti">
+                                Lote
                             </label>
                         </div>
                     </div>
@@ -173,7 +187,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-check mb-3">
-                            @Html.CheckBox("bdescarga_arti")
+                            @Html.CheckBox("bdescarga_arti",bdescarga)
                             @Html.ValidationMessageFor(model => model.bdescarga_arti, "", new { @class = "text-danger" })
                             <label class="form-check-label" for="bdescarga_arti">
                                 Descarga Stock
@@ -197,7 +211,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="example-text-input" class="col-form-label">Clase</label>
-                    @Html.DropDownList("ncode_clase", null, "", htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("ncode_clase", null, "", htmlAttributes: new { @class = "form-control", @required = "required" })
                     @Html.ValidationMessageFor(model => model.ncode_clase, "", new { @class = "text-danger" })
                 </div>
                 <div class="mb-3">

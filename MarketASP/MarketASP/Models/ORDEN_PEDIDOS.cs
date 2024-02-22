@@ -68,6 +68,7 @@ namespace MarketASP.Models
         public Nullable<long> ncuotadias_orpe { get; set; }
         public string sglosadespacho_orpe { get; set; }
         public Nullable<bool> bflete_orpe { get; set; }
+        public Nullable<long> ncode_venzo { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CLI_DIRE CLI_DIRE { get; set; }

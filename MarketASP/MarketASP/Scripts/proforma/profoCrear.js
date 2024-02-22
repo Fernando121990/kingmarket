@@ -1,12 +1,30 @@
-﻿$(document).ready(function () {
+﻿var ofunciones = null;
+var mattable;
+var lotetable;
+var preciotable;
+var almatable;
+var cuotastable = null;
+var conf_decimal = 2;
+var conf_moneda = 0;
+var CONFIG_dscto = 'NO';
+var conf_PrecioIGV;
+var conf_poretencion;
+var beditar = false;
+
+$(document).ready(function () {
     var code = 0;
     var conf_igv = 0;
     var conf_decimal = 0;
+
+    $('#btnpro').hide();
 
     code = $("#ncode_prof").val();
     conf_igv = $("#cnfigv").val();
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
+    conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
+    conf_poretencion = $("#poretencion").val();
+
 
     console.log(conf_igv);
     console.log(conf_decimal);
@@ -16,23 +34,99 @@
     //console.log('xx')
 
     if (typeof code === 'undefined') {
-        //  console.log('series');
+
         fnDocumentoSerieNumero();
     }
 
     if (code > 0) {
+
+        var cod_cliente = $('#COD_CLIENTE').val();
+        var cod_fpago = $('#ncode_fopago').val();
+        var cod_clidire = $('#ncode_clidire').val();
+
         fnclienteDire();
-        //console.log($('#ncode_clidire').val());
+
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
+
+        fnclienteFPago(cod_cliente, cod_fpago);
+
+        beditar = true;
+
     }
 
-    $("#ncode_docu").change(function () {
+    $("#btndireccion").on("click", function () {
+
+        var codcliente = $('#COD_CLIENTE').val();
+
+        if (codcliente == '') {
+
+            return
+        }
+
+        var ruta = urlclientedireccion;
+
+        // urlclientedireccion.replace("param-id", JSON.stringify(codcliente));
+        urlclientedireccion = urlclientedireccion.replace("param-id", codcliente);
+
+        ///window.location.href = urlclientedireccion;
+        window.open(urlclientedireccion, "_blank");
+        urlclientedireccion = ruta;
+    })
+
+    $("#sseri_prof").change(function () {
+
         fnDocumentoSerieNumero();
     });
 
-    $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
+    /*CUOTAS*/
+    $("#ncuotas_prof").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
     });
+
+    $("#ncuotadias_prof").change(function () {
+        beditar = false
+        Totales(conf_igv, conf_decimal, conf_icbper);
+    });
+
+    /*cambio de fecha*/
+    $('#dfeorpeo_orpe').change(function () {
+        var codpago = $("#nro_fopago option:selected").val();
+
+        fnFormaPagoDiasFecha(codpago);
+    });
+
+    /*formas de pago*/
+    $('#nro_fopago').change(function () {
+
+        var codpago = $("#nro_fopago option:selected").val();
+
+        fnFormaPagoDiasFecha(codpago);
+
+        var snpago = $("#nro_fopago option:selected").text();
+
+        $("#ncuotas_prof").prop("disabled", true);
+        $("#ncuotadias_prof").prop("disabled", true);
+        $("#ncuotas_prof").val(1);
+        $("#ncuotadias_prof").val('');
+
+        ///console.log(snpago.indexOf("FNEG"));
+
+        if (snpago.indexOf("FNEG") != -1 || snpago.indexOf("LETRA") != -1) {
+            $("#ncuotas_prof").prop("disabled", false);
+            $("#ncuotadias_prof").prop("disabled", false);
+        }
+
+        Totales(conf_igv, conf_decimal, conf_icbper);
+
+    })
+
+
+
+    //$("#ncode_docu").change(function () {
+    //    fnDocumentoSerieNumero();
+    //});
+
 
     var ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -488,56 +582,53 @@ function ComparaPrecio(Precio, PrecioOrigen) {
     return xprecio;
 
 }
-function fnFormaPagoDiasFecha() {
+function fnFormaPagoDiasFecha(codfopago) {
+    console.log('dias');
+    console.log(codfopago);
     $.ajax({
         type: 'POST',
         url: urlGetDiasFormaPago,
         dataType: 'json',
-        data: { ncode_fopago: $("#ncode_fopago").val() },
+        data: { ncode_fopago: codfopago },
+        //data: { ncode_fopago: $("#ncode_fopago").val() },
         success: function (fopago) {
-            console.log(fopago);
+            //console.log(fopago);
             $.each(fopago, function (i, dias) {
 
+                var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
                 var m = $("#dfeprofo_prof").val();
                 var parts = m.split("/");
                 var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
-                //var fecha = new Date($('#dfeventa_venta').val());
-                //console.log(fecha);
-                //console.log(fecha.getDate());
-                //console.log(fecha.getFullYear());
-                //console.log(fecha.getMonth());
-                //console.log(dias.dias);
-                //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
-                //console.log(xdias);
                 fecha.setDate(fecha.getDate() + parseInt(dias.dias));
-                var xfecha = new Date(fecha).toLocaleDateString()
+                var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
                 $('#dfevenci_prof').val(xfecha);
-                //console.log(fecha);
-                //console.log(xfecha);
             });
 
         },
         error: function (ex) {
-            alert('No se pueden recuperar las areas.' + ex);
+            alert('No se puede obtener la fecha de pago .' + ex);
         }
     });
     return false;
 
 }
 
+
+
 function fnDocumentoSerieNumero() {
     //console.log($("#ncode_docu").val());
+    var ncode = $("#sseri_prof option:selected").val();
 
     $.ajax({
         type: 'POST',
         url: urlGetDocuNumero,
         dataType: 'json',
-        data: { ndocu: $("#ncode_docu").val() },
+        data: { ncode_dose: ncode },
         success: function (docu) {
-            //console.log(docu.length);
+            console.log(docu);
             $.each(docu, function (i, doc) {
-                $('#sseri_prof').val(doc.serie);
-                $('#snume_prof').val(doc.numero);
+                ///$('#sseri_orpe').val(doc.serie);
+                $('#snume_prof').val(doc);
                 //console.log(doc.serie);
             });
 
@@ -548,5 +639,4 @@ function fnDocumentoSerieNumero() {
     });
     return false;
 }
-
 

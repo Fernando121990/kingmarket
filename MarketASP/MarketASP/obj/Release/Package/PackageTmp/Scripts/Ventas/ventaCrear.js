@@ -7,10 +7,12 @@ var conf_igv = 0;
 var conf_decimal = 0;
 var conf_icbper = 0
 var conf_moneda = 0;
-var CONFIG_dscto = 'NO';
+var CONFIG_dscto = 'SI';
 var conf_PrecioIGV;
 var conf_poretencion;
 var beditar = false;
+var bhasOP = false;
+var bhasGuia = false;
 
 $(document).ready(function () {
 
@@ -24,6 +26,14 @@ $(document).ready(function () {
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
     conf_poretencion = $("#poretencion").val();
+
+    /*Deshabilitar cuotas*/
+    $("#ncuotas_venta").prop("disabled", true);
+    $("#ncuotadias_venta").prop("disabled", true);
+    /*Deshabilitar guias controles*/
+    $("#ncode_tran").prop("disabled", true);
+    $("#sserie_guia").prop("disabled", true);
+    $("#snumero_guia").prop("disabled", true);
 
     /*DATATABLES*/
     cuotastable = $('#tblcuota').DataTable({
@@ -81,21 +91,28 @@ $(document).ready(function () {
 
         var cod = $("#sseri_venta option:selected").val();
 
-        fnDocumentoSerieNumero(cod);
+        fnDocumentoSerieNumero(cod,'V');
 
-        //fnDocumentoSerie   SerieNumero($("#ncode_docu").val(),"V");
     }
 
     if (code > 0) {
         beditar = true;
 
         fnclienteDire();
-        //console.log($('#ncode_clidire').val());
+
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
-        fnclienteFPago();
+        bhasOP = true;
+        if ($("#sserienume_orpe").val().length < 1) {
 
-        $("#nro_fopago").val($('#ncode_fopago').val());
+            bhasOP = false;
+        };
+
+        bhasGuia = true;
+        if ($("#sserienume_guiaventa").val().length < 1) {
+
+            bhasGuia = false;
+        };
     }
 
     $("#ncode_docu").change(function () {
@@ -104,13 +121,13 @@ $(document).ready(function () {
 
         var cod = $("#ncode_docu option:selected").val();
 
-        fnDocumentoSerie(cod);
+        fnDocumentoSerie(cod,'V');
 
     });
 
     $("#sseri_venta").change(function () {
         var cod = $("#sseri_venta option:selected").val();
-        fnDocumentoSerieNumero(cod);
+        fnDocumentoSerieNumero(cod,'V');
     });
 
     /*CLIENTE DIRECCION*/
@@ -148,23 +165,74 @@ $(document).ready(function () {
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
+
+    /* Guias numeracion*/
+
     $("#bitguia_venta").click(function () {
 
         if ($("#bitguia_venta").is(':checked')) {
             //console.log('checkedyuki');
-            fnDocumentoSerieNumero(1076, "G");
+            $("#ncode_tran").prop("disabled", false);
+            $("#sserie_guia").prop("disabled", false);
+            $("#snumero_guia").prop("disabled", false);
+            fnDocumentoSerie(1076, 'G');
+
         }
         else {
            // console.log('uncheckedyuki');
             $("#sserie_guia").val('');  // unchecked
             $("#snumero_guia").val('');  // unchecked
+            $("#ncode_tran").prop("disabled", true);
+            $("#sserie_guia").prop("disabled", true);
+            $("#snumero_guia").prop("disabled", true);
+
         }
     });
 
+    $("#sserie_guia").change(function () {
+        var cod = $("#sserie_guia option:selected").val();
+        fnDocumentoSerieNumero(cod,'G');
+    });
+
+    /*cambio de fecha*/
+    $('#dfeventa_venta').change(function () {
+
+        var codpago = $("#nro_fopago option:selected").val();
+
+        if (typeof codpago !== 'undefined') {
+
+            fnFormaPagoDiasFecha(codpago);
+        }
+
+        //console.log(this.value);
+
+        fnTipoCambioFecha('VE','venta', this.value)
+
+    });
+
+    /*forma de pago*/
 
     $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
 
+
+        var codpago = $("#ncode_fopago option:selected").val();
+        var sfpago = $("#ncode_fopago option:selected").text();
+
+        $("#ncuotas_venta").prop("disabled", true);
+        $("#ncuotadias_venta").prop("disabled", true);
+        $("#ncuotas_venta").val(0);
+        $("#ncuotadias_venta").val(0);
+
+        if (sfpago.indexOf("FNEG") != -1 || sfpago.indexOf("LETRA") != -1) {
+            $("#ncuotas_venta").prop("disabled", false);
+            $("#ncuotadias_venta").prop("disabled", false);
+        }
+        else {
+            cuotastable.rows().remove().draw(false);
+        }
+
+
+        fnFormaPagoDiasFecha(codpago);
 
     });
 
@@ -231,11 +299,11 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0,6,7,8,9,10,11] 
+            "aTargets": [0,6,8,9,10,11,12,14,15,17] 
         },
         {
             "sClass": "my_class",
-            "aTargets": [3,5]
+            "aTargets": [3,5,7]
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -247,14 +315,17 @@ $(document).ready(function () {
                             //console.log('cantidad');
                             var almacen = $("#ncode_alma option:selected").val();
                             var codarticulo = ofunciones.cell(aPos, 0).data();
-                            var cantorigen = ofunciones.cell(aPos, 13).data();
+                            var cantorigen = ofunciones.cell(aPos, 14).data();
                             var cantvalida = ComparaCantidad(sValue, cantorigen)
                             fnStockValida(codarticulo, cantvalida, almacen);
                             ofunciones.cell(aPos, idx).data(cantvalida).draw;
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             var subto = cantvalida * parseFloat(xvalue);
-                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
-                            ofunciones.cell(aPos, 13).data(cantvalida).draw;
+                            ofunciones.cell(aPos, 13).data(subto.toFixed(conf_decimal)).draw;
+                            ofunciones.cell(aPos, 16).data(cantvalida).draw;
+                            if (bhasGuia) {
+                                ofunciones.cell(aPos, 16).data(0).draw;
+                            }
                             break;
                         case 5: //price column
                             //console.log('subtotal');
@@ -263,7 +334,7 @@ $(document).ready(function () {
                             var yValue = ComparaPrecio(sValue, xvalue);
                             var subto = xcant*yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
+                            ofunciones.cell(aPos, 13).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
@@ -375,8 +446,8 @@ $(document).ready(function () {
                         { "data": "bafecto_arti" },
                         { "data": "bisc_arti" },
                         { "data": "bdscto_arti" },
-                        { "data": "bicbper_arti" }
-                            
+                        { "data": "bicbper_arti" },
+                            { "data": "blote_arti" },
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -422,8 +493,8 @@ $(document).ready(function () {
         var xcan = 0;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,xcan]).draw();
+        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio,xcan, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,0,0,xcan,data.blote_arti]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
@@ -450,12 +521,20 @@ $(document).ready(function () {
             return false;
         };
 
+        if ($("#ncode_vende option:selected").text().length < 1) {
+            alert("Seleccione Vendedor");
+            return false;
+        };
+
         if ($("#ncode_fopago option:selected").text().length < 1) {
             alert("Seleccione forma de pago");
             return false;
         };
 
-        ////*******
+        if ($("#ncode_alma option:selected").text().length < 1) {
+            alert("Seleccione Almacen");
+            return false;
+        };
 
         if ($("#ntc_venta").val().length < 1) {
             alert("Ingrese tipo de cambio");
@@ -521,7 +600,8 @@ $(document).ready(function () {
                         [{ "data": "ncode_orpe" },
                             { "data": "fecha" },
                             { "data": "numeracion" },
-                            { "data": "srazon_cliente" }
+                            { "data": "srazon_cliente" },
+                            { "data": "ncode_alma" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -532,7 +612,7 @@ $(document).ready(function () {
                         "aTargets": []
                     }],
                     select: {
-                        style: 'single'
+                        style: 'multi'
                     },
                     "scrollY": "300px",
                     "scrollCollapse": true,
@@ -564,11 +644,39 @@ $(document).ready(function () {
     });
 
     $("#btnorden").click(function () {
-        var data = ordentable.row('.selected').data();
 
-        console.log(data.ncode_orpe);
+        bhasOP = true;
 
-        fnCargaOrdenPedido(data.ncode_orpe);
+        //var data = ordentable.row('.selected').data();
+        let rowsData = ordentable.rows({ selected: true }).data();
+
+        if (rowsData.length == 0) {
+            alert("Seleccionar Orden de Pedido");
+            return;
+        }
+        var scode_orpe = '';
+        var sdocumentos = '';
+        var razons = rowsData[0].srazon_cliente;
+        var almas = rowsData[0].ncode_alma;
+        /*validar */
+        for (var i = 0; i < rowsData.length; i++) {
+
+            if (razons != rowsData[i].srazon_cliente || almas != rowsData[i].ncode_alma) {
+                alert("Las ordenes de pedido deben pertenecer al mismo cliente y almacen");
+                return;
+            }
+
+            scode_orpe += rowsData[i].ncode_orpe + '|';
+            sdocumentos += rowsData[i].numeracion + '|';
+
+        }
+
+        //console.log(scode_orpe);
+
+        fnCargaOrdenPedido(scode_orpe, sdocumentos);
+
+        //Deshabilitar botones
+        fndeshabilitarbotones(true)
 
     });
 
@@ -640,11 +748,16 @@ $(document).ready(function () {
 
     $("#btnguia").click(function () {
 
+        bhasGuia = true;
+
         var data = guiatable.row('.selected').data();
 
-        console.log(data.ncode_guia);
-
+        //console.log(data.ncode_guia);
+        $("#bitguia_venta").prop("disabled", true);
         fnCargaGuiaVenta(data.ncode_guia);
+        //Deshabilitar botones
+        fndeshabilitarbotones(true)
+
 
     });
 
@@ -673,7 +786,7 @@ $(document).ready(function () {
     $(".addLote").click(function () {
 
         var data = ofunciones.row('.selected').data();
-        var xctdad = data[13];
+        var xctdad = data[16];
 
         //console.log(xctdad);
 
@@ -784,7 +897,7 @@ $(document).ready(function () {
             $("#xctdadlote").val(xcontrol);
 
             lotetable.cell({ row: idtx, column: 6 }).data(xcanlote).draw(false);
-            ofunciones.cell({ row: idt, column: 13 }).data(xcontrol).draw(false);
+            ofunciones.cell({ row: idt, column: 16 }).data(xcontrol).draw(false);
         }
         else {
             alert("La cantidad es mayor a la cantidad disponible del lote");
@@ -822,7 +935,7 @@ function Sales_save() {
         "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
         "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
         "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "", "bicbper_vedeta": "",
-        "sdesc": "", "ncantLote_vedeta":""
+        "sdesc": "", "ncantLote_vedeta": "","ncode_orpe": ""
     };
 
     var ventaView = {
@@ -835,9 +948,9 @@ function Sales_save() {
         "ndctoex_venta":"","ndsctoaf_venta":"","nsubex_venta":"",
         "nsubaf_venta":"","nigvex_venta":"","nigvaf_venta":"","ntotaex_venta":"",
         "ntotaaf_venta": "", "ntotal_venta": "", "ntotalMN_venta": "", "ntotalUs_venta": "",
-        "ncode_vende": "", "ncode_orpe": "", "sserienume_orpe": "", "ncode_guiaAsociadas_venta": "", "ncode_dose": "",
+        "ncode_vende": "", "scode_orpe": "", "sserienume_orpe": "", "ncode_guiaAsociadas_venta": "", "ncode_dose": "",
         "ncuotas_venta": "", "ncuotavalor_venta": "", "nretencionvalor_venta": "", "ncuotadias_venta": "", "sglosadespacho_venta": "",
-        "bflete_venta": "",
+        "bflete_venta": "", "ncode_tran": "", "sserienume_guiaventa": "", "sserie_guia": "", "snumero_guia": "", "bitguia_venta": "","btitgratuito_venta":"",
         "nvalIGV_venta": "", "nicbper_venta": "", "bclienteagretencion": "", "ventaViewDetas": [], "ventaViewLotes": [],
         "ventaViewCuotas": []
     };
@@ -875,9 +988,10 @@ function Sales_save() {
     ventaView.ncode_alma = $("#ncode_alma option:selected").val();
     ventaView.ncode_mone = $("#ncode_mone option:selected").val();
     ventaView.ncode_vende = $("#ncode_vende option:selected").val();
-    ventaView.ncode_orpe = $("#ncode_orpe").val();
+    ventaView.scode_orpe = $("#ncode_orpe").val();
     ventaView.bclienteagretencion = $('input:checkbox[name=bclienteagretencion]:checked').val();
     ventaView.sserienume_orpe = $('#sserienume_orpe').val();
+    ventaView.sserienume_guiaventa = $('#sserienume_guiaventa').val();
     ventaView.ncode_guiaAsociadas_venta = $("#ncode_guiaAsociadas_venta").val();
     ventaView.ncuotas_venta = $('#ncuotas_venta').val();
     ventaView.ncuotavalor_venta = $('#ncuotavalor_venta').val();
@@ -885,7 +999,11 @@ function Sales_save() {
     ventaView.ncuotadias_venta = $('#ncuotadias_venta').val();
     ventaView.sglosadespacho_venta = $('#sglosadespacho_venta').val();
     ventaView.bflete_venta = $('input:checkbox[name=bflete_venta]:checked').val();
-
+    ventaView.ncode_tran = $("#ncode_tran option:selected").val();
+    ventaView.btitgratuito_venta = $('input:checkbox[name=btitgratuito_venta]:checked').val();
+    ventaView.bitguia_venta = $('input:checkbox[name=bitguia_venta]:checked').val();
+    ventaView.sserie_guia = $("#sserie_guia option:selected").text(); 
+    ventaView.snumero_guia = $('#snumero_guia').val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -897,13 +1015,14 @@ function Sales_save() {
         ventaViewDetas.sdesc = oTable[i][2];
         ventaViewDetas.ncant_vedeta = oTable[i][3];
         ventaViewDetas.npu_vedeta = oTable[i][5];
-        ventaViewDetas.ndscto_vedeta = oTable[i][6] - oTable[i][5];
+        ventaViewDetas.ndscto_vedeta = oTable[i][7]; ///oTable[i][6] - oTable[i][5];
         ventaViewDetas.nexon_vedeta = oTable[i][5] * oTable[i][3];
         ventaViewDetas.nafecto_vedeta = oTable[i][5] * oTable[i][3];
-        ventaViewDetas.besafecto_vedeta = oTable[i][8];
-        ventaViewDetas.ndsctoporc_vedeta = oTable[i][6];
-        ventaViewDetas.bicbper_vedeta = oTable[i][11];
-        ventaViewDetas.ncantLote_vedeta = oTable[i][13];
+        ventaViewDetas.besafecto_vedeta = oTable[i][9];
+        ventaViewDetas.ndsctoporc_vedeta = oTable[i][7];
+        ventaViewDetas.bicbper_vedeta = oTable[i][12];
+        ventaViewDetas.ncode_orpe = oTable[i][14];
+        ventaViewDetas.ncantLote_vedeta = oTable[i][16];
         ventaViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ventaView.ventaViewDetas.push(ventaViewDetas);
@@ -912,7 +1031,7 @@ function Sales_save() {
             "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
             "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
             "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "",
-            "bicbper_vedeta": "", "sdesc": "", "ncantLote_vedeta": ""
+            "bicbper_vedeta": "", "sdesc": "", "ncantLote_vedeta": "", "ncode_orpe": ""
         };
 
     }
@@ -1030,10 +1149,10 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
         CANT = parseFloat(oTable[i][3]).toFixed(conf_decimal);
         PU = parseFloat(oTable[i][5]).toFixed(conf_decimal);
-        CDSCTO = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
+        CDSCTO = parseFloat(oTable[i][7]).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
         CDSCTO2 = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO2)), CONFIG_GE_NRODECIMALES)
-        var AFECTO_ART = oTable[i][8].toString();
-        var COL_TISC = oTable[i][9];
+        var AFECTO_ART = oTable[i][9].toString();
+        var COL_TISC = oTable[i][10];
 
         //validar venta en soles o dolares
         if (monedaVenta == "D") {
@@ -1042,7 +1161,7 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
 
         if (CONFIG_dscto = "SI") {
-            PUADESCONTAR = (PU * (DSCTO / 100)).toFixed(conf_decimal);
+            PUADESCONTAR = (PU * (CDSCTO / 100)).toFixed(conf_decimal);
             TOT = (CANT * (PU - PUADESCONTAR)).toFixed(conf_decimal);
         }
         else {
@@ -1141,14 +1260,19 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
     var TOTAL = parseFloat(TOTAL_AFEC) + parseFloat(SUBT_EX);
 
+    $("#ntotal_venta").val(TOTAL.toFixed(conf_decimal));
 
     //valor de retencion
     var retencion = 1;
     $("#ntotaretencion_venta").val(0);
     if ($('input:checkbox[name=bclienteagretencion]:checked').val()) {
         retencion = conf_poretencion;
-        TOTAL = TOTAL * (1 - retencion);
-        $("#ntotaretencion_venta").val(TOTAL.toFixed(conf_decimal));
+        if (TOTAL > 700) {
+
+            TOTAL = TOTAL * (1 - retencion);
+            $("#ntotaretencion_venta").val(TOTAL.toFixed(conf_decimal));
+
+        }
     }
 
     //numero de cuotas - valor de cuota
@@ -1196,9 +1320,17 @@ function ComparaPrecio(Precio, PrecioOrigen) {
 
     var xprecio = parseFloat(Precio);
 
-    if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+    if (bhasOP) {
+
+        if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+            xprecio = parseFloat(PrecioOrigen);
+        }
+
+    }
+    if (bhasGuia) {
         xprecio = parseFloat(PrecioOrigen);
     }
+
 
     return xprecio.toFixed(conf_decimal);
 
@@ -1208,27 +1340,34 @@ function ComparaCantidad(Cantidad, CantidadOrigen) {
 
     var xcantidad = parseFloat(Cantidad);
     //Verificar la cantidad origen sino viene de pedido no hay control de cantidades
-    if (CantidadOrigen > 0) {
+    if (bhasOP) {
 
-        if (parseFloat(Cantidad) > parseFloat(CantidadOrigen)) {
-            xcantidad = parseFloat(CantidadOrigen);
+        if (CantidadOrigen > 0) {
+
+            if (parseFloat(Cantidad) > parseFloat(CantidadOrigen)) {
+                xcantidad = parseFloat(CantidadOrigen);
+            }
         }
+    }
 
-
+    if (bhasGuia) {
+        /* las cantidades no varian*/
+        xcantidad = parseFloat(CantidadOrigen);
     }
 
 
     return xcantidad.toFixed(conf_decimal);
 
 }
-function fnFormaPagoDiasFecha() {
+function fnFormaPagoDiasFecha(cod_pago) {
+
     $.ajax({
         type: 'POST',
         url: urlGetDiasFormaPago,
         dataType: 'json',
-        data: { ncode_fopago: $("#ncode_fopago").val() },
+        data: { ncode_fopago: cod_pago },
         success: function (fopago) {
-            console.log(fopago);
+            //console.log(fopago);
             $.each(fopago, function (i, dias) {
 
                 var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -1318,7 +1457,7 @@ function fnlimpiar() {
     $('#sobse_venta').val();
     $('#ncode_compra').val();
 }
-function fnCargaOrdenPedido(codigo) {
+function fnCargaOrdenPedido(codigo, sdocumentos) {
     beditar = true
     fnlimpiar();
     console.log(codigo);
@@ -1326,18 +1465,22 @@ function fnCargaOrdenPedido(codigo) {
         type: 'POST',
         url: urlGetOrdenPedidoVenta,
         dataType: 'json',
-        data: { ncode_orpe: codigo },
+        data: { scode_orpe: codigo, documentos: sdocumentos },
         success: function (venta) {
             console.log(venta);
 
+            //$('#dfeventa_venta').val(venta.sfeventa_venta);
+            //$('#dfevenci_venta').val(venta.sfevenci_venta);
             $('#sdesc_cliente').val(venta.scliente);
             $('#COD_CLIENTE').val(venta.ncode_cliente);
             $('#sruc_cliente').val(venta.sruc);
             $('#sdni_cliente').val(venta.sdni);
-            $('#sobse_venta').val(venta.ncode_cliente);
+            $('#sobse_venta').val(venta.sobse_venta);
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_orpe").val(codigo);
+            $("#scode_compra").val(venta.scode_compra);
             $("#ncode_alma").val(venta.ncode_alma);
+            $("#ncode_vende").val(venta.ncode_venzo);
             $("#sserienume_orpe").val(venta.sserienumero);
             $('#bclienteagretencion').prop('checked', false);
             if (venta.bclienteagretencion) {
@@ -1365,14 +1508,19 @@ function fnCargaOrdenPedido(codigo) {
                 ,venta.ventaViewDetas[i].ncant_vedeta
                 , venta.ventaViewDetas[i].sumed
                 ,venta.ventaViewDetas[i].npu_vedeta
-                ,venta.ventaViewDetas[i].npu_vedeta
+                , venta.ventaViewDetas[i].npu_vedeta
+                ,0
                 , venta.ventaViewDetas[i].ncode_umed
                 ,venta.ventaViewDetas[i].besafecto_vedeta
                 ,venta.ventaViewDetas[i].bisc_vedeta
-                    ,venta.ventaViewDetas[i].npu_vedeta
+                ,false
                     ,false
                     ,venta.ventaViewDetas[i].nafecto_vedeta
-                    ,venta.ventaViewDetas[i].ncant_vedeta]).draw();
+                    , venta.ventaViewDetas[i].ncant_vedeta
+                    , venta.ventaViewDetas[i].ncode_orpe
+                    , venta.ventaViewDetas[i].ncant_vedeta
+                    , venta.ventaViewDetas[i].blote_vedeta
+                    ]).draw();
             }
 
             var numc = parseInt(venta.ventaViewCuotas.length);
@@ -1385,9 +1533,16 @@ function fnCargaOrdenPedido(codigo) {
             }
 
 
+
+            /*limpiar lotes*/
+            var olotec = $('#tblLote').DataTable();
+            olotec.clear();
+
+
             fnclienteDire();
             $("#NRO_DCLIENTE").val(venta.ncode_clidire);
             $("#ncode_fopago").val(venta.ncode_fopago);
+            fnFormaPagoDiasFecha(venta.ncode_fopago);
         },
         error: function (ex) {
             alert('No se puede recuperar datos de la orden de pedido' + ex);
@@ -1469,11 +1624,12 @@ function fnCargaGuiaVenta(codigo) {
             $('#COD_CLIENTE').val(venta.ncode_cliente);
             $('#sruc_cliente').val(venta.sruc);
             $('#sdni_cliente').val(venta.sdni);
-            $('#sobse_venta').val(venta.ncode_cliente);
+            $('#sobse_venta').val(venta.sobse_venta);
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_guiaAsociadas_venta").val(codigo);
             $("#ncode_alma").val(venta.ncode_alma);
-            $("#sserienume_orpe").val(venta.sserienumero);
+            $("#ncode_vende").val(venta.ncode_venzo);
+            $("#sserienume_guiaventa").val(venta.sserienumero);
             $('#bclienteagretencion').prop('checked', false);
             if (venta.bclienteagretencion) {
                 $('#bclienteagretencion').prop('checked', true);
@@ -1497,24 +1653,38 @@ function fnCargaGuiaVenta(codigo) {
             oprof.clear();
             for (var i = 0; i < num; i++) {
                 oprof.row.add([venta.ventaViewDetas[i].ncode_arti
-                    , venta.ventaViewDetas[i].scod2
-                    , venta.ventaViewDetas[i].sdesc
-                    , venta.ventaViewDetas[i].ncant_vedeta
-                    , venta.ventaViewDetas[i].sumed
-                    , venta.ventaViewDetas[i].npu_vedeta
-                    , venta.ventaViewDetas[i].npu_vedeta
-                    , venta.ventaViewDetas[i].ncode_umed
-                    , venta.ventaViewDetas[i].besafecto_vedeta
-                    , venta.ventaViewDetas[i].bisc_vedeta
-                    , venta.ventaViewDetas[i].npu_vedeta
-                    , false
-                    , venta.ventaViewDetas[i].nafecto_vedeta
-                    , venta.ventaViewDetas[i].ncant_vedeta]).draw();
+                    ,venta.ventaViewDetas[i].scod2
+                    ,venta.ventaViewDetas[i].sdesc
+                    ,venta.ventaViewDetas[i].ncant_vedeta
+                    ,venta.ventaViewDetas[i].sumed
+                    ,venta.ventaViewDetas[i].npu_vedeta
+                    ,venta.ventaViewDetas[i].npu_vedeta
+                    ,0
+                    ,venta.ventaViewDetas[i].ncode_umed
+                    ,venta.ventaViewDetas[i].besafecto_vedeta
+                    ,venta.ventaViewDetas[i].bisc_vedeta
+                    ,false
+                    ,false
+                    ,venta.ventaViewDetas[i].nafecto_vedeta
+                    ,venta.ventaViewDetas[i].ncant_vedeta
+                    , 0
+                    ,0
+                    , venta.ventaViewDetas[i].blote_vedeta]).draw();
             }
+
+            /*limpiar cuotas */
+            var oprofc = $('#tblcuota').DataTable();
+            oprofc.clear();
+
+            /*limpiar lotes*/
+            var olotec = $('#tblLote').DataTable();
+            olotec.clear();
+
 
             fnclienteDire();
             $("#NRO_DCLIENTE").val(venta.ncode_clidire);
             $("#ncode_fopago").val(venta.ncode_fopago);
+            fnFormaPagoDiasFecha(venta.ncode_fopago);
         },
         error: function (ex) {
             alert('No se puede recuperar datos de la orden de pedido' + ex);
@@ -1528,11 +1698,11 @@ function fnCargaGuiaVenta(codigo) {
 
 }
 
-function fnDocumentoSerie(ncode) {
+function fnDocumentoSerie(ncode,tipo) {
     //console.log($("#ncode_docu").val());
     //var ncode = $("#ncode_docu option:selected").val();
     var xcode = 0;
-    $("#sseri_venta").empty();
+    
     $.ajax({
         type: 'POST',
         url: urlGetDocuSerie,
@@ -1543,15 +1713,28 @@ function fnDocumentoSerie(ncode) {
             var code = areas[0].ncode_dose;
             var des = areas[0].serie;
 
-            $.each(areas, function (i, area) {
-                $("#sseri_venta").append('<option value="'
-                    + area.ncode_dose + '">'
-                    + area.serie + '</option>');
-            });
+            if (tipo == 'G') {
+                $("#sseri_guia").empty();
+                $.each(areas, function (i, area) {
+                    $("#sseri_guia").append('<option value="'
+                        + area.ncode_dose + '">'
+                        + area.serie + '</option>');
+                });
 
-            $("#sseri_venta").val(code);
+                $("#sseri_guia").val(code);
 
-            fnDocumentoSerieNumero(code);
+            }
+            else {
+                $("#sseri_venta").empty();
+                $.each(areas, function (i, area) {
+                    $("#sseri_venta").append('<option value="'
+                        + area.ncode_dose + '">'
+                        + area.serie + '</option>');
+                });
+
+                $("#sseri_venta").val(code);
+            }
+            fnDocumentoSerieNumero(code,tipo);
             
         },
         error: function (ex) {
@@ -1562,7 +1745,7 @@ function fnDocumentoSerie(ncode) {
 
 }
 
-function fnDocumentoSerieNumero(ncode) {
+function fnDocumentoSerieNumero(ncode,tipo) {
     console.log(ncode);
     ///var ncode = $("#sseri_venta option:selected").val();
 
@@ -1574,8 +1757,15 @@ function fnDocumentoSerieNumero(ncode) {
         success: function (docu) {
             console.log(docu);
             $.each(docu, function (i, doc) {
-                ///$('#sseri_orpe').val(doc.serie);
-                $('#snume_venta').val(doc);
+
+                if (tipo == 'G') {
+                    $('#snumero_guia').val(doc);
+                }
+                else {
+                    $('#snume_venta').val(doc);
+                }
+
+                
                 //console.log(doc.serie);
             });
 
@@ -1585,4 +1775,12 @@ function fnDocumentoSerieNumero(ncode) {
         }
     });
     return false;
+}
+
+function fndeshabilitarbotones(boption) {
+    //Deshabilitar botones
+    $("#btnaddmat").prop("disabled", boption);
+    $("#btndelmat").prop("disabled", boption);
+    $("#btnaddlote").prop("disabled", boption);
+    $("#btndellote").prop("disabled", boption);
 }

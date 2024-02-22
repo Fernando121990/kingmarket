@@ -80,6 +80,9 @@ namespace MarketASP.Models
         public Nullable<long> ncuotadias_venta { get; set; }
         public string sglosadespacho_venta { get; set; }
         public Nullable<bool> bflete_venta { get; set; }
+        public Nullable<long> ncode_venzo { get; set; }
+        public Nullable<long> ncode_tran { get; set; }
+        public string sserienume_guiaventa { get; set; }
     
         public virtual CLI_DIRE CLI_DIRE { get; set; }
         public virtual CLIENTE CLIENTE { get; set; }

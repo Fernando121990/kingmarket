@@ -93,7 +93,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", "");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", "");
+            ViewBag.ncode_tran = new SelectList(db.TRANSPORTISTA.Where(t => t.nesta_tran == true), "ncode_tran", "snomb_tran");
             ViewBag.dfeventa_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", yfecha);
             return View();
@@ -134,7 +135,7 @@ namespace MarketASP.Controllers
                             //verificar stock
                             var bstock = true;
 
-                            if (String.IsNullOrWhiteSpace(mofView.snumero_guia))
+                            if (string.IsNullOrWhiteSpace(mofView.sserienume_guiaventa))
                             {
 
                                 if (mofView.ventaViewDetas != null)
@@ -176,9 +177,11 @@ namespace MarketASP.Controllers
                                 mofView.ndctoex_venta, mofView.ndsctoaf_venta, mofView.nsubex_venta, mofView.nsubaf_venta, mofView.nigvex_venta,
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta,mofView.nicbper_venta, true, mofView.nvalIGV_venta, User.Identity.Name,mofView.ncode_alma,int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,
-                                ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.ncode_orpe,mofView.bclienteagretencion,
+                                ConfiguracionSingleton.Instance.glbcobroAutomatico,mofView.ncode_vende,mofView.scode_orpe,mofView.bclienteagretencion,
                                 mofView.sserienume_orpe,mofView.ncode_guiaAsociadas_venta,mofView.ncode_dose,
-                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,sw,cc);
+                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,mofView.ncode_vende,
+                                mofView.ncode_tran,mofView.sserienume_guiaventa,mofView.bitguia_venta,mofView.sserie_guia,mofView.snumero_guia,
+                                mofView.btitgratuito_venta,mofView.sglosadespacho_venta,sw,cc);
 
 
                             code = int.Parse(sw.Value.ToString());
@@ -191,7 +194,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta,item.ncantLote_vedeta);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta,item.ncantLote_vedeta,item.ncode_orpe);
                                 };
 
                             }
@@ -220,8 +223,7 @@ namespace MarketASP.Controllers
 
                             }
 
-
-                            if (String.IsNullOrWhiteSpace(mofView.snumero_guia))
+                            if (string.IsNullOrWhiteSpace(mofView.sserienume_guiaventa))
                             {
 
                                 db.Pr_KardexCrea("Venta", 5, "S", code, User.Identity.Name);
@@ -232,13 +234,16 @@ namespace MarketASP.Controllers
                             //verificar si la venta esta asociada a una orden de pedido
                              //var sconfi = Helpers.Funciones.ObtenerValorParam("GENERAL", "VENTA X PEDIDO");
                             //if (sconfi == "SI")
-                            if (ConfiguracionSingleton.Instance.glbVentaxPedido == "SI" && mofView.ncode_orpe != null && mofView.ncode_orpe > 0)
+                            if (ConfiguracionSingleton.Instance.glbVentaxPedido == "SI" && !string.IsNullOrEmpty(mofView.scode_orpe) )
                             {
                                 db.Pr_KardexCrea("Venta", 5, "R", code, User.Identity.Name);
                             }
-                            
 
-                            db.Pr_ventaActualizaPedido(0,mofView.ncode_orpe, code);
+                            if (!string.IsNullOrEmpty(mofView.scode_orpe))
+                            {
+                                db.Pr_ventaActualizaPedido(0, mofView.scode_orpe, code);
+                            }
+                            
 
                             resultado = true;
 
@@ -325,6 +330,7 @@ namespace MarketASP.Controllers
             ViewBag.smone_venta = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",vENTAS.smone_venta);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5).Where(c => c.svalor_confi == "V"), "ncode_confi", "sdesc_confi",vENTAS.ncode_docu);
             ViewBag.sseri_venta = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0,vENTAS.ncode_docu ), "ncode_dose", "serie",vENTAS.ncode_dose);
+            ViewBag.sserie_guia = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1076), "ncode_dose", "serie",vENTAS.sserie_guia);
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",vENTAS.ncode_fopago);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma",vENTAS.ncode_alma);
             ViewBag.cod_cliente = vENTAS.ncode_cliente;
@@ -335,8 +341,8 @@ namespace MarketASP.Controllers
             ViewBag.dfeventa_venta = string.Format("{0:dd/MM/yyyy}", vENTAS.dfeventa_venta);  
             ViewBag.dfevenci_venta = string.Format("{0:dd/MM/yyyy}", vENTAS.dfevenci_venta);
 
-
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", vENTAS.ncode_vende);
+            ViewBag.ncode_tran = new SelectList(db.TRANSPORTISTA.Where(t => t.nesta_tran == true), "ncode_tran", "snomb_tran",vENTAS.ncode_tran);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", vENTAS.ncode_venzo);
             ViewBag.NRO_DCLIENTE = new SelectList(db.CLI_DIRE.Where(c => c.ncode_cliente == vENTAS.ncode_cliente), "ncode_clidire", "sdesc_clidire", vENTAS.ncode_clidire);
             return View(vENTAS);
         }
@@ -376,38 +382,42 @@ namespace MarketASP.Controllers
                             //verificar stock
                             var bstock = true;
 
-                            if (mofView.ventaViewDetas != null)
+                            if (string.IsNullOrWhiteSpace(mofView.sserienume_guiaventa))
                             {
-                                foreach (ventaViewDeta item in mofView.ventaViewDetas)
+
+                                if (mofView.ventaViewDetas != null)
                                 {
-                                    fila++;
-
-                                    var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
-
-                                    decimal cantdisponible = 0;
-
-                                    if (rstock != null && rstock.Count > 0)
+                                    foreach (ventaViewDeta item in mofView.ventaViewDetas)
                                     {
-                                        var xstock = rstock.ToArray();
-                                        cantdisponible = (decimal)xstock[0].STOCK;
-                                    }
+                                        fila++;
+
+                                        var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+
+                                        decimal cantdisponible = 0;
+
+                                        if (rstock != null && rstock.Count > 0)
+                                        {
+                                            var xstock = rstock.ToArray();
+                                            cantdisponible = (decimal)xstock[0].STOCK;
+                                        }
 
 
-                                    if (cantdisponible < item.ncant_vedeta)
-                                    {
-                                        xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
-                                        bstock = false;
-                                    }
-                                };
+                                        if (cantdisponible < item.ncant_vedeta)
+                                        {
+                                            xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
+                                            bstock = false;
+                                        }
+                                    };
+
+                                }
+
+                                if (!bstock)
+                                {
+                                    xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
+                                    return Json(new { Success = 3, Mensaje = xmensaje });
+                                }
 
                             }
-
-                            if (!bstock)
-                            {
-                                xmensaje = "Verificar el stock de producto de los articulos " + xmensaje;
-                                return Json(new { Success = 3, Mensaje = xmensaje });
-                            }
-
 
                             db.Pr_ventaEdita(mofView.ncode_venta, mofView.ncode_docu, DateTime.Parse(mofView.sfeventa_venta),
                                 DateTime.Parse(mofView.sfevenci_venta), mofView.ncode_cliente, mofView.ncode_clidire, mofView.smone_venta, mofView.ntc_venta, mofView.ncode_fopago,
@@ -416,7 +426,9 @@ namespace MarketASP.Controllers
                                 mofView.nigvaf_venta, mofView.ntotaex_venta, mofView.ntotaaf_venta, mofView.ntotal_venta, mofView.ntotalMN_venta,
                                 mofView.ntotalUs_venta, mofView.nvalIGV_venta, User.Identity.Name, mofView.ncode_alma, 
                                 int.Parse(User.Identity.GetLocal()),mofView.ncode_mone,mofView.ncode_vende,mofView.bclienteagretencion,
-                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,sw);
+                                mofView.ncuotas_venta,mofView.ncuotavalor_venta,mofView.nretencionvalor_venta,mofView.ncode_tran,
+                                mofView.sserienume_guiaventa,mofView.bitguia_venta, mofView.sserie_guia, mofView.snumero_guia,
+                                mofView.btitgratuito_venta,mofView.sglosadespacho_venta, sw);
 
 
                             xsw = int.Parse(sw.Value.ToString());
@@ -429,7 +441,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta, item.ncantLote_vedeta);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta, item.ncantLote_vedeta,item.ncode_orpe);
                                 };
 
                             }

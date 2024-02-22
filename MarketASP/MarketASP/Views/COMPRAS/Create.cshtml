@@ -27,15 +27,16 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/cliente")
     @Scripts.Render("~/bundles/compra")
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlGetProveedor = '@Url.Action("getProveedor", "Funciones",new { area = ""})';
         var urlArticulos = '@Url.Action("getMatTabla", "Funciones",new { area = ""})';
         var urlEditar = '@Url.Action("fnnumeroeditar", "Funciones", new { area = "" })';
         var urlcompraCrea = '@Url.Action("Create", "compras")';
         var urlcompraLista = '@Url.Action("Index", "compras")';
     var urlPedidoCompra = '@Url.Action("getPedidoCompra", "Funciones")';
-    var urlGetOrdenCompra = '@Url.Action("getOrdenCompra", "Funciones",new { area = ""})';
-    </script>
+        var urlGetOrdenCompra = '@Url.Action("getOrdenCompra", "Funciones",new { area = ""})';
+        var urlGetDiasFormaPago = '@Url.Action("getDiasFormaPago", "Funciones",new { area = ""})';
+</script>
 
 }
 

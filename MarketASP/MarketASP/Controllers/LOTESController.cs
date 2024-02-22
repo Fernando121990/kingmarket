@@ -18,7 +18,10 @@ namespace MarketASP.Controllers
         // GET: LOTES
         public async Task<ActionResult> Index()
         {
-            return View(await db.LOTES.ToListAsync());
+
+            var resultado = db.Pr_KardexLotesMovimientos("", "", "").ToList();
+
+            return View(resultado);
         }
 
         // GET: LOTES/Details/5

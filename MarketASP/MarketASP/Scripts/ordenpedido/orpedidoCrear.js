@@ -1,6 +1,7 @@
 ﻿
 var ofunciones=null;
 var mattable;
+var lotetable;
 var preciotable;
 var almatable;
 var cuotastable = null;
@@ -24,12 +25,17 @@ $(document).ready(function () {
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
     conf_poretencion = $("#poretencion").val();
 
+    /*DESHABILITANDO CUOTAS*/
+
+    $("#ncuotas_orpe").prop("disabled", true);
+    $("#ncuotadias_orpe").prop("disabled", true);
+
     /*DATATABLES*/
     cuotastable = $('#tblcuota').DataTable({
         "dom": 'T<"clear">rtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []
+            "aTargets": [0]
         },
         {
             "sClass": "my_class",
@@ -80,13 +86,17 @@ $(document).ready(function () {
     }
 
     if (code > 0) {
+
+        var cod_cliente = $('#COD_CLIENTE').val();
+        var cod_fpago = $('#ncode_fopago').val();
+        var cod_clidire = $('#ncode_clidire').val();
+
+
         fnclienteDire();
-        //console.log($('#ncode_clidire').val());
-        $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
-        fnclienteFPago();
+        $("#NRO_DCLIENTE").val(cod_clidire);
 
-        $("#nro_fopago").val($('#ncode_fopago').val());
+        fnclienteFPago(cod_cliente,cod_fpago);
 
         beditar = true;
     }
@@ -126,13 +136,45 @@ $(document).ready(function () {
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
+    /*cambio de fecha*/
+    $('#dfeorpeo_orpe').change(function () {
+
+        var codpago = $("#nro_fopago option:selected").val();
+
+        if (typeof codpago !== 'undefined') {
+
+            fnFormaPagoDiasFecha(codpago);
+        }
+
+        //console.log(this.value);
+
+        fnTipoCambioFecha('OP','venta',this.value)
+
+    });
+
     /*formas de pago*/
-    $('#ncode_fopago').change(function () {
+    $('#nro_fopago').change(function () {
+        
+        var codpago = $("#nro_fopago option:selected").val();
 
-        var snpago = $("#ncode_fopago").val();
+        fnFormaPagoDiasFecha(codpago);
 
+        var snpago = $("#nro_fopago option:selected").text();
 
+        $("#ncuotas_orpe").prop("disabled", true);
+        $("#ncuotadias_orpe").prop("disabled", true);
+        $("#ncuotas_orpe").val(1);
+        $("#ncuotadias_orpe").val('');
 
+        ///console.log(snpago.indexOf("FNEG"));
+
+        if (snpago.indexOf("FNEG") != -1 || snpago.indexOf("LETRA") != -1) {
+            $("#ncuotas_orpe").prop("disabled", false);
+            $("#ncuotadias_orpe").prop("disabled", false);
+        }
+
+        Totales(conf_igv, conf_decimal, conf_icbper);
+        
     })
 
 
@@ -153,12 +195,9 @@ $(document).ready(function () {
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
                         case 3: //quantity column
-                            console.log('columna cantidad');
+                            //console.log('columna cantidad');
                             ofunciones.cell(aPos, idx).data(sValue).draw;
                             var xcant = ofunciones.cell(aPos, 3).data();
-
-                            //console.log(typeof (xcant));
-                            //console.log(ofunciones.cell(aPos, 3).data());
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             //console.log(xvalue);
                             var subto = xcant * parseFloat(xvalue);
@@ -168,7 +207,8 @@ $(document).ready(function () {
                            console.log('columna precio');
                             var xcant = ofunciones.cell(aPos, 3).data();
                             var xvalue = ofunciones.cell(aPos, 6).data();
-                            var yValue = ComparaPrecio(sValue, xvalue);
+                            var xtope = ofunciones.cell(aPos, 12).data();
+                            var yValue = ComparaPrecio(sValue, xvalue,xtope);
                             var subto = xcant * yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
                             ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
@@ -225,7 +265,11 @@ $(document).ready(function () {
     $(".addMat").click(function () {
 
         var codalmacen = $("#ncode_alma option:selected").val();
-        console.log(codalmacen);
+        //console.log(codalmacen);
+        if (typeof codalmacen === 'undefined') {
+            alert('Seleccionar Almacen');
+            return
+        }
 
         $.ajax({
             type: "Post",
@@ -252,7 +296,8 @@ $(document).ready(function () {
                             { "data": "bafecto_arti" },
                             { "data": "bisc_arti" },
                             { "data": "bdscto_arti" },
-                            { "data": "bicbper_arti" }
+                            { "data": "bicbper_arti" },
+                            { "data": "npreciotope_arti" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -300,7 +345,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio, data.npreciotope_arti]).draw();
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
@@ -339,18 +384,27 @@ $(document).ready(function () {
             alert("Seleccione Ubicacion");
             return false;
         };
-        ////*******
+
+
+        if ($("#ncode_vende option:selected").text().length < 1) {
+            alert("Seleccione Vendedor");
+            return false;
+        };
+
+        if ($("#nro_fopago option:selected").text().length < 1) {
+            alert("Seleccione Forma de pago");
+            return false;
+        };
+
+        if ($("#ncode_alma option:selected").text().length < 1) {
+            alert("Seleccione Almacen");
+            return false;
+        };
 
         if ($("#ntc_orpe").val().length < 1) {
             alert("Ingrese tipo de cambio");
             return false;
         }
-
-        var ncode_docu = $("#ncode_docu option:selected").val();
-        var ntotal = $('#ntotal_venta').val();
-
-        //console.log(ncode_docu);
-        //console.log(ntotal);
 
         if ($("#sseri_orpe").val().length < 1) {
             alert("Ingrese serie del documento");
@@ -361,6 +415,16 @@ $(document).ready(function () {
             alert("Ingrese número del documento");
             return false;
         }
+
+
+
+        var ncode_docu = $("#ncode_docu option:selected").val();
+        var ntotal = $('#ntotal_venta').val();
+
+
+        //console.log(ncode_docu);
+        //console.log(ntotal);
+
 
         if (ncode_docu == 10 && $("#sruc_cliente").val().length < 1) {
             alert("Ingrese RUC");
@@ -547,7 +611,86 @@ $(document).ready(function () {
         });
     });
 
+/*lista de lotes*/
 
+    $(".btnverlotes").click(function () {
+
+        var data = ofunciones.row('.selected').data();
+
+        var ncodealma = $("#ncode_alma option:selected").val();
+
+        $.ajax({
+            type: "Post",
+            url: urlGetLoteDisponible,
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { ncode_alma: ncodealma, ncode_arti: data[0], fvenci_lote: '', sdesc_lote: '' },
+            success: function (resultado) {
+                console.log(resultado);
+
+                if (resultado.length == 0) {
+                    alert("No hay lotes disponibles para venta")
+                    return;
+                }
+
+                lotetable = $('#lotetabla').DataTable({
+                    data: resultado, ///JSON.parse(data.d),
+                    "columns":
+                        [{ "data": "ncode_lote" },
+                        { "data": "sdesc_lote" },
+                        { "data": "fvenci_lote" },
+                        { "data": "ncode_arti" },
+                        { "data": "scode_arti" },
+                        { "data": "sdesc1_arti" },
+                        { "data": "ncantrestante_lote" },
+                        { "data": "ncodeDoc_lote" },
+                        { "data": "ncode_alma" }
+                        ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": [0, 3, 7, 8]
+                    },
+                    {
+                        "sClass": "my_class",
+                        "aTargets": []
+                    }],
+                    select: {
+                        style: 'single'
+                    },
+                    "scrollY": "300px",
+                    "scrollCollapse": true,
+                    "paging": false,
+                    "info": false,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por pagina",
+                        "zeroRecords": "No hay datos disponibles",
+                        "info": "Mostrando pagina _PAGE_ of _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                        "search": "Buscar:",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": ">>",
+                            "previous": "<<"
+                        }
+                    }
+                });
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+    });
+
+    $("#btnverlotecerrar").click(function () {
+        lotetable.destroy();
+    });
+    $("#btnverlotecerrarx").click(function () {
+        lotetable.destroy();
+    });
 
 });
 
@@ -634,13 +777,13 @@ function Sales_save() {
 
         ordenpedidoViewDetas.ncode_arti = oTable[i][0];
         ordenpedidoViewDetas.ncant_orpedeta = oTable[i][3];
-        ordenpedidoViewDetas.npu_orpedeta = oTable[i][6];
-        ordenpedidoViewDetas.npuorigen_orpedeta = oTable[i][7];
-        ordenpedidoViewDetas.ndscto_orpedeta = oTable[i][7] - oTable[i][6];
-        ordenpedidoViewDetas.nexon_orpedeta = oTable[i][6] * oTable[i][3];
-        ordenpedidoViewDetas.nafecto_orpedeta = oTable[i][6] * oTable[i][3];
+        ordenpedidoViewDetas.npu_orpedeta = oTable[i][5];
+        ordenpedidoViewDetas.npuorigen_orpedeta = oTable[i][6];
+        ordenpedidoViewDetas.ndscto_orpedeta = oTable[i][6] - oTable[i][5];
+        ordenpedidoViewDetas.nexon_orpedeta = oTable[i][5] * oTable[i][3];
+        ordenpedidoViewDetas.nafecto_orpedeta = oTable[i][5] * oTable[i][3];
         ordenpedidoViewDetas.besafecto_orpedeta = oTable[i][8];
-        ordenpedidoViewDetas.ndsctoporc_orpedeta = oTable[i][7];
+        //ordenpedidoViewDetas.ndsctoporc_orpedeta = oTable[i][7];
         ordenpedidoViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ordenpedidoView.ordenpedidoViewDetas.push(ordenpedidoViewDetas);
@@ -849,8 +992,13 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     $("#ntotaretencion_orpe").val(0);
     if ($('input:checkbox[name=bclienteagretencion]:checked').val()) {
         retencion = conf_poretencion;
-        TOTAL = TOTAL * (1 - retencion);
-        $("#ntotaretencion_orpe").val(TOTAL.toFixed(conf_decimal));
+        if (parseFloat(TOTAL) > 700) {
+
+            TOTAL = TOTAL * (1 - retencion);
+            $("#ntotaretencion_orpe").val(TOTAL.toFixed(conf_decimal));
+
+        }
+
     }
 
     //numero de cuotas - valor de cuota
@@ -893,14 +1041,14 @@ function CuotasLista(nrocuotas,valorcuota) {
 
 }
 
-function ComparaPrecio(Precio, PrecioOrigen) {
+function ComparaPrecio(Precio, PrecioOrigen,preciotope) {
     console.log('compra precio');
     console.log(Precio);
     console.log(PrecioOrigen);
 
     var xprecio = parseFloat(Precio);
 
-    if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+    if (parseFloat(Precio) < parseFloat(preciotope)) {
         xprecio = parseFloat(PrecioOrigen);
     }
 
@@ -937,6 +1085,30 @@ function fnFormaPagoDiasFecha(codfopago) {
     return false;
 
 }
+//function fnTipoCambioFecha(saccion,sfecha) {
+//    console.log('tipo cambio');
+//    console.log(sfecha);
+//    $.ajax({
+//        type: 'POST',
+//        url: urlGetTipoCambioFecha,
+//        dataType: 'json',
+//        data: { accion:saccion, sFecha: sfecha },
+//        success: function (foTipoCambio) {
+
+//            console.log(foTipoCambio);
+
+//            $('#ntc_orpe').val(foTipoCambio[0]);
+
+            
+
+//        },
+//        error: function (ex) {
+//            alert('No se puede obtener la fecha de pago .' + ex);
+//        }
+//    });
+//    return false;
+
+//}
 
 function fnDocumentoSerieNumero() {
     //console.log($("#ncode_docu").val());

@@ -17,5 +17,6 @@ namespace MarketASP.Models
         public string fecha { get; set; }
         public string numeracion { get; set; }
         public string srazon_cliente { get; set; }
+        public int ncode_alma { get; set; }
     }
 }

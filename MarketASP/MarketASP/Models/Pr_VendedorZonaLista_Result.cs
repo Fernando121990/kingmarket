@@ -15,5 +15,6 @@ namespace MarketASP.Models
     {
         public long ncode_vende { get; set; }
         public string VendeZona { get; set; }
+        public long ncode_venzo { get; set; }
     }
 }

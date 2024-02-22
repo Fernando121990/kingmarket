@@ -55,6 +55,19 @@ namespace MarketASP.Models
         public int ncode_alma { get; set; }
         public int ncode_local { get; set; }
         public Nullable<int> ncode_mone { get; set; }
+        public Nullable<long> ncode_vende { get; set; }
+        public Nullable<int> bventa_prof { get; set; }
+        public Nullable<System.DateTime> dfdespacho_prof { get; set; }
+        public Nullable<bool> bprecioconigv_prof { get; set; }
+        public Nullable<bool> bclienteagretencion { get; set; }
+        public Nullable<long> ncode_guia { get; set; }
+        public Nullable<long> ncode_dose { get; set; }
+        public Nullable<long> ncuotas_prof { get; set; }
+        public Nullable<decimal> ncuotavalor_prof { get; set; }
+        public Nullable<long> ncuotadias_prof { get; set; }
+        public string sglosadespacho_prof { get; set; }
+        public Nullable<bool> bflete_prof { get; set; }
+        public Nullable<long> ncode_venzo { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual CLI_DIRE CLI_DIRE { get; set; }

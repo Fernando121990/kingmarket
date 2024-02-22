@@ -80,6 +80,8 @@ namespace MarketASP.Controllers
             ViewBag.ncode_tiguia = new SelectList(rtiguia, "ncode_tiguia", "sdesc_tiguia");
             ViewBag.ncode_tran = new SelectList(db.TRANSPORTISTA.Where(t=>t.nesta_tran == true), "ncode_tran", "snomb_tran");
             ViewBag.smone_guia = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ViewBag.moneda);
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", "");
 
             var yfecha = DateTime.Now.Date;
             ViewBag.dfemov_guia = string.Format("{0:dd/MM/yyyy}", yfecha);
@@ -122,12 +124,13 @@ namespace MarketASP.Controllers
                             db.Pr_GUIACrear(DateTime.Parse(mofView.sfemov_guia), mofView.smone_guia, mofView.ntc_guia, mofView.sobse_guia,
                                 mofView.sserie_guia,mofView.snume_guia, User.Identity.Name, mofView.ncode_tiguia, mofView.ncode_alma, mofView.ndestino_alma, 
                                 mofView.stipo_guia,mofView.ncode_cliente,mofView.ncode_clidire,mofView.ncode_docu,mofView.ncode_mone,
-                                mofView.ncode_tran, mofView.ncode_orpe, mofView.sserienume_orpe,mofView.ncode_dose,
+                                mofView.ncode_tran, mofView.scode_orpe, mofView.sserienume_orpe,mofView.ncode_dose,
                                 mofView.nbrutoex_guia,mofView.nbrutoaf_guia,mofView.ndsctoex_guia,mofView.ndsctoaf_guia,
                                 mofView.nsubex_guia,mofView.nsubaf_guia,mofView.nigvex_guia,mofView.nigvaf_guia,
                                 mofView.ntotaex_guia,mofView.ntotaaf_guia,mofView.ntotal_guia,mofView.ntotalMN_guia,
                                 mofView.ntotalUS_guia,mofView.nvalIGV_guia,mofView.bclienteagretencion,mofView.ncuotas_guia,
-                                mofView.ncuotavalor_guia,mofView.ncuotadias_guia,mofView.sglosadespacho_guia,mofView.bflete_guia, sw);
+                                mofView.ncuotavalor_guia,mofView.ncuotadias_guia,mofView.sglosadespacho_guia,mofView.bflete_guia,
+                                mofView.ncode_fopago,mofView.ncode_vende,mofView.ncode_venzo,mofView.scode_compra,sw);
 
                             code = int.Parse(sw.Value.ToString());
 
@@ -136,7 +139,8 @@ namespace MarketASP.Controllers
                                 foreach (guiaViewDeta item in mofView.guiaViewDetas)
                                 {
                                     fila++;
-                                    db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name, code,(int) item.ncode_umed);
+                                    db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name, code,(int) item.ncode_umed,
+                                        item.ncode_orpe);
                                 };
 
                             }
@@ -232,6 +236,8 @@ namespace MarketASP.Controllers
             ViewBag.sdesc_cliente = cLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = cLIENTE.sruc_cliente;
             ViewBag.sdni_cliente = cLIENTE.sdnice_cliente;
+            ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",gUIA.ncode_fopago);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", gUIA.ncode_vende);
 
             return View(gUIA);
         }
@@ -271,7 +277,8 @@ namespace MarketASP.Controllers
                                 mofView.nsubex_guia, mofView.nsubaf_guia, mofView.nigvex_guia, mofView.nigvaf_guia,
                                 mofView.ntotaex_guia, mofView.ntotaaf_guia, mofView.ntotal_guia, mofView.ntotalMN_guia,
                                 mofView.ntotalUS_guia, mofView.nvalIGV_guia, mofView.bclienteagretencion, mofView.ncuotas_guia,
-                                mofView.ncuotavalor_guia, mofView.ncuotadias_guia, mofView.sglosadespacho_guia, mofView.bflete_guia, sw);
+                                mofView.ncuotavalor_guia, mofView.ncuotadias_guia, mofView.sglosadespacho_guia, mofView.bflete_guia, 
+                                mofView.ncode_fopago,mofView.ncode_vende,mofView.ncode_venzo,mofView.scode_compra,sw);
 
 
                             code = (int) mofView.ncode_guia;
@@ -283,7 +290,8 @@ namespace MarketASP.Controllers
                                 foreach (guiaViewDeta item in mofView.guiaViewDetas)
                                 {
                                     fila++;
-                                    db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name,code,(int) item.ncode_umed);
+                                    db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name,code,(int) item.ncode_umed,
+                                        item.ncode_orpe);
                                 };
 
                             }

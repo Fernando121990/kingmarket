@@ -23,6 +23,7 @@
                                     <th>Fecha</th>
                                     <th>numeracion</th>
                                     <th>srazon_cliente</th>
+                                    <th>ncode_alma</th>
                                 </tr>
                             </thead>
                         </table>
@@ -36,7 +37,7 @@
         </div>
 
         <div id="modalguiaventa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalguiaventalabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 Class="modal-title" id="modalguiaventalabel">Guias de Venta</h5>
@@ -44,13 +45,13 @@
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <table id="guiaventatabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                        <table id="guiaventatabla" class="table nowrap w-100" style="font-size: 12px">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
                                     <th>Fecha</th>
-                                    <th>numeracion</th>
-                                    <th>srazon_cliente</th>
+                                    <th>Documento</th>
+                                    <th>Cliente</th>
                                 </tr>
                             </thead>
                         </table>
@@ -78,12 +79,12 @@
                         </div>
                     </div>
 
-                        <div class="col-md-1">
-                            <a href="@Url.Action("Create","Clientes")" class="btn btn-sm btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
-                        </div>
-                        <div class="col-md-1">
-                            <button id="btndireccion" type="button" class="btn btn-sm btn-success"><i class="fa fa-home"></i></button>
-                        </div>
+                    <div class="col-md-1">
+                        <a href="@Url.Action("Create","Clientes")" class="btn btn-sm btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="btndireccion" type="button" class="btn btn-sm btn-success"><i class="fa fa-home"></i></button>
+                    </div>
 
                 </div>
                 <div class="mb-3">
@@ -115,7 +116,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        @Html.LabelFor(model => model.bflete_venta, "Flete", htmlAttributes: new { @class = "control-label" })
+                        @Html.LabelFor(model => model.bflete_venta, "A.P.Flete", htmlAttributes: new { @class = "control-label" })
                         <div class="checkbox">
                             @Html.CheckBox("bflete_venta")
                             @Html.ValidationMessageFor(model => model.bflete_venta, "", new { @class = "text-danger" })
@@ -132,6 +133,41 @@
                             <label for="ncode_vende" class="col-form-label">vendedor</label>
                             @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-select" })
                             @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="scode_compra" class="col-form-label">O.C</label>
+                            @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="ncode_profo" class="col-form-label">Proforma</label>
+                            <div>
+                                <input id="ncode_profo" name="ncode_profo" type="hidden" />
+                                <input id="sdesc_profo" name="sdesc_profo" type="text" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ncode_profo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sserienume_orpe" class="col-form-label">No Pedido</label>
+                            @Html.EditorFor(model => model.sserienume_orpe, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sserienume_orpe, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sserienume_guiaventa" class="col-form-label">No Guia</label>
+                            @Html.EditorFor(model => model.sserienume_guiaventa, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sserienume_guiaventa, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -167,7 +203,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-check mb-3">
                             <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
                             <label class="form-check-label" for="bprecioconigv">
@@ -175,7 +211,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-check mb-3">
                             @Html.CheckBox("btitgratuito_venta")
                             @Html.ValidationMessageFor(model => model.btitgratuito_venta, "", new { @class = "text-danger" })
@@ -185,9 +221,7 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-check mb-3">
                             @Html.CheckBox("bitguia_venta")
                             @Html.ValidationMessageFor(model => model.bitguia_venta, "", new { @class = "text-danger" })
@@ -196,6 +230,8 @@
                             </label>
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">
                             <label for="sserie_guia" class="col-form-label">Serie</label>
@@ -212,8 +248,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="ncode_tran" class="col-form-label">Transportista</label>
+                            @Html.DropDownList("ncode_tran", null, htmlAttributes: new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.ncode_tran, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -230,6 +272,37 @@
                         </div>
                     </div>
                 </div>
+               
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ncode_fopago" class="col-form-label">F.Pago</label>
+                            @*<select id="nro_fopago" name="nro_fopago" class="form-control"></select>*@
+                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="smone_venta" class="col-form-label">Moneda</label>
+                            <div>
+                                @Html.DropDownList("smone_venta", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.smone_venta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ntc_venta" class="col-form-label">T.C</label>
+                            <div>
+                                <input id="ntc_venta" style="width:10em" name="ntc_venta" class="form-control" type="text" value="@ViewBag.tc" readonly />
+                                @Html.ValidationMessageFor(model => model.ntc_venta, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 <div class="row">
                     <div class="col-md-3">
                         <div class="mb-3">
@@ -265,75 +338,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="scode_compra" class="col-form-label">O.C</label>
-                            @Html.EditorFor(model => model.scode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.scode_compra, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="ncode_profo" class="col-form-label">Proforma</label>
-                            <div>
-                                <input id="ncode_profo" name="ncode_profo" type="hidden" />
-                                <input id="sdesc_profo" name="sdesc_profo" type="text" class="form-control" placeholder="nro de proforma" autofocus />
-                                @Html.ValidationMessageFor(model => model.ncode_profo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="sserienume_orpe" class="col-form-label">No Pedido</label>
-                            @Html.EditorFor(model => model.sserienume_orpe, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.sserienume_orpe, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="ncode_fopago" class="col-form-label">F.Pago</label>
-                            @*<select id="nro_fopago" name="nro_fopago" class="form-control"></select>*@
-                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="smone_venta" class="col-form-label">Moneda</label>
-                            <div>
-                                @Html.DropDownList("smone_venta", null, htmlAttributes: new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.smone_venta, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="ntc_venta" class="col-form-label">T.C</label>
-                            <div>
-                                <input id="ntc_venta" style="width:10em" name="ntc_venta" class="form-control" type="text" value="@ViewBag.tc" readonly />
-                                @Html.ValidationMessageFor(model => model.ntc_venta, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-6">
         <div class="mb-3">
@@ -432,6 +436,7 @@
                                 <th>bisc</th>
                                 <th>bdscto</th>
                                 <th>bicbper</th>
+                                <th>blote</th>
                             </tr>
                         </thead>
                     </table>
@@ -450,9 +455,9 @@
             <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
             <span class="d-none d-sm-block">
                 Articulos
-                <button title="Agregar Articulo" type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
-                <button title="Eliminar Articulo" type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
-                <button title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLote"></button>
+                    <button id="btnaddmat" title="Agregar Articulo" type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+                    <button id="btndelmat" title="Eliminar Articulo" type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+                    <button id="btnaddlote" title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLote"></button>
             </span>
         </a>
     </li>
@@ -461,7 +466,7 @@
             <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
             <span class="d-none d-sm-block">
                 Lotes
-                <button title="Eliminar Lote" type="button" class="delLote fas fa-trash-alt btn btn-warning"></button>
+                <button id="btndellote" title="Eliminar Lote" type="button" class="delLote fas fa-trash-alt btn btn-warning"></button>
             </span>
         </a>
     </li>
@@ -471,7 +476,7 @@
     <div class="tab-pane active" id="articulo-1" role="tabpanel">
         <div class="row">
             <div class="col-lg-12">
-                <table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
+                <table id="tbl" class="table table-responsive-lg" style="width:100%">
                     <thead class="thead-dark">
                         <tr>
                             <th>CodArt</th>
@@ -481,13 +486,17 @@
                             <th>UM</th>
                             <th>Precio</th>
                             <th>Precio</th>
+                            <th>dscto</th>
                             <th>M</th>
                             <th>bafecto</th>
                             <th>bisc</th>
                             <th>bdscto</th>
                             <th>bicbper</th>
                             <th>Subtotal</th>
+                            <th>Cant.OP</th>
+                            <th>OP</th>
                             <th>CantLote</th>
+                            <th>blote</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -496,22 +505,27 @@
                             foreach (var item in Model.VENTA_DETALLE)
                             {
                                 var currentItem = item;
-                                <tr>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_vedeta)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.npu_vedeta)</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
-                                    <td>@Html.DisplayTextFor(x => currentItem.ncantLote_vedeta)</td>
-                                </tr>
+                        <tr>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncant_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.npu_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.npu_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ndscto_vedeta)</td>
+                            <td></td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bicbper_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncant_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncode_orpe)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncantLote_vedeta)</td>
+                            <td></td>
+
+                        </tr>
 
                             }
                         }

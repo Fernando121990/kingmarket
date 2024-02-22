@@ -61,14 +61,14 @@
                     @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sguia_compra" class="col-form-label">Guia O.C</label>
                             @Html.EditorFor(model => model.sguia_compra, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.sguia_compra, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sserie_orco" class="col-form-label">Orden Compra</label>
                             <div>
@@ -76,6 +76,8 @@
                                 @Html.ValidationMessageFor(model => model.sserie_orco, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">Proforma</label>
                             <div>
@@ -140,7 +142,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sguia_compra" class="col-form-label">F.Emision</label>
-                            <input id="dfecompra_compra" style="width:10em" name="dfecompra_compra" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" />
+                            <input id="dfecompra_compra" style="width:10em" name="dfecompra_compra" type="text" class="dfech form-control" value="@ViewBag.dfecompra_compra" />
                             @Html.ValidationMessageFor(model => model.dfecompra_compra, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -148,7 +150,7 @@
                         <div class="mb-3">
                             <label for="sproforma_compra" class="col-form-label">F.Venc</label>
                             <div>
-                                <input id="dfevenci_compra" style="width:10em" name="dfevenci_compra" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" readonly />
+                                <input id="dfevenci_compra" style="width:10em" name="dfevenci_compra" type="text" class="dfech form-control" value="@ViewBag.dfevenci_compra" readonly />
                                 @Html.ValidationMessageFor(model => model.dfevenci_compra, "", new { @class = "text-danger" })
                             </div>
                         </div>

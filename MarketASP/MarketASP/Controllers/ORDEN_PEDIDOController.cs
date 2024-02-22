@@ -12,16 +12,17 @@ using System.Data.Entity.Core.Objects;
 using MarketASP.Clases;
 using Newtonsoft.Json;
 using MarketASP.Extensiones;
+using static MarketASP.Clases.Enum;
 
 namespace MarketASP.Controllers
 {
     [Authorize]
-    public class ORDEN_PEDIDOController : Controller
+    public class ORDEN_PEDIDOController : BaseController
     {
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: ORDEN_PEDIDOS
-        public ActionResult Index()
+        public ActionResult Index(string fini,string ffin)
         {
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
@@ -34,8 +35,7 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            //var ORDEN_PEDIDOS = db.ORDEN_PEDIDOS.Include(p => p.ALMACEN).Include(p => p.CLI_DIRE).Include(p => p.CLIENTE).Include(p => p.CONFIGURACION).Include(p => p.CONFIGURACION1).Include(p => p.LOCAL);
-            var ORDEN_PEDIDOS = db.Pr_PedidoConsulta(1,0).ToList();
+            var ORDEN_PEDIDOS = db.Pr_PedidoConsulta(1,0,fini,ffin).ToList();
             return View(ORDEN_PEDIDOS);
         }
 
@@ -121,7 +121,7 @@ namespace MarketASP.Controllers
             ViewBag.sseri_orpe = new SelectList(db.Pr_DocSerie(1,User.Identity.Name,0,1066), "ncode_dose", "serie");
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi",ViewBag.moneda);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona","");
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona","");
             ViewBag.dfeorpeo_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfevenci_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
             ViewBag.dfdespacho_orpe = string.Format("{0:dd/MM/yyyy}", yfecha);
@@ -175,7 +175,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
                                         item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta, 
                                         item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
-                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta);
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta);
                                 };
 
                             }
@@ -195,6 +195,8 @@ namespace MarketASP.Controllers
                             db.Pr_KardexElimina("pedido", code);
 
                             db.Pr_KardexCrea("PEDIDO", 1039, "R", code, User.Identity.Name);
+                            
+                            Alert(1, "Orden de Pedido Registrada", NotificationType.success);
                         }
                     }
                 }
@@ -245,7 +247,7 @@ namespace MarketASP.Controllers
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_docu);
             ViewBag.sseri_orpe = new SelectList(db.Pr_DocSerie(1, User.Identity.Name, 0, 1066), "ncode_dose", "serie",oRDEN_PEDIDOS.ncode_dose);
             ViewBag.ncode_alma = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma", oRDEN_PEDIDOS.ncode_alma);
-            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_vende", "VendeZona", oRDEN_PEDIDOS.ncode_vende);
+            ViewBag.ncode_vende = new SelectList(db.Pr_VendedorZonaLista(0), "ncode_venzo", "VendeZona", oRDEN_PEDIDOS.ncode_venzo);
             ViewBag.cod_cliente = oRDEN_PEDIDOS.ncode_cliente;
             ViewBag.sdesc_cliente = oRDEN_PEDIDOS.CLIENTE.srazon_cliente;
             ViewBag.sruc_cliente = oRDEN_PEDIDOS.CLIENTE.sruc_cliente;
@@ -306,7 +308,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
                                         item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta,
                                         item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
-                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta);
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta);
                                 };
 
                             }

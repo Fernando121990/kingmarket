@@ -1,6 +1,8 @@
 $(document).ready(function () {
     $("#datatable").DataTable({
-        pageLength: 25,
+        pageLength: 50,
+        //ordering: false,
+        //scrollX:true,
         language: {
             url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json',
             paginate: { previous: "<i class='mdi mdi-chevron-left'>", next: "<i class='mdi mdi-chevron-right'>" }

@@ -1,5 +1,9 @@
 ﻿@model MarketASP.Models.PROFORMAS
 
+<div>
+    Precio de venta incluido IGV <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv disabled />
+</div>
+
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
@@ -13,89 +17,11 @@
                             @Html.ValidationMessageFor(model => model.ncode_cliente, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="mb-3">
-                            <button type="button" class="addCliente fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalCliente"></button>
-                            <div id="modalCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalClientelabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div Class="modal-content">
-                                        <div Class="modal-header">
-                                            <h5 Class="modal-title" id="modalClientelabel">Nuevo Cliente</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div Class="modal-body">
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    Persona Juridica
-                                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
-                                                    Persona Natural
-                                                    <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row natural">
-                                                <div class="col-lg-12">
-                                                    <input id="snomb_cliente" name="snomb_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Nombres" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row natural">
-                                                <div class="col-lg-6">
-                                                    <input id="sappa_cliente" name="sappa_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Paterno" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sapma_cliente" name="sapma_cliente" type="text" class="form-control" maxlength="20" placeholder="Ingrese Materno" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row juridica">
-                                                <div class="col-lg-12">
-                                                    <input id="srazon_cliente" name="srazon_cliente" type="text" class="form-control" placeholder="Ingrese Razon Social" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="sruc_cliente" name="sruc_cliente" type="text" class="form-control" maxlength="11" placeholder="Ingrese RUC" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sdnice_cliente" name="sdnice_cliente" type="text" class="form-control" maxlength="14" placeholder="Ingrese DNI" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <input id="sdire_cliente" name="sdire_cliente" type="text" class="form-control" placeholder="Ingrese Dirección" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-12">
-                                                    <input id="scode_ubigeo" name="scode_ubigeo" type="hidden" />
-                                                    <input id="subigeo" name="subigeo" type="text" class="form-control" placeholder="Ingrese Ubicación" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="sfono1_cliente" name="sfono1_cliente" type="tel" class="form-control" placeholder="Ingrese Teléfono" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="smail_cliente" name="smail_cliente" type="email" class="form-control" placeholder="Ingrese Correo" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-lg-6">
-                                                    <input id="srepre_cliente" name="srepre_cliente" type="text" class="form-control" placeholder="Ingrese Contacto" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input id="sfono2_cliente" name="sfono2_cliente" type="tel" class="form-control" placeholder="Ingrese Teléfono" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div Class="modal-footer">
-                                            <button id="btnCliCierre" name="btnCliCierre" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
-                                            <button id="btnCliente" name="btnCliente" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-1">
+                        <a href="@Url.Action("Create","Clientes")" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-user"></i></a>
+                    </div>
+                    <div class="col-md-1">
+                        <button id="btndireccion" type="button" class="btn btn-sm btn-success"><i class="fa fa-home"></i></button>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -103,19 +29,51 @@
                     <select id="NRO_DCLIENTE" name="NRO_DCLIENTE" class="form-control"></select>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.bclienteagretencion, "Es AG.Retencion", htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox">
+                            @Html.CheckBox("bclienteagretencion", htmlAttributes: new { @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.bclienteagretencion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="sruc_cliente" class="col-form-label">RUC</label>
                             <input id="sruc" name="sruc" type="text" value="@ViewBag.sruc_cliente" class="form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="sproforma_compra" class="col-form-label">DNI</label>
+                            <label for="sdni_cliente" class="col-form-label">DNI</label>
                             <div>
                                 <input id="sdni_cliente" name="sdni_cliente" type="text" value="@ViewBag.sdni_cliente" class="form-control" placeholder="DNI" />
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.bflete_prof, "A.P.Flete", htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox">
+                            @Html.CheckBox("bflete_prof")
+                            @Html.ValidationMessageFor(model => model.bflete_prof, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="ncode_alma" class="col-form-label">Almacen</label>
+                            @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-select" })
+                            @*@Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })*@
+                            @*@Html.HiddenFor(model => model.ncode_alma)*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="ncode_vende" class="col-form-label">vendedor</label>
+                        @Html.DropDownList("ncode_vende", null, htmlAttributes: new { @class = "form-select" })
+                        @Html.ValidationMessageFor(model => model.ncode_vende, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -131,11 +89,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="sseri_prof" class="col-form-label">Serie</label>
-                            @Html.EditorFor(model => model.sseri_prof, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.sseri_prof, "", new { @class = "text-danger" })
-                        </div>
+                            <div class="mb-3">
+                                <label for="sseri_prof" class="col-form-label">Serie</label>
+                                @Html.DropDownList("sseri_prof", null, htmlAttributes: new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.sseri_prof, "", new { @class = "text-danger" })
+                            </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -148,13 +106,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfeprofo_prof" class="col-form-label">F.Emision</label>
                             <input id="dfeprofo_prof" name="dfeprofo_prof" type="text" value="@ViewBag.dfeprofo_prof" class="dfech form-control" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="mb-3">
                             <label for="dfevenci_prof" class="col-form-label">F.Venc</label>
                             <div>
@@ -162,66 +120,84 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="ncode_alma" class="col-form-label">Almacen</label>
-                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
-                </div>
+                    <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="ncode_compra" class="col-form-label">O.C</label>
-                            @Html.EditorFor(model => model.ncode_compra, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ncode_compra, "", new { @class = "text-danger" })
+                            <label for="dfdespacho_orpe" class="col-form-label">F.Despacho</label>
+                            <div>
+                                <input id="dfdespacho_orpe" name="dfdespacho_orpe" type="text" value="@ViewBag.dfdespacho_orpe" class="dfech form-control" />
+                            </div>
                         </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6">
-        <div class="card">
-            <div class="card-body">
+                    </div>
+
+                </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="ncode_fopago" class="col-form-label">F.Pago</label>
-                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+                            <label for="nro_fopago" class="col-form-label">F.Pago</label>
+                            <select id="nro_fopago" name="nro_fopago" class="form-control"></select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="smone_prof" class="col-form-label">Moneda</label>
+                            <label for="smone_orpe" class="col-form-label">Moneda</label>
                             <div>
-                                @Html.DropDownList("smone_prof", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("smone_prof", null, htmlAttributes: new { @class = "form-select" })
                                 @Html.ValidationMessageFor(model => model.smone_prof, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="ntc_prof" class="col-form-label">T.C</label>
+                            <label for="ntc_orpe" class="col-form-label">T.C</label>
                             <div>
-                                <input id="ntc_prof" style="width:10em" name="ntc_prof" class="form-control" type="text" value="@ViewBag.tc" readonly />
+                                <input id="ntc_orpe" style="width:10em" name="ntc_prof" class="form-control" type="text" value="@ViewBag.tc" readonly />
                                 @Html.ValidationMessageFor(model => model.ntc_prof, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="mb-3">
-                    <label for="sobse_venta" class="col-form-label">Observacion</label>
-                    @Html.TextAreaFor(model => model.sobse_prof, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.sobse_prof, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ncuotas_orpe" class="col-form-label">No Cuotas</label>
+                            @Html.EditorFor(model => model.ncuotas_prof, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                            @Html.ValidationMessageFor(model => model.ncuotas_prof, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ncuotadias_orpe" class="col-form-label">Dias</label>
+                            @Html.EditorFor(model => model.ncuotadias_prof, new { htmlAttributes = new { @class = "form-control", @min = "0" } })
+                            @Html.ValidationMessageFor(model => model.ncuotadias_prof, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="ncuotavalor_orpe" class="col-form-label">Valor Cuota</label>
+                            @Html.EditorFor(model => model.ncuotavalor_prof, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.ncuotavalor_prof, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label for="sobse_venta" class="col-form-label">Observacion</label>
+            @Html.EditorFor(model => model.sobse_prof, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sobse_prof, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label for="sglosadespacho_orpe" class="col-form-label">Despacho</label>
+            @Html.EditorFor(model => model.sglosadespacho_prof, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sglosadespacho_prof, "", new { @class = "text-danger" })
         </div>
     </div>
 </div>

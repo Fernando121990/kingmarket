@@ -62,7 +62,7 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []///[0, 6, 7, 8, 9, 10]
+            "aTargets": [0, 6, 7, 8, 9, 10]
         },
         {
             "sClass": "my_class",

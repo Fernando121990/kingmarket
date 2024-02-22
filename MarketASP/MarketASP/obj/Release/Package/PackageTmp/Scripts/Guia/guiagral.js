@@ -11,6 +11,7 @@ var stipo;
 var conf_PrecioIGV;
 var conf_poretencion;
 var beditar = false;
+var bhasOP = false;
 
 $(document).ready(function () {
 
@@ -91,12 +92,15 @@ $(document).ready(function () {
         beditar = true;
 
         fnclienteDire();
-        //console.log($('#ncode_clidire').val());
+        
         $("#NRO_DCLIENTE").val($('#ncode_clidire').val());
 
-        fnclienteFPago();
+        bhasOP = true;
+        if ($("#sserienume_orpe").val().length < 1) {
+            
+            bhasOP = false;
+        };
 
-        $("#nro_fopago").val($('#ncode_fopago').val());
     }
 
     fnMovimiento()
@@ -128,9 +132,46 @@ $(document).ready(function () {
         fnDocumentoSerieNumero(cod);
     });
 
+    /*cambio de fecha*/
+    $('#dfemov_guia').change(function () {
+
+        var codpago = $("#nro_fopago option:selected").val();
+
+        if (typeof codpago !== 'undefined') {
+
+            fnFormaPagoDiasFecha(codpago);
+        }
+
+        //console.log(this.value);
+
+        fnTipoCambioFecha('GU', 'venta', this.value)
+
+    });
+
+    /*forma de pago*/
 
     $("#ncode_fopago").change(function () {
-        fnFormaPagoDiasFecha()
+
+
+        var codpago = $("#ncode_fopago option:selected").val();
+        var sfpago = $("#ncode_fopago option:selected").text();
+
+        $("#ncuotas_guia").prop("disabled", true);
+        $("#ncuotadias_guia").prop("disabled", true);
+        $("#ncuotas_guia").val(0);
+        $("#ncuotadias_guia").val(0);
+
+        if (sfpago.indexOf("FNEG") != -1 || sfpago.indexOf("LETRA") != -1) {
+            $("#ncuotas_guia").prop("disabled", false);
+            $("#ncuotadias_guia").prop("disabled", false);
+        }
+        else {
+            cuotastable.rows().remove().draw(false);
+        }
+
+
+        fnFormaPagoDiasFecha(codpago);
+
     });
 
     /*CUOTAS*/
@@ -208,11 +249,11 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0, 5, 6, 7, 8, 9, 10, 11, 12] 
+            "aTargets": [0, 6, 7, 8, 9, 10, 11, 12]
         },
         {
             "sClass": "my_class",
-            "aTargets": [3]
+            "aTargets": [3,5]
         }],
         "drawCallback": function () {
             this.$('td.my_class').editable(urlEditar, {
@@ -233,7 +274,7 @@ $(document).ready(function () {
                             var xvalue = ofunciones.cell(aPos, 5).data();
                             var subto = cantvalida * parseFloat(xvalue);
                             ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
-                            ofunciones.cell(aPos, 13).data(cantfaltante).draw;
+                            ofunciones.cell(aPos, 15).data(cantfaltante).draw;
                             break;
                         case 5: //price column
                             //console.log('subtotal');
@@ -383,7 +424,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, data.bicbper_arti, xcan * data.Precio, xcan]).draw();
+        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, data.bicbper_arti, xcan * data.Precio, xcan,null,xcan]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
@@ -572,7 +613,7 @@ $(document).ready(function () {
         var data = ofunciones.row('.selected').data();
         var xcodart = data[0];
         var xalma = $("#ncode_alma option:selected").val();
-        var xctdad = data[13];
+        var xctdad = data[15];
 
         //console.log(xctdad);
 
@@ -644,12 +685,23 @@ $(document).ready(function () {
 
     $("#btnLote").click(function () {
 
+        /*VALIDAR QUE LA CANTIDAD A SOLICITAR SEA MAYOR QUE CERO */
+
+        var xcan = parseFloat($("#xctdadlote").val());
+
+        if (xcan <= 0) {
+
+            alert("La cantidad a solicitar es cero");
+            return;
+        }
+
+
         var data = lotetable.row('.selected').data();
         var idtx = lotetable.row('.selected').index();
         var idt = ofunciones.row('.selected').index();
 
         //console.log(data);
-        var xcan = $("#xctdadlote").val(); //1;
+        
         var xcanlote = data.ncantrestante_lote;
         var xesta = 0;
         var xcontrol = $("#xctdadfaltaS").val();
@@ -668,7 +720,7 @@ $(document).ready(function () {
             $("#xctdadlote").val(xcontrol);
 
             lotetable.cell({ row: idtx, column: 6 }).data(xcanlote).draw(false);
-            ofunciones.cell({ row: idt, column: 13 }).data(xcontrol).draw(false);
+            ofunciones.cell({ row: idt, column: 15 }).data(xcontrol).draw(false);
         }
         else {
             alert("La cantidad es mayor a la cantidad disponible del lote");
@@ -705,7 +757,7 @@ $(document).ready(function () {
 
             $("#xctdadfalta").val(xcontrol);
 
-            ofunciones.cell({ row: idtx, column: 13 }).data(xcontrol).draw(false);
+            ofunciones.cell({ row: idtx, column: 15 }).data(xcontrol).draw(false);
 
             console.log('cantidad de lote actualizada')
 
@@ -730,7 +782,7 @@ $(document).ready(function () {
         var xcodlocal = data[1];
         var xdes = data[2];
         var xund = data[4];
-        var xcontrol = data[13];
+        var xcontrol = data[15];
 
         $("#xcodearti").val(xcod);
         $("#xcodelocal").val(xcodlocal);
@@ -754,21 +806,22 @@ $(document).ready(function () {
                 ordentable = $('#pedidotabla').DataTable({
                     data: resultado, ///JSON.parse(data.d),
                     "columns":
-                        [{ "data": "ncode_orpe" },
-                        { "data": "fecha" },
-                        { "data": "numeracion" },
-                        { "data": "srazon_cliente" }
+                        [   { "data": "ncode_orpe" },
+                            { "data": "fecha" },
+                            { "data": "numeracion" },
+                            { "data": "srazon_cliente" },
+                            { "data": "ncode_alma" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
-                        "aTargets": []
+                        "aTargets": [0,4]
                     },
                     {
                         "sClass": "my_class",
                         "aTargets": []
-                    }],
+                        }],
                     select: {
-                        style: 'single'
+                        style: 'multi'
                     },
                     "scrollY": "300px",
                     "scrollCollapse": true,
@@ -800,11 +853,36 @@ $(document).ready(function () {
     });
 
     $("#btnorden").click(function () {
-        var data = ordentable.row('.selected').data();
 
-        console.log(data.ncode_orpe);
+        bhasOP = true;
 
-        fnCargaOrdenPedido(data.ncode_orpe);
+        //var data = ordentable.row('.selected').data();
+        let rowsData = ordentable.rows({ selected: true }).data();
+
+        if (rowsData.length == 0) {
+            alert("Seleccionar Orden de Pedido");
+            return;
+        }
+        var scode_orpe = '';
+        var sdocumentos = '';
+        var razons = rowsData[0].srazon_cliente;
+        var almas = rowsData[0].ncode_alma;
+        /*validar */
+        for (var i = 0; i < rowsData.length; i++) {
+
+            if (razons != rowsData[i].srazon_cliente || almas != rowsData[i].ncode_alma ) {
+                alert("Las ordenes de pedido deben pertenecer al mismo cliente y almacen");
+                return;
+            }
+
+            scode_orpe += rowsData[i].ncode_orpe + '|';
+            sdocumentos += rowsData[i].numeracion + '|';
+
+        }
+
+        //console.log(scode_orpe);
+
+        fnCargaOrdenPedido(scode_orpe,sdocumentos);
 
     });
 
@@ -843,7 +921,7 @@ function Sales_save() {
 
 
     var guiaViewDetas = {
-        "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "","ncode_umed":"",
+        "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "","ncode_umed":"","ncode_orpe":"",
         //"ndscto2_guiadet": "", "nexon_guiadet": "", "nafecto_guiadet": "", "besafecto_guiadet": "",
         //"ncode_alma": "", "ndsctomax_guiadet": "", "ndsctomin_guiadet": "", "ndsctoporc_guiadet": "", "bicbper_guiadet": "",
         "sdesc": ""
@@ -851,7 +929,7 @@ function Sales_save() {
 
     var guiaView = {
         "ncode_guia": "", "sfemov_guia": "", "smone_guia": "", "ntc_guia": "", "sobse_guia": "","ncode_tran":"","ncode_dose":"",
-        "sserie_guia": "", "snume_guia": "", "ncode_alma": "", "ncode_cliente": "", "ncode_docu": "","ncode_orpe":"","sserienume_orpe":"",
+        "sserie_guia": "", "snume_guia": "", "ncode_alma": "", "ncode_cliente": "", "ncode_docu": "","scode_orpe":"","sserienume_orpe":"",
         "ncode_clidire": "", "ncode_mone": "", "ncode_tiguia": "", "ndestino_alma": "", "stipo_guia": "", "guiaViewDetas": [],
         "guiaViewLotes": [], "guiaViewCuotas": [],
         "sfeguia_guia": "", "sfevenci_guia": "", 
@@ -859,8 +937,8 @@ function Sales_save() {
         "ndctoex_guia": "", "ndsctoaf_guia": "", "nsubex_guia": "",
         "nsubaf_guia": "", "nigvex_guia": "", "nigvaf_guia": "", "ntotaex_guia": "",
         "ntotaaf_guia": "", "ntotal_guia": "", "ntotalMN_guia": "", "ntotalUs_guia": "",
-        "ncode_vende": "", "ncode_orpe": "",
-        "nvalIGV_guia": "", "nicbper_guia": "", 
+        "ncode_vende": "", "ncode_orpe": "","ncode_fopago":"","ncode_venzo":"",
+        "nvalIGV_guia": "", "nicbper_guia": "", "scode_compra": "",
 
     };
 
@@ -875,12 +953,13 @@ function Sales_save() {
     guiaView.smone_guia = $('#smone_guia').val();
     guiaView.ntc_guia = $('#ntc_guia').val();
     guiaView.sobse_guia = $('#sobse_guia').val();
+    guiaView.scode_compra = $('#scode_compra').val();
     guiaView.ncode_tiguia = $("#ncode_tiguia option:selected").val();
     guiaView.ncode_alma = $("#ncode_alma option:selected").val();
     guiaView.ndestino_alma = $("#ndestino_alma option:selected").val();
     guiaView.stipo_guia = $("#ncode_tiguia option:selected").text().substring(0, 1);
     guiaView.ncode_mone = $("#ncode_mone option:selected").val();
-    guiaView.ncode_orpe = $("#ncode_orpe").val();
+    guiaView.scode_orpe = $("#ncode_orpe").val();
     guiaView.sserienume_orpe = $("#sserienume_orpe").val();
     guiaView.nbrutoex_guia = $('#nbrutoex_guia').val();
     guiaView.nbrutoaf_guia = $('#nbrutoaf_guia').val();
@@ -903,7 +982,9 @@ function Sales_save() {
     guiaView.ncuotadias_guia = $('#ncuotadias_guia').val();
     guiaView.sglosadespacho_guia = $('#sglosadespacho_guia').val();
     guiaView.bflete_guia = $('input:checkbox[name=bflete_guia]:checked').val();
-
+    guiaView.ncode_fopago = $("#ncode_fopago option:selected").val();
+    guiaView.ncode_vende = $("#ncode_vende option:selected").val();
+    guiaView.ncode_venzo = $("#ncode_vende option:selected").val();
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
@@ -916,10 +997,11 @@ function Sales_save() {
         guiaViewDetas.ncant_guiadet = oTable[i][3];
         guiaViewDetas.npu_guiadet = oTable[i][5];
         guiaViewDetas.ncode_umed = oTable[i][7];
+        guiaViewDetas.ncode_orpe = oTable[i][14];
         guiaView.guiaViewDetas.push(guiaViewDetas);
 
         var guiaViewDetas = {
-            "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "", "ncode_umed": "", "sdesc": ""
+            "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "", "ncode_umed": "", "sdesc": "","ncode_orpe":""
         };
 
     }
@@ -1010,133 +1092,168 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
     console.log(conf_decimal);
     console.log(conf_icbper);
 
-    var TOT_AFECTO = 0;
-    var TOT_EXON = 0;
-    var TOT = 0;
-    var SUBT = 0;
-    var SUBT_AFECTO = 0;
-    var SUBT_EXON = 0;
-    var DSCTO = 0;
-    var DSCTO_AFECTO = 0;
-    var DSCTO_EXON = 0;
-    var TOT_ISC = 0;
-    var CONFIG_IGV = 0;
-    var TOT_ICBPER = 0;
+    var TOT_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var TOT_EXON = parseFloat(0).toFixed(conf_decimal);
+    var TOT = parseFloat(0).toFixed(conf_decimal);
+    var SUBT = parseFloat(0).toFixed(conf_decimal);
+    var SUBT_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var SUBT_EXON = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO_AFECTO = parseFloat(0).toFixed(conf_decimal);
+    var DSCTO_EXON = parseFloat(0).toFixed(conf_decimal);
+    var TOT_ISC = parseFloat(0).toFixed(conf_decimal);
+    var IGVTOTAL = parseFloat(0).toFixed(conf_decimal);
+
+    CONFIG_IGV = parseInt(conf_igv);
+    var monedaVenta = $('#smone_guia').val();
+    var TCambio = parseFloat($('#ntc_guia').val());
 
     var otblx = $('#tbl').dataTable();
     var nrowsx = otblx.fnGetData().length;
     var oTable = otblx.fnGetData();
 
-    CONFIG_IGV = conf_igv;
-
-    console.log(oTable);
-
     for (var i = 0; i < nrowsx; i++) {
 
+        TOT = 0; CANT = 0; PU = 0; CDSCTO = 0; CDSCTO2 = 0; PUADESCONTAR = 0; PUSINIGV = 0; IGVDELPRECIO = 0; IGVPORDETALLE = 0; TCambio = 0
 
-        console.log(nrowsx);
-
+        CANT = parseFloat(oTable[i][3]).toFixed(conf_decimal);
+        PU = parseFloat(oTable[i][5]).toFixed(conf_decimal);
+        CDSCTO = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
+        CDSCTO2 = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO2)), CONFIG_GE_NRODECIMALES)
         var AFECTO_ART = oTable[i][8].toString();
         var COL_TISC = oTable[i][9];
-        var COL_ICBPER = oTable[i][11].toString();
-        var CANT_DV = oTable[i][3];
-        var PU_DV = oTable[i][5];
-        var DSCTO_DV = 0;
 
-        TOT = 0;
-        TOT_AFECTO = 0;
-        TOT_EXON = 0;
-        TOT = CANT_DV * PU_DV;
-        TOT = TOT - (TOT * DSCTO_DV / 100);
+        //validar venta en soles o dolares
+        if (monedaVenta == "D") {
+            PU = (PU / TCambio).toFixed(conf_decimal);
+        }
 
-        console.log(COL_ICBPER);
+
+        if (CONFIG_dscto = "SI") {
+            PUADESCONTAR = (PU * (DSCTO / 100)).toFixed(conf_decimal);
+            TOT = (CANT * (PU - PUADESCONTAR)).toFixed(conf_decimal);
+        }
+        else {
+            PUADESCONTAR = CDSCTO
+            TOT = (CANT * (PU - PUADESCONTAR)).toFixed(conf_decimal);
+        }
+
+        TOT = (TOT - (TOT * (CDSCTO2 / 100))).toFixed(conf_decimal);
 
         if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = TOT_AFECTO + Math.round(TOT, conf_decimal);
-            //  console.log('afecto');
+            TOT_AFECTO = parseFloat(TOT_AFECTO) + Math.round(TOT, conf_decimal);
         }
 
         if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
-
-            TOT_EXON = TOT_EXON + Math.round(TOT, conf_decimal);
-            //console.log('exone');
+            TOT_EXON = parsefloat(TOT_EXON) + Math.round(TOT, conf_decimal);
         }
 
-        if (COL_ICBPER.toUpperCase() == 'TRUE') {
-            TOT_ICBPER = TOT_ICBPER + conf_icbper * CANT_DV;
+        SUBT = ((PU - PUADESCONTAR) * CANT).toFixed(conf_decimal);
+        PUSINIGV = ((PU - PUADESCONTAR) / (1 + (CONFIG_IGV / 100))).toFixed(conf_decimal);
+        IGVDELPRECIO = ((PU - PUADESCONTAR) - PUSINIGV).toFixed(conf_decimal);
+
+        //DSCTO
+        if (parseFloat(TOT_AFECTO) > 0) {
+            SUBT_AFECTO = parseFloat(SUBT_AFECTO) + parseFloat(SUBT);
+
+            if (CONFIG_dscto == "SI") {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            else {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+
+            DSCTO_AFECTO = parseFloat(DSCTO_AFECTO) + parseFloat(DSCTO);
         }
 
-        SUBT = CANT_DV * PU_DV;
-        //console.log('totafecto');
-        //console.log(TOT_AFECTO);
-        //console.log('totexone');
-        //console.log(TOT_EXON);
-
-        if (TOT_AFECTO !== 0) {
-            SUBT_AFECTO = SUBT_AFECTO + SUBT;
-            DSCTO = (SUBT * (DSCTO_DV / 100));
-            DSCTO_AFECTO = DSCTO_AFECTO + DSCTO;
-            //      console.log('subafecto');
-            //    console.log(SUBT_AFECTO);
-        }
-
-        if (TOT_EXON !== 0) {
-            SUBT_EXON = SUBT_EXON + SUBT;
-            DSCTO = (SUBT * (DSCTO_DV / 100));
-            DSCTO_EXON = DSCTO_EXON + DSCTO;
-            //  console.log(TOT_EXON);
-            //console.log('subtexon');
-            //console.log(SUBT_EXON);
+        if (parseFloat(TOT_EXON) > 0) {
+            SUBT_EXON = parseFloat(SUBT_EXON) + parseFloat(SUBT);
+            if (CONFIG_dscto == "SI") {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            else {
+                DSCTO = (PUADESCONTAR * CANT).toFixed(conf_decimal);
+            }
+            DSCTO_EXON = parseFloat(DSCTO_EXON) + parseFloat(DSCTO);
         }
 
         if (COL_TISC == true) {
             TOT_ISC = TOT_ISC + (TOT_AFECTO / (1 + COL_TISC / 100));
             TOT_ISC = TOT_ISC + (TOT_EXON / (1 + COL_TISC / 100));
         }
+
+        IGVPORDETALLE = (IGVDELPRECIO * CANT).toFixed(2);
+
+        IGVTOTAL = IGVTOTAL + IGVPORDETALLE
+
     }
 
-    $("#ndsctoaf_guia").val(DSCTO_AFECTO.toFixed(conf_decimal));
-    $("#ndctoex_guia").val(DSCTO_EXON.toFixed(conf_decimal));
-    $("#nbrutoaf_guia").val(SUBT_AFECTO.toFixed(conf_decimal));
-    $("#nbrutoex_guia").val(SUBT_EXON.toFixed(conf_decimal));
-    $("#ntotaex_guia").val(SUBT_EXON.toFixed(conf_decimal));
-    $("#nicbper_guia").val(TOT_ICBPER.toFixed(conf_decimal));
+    console.log('valores totales');
+    console.log(DSCTO_AFECTO);
+    console.log(DSCTO_EXON);
+    console.log(SUBT_AFECTO);
+    console.log(SUBT_EXON);
 
+
+    $("#ndsctoaf_guia").val(DSCTO_AFECTO);
+    $("#ndctoex_guia").val(DSCTO_EXON);
+    $("#nbrutoaf_guia").val(SUBT_AFECTO);
+    $("#nbrutoex_guia").val(SUBT_EXON);
+
+    $("#nsubaf_guia").val(SUBT_AFECTO);
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
-    var TOTAL_AFEC = SUBT_AFECTO - DSCTO_AFECTO;
-    var SUBT_AFEC = TOTAL_AFEC / (1 + (CONFIG_IGV / 100));
+    $("#nsubex_guia").val(SUBT_EX);
+    $("#ntotaex_guia").val(SUBT_EXON);
 
-    $("#nsubex_guia").val(SUBT_EX.toFixed(conf_decimal));
-    $("#ntotaaf_guia").val(TOTAL_AFEC.toFixed(conf_decimal));
-    $("#nsubaf_guia").val(SUBT_AFEC.toFixed(conf_decimal));
+    var TOTAL_AFEC = 0, SUBT_AFEC = 0, IGV_AF = 0;
 
-    var IGV_AF = TOTAL_AFEC - SUBT_AFEC;
-    $("#nigvaf_guia").val(IGV_AF.toFixed(conf_decimal));
-    $("#nigvex_guia").val(0);
 
-    var TOTAL = TOTAL_AFEC + SUBT_EX;
+    if (conf_PrecioIGV == "on") {
+        TOTAL_AFEC = parseFloat(SUBT_AFECTO);
+        SUBT_AFEC = parseFloat(TOTAL_AFEC) / (1 + (parseInt(CONFIG_IGV) / 100));
+        IGV_AF = parseFloat(TOTAL_AFEC) - parseFloat(SUBT_AFEC);
+
+        $("#ntotaaf_guia").val(TOTAL_AFEC.toFixed(conf_decimal));
+        $("#nsubaf_guia").val(SUBT_AFEC.toFixed(conf_decimal));
+        $("#nigvaf_guia").val(IGV_AF.toFixed(conf_decimal));
+
+    }
+    else {
+        IGV_AF = (parseFloat(SUBT_AFECTO) * (parseFloat(CONFIG_IGV) / parseInt(100)));
+        TOTAL_AFEC = (parseFloat(SUBT_AFECTO) + parseFloat(SUBT_AFECTO) * (parseFloat(CONFIG_IGV) / parseInt(100)));
+
+        $("#ntotaaf_guia").val(TOTAL_AFEC.toFixed(conf_decimal));
+        $("#nigvaf_guia").val(IGV_AF.toFixed(conf_decimal));
+
+    }
+
+    var TOTAL = parseFloat(TOTAL_AFEC) + parseFloat(SUBT_EX);
 
     $("#ntotal_guia").val(TOTAL.toFixed(conf_decimal));
 
     //valor de retencion
     var retencion = 1;
-    $("#ntotaretencion_orpe").val(0);
+    $("#ntotaretencion_guia").val(0);
     if ($('input:checkbox[name=bclienteagretencion]:checked').val()) {
         retencion = conf_poretencion;
-        TOTAL = TOTAL * (1 - retencion);
-        $("#ntotaretencion_orpe").val(TOTAL.toFixed(conf_decimal));
+        if (TOTAL > 700) {
+
+            TOTAL = TOTAL * (1 - retencion);
+            $("#ntotaretencion_venta").val(TOTAL.toFixed(conf_decimal));
+
+        }
     }
 
     //numero de cuotas - valor de cuota
-    var xncuotas_guia = $('#ncuotas_guia').val();
+    var xncuotas_venta = $('#ncuotas_guia').val();
     $('#ncuotavalor_guia').val(0);
-    if (xncuotas_guia != '' && xncuotas_guia != '0') {
-        var xncuotavalor_guia = TOTAL / xncuotas_guia;
-        $('#ncuotavalor_guia').val(xncuotavalor_guia.toFixed(conf_decimal));
+    if (xncuotas_venta != '' && xncuotas_venta != '0') {
+        var xncuotavalor_venta = TOTAL / xncuotas_venta;
+        $('#ncuotavalor_guia').val(xncuotavalor_venta.toFixed(conf_decimal));
     }
-    CuotasLista(xncuotas_guia, xncuotavalor_guia);
+    CuotasLista(xncuotas_venta, xncuotavalor_venta);
 
-    return false;
+
 }
 
 function CuotasLista(nrocuotas, valorcuota) {
@@ -1168,8 +1285,11 @@ function ComparaPrecio(Precio, PrecioOrigen) {
 
     var xprecio = parseFloat(Precio);
 
-    if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
-        xprecio = parseFloat(PrecioOrigen);
+    if (bhasOP) {
+
+        if (parseFloat(Precio) < parseFloat(PrecioOrigen)) {
+            xprecio = parseFloat(PrecioOrigen);
+        }
     }
 
     return xprecio.toFixed(conf_decimal);
@@ -1182,53 +1302,49 @@ function ComparaCantidad(Cantidad, CantidadOrigen) {
     //Verificar la cantidad origen sino viene de pedido no hay control de cantidades
     if (stipo == "S") {
 
-        if (CantidadOrigen > 0) {
+        if (bhasOP) {
 
-            if (parseFloat(Cantidad) > parseFloat(CantidadOrigen)) {
-                xcantidad = parseFloat(CantidadOrigen);
+            if (CantidadOrigen > 0) {
+
+                if (parseFloat(Cantidad) > parseFloat(CantidadOrigen)) {
+                    xcantidad = parseFloat(CantidadOrigen);
+                }
             }
         }
     }
 
     return xcantidad.toFixed(conf_decimal);
 }
-function fnFormaPagoDiasFecha() {
-    //$.ajax({
-    //    type: 'POST',
-    //    url: urlGetDiasFormaPago,
-    //    dataType: 'json',
-    //    data: { ncode_fopago: $("#ncode_fopago").val() },
-    //    success: function (fopago) {
-    //        console.log(fopago);
-    //        $.each(fopago, function (i, dias) {
+function fnFormaPagoDiasFecha(cod_pago) {
 
-    //            var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    //            var m = $("#dfeguia_venta").val();
-    //            var parts = m.split("/");
-    //            var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
-    //            //var fecha = new Date($('#dfeventa_venta').val());
-    //            //console.log(fecha);
-    //            //console.log(fecha.getDate());
-    //            //console.log(fecha.getFullYear());
-    //            //console.log(fecha.getMonth());
-    //            //console.log(dias.dias);
-    //            //var xdias = parseInt(fecha.getDate()) + parseInt(dias.dias); // Número de días a agregar
-    //            //console.log(xdias);
-    //            fecha.setDate(fecha.getDate() + parseInt(dias.dias));
-    //            var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
-    //            $('#dfevenci_venta').val(xfecha);
-    //            //console.log(fecha);
-    //            console.log(xfecha);
-    //        });
+    $.ajax({
+        type: 'POST',
+        url: urlGetDiasFormaPago,
+        dataType: 'json',
+        data: { ncode_fopago: cod_pago },
+        success: function (fopago) {
+            //console.log(fopago);
+            $.each(fopago, function (i, dias) {
 
-    //    },
-    //    error: function (ex) {
-    //        alert('No se pueden recuperar las areas.' + ex);
-    //    }
-    //});
+                var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                var m = $("#dfemov_guia").val();
+                var parts = m.split("/");
+                var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+                fecha.setDate(fecha.getDate() + parseInt(dias.dias));
+                var xfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+            //    $('#dfevenci_venta').val(xfecha);
+            //    console.log(xfecha);
+            });
+
+        },
+        error: function (ex) {
+            alert('No se pueden recuperar las areas.' + ex);
+        }
+    });
     return false;
 
 }
+
 
 function fnlimpiar() {
 
@@ -1306,7 +1422,7 @@ function fnActualizarCtdadLote(codArt, ctdad) {
     for (var i = 0; i < nrowsx; i++) {
 
         codigo = oTable[i][0];
-        ctdadx = oTable[i][13];
+        ctdadx = oTable[i][15];
 
         if (ctdadx == null || ctdadx == '') {
             ctdadx = 0;
@@ -1318,7 +1434,7 @@ function fnActualizarCtdadLote(codArt, ctdad) {
         if (codigo == codArt) {
             ctdadx = parseFloat(ctdadx) + parseFloat(ctdad);
             console.log(ctdadx);
-            ofunciones.cell({ row: i, column: 13 }).data(ctdadx).draw(false);
+            ofunciones.cell({ row: i, column: 15 }).data(ctdadx).draw(false);
             break;
         }
     }
@@ -1341,22 +1457,22 @@ function fnActualizaCtdadRestanteLote(xcodart, ctdadactual) {
     }
 
     var cantfaltante = ctdadactual - sumx
-    console.log('calcula lote')
-    console.log(sumx);
-    console.log(cantfaltante);
+   //console.log('calcula lote')
+   // console.log(sumx);
+   // console.log(cantfaltante);
     return cantfaltante
 
 }
 
-function fnCargaOrdenPedido(codigo) {
+function fnCargaOrdenPedido(codigo,sdocumentos) {
 
     fnlimpiar();
-    console.log(codigo);
+    //console.log(codigo);
     $.ajax({
         type: 'POST',
         url: urlGetOrdenPedidoVenta,
         dataType: 'json',
-        data: { ncode_orpe: codigo },
+        data: { scode_orpe: codigo,documentos:sdocumentos },
         success: function (venta) {
             console.log(venta);
 
@@ -1364,10 +1480,12 @@ function fnCargaOrdenPedido(codigo) {
             $('#COD_CLIENTE').val(venta.ncode_cliente);
             $('#sruc_cliente').val(venta.sruc);
             $('#sdni_cliente').val(venta.sdni);
-            $('#sobse_guia').val(venta.ncode_cliente);
+            $('#sobse_guia').val(venta.sobse_venta);
             $("#ncode_mone").val(venta.ncode_mone);
             $("#ncode_orpe").val(codigo);
             $("#ncode_alma").val(venta.ncode_alma);
+            $("#ncode_vende").val(venta.ncode_venzo);
+            $("#scode_compra").val(venta.scode_compra);
             $("#sserienume_orpe").val(venta.sserienumero);
             $('#bclienteagretencion').prop('checked', false);
             if (venta.bclienteagretencion) {
@@ -1404,12 +1522,17 @@ function fnCargaOrdenPedido(codigo) {
                     , venta.ventaViewDetas[i].npu_vedeta
                     , false
                     , venta.ventaViewDetas[i].nafecto_vedeta
-                    , venta.ventaViewDetas[i].ncant_vedeta]).draw();
+                    , venta.ventaViewDetas[i].ncant_vedeta
+                    , venta.ventaViewDetas[i].ncode_orpe
+                    , venta.ventaViewDetas[i].ncant_vedeta
+                ]).draw();
             }
 
             fnclienteDire();
             $("#NRO_DCLIENTE").val(venta.ncode_clidire);
             $("#ncode_fopago").val(venta.ncode_fopago);
+            fnFormaPagoDiasFecha(venta.ncode_fopago);
+
         },
         error: function (ex) {
             alert('No se puede recuperar datos de la orden de pedido' + ex);
