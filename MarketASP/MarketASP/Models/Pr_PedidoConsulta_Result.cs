@@ -23,5 +23,6 @@ namespace MarketASP.Models
         public Nullable<bool> besta_orpe { get; set; }
         public string TOTAL { get; set; }
         public Nullable<int> bventa_orpe { get; set; }
+        public string condicion { get; set; }
     }
 }

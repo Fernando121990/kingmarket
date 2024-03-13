@@ -101,7 +101,9 @@ namespace MarketASP.Controllers
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
-            
+            ViewBag.conf_articulosrepetidos = Helpers.Funciones.ObtenerValorParam("GENERAL",1086);
+            ViewBag.conf_ctdadOS = Helpers.Funciones.ObtenerValorParam("GENERAL", 1091);
+
             ViewBag.ncode_fopago = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 6), "ncode_confi", "sdesc_confi",1053);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
                 Where(c => c.ntipo_confi == 5 && c.svalor_confi == "O"), "ncode_confi", "sdesc_confi",1074);
@@ -160,7 +162,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_CompraDetaCrea(code, item.ncode_arti, item.ncant_orcodeta, item.npu_orcodeta,
                                         item.ndscto_orcodeta, item.ndscto2_orcodeta, item.nexon_orcodeta, item.nafecto_orcodeta,
                                         item.besafecto_orcodeta, item.ncode_alma, item.ndsctomax_orcodeta,
-                                        item.ndsctomin_orcodeta, item.ndsctoporc_orcodeta, item.npuorigen_orcodeta);
+                                        item.ndsctomin_orcodeta, item.ndsctoporc_orcodeta, item.npuorigen_orcodeta,fila,item.ncode_umed);
                                 };
 
                             }
@@ -207,11 +209,17 @@ namespace MarketASP.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.tc = ORDEN_COMPRAS.ntc_orco;
             ViewBag.igv = Helpers.Funciones.ObtenerValorParam("GENERAL", "IGV");
             ViewBag.deci = Helpers.Funciones.ObtenerValorParam("GENERAL", "No DE DECIMALES");
             ViewBag.icbper = Helpers.Funciones.ObtenerValorParam("GENERAL", "ICBPER");
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
+            ViewBag.conf_articulosrepetidos = Helpers.Funciones.ObtenerValorParam("GENERAL", 1086);
+            ViewBag.conf_ctdadOS = Helpers.Funciones.ObtenerValorParam("GENERAL", 1091);
+
+
+
 
             ViewBag.smone_orco = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", ORDEN_COMPRAS.smone_orco);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).
@@ -226,7 +234,7 @@ namespace MarketASP.Controllers
             ViewBag.dfeorco_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfeorco_orco);
             ViewBag.dfevenci_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfevenci_orco);
             ViewBag.dfentrega_orco = string.Format("{0:dd/MM/yyyy}", ORDEN_COMPRAS.dfentrega_orco);
-            ViewBag.tc = ORDEN_COMPRAS.ntc_orco;
+            
 
             return View(ORDEN_COMPRAS);
         }
@@ -278,7 +286,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_CompraDetaCrea(code, item.ncode_arti, item.ncant_orcodeta, item.npu_orcodeta,
                                         item.ndscto_orcodeta, item.ndscto2_orcodeta, item.nexon_orcodeta, item.nafecto_orcodeta,
                                         item.besafecto_orcodeta, item.ncode_alma, item.ndsctomax_orcodeta,
-                                        item.ndsctomin_orcodeta, item.ndsctoporc_orcodeta, item.npuorigen_orcodeta);
+                                        item.ndsctomin_orcodeta, item.ndsctoporc_orcodeta, item.npuorigen_orcodeta,fila,item.ncode_umed);
                                 };
 
                             }

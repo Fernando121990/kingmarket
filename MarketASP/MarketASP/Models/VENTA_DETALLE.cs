@@ -33,6 +33,7 @@ namespace MarketASP.Models
         public Nullable<decimal> ncantLote_vedeta { get; set; }
         public Nullable<long> ncode_orpe { get; set; }
         public Nullable<long> ncode_guia { get; set; }
+        public Nullable<int> norden_vedeta { get; set; }
     
         public virtual ALMACEN ALMACEN { get; set; }
         public virtual VENTAS VENTAS { get; set; }

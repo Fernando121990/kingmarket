@@ -437,6 +437,7 @@
                                 <th>bdscto</th>
                                 <th>bicbper</th>
                                 <th>blote</th>
+                                <th>Descarga</th>
                             </tr>
                         </thead>
                     </table>
@@ -492,11 +493,12 @@
                             <th>bisc</th>
                             <th>bdscto</th>
                             <th>bicbper</th>
-                            <th>Subtotal</th>
                             <th>Cant.OP</th>
                             <th>OP</th>
+                            <th>Subtotal</th>
                             <th>CantLote</th>
                             <th>blote</th>
+                            <th>descarga</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -524,7 +526,7 @@
                             <td>@Html.DisplayTextFor(x => currentItem.nsubt_vedeta)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.ncantLote_vedeta)</td>
                             <td></td>
-
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdescarga_arti)</td>
                         </tr>
 
                             }

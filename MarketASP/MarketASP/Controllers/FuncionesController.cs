@@ -290,6 +290,7 @@ namespace MarketASP.Controllers
                     sumed = item.ssunat_umed,
                     ncode_umed = item.ncode_umed,
                     blote_vedeta = item.blote_arti,
+                    bdescarga_vedeta = item.bdescarga,
                     ncode_orpe =  item.ncode_orpe
                 };
                 listadeta.Add(deta);
@@ -326,12 +327,16 @@ namespace MarketASP.Controllers
             return Json(ventaView);
         }
 
-        public JsonResult getGuiaVentaAsociar(Int32 ncode_guia)
+        public JsonResult getGuiaVentaAsociar(string scode_guia, string documentos)
         {
             db.Configuration.ProxyCreationEnabled = false;
+
+            var lguia = scode_guia.Split('|');
+            long ncode_guia = long.Parse(lguia[0]);
+
             GUIA pedido = db.GUIA.Find(ncode_guia);
             CLIENTE cLIENTE = db.CLIENTE.Find(pedido.ncode_cliente);
-            var lista = db.Pr_GuiaVentaDetVentaGuia(ncode_guia).ToList();
+            var lista = db.Pr_GuiaVentaDetVentaGuia(scode_guia).ToList();
             List<ventaViewDeta> listadeta = new List<ventaViewDeta>();
 
             foreach (var item in lista)
@@ -351,7 +356,7 @@ namespace MarketASP.Controllers
                     sumed = item.ssunat_umed,
                     ncode_umed = item.ncode_umed,
                     blote_vedeta = item.blote_arti,
-
+                    bdescarga_vedeta = item.bdescarga_arti
                 };
                 listadeta.Add(deta);
             }
@@ -373,9 +378,11 @@ namespace MarketASP.Controllers
                 ncuotadias_venta = pedido.ncuotadias_guia,
                 ncuotavalor_venta = pedido.ncuotavalor_guia,
                 sglosadespacho_venta = pedido.sglosadespacho_guia,
+                sobse_venta = pedido.sobse_guia,
                 bflete_venta = pedido.bflete_guia,
                 nretencionvalor_venta = 0,
                 sserienumero = string.Concat(pedido.sserie_guia, "-", pedido.snume_guia),
+                scode_compra = pedido.scode_compra,
                 ventaViewDetas = listadeta
             };
 
@@ -401,11 +408,12 @@ namespace MarketASP.Controllers
                     sdesc = item.sdesc1_arti,
                     sund = item.ssunat_umed,
                     nafecto_comdeta = item.nafecto_orcodeta,
-                    ncant_comdeta = item.ncant_orcodeta,
+                    ncant_comdeta = item.ncantventa_orcodeta,
                     ncode_arti = item.ncode_arti,
                     npu_comdeta = item.npu_orcodeta,
                     ndscto_comdeta = item.ndscto_orcodeta,
                     nexon_comdeta = item.nexon_orcodeta,
+                    
                 };
                 listadeta.Add(deta);
             }

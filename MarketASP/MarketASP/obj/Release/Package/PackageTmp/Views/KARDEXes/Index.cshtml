@@ -15,113 +15,213 @@
                 {
 
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <label for="example-text-input" class="col-form-label">Inicio</label>
                         <input id="fini" name="fini" class="dfech form-control" type="text" value="@ViewBag.fini" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <label for="example-text-input" class="col-form-label">Fin</label>
                         <input id="ffin" name="ffin" class="dfech form-control" type="text" value="@ViewBag.ffin" />
                     </div>
                     <div class="col-md-2">
+                        <label for="example-text-input" class="col-form-label">Linea</label>
+                        @Html.DropDownList("slinea", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                        <input id="chklinea" name="chklinea" type="checkbox" value="1" @ViewBag.chklinea /> Todos
+                    </div>
+                    <div class="col-md-2">
                         <label for="example-text-input" class="col-form-label">Almacen</label>
-                        @Html.DropDownList("salmacen", null, htmlAttributes: new { @class = "form-select select2" })
+                        @Html.DropDownList("salmacen", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                        <input id="chkalmacen" name="chkalmacen" type="checkbox" value="1" @ViewBag.chkalmacen /> Todos
                     </div>
                     <div class="col-md-4">
                         <label for="example-text-input" class="col-form-label">Articulo</label>
-                        @Html.DropDownList("sarticulo", null, htmlAttributes: new { @class = "form-select select2" })
+                        @Html.DropDownList("sarticulo", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                        <input id="chkarticulo" name="chkarticulo" type="checkbox" value="1" @ViewBag.chkarticulo /> Todos
                     </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <button class="btn btn-sm btn-info" type="submit" title="Buscar">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                    <div class="col-md-1">
+                        <input id="chktipo" name="chktipo" type="checkbox" value="1" @ViewBag.chktipo /> Detallado
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-sm btn-info" type="submit" title="Buscar">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </div>
                 }
 
 
-                <div class="table-responsive mt-3">
-                    <table id="datatable" class="table table-bordered nowrap compact" style="border-width:1px; border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th colspan="4"></th>
-                                <th colspan="3">Cantidad</th>
-                                <th colspan="2">Costo</th>
-                                <th colspan="3">Importe</th>
-                                <th colspan="2"></th>
-                            </tr>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Mov</th>
-                                <th>No Doc</th>
-                                <th>Almacen</th>
-                                <th>Ingreso</th>
-                                <th>Salida</th>
-                                <th>Saldo</th>
-                                <th>Unitario</th>
-                                <th>Promedio</th>
-                                <th>Ingreso</th>
-                                <th>Salida</th>
-                                <th>Saldo</th>
-                                <th>Cliente</th>
-                                <th>Proveedor</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                @if (ViewBag.chktipo != "Checked")
+                {
+                    <div class="table-responsive mt-3">
+                        @*<table id="datatable-buttons" class="table table-bordered nowrap compact" style="border-width:1px; border-collapse: collapse; border-spacing: 0; width: 100%;">*@
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead class="thead-light">
                                 <tr>
-                                    <td>
-                                        @string.Format("{0:d}", item.Fecha)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Movi)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Doc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Almacen)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Ingreso)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Salida)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Acumulado)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Costo)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CPromedio)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.IIngreso)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ISalida)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ISalida)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Cliente)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Proveedor)
-                                    </td>
+                                    <th colspan="2"></th>
+                                    @*<th colspan="4"></th>*@
+                                    <th colspan="3">Cantidad</th>
+                                    <th colspan="3">Valores</th>
+                                    @*<th colspan="2">Costo</th>
+                            <th colspan="2"></th>*@
+                                </tr>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    @*<th>Fecha</th>
+                            <th>Mov</th>
+                            <th>No Doc</th>
+                            <th>Almacen</th>*@
+                                    <th>Ingreso</th>
+                                    <th>Salida</th>
+                                    <th>Saldo</th>
+                                    <th>Ingreso</th>
+                                    <th>Salida</th>
+                                    <th>Saldo</th>
+                                    <th>Unitario</th>
+                                    @*<th>Promedio</th>
+                            <th>Cliente</th>
+                            <th>Proveedor</th>*@
 
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.CodArti)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Arti)</td>
+                                        @*<td>
+                                    @string.Format("{0:d}", item.Fecha)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Movi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Doc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Almacen)
+                                </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ingreso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Salida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Acumulado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IIngreso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISalida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISalida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Costo)
+                                        </td>
+                                        @*<td>
+                                    @Html.DisplayFor(modelItem => item.CPromedio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Proveedor)
+                                </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="table-responsive mt-3">
+                        @*<table id="datatable-buttons" class="table table-bordered nowrap compact" style="border-width:1px; border-collapse: collapse; border-spacing: 0; width: 100%;">*@
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2"></th>
+                                    <th colspan="4"></th>
+                                    <th colspan="3">Cantidad</th>
+                                    <th colspan="3">Valores</th>
+                                    @*<th colspan="2">Costo</th>
+                            <th colspan="2"></th>*@
+                                </tr>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Descripcion</th>
+                                    <th>Fecha</th>
+                                    <th>Mov</th>
+                                    <th>No Doc</th>
+                                    <th>Almacen</th>
+                                    <th>Ingreso</th>
+                                    <th>Salida</th>
+                                    <th>Saldo</th>
+                                    <th>Ingreso</th>
+                                    <th>Salida</th>
+                                    <th>Saldo</th>
+                                    <th>Unitario</th>
+                                    @*<th>Promedio</th>
+                            <th>Cliente</th>
+                            <th>Proveedor</th>*@
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.CodArti)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Arti)</td>
+                                        <td>@string.Format("{0:d}", item.Fecha)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Movi)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Doc)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Almacen)</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Ingreso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Salida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Acumulado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IIngreso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISalida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ISalida)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Costo)
+                                        </td>
+                                        @*<td>
+                                    @Html.DisplayFor(modelItem => item.CPromedio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Proveedor)
+                                </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+
             </div>
         </div>
     </div>

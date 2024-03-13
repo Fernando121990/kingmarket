@@ -22,9 +22,10 @@ namespace MarketASP.Controllers
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: VENTAS
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string fini, string ffin, int chkpendiente = 0, int chkparcial = 0, int chktotal = 0)
         {
             int xvalue = 0;
+            string sventa = "";
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
             db.Pr_PermisoAcceso(User.Identity.Name, "0501", xcode);
@@ -35,8 +36,47 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            //var vENTAS = db.VENTAS.Include(v => v.CLI_DIRE).Include(v => v.CLIENTE).Include(v => v.CONFIGURACION).Include(v => v.CONFIGURACION1);
-            var result = db.Pr_VentaListado(1,"","").ToList();
+            if (string.IsNullOrEmpty(fini))
+            {
+                fini = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy");
+
+            }
+
+            if (string.IsNullOrEmpty(ffin))
+            {
+
+                ffin = DateTime.Today.ToString("dd/MM/yyyy");
+            }
+
+
+
+            if (chkpendiente == 1)
+            {
+                ViewBag.chkpendiente = "Checked";
+                sventa = string.Concat("0|");
+            }
+
+            if (chkparcial == 1)
+            {
+                ViewBag.chkparcial = "Checked";
+                sventa = string.Concat(sventa, "1|");
+            }
+
+            if (chktotal == 1)
+            {
+                ViewBag.chktotal = "Checked";
+                sventa = string.Concat(sventa, "2|");
+            }
+            if (chkpendiente == 0 && chkparcial == 0 && chktotal == 0)
+            {
+                sventa = string.Concat("0|", "1|", "2|");
+            }
+
+            ViewBag.fini = fini;
+            ViewBag.ffin = ffin;
+
+
+            var result = db.Pr_VentaListado(1,fini,ffin).ToList();
             return View(result);
         }
 
@@ -144,21 +184,25 @@ namespace MarketASP.Controllers
                                     {
                                         fila++;
 
-                                        var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
-
-                                        decimal cantdisponible = 0;
-
-                                        if (rstock != null && rstock.Count > 0)
+                                        if (item.bdescarga_vedeta == true)
                                         {
-                                            var xstock = rstock.ToArray();
-                                            cantdisponible = (decimal)xstock[0].STOCK;
-                                        }
+                                            var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+
+                                            decimal cantdisponible = 0;
+
+                                            if (rstock != null && rstock.Count > 0)
+                                            {
+                                                var xstock = rstock.ToArray();
+                                                cantdisponible = (decimal)xstock[0].STOCK;
+                                            }
 
 
-                                        if (cantdisponible < item.ncant_vedeta)
-                                        {
-                                            xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
-                                            bstock = false;
+                                            if (cantdisponible < item.ncant_vedeta)
+                                            {
+                                                xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
+                                                bstock = false;
+                                            }
+
                                         }
                                     };
 
@@ -187,6 +231,13 @@ namespace MarketASP.Controllers
                             code = int.Parse(sw.Value.ToString());
                             cccode = int.Parse(cc.Value.ToString());
 
+                            if (code == -1)
+                            {
+                                xmensaje = "la numeracion ya ha sido utilizada, actualizar la numeracion ";
+                                return Json(new { Success = 3, Mensaje = xmensaje });
+                            }
+
+
                             if (mofView.ventaViewDetas != null)
                             {
                                 foreach (ventaViewDeta item in mofView.ventaViewDetas)
@@ -194,7 +245,8 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta,item.ncantLote_vedeta,item.ncode_orpe);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta,item.ncantLote_vedeta,
+                                        item.ncode_orpe,fila);
                                 };
 
                             }
@@ -391,21 +443,25 @@ namespace MarketASP.Controllers
                                     {
                                         fila++;
 
-                                        var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
-
-                                        decimal cantdisponible = 0;
-
-                                        if (rstock != null && rstock.Count > 0)
+                                        if (item.bdescarga_vedeta == true)
                                         {
-                                            var xstock = rstock.ToArray();
-                                            cantdisponible = (decimal)xstock[0].STOCK;
-                                        }
+
+                                            var rstock = db.Pr_KardexArticulos(item.ncode_arti, "", "", item.ncode_alma).ToList();
+
+                                            decimal cantdisponible = 0;
+
+                                            if (rstock != null && rstock.Count > 0)
+                                            {
+                                                var xstock = rstock.ToArray();
+                                                cantdisponible = (decimal)xstock[0].STOCK;
+                                            }
 
 
-                                        if (cantdisponible < item.ncant_vedeta)
-                                        {
-                                            xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
-                                            bstock = false;
+                                            if (cantdisponible < item.ncant_vedeta)
+                                            {
+                                                xmensaje += string.Format("{0}{1}", item.sdesc, " - ");
+                                                bstock = false;
+                                            }
                                         }
                                     };
 
@@ -441,7 +497,8 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_ventaDetaCrea(code, item.ncode_arti, item.ncant_vedeta, item.npu_vedeta,
                                         item.ndscto_vedeta, item.ndscto2_vedeta, item.nexon_vedeta, item.nafecto_vedeta, item.besafecto_vedeta,
-                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta, item.ncantLote_vedeta,item.ncode_orpe);
+                                        item.ncode_alma, item.ndsctomax_vedeta, item.ndsctomin_vedeta, item.ndsctoporc_vedeta, item.ncantLote_vedeta,
+                                        item.ncode_orpe, fila);
                                 };
 
                             }

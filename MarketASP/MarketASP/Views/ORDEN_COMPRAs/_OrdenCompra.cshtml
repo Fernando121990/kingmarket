@@ -275,33 +275,35 @@
                     <th>UM</th>
                     <th>Precio</th>
                     <th>Precio</th>
-                    <th>M</th>
+                    <th>codUmed</th>
                     <th>bafecto</th>
                     <th>bisc</th>
                     <th>bdscto</th>
+                    <th>Dscto</th>
                     <th>Subtotal</th>
                 </tr>
             </thead>
             <tbody>
                 @if (Model != null)
                 {
-                    foreach (var item in Model.ORDEN_COMPRAS_DETALLE)
+                    foreach (var item in Model.ORDEN_COMPRAS_DETALLE.OrderBy(x => x.norden_orcodeta))
                     {
                         var currentItem = item;
-                        <tr>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ncant_orcodeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npu_orcodeta)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.npuorigen_orcodeta)</td>
-                            <td></td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
-                            <td>@Html.DisplayTextFor(x => currentItem.nsubt_orcodeta)</td>
-                        </tr>
+                <tr>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ncant_orcodeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.npu_orcodeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.npuorigen_orcodeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ncode_umed)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.ndscto_orcodeta)</td>
+                    <td>@Html.DisplayTextFor(x => currentItem.nsubt_orcodeta)</td>
+                </tr>
 
                     }
                 }

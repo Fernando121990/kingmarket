@@ -27,5 +27,7 @@ namespace MarketASP.Models
         public long ncode_venta { get; set; }
         public string OrdenPedido { get; set; }
         public long ncode_orpe { get; set; }
+        public string condicion { get; set; }
+        public string Guias { get; set; }
     }
 }

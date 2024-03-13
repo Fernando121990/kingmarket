@@ -18,7 +18,8 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="dfecha_tc" class="col-form-label">Fecha</label>
-                                <input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) readonly class="form-control" />
+                                <input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) class="dfech form-control" />
+                                @*<input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) readonly class="form-control" />*@
                                 @Html.ValidationMessageFor(model => model.dfecha_tc, "", new { @class = "text-danger" })
                             </div>
                         </div>

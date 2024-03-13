@@ -30,5 +30,6 @@ namespace MarketASP.Models
         public bool bpercepcion_arti { get; set; }
         public decimal npreciotope_arti { get; set; }
         public bool blote_arti { get; set; }
+        public bool bdescarga { get; set; }
     }
 }

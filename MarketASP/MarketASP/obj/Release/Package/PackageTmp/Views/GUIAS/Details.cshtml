@@ -1,138 +1,158 @@
-﻿@model MarketASP.Models.MOVIMIENTO
+﻿@model MarketASP.Models.GUIA
 
 @{
     ViewBag.Title = "Details";
 }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Volver</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">F.Emision</label>
+                            <div>
+                                @string.Format("{0:d}", Model.dfemov_guia)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">F.Venc</label>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Documento</label>
+                            <div>
+                                @Html.DisplayFor(model => model.TIPO_GUIA.sdesc_tiguia)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Numeracion</label>
+                            <div>
+                                @string.Concat(Model.sserie_guia, "-", Model.snume_guia)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">F.Pago</label>
+                            <div>
+                                @Html.DisplayFor(model => model.ncode_fopago)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Total</label>
+                            <div>
+                                @Model.smone_guia  @string.Format("{0:N2}", Model.ntotal_guia)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Cliente</label>
+                            <div>
+                                @ViewBag.cliente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Dirección</label>
+                            <div>
+                                @ViewBag.cliente_dire
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<h2>Details</h2>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">O.Pedido</label>
+                            <div>
+                                @Html.DisplayFor(model => model.sserienume_orpe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Compra</label>
+                            <div>
+                                @Html.DisplayFor(model => model.scode_compra)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Observacion</label>
+                            <div>
+                                @Html.DisplayFor(model => model.sobse_guia, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
 
-<div>
-    <h4>MOVIMIENTO</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.dfemov_movi)
-        </dt>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.dfemov_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.smone_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.smone_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ntc_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ntc_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sobse_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sobse_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.besta_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.besta_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.sserie_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sserie_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.snume_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.snume_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.suser_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.suser_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfech_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfech_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.susmo_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.susmo_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dfemo_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dfemo_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.stipo_movi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.stipo_movi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ALMACEN.sdesc_alma)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ALMACEN.sdesc_alma)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ALMACEN1.sdesc_alma)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ALMACEN1.sdesc_alma)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TIPO_MOVIMIENTO.sdesc_timovi)
-        </dd>
-
-    </dl>
+                <div class="table-responsive">
+                    <table class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    Articulo
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio
+                                </th>
+                                <th>
+                                    Subtotal
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.GUIA_DETALLE)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ncant_guiadet)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.npu_guiadet)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ARTICULO.UMEDIDA.sdesc_umed)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ncode_movi }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al listado", "Index")
 </p>

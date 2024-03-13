@@ -22,9 +22,11 @@ namespace MarketASP.Controllers
         private MarketWebEntities db = new MarketWebEntities();
 
         // GET: ORDEN_PEDIDOS
-        public ActionResult Index(string fini,string ffin)
+        public ActionResult Index(string fini,string ffin, string cliente, string vendedor, string documento,
+            int chkpendiente = 0, int chkparcial = 0, int chktotal = 0)
         {
             int xvalue = 0;
+            string sventa = "";
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
             db.Pr_PermisoAcceso(User.Identity.Name, "0801", xcode);
@@ -34,8 +36,65 @@ namespace MarketASP.Controllers
                 ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
                 return View("_Mensaje");
             }
+            if (string.IsNullOrEmpty(fini))
+            {
+                fini = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy");
+                //xfini = DateTime.Today.AddDays(-1);
 
-            var ORDEN_PEDIDOS = db.Pr_PedidoConsulta(1,0,fini,ffin).ToList();
+            }
+
+            if (string.IsNullOrEmpty(ffin))
+            {
+
+                ffin = DateTime.Today.ToString("dd/MM/yyyy");
+                //xffin = DateTime.Today;
+            }
+
+
+            if (!string.IsNullOrEmpty(cliente))
+            {
+
+                ViewBag.cliente = cliente;
+            }
+
+            if (!string.IsNullOrEmpty(vendedor))
+            {
+                ViewBag.vendedor = vendedor;
+            }
+
+            if (!string.IsNullOrEmpty(documento))
+            {
+                ViewBag.documento = documento;
+            }
+
+
+            if (chkpendiente == 1)
+            {
+                ViewBag.chkpendiente = "Checked";
+                sventa = string.Concat("0|");
+            }
+
+            if (chkparcial == 1)
+            {
+                ViewBag.chkparcial = "Checked";
+                sventa = string.Concat(sventa, "1|");
+            }
+
+            if (chktotal == 1)
+            {
+                ViewBag.chktotal = "Checked";
+                sventa = string.Concat(sventa,"2|");
+            }
+            if (chkpendiente == 0 && chkparcial == 0 && chktotal == 0)
+            {
+                sventa = string.Concat("0|", "1|", "2|");
+            }
+
+            ViewBag.fini = fini;
+            ViewBag.ffin = ffin;
+
+            var ORDEN_PEDIDOS = db.Pr_PedidoConsulta(1,0,fini,ffin,sventa,cliente,vendedor,documento).ToList();
+
             return View(ORDEN_PEDIDOS);
         }
 
@@ -116,6 +175,7 @@ namespace MarketASP.Controllers
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
             ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked":"Unchecked";
+            ViewBag.conf_articulosrepetidos = Helpers.Funciones.ObtenerValorParam("GENERAL", 1087);
 
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi");
             ViewBag.sseri_orpe = new SelectList(db.Pr_DocSerie(1,User.Identity.Name,0,1066), "ncode_dose", "serie");
@@ -136,6 +196,7 @@ namespace MarketASP.Controllers
 
             int code = 0;
             string data = "";
+            string xmensaje = "";
             int fila = 0;
             try
             {
@@ -165,6 +226,11 @@ namespace MarketASP.Controllers
 
 
                             code = int.Parse(sw.Value.ToString());
+                            if (code == -1)
+                            {
+                                xmensaje = "la numeracion ya ha sido utilizada, actualizar la numeraci+on ";
+                                return Json(new { Success = 3, Mensaje = xmensaje });
+                            }
                             //cccode = int.Parse(cc.Value.ToString());
 
                             if (mofView.ordenpedidoViewDetas != null)
@@ -175,7 +241,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
                                         item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta, 
                                         item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
-                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta);
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta,fila);
                                 };
 
                             }
@@ -242,6 +308,8 @@ namespace MarketASP.Controllers
             ViewBag.moneda = Helpers.Funciones.ObtenerValorParam("GENERAL", "MONEDA X DEFECTO");
             ViewBag.poretencion = Helpers.Funciones.ObtenerValorParam("GENERAL", "% RETENCION");
             ViewBag.precioconigv = Helpers.Funciones.ObtenerValorParam("GENERAL", "PRECIO CON IGV") == "SI" ? "Checked" : "Unchecked";
+            ViewBag.conf_articulosrepetidos = Helpers.Funciones.ObtenerValorParam("GENERAL", 1087);
+
 
             ViewBag.smone_orpe = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 2), "svalor_confi", "sdesc_confi", oRDEN_PEDIDOS.smone_orpe);
             ViewBag.ncode_docu = new SelectList(db.CONFIGURACION.Where(c => c.besta_confi == true).Where(c => c.ntipo_confi == 5 && c.ncode_confi == 1066), "ncode_confi", "sdesc_confi", oRDEN_PEDIDOS.ncode_docu);
@@ -308,7 +376,7 @@ namespace MarketASP.Controllers
                                     db.Pr_Orden_PedidoDetaCrea(code, item.ncode_arti, item.ncant_orpedeta, item.npu_orpedeta,
                                         item.ndscto_orpedeta, item.ndscto2_orpedeta, item.nexon_orpedeta, item.nafecto_orpedeta,
                                         item.besafecto_orpedeta,item.ncode_alma, item.ndsctomax_orpedeta, 
-                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta);
+                                        item.ndsctomin_orpedeta, item.ndsctoporc_orpedeta,item.npuorigen_orpedeta,item.npreciotope_orpedeta,fila);
                                 };
 
                             }

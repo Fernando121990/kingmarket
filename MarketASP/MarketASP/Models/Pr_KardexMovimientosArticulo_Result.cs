@@ -26,7 +26,7 @@ namespace MarketASP.Models
         public decimal Acumulado { get; set; }
         public Nullable<decimal> IIngreso { get; set; }
         public Nullable<decimal> ISalida { get; set; }
-        public Nullable<decimal> Costo { get; set; }
+        public decimal Costo { get; set; }
         public int CPromedio { get; set; }
         public long ncodeDoc_kardex { get; set; }
         public long ncode_umed { get; set; }
@@ -35,5 +35,6 @@ namespace MarketASP.Models
         public string Cliente { get; set; }
         public decimal ntc_kardex { get; set; }
         public Nullable<decimal> Stock { get; set; }
+        public string Linea { get; set; }
     }
 }

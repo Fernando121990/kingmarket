@@ -297,9 +297,10 @@ $(document).ready(function () {
 
     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
+        "ordering":false,
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0,6,8,9,10,11,12,14,15,17] 
+            "aTargets": [0, 6, 8, 9, 10, 11, 12,17,18] //,14,15,17]
         },
         {
             "sClass": "my_class",
@@ -315,18 +316,36 @@ $(document).ready(function () {
                             //console.log('cantidad');
                             var almacen = $("#ncode_alma option:selected").val();
                             var codarticulo = ofunciones.cell(aPos, 0).data();
-                            var cantorigen = ofunciones.cell(aPos, 14).data();
-                            var cantvalida = ComparaCantidad(sValue, cantorigen)
-                            fnStockValida(codarticulo, cantvalida, almacen);
-                            ofunciones.cell(aPos, idx).data(cantvalida).draw;
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            var subto = cantvalida * parseFloat(xvalue);
+                            var cantorigen = ofunciones.cell(aPos, 14).data();
+                            var descarga = ofunciones.cell(aPos, 18).data();
+
+                            var cantvalida = 0;
+                            var cantfaltante = 0;
+                            var subto = 0;
+
+                            if (descarga.toString() == 'true' || descarga.toString() == 'True')
+                            {
+                                cantvalida = ComparaCantidad(sValue, cantorigen)
+                                fnStockValida(codarticulo, cantvalida, almacen);
+                                ofunciones.cell(aPos, idx).data(cantvalida).draw;
+                                subto = cantvalida * parseFloat(xvalue);
+                            }
+                            else
+                            {
+                                ofunciones.cell(aPos, idx).data(sValue).draw;
+                                subto = sValue * parseFloat(xvalue);
+                            }
+
                             ofunciones.cell(aPos, 13).data(subto.toFixed(conf_decimal)).draw;
                             ofunciones.cell(aPos, 16).data(cantvalida).draw;
+                            
                             if (bhasGuia) {
                                 ofunciones.cell(aPos, 16).data(0).draw;
                             }
+
                             break;
+
                         case 5: //price column
                             //console.log('subtotal');
                             var xcant = ofunciones.cell(aPos, 3).data();
@@ -448,6 +467,8 @@ $(document).ready(function () {
                         { "data": "bdscto_arti" },
                         { "data": "bicbper_arti" },
                             { "data": "blote_arti" },
+                            { "data": "bdescarga" }
+
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -494,7 +515,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio,xcan, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,0,0,xcan,data.blote_arti]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,data.bicbper_arti,xcan*data.Precio,0,0,xcan,data.blote_arti,data.bdescarga]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
@@ -585,6 +606,7 @@ $(document).ready(function () {
     });
 
     /* ordendes de pedido **/
+
     $(".btnpedidos").click(function () {
 
         $.ajax({
@@ -676,7 +698,7 @@ $(document).ready(function () {
         fnCargaOrdenPedido(scode_orpe, sdocumentos);
 
         //Deshabilitar botones
-        fndeshabilitarbotones(true)
+        fndeshabilitarbotones(true,'OPEDIDO')
 
     });
 
@@ -688,6 +710,7 @@ $(document).ready(function () {
         ordentable.destroy();
     });
 
+    
     /* guia de venta **/
     $(".btnguiaventa").click(function () {
 
@@ -715,7 +738,7 @@ $(document).ready(function () {
                         "aTargets": []
                     }],
                     select: {
-                        style: 'single'
+                        style: 'multi'
                     },
                     "scrollY": "300px",
                     "scrollCollapse": true,
@@ -752,11 +775,34 @@ $(document).ready(function () {
 
         var data = guiatable.row('.selected').data();
 
-        //console.log(data.ncode_guia);
         $("#bitguia_venta").prop("disabled", true);
-        fnCargaGuiaVenta(data.ncode_guia);
+
+        let rowsData = guiatable.rows({ selected: true }).data();
+
+        if (rowsData.length == 0) {
+            alert("Seleccionar Guias de venta");
+            return;
+        }
+        var scode_guia = '';
+        var sdocumentos = '';
+        var razons = rowsData[0].srazon_cliente;
+        //var almas = rowsData[0].ncode_alma;
+        /*validar */
+        for (var i = 0; i < rowsData.length; i++) {
+
+            if (razons != rowsData[i].srazon_cliente) {
+                alert("Las guias deben pertenecer al mismo cliente");
+                return;
+            }
+
+            scode_guia += rowsData[i].ncode_guia + '|';
+            sdocumentos += rowsData[i].numeracion + '|';
+
+        }
+
+        fnCargaGuiaVenta(scode_guia,sdocumentos);
         //Deshabilitar botones
-        fndeshabilitarbotones(true)
+        fndeshabilitarbotones(true,'GUIA')
 
 
     });
@@ -935,7 +981,7 @@ function Sales_save() {
         "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
         "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
         "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "", "bicbper_vedeta": "",
-        "sdesc": "", "ncantLote_vedeta": "","ncode_orpe": ""
+        "sdesc": "", "ncantLote_vedeta": "", "ncode_orpe": "","bdescarga_vedeta":""
     };
 
     var ventaView = {
@@ -1023,6 +1069,7 @@ function Sales_save() {
         ventaViewDetas.bicbper_vedeta = oTable[i][12];
         ventaViewDetas.ncode_orpe = oTable[i][14];
         ventaViewDetas.ncantLote_vedeta = oTable[i][16];
+        ventaViewDetas.bdescarga_vedeta = oTable[i][18];
         ventaViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ventaView.ventaViewDetas.push(ventaViewDetas);
@@ -1031,7 +1078,7 @@ function Sales_save() {
             "ncode_arti": "", "ncant_vedeta": "", "npu_vedeta": "", "ndscto_vedeta": "",
             "ndscto2_vedeta": "", "nexon_vedeta": "", "nafecto_vedeta": "", "besafecto_vedeta": "",
             "ncode_alma": "", "ndsctomax_vedeta": "", "ndsctomin_vedeta": "", "ndsctoporc_vedeta": "",
-            "bicbper_vedeta": "", "sdesc": "", "ncantLote_vedeta": "", "ncode_orpe": ""
+            "bicbper_vedeta": "", "sdesc": "", "ncantLote_vedeta": "", "ncode_orpe": "", "bdescarga_vedeta": ""
         };
 
     }
@@ -1304,10 +1351,17 @@ function CuotasLista(nrocuotas, valorcuota) {
     var valorcuota = $('#ncuotavalor_venta').val();
     var nrocuotas = $('#ncuotas_venta').val();
 
+    //Obteniendo nueva fecha
+    var parts = sfecha.split("/");
+    var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+    fecha.setDate(fecha.getDate() + parseInt(dias));
+    sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+
+
     for (var i = 0; i < nrocuotas; i++) {
         cuotastable.row.add([i, sfecha, valorcuota]).draw();
-        var parts = sfecha.split("/");
-        var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+        parts = sfecha.split("/");
+        fecha = new Date(parts[2], parts[1] - 1, parts[0]);
         fecha.setDate(fecha.getDate() + parseInt(dias));
         sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
     }
@@ -1458,9 +1512,13 @@ function fnlimpiar() {
     $('#ncode_compra').val();
 }
 function fnCargaOrdenPedido(codigo, sdocumentos) {
+
     beditar = true
+
     fnlimpiar();
-    console.log(codigo);
+
+    //console.log(codigo);
+
     $.ajax({
         type: 'POST',
         url: urlGetOrdenPedidoVenta,
@@ -1481,7 +1539,8 @@ function fnCargaOrdenPedido(codigo, sdocumentos) {
             $("#scode_compra").val(venta.scode_compra);
             $("#ncode_alma").val(venta.ncode_alma);
             $("#ncode_vende").val(venta.ncode_venzo);
-            $("#sserienume_orpe").val(venta.sserienumero);
+            //$("#sserienume_orpe").val(venta.sserienumero);
+            $("#sserienume_orpe").val(sdocumentos);
             $('#bclienteagretencion').prop('checked', false);
             if (venta.bclienteagretencion) {
                 $('#bclienteagretencion').prop('checked', true);
@@ -1520,6 +1579,7 @@ function fnCargaOrdenPedido(codigo, sdocumentos) {
                     , venta.ventaViewDetas[i].ncode_orpe
                     , venta.ventaViewDetas[i].ncant_vedeta
                     , venta.ventaViewDetas[i].blote_vedeta
+                    , venta.ventaViewDetas[i].bdescarga_vedeta
                     ]).draw();
             }
 
@@ -1568,7 +1628,9 @@ function fnStockValida(codigo, cantidad, almacen) {
         success: function (resudisponible) {
 
             if (resudisponible < cantidad) {
-                alert('El articulo no tiene stock disponible ');
+
+                var mensaje = 'El articulo no tiene stock disponible, solo hay  ' + resudisponible + ' unidades'
+                alert(mensaje);
             }
 
             //console.log(rpta);
@@ -1608,7 +1670,7 @@ function fnActualizarCtdadLote(codArt, ctdad) {
     }
 }
 
-function fnCargaGuiaVenta(codigo) {
+function fnCargaGuiaVenta(codigo,sdocumentos) {
 
     fnlimpiar();
     console.log(codigo);
@@ -1616,7 +1678,7 @@ function fnCargaGuiaVenta(codigo) {
         type: 'POST',
         url: urlGuiaVentaAsociar,
         dataType: 'json',
-        data: { ncode_guia: codigo },
+        data: { scode_guia: codigo, documentos: sdocumentos },
         success: function (venta) {
             console.log(venta);
 
@@ -1629,7 +1691,9 @@ function fnCargaGuiaVenta(codigo) {
             $("#ncode_guiaAsociadas_venta").val(codigo);
             $("#ncode_alma").val(venta.ncode_alma);
             $("#ncode_vende").val(venta.ncode_venzo);
-            $("#sserienume_guiaventa").val(venta.sserienumero);
+            //$("#sserienume_guiaventa").val(venta.sserienumero);
+            $("#sserienume_guiaventa").val(sdocumentos);
+            $("#scode_compra").val(venta.scode_compra);
             $('#bclienteagretencion').prop('checked', false);
             if (venta.bclienteagretencion) {
                 $('#bclienteagretencion').prop('checked', true);
@@ -1667,9 +1731,11 @@ function fnCargaGuiaVenta(codigo) {
                     ,false
                     ,venta.ventaViewDetas[i].nafecto_vedeta
                     ,venta.ventaViewDetas[i].ncant_vedeta
-                    , 0
                     ,0
-                    , venta.ventaViewDetas[i].blote_vedeta]).draw();
+                    ,0
+                    , venta.ventaViewDetas[i].blote_vedeta
+                    , venta.ventaViewDetas[i].bdescarga_vedeta
+                ]).draw();
             }
 
             /*limpiar cuotas */
@@ -1777,10 +1843,22 @@ function fnDocumentoSerieNumero(ncode,tipo) {
     return false;
 }
 
-function fndeshabilitarbotones(boption) {
+function fndeshabilitarbotones(boption,opcion) {
     //Deshabilitar botones
-    $("#btnaddmat").prop("disabled", boption);
-    $("#btndelmat").prop("disabled", boption);
-    $("#btnaddlote").prop("disabled", boption);
-    $("#btndellote").prop("disabled", boption);
+
+    if (opcion.toUpperCase() == 'OPEDIDO') {
+        $("#btnaddmat").prop("disabled", true); //deshabilitados
+        $("#btndelmat").prop("disabled", false); //habilitado
+        $("#btnaddlote").prop("disabled", false); //habilitado
+        $("#btndellote").prop("disabled", false); //habilitado
+
+    }
+    if (opcion.toUpperCase() == 'GUIA') {
+        $("#btnaddmat").prop("disabled", boption);
+        $("#btndelmat").prop("disabled", boption);
+        $("#btnaddlote").prop("disabled", boption);
+        $("#btndellote").prop("disabled", boption);
+
+    }
+
 }

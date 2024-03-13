@@ -18,9 +18,10 @@ namespace MarketASP.Controllers
     {
         private MarketWebEntities db = new MarketWebEntities();
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string fini, string ffin, int chkpendiente = 0, int chkparcial = 0, int chktotal = 0)
         {
             int xvalue = 0;
+            string sventa = "";
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
             db.Pr_PermisoAcceso(User.Identity.Name, "0201", xcode);
@@ -31,7 +32,46 @@ namespace MarketASP.Controllers
                 return View("_Mensaje");
             }
 
-            var gUIA = db.GUIA.ToList();
+            if (string.IsNullOrEmpty(fini))
+            {
+                fini = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy");
+
+            }
+
+            if (string.IsNullOrEmpty(ffin))
+            {
+
+                ffin = DateTime.Today.ToString("dd/MM/yyyy");
+            }
+
+
+
+            if (chkpendiente == 1)
+            {
+                ViewBag.chkpendiente = "Checked";
+                sventa = string.Concat("0|");
+            }
+
+            if (chkparcial == 1)
+            {
+                ViewBag.chkparcial = "Checked";
+                sventa = string.Concat(sventa, "1|");
+            }
+
+            if (chktotal == 1)
+            {
+                ViewBag.chktotal = "Checked";
+                sventa = string.Concat(sventa, "2|");
+            }
+            if (chkpendiente == 0 && chkparcial == 0 && chktotal == 0)
+            {
+                sventa = string.Concat("0|", "1|", "2|");
+            }
+
+            ViewBag.fini = fini;
+            ViewBag.ffin = ffin;
+
+            var gUIA = db.Pr_GUIAListado(fini,ffin,"","").ToList();
             return View(gUIA);
         }
 
@@ -46,6 +86,12 @@ namespace MarketASP.Controllers
             {
                 return HttpNotFound();
             }
+
+            var cliente = db.CLIENTE.Where(c => c.ncode_cliente == gUIA.ncode_cliente).SingleOrDefault();
+            var cliente_dire = db.CLI_DIRE.Where(c => c.ncode_clidire == gUIA.ncode_clidire).SingleOrDefault();
+            ViewBag.cliente = cliente.srazon_cliente;
+            ViewBag.cliente_dire = cliente_dire.sdesc_clidire;
+
             return View(gUIA);
         }
 
@@ -103,6 +149,7 @@ namespace MarketASP.Controllers
 
             int code;
             string data = "";
+            string xmensaje = "";
             int fila = 0;
             try
             {
@@ -134,13 +181,19 @@ namespace MarketASP.Controllers
 
                             code = int.Parse(sw.Value.ToString());
 
+                            if (code == -1)
+                            {
+                                xmensaje = "la numeracion ya ha sido utilizada, actualizar la numeraci+on ";
+                                return Json(new { Success = 3, Mensaje = xmensaje });
+                            }
+
                             if (mofView.guiaViewDetas != null)
                             {
                                 foreach (guiaViewDeta item in mofView.guiaViewDetas)
                                 {
                                     fila++;
                                     db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name, code,(int) item.ncode_umed,
-                                        item.ncode_orpe);
+                                        item.ncode_orpe,fila);
                                 };
 
                             }
@@ -291,7 +344,7 @@ namespace MarketASP.Controllers
                                 {
                                     fila++;
                                     db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name,code,(int) item.ncode_umed,
-                                        item.ncode_orpe);
+                                        item.ncode_orpe,fila);
                                 };
 
                             }
@@ -346,6 +399,39 @@ namespace MarketASP.Controllers
                 return Json(new { Success = 0, Mensaje = mensajex });
             }
         }
+
+        public async Task<ActionResult> anulaGuia(int? id)
+        {
+            int xvalue = 0;
+            ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
+
+            db.Pr_PermisoAcceso(User.Identity.Name, "0207", xcode);
+            xvalue = int.Parse(xcode.Value.ToString());
+            if (xvalue == 0)
+            {
+                ViewBag.mensaje = "No tiene acceso, comuniquese con el administrador del sistema";
+                return View("_Mensaje");
+            }
+
+
+            ObjectParameter sw = new ObjectParameter("sw", typeof(int));
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            GUIA gUIA = await db.GUIA.FindAsync(id);
+            if (gUIA == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Pr_GuiaAnula(id);
+            return RedirectToAction("Index");
+        }
+
+
         public ActionResult Deleteguia(int? id)
         {
             int xvalue = 0;

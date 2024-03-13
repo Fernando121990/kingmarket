@@ -247,9 +247,10 @@ $(document).ready(function () {
 
     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
+        "ordering":false,
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0, 6, 7, 8, 9, 10, 11, 12]
+            "aTargets": [0, 6, 7, 8, 9, 10, 11, 12,16]
         },
         {
             "sClass": "my_class",
@@ -264,18 +265,37 @@ $(document).ready(function () {
                         case 3: //quantity column
                             //console.log('cantidad');
                             var almacen = $("#ncode_alma option:selected").val();
+
                             var codarticulo = ofunciones.cell(aPos, 0).data();
-                            var cantorigen = ofunciones.cell(aPos, 13).data();
-                            
-                            var cantvalida = ComparaCantidad(sValue, cantorigen)
-                            fnStockValida(codarticulo, cantvalida, almacen);
-                            ofunciones.cell(aPos, idx).data(cantvalida).draw;
-                            var cantfaltante = fnActualizaCtdadRestanteLote(codarticulo,cantvalida);
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            var subto = cantvalida * parseFloat(xvalue);
+                            var cantorigen = ofunciones.cell(aPos, 13).data();
+                            var descarga = ofunciones.cell(aPos, 16).data();
+                            
+                            var cantvalida = 0;
+                            var cantfaltante = 0;
+                            var subto = 0;
+
+                            if (descarga.toString() == 'true' || descarga.toString() == 'True')
+                            {
+                                cantvalida = ComparaCantidad(sValue, cantorigen)
+                                fnStockValida(codarticulo, cantvalida, almacen);
+
+                                ofunciones.cell(aPos, idx).data(cantvalida).draw;
+
+                                cantfaltante = fnActualizaCtdadRestanteLote(codarticulo, cantvalida);
+                                subto = cantvalida * parseFloat(xvalue);
+
+                            }
+                            else {
+                                ofunciones.cell(aPos, idx).data(sValue).draw;
+                                subto = sValue * parseFloat(xvalue);
+                            }
+
                             ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             ofunciones.cell(aPos, 15).data(cantfaltante).draw;
+
                             break;
+
                         case 5: //price column
                             //console.log('subtotal');
                             var xcant = ofunciones.cell(aPos, 3).data();
@@ -285,6 +305,7 @@ $(document).ready(function () {
                             ofunciones.cell(aPos, idx).data(yValue).draw;
                             ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             break;
+
                         default:
                             ofunciones.cell(aPos, idx).data(sValue).draw;
 
@@ -377,7 +398,10 @@ $(document).ready(function () {
                             { "data": "bafecto_arti" },
                             { "data": "bisc_arti" },
                             { "data": "bdscto_arti" },
-                            { "data": "bicbper_arti" }
+                            { "data": "bicbper_arti" },
+                            { "data": "blote_arti" },
+                            { "data": "bdescarga" }
+
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -424,7 +448,7 @@ $(document).ready(function () {
         var xesta = 0;
 
         ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-        data.bafecto_arti, data.bisc_arti, data.bdscto_arti, data.bicbper_arti, xcan * data.Precio, xcan,null,xcan]).draw();
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, data.bicbper_arti, xcan * data.Precio, xcan, null, xcan, data.bdescarga]).draw();
 
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
@@ -450,7 +474,25 @@ $(document).ready(function () {
             alert("Seleccione Ubicacion");
             return false;
         };
-        ////*******
+
+        if ($("#NRO_DCLIENTE option:selected").text().length < 1) {
+            alert("Seleccione Ubicacion");
+            return false;
+        };
+
+        if ($("#ncode_alma option:selected").text().length < 1) {
+            alert("Seleccione Almacen");
+            return false;
+        };
+
+        if ($("#ncode_tiguia option:selected").text().substring(0, 1) == 'T') {
+
+            if ($("#ndestino_alma option:selected").text().length < 1) {
+                alert("Seleccione Almacen destino");
+                return false;
+            };
+        }
+
 
         if ($("#ntc_guia").val().length < 1) {
             alert("Ingrese tipo de cambio");
@@ -481,10 +523,6 @@ $(document).ready(function () {
             return false;
         }
 
-        //if (ncode_docu = 11 && $("#COD_CLIENTE").val() == 5 && ntotal > 700) {
-        //    alert("La boleta supera los S/ 700, debe registrar al cliente.");
-        //    return false;
-        //}
 
         var otbly = $('#tbl').dataTable();
         var nrowsy = otbly.fnGetData().length;
@@ -1271,10 +1309,17 @@ function CuotasLista(nrocuotas, valorcuota) {
     var valorcuota = $('#ncuotavalor_guia').val();
     var nrocuotas = $('#ncuotas_guia').val();
 
+    //obteniendo nueva fecha
+    var parts = sfecha.split("/");
+    var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+    fecha.setDate(fecha.getDate() + parseInt(dias));
+    sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+
+
     for (var i = 0; i < nrocuotas; i++) {
         cuotastable.row.add([i, sfecha, valorcuota]).draw();
-        var parts = sfecha.split("/");
-        var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+        parts = sfecha.split("/");
+        fecha = new Date(parts[2], parts[1] - 1, parts[0]);
         fecha.setDate(fecha.getDate() + parseInt(dias));
         sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
     }
@@ -1368,7 +1413,8 @@ function fnStockValida(codigo, cantidad, almacen) {
         success: function (resudisponible) {
 
             if (resudisponible < cantidad) {
-                alert('El articulo no tiene stock disponible ');
+                var mensaje = 'El articulo no tiene stock disponible, solo hay  ' + resudisponible + 'unidades'
+                alert(mensaje);
             }
 
             //console.log(rpta);
@@ -1388,12 +1434,16 @@ function fnmensaje(rpta) {
 }
 
 function fnTransferencia() {
+
     $('.destino').hide();
-    $('#ndestino_alma').val('');
+    
     var stipo = $("#ncode_tiguia option:selected").text().substring(0, 1);
 
     if (stipo == 'T') {
         $('.destino').show();
+    }
+    else {
+        $('#ndestino_alma').val('');
     }
 }
 
@@ -1525,6 +1575,7 @@ function fnCargaOrdenPedido(codigo,sdocumentos) {
                     , venta.ventaViewDetas[i].ncant_vedeta
                     , venta.ventaViewDetas[i].ncode_orpe
                     , venta.ventaViewDetas[i].ncant_vedeta
+                    , venta.ventaViewDetas[i].bdescarga_vedeta
                 ]).draw();
             }
 

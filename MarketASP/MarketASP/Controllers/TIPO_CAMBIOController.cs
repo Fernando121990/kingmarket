@@ -56,8 +56,6 @@ namespace MarketASP.Controllers
             {
                 //verificar que exista tc del dia
 
-
-
                 string xfecha = tIPO_CAMBIO.dfecha_tc.ToString();
 
                 //string.Format("{0:d}", tIPO_CAMBIO.dfecha_tc)
@@ -65,7 +63,9 @@ namespace MarketASP.Controllers
                 TIPO_CAMBIO _CAMBIO  = await db.TIPO_CAMBIO.FindAsync(DateTime.Parse(xfecha));
                 if (_CAMBIO != null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    
+                    return View(_CAMBIO);
+                    //return RedirectToAction("Index", "Home");
                 }
 
                 db.TIPO_CAMBIO.Add(tIPO_CAMBIO);

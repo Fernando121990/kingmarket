@@ -11,6 +11,7 @@ var CONFIG_dscto = 'NO';
 var conf_PrecioIGV;
 var conf_poretencion;
 var beditar = false;
+var conf_articulosrepetidos = 'NO';
 
 $(document).ready(function () {
     var code = 0;
@@ -179,10 +180,11 @@ $(document).ready(function () {
 
 
      ofunciones = $('#tbl').DataTable({
-        "dom": 'T<"clear">lfrtip',
+         "dom": 'T<"clear">lfrtip',
+         "ordering":false, ///QUITA EL ORDEN POR COLUMNAS
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0, 6, 7, 8, 9, 10]
+            "aTargets": []//[0, 6, 7, 8, 9, 10]
         },
         {
             "sClass": "my_class",
@@ -236,7 +238,7 @@ $(document).ready(function () {
         },
         select: {
             style: 'single'
-        },
+         },
         "paging": false,
         "info": false,
         "searching": false,
@@ -297,7 +299,9 @@ $(document).ready(function () {
                             { "data": "bisc_arti" },
                             { "data": "bdscto_arti" },
                             { "data": "bicbper_arti" },
-                            { "data": "npreciotope_arti" }
+                            { "data": "npreciotope_arti" },
+                            { "data": "blote_arti" },
+                            { "data": "bdescarga" }
                         ],
                     "aoColumnDefs": [{
                         "bVisible": false,
@@ -344,8 +348,41 @@ $(document).ready(function () {
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio, data.npreciotope_arti]).draw();
+
+        //verificar si el articulo ya se agrego esto teniendo en cuenta la variable global
+        if (conf_articulosrepetidos == 'SI') {
+
+            ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio, data.npreciotope_arti, data.bdescarga]).draw();
+
+        }
+        else {
+
+            var otblx = $('#tbl').dataTable();
+            var nrowsx = otblx.fnGetData().length;
+            var oTable = otblx.fnGetData();
+            var brepetido = false;
+
+            for (var i = 0; i < nrowsx; i++) {
+
+                if (oTable[i][0] == data.Cod) {
+                    brepetido = true;
+                    alert('El articulo ya ha sido agregado');
+                    break;
+                }
+            }
+
+            if (brepetido == false) {
+
+                ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Precio, data.Precio, data.ncode_umed,
+                data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Precio, data.npreciotope_arti, data.bdescarga]).draw();
+
+            }
+
+        }
+
+
+
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
@@ -775,16 +812,33 @@ function Sales_save() {
 
     for (var i = 0; i < nrowsx; i++) {
 
+        var bafectodeta = oTable[i][8];
+
         ordenpedidoViewDetas.ncode_arti = oTable[i][0];
         ordenpedidoViewDetas.ncant_orpedeta = oTable[i][3];
         ordenpedidoViewDetas.npu_orpedeta = oTable[i][5];
         ordenpedidoViewDetas.npuorigen_orpedeta = oTable[i][6];
         ordenpedidoViewDetas.ndscto_orpedeta = oTable[i][6] - oTable[i][5];
-        ordenpedidoViewDetas.nexon_orpedeta = oTable[i][5] * oTable[i][3];
-        ordenpedidoViewDetas.nafecto_orpedeta = oTable[i][5] * oTable[i][3];
+
+        if (bafectodeta.toString() == 'true' || bafectodeta.toString() == 'True') {
+            ordenpedidoViewDetas.nexon_orpedeta = 0;
+            ordenpedidoViewDetas.nafecto_orpedeta = oTable[i][5] * oTable[i][3];
+
+        }
+        else {
+            ordenpedidoViewDetas.nexon_orpedeta = oTable[i][5] * oTable[i][3];
+            ordenpedidoViewDetas.nafecto_orpedeta = 0;
+
+        }
+
         ordenpedidoViewDetas.besafecto_orpedeta = oTable[i][8];
         //ordenpedidoViewDetas.ndsctoporc_orpedeta = oTable[i][7];
         ordenpedidoViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
+
+
+
+
+
 
         ordenpedidoView.ordenpedidoViewDetas.push(ordenpedidoViewDetas);
 
@@ -828,6 +882,11 @@ function Sales_save() {
             switch (result.Success) {
                 case 1:
                     window.location.href = urlorpeLista;
+                    break;
+                case 3:
+                    alert(result.Mensaje);
+                    $('#btnorpe').show();
+                    $('#btnpro').hide();
                     break;
                 default:
                     window.location.href = urlorpeLista;
@@ -897,11 +956,11 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
         TOT = (TOT - (TOT * (CDSCTO2 / 100))).toFixed(conf_decimal);
 
         if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = parseFloat(TOT_AFECTO) + Math.round(TOT, conf_decimal);
+            TOT_AFECTO = parseFloat(TOT_AFECTO) + parseFloat(TOT);  ///Math.round(TOT, conf_decimal);
         }
 
         if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
-            TOT_EXON = parsefloat(TOT_EXON) + Math.round(TOT, conf_decimal);
+            TOT_EXON = parsefloat(TOT_EXON) + parseFloat(TOT);  //Math.round(TOT, conf_decimal);
         }
 
         SUBT = ((PU - PUADESCONTAR) * CANT).toFixed(conf_decimal);
@@ -953,13 +1012,13 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
     $("#ndsctoaf_orpe").val(DSCTO_AFECTO);
     $("#ndctoex_orpe").val(DSCTO_EXON);
-    $("#nbrutoaf_orpe").val(SUBT_AFECTO);
-    $("#nbrutoex_orpe").val(SUBT_EXON);
+    $("#nbrutoaf_orpe").val(parseFloat(SUBT_AFECTO).toFixed(conf_decimal));
+    $("#nbrutoex_orpe").val(parseFloat(SUBT_EXON).toFixed(conf_decimal));
 
-    $("#nsubaf_orpe").val(SUBT_AFECTO);
+    $("#nsubaf_orpe").val(parseFloat(SUBT_AFECTO).toFixed(conf_decimal));
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
-    $("#nsubex_orpe").val(SUBT_EX);
-    $("#ntotaex_orpe").val(SUBT_EXON);
+    $("#nsubex_orpe").val(parseFloat(SUBT_EX).toFixed(conf_decimal));
+    $("#ntotaex_orpe").val(parseFloat(SUBT_EXON).toFixed(conf_decimal));
 
     var TOTAL_AFEC = 0, SUBT_AFEC = 0, IGV_AF = 0;
 
@@ -1030,10 +1089,17 @@ function CuotasLista(nrocuotas,valorcuota) {
     var valorcuota = $('#ncuotavalor_orpe').val();
     var nrocuotas = $('#ncuotas_orpe').val();
 
+    //Obteniendo nueva fecha
+    var parts = sfecha.split("/");
+    var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+    fecha.setDate(fecha.getDate() + parseInt(dias));
+    sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
+
+
     for (var i = 0; i < nrocuotas; i++) {
         cuotastable.row.add([i, sfecha, valorcuota]).draw();
-        var parts = sfecha.split("/");
-        var fecha = new Date(parts[2], parts[1] - 1, parts[0]);
+        parts = sfecha.split("/");
+        fecha = new Date(parts[2], parts[1] - 1, parts[0]);
         fecha.setDate(fecha.getDate() + parseInt(dias));
         sfecha = new Date(fecha).toLocaleDateString("es-PE", options);
     }
@@ -1085,30 +1151,6 @@ function fnFormaPagoDiasFecha(codfopago) {
     return false;
 
 }
-//function fnTipoCambioFecha(saccion,sfecha) {
-//    console.log('tipo cambio');
-//    console.log(sfecha);
-//    $.ajax({
-//        type: 'POST',
-//        url: urlGetTipoCambioFecha,
-//        dataType: 'json',
-//        data: { accion:saccion, sFecha: sfecha },
-//        success: function (foTipoCambio) {
-
-//            console.log(foTipoCambio);
-
-//            $('#ntc_orpe').val(foTipoCambio[0]);
-
-            
-
-//        },
-//        error: function (ex) {
-//            alert('No se puede obtener la fecha de pago .' + ex);
-//        }
-//    });
-//    return false;
-
-//}
 
 function fnDocumentoSerieNumero() {
     //console.log($("#ncode_docu").val());

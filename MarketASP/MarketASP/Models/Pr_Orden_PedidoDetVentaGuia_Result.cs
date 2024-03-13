@@ -27,5 +27,6 @@ namespace MarketASP.Models
         public long ncode_umed { get; set; }
         public Nullable<bool> blote_arti { get; set; }
         public Nullable<long> ncode_orpe { get; set; }
+        public bool bdescarga { get; set; }
     }
 }

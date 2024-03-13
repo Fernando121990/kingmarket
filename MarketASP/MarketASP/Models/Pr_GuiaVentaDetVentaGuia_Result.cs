@@ -26,5 +26,6 @@ namespace MarketASP.Models
         public string ssunat_umed { get; set; }
         public long ncode_umed { get; set; }
         public Nullable<bool> blote_arti { get; set; }
+        public Nullable<bool> bdescarga_arti { get; set; }
     }
 }

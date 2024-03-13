@@ -10,6 +10,7 @@ namespace MarketASP.Clases
     {
         public bool? bisc_vedeta { get; set; }
         public bool? blote_vedeta { get; set; }
+        public bool? bdescarga_vedeta { get; set; }
         public string scod2 { get; set; }
         public string sdesc { get; set; }
         

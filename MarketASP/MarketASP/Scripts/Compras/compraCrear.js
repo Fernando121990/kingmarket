@@ -9,6 +9,7 @@ var conf_decimal = 2;
 var conf_moneda = 0;
 var CONFIG_dscto = 'NO';
 var conf_PrecioIGV;
+var conf_articulosrepetidos = 'NO';
 
 $(document).ready(function () {
 
@@ -21,7 +22,7 @@ $(document).ready(function () {
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
-
+    conf_articulosrepetidos = $("#conf_articulosrepetidos").val();
 
     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
@@ -292,8 +293,53 @@ $(document).ready(function () {
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo,xcan]).draw();
+        var docuCod = $("#ncode_docu option:selected").val();
+
+        ///verificar sis es servicio usar la cantyidad global
+        if (docuCod == 1075) {
+            xcan = conf_ctdadOS;
+        }
+
+
+        //verificar si el articulo ya se agrego esto teniendo en cuenta la variable global
+        if (conf_articulosrepetidos == 'SI') {
+
+            ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo, xcan]).draw();
+
+
+            //ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+            //data.bafecto_arti, data.bisc_arti, data.bdscto_arti, 0, xcan * data.Costo]).draw();
+
+        }
+        else {
+
+            var otblx = $('#tbl').dataTable();
+            var nrowsx = otblx.fnGetData().length;
+            var oTable = otblx.fnGetData();
+            var brepetido = false;
+
+            for (var i = 0; i < nrowsx; i++) {
+
+                if (oTable[i][0] == data.Cod) {
+                    brepetido = true;
+                    alert('El articulo ya ha sido agregado');
+                    break;
+                }
+            }
+
+            if (brepetido == false) {
+
+                ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+                data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo, xcan]).draw();
+
+                //ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+                //data.bafecto_arti, data.bisc_arti, data.bdscto_arti, 0, xcan * data.Costo]).draw();
+
+            }
+
+        }
+
         Totales();
     });
 
@@ -480,7 +526,7 @@ function Sales_save() {
     var compraViewDetas = {
         "ncode_arti": "", "ncant_comdeta": "", "npu_comdeta": "", "ndscto_comdeta": "",
         "ndscto2_comdeta": "", "nexon_comdeta": "", "nafecto_comdeta": "", "besafecto_comdeta": "",
-        "ncode_alma": "", "ncantLote_comdeta":""
+        "ncode_alma": "", "ncantLote_comdeta":"","ncode_orco":""
     };
 
     var compraView = {
@@ -544,6 +590,7 @@ function Sales_save() {
         compraViewDetas.besafecto_comdeta = oTable[i][8];
         compraViewDetas.ncantLote_comdeta = oTable[i][12];
         compraViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
+        compraViewDetas.ncode_orco = compraView.ncode_orco;
 
         compraView.compraViewDetas.push(compraViewDetas);
 

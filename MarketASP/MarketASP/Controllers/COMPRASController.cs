@@ -141,7 +141,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_compraDetaCrea(item.ncant_comdeta, item.npu_comdeta,
                                         item.ndscto_comdeta, item.ndscto2_comdeta, item.nexon_comdeta, item.nafecto_comdeta, item.besafecto_comdeta,
-                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta);
+                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta,fila,item.ncode_orco);
                                 };
 
                             }
@@ -194,7 +194,7 @@ namespace MarketASP.Controllers
 
 
 
-                            db.Pr_compraActualizaPedido(0, mofView.ncode_orco, code);
+                           // db.Pr_compraActualizaPedido(0, mofView.ncode_orco, code);
                         }
                     }
                 }
@@ -301,7 +301,7 @@ namespace MarketASP.Controllers
                                     fila++;
                                     db.Pr_compraDetaCrea(item.ncant_comdeta, item.npu_comdeta,
                                         item.ndscto_comdeta, item.ndscto2_comdeta, item.nexon_comdeta, item.nafecto_comdeta, item.besafecto_comdeta,
-                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta);
+                                        code, item.ncode_alma, item.ncode_arti,item.ncantLote_comdeta,fila,item.ncode_orco);
                                 };
 
                             }

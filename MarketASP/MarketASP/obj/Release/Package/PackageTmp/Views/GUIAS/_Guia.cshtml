@@ -198,7 +198,6 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="ncode_fopago" class="col-form-label">F.Pago</label>
-                                @*<select id="nro_fopago" name="nro_fopago" class="form-control"></select>*@
                                 @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
                             </div>
@@ -213,8 +212,7 @@
                             <div class="mb-3">
                                 <label for="example-text-input" class="col-form-label">Al.Destino</label>
                                 <div>
-                                    @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-control destino" })
-                                    @Html.ValidationMessageFor(model => model.ndestino_alma, "", new { @class = "text-danger" })
+                                    @Html.DropDownList("ndestino_alma", null, "", htmlAttributes: new { @class = "form-select destino" })
                                 </div>
                             </div>
                         </div>
@@ -290,6 +288,9 @@
                                 <th>bisc</th>
                                 <th>bdscto</th>
                                 <th>bicbper</th>
+                                <th>blote</th>
+                                <th>Descarga</th>
+
                             </tr>
                         </thead>
                     </table>
@@ -506,6 +507,7 @@
                             <th>Cant.OP</th>
                             <th>OP</th>
                             <th>CantLote</th>
+                            <th>descarga</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -531,6 +533,7 @@
                             <td>@Html.DisplayTextFor(x => currentItem.ncant_guiadet)</td>
                             <td>@Html.DisplayTextFor(x => currentItem.ncode_orpe)</td>
                             <td></td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdescarga_arti)</td>
                         </tr>
 
                             }

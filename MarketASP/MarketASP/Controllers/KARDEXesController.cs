@@ -14,10 +14,10 @@ namespace MarketASP.Controllers
     {
         private MarketWebEntities db = new MarketWebEntities();
 
-        // GET: KARDEXes
-        public async Task<ActionResult> Index(string fini,string ffin, int salmacen = 0, int sarticulo = 0)
+        public async Task<ActionResult> Index(string fini,string ffin, int salmacen = 0, int sarticulo = 0, int slinea = 0, 
+            int chkalmacen = 0, int chkarticulo = 0, int chktipo = 0, int chklinea = 0)
         {
-            int xvalue = 0;
+            int xvalue = 0; //DateTime xfini; DateTime xffin; 
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 
             db.Pr_PermisoAcceso(User.Identity.Name, "0205", xcode);
@@ -31,6 +31,7 @@ namespace MarketASP.Controllers
             if (string.IsNullOrEmpty(fini))
             {
                 fini = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy");
+                //xfini = DateTime.Today.AddDays(-1);
 
             }
 
@@ -38,15 +39,41 @@ namespace MarketASP.Controllers
             {
 
                 ffin = DateTime.Today.ToString("dd/MM/yyyy");
+                //xffin = DateTime.Today;
             }
+
+            if (chklinea == 1)
+            {
+                slinea = 0;
+                ViewBag.chklinea = "Checked";
+            }
+
+            if (chkalmacen == 1)
+            {
+                salmacen = 0;
+                ViewBag.chkalmacen = "Checked";
+            }
+
+            if (chkarticulo == 1)
+            {
+                sarticulo = 0;
+                ViewBag.chkarticulo = "Checked";
+            }
+
+            if (chktipo == 1)
+            {
+                ViewBag.chktipo = "Checked";
+            }
+
 
             ViewBag.fini = fini;
             ViewBag.ffin = ffin;
             ViewBag.salmacen = new SelectList(db.ALMACEN.Where(c => c.besta_alma == true), "ncode_alma", "sdesc_alma");
             ViewBag.sarticulo = new SelectList(db.ARTICULO.Where(c => c.nesta_arti == true), "ncode_arti", "sdesc1_arti");
+            ViewBag.slinea = new SelectList(db.LINEA.Where(c => c.nesta_linea == true), "ncode_linea", "sdesc_linea");
 
 
-            var resultado = db.Pr_KardexMovimientosArticulo(fini,ffin,"", sarticulo,salmacen).ToList();
+            var resultado = db.Pr_KardexMovimientosArticulo(fini,ffin,"", sarticulo,salmacen,slinea).ToList();
 
             return View(resultado);
         }
@@ -66,7 +93,6 @@ namespace MarketASP.Controllers
             var kARDEX = db.Pr_KardexArticulos(0,sdesc_arti, sdesc_alma,0).ToList();
             return View(kARDEX);
         }
-        // GET: KARDEXes/Details/5
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -81,16 +107,12 @@ namespace MarketASP.Controllers
             return View(kARDEX);
         }
 
-        // GET: KARDEXes/Create
         public ActionResult Create()
         {
             ViewBag.ncode_alma = new SelectList(db.ALMACEN, "ncode_alma", "sdesc_alma");
             return View();
         }
 
-        // POST: KARDEXes/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ncode_kardex,dfekard_kardex,stipomovi_kardex,ncant_kardex,npuco_kardex,ntc_kardex,smone_kardex,npucoMN_kardex,npucoUS_kardex,ncodeDoc_kardex,sserie_kardex,snume_kardex,dfvence_kardex,suser_kardex,dfech_kardex,susmo_kardex,dfemo_kardex,ncode_alma")] KARDEX kARDEX)
@@ -106,7 +128,6 @@ namespace MarketASP.Controllers
             return View(kARDEX);
         }
 
-        // GET: KARDEXes/Edit/5
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
@@ -122,9 +143,6 @@ namespace MarketASP.Controllers
             return View(kARDEX);
         }
 
-        // POST: KARDEXes/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ncode_kardex,dfekard_kardex,stipomovi_kardex,ncant_kardex,npuco_kardex,ntc_kardex,smone_kardex,npucoMN_kardex,npucoUS_kardex,ncodeDoc_kardex,sserie_kardex,snume_kardex,dfvence_kardex,suser_kardex,dfech_kardex,susmo_kardex,dfemo_kardex,ncode_alma")] KARDEX kARDEX)
@@ -139,7 +157,6 @@ namespace MarketASP.Controllers
             return View(kARDEX);
         }
 
-        // GET: KARDEXes/Delete/5
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)

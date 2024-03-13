@@ -6,6 +6,8 @@ var conf_decimal = 2;
 var conf_moneda = 0;
 var CONFIG_dscto = 'NO';
 var conf_PrecioIGV;
+var conf_articulosrepetidos = 'NO';
+var conf_ctdadOS = 1;
 
 $(document).ready(function () {
     var code = 0;
@@ -17,6 +19,9 @@ $(document).ready(function () {
     conf_decimal = $("#cnfdeci").val();
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
+    conf_articulosrepetidos = $("#conf_articulosrepetidos").val();
+    conf_ctdadOS = $("#conf_ctdadOS").val();
+
 
     //console.log(conf_igv);
     //console.log(conf_decimal);
@@ -62,7 +67,7 @@ $(document).ready(function () {
         "dom": 'T<"clear">lfrtip',
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": [0, 6, 7, 8, 9, 10]
+            "aTargets": []//[0, 6, 7, 8, 9, 10]
         },
         {
             "sClass": "my_class",
@@ -75,28 +80,24 @@ $(document).ready(function () {
                     var idx = ofunciones.column(this).index();
                     switch (idx) {
                         case 3: //quantity column
-                            console.log('columna cantidad');
+                            //console.log('columna cantidad');
                             ofunciones.cell(aPos, idx).data(sValue).draw;
                             var xcant = ofunciones.cell(aPos, 3).data();
-
-                            //console.log(typeof (xcant));
-                            //console.log(ofunciones.cell(aPos, 3).data());
                             var xvalue = ofunciones.cell(aPos, 5).data();
-                            //console.log(xvalue);
                             var subto = xcant * parseFloat(xvalue);
-                            ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
+                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         case 5: //price column
-                           console.log('columna precio');
+                           //console.log('columna precio');
                             var xcant = ofunciones.cell(aPos, 3).data();
                             var xvalue = ofunciones.cell(aPos, 6).data();
                             var yValue = ComparaPrecio(sValue, xvalue);
                             var subto = xcant * yValue
                             ofunciones.cell(aPos, idx).data(yValue).draw;
-                            ofunciones.cell(aPos, 11).data(subto.toFixed(conf_decimal)).draw;
+                            ofunciones.cell(aPos, 12).data(subto.toFixed(conf_decimal)).draw;
                             break;
                         default:
-                            console.log('el valor por default')
+                            //console.log('el valor por default')
                             ofunciones.cell(aPos, idx).data(sValue).draw;
 
                     }
@@ -221,8 +222,48 @@ $(document).ready(function () {
         var xcan = 1;
         var xesta = 0;
 
-        ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
-            data.bafecto_arti, data.bisc_arti, data.bdscto_arti, xcan * data.Costo]).draw();
+
+        var docuCod = $("#ncode_docu option:selected").val();
+
+        ///verificar sis es servicio usar la cantyidad global
+        if (docuCod == 1075) {
+            xcan = conf_ctdadOS;
+        }
+
+
+        //verificar si el articulo ya se agrego esto teniendo en cuenta la variable global
+        if (conf_articulosrepetidos == 'SI') {
+
+            ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+            data.bafecto_arti, data.bisc_arti, data.bdscto_arti,0, xcan * data.Costo]).draw();
+
+        }
+        else {
+
+            var otblx = $('#tbl').dataTable();
+            var nrowsx = otblx.fnGetData().length;
+            var oTable = otblx.fnGetData();
+            var brepetido = false;
+
+            for (var i = 0; i < nrowsx; i++) {
+
+                if (oTable[i][0] == data.Cod) {
+                    brepetido = true;
+                    alert('El articulo ya ha sido agregado');
+                    break;
+                }
+            }
+
+            if (brepetido == false) {
+
+                ofunciones.row.add([data.Cod, data.Cod2, data.DescArt, xcan, data.Medida, data.Costo, data.Costo, data.ncode_umed,
+                data.bafecto_arti, data.bisc_arti, data.bdscto_arti,0, xcan * data.Costo]).draw();
+
+            }
+
+        }
+
+
         Totales(conf_igv, conf_decimal, conf_icbper);
     });
 
@@ -288,6 +329,7 @@ $(document).ready(function () {
             alert("Seleccione Articulos");
             return false;
         }
+
 
         $('#btnorco').hide();
         $('#btnpro').show();
@@ -464,7 +506,7 @@ function Sales_save() {
         "ncode_arti": "", "ncant_orcodeta": "", "npu_orcodeta": "", "ndscto_orcodeta": "",
         "ndscto2_orcodeta": "", "nexon_orcodeta": "", "nafecto_orcodeta": "", "besafecto_orcodeta": "",
         "ncode_alma": "", "ndsctomax_orcodeta": "", "ndsctomin_orcodeta": "", "ndsctoporc_orcodeta": "",
-        "npuorigen_orcodeta": ""
+        "npuorigen_orcodeta": "","ncode_umed":""
     };
 
     var ordenpedidoView = {
@@ -517,25 +559,36 @@ function Sales_save() {
 
     for (var i = 0; i < nrowsx; i++) {
 
+        var bafectodeta = oTable[i][8];
+
         ordencompraViewDetas.ncode_arti = oTable[i][0];
         ordencompraViewDetas.ncant_orcodeta = oTable[i][3];
         ordencompraViewDetas.npu_orcodeta = oTable[i][5];
         ordencompraViewDetas.npuorigen_orcodeta = oTable[i][6];
-        ordencompraViewDetas.ndscto_orcodeta = oTable[i][6] - oTable[i][5];
-        ordencompraViewDetas.nexon_orcodeta = oTable[i][5] * oTable[i][3];
-        ordencompraViewDetas.nafecto_orcodeta = oTable[i][5] * oTable[i][3];
+        ordencompraViewDetas.ndscto_orcodeta = oTable[i][11];
+        if (bafectodeta.toString() == 'true' || bafectodeta.toString() == 'True') {
+            ordencompraViewDetas.nexon_orcodeta = 0;
+            ordencompraViewDetas.nafecto_orcodeta = oTable[i][5] * oTable[i][3];
+
+        }
+        else {
+            ordencompraViewDetas.nexon_orcodeta = oTable[i][5] * oTable[i][3];
+            ordencompraViewDetas.nafecto_orcodeta = 0;
+
+        }
+        ordencompraViewDetas.ncode_umed = oTable[i][7];
         ordencompraViewDetas.besafecto_orcodeta = oTable[i][8];
-        ordencompraViewDetas.ndsctoporc_orcodeta = oTable[i][7];
+        ordencompraViewDetas.ndsctoporc_orcodeta = oTable[i][11];
         ordencompraViewDetas.ncode_alma = $("#ncode_alma option:selected").val();
 
         ordenpedidoView.ordencompraViewDetas.push(ordencompraViewDetas);
 
-        var ordencompraViewDetas = {
+        ordencompraViewDetas = {
             "ncode_arti": "", "ncant_orcodeta": "", "npu_orcodeta": "", "ndscto_orcodeta": "",
             "ndscto2_orcodeta": "", "nexon_orcodeta": "", "nafecto_orcodeta": "", "besafecto_orcodeta": "",
-            "ncode_alma": "", "ndsctomax_orcodeta": "", "ndsctomin_orcodeta": "", "ndsctoporc_orcodeta": ""
+            "ncode_alma": "", "ndsctomax_orcodeta": "", "ndsctomin_orcodeta": "", "ndsctoporc_orcodeta": "",
+            "npuorigen_orcodeta": "", "ncode_umed": ""
         };
-
     }
 
     // console.log(ordenpedidoView);
@@ -597,7 +650,7 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
         CANT = parseFloat(oTable[i][3]).toFixed(conf_decimal);
         PU = parseFloat(oTable[i][5]).toFixed(conf_decimal);
-        CDSCTO = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
+        CDSCTO = parseFloat(oTable[i][11]).toFixed(conf_decimal);//parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO)), CONFIG_GE_NRODECIMALES)
         CDSCTO2 = parseFloat(0).toFixed(conf_decimal); //REDONDEAR(Val(DBLISTAR.Item(F, COL_DSCTO2)), CONFIG_GE_NRODECIMALES)
         var AFECTO_ART = oTable[i][8].toString();
         var COL_TISC = oTable[i][9];
@@ -620,11 +673,11 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
         TOT = (TOT - (TOT * (CDSCTO2 / 100))).toFixed(conf_decimal);
 
         if (AFECTO_ART.toUpperCase() == 'TRUE' || AFECTO_ART == 'true' || AFECTO_ART == 'True') {
-            TOT_AFECTO = parseFloat(TOT_AFECTO) + Math.round(TOT, conf_decimal);
+            TOT_AFECTO = parseFloat(TOT_AFECTO) + parseFloat(TOT);
         }
 
         if (AFECTO_ART.toUpperCase() == 'FALSE' || AFECTO_ART == 'false' || AFECTO_ART == 'False') {
-            TOT_EXON = parsefloat(TOT_EXON) + Math.round(TOT, conf_decimal);
+            TOT_EXON = parsefloat(TOT_EXON) + parseFloat(TOT);
         }
 
         SUBT = ((PU - PUADESCONTAR) * CANT).toFixed(conf_decimal);
@@ -676,16 +729,15 @@ function Totales(conf_igv, conf_decimal, conf_icbper) {
 
     $("#ndsctoaf_orco").val(DSCTO_AFECTO);
     $("#ndctoex_orco").val(DSCTO_EXON);
-    $("#nbrutoaf_orco").val(SUBT_AFECTO);
-    $("#nbrutoex_orco").val(SUBT_EXON);
+    $("#nbrutoaf_orco").val(parseFloat(SUBT_AFECTO).toFixed(conf_decimal));
+    $("#nbrutoex_orco").val(parseFloat(SUBT_EXON).toFixed(conf_decimal));
 
-    $("#nsubaf_orco").val(SUBT_AFECTO);
+    $("#nsubaf_orco").val(parseFloat(SUBT_AFECTO).toFixed(conf_decimal));
     var SUBT_EX = SUBT_EXON - DSCTO_EXON;
-    $("#nsubex_orco").val(SUBT_EX);
-    $("#ntotaex_orco").val(SUBT_EXON);
+    $("#nsubex_orco").val(parseFloat(SUBT_EX).toFixed(conf_decimal));
+    $("#ntotaex_orco").val(parseFloat(SUBT_EXON).toFixed(conf_decimal));
 
     var TOTAL_AFEC = 0, SUBT_AFEC = 0, IGV_AF = 0;
-
 
     if (conf_PrecioIGV == "on") {
         TOTAL_AFEC = parseFloat(SUBT_AFECTO);
@@ -832,26 +884,4 @@ function fnDocumentoSerieNumero(ncode) {
     });
     return false;
 }
-//function fnDocumentoSerieNumero() {
-//    //console.log($("#ncode_docu").val());
 
-//    $.ajax({
-//        type: 'POST',
-//        url: urlGetDocuNumero,
-//        dataType: 'json',
-//        data: { ndocu: $("#ncode_docu").val() },
-//        success: function (docu) {
-//            //console.log(docu.length);
-//            $.each(docu, function (i, doc) {
-//                $('#sseri_orco').val(doc.serie);
-//                $('#snume_orco').val(doc.numero);
-//                //console.log(doc.serie);
-//            });
-
-//        },
-//        error: function (ex) {
-//            alert('No se puede recuperar el número y serie' + ex);
-//        }
-//    });
-//    return false;
-//}

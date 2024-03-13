@@ -80,7 +80,7 @@
                                     <div class="mb-3">
                                         <label for="example-text-input" class="col-form-label">Total</label>
                                         <div>
-                                            @Model.smone_orpe  @string.Format("{0:N2}", Model.ntotal_orpe)
+                                            @Model.smone_orpe  @string.Format("{0:N4}", Model.ntotal_orpe)
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                                         xdespacho = (decimal)item.ncant_orpedeta - (decimal)item.ncantventa_orpedeta;
                                                     }
 
-                                                    @string.Format("{0:N2}", xdespacho)
+                                                    @string.Format("{0:N4}", xdespacho)
 
                                                 </td>
                                                 <td>
@@ -134,7 +134,7 @@
                                                     @Html.DisplayFor(modelItem => item.ARTICULO.UMEDIDA.ssunat_umed)
                                                 </td>
                                                 <td>
-                                                    @Html.DisplayFor(modelItem => item.npu_orpedeta)
+                                                    @string.Format("{0:N4}", item.npu_orpedeta)
                                                 </td>
                                             </tr>
                                         }
