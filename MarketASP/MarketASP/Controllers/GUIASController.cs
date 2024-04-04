@@ -193,7 +193,7 @@ namespace MarketASP.Controllers
                                 {
                                     fila++;
                                     db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name, code,(int) item.ncode_umed,
-                                        item.ncode_orpe,fila);
+                                        item.ncode_orpe,fila,item.ncantLote_guiadet);
                                 };
 
                             }
@@ -344,7 +344,7 @@ namespace MarketASP.Controllers
                                 {
                                     fila++;
                                     db.Pr_GuiaDetaCrea(item.ncode_arti, item.ncant_guiadet, item.npu_guiadet, User.Identity.Name,code,(int) item.ncode_umed,
-                                        item.ncode_orpe,fila);
+                                        item.ncode_orpe,fila,item.ncantLote_guiadet);
                                 };
 
                             }

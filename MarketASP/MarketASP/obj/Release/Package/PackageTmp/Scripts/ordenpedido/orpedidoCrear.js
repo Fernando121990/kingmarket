@@ -25,6 +25,7 @@ $(document).ready(function () {
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
     conf_poretencion = $("#poretencion").val();
+    conf_articulosrepetidos = $("#conf_articulosrepetidos").val();
 
     /*DESHABILITANDO CUOTAS*/
 

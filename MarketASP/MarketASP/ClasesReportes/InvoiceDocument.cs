@@ -73,7 +73,7 @@ namespace MarketASP.ClasesReportes
             {
                 column.Spacing(5);
 
-                //column.Item().Element(ComposeTable);
+                column.Item().Element(ComposeTable);
 
                 if (!string.IsNullOrWhiteSpace(Model.Comments))
                     column.Item().PaddingTop(25).Element(ComposeComments);
@@ -125,6 +125,15 @@ namespace MarketASP.ClasesReportes
         //        }
         //    });
         //}
+        void ComposeTable(IContainer container)
+        {
+            container
+                .Height(250)
+                .Background(Colors.Grey.Lighten3)
+                .AlignCenter()
+                .AlignMiddle()
+                .Text("Table").FontSize(16);
+        }
 
         void ComposeComments(IContainer container)
         {

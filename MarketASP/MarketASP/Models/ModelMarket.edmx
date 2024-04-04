@@ -3490,6 +3490,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
           <Parameter Name="ncode_umed" Type="int" Mode="In" />
           <Parameter Name="ncode_orpe" Type="bigint" Mode="In" />
           <Parameter Name="norden_guiadet" Type="int" Mode="In" />
+          <Parameter Name="ncantLote_guiadet" Type="decimal" Mode="In" />
         </Function>
         <Function Name="Pr_GuiaDetaEdita" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="GUIA">
           <Parameter Name="ncode_guia" Type="bigint" Mode="In" />
@@ -5499,6 +5500,7 @@ advertencia 6002: La tabla o vista 'MarketWeb.dbo.SUNAT_UnidadMedidas' no tiene 
             <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
             <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
             <Parameter Name="norden_guiadet" Mode="In" Type="Int32" />
+            <Parameter Name="ncantLote_guiadet" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="Pr_GuiaDetaElimina">
           <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />

@@ -997,6 +997,7 @@
       <Parameter Name="ncode_umed" Mode="In" Type="Int32" />
       <Parameter Name="ncode_orpe" Mode="In" Type="Int64" />
       <Parameter Name="norden_guiadet" Mode="In" Type="Int32" />
+      <Parameter Name="ncantLote_guiadet" Mode="In" Type="Decimal" />
     </FunctionImport>
     <FunctionImport Name="Pr_GuiaDetaElimina">
       <Parameter Name="ncode_guia" Mode="In" Type="Decimal" />

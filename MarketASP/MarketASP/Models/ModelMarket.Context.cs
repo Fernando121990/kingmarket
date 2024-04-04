@@ -2341,7 +2341,7 @@ namespace MarketASP.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GUIACrear", dfemov_guiaParameter, smone_guiaParameter, ntc_guiaParameter, sobse_guiaParameter, sserie_guiaParameter, snume_guiaParameter, suser_guiaParameter, ncode_tiguiaParameter, ncode_almaParameter, ndestino_almaParameter, stipo_guiaParameter, ncode_clienteParameter, ncode_clidireParameter, ncode_docuParameter, ncode_moneParameter, ncode_tranParameter, scode_orpeParameter, sserienume_orpeParameter, ncode_doseParameter, nbrutoex_guiaParameter, nbrutoaf_guiaParameter, ndctoex_guiaParameter, ndsctoaf_guiaParameter, nsubex_guiaParameter, nsubaf_guiaParameter, nigvex_guiaParameter, nigvaf_guiaParameter, ntotaex_guiaParameter, ntotaaf_guiaParameter, ntotal_guiaParameter, ntotalMN_guiaParameter, ntotalUs_guiaParameter, nvalIGV_guiaParameter, bclienteagretencionParameter, ncuotas_guiaParameter, ncuotavalor_guiaParameter, ncuotadias_guiaParameter, sglosadespacho_guiaParameter, bflete_guiaParameter, ncode_fopagoParameter, ncode_vendeParameter, ncode_venzoParameter, scode_compraParameter, sw);
         }
     
-        public virtual int Pr_GuiaDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_guiadet, Nullable<decimal> npu_guiadet, string suser_guiadet, Nullable<int> ncode_guia, Nullable<int> ncode_umed, Nullable<long> ncode_orpe, Nullable<int> norden_guiadet)
+        public virtual int Pr_GuiaDetaCrea(Nullable<long> ncode_arti, Nullable<decimal> ncant_guiadet, Nullable<decimal> npu_guiadet, string suser_guiadet, Nullable<int> ncode_guia, Nullable<int> ncode_umed, Nullable<long> ncode_orpe, Nullable<int> norden_guiadet, Nullable<decimal> ncantLote_guiadet)
         {
             var ncode_artiParameter = ncode_arti.HasValue ?
                 new ObjectParameter("ncode_arti", ncode_arti) :
@@ -2375,7 +2375,11 @@ namespace MarketASP.Models
                 new ObjectParameter("norden_guiadet", norden_guiadet) :
                 new ObjectParameter("norden_guiadet", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaDetaCrea", ncode_artiParameter, ncant_guiadetParameter, npu_guiadetParameter, suser_guiadetParameter, ncode_guiaParameter, ncode_umedParameter, ncode_orpeParameter, norden_guiadetParameter);
+            var ncantLote_guiadetParameter = ncantLote_guiadet.HasValue ?
+                new ObjectParameter("ncantLote_guiadet", ncantLote_guiadet) :
+                new ObjectParameter("ncantLote_guiadet", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Pr_GuiaDetaCrea", ncode_artiParameter, ncant_guiadetParameter, npu_guiadetParameter, suser_guiadetParameter, ncode_guiaParameter, ncode_umedParameter, ncode_orpeParameter, norden_guiadetParameter, ncantLote_guiadetParameter);
         }
     
         public virtual int Pr_GuiaDetaElimina(Nullable<decimal> ncode_guia)

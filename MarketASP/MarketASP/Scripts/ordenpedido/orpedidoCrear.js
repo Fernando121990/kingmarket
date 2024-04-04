@@ -25,6 +25,7 @@ $(document).ready(function () {
     conf_icbper = $("#cnficbper").val();
     conf_PrecioIGV = $("input[type=checkbox][name=bprecioconigv]:checked").val();
     conf_poretencion = $("#poretencion").val();
+    conf_articulosrepetidos = $("#conf_articulosrepetidos").val();
 
     /*DESHABILITANDO CUOTAS*/
 
@@ -184,7 +185,7 @@ $(document).ready(function () {
          "ordering":false, ///QUITA EL ORDEN POR COLUMNAS
         "aoColumnDefs": [{
             "bVisible": false,
-            "aTargets": []//[0, 6, 7, 8, 9, 10]
+            "aTargets": [0, 6, 7, 8, 9, 10,12,13]
         },
         {
             "sClass": "my_class",

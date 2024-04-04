@@ -10,3 +10,9 @@ table.dataTable tbody tr.selected {
     color: white !important;
     background-color: #eeeeee !important;
 }
+
+
+.tblhead {
+    border: 1px solid white;
+    border-collapse: collapse;
+}

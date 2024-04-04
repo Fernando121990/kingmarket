@@ -13,6 +13,9 @@ using MarketASP.Clases;
 using Newtonsoft.Json;
 using MarketASP.Extensiones;
 using static MarketASP.Clases.Enum;
+using System.IO;
+
+using Rotativa;
 
 namespace MarketASP.Controllers
 {
@@ -442,6 +445,13 @@ namespace MarketASP.Controllers
 
             db.Pr_OrdenPedidoElimina(id, sw);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Reporte(long id) {
+
+            ORDEN_PEDIDOS _pedido = db.ORDEN_PEDIDOS.Single(x => x.ncode_orpe == id);
+
+            return new ViewAsPdf("Reporte", _pedido);
         }
 
         protected override void Dispose(bool disposing)

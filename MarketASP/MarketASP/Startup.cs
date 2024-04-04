@@ -9,6 +9,7 @@ namespace MarketASP
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            //QuestPDF.Settings.License = LicenseType.Community;
         }
     }
 }

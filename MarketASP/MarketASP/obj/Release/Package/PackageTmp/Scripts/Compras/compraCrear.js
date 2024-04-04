@@ -26,6 +26,7 @@ $(document).ready(function () {
 
     ofunciones = $('#tbl').DataTable({
         "dom": 'T<"clear">lfrtip',
+        "ordering": false,
         "aoColumnDefs": [{
             "bVisible": false,
             "aTargets": [0, 6, 7, 8, 9, 10] 

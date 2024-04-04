@@ -960,7 +960,7 @@ function Sales_save() {
 
     var guiaViewDetas = {
         "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "","ncode_umed":"","ncode_orpe":"",
-        //"ndscto2_guiadet": "", "nexon_guiadet": "", "nafecto_guiadet": "", "besafecto_guiadet": "",
+        "ncantLote_guiadet": "",// "nexon_guiadet": "", "nafecto_guiadet": "", "besafecto_guiadet": "",
         //"ncode_alma": "", "ndsctomax_guiadet": "", "ndsctomin_guiadet": "", "ndsctoporc_guiadet": "", "bicbper_guiadet": "",
         "sdesc": ""
     };
@@ -1036,10 +1036,11 @@ function Sales_save() {
         guiaViewDetas.npu_guiadet = oTable[i][5];
         guiaViewDetas.ncode_umed = oTable[i][7];
         guiaViewDetas.ncode_orpe = oTable[i][14];
+        guiaViewDetas.ncantLote_guiadet = oTable[i][15];
         guiaView.guiaViewDetas.push(guiaViewDetas);
 
         var guiaViewDetas = {
-            "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "", "ncode_umed": "", "sdesc": "","ncode_orpe":""
+            "ncode_arti": "", "ncant_guiadet": "", "npu_guiadet": "", "ncode_umed": "", "sdesc": "", "ncode_orpe": "","ncantLote_guiadet": ""
         };
 
     }
