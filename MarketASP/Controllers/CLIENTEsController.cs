@@ -482,7 +482,7 @@ namespace MarketASP.Controllers
                 }*/
                 else
                 {
-                    var hola = "414 hhdjsh";
+
                     // Buscar en el API por RUC
                     var apiResponse = ConsultarApiRuc(numero);
                     if (apiResponse != null)
