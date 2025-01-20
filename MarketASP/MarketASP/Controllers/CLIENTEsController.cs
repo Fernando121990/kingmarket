@@ -19,6 +19,7 @@ namespace MarketASP.Controllers
         // GET: CLIENTEs
         public ActionResult Index()
         {
+            var hola = "";
             int xvalue = 0;
             ObjectParameter xcode = new ObjectParameter("xcode", typeof(int));
 

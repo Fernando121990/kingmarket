@@ -1,3 +1,8 @@
 is_global = true
 build_property.RootNamespace = SunatService
-build_property.ProjectDir = D:\oscarweb\MarketASP\SunatService\
+build_property.ProjectDir = C:\Users\luis_\source\repos\Fernando121990\kingmarket\MarketASP\SunatService\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.CsWinRTUseWindowsUIXamlProjections = false
+build_property.EffectiveAnalysisLevelStyle = 
+build_property.EnableCodeStyleSeverity = 
