@@ -1,0 +1,28 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.40203.910",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, ServiceSunat"
+    ],
+    "references": [
+      "Ionic.Zip, {Ionic.Zip, 1.9.1.8}",
+      "System.Security.AccessControl, {System.Security.AccessControl, 5.0.0}",
+      "System.Security.Cryptography.Xml, {System.Security.Cryptography.Xml, 5.0.0}",
+      "System.Security.Permissions, {System.Security.Permissions, 5.0.0}",
+      "System.Security.Principal.Windows, {System.Security.Principal.Windows, 5.0.0}"
+    ],
+    "targetFramework": "netstandard2.0",
+    "typeReuseMode": "All"
+  }
+}
