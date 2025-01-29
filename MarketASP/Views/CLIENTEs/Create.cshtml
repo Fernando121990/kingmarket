@@ -1,0 +1,343 @@
+﻿@model MarketASP.Clases.clienteView
+
+@{
+    ViewBag.Title = "Registrar Cliente";
+    ViewBag.pTitle = "Registrar Cliente";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @*<div id="alertContainer" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;">
+            <strong>¡Atención!</strong> <span id="alertMessage">No se encontró el cliente.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>*@
+    <div id="alertContainer" style="display:none;">
+        <div id="alertMessage" class="alert" role="alert"></div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group row">
+        <div class="col-md-12 text-center">
+            Persona Juridica
+            <input id="stipo_cliente" name="stipo_cliente" type="radio" value="J" checked="checked" />
+            Persona Natural
+            <input id="stipo_cliente" name="stipo_cliente" type="radio" value="N" />
+        </div>
+    </div>
+    <div class="form-group row juridica">
+        @Html.LabelFor(model => model.sruc_cliente, "RUC", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            <div class="input-group">
+                @Html.EditorFor(model => model.sruc_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number", @maxlength = "11" } })
+                <button class="btn btn-outline-secondary" type="button" id="btnSearchRUC">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            @Html.ValidationMessageFor(model => model.sruc_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.srazon_cliente, "Razon Social", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.srazon_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.srazon_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row natural">
+        <div class="col-md-2">
+        @Html.DropDownListFor(model => model.stipdoc_cliente,
+                new SelectList(new[] {
+                    new { Value = "DNI", Text = "DNI" },
+                    new { Value = "CEX", Text = "Carnet de Extranjería" },
+                    new { Value = "PAS", Text = "Pasaporte" }
+                }, "Value", "Text"),
+                "Seleccione un tipo de documento",
+                new { @class = "form-control" })
+       </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                @Html.EditorFor(model => model.sdnice_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                <button class="btn btn-outline-secondary" type="button" id="btnSearchDNI" style="display:none;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            @Html.ValidationMessageFor(model => model.sdnice_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.snomb_cliente, "Nombres", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.snomb_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.snomb_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row natural">
+        @Html.LabelFor(model => model.sappa_cliente, "Ap.Pat", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sappa_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sappa_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sapma_cliente, "Ap.Mat", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sapma_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sapma_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Dirección</label>
+        <div class="col-md-4">
+            <input id="sdire_cliente" name="sdire_cliente" type="text" class="form-control" required />
+        </div>
+        <label class="col-md-2 control-label">Ubicacion</label>
+        <div class="col-md-4">
+            <input id="scode_ubigeo" name="scode_ubigeo" type="hidden" />
+            <input id="subigeo" name="subigeo" type="text" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(model => model.sfono1_cliente, "Telef.", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sfono1_cliente, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+            @Html.ValidationMessageFor(model => model.sfono1_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sfax_cliente, "Fax", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sfax_cliente, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+            @Html.ValidationMessageFor(model => model.sfax_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.srepre_cliente, "Rep.Legal", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.srepre_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.srepre_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sfono2_cliente, "Telf.", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sfono2_cliente, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+            @Html.ValidationMessageFor(model => model.sfono2_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.smail_cliente, "Correo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.smail_cliente, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+            @Html.ValidationMessageFor(model => model.smail_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.smail2_cliente, "Correo 2", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.smail2_cliente, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+            @Html.ValidationMessageFor(model => model.smail2_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sweb_cliente, "Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sweb_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sweb_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.sobse_cliente, "Obs.", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sobse_cliente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.sobse_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.sfono3_cliente, "Telf.", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.sfono3_cliente, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+            @Html.ValidationMessageFor(model => model.sfono3_cliente, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.bprocedencia_cliente, "Es Extrajero", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            <div class="checkbox">
+                @Html.CheckBox("bprocedencia_cliente")
+                @Html.ValidationMessageFor(model => model.bprocedencia_cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.LabelFor(model => model.bretencion_cliente, "Es AG.Retencion", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            <div class="checkbox">
+                @Html.CheckBox("bretencion_cliente")
+                @Html.ValidationMessageFor(model => model.bretencion_cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.LabelFor(model => model.ncode_afepercepcion, "Percepción", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ncode_afepercepcion", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_afepercepcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(model => model.nidtipodoc_cliente, "Doc.Pago", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("nidtipodoc_cliente", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.nidtipodoc_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.slineacred_cliente, "Linea Cred.", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.slineacred_cliente, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+            @Html.ValidationMessageFor(model => model.slineacred_cliente, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.ncode_vende, "Vendedor", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownList("ncode_venzo", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ncode_venzo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="offset-md-2 col-md-8">
+            <input id="btncliSave" type="submit" value="Registrar" class="btn btn-block btn-success" />
+        </div>
+    </div>
+
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/cliente")
+<script type="text/javascript">
+        var urlGetUbigeo = '@Url.Action("getUbigeo", "Funciones")';
+        var urlgetClienteFoPago = '@Url.Action("getClienteFoPago", "Funciones",new { area = ""})';
+</script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        const urlGetCliente = '@Url.Action("BuscarCliente", "CLIENTEs")';
+
+        function mostrarAlerta(mensaje, tipo = 'warning') {
+            // Tipo puede ser 'warning' o 'danger'
+            $('#alertContainer').show();
+            $('#alertMessage').removeClass('alert-warning alert-danger').addClass('alert-' + tipo);
+            $('#alertMessage').text(mensaje);
+
+            // Ocultar la alerta después de 5 segundos
+            setTimeout(function () {
+                $('#alertContainer').fadeOut();
+            }, 2500);
+        }
+
+        function limpiarCampos() {
+            // Limpiar todos los campos de entrada, excepto los campos que no quieres limpiar
+            $('input[type="text"], input[type="hidden"], input[type="number"], input[type="tel"], input[type="email"], textarea').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo').val('');
+            $('select').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo').val('');
+            $('input[type="checkbox"]').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo').prop('checked', false);
+        }
+        function limpiarCamposBuscar() {
+            // Limpiar todos los campos de entrada, excepto los campos que no quieres limpiar
+            $('input[type="text"], input[type="hidden"],input[type="number"], input[type="tel"], input[type="email"], textarea').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo,#sdnice_cliente,#sruc_cliente,#stipdoc_cliente').val('');
+            $('select').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo,#sdnice_cliente,#sruc_cliente,#stipdoc_cliente').val('');
+            $('input[type="checkbox"]').not('#ncode_afepercepcion, #nidtipodoc_cliente, #ncode_venzo,#sdnice_cliente,#sruc_cliente,#stipdoc_cliente').prop('checked', false);
+        }
+
+        function buscarCliente(tipo, numero) {
+            $.ajax({
+                url: urlGetCliente,
+                type: 'POST',
+                data: { tipo, numero },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.mensaje) {
+                            // Si ya está registrado, mostrar el mensaje y limpiar los campos
+                            mostrarAlerta(response.mensaje, 'warning');
+                            limpiarCamposBuscar();
+                        } else if (response.cliente) {
+                            // Si no está registrado, mostrar los datos del cliente
+                            $('#alertContainer').hide();
+                            if (tipo === 'RUC') {
+                                $('#srazon_cliente').val(response.cliente.srazon_cliente);
+                                $('#sdire_cliente').val(response.cliente.sdire_cliente);
+                                $('#scode_ubigeo').val(response.cliente.scode_ubigeo);                                
+                                $('#subigeo').val(response.cliente.subigeo);
+                                $('#sfono1_cliente').val(response.cliente.sfono1_cliente);
+                            } else if (tipo === 'DNI') {
+                                $('#snomb_cliente').val(response.cliente.snomb_cliente);
+                                $('#sappa_cliente').val(response.cliente.sappa_cliente);
+                                $('#sapma_cliente').val(response.cliente.sapma_cliente);
+                                $('#sfono1_cliente').val(response.cliente.sfono1_cliente);
+                            }
+                        }
+                    } else {
+                        limpiarCamposBuscar();
+                        mostrarAlerta('No se encontró ningún cliente con el número ingresado.', 'danger');
+                    }
+                },
+                error: function () {
+                    limpiarCamposBuscar();
+                    mostrarAlerta('Ocurrió un error al buscar el cliente.', 'danger');
+                }
+            });
+        }
+
+        $('#btnSearchRUC').click(function () {
+            const ruc = $('#sruc_cliente').val();
+            if (ruc) {
+                buscarCliente('RUC', ruc);
+            } else {
+                mostrarAlerta('Por favor, ingrese un número de RUC válido.', 'warning');
+            }
+        });
+
+        $('#btnSearchDNI').click(function () {
+            const dni = $('#sdnice_cliente').val();
+            if (dni) {
+                buscarCliente('DNI', dni);
+            } else {
+                mostrarAlerta('Por favor, ingrese un número de DNI válido.', 'warning');
+            }
+        });
+
+        $('input[name="stipo_cliente"]').change(function () {
+            limpiarCampos();  // Limpiar campos al cambiar el tipo de cliente
+
+            if ($('input[name="stipo_cliente"]:checked').val() === 'J') {
+                // Mostrar la sección de Persona Juridica
+                $('.juridica').show();
+                $('.natural').hide();
+            } else {
+                // Mostrar la sección de Persona Natural
+                $('.natural').show();
+                $('.juridica').hide();
+            }
+            // Actualizar el estado del botón de búsqueda basado en el tipo de documento
+            $('#stipdoc_cliente').trigger('change');
+        });
+
+        // Inicialización: Mostrar la sección de Persona Juridica por defecto
+        if ($('input[name="stipo_cliente"]:checked').val() === 'J') {
+            $('.juridica').show();
+            $('.natural').hide();
+        } else {
+            $('.juridica').hide();
+            $('.natural').show();
+        }
+
+        //// para lo del combo
+        // Función para manejar el cambio en el tipo de documento
+        $('#stipdoc_cliente').change(function () {
+            var selectedDocType = $(this).val();  // Obtiene el valor seleccionado
+
+            // Verifica si el tipo de documento es "DNI" y si el tipo de cliente es "N" (Persona Natural)
+            if (selectedDocType === "DNI" && $('input[name="stipo_cliente"]:checked').val() === "N") {
+                // Muestra el botón de búsqueda
+                $('#btnSearchDNI').show();
+            } else {
+                // Oculta el botón de búsqueda
+                $('#btnSearchDNI').hide();
+            }
+        });
+
+        // Llama a la función para inicializar el estado del botón al cargar la página
+        $('#stipdoc_cliente').trigger('change');
+    });
+    </script>
+
+}
