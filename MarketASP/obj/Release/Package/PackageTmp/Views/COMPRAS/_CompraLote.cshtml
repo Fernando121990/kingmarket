@@ -1,0 +1,122 @@
+﻿@model MarketASP.Models.COMPRAS
+
+@Html.HiddenFor(x=>x.ncode_compra)
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Almacen</label>
+                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sseri_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sseri_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">Número</label>
+                            <div>
+                                @Html.EditorFor(model => model.snume_compra, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.snume_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-xl-3">
+        <p class="text-muted">Productos</p>
+    </div>
+    <div class="col-sm-6 col-md-6 col-xl-3">
+        <button type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+        <button type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+        <!--  Modal content for the above example -->
+        <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div Class="modal-content">
+                    <div Class="modal-header">
+                        <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
+                        <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div Class="modal-body">
+                        <table id="matetabla" class="table nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>Ctdad</th>
+                                    <th>U.M</th>
+                                    <th>CodUM</th>
+                                    <th>Control</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <Table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
+            <thead class="thead-dark">
+                <tr>
+                    <th>CodArt</th>
+                    <th>Codigo</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>UM</th>
+                    <th>Lote</th>
+                    <th>F.vencimiento</th>
+                    <th>CtdadControl</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var item in Model.LOTES)
+                    {
+                        var currentItem = item;
+                        <tr>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ncant_lote)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.sdesc_lote)</td>
+                            <td>@Html.DisplayTextFor(x => currentItem.dfvenci_lote)</td>
+                            <td></td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </Table>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <button id="btncompra" name="btncompra" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>

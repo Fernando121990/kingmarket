@@ -1,0 +1,74 @@
+﻿@model MarketASP.Models.Receta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Receta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_codclase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_codclase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_codProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_codProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_almacen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_almacen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rec_costoOperativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rec_costoOperativo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Rec_codigo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

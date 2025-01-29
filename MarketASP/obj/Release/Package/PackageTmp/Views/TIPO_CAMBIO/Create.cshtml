@@ -1,0 +1,52 @@
+﻿@model MarketASP.Models.TIPO_CAMBIO
+
+@{
+    ViewBag.Title = "Agregar Tipo de Cambio";
+    ViewBag.pTitle = "Agregar Tipo de Cambio";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="dfecha_tc" class="col-form-label">Fecha</label>
+                                <input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) class="dfech form-control" />
+                                @*<input name="dfecha_tc" value=@string.Format("{0:d}",DateTime.Now) readonly class="form-control" />*@
+                                @Html.ValidationMessageFor(model => model.dfecha_tc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="ncompra_tc" class="col-form-label">Compra</label>
+                                @Html.EditorFor(model => model.ncompra_tc, new { htmlAttributes = new { @class = "form-control", @type = "text", @autofocus = "autofocus", @required = "required", @maxlength = "8" } })
+                                @Html.ValidationMessageFor(model => model.ncompra_tc, "Ingrese TC de Compra", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="nventa_tc" class="col-form-label">Venta</label>
+                                @Html.EditorFor(model => model.nventa_tc, new { htmlAttributes = new { @class = "form-control", @type = "text", @required = "required", @maxlength = "8" } })
+                                @Html.ValidationMessageFor(model => model.nventa_tc, "Ingrese TC de Venta", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

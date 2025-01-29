@@ -1,0 +1,89 @@
+﻿@model IEnumerable<MarketASP.Models.TIPO_CAMBIO>
+@{
+    ViewBag.Title = "Tipo de Cambio";
+    ViewBag.pTitle = "Tipo de Cambio";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h5 class="h3 mb-0 text-gray-800">@ViewBag.Title</h5>
+                    <a href="@Url.Action("Create")" class="btn btn-primary btn-circle btn-sm" title="Añadir Tipo de Cambio">
+                        <i class="fas fa-file"></i>
+                    </a>
+                    <a href="https://www.sbs.gob.pe/app/pp/sistip_portal/paginas/publicacion/tipocambiopromedio.aspx" class="btn btn-primary btn-circle btn-sm" title="SBS" target="_blank">
+                        <i class="fas fa-address-book"></i>
+                    </a>
+                </div>
+
+                <!-- Mostrar el mensaje de error utilizando Bootstrap -->
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["ErrorMessage"]
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
+
+                <div class="table-responsive mt-3">
+                    <table id="tipoCambioTable" class="table table-striped" style="width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>TC Compra</th>
+                                <th>TC Venta</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByDescending(t => t.dfecha_tc))
+                            {
+                                <tr>
+                                    <td data-order="@item.dfecha_tc.ToString("yyyy-MM-dd")">
+                                        @item.dfecha_tc.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>@string.Format("{0:N3}", item.ncompra_tc)</td>
+                                    <td>@string.Format("{0:N3}", item.nventa_tc)</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-success btn-circle btn-sm" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteTC", new { id = String.Format("{0:dd-MM-yyyy}", item.dfecha_tc) })" class="btn btn-danger btn-circle btn-sm" title="Eliminar" onclick="return confirm('¿Seguro de eliminar el registro?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Incluir los scripts necesarios -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
+
+    <script>
+        $(document).ready(function () {
+            // Inicializar DataTables con orden descendente en la primera columna (fecha)
+            $('#tipoCambioTable').DataTable({
+                order: [[0, 'desc']],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/Spanish.json"
+                }
+            });
+        });
+    </script>
+}

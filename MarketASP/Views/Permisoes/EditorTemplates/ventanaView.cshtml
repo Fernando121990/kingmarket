@@ -1,0 +1,20 @@
+﻿@model MarketASP.Clases.ventanaView
+
+@Html.HiddenFor(x => x.Nivel)
+@Html.HiddenFor(x => x.Operacion)
+@Html.HiddenFor(x => x.Menu)
+
+<tr>
+    <td>
+        @Html.CheckBoxFor(x => x.acceso)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.Nivel)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.Menu)
+    </td>
+    <td>
+        @Html.DisplayFor(x => x.Operacion)
+    </td>
+</tr>

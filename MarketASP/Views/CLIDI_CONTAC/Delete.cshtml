@@ -1,0 +1,48 @@
+﻿@model MarketASP.Models.CLIDI_CONTAC
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CLIDI_CONTAC</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.besta_clidco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.besta_clidco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLI_DIRE.sdesc_clidire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLI_DIRE.sdesc_clidire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACTO.snomb_contac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACTO.snomb_contac)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MarketASP.Models.Pr_ArticuloListado_Result>
+
+@{
+    ViewBag.Title = "Articulo";
+    ViewBag.pTitle = "Articulo";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Articulo</a>
+                </div>
+                    @*<table id="datatable" class="table table-centered datatable dt-responsive nowrap" 
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px">*@
+                <table id="datatable" class="table dataTable" style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Descripción</th>
+                                <th>Stock</th>
+                                <th>Disponible</th>
+                                <th>Transito</th>
+                                <th>Precio</th>
+                                <th>Precio Dscto</th>
+                                @{
+                                    if (ViewBag.vercosto == 1)
+                                    {
+                                        <th>Costo</th>
+                                        <th>U.Costo</th>
+                                    } 
+                                  }
+                                <th>U.M</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink(item.scode_arti, "Details", new { id = item.ncode_arti })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc1_arti)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nstockactual)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Disponible)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nstocktransito_arti)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nprecio_arti)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.npreciotope_arti)
+                                </td>
+
+                                @{
+                                    if (ViewBag.vercosto == 1)
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ncosto_arti)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.nultcosto_arti)
+                                        </td>
+                                    }
+
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_umed)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", new { id = item.ncode_arti })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("DeleteArti", new { id = item.ncode_arti })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- end row -->

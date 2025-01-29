@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MarketASP.Models.TRANSPORTISTA>
+
+@{
+    ViewBag.Title = "Transportista";
+    ViewBag.pTitle = "Transportista";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Transportista</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>DNI</th>
+                                <th>Nombre y Apellidos</th>
+                                <th>Placa</th>
+                                <th>Licencia</th>
+                                <th>Activo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdni_tran)
+                                </td>
+                                <td>
+                                    @string.Concat(item.snomb_tran," ",item.sappa_tran, " ",item.sapma_tran)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.splaca_tran)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.slicencia_tran)
+                                </td>
+                                <td>
+                                    <input type="checkbox" checked="@item.nesta_tran" readonly />
+                                </td>
+                                <td id="tooltip-container3">
+                                    <a href="@Url.Action("Edit", new { id = item.ncode_tran })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                    <a href="@Url.Action("Deletetran", new { id = item.ncode_tran })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

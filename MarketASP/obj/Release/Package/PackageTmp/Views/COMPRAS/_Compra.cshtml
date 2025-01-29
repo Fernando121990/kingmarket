@@ -1,0 +1,474 @@
+﻿@model MarketASP.Models.COMPRAS
+
+<input id="ncode_orco" name="ncode_orco" type="hidden" />
+<input id="stipo_orco" name="stipo_orco" type="hidden" />
+
+<div class="row">
+    <div>
+        <a href="@Url.Action("Index")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i>Regresar</a>
+        <button type="button" title="Ordenes de Compra"
+                class="btnpedidos btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#modalopedido">
+        <i class="mdi mdi-archive"></i></button>
+        <div id="modalopedido" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalopedidolabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 Class="modal-title" id="modalopedidolabel">Ordenes de Compra</h5>
+                        <button id="btnpedidocerrarx" name="btnpedidocerrarx" type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="pedidotabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Fecha</th>
+                                    <th>numeracion</th>
+                                    <th>Proveedor</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div Class="modal-footer">
+                        <button id="btnpedidocerrar" name="btnpedidocerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                        <button id="btnorden" name="btnorden" type="button" class="btn btn-primary waves-effect waves-light">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Proveedor</label>
+                            <input id="ncode_provee" name="ncode_provee" type="hidden" value="@ViewBag.ncode_provee" />
+                            <input id="sdesc_prove" name="sdesc_prove" type="text" value="@ViewBag.sdesc_prove" class="form-control" placeholder="Ingrese Proveedor" />
+                            @Html.ValidationMessageFor(model => model.ncode_provee, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    <div class="col-auto mt-4">
+                        <a href="@Url.Action("Create","proveedors")" class="btn btn-success" title="Agregar Cliente" target="_blank"><i class="fa fa-user"></i></a>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Almacen</label>
+                    @Html.DropDownList("ncode_alma", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Guia O.C</label>
+                            @Html.EditorFor(model => model.sguia_compra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.sguia_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sserie_orco" class="col-form-label">Orden Compra</label>
+                            <div>
+                                @Html.EditorFor(model => model.sserie_orco, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sserie_orco, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">Proforma</label>
+                            <div>
+                                @Html.EditorFor(model => model.sproforma_compra, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.sproforma_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="example-text-input" class="col-form-label">Observación</label>
+                    <textarea class="form-control" rows="2" id="sobs_compra" name="sobs_compra"></textarea>
+                    @Html.ValidationMessageFor(model => model.sobs_compra, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">Documento</label>
+                            @Html.DropDownList("ncode_docu", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_docu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Serie</label>
+                            @Html.EditorFor(model => model.sseri_compra, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.sseri_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">Número</label>
+                            <div>
+                                @Html.EditorFor(model => model.snume_compra, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.ValidationMessageFor(model => model.snume_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check mb-3">
+                            @Html.CheckBox("btitgratuito_compra")
+                            @Html.ValidationMessageFor(model => model.btitgratuito_compra, "", new { @class = "text-danger" })
+                            <label class="form-check-label" for="btitgratuito_compra">
+                                Titulo Gratuito
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input id="bprecioconigv" name="bprecioconigv" type="checkbox" @ViewBag.precioconigv />
+                            <label class="form-check-label" for="bprecioconigv">
+                                Precio con IGV
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">F.Emision</label>
+                            <input id="dfecompra_compra" style="width:10em" name="dfecompra_compra" type="text" class="dfech form-control" value="@ViewBag.dfecompra_compra" />
+                            @Html.ValidationMessageFor(model => model.dfecompra_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">F.Venc</label>
+                            <div>
+                                <input id="dfevenci_compra" style="width:10em" name="dfevenci_compra" type="text" class="dfech form-control" value="@ViewBag.dfevenci_compra" readonly />
+                                @Html.ValidationMessageFor(model => model.dfevenci_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="example-text-input" class="col-form-label">F.Pago</label>
+                            @Html.DropDownList("ncode_fopago", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ncode_fopago, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="sguia_compra" class="col-form-label">Moneda</label>
+                            @Html.DropDownList("smone_compra", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.smone_compra, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="sproforma_compra" class="col-form-label">T.C</label>
+                            <div>
+                                <input id="ntc_compra" class="form-control" name="ntc_compra" type="text" value="@ViewBag.tc" readonly />
+                                @Html.ValidationMessageFor(model => model.ntc_compra, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!--  Modal content for the above example -->
+    <div id="modalMat" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalMatlabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div Class="modal-content">
+                <div Class="modal-header">
+                    <h5 Class="modal-title" id="modalMatlabel">Seleccionar Articulo</h5>
+                    <button id="btnmatcerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div Class="modal-body">
+                    <table id="matetabla" class="table dt-responsive nowrap w-100" style="font-size: 12px">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Stock</th>
+                                <th>Reservado</th>
+                                <th>Transito</th>
+                                <th>U.M</th>
+                                <th>Costo</th>
+                                <th>CodUM</th>
+                                <th>bafecto</th>
+                                <th>bisc</th>
+                                <th>bdscto</th>
+                                <th>bicbper</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div Class="modal-footer">
+                    <button id="btncerrar" name="btncerrar" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnmate" name="btnmate" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalLote" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalLotelabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div Class="modal-content">
+                <div Class="modal-header">
+                    <h5 Class="modal-title" id="modalLotelabel">Agregar Lote</h5>
+                    <button id="btnlotecerrar" type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div Class="modal-body">
+                    <input id="xcodearti" name="xcodearti" type="hidden" class="form-control" />
+                    <input id="xund" name="xund" type="hidden" class="form-control" />
+
+                    <div class=" row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="xcodelocal" class="col-form-label">Codigo</label>
+                                <input id="xcodelocal" name="xcodelocal" type="text" value="0" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label for="xdescarti" class="col-form-label">Articulo</label>
+                                <input id="xdescarti" name="xdescarti" type="text" value="-" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xcontrol" class="col-form-label">Ctdad</label>
+                                <input id="xcontrol" name="xcontrol" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="xdescarti" class="col-form-label">Ctdad.Falta</label>
+                                <input id="xctdadfalta" name="xctdadfalta" type="text" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="dfvenci_lote" class="col-form-label">Fecha</label>
+                                <input id="dfvenci_lote" name="dfvenci_lote" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Today)"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="sdesc_lote" class="col-form-label">Lote</label>
+                                <input id="sdesc_lote" name="sdesc_lote" type="text" class="form-control" autofocus />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="ncant_lote" class="col-form-label">Ctdad</label>
+                                <input id="ncant_lote" name="ncant_lote" type="text" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btncerrarL" name="btncerrarL" type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="btnLote" name="btnLote" type="button" class="btn btn-primary waves-effect waves-light">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="nav nav-pills nav-justified" role="tablist">
+    <li class="nav-item waves-effect waves-light">
+        <a class="nav-link active" data-bs-toggle="tab" href="#articulo-1" role="tab">
+            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+            <span class="d-none d-sm-block">
+                Articulos
+                <button title="Agregar Articulo" type="button" class="addMat fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalMat"></button>
+                <button title="Eliminar Articulo" type="button" class="delMat fas fa-trash-alt btn btn-warning"></button>
+                <button title="Agregar Lote" type="button" class="addLote fas fa-file btn btn-info" data-bs-toggle="modal" data-bs-target="#modalLote"></button>
+            </span>
+        </a>
+    </li>
+    <li class="nav-item waves-effect waves-light">
+        <a class="nav-link" data-bs-toggle="tab" href="#lote-1" role="tab">
+            <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+            <span class="d-none d-sm-block">Lotes
+                <button title="Eliminar Lote" type="button" class="delLote fas fa-trash-alt btn btn-warning"></button>
+            </span>
+        </a>
+    </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content p-3 text-muted">
+    <div class="tab-pane active" id="articulo-1" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <Table id="tbl" class="table table-striped table-responsive-lg" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>CodArt</th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>UM</th>
+                            <th>Precio</th>
+                            <th>Precio</th>
+                            <th>M</th>
+                            <th>bafecto</th>
+                            <th>bisc</th>
+                            <th>bdscto</th>
+                            <th>Subtotal</th>
+                            <th>ctdadlote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.COMPRA_DETALLE)
+                            {
+                                var currentItem = item;
+                                <tr>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_comdeta)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.npu_comdeta)</td>
+                                    <td></td>
+                                    <td>@Model.smone_compra</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bafecto_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bisc_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.bdscto_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.nsubt_comdeta)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncantLote_comdeta)</td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped table-responsive-lg">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>T.Bruto</th>
+                            <th>Dscto</th>
+                            <th>SubTotal</th>
+                            <th>IGV</th>
+                            <th>Total</th>
+                            <th>Total-Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exonerado</td>
+                            <td>
+                                <input id="nbrutoex_compra" name="nbrutoex_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ndsctoex_compra" name="ndsctoex_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nsubex_compra" name="nsubex_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nigvex_compra" name="nigvex_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ntotaex_compra" name="ntotaex_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td rowspan="2">
+                                <input id="ntotal_compra" name="ntotal_compra" type="text" class="form-control" readonly />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Afecto</td>
+                            <td>
+                                <input id="nbrutoaf_compra" name="nbrutoaf_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ndsctoaf_compra" name="ndsctoaf_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nsubaf_compra" name="nsubaf_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="nigvaf_compra" name="nigvaf_compra" type="text" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <input id="ntotaaf_compra" name="ntotaaf_compra" type="text" class="form-control" readonly />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="lote-1" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12">
+                <Table id="tblLote" class="table table-striped table-responsive-lg" style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>CodArt</th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>UM</th>
+                            <th>Lote</th>
+                            <th>F.vencimiento</th>
+                            <th>CtdadControl</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model.LOTES)
+                            {
+                                var currentItem = item;
+                                <tr>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.ncode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.scode_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.sdesc1_arti)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ncant_lote)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.ARTICULO.UMEDIDA.sdesc_umed)</td>
+                                    <td>@Html.DisplayTextFor(x => currentItem.sdesc_lote)</td>
+                                    <td>@string.Format("{0:d}",currentItem.dfvenci_lote)</td>
+                                    <td></td>
+                                </tr>
+
+                            }
+                        }
+                    </tbody>
+                </Table>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="text-center mt-4">
+        <button id="btncompra" name="btncompra" type="button" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+    </div>
+    <div class="row">
+        <div class="text-center">
+            <button id="btnpro" name="btnpro" class="btn btn-block  btn-outline-warning" type="button">PROCESANDO DATOS ...</button>
+        </div>
+    </div>

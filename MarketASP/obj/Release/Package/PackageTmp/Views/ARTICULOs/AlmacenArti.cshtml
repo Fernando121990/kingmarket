@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MarketASP.Models.Pr_KardexArticulos_Result>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="datatable" class="table table-centered datatable dt-responsive nowrap"
+                       style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Almacen</th>
+                            <th>Stock</th>
+                            <th>Disponible</th>
+                            <th>Transito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sdesc_alma)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.STOCK)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DISPONIBLE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TRANSITO)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>TOTALES :</td>
+                            <td>@Model.Sum(x => x.STOCK)</td>
+                            <td>@Model.Sum(x => x.DISPONIBLE)</td>
+                            <td>@Model.Sum(x => x.TRANSITO)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

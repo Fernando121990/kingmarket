@@ -1,0 +1,21 @@
+﻿@model MarketASP.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Eliminar Registro";
+}
+<div class="row ptp-subtitulos">
+    <div class="col-md-12">
+        <h4 class="text-center">@ViewBag.Title</h4>
+    </div>
+</div>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary glyphicon glyphicon-hand-left", title = "Lista de Usuarios" })
+        </div>
+    }
+</div>

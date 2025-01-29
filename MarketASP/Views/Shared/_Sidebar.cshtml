@@ -1,0 +1,148 @@
+﻿<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title">Menu</li>
+                <li>
+                    <a href="#" class="has-arrow waves-effect">
+                        <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">8</span>
+                        <span>Mantenimiento</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Index", "linea")>Linea</a></li>
+                        <li><a href=@Url.Action("Index", "Sublinea")>Sublinea</a></li>
+                        <li><a href=@Url.Action("Index", "Familias")>Familias</a></li>
+                        <li><a href=@Url.Action("Index", "Clases")>Clases</a></li>
+                        <li><a href=@Url.Action("Index", "Especie")>Especies</a></li>
+                        <li><a href=@Url.Action("Index", "Subespecie")>Subespecies</a></li>
+                        <li><a href=@Url.Action("Index", "Articulos")>Articulos</a></li>
+                        <li><a href=@Url.Action("Index", "Almacens")>Almacen</a></li>
+                        <li><a href=@Url.Action("Index", "Umedidas")>Medidas</a></li>
+                        <li><a href=@Url.Action("Index", "Marcas")>Marcas</a></li>
+                        <li><a href=@Url.Action("Index", "Clientes")>Clientes</a></li>
+                        <li><a href=@Url.Action("Index", "Proveedors")>Proveedores</a></li>
+                        <li><a href=@Url.Action("Index", "Transportista")>Transportista</a></li>
+                        <li><a href=@Url.Action("Index", "tipo_cambio")>Tipo Cambio</a></li>
+                        <li><a href=@Url.Action("Index", "zona")>Zona</a></li>
+                        <li><a href=@Url.Action("Index", "VENDEDOR")>Vendedor</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#" class="has-arrow waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Inventario</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action( "Index", "Movimientoes")>Vales</a></li>
+                        <li><a href=@Url.Action( "Index", "Tipo_Guia")>Tipo Guias</a></li>
+                        <li><a href=@Url.Action( "Index", "guias")>Guias</a></li>
+                        <li><a href=@Url.Action("Index", "Kardexes")>Kardex</a></li>
+                        <li><a href=@Url.Action("Resumen", "Kardexes")>Kardex Consolidado</a></li>
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a href="#" class="has-arrow waves-effect">
+                        <i class="ri-chat-1-line"></i>
+                        <span>Compras</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Compras",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Compras",null)>Consultas</a></li>
+                        <li><a href=@Url.Action("Index","Lotes",null)>Lotes</a></li>
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Orden Compra</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Orden_Compras",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Orden_Compras",null)>Consultas</a></li>
+                        <li><a href=@Url.Action("OPDetalles","Orden_Compras",null)>Consulta Detallada</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="has-arrow waves-effect">
+                        <i class="ri-store-2-line"></i>
+                        <span>Ventas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Ventas",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Ventas",null)>Consultas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="has-arrow waves-effect">
+                        <i class="ri-briefcase-line"></i>
+                        <span>Cuentas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Index","cta_cobrar",null)>Cta Cobrar</a></li>
+                        <li><a href=@Url.Action("Index","ctas_pagar",null)>Cta Pagar</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Proformas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Proformas",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Proformas",null)>Consultas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Orden Pedidos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Create","Orden_Pedido",null)>Registrar</a></li>
+                        <li><a href=@Url.Action("Index","Orden_Pedido",null)>Consultas</a></li>
+                        <li><a href=@Url.Action("OPDetalles","Orden_Pedido",null)>Consulta Detallada</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class="ri-product-hunt-fill"></i>
+                        <span>Produccion</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Index", "Recetas")>Recetas</a></li>
+                        <li><a href=@Url.Action("Index", "Fabricacions")>Fabricacion</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class="ri-artboard-2-line"></i>
+                        <span>Globales</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href=@Url.Action("Index", "Configuracions")>Configuraciones</a></li>
+                        <li><a href=@Url.Action("Index", "docu_serie")>Series de documentos</a></li>
+                        <li><a href=@Url.Action("Index", "aspnetusers")>Usuarios</a></li>
+                        <li><a href=@Url.Action("create", "permisoes")>Permisos</a></li>
+                        <li><a href=@Url.Action("create", "ventanas")>Ventanas</a></li>
+                        <li><a href=@Url.Action("Index", "Locals")>Local</a></li>
+                        <li><a href=@Url.Action("Index", "sucursals")>Sucursal</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MarketASP.Models.CLIDI_CONTAC>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.besta_clidco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLI_DIRE.sdesc_clidire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTACTO.snomb_contac)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.besta_clidco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLI_DIRE.sdesc_clidire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONTACTO.snomb_contac)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_clidco }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_clidco }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_clidco })
+        </td>
+    </tr>
+}
+
+</table>

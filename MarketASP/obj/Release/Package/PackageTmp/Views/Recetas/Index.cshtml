@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MarketASP.Models.Receta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    ViewBag.Title = "Receta";
+    ViewBag.pTitle = "Receta";
+    ViewBag.pageTitle = "Produccion";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a href="@Url.Action("Create")" class="btn btn-success mb-2"><i class="mdi mdi-plus me-2"></i> Agregar Receta</a>
+                </div>
+                <div class="table-responsive mt-3">
+                    <table id="datatable" class="table table-centered datatable dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Articulo
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Almacen
+                                </th>
+                                <th>
+                                    Tipo
+                                </th>
+                                <th>
+                                    Costo Operativo
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_descripcion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_codProd)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_cantidad)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ALMACEN.sdesc_alma)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_tipo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Rec_costoOperativo)
+                                    </td>
+                                    <td id="tooltip-container3">
+                                        <a href="@Url.Action("Edit", new { id = item.Rec_codigo })" class="me-3 text-primary" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                        <a href="@Url.Action("Delete", new { id = item.Rec_codigo })" class="text-danger" data-bs-container="#tooltip-container3" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+
+

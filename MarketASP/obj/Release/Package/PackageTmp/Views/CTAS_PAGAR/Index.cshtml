@@ -1,0 +1,141 @@
+﻿@model IEnumerable<MarketASP.Models.CTAS_PAGAR>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ncodeDoc_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sdocu_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfecta_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfevenci_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.smone_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntotal_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntotalMN_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntotal_US_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ntc_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npago_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ncode_letra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sesta_letra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.suser_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfech_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.susmo_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dfemo_ctapa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONFIGURACION.sdesc_confi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONFIGURACION1.sdesc_confi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROVEEDOR.sdesc_prove)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncodeDoc_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdocu_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfecta_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfevenci_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.smone_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntotal_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntotalMN_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntotal_US_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ntc_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npago_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncode_letra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sesta_letra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.suser_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfech_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.susmo_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dfemo_ctapa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONFIGURACION.sdesc_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONFIGURACION1.sdesc_confi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROVEEDOR.sdesc_prove)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_ctapa }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_ctapa }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_ctapa })
+        </td>
+    </tr>
+}
+
+</table>

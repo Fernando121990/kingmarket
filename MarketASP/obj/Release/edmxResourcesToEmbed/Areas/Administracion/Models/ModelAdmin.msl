@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MarketWebModel1StoreContainer" CdmEntityContainer="MarketWebEntitiesAdmin">
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="MarketWebModel1.AspNetRoles">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="MarketWebModel1.AspNetUserClaims">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="MarketWebModel1.AspNetUserLogins">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="MarketWebModel1.AspNetUsers">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Local" ColumnName="Local" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="MarketWebModel1.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Permiso">
+      <EntityTypeMapping TypeName="MarketWebModel1.Permiso">
+        <MappingFragment StoreEntitySet="Permiso">
+          <ScalarProperty Name="nivel" ColumnName="nivel" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ventana">
+      <EntityTypeMapping TypeName="MarketWebModel1.Ventana">
+        <MappingFragment StoreEntitySet="Ventana">
+          <ScalarProperty Name="Operacion" ColumnName="Operacion" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Pr_PermisoCrear" FunctionName="MarketWebModel1.Store.Pr_PermisoCrear" />
+    <FunctionImportMapping FunctionImportName="Pr_PermisoEliminar" FunctionName="MarketWebModel1.Store.Pr_PermisoEliminar" />
+    <FunctionImportMapping FunctionImportName="Pr_PermisoLista" FunctionName="MarketWebModel1.Store.Pr_PermisoLista">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MarketWebModel1.Pr_PermisoLista_Result">
+          <ScalarProperty Name="nivel" ColumnName="nivel" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Operacion" ColumnName="Operacion" />
+          <ScalarProperty Name="Acceso" ColumnName="Acceso" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="LOCAL">
+      <EntityTypeMapping TypeName="MarketWebModel1.LOCAL">
+        <MappingFragment StoreEntitySet="LOCAL">
+          <ScalarProperty Name="sdire_local" ColumnName="sdire_local" />
+          <ScalarProperty Name="scode_ubigeo" ColumnName="scode_ubigeo" />
+          <ScalarProperty Name="ncode_sucu" ColumnName="ncode_sucu" />
+          <ScalarProperty Name="bacti_local" ColumnName="bacti_local" />
+          <ScalarProperty Name="sdesc_local" ColumnName="sdesc_local" />
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CONFIGURACION">
+      <EntityTypeMapping TypeName="MarketWebModel1.CONFIGURACION">
+        <MappingFragment StoreEntitySet="CONFIGURACION">
+          <ScalarProperty Name="stipo_confi" ColumnName="stipo_confi" />
+          <ScalarProperty Name="ntipo_confi" ColumnName="ntipo_confi" />
+          <ScalarProperty Name="besta_confi" ColumnName="besta_confi" />
+          <ScalarProperty Name="svalor_confi" ColumnName="svalor_confi" />
+          <ScalarProperty Name="sdesc_confi" ColumnName="sdesc_confi" />
+          <ScalarProperty Name="ncode_confi" ColumnName="ncode_confi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DOCU_SERIE">
+      <EntityTypeMapping TypeName="MarketWebModel1.DOCU_SERIE">
+        <MappingFragment StoreEntitySet="DOCU_SERIE">
+          <ScalarProperty Name="ncode_local" ColumnName="ncode_local" />
+          <ScalarProperty Name="dfemo_dose" ColumnName="dfemo_dose" />
+          <ScalarProperty Name="susmo_dose" ColumnName="susmo_dose" />
+          <ScalarProperty Name="dfech_dose" ColumnName="dfech_dose" />
+          <ScalarProperty Name="suser_dose" ColumnName="suser_dose" />
+          <ScalarProperty Name="sdocumento_dose" ColumnName="sdocumento_dose" />
+          <ScalarProperty Name="susuario_dose" ColumnName="susuario_dose" />
+          <ScalarProperty Name="snumeracion_dose" ColumnName="snumeracion_dose" />
+          <ScalarProperty Name="ncode_docu" ColumnName="ncode_docu" />
+          <ScalarProperty Name="ncode_dose" ColumnName="ncode_dose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

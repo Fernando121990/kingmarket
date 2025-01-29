@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarketWebModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="OrganizationId" Type="bigint" />
+    <Property Name="Nombre" Type="nvarchar(max)" />
+    <Property Name="Apellido" Type="nvarchar(max)" />
+    <Property Name="Local" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CONFIGURACION">
+    <Key>
+      <PropertyRef Name="ncode_confi" />
+    </Key>
+    <Property Name="ncode_confi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_confi" Type="varchar" MaxLength="200" />
+    <Property Name="svalor_confi" Type="varchar" MaxLength="50" />
+    <Property Name="besta_confi" Type="bit" Nullable="false" />
+    <Property Name="ntipo_confi" Type="int" Nullable="false" />
+    <Property Name="stipo_confi" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DOCU_SERIE">
+    <Key>
+      <PropertyRef Name="ncode_dose" />
+    </Key>
+    <Property Name="ncode_dose" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ncode_docu" Type="int" Nullable="false" />
+    <Property Name="snumeracion_dose" Type="varchar" MaxLength="20" />
+    <Property Name="susuario_dose" Type="varchar" MaxLength="200" />
+    <Property Name="sdocumento_dose" Type="varchar" MaxLength="20" />
+    <Property Name="suser_dose" Type="varchar" MaxLength="20" />
+    <Property Name="dfech_dose" Type="datetime" />
+    <Property Name="susmo_dose" Type="varchar" MaxLength="20" />
+    <Property Name="dfemo_dose" Type="datetime" />
+    <Property Name="ncode_local" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOCAL">
+    <Key>
+      <PropertyRef Name="ncode_local" />
+    </Key>
+    <Property Name="ncode_local" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sdesc_local" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="bacti_local" Type="bit" Nullable="false" />
+    <Property Name="ncode_sucu" Type="int" Nullable="false" />
+    <Property Name="scode_ubigeo" Type="varchar" MaxLength="20" />
+    <Property Name="sdire_local" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Permiso">
+    <Key>
+      <PropertyRef Name="username" />
+      <PropertyRef Name="nivel" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="nivel" Type="varchar" MaxLength="6" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ventana">
+    <Key>
+      <PropertyRef Name="Nivel" />
+    </Key>
+    <Property Name="Nivel" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="Menu" Type="varchar" MaxLength="200" />
+    <Property Name="Operacion" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_55">
+    <End Role="CONFIGURACION" Type="Self.CONFIGURACION" Multiplicity="1" />
+    <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONFIGURACION">
+        <PropertyRef Name="ncode_confi" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_docu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_57">
+    <End Role="LOCAL" Type="Self.LOCAL" Multiplicity="1" />
+    <End Role="DOCU_SERIE" Type="Self.DOCU_SERIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCAL">
+        <PropertyRef Name="ncode_local" />
+      </Principal>
+      <Dependent Role="DOCU_SERIE">
+        <PropertyRef Name="ncode_local" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Pr_PermisoCrear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+    <Parameter Name="nivel" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_PermisoEliminar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Pr_PermisoLista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="usuario" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="MarketWebModel1StoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONFIGURACION" EntityType="Self.CONFIGURACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DOCU_SERIE" EntityType="Self.DOCU_SERIE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOCAL" EntityType="Self.LOCAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permiso" EntityType="Self.Permiso" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ventana" EntityType="Self.Ventana" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="R_55" Association="Self.R_55">
+      <End Role="CONFIGURACION" EntitySet="CONFIGURACION" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+    <AssociationSet Name="R_57" Association="Self.R_57">
+      <End Role="LOCAL" EntitySet="LOCAL" />
+      <End Role="DOCU_SERIE" EntitySet="DOCU_SERIE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

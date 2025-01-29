@@ -1,0 +1,123 @@
+﻿@model IEnumerable<MarketASP.Models.Pr_KardexArticulos_Result>
+
+@{
+    ViewBag.Title = "Stock";
+    ViewBag.pTitle = "Stock";
+    ViewBag.pageTitle = "Inventario";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+
+                    <div class="row">
+                        @*<div class="col-md-1">
+                            <label for="example-text-input" class="col-form-label">Inicio</label>
+                            <input id="fini" name="fini" class="dfech form-control" type="text" value="@ViewBag.fini" />
+                        </div>
+                        <div class="col-md-1">
+                            <label for="example-text-input" class="col-form-label">Fin</label>
+                            <input id="ffin" name="ffin" class="dfech form-control" type="text" value="@ViewBag.ffin" />
+                        </div>*@
+                        <div class="col-md-2">
+                            <label for="example-text-input" class="col-form-label">Linea</label>
+                            @Html.DropDownList("slinea", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                            <input id="chklinea" name="chklinea" type="checkbox" value="1" @ViewBag.chklinea /> Todos
+                        </div>
+                        <div class="col-md-2">
+                            <label for="example-text-input" class="col-form-label">Almacen</label>
+                            @Html.DropDownList("salmacen", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                            <input id="chkalmacen" name="chkalmacen" type="checkbox" value="1" @ViewBag.chkalmacen /> Todos
+                        </div>
+                        <div class="col-md-4">
+                            <label for="example-text-input" class="col-form-label">Articulo</label>
+                            @Html.DropDownList("sarticulo", null, htmlAttributes: new { @class = "form-select select2" })<br />
+                            <input id="chkarticulo" name="chkarticulo" type="checkbox" value="1" @ViewBag.chkarticulo /> Todos
+                        </div>
+                        @*<div class="col-md-1">
+                            <input id="chktipo" name="chktipo" type="checkbox" value="1" @ViewBag.chktipo /> Detallado
+                        </div>*@
+                        <div class="col-md-1">
+                            <button class="btn btn-sm btn-info" type="submit" title="Buscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+
+
+
+
+                <div>
+                    <table class="dtbl table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label>Almacen</label>
+                                </th>
+                                <th>
+                                    <label>Cod</label>
+                                </th>
+                                <th>
+                                    <label>Articulo</label>
+                                </th>
+                                <th>
+                                    <label>Ingreso</label>
+                                </th>
+                                <th>
+                                    <label>Salidas</label>
+                                </th>
+                                <th>
+                                    <label>Stock</label>
+                                </th>
+                                <th>
+                                    <label>Reserva</label>
+                                </th>
+                                <th>Disponible</th>
+                                <th>Transito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderByDescending(X => X.sdesc1_arti))
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sdesc_alma)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ncode_arti)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.sdesc1_arti)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.INGRESOS)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SALIDAS)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.STOCK)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RESERVADO)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DISPONIBLE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TRANSITO)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

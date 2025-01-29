@@ -1,0 +1,30 @@
+﻿@model MarketASP.Models.SUBLINEA
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <label for="example-text-input" class="col-form-label">Sublinea</label>
+                @Html.EditorFor(model => model.sdesc_sublinea, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus" } })
+                @Html.ValidationMessageFor(model => model.sdesc_sublinea, "", new { @class = "text-danger" })
+                <label for="example-text-input" class="col-form-label">Activo</label>
+                @Html.CheckBox("nesta_sublinea")
+                @Html.ValidationMessageFor(model => model.nesta_sublinea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <label for="example-text-input" class="col-form-label">Linea</label>
+                @Html.DropDownList("ncode_linea", null, "", htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Cambios</button>
+</div>
+
+

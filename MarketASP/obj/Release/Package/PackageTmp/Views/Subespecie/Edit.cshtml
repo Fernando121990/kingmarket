@@ -1,0 +1,33 @@
+﻿@model MarketASP.Models.SUBESPECIE
+
+@{
+    ViewBag.Title = "Editar Subespecie";
+    ViewBag.pTitle = "Editar Subespecie";
+    ViewBag.pageTitle = "Mantenimiento";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ncode_subesp)
+
+                    @Html.Partial("_subespecie")
+                </div>
+                }
+
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de subesplias" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

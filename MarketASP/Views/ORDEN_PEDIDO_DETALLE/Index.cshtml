@@ -1,0 +1,111 @@
+﻿@model IEnumerable<MarketASP.Models.ORDEN_PEDIDOS_DETALLE>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ncant_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.npu_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndscto_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndscto2_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nexon_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nafecto_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.besafecto_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ncode_alma)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctomax_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctomin_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ndsctoporc_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nback_orpedeta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICULO.sdesc1_arti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ORDEN_PEDIDOS.sseri_orpe)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncant_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.npu_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndscto_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndscto2_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nexon_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nafecto_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.besafecto_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ncode_alma)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctomax_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctomin_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ndsctoporc_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nback_orpedeta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARTICULO.sdesc1_arti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ORDEN_PEDIDOS.sseri_orpe)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ncode_orpedeta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ncode_orpedeta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ncode_orpedeta })
+        </td>
+    </tr>
+}
+
+</table>

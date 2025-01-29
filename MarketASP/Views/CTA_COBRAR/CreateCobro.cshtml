@@ -1,0 +1,205 @@
+﻿@model MarketASP.Models.CTASCO_DETALLE
+
+@{
+    ViewBag.Title = "Agregar Cobro";
+    ViewBag.pTitle = "Agregar Cobro";
+    ViewBag.pageTitle = "Ventas";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <input type="hidden" name="ncode_ctaco" id="ncode_ctaco" value="@ViewBag.ncode_ctaco" />
+                    <input type="hidden" name="xtipo" id="xtipo" value="@ViewBag.xtipo" />
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="sdoc_ctacode" class="col-form-label">Nro.Doc</label>
+                                                <input id="sdoc_ctacode" name="sdoc_ctacode" type="text" value="@ViewBag.sdocu_ctaco" class="form-control" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="dfepago_ctacode" class="col-form-label">Fecha Pago</label>
+                                                <input id="dfepago_ctacode" name="dfepago_ctacode" type="text" class="dfech form-control" value="@string.Format("{0:d}",DateTime.Now)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="ntc_ctacode" class="col-form-label">T.C</label>
+                                                <input id="ntc_ctacode" name="ntc_ctacode" type="text" class="form-control" value="@ViewBag.tc" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="ncode_tpago" class="col-form-label">Forma Pago</label>
+                                                @Html.DropDownList("ncode_tpago", null, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.ncode_tpago, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="ncode_banco" class="col-form-label">Banco</label>
+                                                @Html.DropDownList("ncode_banco", null, "", htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.ncode_banco, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ncode_tarjeta" class="col-form-label">Tarjeta</label>
+                                        @Html.DropDownList("ncode_tarjeta", null, "", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.ncode_tarjeta, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="suser_tarjeta" class="col-form-label">Usuario</label>
+                                                @Html.EditorFor(model => model.suser_tarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.suser_tarjeta, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="snro_tarjeta" class="col-form-label">Número</label>
+                                                @Html.EditorFor(model => model.snro_tarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.snro_tarjeta, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="ntotal" class="col-form-label">Total</label>
+                                                <input id="ntotal" name="ntotal" type="text" value="@ViewBag.ntotal" readonly class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="nsaldoMN" class="col-form-label">Saldo S/</label>
+                                                <div>
+                                                    <input id="nsaldoMN" name="nsaldoMN" type="text" value="@ViewBag.nsaldoMN" readonly class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="nsaldoUS" class="col-form-label">Saldo USD</label>
+                                                <div>
+                                                    <input id="nsaldoUS" name="nsaldoUS" type="text" value="@ViewBag.nsaldoUS" readonly class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="npagoMN" class="col-form-label">
+                                                    <input id="smone_ctacode" name="smone_ctacode" type="radio" class="form-check-input" value="MN" checked="checked" /> Pago S/
+                                                </label>
+                                                <div>
+                                                    <input id="npagoMN" name="npagoMN" type="number" class="MN form-control" autofocus />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="sproforma_compra" class="col-form-label">Cambio US</label>
+                                                <div>
+                                                    <input id="ncambioUS" name="ncambioUS" class="form-control" type="text" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="smone_ctacode" class="col-form-label">
+                                                    <input id="smone_ctacode" name="smone_ctacode" type="radio" class="form-check-input" value="US" /> Pago US
+                                                </label>
+                                                <div>
+                                                    <input id="npagoUS" name="npagoUS" type="number" class="US form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="ncambioMN" class="col-form-label">Cambio S/</label>
+                                                <div>
+                                                    <input id="ncambioMN" name="ncambioMN" type="text" class="form-control" disabled="disabled" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="sobse_ctacode" class="col-form-label">Observación</label>
+                                        @Html.EditorFor(model => model.sobse_ctacode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.sobse_ctacode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card shadow m-2">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <div class="col-lg-2">
+                                            <label id="smone" for="nmonto_ctacode" class="control-label text-xs text-primary text-uppercase font-weight-bold"></label>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input id="nmonto_ctacode" name="nmonto_ctacode" type="text" readonly="readonly" />
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label class="text-xs text-primary text-uppercase font-weight-bold">VUELTO S/. :</label>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            @Html.EditorFor(model => model.nvuelto_ctacode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button id="btnPago" name="btnPago" type="submit" class="btn btn-primary me-2 waves-effect waves-light">Guardar Pago</button>
+                    </div>
+                    <div class="row">
+                        <h3 class="text-center">@ViewBag.mensaje</h3>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink(" ", "Index", new { }, new { @class = "btn btn-primary fas fa-hand-point-left", title = "Lista de Ventas" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ctacobrar")
+}
+
